@@ -15,6 +15,8 @@ jobs:
         run: godot --headless --path top --editor --import --quit
       - name: Independent wipe cases
         run: timeout 60 godot --headless --path top --script tests/rules.gd
+      - name: Contact and debuff regressions
+        run: timeout 60 godot --headless --path top --script tests/interactions.gd
       - name: Seeded encounter geometry
         run: timeout 60 godot --headless --path top --script tests/run.gd
       - name: Complete runtime courses

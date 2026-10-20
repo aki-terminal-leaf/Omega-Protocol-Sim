@@ -1,5 +1,6 @@
 extends SceneTree
 const Encounter = preload("res://scripts/encounters.gd")
+const Interactions = preload("res://scripts/interactions.gd")
 const Rules = preload("res://scripts/rules.gd")
 func _initialize() -> void:
 	var profiles = JSON.parse_string(FileAccess.get_file_as_string("res://data/strategies.json"))
@@ -10,7 +11,12 @@ func _initialize() -> void:
 			for seed_value in range(1, 49):
 				var encounter = Encounter.new().build(item.id, seed_value, strategy)
 				var state = {"dynamis": encounter.initial_dynamis.duplicate(), "spent": [], "lb": "", "lb_actor": -1, "aggro": 0}
-				for b in encounter.beats:
+				for raw in encounter.beats:
+					var b: Dictionary = raw.duplicate(true)
+					state.sim_time = float(state.get("sim_time", 0)) + float(b.duration)
+					# This suite validates ideal snapshot geometry only. Runtime tests must physically collect the lines.
+					if b.has("transfers"):
+						Interactions.begin(b, [], state); state.tether_holders = b.transfers.wanted.duplicate(); Interactions.sync(b, state)
 					var actors: Array = []
 					for i in 8:
 						var p: Vector2 = b.positions[i]

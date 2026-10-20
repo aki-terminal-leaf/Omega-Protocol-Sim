@@ -80,15 +80,20 @@ func _initialize() -> void:
 		var loop = Encounter.new().build("p1_loop", seed_value, profiles[0])
 		var tower_points: Array = []
 		var angles_valid = true
+		var previous_points: Array = []
+		var no_consecutive_repeat = true
 		for item in loop.beats:
 			var points: Array = []
 			for shape in item.shapes:
 				if shape.kind == "tower":
 					points.append(shape.pos)
 					if not tower_points.has(shape.pos): tower_points.append(shape.pos)
+			for point in points:
+				if point in previous_points: no_consecutive_repeat = false
+			previous_points = points
 			var gap = absf(rad_to_deg(points[0].angle_to(points[1])))
 			if absf(gap - 90) > 0.01 and absf(gap - 180) > 0.01: angles_valid = false
-		check(tower_points.size() == 8, "all eight Program Loop tower locations exactly once")
+		check(no_consecutive_repeat, "Program Loop towers cannot repeat on consecutive waves")
 		check(angles_valid, "Program Loop paired towers 90 or 180 degrees apart")
 	for role in 8:
 		for slot in 8:

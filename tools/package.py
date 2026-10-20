@@ -20,7 +20,7 @@ def main() -> None:
     dist.mkdir(exist_ok=True)
     revision = subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,text=True,capture_output=True,check=True).stdout.strip()
     dirty = bool(subprocess.run(['git','status','--porcelain'],cwd=ROOT,text=True,capture_output=True,check=True).stdout.strip())
-    info = json.dumps({'version':'0.1.0','source_commit':revision,'working_tree_dirty':dirty,'godot':'4.4.1','fidelity':'schematic practice prototype'},indent=2)+'\n'
+    info = json.dumps({'version':'0.2.0','source_commit':revision,'working_tree_dirty':dirty,'godot':'4.4.1','fidelity':'schematic practice prototype'},indent=2)+'\n'
     for platform, preset, filename in [('windows','Windows','TOP-Practice-Lab.exe'), ('linux','Linux','TOP-Practice-Lab.x86_64'), ('web','Web','index.html')]:
         target = ROOT / 'build' / platform
         target.mkdir(parents=True, exist_ok=True)
@@ -33,8 +33,8 @@ def main() -> None:
         shutil.copy2(ROOT/'README.md',target/'README.md')
         shutil.copytree(ROOT/'docs',target/'docs',dirs_exist_ok=True)
         (target/'FONT-OFL.txt').write_bytes((ROOT/'top/fonts/OFL.txt').read_bytes())
-        shutil.make_archive(str(dist/f'TOP-Practice-Lab-v0.1.0-{platform}-x86_64' if platform!='web' else dist/'TOP-Practice-Lab-v0.1.0-web'),'zip',target)
-    with zipfile.ZipFile(dist/'TOP-Practice-Lab-v0.1.0-source.zip','w',zipfile.ZIP_DEFLATED) as archive:
+        shutil.make_archive(str(dist/f'TOP-Practice-Lab-v0.2.0-{platform}-x86_64' if platform!='web' else dist/'TOP-Practice-Lab-v0.2.0-web'),'zip',target)
+    with zipfile.ZipFile(dist/'TOP-Practice-Lab-v0.2.0-source.zip','w',zipfile.ZIP_DEFLATED) as archive:
         archive.writestr('BUILD_INFO.json',info)
         for base in ['top','tools','docs']:
             for path in (ROOT/base).rglob('*'):
@@ -43,7 +43,7 @@ def main() -> None:
         for name in ['README.md','README.upstream.md','LICENSE']:
             archive.write(ROOT/name,name)
     checksums = []
-    for path in sorted(dist.glob('*.zip')):
+    for path in sorted(dist.glob('*v0.2.0*.zip')):
         checksums.append(hashlib.sha256(path.read_bytes()).hexdigest()+'  '+path.name)
     (dist/'SHA256SUMS.txt').write_text('\n'.join(checksums)+'\n')
     print('\n'.join(checksums))

@@ -1,0 +1,197 @@
+{
+  "p1_loop": [
+    {
+      "profile": "elemental",
+      "name": "HTDH · Elemental／莫古力優先序",
+      "description": "以 H1→MT→ST→D1→D2→D3→D4→H2 分配；Program Loop 從 NW 順時針。"
+    },
+    {
+      "profile": "aether",
+      "name": "TMR · Aether 分組／補位",
+      "description": "Aether light-party flex；塔由 NW 逆時針／N 順時針找。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "MTRH · LPDU 優先序",
+      "description": "D1→D2→MT→ST→D3→D4→H1→H2。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "HTDH · 09STOP 北起順時針",
+      "description": "同 HTDH 優先序，塔從正北順時針找。"
+    }
+  ],
+  "p1_panto": [
+    {
+      "profile": "elemental",
+      "name": "HTDH · Elemental／莫古力優先序",
+      "description": "以 H1→MT→ST→D1→D2→D3→D4→H2 分配；Program Loop 從 NW 順時針。"
+    },
+    {
+      "profile": "aether",
+      "name": "TMR · Aether 分組／補位",
+      "description": "Aether light-party flex；塔由 NW 逆時針／N 順時針找。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "MTRH · LPDU 優先序",
+      "description": "D1→D2→MT→ST→D3→D4→H1→H2。"
+    }
+  ],
+  "p1_cannons": [
+    {
+      "profile": "elemental",
+      "name": "雙坦北側引導／非坦散開",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p2_synergy": [
+    {
+      "profile": "elemental",
+      "name": "1234 / 4231 · Elemental",
+      "description": "O→X→三角→方塊；Remote 中間不全交叉，南端優先 flex。"
+    },
+    {
+      "profile": "aether",
+      "name": "BPOG 全交叉 · Aether 北端 flex",
+      "description": "X→方塊→O→三角；Remote 全交叉；北端優先 flex。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "BPOG 全交叉 · LPDU 南端 flex",
+      "description": "X→方塊→O→三角；Remote 全交叉；南端優先 flex。"
+    }
+  ],
+  "p2_limitless": [
+    {
+      "profile": "elemental",
+      "name": "雙坦實際接線 → 隕石／防禦判讀",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p3_transition": [
+    {
+      "profile": "elemental",
+      "name": "紫散開／白雙人分攤",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p3_hello": [
+    {
+      "profile": "elemental",
+      "name": "Hello World 四輪循環（示意）",
+      "description": "前三輪藍先綠後；第四輪綠先藍後且不傳腐毒。完整接觸感染／Debugger 尚未實作，此項仍為示意練習。"
+    }
+  ],
+  "p3_monitors": [
+    {
+      "profile": "elemental",
+      "name": "Astoh / HHTTDDDD",
+      "description": "已核對選人優先序；本版皆使用 Astoh 示意幾何，不代表完整區服站位。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether 檢知優先序",
+      "description": "已核對選人優先序；本版皆使用 Astoh 示意幾何，不代表完整區服站位。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU 檢知優先序",
+      "description": "已核對選人優先序；本版皆使用 Astoh 示意幾何，不代表完整區服站位。"
+    }
+  ],
+  "p4_wave": [
+    {
+      "profile": "elemental",
+      "name": "TRHM 散開／分攤補位",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p5_delta": [
+    {
+      "profile": "elemental",
+      "name": "同色線分組／內側換拳（示意）",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p5_sigma": [
+    {
+      "profile": "elemental",
+      "name": "Waymark 塔位／近遠世界（示意）",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p5_omega": [
+    {
+      "profile": "elemental",
+      "name": "二層檢知優先／近遠世界（示意）",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p5_solar": [
+    {
+      "profile": "elemental",
+      "name": "雙坦換仇恨",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p6_memory": [
+    {
+      "profile": "elemental",
+      "name": "坦克 LB3",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p6_arrow_dive": [
+    {
+      "profile": "elemental",
+      "name": "天箭 → 雙坦近／六人遠分攤",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p6_exa_wave": [
+    {
+      "profile": "elemental",
+      "name": "東側分攤 · Elemental",
+      "description": "共用天箭／地火練習；Wave Cannon 往東側分攤。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "南側分攤 · LPDU 約定",
+      "description": "共用天箭／地火練習；Wave Cannon 往南側分攤。"
+    }
+  ],
+  "p6_arrow_wave": [
+    {
+      "profile": "elemental",
+      "name": "東側分攤 · Elemental",
+      "description": "共用天箭／地火練習；Wave Cannon 往東側分攤。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "南側分攤 · LPDU 約定",
+      "description": "共用天箭／地火練習；Wave Cannon 往南側分攤。"
+    }
+  ],
+  "p6_exa_dive": [
+    {
+      "profile": "elemental",
+      "name": "地火 → 雙坦近／六人遠分攤",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p6_meteors": [
+    {
+      "profile": "elemental",
+      "name": "分職業 LB／隕石核爆（示意）",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p6_magic": [
+    {
+      "profile": "elemental",
+      "name": "坦 LB3 → 補 LB3",
+      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ]
+}

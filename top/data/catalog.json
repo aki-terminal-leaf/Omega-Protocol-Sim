@@ -96,22 +96,6 @@
     "timing": "slowed training windows; not encounter timestamps"
   },
   {
-    "id": "p5_dynamis",
-    "phase": 5,
-    "name": "Dynamis — four-world course",
-    "focus": "四次近遠跳躍連續計數，八人三層才通過",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
-  },
-  {
-    "id": "p5_full",
-    "phase": 5,
-    "name": "P5 — Delta → Sigma → Omega",
-    "focus": "三運連續走位、死刑換坦與世界／Dynamis 接續",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
-  },
-  {
     "id": "p5_solar",
     "phase": 5,
     "name": "Solar Ray / ソーラレイ",
