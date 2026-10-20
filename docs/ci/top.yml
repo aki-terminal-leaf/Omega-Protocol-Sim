@@ -1,0 +1,27 @@
+name: TOP practice build
+on:
+  push:
+    paths: ['top/**', 'tools/**', '.github/workflows/top.yml']
+  pull_request:
+    paths: ['top/**', 'tools/**', '.github/workflows/top.yml']
+  workflow_dispatch:
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:4.4.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import
+        run: godot --headless --path top --editor --import --quit
+      - name: Independent wipe cases
+        run: timeout 60 godot --headless --path top --script tests/rules.gd
+      - name: Seeded encounter geometry
+        run: timeout 60 godot --headless --path top --script tests/run.gd
+      - name: Complete runtime courses
+        run: timeout 60 godot --headless --path top --script tests/runtime.gd
+      - name: Build portable packages
+        run: python3 tools/package.py --godot godot
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TOP-Practice-Lab
+          path: dist/*

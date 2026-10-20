@@ -1,0 +1,178 @@
+[
+  {
+    "id": "p1_loop",
+    "phase": 1,
+    "name": "Program Loop / サークルプログラム",
+    "focus": "塔順序、3412 線、Blaster 避讓",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p1_panto",
+    "phase": 1,
+    "name": "Pantokrator / パントクラトル",
+    "focus": "旋轉火焰、飛彈出列、三人分攤",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p1_cannons",
+    "phase": 1,
+    "name": "Diffuse Wave Cannon Kyrios",
+    "focus": "最遠坦克引導與兩輪扇形／直線散開",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p2_synergy",
+    "phase": 2,
+    "name": "Party Synergy / 連携プログラムPT",
+    "focus": "M/F 姿態、眼睛、Mid/Remote、擊退分攤",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p2_limitless",
+    "phase": 2,
+    "name": "Limitless Synergy",
+    "focus": "坦克線、隕石、Beyond Defense → Pile Pitch",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p3_transition",
+    "phase": 3,
+    "name": "Reconfiguration / コロッサスブロー",
+    "focus": "紫散開、白雙人、波動與手臂",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p3_hello",
+    "phase": 3,
+    "name": "Hello World / ハローワールド",
+    "focus": "四輪塔、腐毒交接、藍先綠後斷線",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p3_monitors",
+    "phase": 3,
+    "name": "Oversampled Wave Cannon / 検知",
+    "focus": "三人朝向與八人單次命中",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p4_wave",
+    "phase": 4,
+    "name": "Blue Screen / ブルースクリーン",
+    "focus": "三輪散開→回波→分攤、TRHM 調整",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p5_delta",
+    "phase": 5,
+    "name": "Run: Dynamis Delta",
+    "focus": "拳色、線、旋轉手臂、檢知、近遠世界",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p5_sigma",
+    "phase": 5,
+    "name": "Run: Dynamis Sigma",
+    "focus": "六點名、五／六塔、旋轉雷射、世界",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p5_omega",
+    "phase": 5,
+    "name": "Run: Dynamis Omega",
+    "focus": "雙組 M/F、二層檢知優先、三層線",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p5_dynamis",
+    "phase": 5,
+    "name": "Dynamis — four-world course",
+    "focus": "四次近遠跳躍連續計數，八人三層才通過",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p5_full",
+    "phase": 5,
+    "name": "P5 — Delta → Sigma → Omega",
+    "focus": "三運連續走位、死刑換坦與世界／Dynamis 接續",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p5_solar",
+    "phase": 5,
+    "name": "Solar Ray / ソーラレイ",
+    "focus": "雙擊死刑與換坦時機",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_memory",
+    "phase": 6,
+    "name": "Cosmo Memory",
+    "focus": "三層檢查與坦克 LB3 時機",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_arrow_dive",
+    "phase": 6,
+    "name": "Cosmo Arrow → Cosmo Dive",
+    "focus": "內外先交錯十字、最近雙坦／最遠分攤",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_exa_wave",
+    "phase": 6,
+    "name": "Unlimited Wave Cannon → Wave",
+    "focus": "六次引導、四條地火、散開與雙坦前排",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_arrow_wave",
+    "phase": 6,
+    "name": "Cosmo Arrow → Wave Cannon",
+    "focus": "十字移動、兩輪散開與八人分攤",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_exa_dive",
+    "phase": 6,
+    "name": "Unlimited Wave Cannon → Dive",
+    "focus": "地火接雙坦前壓／六人最遠分攤",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_meteors",
+    "phase": 6,
+    "name": "Cosmo Meteor",
+    "focus": "法系／遠敏 LB、四輪傷害、三核爆調整",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  },
+  {
+    "id": "p6_magic",
+    "phase": 6,
+    "name": "Magic Number",
+    "focus": "兩輪坦克 LB3 → 六秒內補師 LB3",
+    "fidelity": "schematic",
+    "timing": "slowed training windows; not encounter timestamps"
+  }
+]

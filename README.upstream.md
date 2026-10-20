@@ -1,0 +1,17 @@
+# Dragonsong-Sim
+
+Dragonsong Sim is an FFXIV Sim made in the Godot engine. It's designed to be a solo/offline alternative to XIVsim for DSR Ultimate. Currently it has modules for P3 (Limit Cut), P5 (Wrath/Death of the Heavens), all of P6, and P7 exaflares. It supports standard PF strats for NA/EU (APD and LPDU), which can be changed in the options menu.
+
+If you have any questions, feel free to ask on [Discord](https://discord.gg/P9adFHADrX).
+
+
+## Instructions
+To download the sim, head to the ⁠[releases](https://github.com/WCGH/Dragonsong-Sim/releases) page and download the latest zip file. Unzip and run dsr_sim.exe.
+
+## Known Issues:
+- Some movement animations and facing angle do not work properly on controller, or with mouse/keyboard if you have a controller plugged in.
+- Some machines might experience slow loading or stutters on their first run.
+- Limit Cut debuffs are missing durations.
+- Having a dropdown menu open selected will prevent moving your camera with right click.
+- There is no indicator of who received first Mortal Vow debuff when starting Phase 6 at a later stage.
+- Tank Bots will not always make it to their safe spot in time in P6.

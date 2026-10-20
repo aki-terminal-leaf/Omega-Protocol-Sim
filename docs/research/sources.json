@@ -1,0 +1,318 @@
+[
+  {
+    "id": "upstream",
+    "region": "upstream",
+    "url": "https://github.com/WCGH/Dragonsong-Sim",
+    "status": "read",
+    "supports": [
+      "AnimationPlayer timelines",
+      "party/controller separation",
+      "solo + seven bots",
+      "failure reporting"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "wiki",
+    "region": "global",
+    "url": "https://ffxiv.consolegameswiki.com/wiki/The_Omega_Protocol_(Ultimate)",
+    "status": "read",
+    "supports": [
+      "P1–P6 mechanic rules, target selection and fail conditions"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "aether",
+    "region": "NA / Aether",
+    "url": "https://www.thepfstrat.com/u/top",
+    "status": "read",
+    "supports": [
+      "P1 light party TMR flex, NW CCW / N CW",
+      "P2 BPOG/GPOB, north flex",
+      "P3 Dylan, P4 TRHM",
+      "P5 Saus/Delta"
+    ],
+    "limits": [
+      "Page is WIP; P6 section is empty. Not a source for a universal NA P6 strategy."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "lpdu",
+    "region": "EU / Light community",
+    "url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+    "status": "read",
+    "supports": [
+      "P1 M1 M2 MT OT R1 R2 H1 H2",
+      "P2 BPOG full cross",
+      "P3 RMTHHTMR",
+      "P4 TRHM",
+      "Sigma tower macros",
+      "P6 positions and post-7.0 tank composition changes"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/",
+    "status": "read",
+    "supports": [
+      "English and Japanese macros",
+      "P1 HTDH",
+      "P2 1234/4231",
+      "P3 Astoh",
+      "P4 TRHM",
+      "Delta Kinda Awk",
+      "Sigma waymark towers",
+      "P6 east stack"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-p1",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+    "status": "read",
+    "supports": [
+      "Program Loop / Pantokrator"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-p2",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+    "status": "read",
+    "supports": [
+      "Party Synergy stances and glitch"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-p3",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+    "status": "read",
+    "supports": [
+      "Hello World / monitors"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-p4",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/04_blue_screen/",
+    "status": "read",
+    "supports": [
+      "Repeated spread / echo / stack"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-delta",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+    "status": "read",
+    "supports": [
+      "Tether / fist / world sequence"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-sigma",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_sigma/",
+    "status": "read",
+    "supports": [
+      "Marker pairs, towers, rotating laser, World"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-omega",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_omega/",
+    "status": "read",
+    "supports": [
+      "Safe-cardinal decision tree; monitor allocation; final tethers"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-p6",
+    "region": "JP / Elemental",
+    "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+    "status": "read",
+    "supports": [
+      "Arrow, exaflare, tank target selection, meteors and LB order"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "elemental-zh",
+    "region": "Traditional-Chinese-language Elemental resource",
+    "url": "https://ffxiv.tuufless.com/top_cheatsheet_zhtw.jpg",
+    "status": "linked-by-primary-source",
+    "supports": [
+      "Existence of a Traditional Chinese reference"
+    ],
+    "limits": [
+      "Not evidence that a separate Taiwan world/DC has the same PF conventions."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "kr-09stop",
+    "region": "KR / 09STOP (Mana-origin)",
+    "url": "https://www.inven.co.kr/board/ff14/4338/7027",
+    "status": "workbook-tabs-read",
+    "supports": [
+      "Rominny guide and public 09STOP workbook, P1–P6 tabs",
+      "P1 H1 T1 T2 D1 D2 D3 D4 H2 priority; CW from north",
+      "P3 H1 H2 T1 T2 D1 D2 D3 D4 monitor priority",
+      "Manual marks and Sigma waymark tower macros",
+      "Omega two-stack + Second in Line must monitor before other two-stack players"
+    ],
+    "links": [
+      "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit"
+    ],
+    "limits": [
+      "Text cells of P1/P2/P3/Omega and macro tab read through public Google CSV view; not every diagram audited. Only explicit priorities shipped as preset."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "kr-world",
+    "region": "KR / JP method reference",
+    "url": "https://www.inven.co.kr/board/ff14/4338/6982",
+    "status": "read",
+    "supports": [
+      "Omega monitors: two-stack Second in Line before two-stack no-World; never First in Line",
+      "Manual marking rather than mandatory automarkers"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "kr-kiwi",
+    "region": "KR / Mana-origin",
+    "url": "https://www.inven.co.kr/board/ff14/4338/7004",
+    "status": "read",
+    "supports": [
+      "Independent Korean workbook based on static and Mana practices"
+    ],
+    "links": [
+      "https://docs.google.com/spreadsheets/d/1Hp9JdOPMhcAdCIwErMCsw6VH7ju_5oyobagtnT_TgKA/edit"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "cn-moogle-upper",
+    "region": "CN / 莫古力攻略組",
+    "url": "https://www.bilibili.com/video/av740517066",
+    "status": "metadata-read",
+    "supports": [
+      "Guide author, title, macro and quick-reference links"
+    ],
+    "limits": [
+      "Video contents not transcribed; does not prove exact movement priorities."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "cn-moogle-lower",
+    "region": "CN / 莫古力攻略組",
+    "url": "https://www.bilibili.com/video/BV1vz4y1B7xP",
+    "status": "metadata-read",
+    "supports": [
+      "Second half of guide series"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "cn-moogle-reference",
+    "region": "CN / 莫古力攻略組",
+    "url": "https://www.bilibili.com/opus/800287973844189204",
+    "status": "text-read-image-blocked",
+    "supports": [
+      "Author explicitly revised chase/fire order, monitors and Cosmo Arrow"
+    ],
+    "limits": [
+      "Full 33824-pixel diagram image request returned HTTP 412. No bypass attempted."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "cn-moogle-macro",
+    "region": "CN / 莫古力攻略組",
+    "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+    "status": "browser-canvas-read",
+    "supports": [
+      "All-phase priority H1 MT ST D1 D2 D3 D4 H2",
+      "P4 D1/D2 flex",
+      "P5 two-stack second-in-line monitor priority",
+      "P6 meteor MT/D3 swap; second Arrow TH straight / DPS diagonal; Cosmo Dive MT left / ST right"
+    ],
+    "limits": [
+      "Simple text extraction fails; normal public browser rendering succeeded. Only the explicit priority is shipped as a preset; no claim of full regional fidelity."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "cn-molingmiao",
+    "region": "CN / 莫靈喵",
+    "url": "https://www.bilibili.com/video/BV16o4y1u74D",
+    "status": "metadata-read",
+    "supports": [
+      "Distinct Delta guide/strategy family exists"
+    ],
+    "limits": [
+      "Do not label its mechanics or exact positions verified from metadata alone."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "cn-mm-w",
+    "region": "CN / MM+W & 鈺子燒",
+    "url": "https://www.bilibili.com/video/av113000488960704",
+    "status": "metadata-read",
+    "supports": [
+      "Another published strategy family exists"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "xivsim",
+    "region": "existing solution",
+    "url": "https://xivsim.com/",
+    "status": "read",
+    "supports": [
+      "Existing raid simulator; Aether guide links TOP P2/P3/P5/P6 practice"
+    ],
+    "limits": [
+      "User explicitly asked for a Godot fork; no code/assets copied from XIVsim."
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "huiji",
+    "region": "CN",
+    "url": "https://ff14.huijiwiki.com/wiki/欧米茄绝境验证战",
+    "status": "blocked",
+    "limits": [
+      "HTTP 403"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "icyveins",
+    "region": "global",
+    "url": "https://www.icy-veins.com/ffxiv/the-omega-protocol-ultimate",
+    "status": "blocked",
+    "limits": [
+      "HTTP 403 challenge; not bypassed"
+    ],
+    "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  }
+]

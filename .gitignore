@@ -1,2 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
+
+# TOP standalone development/build output
+/top/.godot/
+/build/
+/dist/
+**/__pycache__/

@@ -1,0 +1,238 @@
+[
+  {
+    "id": "elemental",
+    "name": "JP / Elemental · HTDH / 1234",
+    "priority": [
+      "H1",
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "H2"
+    ],
+    "shapes": [
+      "O",
+      "X",
+      "Triangle",
+      "Square"
+    ],
+    "remote_full_cross": false,
+    "stack_flex": "south",
+    "p6_stack_angle": 90,
+    "source": "https://ffxiv.tuufless.com/elemental/top/",
+    "scope": "Verified priorities, shape order, flex and P6 stack direction; shared schematic geometry",
+    "p3_priority": [
+      "H1",
+      "H2",
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "verified_fields": [
+      "priority",
+      "shapes",
+      "remote_full_cross",
+      "p3_priority"
+    ],
+    "training_only_fields": [
+      "monitor_geometry",
+      "p5_geometry"
+    ],
+    "short_scope": "部分約定預設 · 共用訓練幾何"
+  },
+  {
+    "id": "aether",
+    "name": "NA / Aether · TMR / BPOG",
+    "priority": [
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "H1",
+      "H2"
+    ],
+    "shapes": [
+      "X",
+      "Square",
+      "O",
+      "Triangle"
+    ],
+    "remote_full_cross": true,
+    "stack_flex": "north",
+    "p6_stack_angle": 180,
+    "source": "https://www.thepfstrat.com/u/top",
+    "scope": "Verified priority / shape / flex conventions; P6 stack uses a training convention (source WIP)",
+    "p3_priority": [
+      "H1",
+      "D3",
+      "D1",
+      "MT",
+      "ST",
+      "D2",
+      "D4",
+      "H2"
+    ],
+    "verified_fields": [
+      "priority",
+      "shapes",
+      "remote_full_cross",
+      "p3_priority"
+    ],
+    "training_only_fields": [
+      "monitor_geometry",
+      "p5_geometry",
+      "p6_stack_angle"
+    ],
+    "short_scope": "部分約定預設 · 共用訓練幾何"
+  },
+  {
+    "id": "lpdu",
+    "name": "EU / LPDU · MTRH / BPOG",
+    "priority": [
+      "D1",
+      "D2",
+      "MT",
+      "ST",
+      "D3",
+      "D4",
+      "H1",
+      "H2"
+    ],
+    "shapes": [
+      "X",
+      "Square",
+      "O",
+      "Triangle"
+    ],
+    "remote_full_cross": true,
+    "stack_flex": "south",
+    "p6_stack_angle": 180,
+    "source": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+    "scope": "Verified P1 order and full-cross shape convention; shared schematic geometry",
+    "p3_priority": [
+      "D3",
+      "D1",
+      "MT",
+      "H1",
+      "H2",
+      "ST",
+      "D2",
+      "D4"
+    ],
+    "verified_fields": [
+      "priority",
+      "shapes",
+      "remote_full_cross",
+      "p3_priority"
+    ],
+    "training_only_fields": [
+      "monitor_geometry",
+      "p5_geometry"
+    ],
+    "short_scope": "部分約定預設 · 共用訓練幾何"
+  },
+  {
+    "id": "cn_moogle",
+    "name": "CN / 莫古力 · 優先序",
+    "priority": [
+      "H1",
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "H2"
+    ],
+    "shapes": [
+      "O",
+      "X",
+      "Triangle",
+      "Square"
+    ],
+    "remote_full_cross": false,
+    "stack_flex": "south",
+    "p6_stack_angle": 90,
+    "source": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+    "scope": "已核對全程優先序；其他欄位為訓練預設; NOT a complete regional strategy implementation",
+    "p3_priority": [
+      "H1",
+      "H2",
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "verified_fields": [
+      "priority"
+    ],
+    "training_only_fields": [
+      "shapes",
+      "remote_full_cross",
+      "stack_flex",
+      "p6_stack_angle",
+      "monitor_geometry",
+      "p5_geometry"
+    ],
+    "short_scope": "已核對全程優先序；其他欄位為訓練預設"
+  },
+  {
+    "id": "kr_09stop",
+    "name": "KR / 09STOP · 優先序",
+    "priority": [
+      "H1",
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "H2"
+    ],
+    "shapes": [
+      "O",
+      "X",
+      "Triangle",
+      "Square"
+    ],
+    "remote_full_cross": false,
+    "stack_flex": "south",
+    "p6_stack_angle": 90,
+    "source": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+    "scope": "已核對 P1/P3 優先序；其他欄位為訓練預設; NOT a complete regional strategy implementation",
+    "p3_priority": [
+      "H1",
+      "H2",
+      "MT",
+      "ST",
+      "D1",
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "verified_fields": [
+      "priority",
+      "p3_priority",
+      "loop_start_angle"
+    ],
+    "training_only_fields": [
+      "shapes",
+      "remote_full_cross",
+      "stack_flex",
+      "p6_stack_angle",
+      "monitor_geometry",
+      "p5_geometry"
+    ],
+    "short_scope": "已核對 P1/P3 優先序；其他欄位為訓練預設",
+    "loop_start_angle": 0
+  }
+]
