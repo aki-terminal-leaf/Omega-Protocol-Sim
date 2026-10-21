@@ -132,11 +132,15 @@ func run() -> void:
 	check(state.p6_lb.gauge==30000 and state.spent.is_empty(),"Selected meteor dying during cast interrupts without consumption")
 	for id in ["elemental","aether","lpdu","cn_moogle","kr_09stop"]:
 		for flares in P.flare_combinations():
-			a=actors(); state=fresh(a); state.p6_auto_lb=true; ctx=context(); ctx.profile.id=id; C.append_meteor_combination(ctx,flares); course(ctx,a,state)
+			a=actors(); state=fresh(a); state.p6_auto_lb=true; ctx=context(); ctx.profile.id=id
+			if "--production-locks" in OS.get_cmdline_user_args():
+				var calibration:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/p6_lb_calibration.json"))
+				for identity in LB.ACTIONS:state.p6_lb.animation_seconds[identity]=float(calibration.post_cast_seconds_by_kind[LB.ACTIONS[identity].kind])
+			C.append_meteor_combination(ctx,flares); course(ctx,a,state)
 			check(state.runtime_failures.is_empty(),"Real locked meteor route "+id+str(flares))
 			check(state.p6_lb.targets.all(func(n):return n.hp==0),"All eight real LB targets die "+id+str(flares))
 	a=actors(); state=fresh(a); state.p6_auto_lb=true; state.human_actor=7; ctx=context(); C.append_meteor_combination(ctx,[0,1,2]); course(ctx,a,state)
 	check(not state.runtime_failures.is_empty(),"Bots cannot cast the human's missing caster LB")
 	check(state.p6_lb.history.filter(func(e):return e.kind=="lb_finish" and int(e.actor)==7).is_empty(),"No fabricated human finish")
-	print("P6 LB FIDELITY assertions=",assertions," failures=",failures)
+	print("P6 LB FIDELITY assertions=",assertions," failures=",failures," production_locks=", "--production-locks" in OS.get_cmdline_user_args())
 	quit(1 if failures else 0)

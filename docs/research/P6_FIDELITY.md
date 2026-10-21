@@ -1,3 +1,9 @@
+> Historical isolated-worker handoff below. Production Arrow/Exaflare wiring
+> is present; the2026-10-21 follow-up now also wires Memory/Meteors/Magic and
+> actual Main LB controls. See [P6 LB production integration](P6_LB_FIDELITY.md)
+> for current gauge, targeting, cast and post-cast lock behavior. Original
+> regional/source/combat limits below are not silently marked complete.
+
 # P6 movement fidelity handoff
 
 2026-10-21; independent worktree based on `18485c4`.

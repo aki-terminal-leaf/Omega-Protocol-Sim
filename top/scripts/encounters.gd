@@ -652,10 +652,7 @@ func lb_check(item: Dictionary, type: String, actor: int, name: String) -> void:
 	item.note += " LB: %s (%s), press F during this window. Other roles are handled by bots." % [ROLES[actor], type]
 
 func memory() -> void:
-	group_goals(range(8), Vector2(0, 5))
-	var b = beat("Cosmo Memory · Tank LB3", 8.0, "All eight players need three Dynamis stacks. This is an LB timing drill, not an HP/shield simulation.")
-	b.checks.append({"kind": "dynamis", "value": [3, 3, 3, 3, 3, 3, 3, 3]})
-	lb_check(b, "tank", 0, "Cosmo Memory")
+	P6Courses.append_memory(self)
 
 static func arrow_shapes(inside_out: bool, pulse: int, concurrent := false) -> Array:
 	var offsets: Array
@@ -735,28 +732,7 @@ func wave_cannon(with_spreads := true) -> void:
 	b.checks.append({"kind": "front_tanks", "angle": stack_angle})
 
 func meteors() -> void:
-	for turn in 4:
-		for i in 8: positions[i] = polar([45, 90, 135, 180, 225, 270, 0, 315][i], 14)
-		positions[6] = Vector2(0, -16)
-		var b = beat("Cosmo Meteor · spread wave %d/4" % (turn + 1), 6.0, "Caster LB3 destroys comets; ranged LB3 finishes both north/south meteors. Role actions are enforced.")
-		spread(b, [0, 2, 4, 6] if turn % 2 == 0 else [1, 3, 5, 7], 3.5)
-		if turn == 0: lb_check(b, "caster", 7, "Cosmo Comets")
-		if turn == 3: lb_check(b, "ranged", 6, "Cosmo Meteors")
-	var prange_flare = bool(rng.randi_range(0, 1))
-	var flare_actors: Array = [6, 4, 5] if prange_flare else [2, 4, 5]
-	var stack_members: Array = []
-	for i in 8:
-		if i not in flare_actors: stack_members.append(i)
-	group_goals(stack_members, Vector2(0, 14 if prange_flare else -14), 0.2)
-	for j in 3: positions[flare_actors[j]] = polar((0 if prange_flare else 180) if j == 0 else (90 if j == 1 else 270), 18)
-	var b = beat("Cosmo Meteor · flares + five-stack · D3 %s" % ("HAS flare" if prange_flare else "NO flare"), 9.0, "D3 is animation-locked by LB. Others adjust: stack south if D3 has flare, north otherwise.")
-	for actor in flare_actors: b.shapes.append(targeted(actor, 12.0, 1, "Cosmo Meteor flare"))
-	b.shapes.append(targeted(stack_members[0], 3, 5, "Cosmo Meteor stack"))
+	P6Courses.append_meteors(self)
 
 func magic_number() -> void:
-	group_goals(range(8), Vector2(0, 5), 0.2)
-	for turn in 2:
-		var b = beat("Magic Number %d/2 · TANK LB3 before hit" % (turn + 1), 7.0)
-		lb_check(b, "tank", turn, "Magic Number mitigation")
-		b = beat("Magic Number %d/2 · HEALER LB3 within 6s" % (turn + 1), 6.0, "Only healer LB3 removes Magic Number; ordinary cleanses do not work.")
-		lb_check(b, "healer", turn + 2, "Magic Number cleanse")
+	P6Courses.append_magic(self)

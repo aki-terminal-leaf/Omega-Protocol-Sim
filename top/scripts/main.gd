@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: MIT
 extends Control
+const P6Setup = preload("res://scripts/p6_setup.gd")
+const P6LB = preload("res://scripts/p6_lb.gd")
 const Movement = preload("res://scripts/movement.gd")
 const Encounter = preload("res://scripts/encounters.gd")
 const Rules = preload("res://scripts/rules.gd")
@@ -45,6 +47,14 @@ var world: SubViewport
 var view_container: SubViewportContainer
 var phase_select: OptionButton
 var strategy_select: OptionButton
+var job_select: OptionButton
+var lb_target: OptionButton
+var lb_ground_x: SpinBox
+var lb_ground_y: SpinBox
+var lb_panel: VBoxContainer
+var lb_info: Label
+var job_role := -1
+var lb_target_signature := ""
 var role_select: OptionButton
 var slot_select: OptionButton
 var speed_select: OptionButton
@@ -137,8 +147,19 @@ func build_ui() -> void:
 	profile_note = label("共用訓練幾何；不是各區所有戰術的完整復刻。", 12, Color("8598b1")); profile_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; left.add_child(profile_note)
 	left.add_child(button("匯入／編輯自訂優先序", edit_custom))
 	var row = HBoxContainer.new(); left.add_child(row)
-	role_select = option(Encounter.ROLES); role_select.size_flags_horizontal = Control.SIZE_EXPAND_FILL; role_select.select(4); row.add_child(role_select); role_select.item_selected.connect(func(_i): prepare())
+	role_select = option(Encounter.ROLES); role_select.size_flags_horizontal = Control.SIZE_EXPAND_FILL; role_select.select(4); row.add_child(role_select); role_select.item_selected.connect(func(_i): refresh_jobs(); prepare())
 	slot_select = option(["隨機點名", "指定分配 1", "指定分配 2", "指定分配 3", "指定分配 4", "指定分配 5", "指定分配 6", "指定分配 7", "指定分配 8"]); row.add_child(slot_select); slot_select.item_selected.connect(func(_i): prepare())
+	lb_panel=VBoxContainer.new();left.add_child(lb_panel)
+	lb_panel.add_child(label("P6 職業／LB3 目標",13))
+	job_select=option([]);lb_panel.add_child(job_select);refresh_jobs()
+	job_select.item_selected.connect(func(_i):prepare())
+	lb_target=option(["選擇單體／直線目標"]);lb_target.set_item_metadata(0,"");lb_panel.add_child(lb_target)
+	var ground=HBoxContainer.new();lb_panel.add_child(ground);ground.add_child(label("法系落點 X/Z",12))
+	lb_ground_x=SpinBox.new();lb_ground_y=SpinBox.new()
+	for coordinate in [lb_ground_x,lb_ground_y]:
+		coordinate.min_value=-25;coordinate.max_value=25;coordinate.step=0.5;coordinate.custom_minimum_size.x=76;ground.add_child(coordinate)
+	lb_info=label("獨立練習以三層 Dynamis 與滿 LB3 起始；不模擬自然充能。",12);lb_info.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;lb_panel.add_child(lb_info)
+	lb_panel.visible=false
 	left.add_child(label("SEED  /  可重現的隨機種子", 13))
 	seed_edit = LineEdit.new(); seed_edit.text = str(randi_range(1, 999999)); seed_edit.placeholder_text = "1…2147483647"; left.add_child(seed_edit); seed_edit.text_submitted.connect(func(_v): prepare())
 	var speed_row = HBoxContainer.new(); left.add_child(speed_row); speed_row.add_child(label("速度")); speed_select = option(["0.5×", "0.75×", "1×", "1.25×", "1.5×"]); speed_select.select(2); speed_row.add_child(speed_select)
@@ -191,6 +212,7 @@ func filter_catalog() -> void:
 func return_to_selection() -> void:
 	running = false; paused = false; pending_advance = false; configured = false
 	encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; retry_history = []; samples = []; all_errors = []; checkpoint_assisted = false
+	if is_instance_valid(lb_panel):lb_panel.visible=false
 	if is_instance_valid(arena): arena.update_state([], {}, role_select.selected, false)
 	scenario_list.deselect_all(); strategy_select.clear(); strategy_select.add_item("請先選擇機制"); strategy_select.disabled = true
 	checkpoint_select.clear(); title_label.text = "① 選擇機制 → ② 選攻略方式 → ③ 單獨練習"
@@ -207,6 +229,7 @@ func choose_mechanic(selection: int) -> void:
 	scenario_list.select(selection)
 	var item = selected_item()
 	if item.is_empty(): return
+	lb_panel.visible=false
 	strategy_select.clear(); strategy_select.disabled = false; strategy_select.add_item("請選擇此機制的攻略方式")
 	for method in mechanic_methods.get(item.id, []):
 		strategy_select.add_item(method.name)
@@ -225,11 +248,22 @@ func choose_strategy(selection: int) -> void:
 	for profile in strategies:
 		if profile.id == method.profile:
 			active_profile = load("res://scripts/strategy_routes.gd").apply(profile,selected_item().id,method.get("overrides",{})); configured = true; set_launch_enabled(true); prepare(); return
+func refresh_jobs() -> void:
+	if job_role==role_select.selected:return
+	job_role=role_select.selected;job_select.clear()
+	var kind:String="tank" if job_role<2 else ("healer" if job_role<4 else ("melee" if job_role<6 else ("ranged" if job_role==6 else "caster")))
+	for identity in P6LB.ACTIONS:
+		if P6LB.ACTIONS[identity].kind==kind:job_select.add_item(identity)
+	for i in job_select.item_count:
+		if job_select.get_item_text(i)==P6Setup.JOBS[job_role]:job_select.select(i)
+
 func prepare() -> void:
 	if not is_instance_valid(arena) or filtered.is_empty() or not configured or selected_item().is_empty(): return
 	running = false; paused = false; demo = false
 	player = role_select.selected
+	refresh_jobs()
 	var item = selected_item()
+	lb_panel.visible=item.id in ["p6_memory","p6_meteors","p6_magic"]
 	var seed_value = maxi(1, mini(2147483647, int(seed_edit.text)))
 	seed_edit.text = str(seed_value)
 	encounter = Encounter.new().build(item.id, seed_value, active_profile, player, slot_select.selected - 1)
@@ -255,6 +289,7 @@ func oracle_state_before(target: int) -> Dictionary:
 			simulated = oracle_actors(b)
 			if b.has("spawn"):
 				for i in 8: simulated[i].pos = b.spawn[i]
+		P6Setup.initialize(result,simulated,encounter.id,-1,selected_job(),player)
 		bind_snapshot_geometry(b,simulated,result)
 		Interactions.begin(b, simulated, result)
 		Movement.begin(b,result)
@@ -314,6 +349,7 @@ func begin_beat(reset_positions := false) -> void:
 			if index > 0 and initial.has("knockback"): p += p.normalized() * float(initial.knockback)
 			if index == 0 and current.has("spawn"): p = current.spawn[i]
 			actors.append({"role": Encounter.ROLES[i], "pos": p, "face": 0.0})
+	P6Setup.initialize(state,actors,encounter.id,player if not demo else -1,selected_job(),player)
 	bind_snapshot_geometry(current,actors,state)
 	Interactions.begin(current, actors, state)
 	Movement.begin(current,state,player if not demo else -1)
@@ -462,21 +498,50 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_F: use_lb()
 		KEY_V: provoke()
 func jump_player() -> void:
-	if running and not paused and actors.size() == 8 and float(actors[player].get("height",0.0)) == 0: actors[player].vertical = 13.0
+	if can_act() and actors.size() == 8 and float(actors[player].get("height",0.0)) == 0: actors[player].vertical = 13.0
 func use_sprint() -> void:
-	if running and not paused and float(state.get("player_sprint_ready",0))<=float(state.sim_time):
+	if can_act() and float(state.get("player_sprint_ready",0))<=float(state.sim_time):
 		sprint_left=10.0;state.player_sprint_ready=float(state.sim_time)+60.0
 func use_arms() -> void:
-	if running and not paused: knockback_resist_left = 6.0
+	if can_act(): knockback_resist_left = 6.0
 func use_dash() -> void:
-	if running and not paused and dash_left <= 0:
+	if can_act() and dash_left <= 0:
 		dash_left = 0.5; dash_direction = arena.movement_vector(Vector2(0,-1))
 		actors[player].face = rad_to_deg(atan2(dash_direction.x, -dash_direction.y))
+func selected_job() -> String:
+	return job_select.get_item_text(job_select.selected) if job_select.selected>=0 else ""
 func use_lb() -> void:
-	if not running or paused: return
-	state.lb = "tank" if player < 2 else ("healer" if player < 4 else ("melee" if player < 6 else ("ranged" if player == 6 else "caster")))
-	state.lb_actor = player
-	status.text = "LB3：%s (%s)" % [Encounter.ROLES[player], state.lb]
+	if not running or paused:return
+	if not state.has("p6_lb"):
+		status.text="此機制沒有 LB3 練習狀態。";return
+	P6LB.sync(actors,state)
+	var identity:String=state.p6_lb.jobs[player]
+	var kind:String=P6LB.ACTIONS[identity].kind
+	var target=null
+	if kind=="caster":target=Vector2(lb_ground_x.value,lb_ground_y.value)
+	elif kind in ["ranged","melee"] and lb_target.selected>=0:target=lb_target.get_item_metadata(lb_target.selected)
+	var result:Dictionary=P6LB.request_lb(state,player,kind,target)
+	if result.ok:dash_left=0.0
+	status.text=("LB3 開始：%s / %s"%[Encounter.ROLES[player],identity]) if result.ok else ("LB3 未開始："+str(result.reason))
+	update_hud()
+func can_act() -> bool:
+	return running and not paused and not load("res://scripts/p6_runtime.gd").is_locked(state,player)
+func update_lb_controls() -> void:
+	if not state.has("p6_lb"):return
+	var lb:Dictionary=state.p6_lb;var selected:String=str(lb_target.get_item_metadata(lb_target.selected)) if lb_target.selected>=0 else ""
+	var signature:String=JSON.stringify(lb.targets.map(func(n):return [n.id,float(n.hp)>0,bool(n.get("targetable",true))]))
+	if signature!=lb_target_signature:
+		lb_target_signature=signature;lb_target.clear();lb_target.add_item("選擇單體／直線目標");lb_target.set_item_metadata(0,"")
+		for npc in lb.targets:
+			lb_target.add_item(str(npc.id)+("（已死亡）" if float(npc.hp)<=0 else ""));var index:int=lb_target.item_count-1;lb_target.set_item_metadata(index,npc.id)
+			if npc.id==selected:lb_target.select(index)
+	var detail:String="LB3 %.0f%% · %s"%[float(lb.gauge)/300.0,"讀條／動畫鎖" if P6LB.is_locked(state,player) else "可操作"]
+	for cast in lb.casts:
+		if int(cast.actor)==player:detail+=" · 讀條 %.1fs"%maxf(0,float(cast.finish)-float(state.sim_time))
+	lb_info.text=detail+"\n獨立前置快照：三層 Dynamis、滿 LB3；不模擬自然充能。"
+	var kind:String=P6LB.ACTIONS[lb.jobs[player]].kind
+	lb_target.visible=kind in ["ranged","melee"];lb_ground_x.get_parent().visible=kind=="caster"
+
 func provoke() -> void:
 	if player < 2 and running and not paused: state.aggro = player; status.text = "Provoke：" + Encounter.ROLES[player]
 func resolve_beat() -> void:
@@ -538,6 +603,7 @@ func update_hud() -> void:
 			if remaining < 1.0e20: title += " %.1fs" % maxf(remaining,0.0)
 			effects.append(title)
 		text_value += "\n當前效果：" + ("／".join(effects) if not effects.is_empty() else "無")
+	update_lb_controls()
 	party.text = text_value
 func report() -> Dictionary:
 	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}

@@ -38,8 +38,8 @@ segment; the production baseline remains 4.4.1 until its gates pass.
 
 - P3 transition and P4 Wave Cannon are integrated; exported visual/input QA and
   their explicitly documented source/combat gaps remain pending.
-- Wire P6 LB request/selection/cast controls and actual post-cast locks; audit
-  ranged full-width/half-width before declaring correct.
+- P6 production controls and public-reference post-cast locks are wired; ranged
+  full-width/half-width and source/combat/export QA remain explicit gaps.
 - Original particle/VFX reconstruction, remaining route/source uncertainties,
   full 20-mechanic integration and new Windows/Web exported runtime QA.
 
@@ -60,3 +60,10 @@ Five audited selectors; three real protean/repeat/line-stack cycles; eight
 concurrent rings. Parent quick279/0; full2454/0 across560 physical cases;
 actual Main15/0; shared211/0; P3 quick2268/0. See
 `docs/research/P4_WAVE_FIDELITY.md` for angular-lock/source/combat limits.
+
+## P6 production LB controls — source acceptance complete
+
+F/button now calls the actual job/ground/target API. Public-reference post-cast
+locks, explicit standalone entry, no human auto-cast after checkpoints. Main
+controls20/0, calibrated-lock LB602/0 (280 physical branches), full visible
+catalog86 offered methods/0 at seed17391. Exported-platform QA still pending.

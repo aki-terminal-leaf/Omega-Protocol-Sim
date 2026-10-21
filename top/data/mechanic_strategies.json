@@ -371,8 +371,28 @@
   "p6_memory": [
     {
       "profile": "elemental",
-      "name": "坦克 LB3",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "Elemental · Cosmo Memory（部分來源）",
+      "description": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · Cosmo Memory（部分來源）",
+      "description": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · Cosmo Memory（部分來源）",
+      "description": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · Cosmo Memory（部分來源）",
+      "description": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · Cosmo Memory（部分來源）",
+      "description": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
     }
   ],
   "p6_arrow_dive": [
@@ -416,15 +436,55 @@
   "p6_meteors": [
     {
       "profile": "elemental",
-      "name": "分職業 LB／隕石核爆（示意）",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "Elemental · 隕石／LB3（部分來源）",
+      "description": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · 隕石／LB3（部分來源）",
+      "description": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 隕石／LB3（部分來源）",
+      "description": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 隕石／LB3（部分來源）",
+      "description": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 隕石／LB3（部分來源）",
+      "description": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
     }
   ],
   "p6_magic": [
     {
       "profile": "elemental",
-      "name": "坦 LB3 → 補 LB3",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "Elemental · Magic Number（部分來源）",
+      "description": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · Magic Number（部分來源）",
+      "description": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · Magic Number（部分來源）",
+      "description": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · Magic Number（部分來源）",
+      "description": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · Magic Number（部分來源）",
+      "description": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；路線、HP／減傷及遠敏寬度仍有來源缺口。"
     }
   ],
   "p5_full": [

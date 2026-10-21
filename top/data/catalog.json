@@ -108,8 +108,8 @@
     "phase": 6,
     "name": "Cosmo Memory",
     "focus": "三層檢查與坦克 LB3 時機",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "fidelity": "stateful LB lifecycle; explicit independent training entry; partial source/HP model",
+    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint"
   },
   {
     "id": "p6_arrow_dive",
@@ -148,15 +148,15 @@
     "phase": 6,
     "name": "Cosmo Meteor",
     "focus": "法系／遠敏 LB、四輪傷害、三核爆調整",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "fidelity": "stateful LB lifecycle; explicit independent training entry; partial source/HP model",
+    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint"
   },
   {
     "id": "p6_magic",
     "phase": 6,
     "name": "Magic Number",
     "focus": "兩輪坦克 LB3 → 六秒內補師 LB3",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "fidelity": "stateful LB lifecycle; explicit independent training entry; partial source/HP model",
+    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint"
   }
 ]

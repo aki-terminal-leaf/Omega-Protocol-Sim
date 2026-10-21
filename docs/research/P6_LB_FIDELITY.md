@@ -123,3 +123,50 @@ also needs an independent full-width versus half-width audit before integration.
 Parent post-integration regression checkpoint: LB suite 602 assertions and existing
 P6 suite 1,614 assertions, both zero failures and no script/parse errors. This is
 source-level validation, not completion of the pending production LB controls.
+
+## Production controls integration — 2026-10-21
+
+The isolated/parent foundation handoffs above are historical. Production now
+calls `append_memory`, `append_meteors`, and `append_magic`. Main F/button uses
+`request_lb`, not the legacy instant success flags. A role-compatible job picker,
+explicit live NPC target picker for ranged/melee, caster X/Z ground target, gauge
+and cast/lock display are available on these three drills. No selected NPC is
+auto-replaced when it dies. Rejections retain their actual reason.
+
+`p6_setup.gd` creates a visibly disclosed **standalone prerequisite snapshot**:
+three Dynamis (existing encounter entry), LB3 gauge30000, selected jobs, and
+Brilliant for post-Memory isolated drills. Memory starts without Brilliant and
+only its actual survival event grants it. This is not passive/combat gauge
+generation or evidence of having completed prior P5/P6 content. The boss target
+uses a target-liveness HP sentinel, not a measured boss HP/DPS model. Meteor HP
+and delayed LB damage retain the reviewed capture-based module's values.
+
+Production supplies role-wide **post-cast** durations from
+[AkhMorning / Actions in Detail](https://www.akhmorning.com/allagan-studies/limit-break/actions-in-detail/),
+read2026-10-21: tank3.86s, healer/caster8.1s, melee/ranged3.7s. These are in
+`top/data/p6_lb_calibration.json`; nominal cast time is additional, not included.
+This is maintained-public-reference calibration, not newly measured per-job
+server frames. Ranged half-width8 remains explicitly unverified.
+
+Players cannot activate sprint/dash/jump while casting/animation-locked. A new
+LB cancels a previously active training dash. Bots request the same action API
+and skip the human's slot. Checkpoint oracle reconstructs earlier actions, then
+hands future actions back to the human; it never grants a missing future cast.
+Retries preserve actual gauge, casts, targets, refund/lock events and failures.
+
+Godot4.4.1 parent acceptance:
+
+- `tests/p6_controls.gd`:20 checks/0, including F, ground-range rejection, target
+  selection, missing-human failures, actual cast JSON restore, retry and
+  checkpoint ownership.
+- `tests/p6_lb_fidelity.gd -- --production-locks`:602 assertions/0; its280
+  physical profile×flare cases now use the real caster/ranged post-cast locks.
+- Actual Main:86 offered methods across all20 catalog mechanics, seed17391,
+  zero failures. The expensive three-seed batch was intentionally interrupted
+  after retaining progress, not counted as a pass; targeted physical matrices
+  retain their separate exhaustive coverage. Hidden P5 fixtures are not among86.
+
+Exported Windows/Web input/visual QA is not established by these headless gates.
+HP/healing/resurrection, passive/combat gauge, full flare falloff, ranged edge
+width, original large-meteor deadline and unresolved regional source fields
+remain pending. Five offered P6 methods explicitly retain partial-source labels.

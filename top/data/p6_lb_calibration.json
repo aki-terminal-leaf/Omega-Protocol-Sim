@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "reviewed": "2026-10-21",
+  "source": "https://www.akhmorning.com/allagan-studies/limit-break/actions-in-detail/",
+  "confidence": "maintained public role-wide reference, not independently measured per-job server frames",
+  "post_cast_seconds_by_kind": {
+    "tank": 3.86,
+    "healer": 8.1,
+    "caster": 8.1,
+    "ranged": 3.7,
+    "melee": 3.7
+  },
+  "ranged_half_width": 8.0,
+  "ranged_edge_verified": false
+}
