@@ -1,0 +1,1395 @@
+{
+  "schema": 1,
+  "status": "collected; not integrated; not a rendered-effect acceptance",
+  "collected_at": "2026-10-21T17:36:22.727465+00:00",
+  "game_version": "2026.10.16.0000.0000",
+  "metadata_commit": "44948e4cda5846eab0baa9872122a888fcc4f1b1",
+  "metadata_sources": {
+    "Marker": {
+      "url": "https://raw.githubusercontent.com/xivapi/ffxiv-datamining/44948e4cda5846eab0baa9872122a888fcc4f1b1/csv/en/Marker.csv",
+      "sha256": "202da9fec0528e251e6974fc7c1cea61ec3da23d63307f5c72c91b9c32c6bca4"
+    },
+    "FieldMarker": {
+      "url": "https://raw.githubusercontent.com/xivapi/ffxiv-datamining/44948e4cda5846eab0baa9872122a888fcc4f1b1/csv/en/FieldMarker.csv",
+      "sha256": "8a777b50510b0b315f1b547fdb2a91fb94473d206a352bf15810f3f4745c0a2a"
+    },
+    "VFX": {
+      "url": "https://raw.githubusercontent.com/xivapi/ffxiv-datamining/44948e4cda5846eab0baa9872122a888fcc4f1b1/csv/en/VFX.csv",
+      "sha256": "a7292a9ca7858478f61f90b78d366fc9b13c065f5b10fa71c832963c64992049"
+    }
+  },
+  "rights": "Original game artwork belongs to SQUARE ENIX; no media embedded in this index.",
+  "target_markers": [
+    {
+      "row_id": 1,
+      "name": "Target to Attack 1",
+      "icon_id": 61201,
+      "source_path": "ui/icon/061000/061201.tex",
+      "sort_order": 1
+    },
+    {
+      "row_id": 2,
+      "name": "Target to Attack 2",
+      "icon_id": 61202,
+      "source_path": "ui/icon/061000/061202.tex",
+      "sort_order": 2
+    },
+    {
+      "row_id": 3,
+      "name": "Target to Attack 3",
+      "icon_id": 61203,
+      "source_path": "ui/icon/061000/061203.tex",
+      "sort_order": 3
+    },
+    {
+      "row_id": 4,
+      "name": "Target to Attack 4",
+      "icon_id": 61204,
+      "source_path": "ui/icon/061000/061204.tex",
+      "sort_order": 4
+    },
+    {
+      "row_id": 5,
+      "name": "Target to Attack 5",
+      "icon_id": 61205,
+      "source_path": "ui/icon/061000/061205.tex",
+      "sort_order": 5
+    },
+    {
+      "row_id": 6,
+      "name": "Target to Bind 1",
+      "icon_id": 61211,
+      "source_path": "ui/icon/061000/061211.tex",
+      "sort_order": 9
+    },
+    {
+      "row_id": 7,
+      "name": "Target to Bind 2",
+      "icon_id": 61212,
+      "source_path": "ui/icon/061000/061212.tex",
+      "sort_order": 10
+    },
+    {
+      "row_id": 8,
+      "name": "Target to Bind 3",
+      "icon_id": 61213,
+      "source_path": "ui/icon/061000/061213.tex",
+      "sort_order": 11
+    },
+    {
+      "row_id": 9,
+      "name": "Target to Ignore 1",
+      "icon_id": 61221,
+      "source_path": "ui/icon/061000/061221.tex",
+      "sort_order": 12
+    },
+    {
+      "row_id": 10,
+      "name": "Target to Ignore 2",
+      "icon_id": 61222,
+      "source_path": "ui/icon/061000/061222.tex",
+      "sort_order": 13
+    },
+    {
+      "row_id": 11,
+      "name": "Square",
+      "icon_id": 61231,
+      "source_path": "ui/icon/061000/061231.tex",
+      "sort_order": 14
+    },
+    {
+      "row_id": 12,
+      "name": "Circle",
+      "icon_id": 61232,
+      "source_path": "ui/icon/061000/061232.tex",
+      "sort_order": 15
+    },
+    {
+      "row_id": 13,
+      "name": "Plus",
+      "icon_id": 61233,
+      "source_path": "ui/icon/061000/061233.tex",
+      "sort_order": 16
+    },
+    {
+      "row_id": 14,
+      "name": "Triangle",
+      "icon_id": 61234,
+      "source_path": "ui/icon/061000/061234.tex",
+      "sort_order": 17
+    },
+    {
+      "row_id": 15,
+      "name": "Target to Attack 6",
+      "icon_id": 61206,
+      "source_path": "ui/icon/061000/061206.tex",
+      "sort_order": 6
+    },
+    {
+      "row_id": 16,
+      "name": "Target to Attack 7",
+      "icon_id": 61207,
+      "source_path": "ui/icon/061000/061207.tex",
+      "sort_order": 7
+    },
+    {
+      "row_id": 17,
+      "name": "Target to Attack 8",
+      "icon_id": 61208,
+      "source_path": "ui/icon/061000/061208.tex",
+      "sort_order": 8
+    }
+  ],
+  "waymarks": [
+    {
+      "row_id": 1,
+      "name": "Waymark A",
+      "ui_icon": 61241,
+      "ui_path": "ui/icon/061000/061241.tex",
+      "map_icon": 60474,
+      "map_path": "ui/icon/060000/060474.tex",
+      "vfx_id": 302,
+      "vfx_row": {
+        "#": "302",
+        "Location": "fld_mark_a0f"
+      }
+    },
+    {
+      "row_id": 2,
+      "name": "Waymark B",
+      "ui_icon": 61242,
+      "ui_path": "ui/icon/061000/061242.tex",
+      "map_icon": 60475,
+      "map_path": "ui/icon/060000/060475.tex",
+      "vfx_id": 303,
+      "vfx_row": {
+        "#": "303",
+        "Location": "fld_mark_b0f"
+      }
+    },
+    {
+      "row_id": 3,
+      "name": "Waymark C",
+      "ui_icon": 61243,
+      "ui_path": "ui/icon/061000/061243.tex",
+      "map_icon": 60476,
+      "map_path": "ui/icon/060000/060476.tex",
+      "vfx_id": 304,
+      "vfx_row": {
+        "#": "304",
+        "Location": "fld_mark_c0f"
+      }
+    },
+    {
+      "row_id": 4,
+      "name": "Waymark D",
+      "ui_icon": 61247,
+      "ui_path": "ui/icon/061000/061247.tex",
+      "map_icon": 60936,
+      "map_path": "ui/icon/060000/060936.tex",
+      "vfx_id": 519,
+      "vfx_row": {
+        "#": "519",
+        "Location": "fld_mark_d0f"
+      }
+    },
+    {
+      "row_id": 5,
+      "name": "Waymark 1",
+      "ui_icon": 61244,
+      "ui_path": "ui/icon/061000/061244.tex",
+      "map_icon": 60931,
+      "map_path": "ui/icon/060000/060931.tex",
+      "vfx_id": 489,
+      "vfx_row": {
+        "#": "489",
+        "Location": "fld_mark_10f"
+      }
+    },
+    {
+      "row_id": 6,
+      "name": "Waymark 2",
+      "ui_icon": 61245,
+      "ui_path": "ui/icon/061000/061245.tex",
+      "map_icon": 60932,
+      "map_path": "ui/icon/060000/060932.tex",
+      "vfx_id": 490,
+      "vfx_row": {
+        "#": "490",
+        "Location": "fld_mark_20f"
+      }
+    },
+    {
+      "row_id": 7,
+      "name": "Waymark 3",
+      "ui_icon": 61246,
+      "ui_path": "ui/icon/061000/061246.tex",
+      "map_icon": 60933,
+      "map_path": "ui/icon/060000/060933.tex",
+      "vfx_id": 491,
+      "vfx_row": {
+        "#": "491",
+        "Location": "fld_mark_30f"
+      }
+    },
+    {
+      "row_id": 8,
+      "name": "Waymark 4",
+      "ui_icon": 61248,
+      "ui_path": "ui/icon/061000/061248.tex",
+      "map_icon": 63904,
+      "map_path": "ui/icon/063000/063904.tex",
+      "vfx_id": 861,
+      "vfx_row": {
+        "#": "861",
+        "Location": "fld_mark_40f"
+      }
+    }
+  ],
+  "clear_waymarks": {
+    "row_id": 9,
+    "name": "Clear Waymarks",
+    "ui_icon": 60026,
+    "ui_path": "ui/icon/060000/060026.tex",
+    "map_icon": 0,
+    "map_path": null,
+    "vfx_id": 0,
+    "vfx_row": {
+      "#": "0",
+      "Location": ""
+    }
+  },
+  "local_pack_layout": "<COLLECTION>/pack; PNG and raw source files are not in Git",
+  "icons": [
+    {
+      "row_id": 1,
+      "name": "Target to Attack 1",
+      "icon_id": 61201,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061201.tex",
+      "source_sha256": "31168b017e8059a320ea79b9788fd24ad33837c50213bb8d676f4bb008f0d609",
+      "file": "png/ui/icon/061000/061201.tex.png",
+      "sha256": "f5c7701aae7ba79e0e61d4cd1ede06dbcda2757b373311e8bf31d3ca356a7865",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 1,
+      "name": "Target to Attack 1",
+      "icon_id": 61201,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061201_hr1.tex",
+      "source_sha256": "c93fc082ee2db1ba10894d6259dbaa6f2399651b26290c5ad3bb8a8326d96a4c",
+      "file": "png/ui/icon/061000/061201_hr1.tex.png",
+      "sha256": "572527f0f1443a30ab7cf43c01791d3d1e0e022558319a1683f02fd7a51a439a",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 2,
+      "name": "Target to Attack 2",
+      "icon_id": 61202,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061202.tex",
+      "source_sha256": "b8e4c0329a08d88fa4482a5079458c20c363388090a31d7e0712b83e92e8506e",
+      "file": "png/ui/icon/061000/061202.tex.png",
+      "sha256": "14bab5ce88a60e900790801de5cdc376d1af5f7b29458485796eaceac2f16a0c",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 2,
+      "name": "Target to Attack 2",
+      "icon_id": 61202,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061202_hr1.tex",
+      "source_sha256": "e9a4f0c0fc6074ad1d9ba9a80a3b308965d42bd499fe42ffa423e8bdde3dfe2c",
+      "file": "png/ui/icon/061000/061202_hr1.tex.png",
+      "sha256": "2cf97e2bec5822300c45bda2d64856172201ebb33c7db8d7e8006d58064b6c15",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 3,
+      "name": "Target to Attack 3",
+      "icon_id": 61203,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061203.tex",
+      "source_sha256": "2732b7b07371e100217b4fdfd4185b3a714a9a0d2e0be947d6c8989f49b5953d",
+      "file": "png/ui/icon/061000/061203.tex.png",
+      "sha256": "0d9fad483dfaa880da30129f77c3cd78e728056ff41b96ed8c800dca853c6425",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 3,
+      "name": "Target to Attack 3",
+      "icon_id": 61203,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061203_hr1.tex",
+      "source_sha256": "e6b5b84332a7f914ff7199fa14b1fdd8f61e954bd6a7de5fd8eb1a35cdac64b8",
+      "file": "png/ui/icon/061000/061203_hr1.tex.png",
+      "sha256": "baa00209c7dde97b24a3d5fc1aa49884bd15e6a4ad1fa0d77bec449d12963dd3",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 4,
+      "name": "Target to Attack 4",
+      "icon_id": 61204,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061204.tex",
+      "source_sha256": "a4e17e2c9ffe510ebb29cbdf77afd55ec2e67a1f0dee74d5985e096c7468a451",
+      "file": "png/ui/icon/061000/061204.tex.png",
+      "sha256": "5a2434fd0621be846bcc241acd7b0f4af0a5f8990ad5a04319eecc6d7adfbc07",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 4,
+      "name": "Target to Attack 4",
+      "icon_id": 61204,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061204_hr1.tex",
+      "source_sha256": "605e990c702f8ad429f78a8e2659a3f1dd2348c0526ec896390245db10c81220",
+      "file": "png/ui/icon/061000/061204_hr1.tex.png",
+      "sha256": "d6ccf957b7b15c7e1515d51053cb3744a1cb9d5ac804bd2371b88b4419294e14",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 5,
+      "name": "Target to Attack 5",
+      "icon_id": 61205,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061205.tex",
+      "source_sha256": "4f144b2902629019a32e89b9cd58156c2ad0764f0f6a362fb64d071303de3dd4",
+      "file": "png/ui/icon/061000/061205.tex.png",
+      "sha256": "a134bd19f0d6ba426a997b2564da733ecaf6de6ae3aaac0055d483db46fe2b34",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 5,
+      "name": "Target to Attack 5",
+      "icon_id": 61205,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061205_hr1.tex",
+      "source_sha256": "9c3ae0a85c78d7a903eb10f4f5bfe90e8b95ef3b619dee49824fbacd01a351e8",
+      "file": "png/ui/icon/061000/061205_hr1.tex.png",
+      "sha256": "d7fb20875d9a051fbed0b881cfdb540152ff51ba5fdf2f05b62cc11dc4bb71b7",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 6,
+      "name": "Target to Bind 1",
+      "icon_id": 61211,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061211.tex",
+      "source_sha256": "911426ac72a4c02b11ea1d95ae0c8f7bb061e3a97533867ea3286c020e0ef642",
+      "file": "png/ui/icon/061000/061211.tex.png",
+      "sha256": "bdc11f9fccd48d7c2072e5558e8a56bf52c0d4b597aa390f0a6e96d0bbdb23c6",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 6,
+      "name": "Target to Bind 1",
+      "icon_id": 61211,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061211_hr1.tex",
+      "source_sha256": "2ac4f08df62f1f831d8972cc87b5d0688d18782e9771084583b07185e8bd4f37",
+      "file": "png/ui/icon/061000/061211_hr1.tex.png",
+      "sha256": "77f28192b2a36601aaee65b0a0801342c1b96a9e878d2ee76de54b3cc844c07c",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 7,
+      "name": "Target to Bind 2",
+      "icon_id": 61212,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061212.tex",
+      "source_sha256": "45922ac63682ad5ae5471169134b49d52bb23d16e9235a8211de51935a890114",
+      "file": "png/ui/icon/061000/061212.tex.png",
+      "sha256": "9208568fead3ad4b9def4ace06fc4b4c44143931e594d2546ca92f20f46f6f02",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 7,
+      "name": "Target to Bind 2",
+      "icon_id": 61212,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061212_hr1.tex",
+      "source_sha256": "e1e4b982d69081946408c58df4ffa5f1c343af9aa92a6d046abb39d40a682408",
+      "file": "png/ui/icon/061000/061212_hr1.tex.png",
+      "sha256": "7a3a582dced786398ce5c8c035186fc0ac87f173bbc1afa985a6a7c24522428b",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 8,
+      "name": "Target to Bind 3",
+      "icon_id": 61213,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061213.tex",
+      "source_sha256": "d7ea585c7f4c994fbce9fdb22f6b60d24a58719de9312efe028971a5d9dcaeb1",
+      "file": "png/ui/icon/061000/061213.tex.png",
+      "sha256": "dbcc728f1982ff3865831a48c9ba223eed72861da33a11508079877a4b8e25ec",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 8,
+      "name": "Target to Bind 3",
+      "icon_id": 61213,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061213_hr1.tex",
+      "source_sha256": "f3423a83b8a3a00496259829f0e8434dcad72a7dd8b393061b394c52f2ccfa4d",
+      "file": "png/ui/icon/061000/061213_hr1.tex.png",
+      "sha256": "c76ac5c4ef180fbe1289554dba8e96134982033e30adf37dd0eb89995d52ceb3",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 9,
+      "name": "Target to Ignore 1",
+      "icon_id": 61221,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061221.tex",
+      "source_sha256": "387b4256311ff17e47676d2f2e6ccacd10fa9a1694d1a42084b201e455bb9f19",
+      "file": "png/ui/icon/061000/061221.tex.png",
+      "sha256": "107beb4387c2466fbc32350a4c7748ea7fd641f46a312454f6220e96f457cd3f",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 9,
+      "name": "Target to Ignore 1",
+      "icon_id": 61221,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061221_hr1.tex",
+      "source_sha256": "f4d7f47dfff17c31dee8ebd67f2363ddf1c3b97d87562b9071bd29a650fecc9b",
+      "file": "png/ui/icon/061000/061221_hr1.tex.png",
+      "sha256": "9111fa5dec458b1a65ab43fce4e15932ff6974901af7f8137ce8c06e8f17870d",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 10,
+      "name": "Target to Ignore 2",
+      "icon_id": 61222,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061222.tex",
+      "source_sha256": "c186976459a438a5e25acfa261b94209cda92d17ba963883ae670bc8f2fd89d0",
+      "file": "png/ui/icon/061000/061222.tex.png",
+      "sha256": "9c2db4970bf68070bc7a25adfef9d29b1b4c1c6236d10206e333bd3b139abfb7",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 10,
+      "name": "Target to Ignore 2",
+      "icon_id": 61222,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061222_hr1.tex",
+      "source_sha256": "379e8d0e63341dc3326c8ee6caa77d32c87c0c7e652cb34f7a39aade643d5923",
+      "file": "png/ui/icon/061000/061222_hr1.tex.png",
+      "sha256": "46ed5bdd81d128109c6f929fb28d3e9c87ead89fec26cb8b73313db58c534bde",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 11,
+      "name": "Square",
+      "icon_id": 61231,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061231.tex",
+      "source_sha256": "d873e68e1c9f41c8d88be9ae9829927a0833f3133f312a0615dd04cf94fd0aef",
+      "file": "png/ui/icon/061000/061231.tex.png",
+      "sha256": "a62be89f9e7bc5d13540c3582cf72ebee63cafe6baf8c288a10f553278cff578",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 11,
+      "name": "Square",
+      "icon_id": 61231,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061231_hr1.tex",
+      "source_sha256": "3981a82ad5ce1440c229c48ef3177dd4065d47d64170e91df206b46d348780ee",
+      "file": "png/ui/icon/061000/061231_hr1.tex.png",
+      "sha256": "f1ee4c7b4ab149da3a3a2ac32c641076b3e2cf548bb56372ff4207ea2c99ae12",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 12,
+      "name": "Circle",
+      "icon_id": 61232,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061232.tex",
+      "source_sha256": "0a6e9170b6a30e915d74d1759a0a83fc35e196a4adb950329b0e76f84303eafb",
+      "file": "png/ui/icon/061000/061232.tex.png",
+      "sha256": "5c0a15ec88efecf5dc3cd66183a6f090e6dc5f5c17093f7e6162b775d61e53de",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 12,
+      "name": "Circle",
+      "icon_id": 61232,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061232_hr1.tex",
+      "source_sha256": "2642041f7a6e90048d2d49c13b7baa835d14701d0ad398ba07d24085155e2759",
+      "file": "png/ui/icon/061000/061232_hr1.tex.png",
+      "sha256": "534ecfd8346121d3454616f9b71ab181ba52dbdeeb1a28bbb1b028345255a1b8",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 13,
+      "name": "Plus",
+      "icon_id": 61233,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061233.tex",
+      "source_sha256": "7de64b9c5e238fccb2508793389bf5b1d47bd95c6883c1fcc4fe453863543812",
+      "file": "png/ui/icon/061000/061233.tex.png",
+      "sha256": "e99ec14339c60b8552dfc233787c79505ccb188021b30fc5546b5cb7bf517e96",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 13,
+      "name": "Plus",
+      "icon_id": 61233,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061233_hr1.tex",
+      "source_sha256": "1dfc5ea2f1e90d1ac05cb02f18d9450c908f6b4573c1b841995248171ffdeafb",
+      "file": "png/ui/icon/061000/061233_hr1.tex.png",
+      "sha256": "2fda75b08275af42e1ce3e397db44c9045e2be7bd9eff7fe2f91d167728cc478",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 14,
+      "name": "Triangle",
+      "icon_id": 61234,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061234.tex",
+      "source_sha256": "290495164f9fc54dc258ad010c39757412e24369b167a16ac4a2aca883501a90",
+      "file": "png/ui/icon/061000/061234.tex.png",
+      "sha256": "43f59c4590925a486780bf96e5bf232daf82021ba3aecdc84df1799d3ad72861",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 14,
+      "name": "Triangle",
+      "icon_id": 61234,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061234_hr1.tex",
+      "source_sha256": "db0eefa386ababde1c0ac76a538a20aef7b4d07fee816936c5de933675175d35",
+      "file": "png/ui/icon/061000/061234_hr1.tex.png",
+      "sha256": "d579e54d1073fdb58547849ed45045251377879a06d232168313c021d4f31edd",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 15,
+      "name": "Target to Attack 6",
+      "icon_id": 61206,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061206.tex",
+      "source_sha256": "c0b4757e0f00aefa3e8e1eb6b80dfe6b52053f9d8b401552c5c2bf9fc12070d3",
+      "file": "png/ui/icon/061000/061206.tex.png",
+      "sha256": "89f7a62da6efff12212e4c3d606bb8675d9dea0f7767494ead52a5ae05496b01",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 15,
+      "name": "Target to Attack 6",
+      "icon_id": 61206,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061206_hr1.tex",
+      "source_sha256": "f96a6bd4e27e62f9d2ff76b5ede963e00c88703d1ec2fda6f00d039279d2209d",
+      "file": "png/ui/icon/061000/061206_hr1.tex.png",
+      "sha256": "8466990171d0d7ad12efa3546a752dcd87a7988b4cd8a1b3c801c0e277c92332",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 16,
+      "name": "Target to Attack 7",
+      "icon_id": 61207,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061207.tex",
+      "source_sha256": "fcce2d517c3bfd751d91495e2c279277ad3bab970181c2f8cf0db82c43a71fda",
+      "file": "png/ui/icon/061000/061207.tex.png",
+      "sha256": "8bbc76beee6ad6107a45520d6d8ab635fdba05cc58d14ddb9d0e3b73c71ca913",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 16,
+      "name": "Target to Attack 7",
+      "icon_id": 61207,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061207_hr1.tex",
+      "source_sha256": "c39d3e2f698beb704cc2c7bd0d0c16b126c5fe9b8866a33dc39c9a100f9a4dc3",
+      "file": "png/ui/icon/061000/061207_hr1.tex.png",
+      "sha256": "4aa6aed80ca70e1b4ea86177fad9624537e28d833595a263b1b57ab4b7cf76fa",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 17,
+      "name": "Target to Attack 8",
+      "icon_id": 61208,
+      "high_resolution": false,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061208.tex",
+      "source_sha256": "a19e7811b22007545c324f07260bb2cb45440716e0a47101abce0ae64ee0e119",
+      "file": "png/ui/icon/061000/061208.tex.png",
+      "sha256": "cc675e375b12a9751618b18727bc0f966647a84a637af7cc45d97b1b997a2930",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 17,
+      "name": "Target to Attack 8",
+      "icon_id": 61208,
+      "high_resolution": true,
+      "role": "target-ui",
+      "source_path": "ui/icon/061000/061208_hr1.tex",
+      "source_sha256": "3d9fadf9a359b4dc0688750816eb229103b4b98d6fb281578a8533fb617281f1",
+      "file": "png/ui/icon/061000/061208_hr1.tex.png",
+      "sha256": "13c7b95ddbeecbce4d4564770291752683f4fda691bcf253d3b9f7647fff5ac0",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 1,
+      "name": "Waymark A",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061241.tex",
+      "source_sha256": "a899e08be42a1ae7572f4340b000426c7635727e409eb7858d237e40f7dfe990",
+      "file": "png/ui/icon/061000/061241.tex.png",
+      "sha256": "10b25a7857f4e7f39c27064661eb5b7ef5ff3df4dbb9b8d286c7738eee3ab200",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 1,
+      "name": "Waymark A",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061241_hr1.tex",
+      "source_sha256": "a4440ced13fbef243010bfa3cc4e1c56f781b8fea793c213067943e5f462733c",
+      "file": "png/ui/icon/061000/061241_hr1.tex.png",
+      "sha256": "456fb9c0d331499f22c35eb9ef86c83542be2b8f40662baa14a9acc05e3a51c5",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 1,
+      "name": "Waymark A",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060474.tex",
+      "source_sha256": "c05bdad77f05ae90ddfbfd8d25f0baaa73d6581ce0a902a5b101eccc163e2b59",
+      "file": "png/ui/icon/060000/060474.tex.png",
+      "sha256": "78246ade5caba46c57987f07c4ac0ec0b3c52b0de0b87139d9fb5c8d50fe34c7",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 1,
+      "name": "Waymark A",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060474_hr1.tex",
+      "source_sha256": "e79d23ae5dd0901b580e6de31470551f7c6cdcf01124759e8b4260c7be5e8df8",
+      "file": "png/ui/icon/060000/060474_hr1.tex.png",
+      "sha256": "024a661eca81c04cce84f88d99bdde69f1847e729e46c1b2ef46374bf2de8398",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 2,
+      "name": "Waymark B",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061242.tex",
+      "source_sha256": "7f13d971035266ded9f9ab3e92f8f8db160b6ed3136cd348ca8c880f8c5b0af0",
+      "file": "png/ui/icon/061000/061242.tex.png",
+      "sha256": "85dbfebddff1a15dd951fe61da5d42e88af574b85d27451a1a8516e22ecb47f4",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 2,
+      "name": "Waymark B",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061242_hr1.tex",
+      "source_sha256": "41eb7b2fbc860d5f08d5c9946bd1c8c9c5a4cd65c57f251e787d2c3dc483cf10",
+      "file": "png/ui/icon/061000/061242_hr1.tex.png",
+      "sha256": "3cf5224804f67228c79a1f38a0f44061afb962117d7a2992b22fb2671a580729",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 2,
+      "name": "Waymark B",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060475.tex",
+      "source_sha256": "9a8f7069a14bba761bb800a25517504cf4a38799d58dcbfa587cceb4f42e379e",
+      "file": "png/ui/icon/060000/060475.tex.png",
+      "sha256": "2a9227275674f47742c2af378ea524cb77d6b9266708c566022a7249259a4c4f",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 2,
+      "name": "Waymark B",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060475_hr1.tex",
+      "source_sha256": "adf92615982f64fdb491d1d0545428329fe3080da3e1874f64ee3d2f78d04a77",
+      "file": "png/ui/icon/060000/060475_hr1.tex.png",
+      "sha256": "ad7180059674b970e2eaf09ddf6799562847a5a093cf286d2c5eda37b9649793",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 3,
+      "name": "Waymark C",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061243.tex",
+      "source_sha256": "7685b66f83de4f73031ac8e76cb6e568cfaf01b57629e84aef12ae45a8b961fa",
+      "file": "png/ui/icon/061000/061243.tex.png",
+      "sha256": "0249b19fdcaa3fb753749387bc99c4f10a09c164c51258835c51640a65039c1c",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 3,
+      "name": "Waymark C",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061243_hr1.tex",
+      "source_sha256": "70d68e91a25befa3e9a4aec817303aabfc3371f5f48f1e320bafc2cdc3758f71",
+      "file": "png/ui/icon/061000/061243_hr1.tex.png",
+      "sha256": "6fb1d80f15c2d1b9b693fdd0c9277b4e9220721af5e91ab808151a149ace3719",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 3,
+      "name": "Waymark C",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060476.tex",
+      "source_sha256": "de488413a9b74053db314541f71d412d6377a78431d42ea56ca595d4d55eded5",
+      "file": "png/ui/icon/060000/060476.tex.png",
+      "sha256": "5f83fa4d4ec7c74629476fdba125818dfc693045e73b178dbd0c2ed35f878e03",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 3,
+      "name": "Waymark C",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060476_hr1.tex",
+      "source_sha256": "94af4dbddb168b0fa1ce93d8f33dd698a89c8f95e2c941d28817636644a8a6ee",
+      "file": "png/ui/icon/060000/060476_hr1.tex.png",
+      "sha256": "ca63756967288779d8f2420f767f09b2657a75de5b67bb77949850eaca34e16b",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 4,
+      "name": "Waymark D",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061247.tex",
+      "source_sha256": "5ae7e96a84a88598bb7d84ba498a3cf7d5a516a3fd9fa3926c6902ffffa308dd",
+      "file": "png/ui/icon/061000/061247.tex.png",
+      "sha256": "114c6e706f95fcc3781f6f4c2fd653f2883b10a0789e6839638b73c278ced006",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 4,
+      "name": "Waymark D",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061247_hr1.tex",
+      "source_sha256": "a8b44812f68e6e29215e4a8679af6be783a8ea15f373104404ed3aa10222f6f8",
+      "file": "png/ui/icon/061000/061247_hr1.tex.png",
+      "sha256": "a3f0250413b5031aa2c7d623cc834715891b29b00615682ba8ef8722a4a1ee00",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 4,
+      "name": "Waymark D",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060936.tex",
+      "source_sha256": "08466cdb98a0053dc85becb0a2d3511be8b245f9e7a5868c00378522ce95aadf",
+      "file": "png/ui/icon/060000/060936.tex.png",
+      "sha256": "dbcf5cc41ee38b81bac03ca319d037553936024817c3bb8ae287f63570ef1260",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 4,
+      "name": "Waymark D",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060936_hr1.tex",
+      "source_sha256": "8e00757991e1361e711b9aa79d39915bfac7f7416c472afdce73af53c35daec3",
+      "file": "png/ui/icon/060000/060936_hr1.tex.png",
+      "sha256": "4abc33eaebc2e518116ddf5ad10332c969fed43e28913f8582d6352d5f516855",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 5,
+      "name": "Waymark 1",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061244.tex",
+      "source_sha256": "37224a5967c46f650e9ccb5b07eb9392e7ffc0b7d52602c518a5b5e3d533f226",
+      "file": "png/ui/icon/061000/061244.tex.png",
+      "sha256": "d034e6bf4a9ef7fce927d26c60b73aae1c8ffcc2305e08ee5a515bd8790a51c9",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 5,
+      "name": "Waymark 1",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061244_hr1.tex",
+      "source_sha256": "2d105e91b16bd135eca3e561d61a9396047546192193d3deaf1372f6a4eba057",
+      "file": "png/ui/icon/061000/061244_hr1.tex.png",
+      "sha256": "69020f25abadf98010abf9164001a72a227da977d266152074a59d4bd49cbeac",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 5,
+      "name": "Waymark 1",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060931.tex",
+      "source_sha256": "703b90336b5277d37755ac4b9be98ad162529099ca765ff6b9e9441d9b23efbb",
+      "file": "png/ui/icon/060000/060931.tex.png",
+      "sha256": "4ebf7122801eabdc105c3888efd5b8fbc7301fd55aa811b42c89cc6967b94624",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 5,
+      "name": "Waymark 1",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060931_hr1.tex",
+      "source_sha256": "eaea4bd97be00e14892fad013934549008a7e228414185aa39fd580396240286",
+      "file": "png/ui/icon/060000/060931_hr1.tex.png",
+      "sha256": "8dc96e4e0cc12f11baaecbfca5a464204c4f9561bd9ababda9a1bbe2ccdcaf32",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 6,
+      "name": "Waymark 2",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061245.tex",
+      "source_sha256": "49571406be8c38b7fc2fa467f987f9bc1af61d2a2a7b023687f4ce5e57d7adbc",
+      "file": "png/ui/icon/061000/061245.tex.png",
+      "sha256": "10f4db72e15fb225b9d1575e7722d76ee2ad17bcebeeea75fadf4909a94346a5",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 6,
+      "name": "Waymark 2",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061245_hr1.tex",
+      "source_sha256": "997c467893a0f64315172c0fae9008f66a8df81fc7bbbebc31ac55f2d7f66362",
+      "file": "png/ui/icon/061000/061245_hr1.tex.png",
+      "sha256": "ad5129856679e13c2eced28398a54d5a673f94ad05c5c77f649996b3e38f2f6b",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 6,
+      "name": "Waymark 2",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060932.tex",
+      "source_sha256": "105315dbca582b277189b5abdfeae16aab978cd41fd7cccdc7121b7abffbc657",
+      "file": "png/ui/icon/060000/060932.tex.png",
+      "sha256": "0b4024af730c284baff3cf08765997849b3acf1e6a95aa156383b5b6cd229e1d",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 6,
+      "name": "Waymark 2",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060932_hr1.tex",
+      "source_sha256": "99715bca35fc0fa2dc5d3f9433bcef49c7ffa38df230f6e5f3b3dc57d7638844",
+      "file": "png/ui/icon/060000/060932_hr1.tex.png",
+      "sha256": "4ba03e5c89c14074804b369df5551e719b748506fb45e667a8564ad47f987fba",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 7,
+      "name": "Waymark 3",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061246.tex",
+      "source_sha256": "2b20a09f70327d09df3a4dcc76ab28f9a1da2f7dcfd4f3382e55f5dd5cf99cf9",
+      "file": "png/ui/icon/061000/061246.tex.png",
+      "sha256": "66bdf1e39e1020843876f922a698e1a03aeeb11ec73b1e77c5ced48be468bfd1",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 7,
+      "name": "Waymark 3",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061246_hr1.tex",
+      "source_sha256": "4d972850a1d76bb13dd5e9aacdfd145205fa316f597bccf098b357b736658a79",
+      "file": "png/ui/icon/061000/061246_hr1.tex.png",
+      "sha256": "bbc286dbd95e1b8eba3cdd21dcefaed3f5499908e51fd39b54b2f135e96315ff",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 7,
+      "name": "Waymark 3",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060933.tex",
+      "source_sha256": "a9c7fce662abe2ad398d35d09bdfa15a1aee4442741af3c64c7e17b06cbaec48",
+      "file": "png/ui/icon/060000/060933.tex.png",
+      "sha256": "66524f9257246af2cf68762b57428cbc1e7a6dfc61a1aebb365d70238f2aa18d",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 7,
+      "name": "Waymark 3",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/060000/060933_hr1.tex",
+      "source_sha256": "c268676072cd2012ccd62ce2fbb7c05c4cbb4f3fa237afd70241b191bf76bf4a",
+      "file": "png/ui/icon/060000/060933_hr1.tex.png",
+      "sha256": "eb7ed8b06cbef7a1deaf67a518dc716083e110cae47c456f8024d4fc646731b9",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 8,
+      "name": "Waymark 4",
+      "high_resolution": false,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061248.tex",
+      "source_sha256": "55dd449eae4f27e1fd2df9110e25abb5940423bf81bfd1d67719c6f2696af126",
+      "file": "png/ui/icon/061000/061248.tex.png",
+      "sha256": "fa56c0082d6509c4a38c1b28f5adc0fc5f72e57ce5f3b5569aa5d00d7dfe9ec8",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 8,
+      "name": "Waymark 4",
+      "high_resolution": true,
+      "role": "waymark-ui",
+      "source_path": "ui/icon/061000/061248_hr1.tex",
+      "source_sha256": "7a7cccc7f26f3687cc55d683010a56bb0462b07919b4b2e45778bec5dcff9836",
+      "file": "png/ui/icon/061000/061248_hr1.tex.png",
+      "sha256": "421ef5496e539c57d5652e37195ecc6a099b449c51a1988246532c3a8b1125b5",
+      "width": 80,
+      "height": 80
+    },
+    {
+      "row_id": 8,
+      "name": "Waymark 4",
+      "high_resolution": false,
+      "role": "waymark-map",
+      "source_path": "ui/icon/063000/063904.tex",
+      "source_sha256": "fa4fcdb955c58e341e7c5b3576f254a15c964e3b55d0fb6775e46e5c7b83a789",
+      "file": "png/ui/icon/063000/063904.tex.png",
+      "sha256": "7bbbd1a9f2d9ecfc507df464253bdcc2b3225984e94e6e51774abefd65e441f2",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "row_id": 8,
+      "name": "Waymark 4",
+      "high_resolution": true,
+      "role": "waymark-map",
+      "source_path": "ui/icon/063000/063904_hr1.tex",
+      "source_sha256": "35c9ff40eb1048a60e189c4ba37dc46824d11eee887770a16598ef388ea82b1d",
+      "file": "png/ui/icon/063000/063904_hr1.tex.png",
+      "sha256": "35c1583a37b94ce60cf7286dbfab5c726701fb246cfe1205b5a6bfcdbca7e44f",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "row_id": 9,
+      "name": "Clear Waymarks",
+      "high_resolution": false,
+      "role": "clear-ui",
+      "source_path": "ui/icon/060000/060026.tex",
+      "source_sha256": "99b9a2c48a415bf2b5400800040f01bc7d55254ff81927f88afcb3da88f5542a",
+      "file": "png/ui/icon/060000/060026.tex.png",
+      "sha256": "56fb9a8d0f3390352f5db0b0b6e884b1912b4f05ec716fb697e2f0841eb79ac2",
+      "width": 40,
+      "height": 40
+    },
+    {
+      "row_id": 9,
+      "name": "Clear Waymarks",
+      "high_resolution": true,
+      "role": "clear-ui",
+      "source_path": "ui/icon/060000/060026_hr1.tex",
+      "source_sha256": "4cc4eaacde5009f2d7949a0a59ec00e034249f3d3af505959ef90efda7289519",
+      "file": "png/ui/icon/060000/060026_hr1.tex.png",
+      "sha256": "e6b524c3f2f08a3b9c99762ebe1213f1e811bf5680baec9637437557ad09b460",
+      "width": 80,
+      "height": 80
+    }
+  ],
+  "effects": [
+    {
+      "name": "Waymark A",
+      "vfx_id": 302,
+      "source_path": "vfx/common/eff/fld_mark_a0f.avfx",
+      "source_sha256": "9742ba6288090507e0723147d8e5d2150c012576c32695c49dc51f74c7f4f0b8",
+      "bytes": 54176,
+      "texture_refs": [
+        "vfx/common/texture/a_base.atex",
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/mas_s01ah.atex",
+        "vfx/common/texture/pris_001f.atex",
+        "vfx/common/texture/ring0004f.atex"
+      ]
+    },
+    {
+      "name": "Waymark B",
+      "vfx_id": 303,
+      "source_path": "vfx/common/eff/fld_mark_b0f.avfx",
+      "source_sha256": "b230c70aae44e35e7ddb9707b791fbe6a697796bbefe6ca611bdbc04a7c8698f",
+      "bytes": 54180,
+      "texture_refs": [
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/b_col00f.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/mas_s01ah.atex",
+        "vfx/common/texture/pris_001f.atex",
+        "vfx/common/texture/ring0004f.atex"
+      ]
+    },
+    {
+      "name": "Waymark C",
+      "vfx_id": 304,
+      "source_path": "vfx/common/eff/fld_mark_c0f.avfx",
+      "source_sha256": "f12eac5b6c52ae7af62ad3650bc6c0a3487fa76cd0c36b8eee5edcb10a9b93df",
+      "bytes": 54260,
+      "texture_refs": [
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/c_col00f.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/mas_s01ah.atex",
+        "vfx/common/texture/pris_001f.atex",
+        "vfx/common/texture/ring0004f.atex"
+      ]
+    },
+    {
+      "name": "Waymark D",
+      "vfx_id": 519,
+      "source_path": "vfx/common/eff/fld_mark_d0f.avfx",
+      "source_sha256": "22a56b434010145dd472df2c2d13fd5caf5a7f3ce8b9df32cc917955091b70f2",
+      "bytes": 54256,
+      "texture_refs": [
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/d_new.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/mas_s01ah.atex",
+        "vfx/common/texture/pris_001f.atex",
+        "vfx/common/texture/ring0004f.atex"
+      ]
+    },
+    {
+      "name": "Waymark 1",
+      "vfx_id": 489,
+      "source_path": "vfx/common/eff/fld_mark_10f.avfx",
+      "source_sha256": "2e09aab0d70a38e51132692e37ef164651665b906b0666b6bba296b4bd39ec8e",
+      "bytes": 43324,
+      "texture_refs": [
+        "vfx/common/texture/1_base0f.atex",
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/fm_squ0f.atex",
+        "vfx/common/texture/glo_sqe0f.atex",
+        "vfx/common/texture/pris_001f.atex"
+      ]
+    },
+    {
+      "name": "Waymark 2",
+      "vfx_id": 490,
+      "source_path": "vfx/common/eff/fld_mark_20f.avfx",
+      "source_sha256": "bac60dcf6b1f9e1e2bb0341b7647caa26f2797beed79c9958c20fafc0e578b3c",
+      "bytes": 43116,
+      "texture_refs": [
+        "vfx/common/texture/2_base0f.atex",
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/fm_squ0f.atex",
+        "vfx/common/texture/glo_sqe0f.atex",
+        "vfx/common/texture/pris_001f.atex"
+      ]
+    },
+    {
+      "name": "Waymark 3",
+      "vfx_id": 491,
+      "source_path": "vfx/common/eff/fld_mark_30f.avfx",
+      "source_sha256": "1a91468321963b45844f3f1d20863a7f4a036734957e7171b2056f998583c447",
+      "bytes": 43164,
+      "texture_refs": [
+        "vfx/common/texture/3_base0f.atex",
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/fm_squ0f.atex",
+        "vfx/common/texture/glo_sqe0f.atex",
+        "vfx/common/texture/pris_001f.atex"
+      ]
+    },
+    {
+      "name": "Waymark 4",
+      "vfx_id": 861,
+      "source_path": "vfx/common/eff/fld_mark_40f.avfx",
+      "source_sha256": "e4f68b80b606bb0ec8be6edc7a8d3c725ee3a40c2f38eafc3b8876a3ee225209",
+      "bytes": 43420,
+      "texture_refs": [
+        "vfx/common/texture/4_base0f.atex",
+        "vfx/common/texture/aura003af.atex",
+        "vfx/common/texture/dist_uv0f.atex",
+        "vfx/common/texture/fm_squ0f.atex",
+        "vfx/common/texture/glo_sqe0f.atex",
+        "vfx/common/texture/pris_001f.atex"
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/a_base.atex",
+      "source_sha256": "eb323aa3a5705f04e879fb8812e22b32f69c0f824bdb41bdf7c41b799197a711",
+      "file": "png/vfx/common/texture/a_base.atex.png",
+      "sha256": "be85766bfeaccd2ddb26db02b2314303309d8f03ef57380546e78ab088d2aa34",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/aura003af.atex",
+      "source_sha256": "89f40f16f89a058a7682178c4f7e8c7cd8c5167334be3cd52dbb5ab9c2614356",
+      "file": "png/vfx/common/texture/aura003af.atex.png",
+      "sha256": "dd03ef2ce5e1f30f6fac11960d5b98ae01084c58699d57d53c19670ffc58c015",
+      "width": 128,
+      "height": 64
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/dist_uv0f.atex",
+      "source_sha256": "36c1a1999ccf0418c5312ac0a7df85f1df2cd56e000c73d2b36c3c1e58d756ef",
+      "file": "png/vfx/common/texture/dist_uv0f.atex.png",
+      "sha256": "05f2f2ed227f22cc40b03e8a2b15e8591962b73a735dbbfecdbbd9461214f00d",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/mas_s01ah.atex",
+      "source_sha256": "ea3e8b7fb68fb7205e80015275dd8f640a07f39deee465e8b2091236cbb4c4a3",
+      "file": "png/vfx/common/texture/mas_s01ah.atex.png",
+      "sha256": "ce8c0e9e5beb165564a03df7fced50781f8ca34360bf6c6b55e62c9e56fed461",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/pris_001f.atex",
+      "source_sha256": "7e63f9aeaa234a6b3ddcb32ae50a7479351960fa24b352b905478d6f5fe98217",
+      "file": "png/vfx/common/texture/pris_001f.atex.png",
+      "sha256": "505dbc871cf869b3f64a25b69d29ad6c4addbfd62e7a86e344afa8372f30d855",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/ring0004f.atex",
+      "source_sha256": "b3a12304d54519e25929dc9bfddd5946a267de0f9528de7d39d37b10b1f9e15d",
+      "file": "png/vfx/common/texture/ring0004f.atex.png",
+      "sha256": "8297a7c1e933ec57c24bd5f92893e99c866655ffffdfb28c15e365c9a086f559",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/b_col00f.atex",
+      "source_sha256": "2b76167c0a17bbaeed4d3ed6ce085ad5eeb9a592f38150acda7c8e5cd57533dd",
+      "file": "png/vfx/common/texture/b_col00f.atex.png",
+      "sha256": "22ee8d414cefe103de81e8705cb67b881c568f589e845918c954052e9c6247b3",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/c_col00f.atex",
+      "source_sha256": "70375a972901d5d88b907819b18d30b86bed69d5b82f3acf3c9be27638de769d",
+      "file": "png/vfx/common/texture/c_col00f.atex.png",
+      "sha256": "5173e0bc78ce4b0ec338456c6c07a03a7d176f6eb225d3541a8287dcecfd64ff",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/d_new.atex",
+      "source_sha256": "9c69238d9b9a5625eab22272b17dd76887c96558134dc2bd27b9f84ec20f118b",
+      "file": "png/vfx/common/texture/d_new.atex.png",
+      "sha256": "aec8f3d0277b14bf8b0ed2c9373ff22ac8071ad1ad996081d9cca328b909ff2e",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/1_base0f.atex",
+      "source_sha256": "1b588e0fe443b9415bc22a5ba7342e6254d78df2ea7d0cb03e915b6f45d624cd",
+      "file": "png/vfx/common/texture/1_base0f.atex.png",
+      "sha256": "98ad9f647c3c722558e0ce54d0cc3260cdc25b60a142a531f53a476a5cb4519d",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/fm_squ0f.atex",
+      "source_sha256": "7efba77bc2302f03345f0f0aa3eab2aa522ade14b2c6f8b39af9e0230d981002",
+      "file": "png/vfx/common/texture/fm_squ0f.atex.png",
+      "sha256": "5ea432166e41b13c7d85ee9f150829ab924b8bae69c3d53689512a0bdb8faa2a",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/glo_sqe0f.atex",
+      "source_sha256": "5c41566fe5ac892e4db4aea234e027586cbcac3c12ed5fe00fd08898d5ed8677",
+      "file": "png/vfx/common/texture/glo_sqe0f.atex.png",
+      "sha256": "a5d64411512ad72f9c2b70fb617a1971905fdd13f9b87c39e6291c9ad48a6cf5",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/2_base0f.atex",
+      "source_sha256": "6b545b1e691965e61fc1781e0fbca5bf462547d5e777d433014555c87bafd80e",
+      "file": "png/vfx/common/texture/2_base0f.atex.png",
+      "sha256": "c28e991425e2273a51c8b721948ef0aeeaa63b3968c8ce092723b2297e70fc22",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/3_base0f.atex",
+      "source_sha256": "19efae7a81a7afb0e32680b4204529346850f94aab93e698b4d9ae0d7f98bbeb",
+      "file": "png/vfx/common/texture/3_base0f.atex.png",
+      "sha256": "8b2861bf706eb302c246f212db5dd6c10cc19dc67141d9d0e5058cbb16453b4c",
+      "width": 128,
+      "height": 256
+    },
+    {
+      "role": "waymark-vfx-texture",
+      "source_path": "vfx/common/texture/4_base0f.atex",
+      "source_sha256": "8981ecf43a1d406bdeaa08f4bda5dd535fd7f550ddc5c9dc6f922089bae25b01",
+      "file": "png/vfx/common/texture/4_base0f.atex.png",
+      "sha256": "e6009c679c501d26f50962b4f05f84846737cd974df1cc42f1c8712a2e81d14a",
+      "width": 128,
+      "height": 256
+    }
+  ],
+  "verification": {
+    "checks": 91,
+    "failures": 0,
+    "archive_sha256": "7eb2bff9f97cf5a328c7858a65e557ab45833f2f51ead99298bb95f55fde4e74",
+    "icons": 68,
+    "original_field_effects": 8,
+    "textures": 15,
+    "runtime_changed": false,
+    "rendering_complete": false
+  },
+  "overhead_target_effects": {
+    "status": "not identified or collected",
+    "candidate_probes": [
+      "DSR-named common/lockon ATEX and TEX candidate paths",
+      "common/lockon AVFX candidate paths",
+      "selected ULD texture names"
+    ],
+    "note": "NamePlate.tex candidate is not target-marker artwork and is not accepted into the selected pack. Probe absence does not prove original effects do not exist."
+  },
+  "runtime_changed": false,
+  "rendering_complete": false
+}
