@@ -41,3 +41,12 @@ coherent, reviewable increments.
 - Count passing actual assertions/courses separately from source uncertainty,
   production wiring and exported-platform QA. Godot can exit zero on script
   errors: reject `SCRIPT ERROR`, `Parse Error` and `Compile Error` in test logs.
+
+## User constraint: headless-only (2026-10-21)
+
+Continue development and verification without desktop operations. Do not use
+PyAutoGUI, Win32 input/focus/window control, desktop screenshots, headed
+browsers, or interactive Godot windows. Use Godot --headless, headless
+Playwright and programmatic tests. Headless canvas captures are permitted.
+Propagate this constraint into every delegated task. Independent subagents
+and available models may assist; keep bounded isolated jobs and parent review.
