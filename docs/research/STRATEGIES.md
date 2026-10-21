@@ -3,7 +3,8 @@
 2026-10-21，v0.3.0-preview 已發佈。這是目前狀態；較早的
 [100格研究底稿](REGIONAL_ROUTE_AUDIT.md) 以55bbc64為基礎，不是目前選單或實作狀態。
 實際可選內容以 [mechanic_strategies.json](../../top/data/mechanic_strategies.json)
-為準：**20個獨立機制、86個現有選項**。內部P5連續5組不計入選單。
+為準：**20個獨立機制、100個現有選項**。內部P5連續5組不計入選單。發佈後另將已存在且驗證的P6局部分流開放為14個明示「部分來源」選項；不是補上14套完整原版區服時間路徑。已發佈0e7版本仍為86選項。
+100為包含變體的選項數，**不等於20×5完整區服矩陣**：Solar Ray仍只有共用1項，Panto／Cannons／檢知則有額外變體。
 測試通過表示該模型中的路線可執行，不代表全區服／所有原始出現族群已驗證。
 
 ## 已實作的區別，不再沿用舊版單一路線敘述
@@ -24,10 +25,10 @@
 | Omega | 5 | 兩次克隆判定、各自World幾何與檢知選人、三層實際接線；[Omega](OMEGA_FIDELITY.md) |
 | Solar Ray | 1 | 共用雙坦換仇恨，不掛名五套完整減傷方案 |
 | Cosmo Memory | 5 | 實際坦LB／Brilliant與明示獨立前置；[P6 LB](P6_LB_FIDELITY.md) |
-| Arrow→Dive | 1 | 共用練習，未完整區服化 |
-| Exaflare→Wave | 2 | 東／南集合；地火仍為訓練生成族群 |
-| Arrow→Wave | 2 | 東／南集合，不等於所有原始重疊分支 |
-| Exaflare→Dive | 1 | 共用地火訓練族群與最近雙坦／最遠六人 |
+| Arrow→Dive | 5 | 已有的西南／LPDU東南與坦克分流；數值天箭路線仍為練習解 |
+| Exaflare→Wave | 5 | 各自時鐘、東／南集合及已知離場角；LPDU/CN未知角度明示採45°練習路線 |
+| Arrow→Wave | 5 | 各自時鐘／LPDU四象限配對、東／南集合；KR配對仍是明示推導，非完整原圖 |
+| Exaflare→Dive | 5 | 已存在的離場角與最近雙坦／最遠六人；未知區服離場角仍明示為練習值 |
 | Meteors | 5 | 各自初始配置、實際LB／HP與期限；[精度界線](P6_PRECISION.md) |
 | Magic Number | 5 | 兩輪實際坦／補LB、Doom與動作鎖；[P6](P6_FIDELITY.md) |
 

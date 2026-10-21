@@ -168,3 +168,25 @@ still disclosed in the released notes and FIDELITY.md. Publishing a preview is
 not full completion. Subsequent original-effect geometry/portability validation
 is documented in [VFX_PIPELINE](research/VFX_PIPELINE.md) and is **not** included
 in the published binaries. No Actions CI pass is claimed.
+
+
+## Post-publication P6 source-scoped menu integration —2026-10-21
+
+Added14 menu entries for already implemented P6 profile conventions across
+Arrow→Dive, Exaflare→Wave, Arrow→Wave and Exaflare→Dive. All entries explicitly
+limit claims to their supported fields; unknown offsets/temporal routes remain
+unknown. Source code for event geometry, schedules, movement and routes is
+unchanged. Existing options are preserved. New development catalog:20mechanics,
+100options including extra variants—not100 fully verified community/mechanic
+cells. The immutable released0e7 binary remains86options.
+
+Actual Main affected-route gates in Godot4.7.2, seed17391:4mechanics ×5profiles,
+20completecourses/0failures. New `tests/p6_route_options.gd`:20actual selections,
+93assertions/0failures; verifies selected profile reaches actual encounter data,
+E/S stacks and LPDU southeast/paired conventions differ, and unknown escape
+angles/completeness flags survive menu selection. This is not merely counting
+renamed aliases. All updated UI CJK characters are covered by current fonts.
+
+This does not claim a new full100-option regression, fresh native/Web export or
+full original regional temporal fidelity. Previously validated finite-pattern
+and published-platform gates retain their exact earlier source scope.
