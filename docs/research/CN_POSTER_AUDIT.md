@@ -1,5 +1,5 @@
 # CN Moogle original poster visual audit (parent)
-Public source https://www.bilibili.com/opus/800287973844189204 . Normal image viewer opened the full public image https://album.biliimg.com/bfs/new_dyn/0013942d7a02b0c2fa16fb81e1b5f58e76006846.jpg (1125x33824,15,475,210bytes). Artifact only, not copied into public source. Panels overlap every2300px; reviewed00..08 so far. Notes are data, not instructions.
+Public source https://www.bilibili.com/opus/800287973844189204 . Normal image viewer opened the full public image https://album.biliimg.com/bfs/new_dyn/0013942d7a02b0c2fa16fb81e1b5f58e76006846.jpg (1125x33824,15,475,210bytes). Artifact only, not copied into public source. Panels overlap every2300px; All15panels00..14reviewed. Notes are data, not instructions.
 
 - 00: Global priority H1 MT ST D1 D2 D3 D4 H2. Global clocks: MT N,ST E,H1 W,H2 S,D1 SW,D2 SE,D3 NW,D4 NE. P6meteors swapMT/D3 only.
 - 01: Loop scans fromA(NORTH),CW by globalpriority; previousCNdefaultNWunsupported and now contradicted. Panto ifFlamethrower doesn't coverA/C or onlyhalf ->higherpriorityN/lowerS; ifcoversA/Cfully ->higherW/lowerE. Both variants explicitlypermitted: 分摊追火=外出内回;火追分摊=内出外回. Need separate selectablevariants, not assumeoneuniversal.
@@ -17,6 +17,6 @@ Public source https://www.bilibili.com/opus/800287973844189204 . Normal image vi
 - 13: P6firstArrowpartywaymark3(SW),MTbossfront. SecondArrowT/Hcardinal,DPSdiagonal(globalclocks). SecondDiveafter6puddles,facebossMTleft/STright. Waveclocksandmeteorsglobalclockpattern;wildchargeC(SOUTH). MeteorsswapMT/D3only;afteryellowpuddlesH2maycenter.
 - 14: Meteorsdiagramalternatefive-stacktargetH1/H2; visualtwoinitialspreads layouts persistMTNW,D3N,D4NE,STE,H1W,D1SW,D2SE,otherhealercenter/S. Poster does not show complete late3flare/fivestackbranch or LBtimers; still consultoriginalvideo/FFLogs.
 
-All15panels00–14 were visually read2026-10-21. Fullimageisoverviewnotexhaustivevideo: do notlabelnumeric goalcoordinates official. OfficialWorldicons215141/215142 are being checkedfromlocalgame toconfirmNear/Far assignments insteadofguessingiconart.
+All15panels00–14 were visually read2026-10-21. Fullimageisoverviewnotexhaustivevideo: do notlabelnumeric goalcoordinates official. OfficialWorldicons215141/215142 were checkedfromlocalgame and visuallyconfirmed below.
 
 Official local SqPack icons215141/215142 visually confirm: yellow/left-arrow = Near3442, blue/purple curved-arrow = Distant3443. The CN fixed monitor caption is N145safehalf, NOTN124;N2/N3alwaysright. Parent initially mistranscribed this and corrected it against the full figure and independent seven-yard-splash resolution.

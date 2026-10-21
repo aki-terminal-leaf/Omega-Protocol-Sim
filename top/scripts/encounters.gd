@@ -8,6 +8,8 @@ const Clones = preload("res://scripts/clone_patterns.gd")
 const Routes = preload("res://scripts/strategy_routes.gd")
 const P6Courses = preload("res://scripts/p6_courses.gd")
 const P1Courses = preload("res://scripts/p1_courses.gd")
+const DeltaCourses = preload("res://scripts/p5_delta_courses.gd")
+const OmegaCourses = preload("res://scripts/p5_omega_courses.gd")
 const SigmaCourses = preload("res://scripts/p5_sigma_courses.gd")
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"]
 var rng = RandomNumberGenerator.new()
@@ -48,11 +50,11 @@ func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot 
 		"p3_hello": hello_world()
 		"p3_monitors": monitors()
 		"p4_wave": p4_wave()
-		"p5_delta": delta()
+		"p5_delta": DeltaCourses.append_delta(self)
 		"p5_sigma": SigmaCourses.append_sigma(self)
-		"p5_omega": omega()
+		"p5_omega": OmegaCourses.append_omega(self)
 		"p5_dynamis": dynamis_course()
-		"p5_full": solar_ray(); delta(); solar_ray(); SigmaCourses.append_sigma(self); solar_ray(); omega(intended_stacks()); solar_ray()
+		"p5_full": solar_ray(); DeltaCourses.append_delta(self); solar_ray(); SigmaCourses.append_sigma(self); solar_ray(); OmegaCourses.append_omega(self); solar_ray()
 		"p5_solar": solar_ray()
 		"p6_memory": memory()
 		"p6_arrow_dive": P6Courses.append_arrow(self,false)
@@ -705,11 +707,17 @@ func omega_dodges() -> void:
 		var sword := bool(profile.get("omega_sword",rng.randi_range(0,1)))
 		var legs := bool(profile.get("omega_legs",rng.randi_range(0,1)))
 		if profile.has("omega_stances"):sword=profile.omega_stances[step][0];legs=profile.omega_stances[step][1]
+		if step==1 and not profile.has("omega_stances") and sword==patterns[0].sword and legs==patterns[0].legs:
+			#09STOP explicitly excludes both clones repeating the same combination.
+			var choices:Array=[]
+			for combo in [[false,false],[false,true],[true,false],[true,true]]:
+				if combo!=[patterns[0].sword,patterns[0].legs]:choices.append(combo)
+			var next:Array=choices[rng.randi_range(0,2)];sword=next[0];legs=next[1]
 		patterns.append({"sword":sword,"legs":legs,"m_angle":orientation+45.0+(second_offset if step else 0.0)})
 	for step in 2:
 		var pattern: Dictionary=patterns[step]
 		var shapes := omega_shapes(pattern.sword,pattern.legs,orientation,step==1,diffuse_axis,second_offset)
-		var radius := 3.0 if pattern.legs else (18.0 if pattern.sword else 10.0)
+		var radius := 3.0 if pattern.legs else (float(profile.get("omega_far_radius",16.5)) if pattern.sword else 10.0)
 		var safe: Array=[]
 		for cardinal in [0,90,180,270]:
 			var point := polar(cardinal,radius)
@@ -717,11 +725,12 @@ func omega_dodges() -> void:
 		assert(safe.size()==1,"Omega source family must produce one guide cardinal")
 		for i in 8:pos(i,safe[0])
 		var b:=beat("Omega clones %d/2 · %s / %s" % [step+1,"sword" if pattern.sword else "shield","legs" if pattern.legs else "staff"],13.2 if step==0 else 4.0,"兩對克隆相對出現在半徑10的四個斜角；第二組可順／逆90°。遠點移動可使用疾跑1。")
+		if step==1 and positions[0].distance_to(beats[-2].positions[0])>24.0:b.bot_sprint=range(8)
 		b.shapes=shapes
 		b.clone_pattern={"sword":pattern.sword,"legs":pattern.legs,"orientation":orientation,"second":step==1,"m_angle":pattern.m_angle,"diffuse_axis":diffuse_axis+(90 if step else 0),"status":"fflogs_observed_intercardinal_family"}
 		b.stage_entities=[{"form":"final","pos":Vector2.ZERO,"facing":0.0}]
-		b.stage_entities.append_array(Clones.pair_entities(pattern.m_angle,pattern.sword,pattern.legs))
-		if step==0:b.stage_entities.append_array(Clones.pair_entities(patterns[1].m_angle,patterns[1].sword,patterns[1].legs,4.0))
+		b.stage_entities.append_array(Clones.pair_entities(pattern.m_angle,pattern.sword,pattern.legs,0.0,true))
+		if step==0:b.stage_entities.append_array(Clones.pair_entities(patterns[1].m_angle,patterns[1].sword,patterns[1].legs,4.0,true))
 		b.hide_main_boss=true
 
 func intended_stacks() -> Array:
@@ -764,6 +773,7 @@ func solar_ray() -> void:
 		positions[0] = Vector2(-6, -8); positions[1] = Vector2(6, -8)
 		for i in range(2, 8): positions[i] = Vector2(0, 8)
 		var b = beat("Solar Ray · hit %d/2 · %s" % [turn + 1, ROLES[turn]], 6.0, "Two hits with Magic Vulnerability: swap with V between hits (invuln/HP model not simulated).")
+		b.p5_solar=true
 		b.shapes.append(targeted(turn, 4, 1, "Solar Ray"))
 		b.checks.append({"kind": "aggro", "actor": turn, "name": "Solar Ray swap"})
 

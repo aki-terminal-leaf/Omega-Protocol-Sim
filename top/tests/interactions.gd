@@ -90,5 +90,15 @@ func _initialize() -> void:
 	for i in 8:actors.append({"pos":beat.positions[i],"role":Encounter.ROLES[i],"face":0})
 	beat.checks[0].near_path=[0,0,0];beat.checks[0].far_path=[0,0,0]
 	check(Rules.evaluate(beat,actors,initial_state()).is_empty(),"valid nearest/farthest world hits are not compared with a guide's path")
+	# Navigation must obey the SAME selected ownership policy as contacts.
+	for policy in ["unverified_exclusive","allow_multiple"]:
+		actors=party();actors[0].pos=Vector2(-5,0);actors[1].pos=Vector2(0,-5)
+		beat=config();beat.erase("program_loop");beat.positions=[]
+		for actor in actors:beat.positions.append(actor.pos)
+		beat.positions[0]=Vector2(5,-5);beat.transfers.wanted=[0,1];beat.transfers.ownership_policy=policy
+		state=initial_state();Contact.begin(beat,actors,state)
+		if policy=="unverified_exclusive":check(Contact.bot_goal(0,beat,actors,state).is_equal_approx(Vector2(5,-5)),"exclusive current holder need not detour around a ray that cannot transfer to them")
+		previous=actors.duplicate(true);actors[0].pos=Vector2(5,-5);Contact.tick(beat,actors,previous,state,2.0)
+		check(state.tether_holders==([0,1] if policy=="unverified_exclusive" else [0,0]),"physical crossing retains chosen single/double-line policy: "+policy)
 	print("INTERACTION ASSERTIONS ",assertions," FAILURES ",failures)
 	quit(1 if failures else 0)

@@ -203,8 +203,28 @@
   "p5_delta": [
     {
       "profile": "elemental",
-      "name": "同色線分組／內側換拳（示意）",
-      "description": "Elemental Kinda Awk family: paired regression lines persist across movement and break on distance. Colour-pair fist swaps retained. Exact tether thresholds and vulnerability durations are unverified."
+      "name": "Elemental · Kinda Awk 內側換拳",
+      "description": "短藍接Defense、長藍誘導甲蟲側手臂；內綠接Near、外綠接Far，最後一條綠等World易傷消失。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · Saus 依Near/Far分內外",
+      "description": "真正Near所在藍線組安排內側、Far組外側；內側換拳，六手臂先鎖角再內收。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 先斷藍Defense／檢知疾跑",
+      "description": "先斷的藍線組接Defense；藍色手臂誘導者若有檢知需疾跑1，不能用加速Bot替代。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 外側換拳／綠側Defense",
+      "description": "外側換拳、內綠誘導Defense；World按原圖危險／安全側分工；綠Defense受擊者的檢知替補仍屬合法訓練分工，未找到完整原攻略說明。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 外側換拳／中央Far",
+      "description": "先斷外藍Defense，外綠待機、內綠接Far；Near在甲蟲側斜角，Far靠中央安全分界。"
     }
   ],
   "p5_sigma": [
@@ -237,8 +257,28 @@
   "p5_omega": [
     {
       "profile": "elemental",
-      "name": "二層檢知優先／近遠世界（示意）",
-      "description": "Actual clone attack shapes, two-stack monitor priority, transferable radius-15 beetle Blaster, then World. Spawn topology is an explicit training family, not all observed clone spawns."
+      "name": "Elemental · 克隆雙連／層數優先",
+      "description": "依男女姿態與燈找唯一正方向安全點；二層且II優先接檢知，第二輪讀實際三層者接線。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · Saus 檢知／甲蟲為北",
+      "description": "完整Saus雙連讀圖；World接收手標1/4遠、2/3近，實際層數決定功能分工。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · II二層優先檢知",
+      "description": "二層II優先，再補未點名二層；第二輪甲蟲為北，遠世界可東／西自選。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 檢知優先序／西側遠世界",
+      "description": "II二層優先檢知；Boss檢知為北時近世界南、遠世界西，第二輪同理改甲蟲為北。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 綁檢知／三層接線",
+      "description": "綁標優先二層II、再二層無World；第一輪Far可真南北、第二輪可相對東西；Near在來源反側。"
     }
   ],
   "p5_solar": [
@@ -310,8 +350,28 @@
   "p5_full": [
     {
       "profile": "elemental",
-      "name": "P5 continuous stateful training course",
-      "description": "Delta ? Sigma ? Omega with persistent statuses, paired lines, transferable Blaster and actual Dynamis. Shared training geometry and uncalibrated timing; not a full live-server reproduction."
+      "name": "elemental · continuous P5 validation",
+      "description": "Internal stateful Delta→Sigma→Omega fixture; not an additional product mechanism."
+    },
+    {
+      "profile": "aether",
+      "name": "aether · continuous P5 validation",
+      "description": "Internal stateful Delta→Sigma→Omega fixture; not an additional product mechanism."
+    },
+    {
+      "profile": "lpdu",
+      "name": "lpdu · continuous P5 validation",
+      "description": "Internal stateful Delta→Sigma→Omega fixture; not an additional product mechanism."
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "cn_moogle · continuous P5 validation",
+      "description": "Internal stateful Delta→Sigma→Omega fixture; not an additional product mechanism."
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "kr_09stop · continuous P5 validation",
+      "description": "Internal stateful Delta→Sigma→Omega fixture; not an additional product mechanism."
     }
   ]
 }

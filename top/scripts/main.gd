@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT
 extends Control
+const Movement = preload("res://scripts/movement.gd")
 const Encounter = preload("res://scripts/encounters.gd")
 const Rules = preload("res://scripts/rules.gd")
 const Arena = preload("res://scripts/arena.gd")
@@ -256,13 +257,16 @@ func oracle_state_before(target: int) -> Dictionary:
 				for i in 8: simulated[i].pos = b.spawn[i]
 		bind_snapshot_geometry(b,simulated,result)
 		Interactions.begin(b, simulated, result)
+		Movement.begin(b,result)
 		var clock := 0.0
 		while clock < float(b.duration):
 			var dt := minf(0.05, float(b.duration) - clock)
 			var previous := simulated.duplicate(true)
 			for i in 8:
-				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * (6.0 if b.has("p6_route") or b.has("sigma_config") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(result,i) else simulated[i].pos
+				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * Movement.speed(b,result,i)) if not load("res://scripts/p6_runtime.gd").is_locked(result,i) else simulated[i].pos
 				simulated[i].face = b.facing.get(i, 0.0)
+			result.motion_allowances=[]
+			for i in 8:result.motion_allowances.append(Movement.speed(b,result,i)*dt)
 			Interactions.tick(b, simulated, previous, result, dt)
 			clock += dt
 		for check in b.checks:
@@ -312,6 +316,7 @@ func begin_beat(reset_positions := false) -> void:
 			actors.append({"role": Encounter.ROLES[i], "pos": p, "face": 0.0})
 	bind_snapshot_geometry(current,actors,state)
 	Interactions.begin(current, actors, state)
+	Movement.begin(current,state,player if not demo else -1)
 	if current.has("program_loop"): Rules.ensure_loop_state(current, state)
 	before_state = state.duplicate(true)
 	start_actors = actors.duplicate(true)
@@ -372,11 +377,11 @@ func _process(delta: float) -> void:
 			var previous = actors.duplicate(true)
 			for i in 8:
 				if i == player and not demo: continue
-				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * (6.0 if current.has("p6_route") or current.has("sigma_config") or current.has("p1_route") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(state,i) else actors[i].pos
+				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * Movement.speed(current,state,i)) if not load("res://scripts/p6_runtime.gd").is_locked(state,i) else actors[i].pos
 				actors[i].face = current.facing.get(i, 0.0)
 			state.motion_allowances=[]
-			for i in 8:state.motion_allowances.append(6.0*dt)
-			state.motion_allowances[player]=(7.5 if sprint_left>0 else 6.0)*dt+30.0*minf(dash_left,dt)
+			for i in 8:state.motion_allowances.append(Movement.speed(current,state,i)*dt)
+			if not demo:state.motion_allowances[player]=(7.5 if sprint_left>0 else 6.0)*dt+30.0*minf(dash_left,dt)
 			move_player(dt)
 			Interactions.tick(current, actors, previous, state, dt)
 			if Rules.v(actors[player].pos).length() >= 20 and not wall_recorded:
@@ -389,9 +394,9 @@ func _process(delta: float) -> void:
 			sample_elapsed += dt
 			if sample_elapsed >= 0.2:
 				sample_elapsed = 0
-				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
+				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "actors": actors.duplicate(true), "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
 			if elapsed >= float(current.duration): resolve_beat()
-	arena.update_state(actors, current, player, hints.button_pressed or (paused and pending_advance), elapsed)
+	arena.update_state(actors, current, player, hints.button_pressed or (paused and pending_advance), elapsed, state)
 	update_hud()
 func move_player(dt: float) -> void:
 	if demo: return
@@ -459,7 +464,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func jump_player() -> void:
 	if running and not paused and actors.size() == 8 and float(actors[player].get("height",0.0)) == 0: actors[player].vertical = 13.0
 func use_sprint() -> void:
-	if running and not paused: sprint_left = 10.0
+	if running and not paused and float(state.get("player_sprint_ready",0))<=float(state.sim_time):
+		sprint_left=10.0;state.player_sprint_ready=float(state.sim_time)+60.0
 func use_arms() -> void:
 	if running and not paused: knockback_resist_left = 6.0
 func use_dash() -> void:
@@ -485,7 +491,7 @@ func resolve_beat() -> void:
 	state.failure_cursor = state.get("runtime_failures",[]).size()
 	state.last_snapshot_actors = actors.duplicate(true)
 	if wall_recorded and not ("Death wall (earlier during movement)" in errors): errors.append("Death wall (earlier during movement)")
-	journal.append({"beat": index, "title": current.title, "seed": encounter.seed, "failures": errors, "dynamis": state.dynamis.duplicate(), "mode": "demo" if demo else "practice", "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "actors": actors.duplicate(true), "actual_tether_holders": state.get("tether_holders", []).duplicate(), "loop_cleansed": state.get("loop_cleansed", []).duplicate(), "loop_ruin_expires": state.get("loop_ruin_expires", []).duplicate()})
+	journal.append({"beat": index, "title": current.title, "seed": encounter.seed, "failures": errors, "dynamis": state.dynamis.duplicate(), "mode": "demo" if demo else "practice", "statuses": state.get("statuses", []).duplicate(true), "timeline_cursor": state.get("timeline", []).size(), "actors": actors.duplicate(true), "actual_tether_holders": state.get("tether_holders", []).duplicate(), "loop_cleansed": state.get("loop_cleansed", []).duplicate(), "loop_ruin_expires": state.get("loop_ruin_expires", []).duplicate()})
 	if errors.is_empty(): beat_passed += 1; log_feedback("✓ " + current.title, true)
 	else:
 		beat_failed += 1; all_errors.append_array(errors)
@@ -518,25 +524,41 @@ func update_hud() -> void:
 		for k in state.tether_holders.size(): text_value += "線 %d → %s\n" % [k + 1, Encounter.ROLES[int(state.tether_holders[k])]]
 		text_value += "接線事件 %d 次\n" % state.get("tether_events", []).size()
 	if state.has("loop_cleansed"):
-		text_value += "\nYOU · %s" % ("Looper 已消除" if state.loop_cleansed[player] else "Looper %d" % int(current.program_loop.numbers[player]))
+		text_value += "\nYOU · %s" % ("Looper 已消除" if state.loop_cleansed[player] else "Looper %d" % int(state.loop_numbers[player]))
 		if float(state.loop_ruin_expires[player]) > float(state.sim_time): text_value += " · Ruin 1"
 		if float(state.loop_hp_penalty[player]) > float(state.sim_time): text_value += " · HP Penalty"
 	if state.has("statuses"):
-		var names := {"red":"紅色腐毒", "blue":"藍色腐毒", "overflow":"Critical Overflow", "sync":"Critical Synchronization", "latent_red":"紅塔潛在錯誤", "latent_blue":"藍塔潛在錯誤", "latent_sync":"Latent Synchronization", "latent_overflow":"Latent Overflow", "red_debugger":"紅色除錯", "blue_debugger":"藍色除錯", "overflow_debugger":"Overflow Debugger", "sync_debugger":"Synchronization Debugger", "magic_vulnerability":"魔法易傷", "thrice_come_ruin":"Thrice-come Ruin", "hp_penalty":"HP Penalty"}
+		var names := {"red":"紅色腐毒", "blue":"藍色腐毒", "overflow":"Critical Overflow", "sync":"Critical Synchronization", "latent_red":"紅塔潛在錯誤", "latent_blue":"藍塔潛在錯誤", "latent_sync":"Latent Synchronization", "latent_overflow":"Latent Overflow", "red_debugger":"紅色除錯", "blue_debugger":"藍色除錯", "overflow_debugger":"Overflow Debugger", "sync_debugger":"Synchronization Debugger", "magic_vulnerability":"魔法易傷", "thrice_come_ruin":"Thrice-come Ruin", "hp_penalty":"HP Penalty", "local_code_smell":"Local Code Smell", "remote_code_smell":"Remote Code Smell", "omega_near_world":"近處世界", "omega_distant_world":"遠處世界", "omega_ruin":"Twice-come Ruin", "delta_near_world":"近處世界", "delta_distant_world":"遠處世界", "delta_local":"Local Regression", "delta_remote":"Remote Regression", "delta_local_smell":"Local Code Smell", "delta_remote_smell":"Remote Code Smell", "delta_monitor":"Oversampled Wave Cannon", "delta_twice_ruin":"Twice-come Ruin", "limitless_ruin":"Twice-come Ruin"}
 		var effects: PackedStringArray = []
 		for key in state.statuses[player]:
 			var effect: Dictionary = state.statuses[player][key]
 			var remaining := float(effect.expires) - float(state.get("sim_time",0.0))
-			var title: String = names.get(key,str(key).trim_prefix("smell_").capitalize()+" Code Smell")
+			var title: String = names.get(key,str(key).trim_prefix("smell_").capitalize()+" Code Smell" if str(key).begins_with("smell_") else str(key).replace("_"," ").capitalize())
 			if effect.has("stacks"): title += " ×%d" % int(effect.stacks)
 			if remaining < 1.0e20: title += " %.1fs" % maxf(remaining,0.0)
 			effects.append(title)
 		text_value += "\n當前效果：" + ("／".join(effects) if not effects.is_empty() else "無")
 	party.text = text_value
 func report() -> Dictionary:
-	return {"format": "top-practice-report/2", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+func report_runtime_state() -> Dictionary:
+	var result:Dictionary=state.duplicate(true)
+	result.erase("timeline") #the authoritative top-level timeline is already exported
+	return result
+func json_safe(value):
+	if value is Vector2:return [value.x,value.y]
+	if value is Vector3:return [value.x,value.y,value.z]
+	if value is Array:
+		var result:Array=[]
+		for item in value:result.append(json_safe(item))
+		return result
+	if value is Dictionary:
+		var result:Dictionary={}
+		for key in value:result[str(key)]=json_safe(value[key])
+		return result
+	return value
 func write_report() -> void:
-	report_text = JSON.stringify(report(), "  ")
+	report_text = JSON.stringify(json_safe(report()), "  ")
 	var file = FileAccess.open("user://last_run.json", FileAccess.WRITE)
 	if file: file.store_string(report_text)
 func export_report() -> void:

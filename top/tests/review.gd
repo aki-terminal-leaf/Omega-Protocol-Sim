@@ -56,25 +56,18 @@ func _initialize() -> void:
 	check(follow.positions[4]==Vector2(-12,-10) and follow.positions[0]!=Vector2(-12,-10),"follow-up guide follows actual victim")
 	var limitless: Dictionary=E.new().build("p2_limitless",17,profiles[0]).beats[0]
 	check(limitless.shapes[0].width==90.0,"Bladedance cone is ninety degrees")
-	var delta: Dictionary=E.new().build("p5_delta",17,profiles[0])
-	var pulses: Array=delta.beats.filter(func(b):return b.title.begins_with("Delta · Hyper Pulse"))
-	check(pulses.size()==6,"six actual Hyper Pulse snapshots")
-	check(pulses[0].shapes[0].width==8.0 and is_equal_approx(pulses[0].shapes[0].pos.length(),20.0),"arm radius twenty / laser width eight")
-	check(is_equal_approx(pulses[0].duration,2.5) and is_equal_approx(pulses[1].duration,0.6),"first cast and subsequent cadence")
-	var app=load("res://scripts/main.gd").new()
-	var bait: Dictionary=delta.beats[delta.beats.find(pulses[0])-1]
-	actors=party(bait);runtime=state()
-	var first: Dictionary=pulses[0].duplicate(true);app.bind_snapshot_geometry(first,actors,runtime)
-	var locked: float=first.shapes[0].angle
-	actors[first.rotation_sources[0].target].pos=Vector2.ZERO
-	var second: Dictionary=pulses[1].duplicate(true);app.bind_snapshot_geometry(second,actors,runtime)
-	check(is_equal_approx(wrapf(second.shapes[0].angle-locked,-180,180),second.rotation_sources[0].turn),"later arm pulses retain real first bait, not re-aim at new position")
-	for pulse in pulses:
-		check(R.evaluate(pulse,party(pulse),state()).is_empty(),"published width/rotation has a legal inward dodge")
-	app.free()
+	var delta:Dictionary=E.new().build("p5_delta",17,profiles[0])
+	var pulses:Array=delta.beats[0].delta_events.filter(func(e):return e.kind=="arms_fire")
+	check(pulses.size()==6,"six actual HyperPulse event snapshots")
+	check(is_equal_approx(float(pulses[0].at),27.988) and is_equal_approx(float(pulses[1].at)-float(pulses[0].at),0.625),"real cast-start25.527 / firstfire27.988 and observed repeat spacing")
+	check(delta.beats[0].delta_config.parameters.world_vulnerability==5.0,"Delta shares real World vulnerability rather than a guide-only shortcut")
 	var sigma: Dictionary=E.new().build("p5_sigma",17,profiles[0])
-	var shots: Array=sigma.beats.filter(func(b):return b.title.contains("rotating Rear Power Unit"))
-	check(shots.size()==14 and shots[0].shapes[0].width==12.0 and is_equal_approx(shots[1].duration,0.6),"fourteen width-twelve shots at 0.6 seconds")
+	var shots:Array=[];var shot_times:Array=[];var sigma_time:=0.0
+	for b in sigma.beats:
+		sigma_time+=float(b.duration)
+		for shape in b.shapes:
+			if shape.get("name","")=="Rear Power Unit":shots.append(shape);shot_times.append(sigma_time)
+	check(shots.size()==14 and shots.all(func(shape):return shape.width==12.0) and is_equal_approx(float(shot_times[1])-float(shot_times[0]),0.625) and is_equal_approx(float(shot_times[2])-float(shot_times[1]),0.58),"fourteen width12 shots with measured first0.625 then0.58 spacing")
 	var streams: Array=preload("res://scripts/p6_patterns.gd").exaflares(0,1).filter(func(e):return e.kind=="hazard" and e.line==0)
 	check(streams.size()==7 and is_equal_approx(R.v(streams[0].shape.pos).distance_to(R.v(streams[1].shape.pos)),8.0) and is_equal_approx(float(streams[1].at)-float(streams[0].at),1.11) and is_equal_approx(float(streams[2].at)-float(streams[1].at),1.0),"FFLogs exaflare first advance1.11 then1.0, seven radius-eight explosions")
 	var catalog: Array=JSON.parse_string(FileAccess.get_file_as_string("res://data/catalog.json"))

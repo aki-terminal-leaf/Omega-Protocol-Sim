@@ -216,12 +216,14 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 		tick_loop_state(state)
 		for actor in state.get("loop_memory_loss",[]): failures.append("%s: Looper expired → Memory Loss" % actors[int(actor)].role)
 	if beat.has("sigma_config"):failures.append_array(load("res://scripts/p5_sigma_runtime.gd").snapshot(beat,actors,state))
+	if beat.has("omega_config"):failures.append_array(load("res://scripts/p5_omega_runtime.gd").snapshot(beat,actors,state))
 	return failures
 
 static func ensure_loop_state(beat: Dictionary, state: Dictionary) -> void:
 	if state.has("loop_cleansed"): return
 	state.loop_cleansed = []; state.loop_ruin_expires = []; state.loop_hp_penalty = []
 	state.loop_started=float(state.get("sim_time",0)); state.loop_deadlines=[]; state.loop_memory_loss=[]
+	state.loop_numbers=beat.program_loop.numbers.duplicate()
 	state.loop_hp_starts=[]; state.loop_hp_pending=[]; state.loop_max_hp=[]
 	for _i in 8:
 		state.loop_cleansed.append(false); state.loop_ruin_expires.append(0.0); state.loop_hp_penalty.append(0.0)

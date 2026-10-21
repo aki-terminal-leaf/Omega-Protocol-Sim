@@ -1,0 +1,295 @@
+{
+  "schema": 1,
+  "coordinate_policy": "Original legal training realizations in yards, never official guide coordinates. Canonical eye N, beetle W, Final E; rotate entire formation with eye.",
+  "routes": {
+    "elemental": {
+      "id": "elemental",
+      "name": "Elemental Kinda Awk",
+      "adjust": "inner",
+      "defense_pair": "inner",
+      "first_green": "inner",
+      "world_layout": "cardinal_far",
+      "blue_selection": "free initial pair selection; separate Near and Far pairs",
+      "source": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+      "facts": [
+        "Blues beetle; greens Final",
+        "Inner fists adjust",
+        "Outer blue breaks first and baits beetle arms",
+        "Inner blue baits Defense",
+        "Inner green N/S arms; outer green Final arms",
+        "Near middle safe cardinal; Far wall cardinal",
+        "Beetle green breaks first; opposite green after World vulnerability"
+      ],
+      "complete_route_verified": false,
+      "unknown": [
+        "Initial pair tie-break unspecified",
+        "Numeric guide coordinates are not server coordinates"
+      ],
+      "runtime_validation": {
+        "godot": "4.4.1",
+        "base_live_course": "pass",
+        "monitor_eye_safe_defense_hand_families": 256,
+        "balanced_fist_families": 36,
+        "independent_arm_direction_families": 64,
+        "forced_actor_slot_mixed_families": 64,
+        "failures": 0,
+        "walk_speed": 6.0,
+        "checkpoint": "JSON state between beats; complete actor position/facing restore also checked by base suite",
+        "source_authentication_complete": false
+      }
+    },
+    "aether": {
+      "id": "aether",
+      "name": "Aether Saus",
+      "adjust": "inner",
+      "defense_pair": "inner",
+      "first_green": "inner",
+      "world_layout": "cardinal_far",
+      "blue_selection": "Near pair inner; Distant pair outer",
+      "source": "https://www.thepfstrat.com/u/top",
+      "diagram": "https://ff14.toolboxgaming.space/?id=732288275415761&preview=1",
+      "facts": [
+        "Saus steps 3-4: long blue outer, short blue inner",
+        "Step 11: six bait arms, two short blue middle",
+        "Step 17: monitor Defense victim can escape toward either boss with correct facing",
+        "Steps 21-24: Near middle, Far cardinal wall, idle blue opposite-beetle intercardinal"
+      ],
+      "complete_route_verified": false,
+      "unknown": [
+        "Green first-come tie is player chosen",
+        "Source numeric canvas is schematic"
+      ],
+      "runtime_validation": {
+        "godot": "4.4.1",
+        "base_live_course": "pass",
+        "monitor_eye_safe_defense_hand_families": 256,
+        "balanced_fist_families": 36,
+        "independent_arm_direction_families": 64,
+        "forced_actor_slot_mixed_families": 64,
+        "failures": 0,
+        "walk_speed": 6.0,
+        "checkpoint": "JSON state between beats; complete actor position/facing restore also checked by base suite",
+        "source_authentication_complete": false
+      }
+    },
+    "lpdu": {
+      "id": "lpdu",
+      "name": "LPDU linked full P5",
+      "adjust": "inner",
+      "defense_pair": "outer",
+      "first_green": "inner",
+      "world_layout": "cardinal_far",
+      "blue_selection": "First-break pair to Defense; source inner/outer wording is inconsistent across steps 5/7/9",
+      "source": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+      "facts": [
+        "Step 9 explicitly sends first-break blue to Defense and other blue to beetle arms",
+        "Inner green N/S arms; outer green Final arms",
+        "Step 10 explicitly authorizes Sprint for a blue arm baiter with monitor",
+        "Step 13 monitor Defense victim toward Final",
+        "Steps 15-18 cardinal Far and center Near; same green near/far topology as Saus"
+      ],
+      "complete_route_verified": false,
+      "unknown": [
+        "Initial first-break selection conflicts with static inner/outer labels in source",
+        "Conditional Sprint must be honored by parent movement"
+      ],
+      "runtime_validation": {
+        "godot": "4.4.1",
+        "base_live_course": "pass",
+        "monitor_eye_safe_defense_hand_families": 256,
+        "balanced_fist_families": 36,
+        "independent_arm_direction_families": 64,
+        "forced_actor_slot_mixed_families": 64,
+        "failures": 0,
+        "walk_speed": 6.0,
+        "checkpoint": "JSON state between beats; complete actor position/facing restore also checked by base suite",
+        "source_authentication_complete": false
+      }
+    },
+    "cn_moogle": {
+      "id": "cn_moogle",
+      "name": "CN Moogle original poster",
+      "adjust": "outer",
+      "defense_pair": "inner_green",
+      "first_green": "inner",
+      "world_layout": "cn_poster",
+      "blue_selection": "Not fully specified by audited poster",
+      "source": "https://www.bilibili.com/opus/800287973844189204",
+      "facts": [
+        "Canonical beetle W, eye N, Final E",
+        "Outer fists adjust",
+        "Poster panel 7: inner green baits shield toward center",
+        "Unbroken long green: dangerous side goes beetle, safe side opposite",
+        "Broken green: dangerous side crosses to edge, safe stays",
+        "Idle two opposite-beetle number marker edge",
+        "Original poster directly inspected: Near yellow at center-safe cardinal, Far blue at cardinal wall; broken-green safe partner stays near and dangerous partner crosses to edge."
+      ],
+      "complete_route_verified": false,
+      "unknown": [
+        "Initial blue selection unresolved",
+        "Green Defense victim needs a different monitor receiver: conditional same-side blue replacement is an original legal training realization, not an explicit poster instruction",
+        "Numeric coordinates are legal constructions; source floor scale not official"
+      ],
+      "runtime_validation": {
+        "godot": "4.4.1",
+        "base_live_course": "pass",
+        "monitor_eye_safe_defense_hand_families": 256,
+        "balanced_fist_families": 36,
+        "independent_arm_direction_families": 64,
+        "forced_actor_slot_mixed_families": 64,
+        "failures": 0,
+        "walk_speed": 6.0,
+        "checkpoint": "JSON state between beats; complete actor position/facing restore also checked by base suite",
+        "source_authentication_complete": false
+      }
+    },
+    "kr_09stop": {
+      "id": "kr_09stop",
+      "name": "KR 09STOP workbook",
+      "adjust": "outer",
+      "defense_pair": "outer",
+      "first_green": "outer",
+      "world_layout": "kr_338",
+      "blue_selection": "Blue2 outer breaks first; Blue1 baits beetle arms",
+      "source": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=895996912",
+      "facts": [
+        "Outer fists adjust",
+        "Blue2 Defense; Blue1 beetle arms",
+        "Green1 outer Final arms; Green2 inner side arms",
+        "Far near center safe cleave boundary",
+        "Near beetle intercardinal one floor unit inward",
+        "Reflect figure 338 for both safe sides",
+        "Figure 338 directly inspected: two unmarked blues on outer safe cardinal receive Near; original outer green pair is idle opposite beetle; inner green long pair receives Far."
+      ],
+      "complete_route_verified": false,
+      "unknown": [
+        "Exact floor-unit scale is not official; original numeric realization preserves source topology"
+      ],
+      "runtime_validation": {
+        "godot": "4.4.1",
+        "base_live_course": "pass",
+        "monitor_eye_safe_defense_hand_families": 256,
+        "balanced_fist_families": 36,
+        "independent_arm_direction_families": 64,
+        "forced_actor_slot_mixed_families": 64,
+        "failures": 0,
+        "walk_speed": 6.0,
+        "checkpoint": "JSON state between beats; complete actor position/facing restore also checked by base suite",
+        "source_authentication_complete": false
+      }
+    }
+  },
+  "timing_evidence": {
+    "zero": "First Delta Hello Near World status 3442 application",
+    "captures": [
+      "LKMGRJTzgY9HFynk/2",
+      "3GW2hjTNk91FZwcK/9",
+      "1bX86aKrVRwLWfTC/19",
+      "Vyq4AcJKZjkFQBpG/32"
+    ],
+    "ranges_seconds": {
+      "fist_begin": [
+        20.101,
+        20.174
+      ],
+      "fist_resolve": [
+        23.097,
+        23.151
+      ],
+      "arm_lock": [
+        25.507,
+        25.553
+      ],
+      "arm_first": [
+        27.988,
+        28.039
+      ],
+      "arm_last": [
+        30.922,
+        30.967
+      ],
+      "defense_hit": [
+        25.617,
+        25.685
+      ],
+      "monitor_hit": [
+        30.445,
+        30.48
+      ],
+      "pile_pitch": [
+        30.834,
+        30.98
+      ],
+      "swivel_begin": [
+        33.369,
+        33.41
+      ],
+      "swivel_hit": [
+        43.335,
+        43.395
+      ],
+      "world_initial": [
+        44.05,
+        44.08
+      ],
+      "world_jump1": [
+        45.075,
+        45.107
+      ],
+      "world_jump2": [
+        46.055,
+        46.101
+      ],
+      "live_tethers": [
+        17.958,
+        17.994
+      ]
+    },
+    "timers_seconds": {
+      "near_far_initial": 44,
+      "code_smell": 18,
+      "local_1672": 36,
+      "remote_1673": 12,
+      "patch_thrice_2530": 0.96,
+      "patch_magic_3516": 0.96,
+      "monitor_magic_2941": [
+        4.95,
+        4.96
+      ],
+      "defense_monitor_pile_twice_2534": [
+        6.95,
+        6.96
+      ]
+    },
+    "source_manifest_sha256": {
+      "LKMGRJTzgY9HFynk/2": {
+        "replay-180882-420881.json.gz": "2d693866ddaa5781554d350b1e5f97a57d6f2f69457a7349e0f754e04e0ce1d5",
+        "replay-420882-660881.json.gz": "53bd801fd11c9927f486c4c17a46a83f075c3d155844e2e17acb44d46bf2fc5c",
+        "replay-660882-900881.json.gz": "63ed5b803a64f7bd34ebaa96fc66c56b9a4665e7d667ffbb1d285971b9a5dcd9",
+        "replay-900882-1140881.json.gz": "ee2c16af467ab9cdd916a2b58dab14c75867298d466354e71dab51f1e9c51ec6",
+        "replay-1140882-1290286.json.gz": "8e14636b0e979af081e26b5df1d5ce26e8f0248bb51d61afa32990446a0bcc97"
+      },
+      "3GW2hjTNk91FZwcK/9": {
+        "replay-5268255-5508254.json.gz": "fa709dd0b62d02d52c7539d112bd68ea3e7825a42a4621360c8a8b51f6d18f89",
+        "replay-5508255-5748254.json.gz": "d2f7d4f91e501dda0f1c06a59bfeff168fe60ee2d080055d1e0070374f94e5c9",
+        "replay-5748255-5988254.json.gz": "c3675ddccc97c34b7eee5983041f17e1d9618e450182d0c1365b144d32ba65fa",
+        "replay-5988255-6228254.json.gz": "5c8f3c0eed49a6976dc7cb4685bd4601a548ee365ba93d3553c0c45743de6263",
+        "replay-6228255-6381991.json.gz": "e8d26dbf07b0d65a315c3f7bf4f6626202fbbdd2b350fd53e40ccb9ea4f7651c"
+      },
+      "1bX86aKrVRwLWfTC/19": {
+        "replay-13951737-14191736.json.gz": "4f6017e500ba8953bea0e3b27110e34f91de755cef4b46ada9a907132ef3316d",
+        "replay-14191737-14431736.json.gz": "187250b4b82b13fdcf13b604c76765e9d9be16cd12bc7f292791c03350e40553",
+        "replay-14431737-14671736.json.gz": "21e7c1fa158ae29ff1c22b77dea3e0d517ea32e155dc4694e200a269a282bb37",
+        "replay-14671737-14911736.json.gz": "cc98a3c3e336d2e932bbd10021db8de7b4baad83b7b7750c88c183e8c1c0e4a1",
+        "replay-14911737-15079746.json.gz": "52b7a012ecd84c930ac1de38733e54b2ebef3340080e46479d140b1723a915ad"
+      },
+      "Vyq4AcJKZjkFQBpG/32": {
+        "replay-25886995-26126994.json.gz": "4b39d40165b8cd779080d8cd20c15dd4353088280f737759e917b54dce8fb598",
+        "replay-26126995-26366994.json.gz": "c163bbe6ec6da21a30fc23424c53a12c642ae65b18755d0d3d000d3eed169228",
+        "replay-26366995-26606994.json.gz": "32336ec43ef895cb791c124f4f066020aa1f4cc0a4d7f1e98442e00c7b9a44b1",
+        "replay-26606995-26846994.json.gz": "f35d5c6c4428575f580412ead82fc0ce5a9886a3df5a29d3ec0d2b2bb115de10",
+        "replay-26846995-26989995.json.gz": "d51c03153863d60f261cb1bd17641d5c2e65f661708dc6bc6e6ca6c08167bef2"
+      }
+    }
+  }
+}

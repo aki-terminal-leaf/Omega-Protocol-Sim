@@ -114,6 +114,11 @@ static func desired_holders(beat: Dictionary) -> Array:
 	return beat.get("transfers", {}).get("wanted", [])
 
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
+	# Only AI steering is bounded. Human positions and all wall judgments stay
+	# untouched; sidesteps around edge-origin tethers must not steer bots out.
+	return raw_bot_goal(actor,beat,actors,state).limit_length(19.8)
+
+static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
 	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	var final: Vector2 = beat.positions[actor]
 	# Bots wait out the same raidwide vulnerability that judges player breaks.
@@ -126,6 +131,7 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 		return beat.transfers.get("preposition",beat.positions)[actor]
 	var holders: Array = state.tether_holders
 	var wanted: Array = beat.transfers.wanted
+	var obey_other_lines:bool=actor not in holders or str(beat.transfers.get("ownership_policy",Statuses.parameter("double_line_policy")))!="unverified_exclusive"
 	var pos: Vector2 = actors[actor].pos
 	if actor in wanted and actor not in holders:
 		var reserved: Array = []
@@ -177,6 +183,7 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 					var contact_offset:float=radius*0.75
 					if beat.has("program_loop") and source.distance_to(endpoint)>4.0:contact_offset=radius+1.0
 					var pickup: Vector2=source.lerp(endpoint,t)+normal*side*contact_offset
+					if pickup.length()>19.8:continue
 					if reserved.any(func(line):return pickup.distance_to(Geometry2D.get_closest_point_to_segment(pickup,line[0],line[1]))<NAV_CLEARANCE):continue
 					var score:=pos.distance_squared_to(pickup)
 					if score<best:best=score;target=pickup
@@ -185,17 +192,24 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 	var ready := true
 	for h in wanted:
 		if h not in holders: ready = false
+	if not ready and actor in wanted and actor in holders and str(beat.transfers.group).ends_with("_blaster"):
+		# Keep an already acquired ray short while the other3-stack player
+		# approaches. Growing it across the room can fence that collector out.
+		var source:Vector2=beat.transfers.sources[holders.find(actor)]
+		# Align the short acquired ray to its outgoing side. Two nearly
+		# coincident3y rays leave no safe corridor for the remaining collector.
+		return source+(final-source).normalized()*3.0
 	# Leave room for collectors to grab and separate before the rest crosses the room.
 	if actor not in wanted:
-		if beat.has("program_loop") and not ready and actor in holders:
+		if (beat.has("program_loop") or str(beat.transfers.group).ends_with("_blaster")) and not ready and actor in holders:
 			# Retiring carriers walk IN along their own ray for a short handoff.
 			# Waiting at the old17y endpoint forces collectors and tower players
 			# to circle the arena; shortening a ray cannot sweep it across anyone.
 			var source:Vector2=beat.transfers.sources[holders.find(actor)]
-			var toward:Vector2=source+(pos-source).normalized()*3.0
+			var toward:Vector2=source+(pos-source).limit_length(3.0)
 			var other_lines:Array=[]
 			for k in holders.size():
-				if int(holders[k])!=actor:other_lines.append([beat.transfers.sources[k],actors[int(holders[k])].pos])
+				if obey_other_lines and int(holders[k])!=actor:other_lines.append([beat.transfers.sources[k],actors[int(holders[k])].pos])
 			return toward if clear_path(pos,toward,other_lines) else navigate_goal(actor,pos,toward,other_lines,state)
 		if not ready:
 			for k in holders.size():
@@ -241,7 +255,7 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 	# Navigate around lines not owned by this bot. Contact has the same effect for bots and YOU.
 	var obstacles: Array = []
 	for k in holders.size():
-		if int(holders[k]) == actor: continue
+		if int(holders[k]) == actor or not obey_other_lines: continue
 		obstacles.append([beat.transfers.sources[k], actors[int(holders[k])].pos])
 	# A carrier must not sweep its live line through stationary players while moving out.
 	if actor in holders:

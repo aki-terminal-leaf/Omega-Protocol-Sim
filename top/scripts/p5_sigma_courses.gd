@@ -114,7 +114,7 @@ static func append_sigma(ctx) -> void:
 			var shot:=shot_index(time)
 			if shot>=0:b.shapes.append({"kind":"line","pos":Vector2.ZERO,"angle":f_angle+sign_value*shot*9.0,"start":-25.0,"length":25.0,"width":12.0,"name":"Rear Power Unit"})
 		if absf(time-56.1)<0.001:add_world(b,c,0)
-		b.stage_entities=[{"form":"female","pos":R.direction(f_angle)*10,"facing":f_angle+180,"stance":"LEGS" if legs else "STAFF"},{"form":"final","pos":Vector2.ZERO,"facing":0}];b.hide_main_boss=true
+		b.stage_entities=[{"form":"female_p5","pos":R.direction(f_angle)*10,"facing":f_angle+180,"stance":"LEGS" if legs else "STAFF"},{"form":"final","pos":Vector2.ZERO,"facing":0}];b.hide_main_boss=true
 		last=time
 	b=ctx.beat("Sigma · actual arm targets after World",0.1,"World首擊後手臂才開炮；撞到World易傷會出事。")
 	b.sigma_config=c;b.sigma_path_index=route.roles[0].size()-1;b.sigma_magic_hits=true
@@ -126,7 +126,7 @@ static func append_sigma(ctx) -> void:
 	for i in range(start,ctx.beats.size()):
 		var item:Dictionary=ctx.beats[i]
 		if not item.has("stage_entities"):
-			item.stage_entities=[{"form":"male","pos":R.direction(m_angle)*20,"facing":m_angle+180}];item.hide_main_boss=true
+			item.stage_entities=[{"form":"male_p5","pos":R.direction(m_angle)*20,"facing":m_angle+180}];item.hide_main_boss=true
 static func shot_index(time: float) -> int:
 	for j in 14:
 		if absf(time-(46.2+(0.0 if j==0 else 0.625+(j-1)*0.58)))<0.001:return j
