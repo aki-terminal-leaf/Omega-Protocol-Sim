@@ -2,7 +2,7 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot 4 單人走位練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-## v0.3.0-preview（已發佈，後續持續開發）
+## v0.3.1-preview（已發佈，後續持續開發）
 
 - **先選機制 → 再選此機制的攻略 → 單獨練習。** 保持 P1–P6 共 20 項，結束後不連播。完整 P5 僅是內部驗收 fixture。
 - Program Loop／Limitless／Omega 使用實際移動接線與當下 owner；Delta 的成對線在移動中斷開，不混成可轉移的 Boss 線。
@@ -15,7 +15,7 @@
 
 ## 下載
 
-[v0.3.0-preview 下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.0-preview) 提供 Windows、Linux、Web、原始碼與 SHA256 校驗碼，固定來源 `0e7ef03`。本開發分支另有發佈後的增量，不會改寫既有版本。含本機遊戲素材的包標記為 `local-game-models`，不等同公開 source ZIP 內附素材。
+[v0.3.1-preview 下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.1-preview) 提供 Windows、Linux、Web、原始碼與 SHA256 校驗碼，固定來源 `be97a09`。本開發分支另有發佈後的增量，不會改寫既有版本。含本機遊戲素材的包標記為 `local-game-models`，不等同公開 source ZIP 內附素材。
 
 - Windows：完整解壓後開 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。
 - Linux：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
@@ -43,9 +43,9 @@ Godot／GDScript 已升級並鎖定 **4.7.2-stable**；隔離匯入、機制回�
 
 「示範」由八名 Bot 操作，不計玩家通關。分段開始會重建前置狀態，JSON 標記 `checkpoint_assisted`。
 
-本開發分支已改為玩家跟隨鏡頭與全畫面練習，左側隊伍列顯示八人的實際 Buff／Debuff、層數與倒數；未知圖示保留名稱說明。一般練習不顯示解法文字或建議落點，普通暫停也不揭曉；失敗檢討才列參考處理方式，重試後再隱藏。教學提示僅供不計成績的示範使用。AoE 仍有訓練示意，不等同原作所有無預警效果。[呈現與狀態範圍](docs/development/PARTY_STATUSES.md)
+v0.3.1 已改為玩家跟隨鏡頭與全畫面練習，左側隊伍列顯示八人的實際 Buff／Debuff、層數與倒數；未知圖示保留名稱說明。一般練習不顯示解法文字或建議落點，普通暫停也不揭曉；失敗檢討才列參考處理方式，重試後再隱藏。教學提示僅供不計成績的示範使用。AoE 仍有訓練示意，不等同原作所有無預警效果。[呈現與狀態範圍](docs/development/PARTY_STATUSES.md)
 
-以上新介面尚待新版 Windows／Web 驗收，既有 `v0.3.0-preview` 下載不會被改寫。
+v0.3.1 的 Windows／Linux 無畫面流程、headless Chrome 操作與失敗／重試提示關卡已通過，五個發布檔案的大小與雜湊均已核對。依使用者要求，本輪不進行桌面操作，也不宣稱新版原生視窗人工驗收。既有 `v0.3.0-preview` 下載保持不變。[本次驗證範圍](docs/VALIDATION.md#published-v031-preview-headless-only-2026-10-21)
 
 ## 機制
 

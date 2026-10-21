@@ -190,3 +190,45 @@ renamed aliases. All updated UI CJK characters are covered by current fonts.
 This does not claim a new full100-option regression, fresh native/Web export or
 full original regional temporal fidelity. Previously validated finite-pattern
 and published-platform gates retain their exact earlier source scope.
+
+
+## Published v0.3.1-preview: headless-only —2026-10-21
+
+Published2026-10-21T14:00:43Z, prerelease=true, draft=false:
+https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.1-preview
+
+Immutable source `be97a09ffb634a9a63229efd1eddfa664a2c2938`. Allfive uploaded
+asset SHA256 digests/sizes matched before and after publication. Windows/Linux/
+Web share PCK `1adad6dd7fe6a8248f26b21ddc2d186a4360a14442912766d3ba63328804293a`.
+The source ZIP retains its exact tagged README; this documentation-only update
+is later and does not rebuild or replace the released files.
+
+- Source gates after the final input change:17 Input.parse_input_event checks,
+  24 Main presentation,106 actual party-status and60 camera assertions:207/0.
+- Actual exported Windows and Linux headless P6 all-bot courses, seed17391:
+  nine snapshots, no failures, final training checkpoint30.5 seconds (within
+  float precision). Not physical-input tests or original large-meteor enrage.
+- Actual headless Chrome155/WebGL2: mechanism→strategy/start, camera-relative
+  WASD, pause, orbit, wheel, jump, same-seed restart and JSON download;0errors.
+- Three independent actual Web P6 human D3 runs: no world click, quick world
+  click, right-button drag. Each selected meteor_1 through the real HUD, waited
+  for observed LB refund, pressed F, completed one actual human cast, reduced
+  both large NPC15726 HP to zero, paused and downloaded real JSON;0errors.
+  No exitPointerLock workaround or actor/time/HP injection counted as a pass.
+- Actual Web P1 missed tower reached failure at simulation13.4s; only the failed
+  snapshot enabled advice. R retry cleared failures and hid advice again;0errors.
+  Software-rendering wall-clock slowdown was handled by observing simulation
+  time, not by changing encounter timing. Headless canvases were inspected.
+
+All verification after the latest explicit user constraint was headless: no
+PyAutoGUI, desktop input/focus/window operations, desktop screenshots, headed
+browser or interactive Godot. Earlier385edeef physical Windows basic/tank/
+caster results remain historical, not relabeled be97 native-window acceptance.
+The earlier100-option actual-Main matrix remains scoped before final display/
+input fixes; the final increment reran affected checks, not every course.
+
+Twenty drills and100 currently offered options are not100 source-certified
+regional timelines. Original VFX execution, unmeasured geometry/timing/damage
+and other [FIDELITY](research/FIDELITY.md) limits remain active. AVFX topology
+inventory is source-reviewed tooling, not original particle playback. No Actions
+CI pass is claimed. Neither the older0.3.0 tag nor its assets were altered.
