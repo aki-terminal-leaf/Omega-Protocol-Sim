@@ -50,7 +50,7 @@ enrage. Therefore the existing T8.2 spawn and T30.5 checkpoint remain training
 values, not newly established original timings. Exact aggregates are in
 `p6_lb_routes.json` → `meteor_landmark_audit`.
 
-## Width / origin / hitbox evidence and blocker
+## Historical width / origin / hitbox evidence and blocker
 
 The baseline audit records Action4244/4245/17106: Range30, EffectRange30,
 XAxisModifier8. **No Action.csv exists in the supplied research tree or this
@@ -64,8 +64,9 @@ Desperado as width5, and ApexArrow16496/BlastArrow25784 as width4. This is
 contrary to treating every XAxisModifier as a half-width. The cached TOPEnums
 also describes 31659 as width8 and 31651 as width10; existing encounter modules
 use these as full widths. However action comments are not a server collision
-experiment. Another public wiki reports LB3 as 30×16, demonstrating conflicting
-secondary interpretations, not resolving them.
+experiment. The worker cited a secondary30×16 width claim without an independently
+reproduced numeric source in that checkpoint. It is not retained as a reason
+to double the client field; the later pinned conversion audit supersedes it.
 
 [AkhMorning's maintained LB research](https://www.akhmorning.com/allagan-studies/limit-break/actions-in-detail/)
 specifies a straight line but no numeric width or hitbox-edge policy. It does
@@ -148,3 +149,14 @@ LB602/0 with production locks, P6 movement1614/0 and Main controls20/0 pass.
 The first parent run caught an untyped inferred-boolean parse error in the new
 test; fixed to an explicit bool, without changing its collision expectations.
 The worker's prior timeout remains historical, not a passing test.
+
+## Superseding width-source correction
+
+The parent subsequently inspected the actual pinned community conversion code,
+not merely its generated comments. CastType4 explicitly uses XAxisModifier×0.5
+for rectangle half-width. All three ranged-job rows were independently read.
+The doubled-width8-half model is corrected to full8/half4; see
+[P6_RANGED_GEOMETRY.md](P6_RANGED_GEOMETRY.md). This closes that interpretation
+defect at community-data confidence, while real NPC-hitbox/range-edge/grace
+behavior remains unmeasured. The historical no-width-change paragraph above
+describes the earlier evidence checkpoint, not the current default.

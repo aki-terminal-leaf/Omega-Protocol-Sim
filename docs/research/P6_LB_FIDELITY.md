@@ -1,3 +1,8 @@
+> Current ranged LB default is full8/half4 after the source conversion audit;
+> earlier half8 statements below are historical. See
+> [P6_RANGED_GEOMETRY.md](P6_RANGED_GEOMETRY.md). NPC hitbox/range-edge behavior
+> is still unmeasured; this is not server-frame certification.
+
 # P6 LB and route fidelity — 2026-10-21
 
 This is an implemented, tested LB lifecycle and a further primary-source route audit, **not a claim that all five regional routes or encounter HP verification are complete**. Production replacement, controls and final Windows/Web input QA remain with the parent. The worker made no commits or original-checkout changes. The parent reviewed and committed these building blocks separately; production replacement and final release are still pending.

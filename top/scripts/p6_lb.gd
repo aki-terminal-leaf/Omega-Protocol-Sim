@@ -2,6 +2,9 @@
 extends RefCounted
 ## Explicit, JSON-native LB lifecycle. No legacy state.lb flags are consumed.
 const Rules = preload("res://scripts/rules.gd")
+# CastType4 XAxisModifier is FULL width; preserve a center-based model until
+# independent NPC-hitbox/range-edge evidence supports inflation.
+const RANGED_HALF_WIDTH := 4.0
 const ACTIONS = {
 	"PLD":{"id":199,"kind":"tank","cast":0.0},
 	"WAR":{"id":4240,"kind":"tank","cast":0.0},
@@ -33,7 +36,7 @@ static func begin(state: Dictionary, actors: Array, config: Dictionary) -> void:
 	state.p6_lb={"jobs":config.get("jobs",[]).duplicate(),"gauge":int(config.get("gauge",0)),"brilliant":config.get("brilliant",[]).duplicate(),"casts":[],"effects":[],"history":[],"targets":[],"tank_buffs":[],"doom":[],"next_id":1,"final_melee":false,"animation_seconds":config.get("animation_seconds",{}).duplicate(true)}
 	if not state.has("spent"): state.spent=[]
 	state.p6_lb.targets=config.get("targets",[]).duplicate(true)
-	state.p6_lb.calibration={"cast_clock":"nominal Action.Cast100ms; DPS packets are ~0.53s shorter","damage_clock":"conservative packet envelope from PCT/SMN and BRD/MCH/DNC captures","animation":"unknown unless caller supplies job animation_seconds","ranged_width":"XAxisModifier=8 interpreted as half-width; edge not measured in clears"}
+	state.p6_lb.calibration={"cast_clock":"nominal Action.Cast100ms; DPS packets are ~0.53s shorter","damage_clock":"conservative packet envelope from PCT/SMN and BRD/MCH/DNC captures","animation":"unknown unless caller supplies job animation_seconds","ranged_width":"CastType4 XAxisModifier=8 is full width8 / half4 per pinned community conversion; NPC-hitbox and range-edge behavior unmeasured"}
 	sync(actors,state)
 
 static func sync(actors: Array, state: Dictionary) -> void:
@@ -115,7 +118,7 @@ static func finish_cast(state: Dictionary, cast: Dictionary) -> void:
 		elif cast.kind=="ranged":
 			var axis := (Rules.v(cast.position)-Rules.v(cast.origin)).normalized()
 			var delta := Rules.v(npc.pos)-Rules.v(cast.origin)
-			if axis!=Vector2.ZERO and delta.dot(axis)>=0 and delta.dot(axis)<=30 and absf(delta.cross(axis))<=8: hits.append(npc.id)
+			if axis!=Vector2.ZERO and delta.dot(axis)>=0 and delta.dot(axis)<=30 and absf(delta.cross(axis))<=RANGED_HALF_WIDTH: hits.append(npc.id)
 		elif cast.kind=="melee" and npc.id==cast.target: hits.append(npc.id)
 	if cast.kind in ["caster","ranged","melee"]:
 		lb.effects.append({"kind":"damage","at":at+(5.6 if cast.kind=="caster" else 3.5),"actor":cast.actor,"targets":hits,"amount":273000 if cast.kind=="caster" else (246000 if cast.kind=="ranged" else 450000),"cast_id":cast.id})

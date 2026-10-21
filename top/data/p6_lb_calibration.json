@@ -10,6 +10,9 @@
     "ranged": 3.7,
     "melee": 3.7
   },
-  "ranged_half_width": 8.0,
-  "ranged_edge_verified": false
+  "ranged_half_width": 4.0,
+  "ranged_edge_verified": false,
+  "ranged_full_width": 8.0,
+  "ranged_width_status": "community_data_interpretation",
+  "ranged_width_source": "https://github.com/awgil/ffxiv_bossmod/blob/21555358de458a56afd0dc361327f8b3b62ebc43/BossMod/Replay/Analysis/AbilityInfo.cs"
 }

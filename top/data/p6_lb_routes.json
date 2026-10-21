@@ -1851,7 +1851,7 @@
       "TargetArea": false
     },
     "server_edge_verified": false,
-    "note": "Independently read client row, not proof that XAxisModifier is full or half width; source conflict remains."
+    "note": "Client row verified; pinned community CastType4 conversion interprets XAxisModifier as full width8 / half4. Server hitbox/range edge still unverified."
   },
   "small_comet_failure_observation": {
     "capture": "1bX86aKrVRwLWfTC/17",
@@ -1891,5 +1891,43 @@
     "nominal_small_comet_deadline": 20.5,
     "status": "failed_capture_observed_nominal_not_server_tick",
     "large_meteor_deadline_observed": false
+  },
+  "ranged_width_interpretation": {
+    "upstream_commit": "21555358de458a56afd0dc361327f8b3b62ebc43",
+    "actions": [
+      {
+        "id": 4244,
+        "cast_type": 4,
+        "range": 30,
+        "effect_range": 30,
+        "x_axis_modifier": 8
+      },
+      {
+        "id": 4245,
+        "cast_type": 4,
+        "range": 30,
+        "effect_range": 30,
+        "x_axis_modifier": 8
+      },
+      {
+        "id": 17106,
+        "cast_type": 4,
+        "range": 30,
+        "effect_range": 30,
+        "x_axis_modifier": 8
+      }
+    ],
+    "full_width": 8.0,
+    "half_width": 4.0,
+    "confidence": "community_data_interpretation_not_server_collision_experiment",
+    "sources": [
+      "https://github.com/awgil/ffxiv_bossmod/blob/21555358de458a56afd0dc361327f8b3b62ebc43/BossMod/Replay/Analysis/AbilityInfo.cs",
+      "https://github.com/awgil/ffxiv_bossmod/blob/21555358de458a56afd0dc361327f8b3b62ebc43/BossMod/BossModule/AIHintsBuilder.cs"
+    ],
+    "unverified": [
+      "NPC-hitbox overlap/inflation",
+      "caster-radius range extension",
+      "cast-finish range grace"
+    ]
   }
 }

@@ -31,15 +31,15 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	var a := actors()
 	# These certify the declared training rectangle, NOT server hitbox edges.
-	for point in [Vector2(8,15),Vector2(8.001,15),Vector2(-8,15),Vector2(-8.001,15),Vector2(0,-0.001),Vector2(0,30),Vector2(0,30.001)]:
+	for point in [Vector2(4,15),Vector2(4.001,15),Vector2(-4,15),Vector2(-4.001,15),Vector2(6,15),Vector2(0,-0.001),Vector2(0,30),Vector2(0,30.001)]:
 		var s := fresh(a)
 		s.p6_lb.targets=[npc("aim",Vector2(0,20)),npc("probe",point)]
 		check(LB.request_lb(s,6,"ranged","aim").ok,"Ranged boundary fixture starts")
 		advance(s,a,4.5)
 		check(LB.is_locked(s,6),"Real ranged postlock applies")
 		advance(s,a,8.0)
-		var expected: bool = absf(point.x)<=8 and point.y>=0 and point.y<=30
-		check((s.p6_lb.targets[1].hp<482324)==expected,"Training corridor edge "+str(point))
+		var expected: bool = absf(point.x)<=4 and point.y>=0 and point.y<=30
+		check((s.p6_lb.targets[1].hp<482324)==expected,"Source-width8 center-model edge "+str(point))
 	var s := fresh(a)
 	s.p6_lb.targets=[npc("aim",Vector2(0,20)),npc("old_axis",Vector2(0,15)),npc("new_axis",Vector2(15,0))]
 	LB.request_lb(s,6,"ranged","aim")
