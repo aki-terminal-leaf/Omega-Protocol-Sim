@@ -63,3 +63,31 @@ UV animation/distortion and effects appearing/disappearing with NPC lifecycle
 still require implementation and actual visual comparison. `rendering_complete`
 therefore stays **false**; the existing live training cues are unchanged.
 Extracted game geometry/textures/proof captures remain local and Git-ignored.
+
+## Portable texture inventory / explicit legacy migration
+
+`export_official_effects.py` now emits only forward-slash relative paths. It
+preserves each original virtual texture hierarchy **and its TEX/ATEX extension**;
+different directories/extensions cannot silently overwrite a shared basename.
+`effect_pack.py` is stdlib-only: schema/hash/path checks plus PNG chunk CRC/IHDR
+validation do not require Lumina, .NET or Pillow. Original texture hashes remain
+metadata, because the raw TEX/ATEX bytes are not included in this inventory.
+This is file integrity, not image decode, AVFX semantics or rendering proof.
+
+```sh
+python3 tools/effect_pack.py validate <PACK>
+python3 tools/effect_pack.py migrate <LEGACY-PACK> --output <NEW-DISJOINT-DIR>
+```
+
+Migration is explicit, copy-only and refuses an existing/overlapping output.
+Both native Windows nested paths and literal-backslash filenames synced to Linux
+are supported; ambiguous duplicates, unsafe/traversal/drive paths, symlink or
+junction escapes, output collisions, missing/tampered files and unsupported
+schema/rendering-complete claims are rejected. Input files are never deleted.
+18 fixture tests pass on Linux; independent Windows14 pass/4 skip (three
+POSIX-only literal filename cases and unavailable native symlink creation;
+mocked link rejection still runs). The actual preserved pack's24 PNGs and3 AVFX
+files all passed migration hash/dimension checks; original source bytes were
+verified unchanged. The validated canonical copy became the active local pack
+by same-filesystem rename, with the complete legacy directory retained locally.
+No extracted files, private paths or original artwork were added to Git.

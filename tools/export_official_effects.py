@@ -6,13 +6,14 @@ Only raw local SqPack reads are used. Game assets are not distributed with sourc
 """
 import argparse,hashlib,io,json,re
 from pathlib import Path
-import export_official_models as models
+from effect_pack import texture_output_path, validate_pack
 EFFECTS={
  'meteor':{'npc':15726,'model_chara':3417,'model':213,'base':1,'vfx':1,'body_hidden':True},
  'comet':{'npc':15727,'model_chara':819,'model':213,'base':1,'vfx':2,'body_hidden':True},
  'fist_b6':{'npc':15710,'model_chara':2375,'model':114,'base':6,'vfx':1,'body_hidden':False},
 }
 def main():
+ import export_official_models as models
  p=argparse.ArgumentParser(description=__doc__)
  for name in ['game-dir','lumina-dir','textools-dir','output']:p.add_argument('--'+name,type=Path,required=True)
  p.add_argument('--pythonnet-dir',type=Path);p.add_argument('--forms',nargs='+',choices=list(EFFECTS),default=list(EFFECTS));a=p.parse_args();realm=models.initialize(a)
@@ -28,9 +29,12 @@ def main():
   for reference in sorted(set(re.findall(rb'[a-zA-Z0-9_/.-]{8,}\.(?:atex|tex)',raw))):
    texture_path=reference.decode('ascii');tex=realm.GetFile[TexFile](texture_path)
    if tex is None:raise RuntimeError('Missing effect texture: '+texture_path)
-   data=bytes(tex.ImageData);im=Image.frombytes('RGBA',(int(tex.Header.Width),int(tex.Header.Height)),data,'raw','BGRA');target=folder/(Path(texture_path).stem+'.png');im.save(target)
-   entry['textures'].append({'source':texture_path,'file':str(target.relative_to(a.output)),'width':im.width,'height':im.height,'raw_sha256':hashlib.sha256(bytes(tex.Data)).hexdigest(),'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
+   relative=texture_output_path(form,texture_path)
+   if any(item['file'].casefold()==relative.casefold() for item in entry['textures']):raise RuntimeError('Effect texture output collision: '+relative)
+   data=bytes(tex.ImageData);im=Image.frombytes('RGBA',(int(tex.Header.Width),int(tex.Header.Height)),data,'raw','BGRA');target=a.output.joinpath(*relative.split('/'));target.parent.mkdir(parents=True,exist_ok=True);im.save(target)
+   entry['textures'].append({'source':texture_path,'file':relative,'width':im.width,'height':im.height,'raw_sha256':hashlib.sha256(bytes(tex.Data)).hexdigest(),'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
   manifest['effects'][form]=entry;print(form,'original AVFX',len(raw),'textures',len(entry['textures']),flush=True)
-  (a.output/'effects-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+  (a.output/'effects-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+ validate_pack(a.output)
  realm.Dispose()
 if __name__=='__main__':main()
