@@ -3,6 +3,7 @@ extends RefCounted
 ## All durable P6 state is JSON-native. Pending events survive beat boundaries.
 const Rules = preload("res://scripts/rules.gd")
 const Patterns = preload("res://scripts/p6_patterns.gd")
+const LB = preload("res://scripts/p6_lb.gd")
 
 static func begin(beat: Dictionary, state: Dictionary) -> void:
 	if not beat.has("p6_events"): return
@@ -30,11 +31,13 @@ static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -
 	if not state.has("p6") or dt <= 0: return
 	var finish := float(state.sim_time)
 	var start := finish-dt
-	if start >= float(state.p6.until)-0.00001 and state.p6.pending.is_empty() and state.p6.locks.all(func(lock):return float(lock.end)<=start): return
+	if start >= float(state.p6.until)-0.00001 and state.p6.pending.is_empty() and state.p6.locks.all(func(lock):return float(lock.end)<=start) and not state.has("p6_lb"): return
 	state.dead=state.dead.map(func(actor):return int(actor))
 	for actor in actors.size():
 		if Rules.v(previous[actor].pos).distance_to(Rules.v(actors[actor].pos)) > float(state.get("motion_allowances",[])[actor] if state.get("motion_allowances",[]).size()==actors.size() else 6.0*dt)+0.001:
 			failure(state,"P6 movement exceeded authorized walking/Sprint/dash budget: actor %d" % actor,[actor])
+	var lb_previous := previous
+	var lb_at := start
 	while not state.p6.pending.is_empty() and float(state.p6.pending[0].at)<=finish+0.000001:
 		var event: Dictionary=state.p6.pending.pop_front()
 		var at := float(event.at)
@@ -42,8 +45,13 @@ static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -
 			failure(state,"P6 missed event history at %.3f; cannot reconstruct old bait" % at)
 			continue
 		var observed := sample(actors,previous,clampf((at-start)/dt,0,1))
+		state.sim_time=at
+		LB.tick(observed,lb_previous,state,at-lb_at)
+		lb_previous=observed; lb_at=at
 		resolve(event,observed,state)
 		Patterns.sorted(state.p6.pending)
+	state.sim_time=finish
+	LB.tick(actors,lb_previous,state,finish-lb_at)
 	for lock in state.p6.locks:
 		var actor := int(lock.actor)
 		var lo := maxf(start,float(lock.start)); var hi := minf(finish,float(lock.end))
@@ -63,6 +71,31 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 	for target in event.get("targets",[]): targets.append(int(target))
 	if event.has("targets"): record.targets=targets.duplicate()
 	match event.kind:
+		"lb_request":
+			if state.get("p6_auto_lb",false) and int(event.actor)!=int(state.get("human_actor",-1)):
+				record.result=LB.request_lb(state,int(event.actor),str(event.ability_kind),event.get("target"))
+		"meteor_spawn":
+			if state.has("p6_lb"): LB.spawn_meteors(state)
+			else: failure(state,"P6 LB state must be initialized explicitly")
+		"meteor_deadline":
+			var alive: Array=[]
+			var count := 0
+			for npc in state.get("p6_lb",{}).get("targets",[]):
+				if int(npc.npc_id)==int(event.npc_id):
+					count+=1
+					if float(npc.hp)>0: alive.append(npc.id)
+			record.alive=alive
+			if count!=(6 if int(event.npc_id)==15727 else 2) or not alive.is_empty(): failure(state,"P6 missing/late meteor LB kills: "+str(alive),range(8))
+		"memory", "magic_number":
+			if not LB.entry_ready(state): failure(state,"P6 entry requires three Dynamis on all eight actors",range(8))
+			if not LB.tank_active(state,float(event.at)): failure(state,"P6 %s requires applied Tank LB3 before snapshot" % event.kind,range(8))
+			if state.has("p6_lb"):
+				if event.kind=="memory":
+					if state.dead.is_empty(): state.p6_lb.brilliant=range(8)
+					state.p6_lb.memory_entry=false
+				else: state.p6.pending.append({"kind":"doom_apply","at":float(event.at)+2.0})
+		"doom_apply":
+			if state.has("p6_lb"): state.p6_lb.doom.append({"expires":float(event.at)+6.0,"targets":range(8)})
 		"bait":
 			record.positions=[]
 			for actor in actors.size():
@@ -112,6 +145,9 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			# Range is 100, NOT a radius-12 no-damage circle. Preserve distances
 			# for inspection; no unverified damage curve / mitigation verdict.
 			record.falloff="unmodeled"; record.distances=[]
+			if state.has("p6_lb"):
+				record.damage_packets=preload("res://scripts/p6_damage.gd").flares(actors,targets,state)
+				record.falloff="empirical bounds; interior unresolved"
 			for target in targets:
 				var distances: Array=[]
 				for actor in actors: distances.append(Rules.v(actor.pos).distance_to(Rules.v(actors[target].pos)))
@@ -129,6 +165,9 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if not state.has("p6"): return
 	if not beat.has("shapes"): beat.shapes=[]
 	beat.shapes=beat.shapes.filter(func(s):return not s.get("p6_preview",false))
+	beat.p6_lb_targets=state.get("p6_lb",{}).get("targets",[]).duplicate(true)
+	for npc in beat.p6_lb_targets:
+		if float(npc.hp)>0: beat.shapes.append({"kind":"circle","pos":Rules.v(npc.pos),"radius":3.0 if int(npc.npc_id)==15726 else 1.0,"decorative":true,"p6_preview":true,"target_id":npc.id,"selectable":true,"name":npc.id})
 	for target in state.p6.get("flare_targets",[]):
 		beat.shapes.append({"kind":"circle","actor":int(target),"radius":1.0,"decorative":true,"p6_preview":true,"name":"Flare MARKER only; damage falloff unresolved"})
 	var now := float(state.get("sim_time",0.0))
@@ -142,7 +181,11 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 		beat.shapes.append(shape)
 
 static func is_locked(state: Dictionary,actor: int) -> bool:
+	if LB.is_locked(state,actor): return true
 	var now:=float(state.get("sim_time",0))
 	for lock in state.get("p6",{}).get("locks",[]):
 		if int(lock.actor)==actor and float(lock.start)<=now and float(lock.end)>now:return true
 	return false
+
+static func request_lb(state: Dictionary, actor: int, kind: String, target_or_position = null) -> Dictionary:
+	return LB.request_lb(state,actor,kind,target_or_position)

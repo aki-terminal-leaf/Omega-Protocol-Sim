@@ -60,16 +60,17 @@ static func route(id: String) -> Dictionary:
 	match id:
 		"elemental":
 			r.clocks=[315,180,270,90,225,135,0,45]; r.stack_angle=90.0; r.exit_offset=67.5
-			r.unknown=["First Arrow quadrant", "exact Arrow lateral lanes", "meteor clock map and flare E/W tie"]
+			r.meteor_clocks=r.clocks.duplicate(); r.arrow_party_angle=225.0
+			r.unknown=["Numeric Arrow lanes are training realizations", "flare E/W tie not prescribed by source"]
 		"aether":
-			r.clocks=[0,180,270,90,225,135,315,45]; r.stack_angle=180.0
-			r.unknown=["D1/D2 assumed SAM/DRG convention, not generic source assignment", "exaflare exit offset", "meteor clock map", "exact Arrow lateral lanes"]
+			r.clocks=[0,180,90,270,225,135,45,315]; r.meteor_clocks=[45,180,90,270,225,135,0,315]; r.stack_angle=180.0; r.exit_offset=45.0; r.arrow_party_angle=225.0
+			r.unknown=["Generic M1/M2 and H1/H2 assignment must be agreed: source SAM SW, DRG SE, WHM E, SGE W", "Numeric lanes are legal training realizations of Toolbox movement", "Flare E/W ties are player adjustment, not an official priority"]
 		"lpdu":
 			r.clocks=[0,90,270,180,225,135,315,45]; r.meteor_clocks=[315,180,270,90,225,135,0,45]; r.stack_angle=180.0; r.arrow_party_angle=135.0
 			r.unknown=["exaflare exit offset", "full Arrow temporal footwork", "meteor flare/LB route"]
 		"cn_moogle":
-			r.clocks=[0,90,270,180,225,135,315,45]; r.meteor_clocks=[315,90,270,180,225,135,0,45]
-			r.unknown=["exaflare exit offset", "Wave stack direction", "Arrow temporal footwork", "meteor flare/LB route"]
+			r.clocks=[0,90,270,180,225,135,315,45]; r.meteor_clocks=[315,90,270,180,225,135,0,45]; r.stack_angle=180.0; r.arrow_party_angle=225.0
+			r.unknown=["exaflare exit offset", "Numeric Arrow temporal footwork", "late meteor flare/LB route absent from poster"]
 		"kr_09stop":
 			r.clocks=[315,180,270,90,225,135,0,45]; r.meteor_clocks=r.clocks.duplicate(); r.stack_angle=180.0; r.exit_offset=67.5; r.arrow_party_angle=225.0
 			r.unknown=["full Arrow animation and exact pair-to-quadrant mapping", "flare E/W tie", "Dive selection prose conflicts with encounter evidence"]
@@ -107,6 +108,22 @@ static func flare_goals(flares: Array, profile_id := "") -> Array:
 	result[ordered[0]]=Rules.direction(90)*18.0
 	result[ordered[1]]=Rules.direction(270)*18.0
 	if profile_id=="kr_09stop":
+		# Workbook row 313 says nearest B/C/D (or B/D when D3 is marked).
+		# Minimize total travel across the simultaneous assignment; ties remain
+		# a deterministic training choice, not a claimed macro role priority.
+		var movers := flares.duplicate(); movers.erase(6); movers.sort()
+		var destinations: Array=[90,270] if 6 in flares else [90,180,270]
+		var permutations: Array=[[0,1],[1,0]] if movers.size()==2 else [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]
+		var best: Array=[]; var cost := INF
+		var clocks: Array=route(profile_id).meteor_clocks
+		for order in permutations:
+			var trial: Array=[]; var distance := 0.0
+			for i in movers.size():
+				var actor := int(movers[i])
+				var goal := Rules.direction(float(destinations[order[i]]))*(16.0 if actor in [0,1,4,5] else 18.0)
+				trial.append(goal); distance+=(Rules.direction(float(clocks[actor]))*16.0).distance_to(goal)
+			if distance<cost: cost=distance; best=trial
+		for i in movers.size(): result[int(movers[i])]=best[i]
 		# KR distinguishes max-melee tank/melee flares from outer ranged/healer
 		# flares. 16/18 are training distances; the relative distinction is sourced.
 		for actor in 8:

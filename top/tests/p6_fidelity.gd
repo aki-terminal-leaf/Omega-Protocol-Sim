@@ -27,6 +27,9 @@ func step(b: Dictionary, actors: Array, state: Dictionary, goals: Array, dt: flo
 	Contact.tick(b,actors,previous,state,dt)
 func simulate(beats: Array, frame := 0.025, json_checkpoints := false) -> Dictionary:
 	var actors := actors_at(C.repeated(Vector2.ZERO)); var state := fresh()
+	if beats.any(func(b):return b.get("p6_events",[]).any(func(e):return e.kind=="meteor_spawn")):
+		state.dynamis=[3,3,3,3,3,3,3,3]; state.p6_auto_lb=true
+		preload("res://scripts/p6_lb.gd").begin(state,actors,{"jobs":["DRK","PLD","AST","SCH","MNK","NIN","BRD","PCT"],"gauge":30000,"brilliant":range(8)})
 	for b in beats:
 		Contact.begin(b,actors,state)
 		var elapsed := 0.0
@@ -131,7 +134,7 @@ func run() -> void:
 		check(state.runtime_failures.is_empty() and state.p6.history[-1].falloff=="unmodeled","Meteor stack branches, no fabricated damage immunity")
 	check(P.route("elemental").stack_angle==90 and P.route("aether").stack_angle==180,"Verified E/S difference")
 	check(P.route("lpdu").meteor_clocks[1]==180 and P.route("cn_moogle").meteor_clocks[1]==90,"LPDU H2/ST swap is absent in CN")
-	check(P.route("cn_moogle").exit_offset==null and P.route("cn_moogle").stack_angle==null,"Missing CN route facts stay unknown")
+	check(P.route("cn_moogle").exit_offset==null and P.route("cn_moogle").stack_angle==180,"CN poster establishes south charge; exit remains unknown")
 	var kr_flares := P.flare_goals([0,2,6],"kr_09stop")
 	check(is_equal_approx(kr_flares[0].length(),16.0) and is_equal_approx(kr_flares[2].length(),18.0),"KR retains melee/outer flare distinction")
 	check(kr_flares[6]==Vector2(0,-18),"KR outer ranged position remains fixed through flare branch")
@@ -155,7 +158,8 @@ func run() -> void:
 			C.append_meteor_combination(ctx,flares)
 			state=simulate(ctx.beats,0.1)
 			check(state.runtime_failures.is_empty(),"Full meteor %s flares %s: %s" % [id,str(flares),str(state.runtime_failures.slice(0,2))])
-			check(state.p6.history.filter(func(e):return e.kind=="lock").size()==2,"Caster and ranged cast locks are in actual course")
+			check(state.p6_lb.history.filter(func(e):return e.kind=="lb_finish").size()==2,"Caster and ranged complete actual requested casts")
+			check(state.p6_lb.targets.size()==8 and state.p6_lb.targets.all(func(n):return n.hp==0),"All SIX comets and BOTH meteors die from LB damage")
 	for id in ["elemental","aether","lpdu","cn_moogle","kr_09stop"]:
 		for seed_value in range(1,5):
 			for kind in ["arrow_wave","arrow_dive","exa_wave","exa_dive","meteors"]:
