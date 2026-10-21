@@ -46,6 +46,7 @@ func run()->void:
 	check(item(rows,7,"tank_lb_war").remaining==6.0 and item(rows,7,"tank_lb_war").name=="Land Waker","actual tank job buff granted to party")
 	check(item(rows,2,"magic_number").remaining==4.0 and item(rows,0,"magic_number").is_empty(),"Magic Number only actual target list")
 	check(item(rows,4,"sprint").remaining==8 and item(rows,4,"arms_length").remaining==3 and item(rows,5,"sprint").is_empty(),"manual self buffs only on actual controlled actor")
+	check(item(rows,4,"arms_length").status_id==0 and item(rows,4,"arms_length").name=="Knockback Resistance","generic immunity does not pretend a job-specific Arms Length/Surecast packet")
 	state.dead=[2];rows=Party.rows(actors,state);check(rows[2].dead and rows[2].effects.is_empty(),"KO member identified without pretending statuses persist")
 	state.sim_time=27.0;rows=Party.rows(actors,state);check(item(rows,7,"tank_lb_war").is_empty() and item(rows,3,"magic_number").is_empty(),"LB buff and Magic Number expiry")
 	var app=Main.instantiate();root.add_child(app);await process_frame;app.set_process(false)

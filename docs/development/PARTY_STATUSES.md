@@ -27,7 +27,7 @@ reference treatment; retry/advance closes that review. Finished runs retain
 failure text. An explicitly non-scored demonstration may separately enable
 teaching hints. Exported developer reports retain their full replay evidence.
 
-Source validation on Godot4.7.2: party runtime/Main policy105 checks, camera60,
+Source validation on Godot4.7.2: party runtime/Main policy106 checks, camera60,
 Main presentation24, independent review211, P6 controls20, all passing; actual
 Main all100 offered fixed-seed courses passed before the final icon-only
 fallback improvement (no judge or route changes). Linux rendered player view
@@ -45,3 +45,9 @@ Pantokrator displays its already-granted missile and wave countdowns with
 verified shared icons. Their multiple same-name Status.csv variants are not
 resolved by the current model, so the definition retains status_id=0 rather
 than guessing a particular variant. No numbered In Line buff is fabricated.
+
+The generic training knockback-resistance control has no job-specific status
+packet identity. Its timer is shown under a neutral name/text fallback, not
+falsely labeled Arms Length on a caster. Empty route labels are not printed as
+blank failure advice. This pre-acceptance review produced a new candidate;
+previous candidate launch evidence is not final platform acceptance.

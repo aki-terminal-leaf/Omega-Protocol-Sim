@@ -604,7 +604,7 @@ func resolve_beat() -> void:
 	pending_advance = true
 	if not errors.is_empty():
 		log_feedback("失敗檢討 · " + current.title, false)
-		log_feedback("參考處理：" + str(current.labels[player]), false)
+		if not str(current.labels[player]).strip_edges().is_empty(): log_feedback("參考處理：" + str(current.labels[player]), false)
 		log_feedback(str(current.get("note","")), false)
 	update_hud()
 	write_report()

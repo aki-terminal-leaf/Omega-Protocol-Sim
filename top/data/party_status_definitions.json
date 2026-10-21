@@ -188,9 +188,9 @@
       "icon": 210101
     },
     "arms_length": {
-      "status_id": 1209,
-      "name": "Arm's Length",
-      "icon": 213915
+      "status_id": 0,
+      "icon": 0,
+      "name": "Knockback Resistance"
     },
     "tank_lb": {
       "status_id": 196,
