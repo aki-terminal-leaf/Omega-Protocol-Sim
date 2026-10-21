@@ -80,6 +80,30 @@ var save_dialog: FileDialog
 var report_text = ""
 var beat_passed = 0
 var beat_failed = 0
+# Setup remains available; practice uses a full-window world and compact HUD.
+var practice_view := false
+var setup_shell: Control
+var practice_root: Control
+var view_home: Node
+var view_home_index := 0
+var view_placeholder: Control
+var resume_after_settings := false
+var hud_title: Label
+var hud_cue: Label
+var hud_progress: ProgressBar
+var hud_player: Label
+var hud_party: RichTextLabel
+var hud_feedback: RichTextLabel
+var hud_feedback_panel: Control
+var hud_bottom_panel: PanelContainer
+var hud_pause: Button
+var hud_lb_row: HBoxContainer
+var hud_lb_target: OptionButton
+var hud_ground_row: HBoxContainer
+var hud_ground_x: SpinBox
+var hud_ground_y: SpinBox
+var hud_lb_status: Label
+var hud_target_signature := ""
 
 func _ready() -> void:
 	catalog = JSON.parse_string(FileAccess.get_file_as_string("res://data/catalog.json"))
@@ -129,12 +153,14 @@ func build_ui() -> void:
 	var background = ColorRect.new(); background.color = Color("0b1120"); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(background)
 	var margin = MarginContainer.new(); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side in ["left", "right", "top", "bottom"]: margin.add_theme_constant_override("margin_" + side, 14)
-	add_child(margin)
+	add_child(margin); setup_shell = margin
 	var root = VBoxContainer.new(); root.add_theme_constant_override("separation", 12); margin.add_child(root)
 	var header = HBoxContainer.new(); root.add_child(header)
 	header.add_child(label("Ω  OMEGA PROTOCOL", 26, Color("8ce3d1")))
 	var subtitle = label("PRACTICE LAB  /  v0.3 preview", 14, Color("8096b4")); subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
 	header.add_child(button("攻略來源", show_research))
+	var return_view := button("回到練習", return_practice_view)
+	header.add_child(return_view); launch_buttons.append(return_view)
 	var body = HBoxContainer.new(); body.add_theme_constant_override("separation", 12); body.size_flags_vertical = Control.SIZE_EXPAND_FILL; root.add_child(body)
 	var left_scroll = ScrollContainer.new(); left_scroll.custom_minimum_size.x = 290; left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; body.add_child(left_scroll)
 	var left = VBoxContainer.new(); left.custom_minimum_size.x = 280; left.add_theme_constant_override("separation", 8); left_scroll.add_child(left)
@@ -186,9 +212,9 @@ func build_ui() -> void:
 	pause_button = button("暫停  P", toggle_pause); transport.add_child(pause_button)
 	var retry = button("重練此段", retry_beat); transport.add_child(retry); launch_buttons.append(retry)
 	var show = button("示範", func(): demo = true; start_run()); transport.add_child(show); launch_buttons.append(show)
-	transport.add_child(button("俯視", func(): arena.overhead = not arena.overhead; arena.update_camera()))
+	transport.add_child(button("俯視", toggle_overview))
 	transport.add_child(button("重設鏡頭", reset_camera))
-	follow_toggle = CheckBox.new(); follow_toggle.text = "跟隨"; follow_toggle.toggled.connect(func(value): if arena.has_method("set_follow"): arena.set_follow(value)); transport.add_child(follow_toggle)
+	follow_toggle = CheckBox.new(); follow_toggle.text = "跟隨"; follow_toggle.toggled.connect(func(value): if arena.has_method("set_follow"): arena.set_follow(value)); transport.add_child(follow_toggle); follow_toggle.set_pressed_no_signal(arena.follow_player)
 	transport.add_child(button("LB3  F", use_lb)); transport.add_child(button("換坦  V", provoke))
 	var actions = HBoxContainer.new(); center.add_child(actions)
 	actions.add_child(button("1  疾跑", use_sprint)); actions.add_child(button("2  防擊退", use_arms)); actions.add_child(button("3  突進", use_dash)); actions.add_child(button("Space  跳躍", jump_player))
@@ -203,6 +229,7 @@ func build_ui() -> void:
 	custom_dialog = ConfirmationDialog.new(); custom_dialog.title = "自訂戰術設定（JSON）"; custom_dialog.size = Vector2i(740, 500); add_child(custom_dialog)
 	custom_text = TextEdit.new(); custom_text.custom_minimum_size = Vector2(700, 420); custom_dialog.add_child(custom_text); custom_dialog.confirmed.connect(apply_custom)
 	save_dialog = FileDialog.new(); save_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE; save_dialog.access = FileDialog.ACCESS_FILESYSTEM; save_dialog.filters = PackedStringArray(["*.json ; Practice report"]); save_dialog.file_selected.connect(func(path): var f = FileAccess.open(path, FileAccess.WRITE); f.store_string(report_text); status.text = "已儲存：" + path); add_child(save_dialog)
+	build_practice_presentation()
 
 func filter_catalog() -> void:
 	filtered = []; scenario_list.clear()
@@ -211,6 +238,7 @@ func filter_catalog() -> void:
 			filtered.append(item); scenario_list.add_item("P%d  %s" % [int(item.phase), item.name.split(" / ")[0]])
 	return_to_selection()
 func return_to_selection() -> void:
+	set_practice_view(false); resume_after_settings = false
 	running = false; paused = false; pending_advance = false; configured = false
 	encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; retry_history = []; samples = []; all_errors = []; checkpoint_assisted = false
 	if is_instance_valid(lb_panel):lb_panel.visible=false
@@ -226,6 +254,7 @@ func selected_item() -> Dictionary:
 	var selected = scenario_list.get_selected_items()
 	return filtered[selected[0]] if selected.size() and not filtered.is_empty() else {}
 func choose_mechanic(selection: int) -> void:
+	set_practice_view(false); resume_after_settings = false
 	running = false; paused = false; configured = false; encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; retry_history = []; samples = []; all_errors = []; checkpoint_assisted = false
 	scenario_list.select(selection)
 	var item = selected_item()
@@ -260,6 +289,7 @@ func refresh_jobs() -> void:
 
 func prepare() -> void:
 	if not is_instance_valid(arena) or filtered.is_empty() or not configured or selected_item().is_empty(): return
+	set_practice_view(false); resume_after_settings = false
 	running = false; paused = false; demo = false
 	player = role_select.selected
 	refresh_jobs()
@@ -336,6 +366,7 @@ func start_run(checkpoint := 0) -> void:
 	running = true; paused = false; pending_advance = false; sample_elapsed = 0; pause_button.text = "暫停  P"
 	feedback.text = "[color=#8ce3d1]%s · seed %s[/color]\n" % ["示範模式（不計入成績）" if demo else "練習開始", seed_edit.text]
 	begin_beat(true)
+	set_practice_view(true)
 func begin_beat(reset_positions := false) -> void:
 	current = encounter.beats[index].duplicate(true)
 	elapsed = 0; wall_recorded = false; pending_advance = false
@@ -387,6 +418,7 @@ func toggle_pause() -> void:
 	if not running: return
 	paused = not paused; pause_button.text = "繼續  P" if paused else "暫停  P"
 	if paused: write_report()
+	sync_practice_hud()
 func retry_beat() -> void:
 	if encounter.is_empty(): return
 	retry_history.append({"beat":index,"elapsed":elapsed,"state":state.duplicate(true),"actors":actors.duplicate(true),"controls":{"sprint":sprint_left,"resist":knockback_resist_left,"dash":dash_left,"direction":dash_direction}})
@@ -463,14 +495,16 @@ func move_player(dt: float) -> void:
 	if allow_input and (Input.is_physical_key_pressed(KEY_E)): actors[player].face += 150 * dt
 func reset_camera() -> void:
 	if arena.has_method("reset_camera"): arena.reset_camera()
-	follow_toggle.set_pressed_no_signal(false)
+	follow_toggle.set_pressed_no_signal(arena.follow_player)
 func on_arena_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		var owner = get_viewport().gui_get_focus_owner()
 		if owner: owner.release_focus()
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed: arena.zoom(-2 * maxf(1.0, event.factor))
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed: arena.zoom(2 * maxf(1.0, event.factor))
+		if event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN] and event.pressed:
+			var steps := (-1.0 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 1.0) * maxf(1.0, event.factor)
+			if arena.has_method("zoom_steps"): arena.zoom_steps(steps)
+			else: arena.zoom(steps * 2.0)
 		if event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT] and event.pressed:
 			if camera_buttons == 0: camera_anchor = get_global_mouse_position()
 			camera_buttons |= 1 if event.button_index == MOUSE_BUTTON_LEFT else 2
@@ -606,8 +640,9 @@ func update_hud() -> void:
 		text_value += "\n當前效果：" + ("／".join(effects) if not effects.is_empty() else "無")
 	update_lb_controls()
 	party.text = text_value
+	sync_practice_hud()
 func report() -> Dictionary:
-	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func report_runtime_state() -> Dictionary:
 	var result:Dictionary=state.duplicate(true)
 	result.erase("timeline") #the authoritative top-level timeline is already exported
@@ -675,3 +710,129 @@ func load_settings() -> void:
 	if config.has_section_key("settings", "custom"):
 		var p: Dictionary = config.get_value("settings", "custom"); strategies.append(p)
 	role_select.select(clampi(int(config.get_value("settings", "role", 4)), 0, 7)); hints.button_pressed = bool(config.get_value("settings", "hints", true)); seed_edit.text = str(config.get_value("settings", "seed", "1"))
+
+# Presentation-only: the original viewport/actors survive both layouts.
+func hud_panel(parent: Node, preset: int, offsets: Rect2) -> PanelContainer:
+	var box := PanelContainer.new()
+	parent.add_child(box)
+	box.set_anchors_and_offsets_preset(preset)
+	box.offset_left = offsets.position.x; box.offset_top = offsets.position.y
+	box.offset_right = offsets.end.x; box.offset_bottom = offsets.end.y
+	box.add_theme_stylebox_override("panel", panel(Color(0.035,0.055,0.09,0.78),8))
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return box
+
+func build_practice_presentation() -> void:
+	view_home = view_container.get_parent(); view_home_index = view_container.get_index()
+	view_placeholder = Control.new()
+	view_placeholder.custom_minimum_size = Vector2(350,300)
+	view_placeholder.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	view_placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	view_home.add_child(view_placeholder); view_home.move_child(view_placeholder,view_home_index)
+	view_placeholder.hide()
+	practice_root = Control.new(); practice_root.name = "PlayerView"
+	add_child(practice_root); practice_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	practice_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var top := hud_panel(practice_root,Control.PRESET_CENTER_TOP,Rect2(-320,10,640,88))
+	var titles := VBoxContainer.new(); titles.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(titles)
+	hud_title = label("",16,Color("edf4ff")); hud_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; titles.add_child(hud_title)
+	hud_cue = label("",14,Color("ffd58f")); hud_cue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; hud_cue.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; titles.add_child(hud_cue)
+	hud_progress = ProgressBar.new(); hud_progress.custom_minimum_size.y = 4; hud_progress.show_percentage = false; hud_progress.mouse_filter = Control.MOUSE_FILTER_IGNORE; titles.add_child(hud_progress)
+	var menu := button("練習設定", open_practice_settings)
+	practice_root.add_child(menu); menu.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	menu.offset_left = -116; menu.offset_right = -12; menu.offset_top = 12; menu.offset_bottom = 50
+	var roster := hud_panel(practice_root,Control.PRESET_TOP_LEFT,Rect2(12,100,190,190))
+	hud_party = RichTextLabel.new(); hud_party.bbcode_enabled = true; hud_party.custom_minimum_size = Vector2(170,164); hud_party.scroll_active = false; hud_party.mouse_filter = Control.MOUSE_FILTER_IGNORE; roster.add_child(hud_party)
+	hud_feedback_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_LEFT,Rect2(12,-242,350,128))
+	hud_feedback = RichTextLabel.new(); hud_feedback.bbcode_enabled = true; hud_feedback.custom_minimum_size = Vector2(330,104); hud_feedback.scroll_active = true; hud_feedback_panel.add_child(hud_feedback)
+	hud_bottom_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_WIDE,Rect2(12,-104,-24,94))
+	var bottom := hud_bottom_panel
+	var bars := VBoxContainer.new(); bars.add_theme_constant_override("separation",4); bottom.add_child(bars)
+	var info := HBoxContainer.new(); bars.add_child(info)
+	hud_player = label("",14,Color("8ce3d1")); hud_player.size_flags_horizontal = Control.SIZE_EXPAND_FILL; info.add_child(hud_player)
+	hud_lb_status = label("",12,Color("ffd58f")); info.add_child(hud_lb_status)
+	var hotbar := HBoxContainer.new(); hotbar.add_theme_constant_override("separation",4); bars.add_child(hotbar)
+	for action in [["1 疾跑",use_sprint],["2 防擊退",use_arms],["3 突進",use_dash],["Space 跳躍",jump_player],["F LB3",use_lb],["V 換坦",provoke]]:
+		var ability := button(str(action[0]),action[1]); ability.custom_minimum_size.y = 30; hotbar.add_child(ability)
+	var gap := Control.new(); gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL; gap.mouse_filter = Control.MOUSE_FILTER_IGNORE; hotbar.add_child(gap)
+	hud_pause = button("P 暫停",toggle_pause); hud_pause.custom_minimum_size.y = 30; hotbar.add_child(hud_pause)
+	for action in [["R 重來",func():demo=false;start_run()],["俯視",toggle_overview],["鏡頭",reset_camera],["JSON",export_report]]:
+		var item := button(str(action[0]),action[1]); item.custom_minimum_size.y = 30; hotbar.add_child(item)
+	hud_lb_row = HBoxContainer.new(); hud_lb_row.add_theme_constant_override("separation",6); bars.add_child(hud_lb_row)
+	hud_lb_target = option([]); hud_lb_target.custom_minimum_size = Vector2(200,28); hud_lb_row.add_child(hud_lb_target)
+	hud_lb_target.item_selected.connect(func(i):if i<lb_target.item_count:lb_target.select(i))
+	hud_ground_row = HBoxContainer.new(); hud_lb_row.add_child(hud_ground_row); hud_ground_row.add_child(label("法系落點 X/Z",12))
+	hud_ground_x = SpinBox.new(); hud_ground_y = SpinBox.new()
+	for coordinate in [hud_ground_x,hud_ground_y]:
+		coordinate.min_value = -25; coordinate.max_value = 25; coordinate.step = 0.5; coordinate.custom_minimum_size = Vector2(76,28); hud_ground_row.add_child(coordinate)
+	hud_ground_x.value_changed.connect(func(value):lb_ground_x.value=value)
+	hud_ground_y.value_changed.connect(func(value):lb_ground_y.value=value)
+	practice_root.hide()
+
+func set_practice_view(enabled: bool) -> void:
+	if not is_instance_valid(practice_root): return
+	practice_view = enabled
+	if enabled:
+		var focused := get_viewport().gui_get_focus_owner()
+		if focused: focused.release_focus()
+		if view_container.get_parent() != practice_root:
+			view_container.reparent(practice_root,false); practice_root.move_child(view_container,0)
+		view_container.custom_minimum_size = Vector2.ZERO
+		view_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		view_placeholder.show(); setup_shell.hide(); practice_root.show()
+	else:
+		if view_container.get_parent() != view_home:
+			view_container.reparent(view_home,false); view_home.move_child(view_container,view_home_index)
+		view_container.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		view_container.custom_minimum_size = Vector2(350,300)
+		view_placeholder.hide(); practice_root.hide(); setup_shell.show()
+	sync_practice_hud()
+
+func open_practice_settings() -> void:
+	resume_after_settings = running and not paused
+	if resume_after_settings: toggle_pause()
+	set_practice_view(false)
+
+func return_practice_view() -> void:
+	if not configured or actors.size()!=8: return
+	if not running:
+		demo = false; start_run(); return
+	set_practice_view(true)
+	if resume_after_settings and running and paused: toggle_pause()
+	resume_after_settings = false
+
+func toggle_overview() -> void:
+	if arena.has_method("set_overhead"): arena.set_overhead(not arena.overhead)
+	else: arena.overhead=not arena.overhead; arena.update_camera()
+	follow_toggle.set_pressed_no_signal(arena.follow_player)
+
+func sync_practice_hud() -> void:
+	if not is_instance_valid(hud_title): return
+	hud_title.text = title_label.text; hud_cue.text = cue.text
+	hud_progress.value = progress.value; hud_player.text = player_info.text
+	hud_pause.text = "P 繼續" if paused else "P 暫停"
+	hud_feedback.text = feedback.text
+	hud_feedback_panel.visible = configured and (paused or not running or not all_errors.is_empty())
+	var rows := "[b]PARTY / Dynamis[/b]\n"
+	for i in actors.size():
+		var stacks := int(state.get("dynamis",[0,0,0,0,0,0,0,0])[i])
+		rows += "[color=%s]%s %s[/color]  %s\n" % ["#fff0a7" if i==player else "#d2dded","▶" if i==player else "·",Encounter.ROLES[i],"●".repeat(stacks)]
+	hud_party.text = rows
+	hud_lb_row.visible = configured and lb_panel.visible and state.has("p6_lb")
+	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""
+	hud_bottom_panel.offset_top = -144 if hud_lb_row.visible else -104
+	hud_feedback_panel.offset_top = -282 if hud_lb_row.visible else -242
+	hud_feedback_panel.offset_bottom = -154 if hud_lb_row.visible else -114
+	if not hud_lb_row.visible: return
+	var items: Array = []
+	for i in lb_target.item_count: items.append([lb_target.get_item_text(i),lb_target.get_item_metadata(i)])
+	var signature := JSON.stringify(items)
+	if signature != hud_target_signature:
+		hud_target_signature = signature; hud_lb_target.clear()
+		for i in items.size():
+			hud_lb_target.add_item(items[i][0]); hud_lb_target.set_item_metadata(i,items[i][1])
+	if lb_target.selected >= 0 and lb_target.selected < hud_lb_target.item_count: hud_lb_target.select(lb_target.selected)
+	hud_lb_target.visible = lb_target.visible
+	hud_ground_row.visible = lb_ground_x.get_parent().visible
+	if not hud_ground_x.get_line_edit().has_focus(): hud_ground_x.value = lb_ground_x.value
+	if not hud_ground_y.get_line_edit().has_focus(): hud_ground_y.value = lb_ground_y.value

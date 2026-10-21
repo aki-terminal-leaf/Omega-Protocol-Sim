@@ -15,11 +15,23 @@ var selected_player = 4
 var current: Dictionary = {}
 var actors: Array = []
 var redraw_elapsed = 0.0
-var camera_size = 44.0
+# Source lengths scaled by TOP/original character scale: 0.55 / 1.25.
+const PLAYER_DISTANCE := 9.68
+const PLAYER_MIN_DISTANCE := 0.044
+const PLAYER_MAX_DISTANCE := 13.2
+const PLAYER_PIVOT_HEIGHT := 1.54
+const PLAYER_PITCH := PI / 18.0
+const CAMERA_FLOOR_LAYER := 1 << 19
+var twist_pivot: Node3D
+var pitch_pivot: Node3D
+var spring_arm: SpringArm3D
+var camera_floor: StaticBody3D
+var player_view: Dictionary = {}
+var camera_size = PLAYER_DISTANCE
 var overhead = false
 var camera_yaw = 0.0
-var camera_pitch = 0.91
-var follow_player = false
+var camera_pitch = PLAYER_PITCH
+var follow_player = true
 var follow_target = Vector3.ZERO
 var camera_target = Vector3.ZERO
 var encounter_id = "p1_loop"
@@ -49,8 +61,21 @@ func _ready() -> void:
 	environment.environment = env; add_child(environment)
 	var light = DirectionalLight3D.new(); light.rotation_degrees = Vector3(-60, -25, 0); light.light_energy = 1.1; add_child(light)
 	camera = Camera3D.new(); camera.projection = Camera3D.PROJECTION_PERSPECTIVE
-	camera.fov = 55; camera.near = 0.1; camera.far = 250; camera.current = true
-	add_child(camera); update_camera()
+	camera.fov = 75; camera.near = 0.022; camera.far = 250; camera.current = true
+	twist_pivot = Node3D.new(); twist_pivot.name = "TwistPivot"; add_child(twist_pivot)
+	pitch_pivot = Node3D.new(); pitch_pivot.name = "PitchPivot"; twist_pivot.add_child(pitch_pivot)
+	spring_arm = SpringArm3D.new(); spring_arm.name = "SpringArm3D"; pitch_pivot.add_child(spring_arm)
+	# Explicit sweep protects the near plane, including at vertical pitch.
+	var probe := SphereShape3D.new(); probe.radius = 0.04
+	spring_arm.shape = probe; spring_arm.margin = 0.025
+	spring_arm.collision_mask = CAMERA_FLOOR_LAYER
+	spring_arm.add_child(camera)
+	camera_floor = StaticBody3D.new(); camera_floor.name = "CameraOnlyFloor"
+	camera_floor.collision_layer = CAMERA_FLOOR_LAYER; camera_floor.collision_mask = 0
+	var floor_shape := CollisionShape3D.new(); floor_shape.shape = WorldBoundaryShape3D.new()
+	camera_floor.add_child(floor_shape); add_child(camera_floor)
+	camera.position.z = camera_size
+	update_camera()
 	for i in 8:
 		var p = Rules.direction(i * 45) * 13
 		Visuals.ring(self, Vector3(p.x, 0.04, p.y), 0.8, 0.035, Color("6f99ac"))
@@ -88,24 +113,82 @@ func mesh_node(mesh: Mesh, position_value: Vector3, colour: Color) -> MeshInstan
 	var n = MeshInstance3D.new(); n.mesh = mesh; n.position = position_value; n.material_override = mat(colour); add_child(n); return n
 func update_camera() -> void:
 	if not is_instance_valid(camera): return
+	if selected_player >= 0 and selected_player < actors.size():
+		var p := Rules.v(actors[selected_player].pos)
+		follow_target = Vector3(p.x, 0.02 + float(actors[selected_player].get("height", 0.0)), p.y)
+	camera_target = follow_target if follow_player and not overhead else Vector3.ZERO
+	twist_pivot.position = camera_target + (Vector3.UP * PLAYER_PIVOT_HEIGHT if not overhead else Vector3.ZERO)
+	twist_pivot.rotation.y = camera_yaw
+	# Public pitch is elevation; native local X rotation has the opposite sign.
+	pitch_pivot.rotation.x = -camera_pitch
+	spring_arm.collision_mask = 0 if overhead else CAMERA_FLOOR_LAYER
+	spring_arm.spring_length = camera_size
+	camera.fov = 55.0 if overhead else 75.0
+	camera.near = 0.1 if overhead else 0.022
 	camera.size = camera_size
-	var pitch = PI / 2 - 0.001 if overhead else camera_pitch
-	var offset = Vector3(sin(camera_yaw) * cos(pitch), sin(pitch), cos(camera_yaw) * cos(pitch))
-	camera.position = camera_target + offset * camera_size
-	camera.look_at(camera_target)
+
 func zoom(amount: float) -> void:
-	camera_size = clampf(camera_size + amount, 14, 80); update_camera()
+	camera_size = clampf(camera_size + amount, 14.0 if overhead else PLAYER_MIN_DISTANCE, 80.0 if overhead else PLAYER_MAX_DISTANCE)
+	update_camera()
+
+func zoom_steps(steps: float) -> void:
+	zoom(steps * (2.0 if overhead else 0.22))
+
 func orbit(relative: Vector2) -> void:
 	camera_yaw = wrapf(camera_yaw - relative.x * 0.002, -PI, PI)
-	camera_pitch = clampf(camera_pitch + relative.y * 0.002, 0.25, 1.45)
+	camera_pitch = clampf(camera_pitch + relative.y * 0.002, -PI / 2, PI / 2)
 	update_camera()
+
 func movement_vector(input: Vector2) -> Vector2:
 	return Vector2(input.x * cos(camera_yaw) + input.y * sin(camera_yaw), -input.x * sin(camera_yaw) + input.y * cos(camera_yaw)).limit_length(1.0)
+
 func reset_camera() -> void:
-	camera_yaw = 0; camera_pitch = 0.91; camera_size = 44; overhead = false
-	follow_player = false; camera_target = Vector3.ZERO; update_camera()
+	camera_yaw = 0; camera_pitch = PLAYER_PITCH; camera_size = PLAYER_DISTANCE
+	overhead = false; follow_player = true; player_view.clear(); update_camera()
+
 func set_follow(enabled: bool) -> void:
 	follow_player = enabled
+	update_camera()
+
+func set_overhead(enabled: bool) -> void:
+	if enabled == overhead: return
+	if enabled:
+		player_view = {"yaw": camera_yaw, "pitch": camera_pitch, "distance": camera_size, "follow": follow_player}
+		overhead = true; camera_yaw = 0; camera_pitch = 0.91; camera_size = 44
+		follow_player = false
+	else:
+		overhead = false
+		camera_yaw = float(player_view.get("yaw", 0.0))
+		camera_pitch = float(player_view.get("pitch", PLAYER_PITCH))
+		camera_size = float(player_view.get("distance", PLAYER_DISTANCE))
+		follow_player = bool(player_view.get("follow", true))
+	update_camera()
+
+# Presentation only: preserve cue content, with bounded distance compensation.
+func cue_scale(node: Node3D) -> float:
+	if overhead: return 1.0
+	return clampf(camera.global_position.distance_to(node.global_position) / 30.0, 0.35, 1.0)
+
+func update_cue_presentation() -> void:
+	for i in actor_nodes.size():
+		var factor := cue_scale(actor_nodes[i])
+		var height := float(actors[i].get("height", 0.0)) if i < actors.size() else 0.0
+		actor_labels[i].pixel_size = 0.028 * factor
+		status_labels[i].pixel_size = 0.026 * factor
+		status_labels[i].position.y = (3.1 if overhead else 2.8) + height
+		world_icons[i].position.y = (5.5 if overhead else 3.9) + height
+		if world_icons[i].texture != null:
+			world_icons[i].pixel_size = (2.0 * factor) / float(world_icons[i].texture.get_width())
+		for slot in debuff_icons[i].size():
+			var badge: Sprite3D = debuff_icons[i][slot]
+			badge.position.x *= factor
+			badge.position.y = (4.0 if overhead else 3.3) + height
+			if badge.texture != null: badge.pixel_size = factor / float(badge.texture.get_width())
+	for node in stage_nodes:
+		node.get_node("EntityLabel").pixel_size = 0.025 * cue_scale(node)
+	for boss in bosses:
+		if boss.has_node("Cue"): boss.get_node("Cue").pixel_size = 0.025 * cue_scale(boss)
+
 func set_encounter(id: String) -> void:
 	encounter_id = id
 	if not is_inside_tree(): return
@@ -143,12 +226,9 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 		aoe.clear_surfaces(); signs.clear_surfaces(); positions_initialized = false
 	update_stage_entities()
 	update_clone_cues()
-	if player >= 0 and player < actors.size():
-		var p = Rules.v(actors[player].pos)
-		follow_target = Vector3(p.x, 0, p.y)
+	update_camera()
 func _process(delta: float) -> void:
 	animation_time += delta
-	camera_target = camera_target.lerp(follow_target if follow_player else Vector3.ZERO, 1.0 - exp(-delta * 6))
 	update_camera()
 	if actors.size() != 8: return
 	for i in 8:
@@ -176,6 +256,7 @@ func _process(delta: float) -> void:
 			if badge.visible:
 				badge.texture=world_textures[effect_id];badge.pixel_size=1.0/float(badge.texture.get_width())
 			badge.position=Vector3((slot-(cue.badges.size()-1)*0.5)*1.15,4.0+float(actors[i].get("height",0.0)),0)
+	update_cue_presentation()
 	positions_initialized = true
 	redraw_elapsed += delta
 	if redraw_elapsed < 0.07: return
