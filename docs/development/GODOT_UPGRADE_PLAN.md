@@ -1,6 +1,6 @@
 # Godot / GDScript upgrade plan
 
-Status: **planned, not migrated** (2026-10-21). Current executable/project baseline
+Status: **isolated compatibility and export validation in progress, baseline not switched** (2026-10-21). Current executable/project baseline
 is Godot 4.4.1, GL Compatibility. GDScript ships with the Godot executable; there
 is no separate GDScript package to upgrade.
 
@@ -81,3 +81,34 @@ coverage for the remaining legacy entries, complete Windows/Web release QA and
 this isolated engine migration are not complete. The target release API was
 rechecked successfully during this follow-up; no4.7.2 download/import/export or
 baseline switch has been performed.
+
+## Isolated migration checkpoint — 2026-10-21
+
+Official Linux4.7.2 executable and matching template archive bytes match the
+SHA-256 digests above. A separate Git worktree/import cache reimported the
+private original models, skin/animations and both bundled fonts without script
+errors. The old4.4.1 checkout/cache remains untouched.
+
+Reviewed4.4→4.5→4.6→4.7 versioned migration notes. Input dispatch checks event
+types, not the changed keyboard/mouse device IDs. Existing rig loaders use
+explicit skeleton paths; font hinting remains explicitly1 rather than inheriting
+the newer default. Importer-added `modulate_color_glyphs=false` is retained.
+No AnimationTree blend-space sync or removed JSONRPC/RenderingServer APIs are
+used by the TOP project. Runtime/model/platform gates still decide compatibility.
+
+Packaging now queries the actual stable executable instead of hardcoding4.4.1;
+it rejects zero-exit script/export errors, dirty release trees, mismatched
+engine locks and stale/mismatched `--skip-export` artifacts. Per-platform
+BUILD_INFO stores binary digests; source archives enumerate tracked files only.
+Four focused packaging tests cover real-version provenance, prerelease refusal,
+zero-exit script errors and missing/nonzero exports. This tooling checkpoint
+is not a completed migration or a published release.
+
+Targeted4.7.2 gates passed: Rules196, Contacts21, Stateful72, Review211,
+P1 events1266, HW quick2002, Limitless quick92, P3 quick2268, P4 quick279,
+P6 movement1614, P6 LB602 (production locks), P6 controls20; all zero failures.
+P5 continuous15 courses and12 original models/7 equipped players also pass.
+The initial P1 `--quick` attempt did not narrow that suite and exceeded its
+150-second per-test budget; it was stopped, retained as incomplete, and replaced
+with the supported `--events-only` gate. Existing passing gates were not repeated.
+Full Main/Loop/Windows/Web acceptance is still pending at this checkpoint.
