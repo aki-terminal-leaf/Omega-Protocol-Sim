@@ -43,6 +43,7 @@ def main():
         for name in ['LICENSE','README.md']:shutil.copy2(ROOT/name,target/name)
         shutil.copytree(ROOT/'docs',target/'docs',dirs_exist_ok=True)
         (target/'FONT-OFL.txt').write_bytes((ROOT/'top/fonts/OFL.txt').read_bytes())
+        (target/'CJK-FONT-OFL.txt').write_bytes((ROOT/'top/fonts/CJK-OFL.txt').read_bytes())
         asset_info=target/'LOCAL_GAME_ASSETS.json'
         asset_info.write_text(json.dumps(manifests,indent=2)+'\n')
         suffix=platform+('-x86_64' if platform!='web' else '')+('-local-game-models' if local_models else '')

@@ -57,3 +57,11 @@ and common punctuation/symbol ranges. Required source CJK and①②③Ω coverag
 is checked against the output cmap; no game assets are added. This is a font
 resource fix, not a new mechanic or an engine upgrade. Export/runtime visual
 verification follows this commit; local evidence retains both before/after pixels.
+
+The primary regional Noto Sans TC source itself omits31 simplified/Japanese
+characters used in current source labels/provenance. The first all-source cmap
+check exposed that limit. Added an11,424-byte fallback subset from the maintained
+full Noto Sans CJK TC font, with its SIL-OFL license and package/export inclusion.
+Combined required CJK/①②③Ω coverage:638 distinct characters, zero missing.
+The original font-fix commit remains preserved; the fallback is a separate
+reviewable correction, not a rewritten remote commit.

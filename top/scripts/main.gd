@@ -122,6 +122,7 @@ func build_ui() -> void:
 	var theme_value = Theme.new(); theme_value.default_font_size = 15
 	var font = SystemFont.new(); font.font_names = PackedStringArray(["Noto Sans TC", "Microsoft JhengHei", "WenQuanYi Zen Hei", "Arial"]); theme_value.default_font = font
 	if ResourceLoader.exists("res://fonts/ui.ttf"): theme_value.default_font = load("res://fonts/ui.ttf")
+	if ResourceLoader.exists("res://fonts/ui_fallback.otf"):theme_value.default_font.fallbacks=[load("res://fonts/ui_fallback.otf")]
 	theme_value.set_stylebox("normal", "Button", panel(Color("1d3047"), 8)); theme_value.set_stylebox("hover", "Button", panel(Color("294a60"), 8)); theme_value.set_stylebox("pressed", "Button", panel(Color("37605f"), 8))
 	theme_value.set_stylebox("normal", "LineEdit", panel(Color("172338"), 7)); theme_value.set_stylebox("panel", "PopupMenu", panel(Color("18283c"), 10))
 	self.theme = theme_value
