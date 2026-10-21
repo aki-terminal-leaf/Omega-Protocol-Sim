@@ -86,7 +86,8 @@
   "exaflare_interval": {
     "value": 1.1,
     "status": "community_geometry",
-    "source": "BossMod P6WaveCannon.cs P6WaveCannonExaflare: advance8, interval1.1, seven explosions"
+    "source": "BossMod P6WaveCannon.cs P6WaveCannonExaflare: advance8, interval1.1, seven explosions",
+    "implementation_scope": "Legacy Encounters.exaflare_streams fixture only. Current P6 production uses p6_patterns.exaflares: T12/13/14/15 first hits, +1.11 first advance then +1.00 repeats; these are a normalized model, not exact server ticks."
   },
   "exaflare_radius": {
     "value": 8.0,
@@ -150,13 +151,13 @@
   },
   "arrow_side_start": {
     "value": 15.0,
-    "status": "unverified_training",
-    "source": "Uncalibrated symmetric side-start family"
+    "status": "fflogs_observed_finite_geometry",
+    "source": "fflogs_observations.json: eight Arrow groups in four complete clears, side-cast origins at signed15 offset; finite observed geometry, not all original variants."
   },
   "exaflare_origin_radius": {
     "value": 24.0,
-    "status": "unverified_training",
-    "source": "Explicit unverified four-cardinal training origin family"
+    "status": "fflogs_observed_finite_geometry",
+    "source": "fflogs_observations.json: four complete clears, eight groups/32 first casts at radius24 with adjacent45-degree starts. Current P6 uses16 rotation/direction stress variants; exhaustive server RNG is not proved."
   },
   "exaflare_explosions": {
     "value": 7,
@@ -166,12 +167,13 @@
   "exaflare_first_delay": {
     "value": 2.0,
     "status": "unverified_training",
-    "source": "Training delay, not cast-relative server timestamp"
+    "source": "Training delay, not cast-relative server timestamp",
+    "implementation_scope": "Legacy Encounters.exaflare_streams fixture only. Current P6 production uses p6_patterns.exaflares: T12/13/14/15 first hits, +1.11 first advance then +1.00 repeats; these are a normalized model, not exact server ticks."
   },
   "exaflare_stream_stagger": {
     "value": 1.0,
-    "status": "unverified_training",
-    "source": "TOPStates describes one second between lines; starts otherwise uncalibrated"
+    "status": "fflogs_observed_nominal",
+    "source": "Eight original first-cast groups:24 consecutive source intervals0.936..1.030s, median1.024s; nominal1s. Not exact server frames."
   },
   "regression_ruin_duration": {
     "value": 1.0,
