@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "version": "4.7.2",
+  "channel": "stable",
+  "engine_build": "4.7.2.stable.official.ed1daf0bf",
+  "release_url": "https://github.com/godotengine/godot/releases/tag/4.7.2-stable",
+  "renderer": "gl_compatibility",
+  "web_threads": false,
+  "required_templates": [
+    "linux_release.x86_64",
+    "windows_release_x86_64.exe",
+    "web_nothreads_debug.zip",
+    "web_nothreads_release.zip"
+  ],
+  "official_assets": {
+    "Godot_v4.7.2-stable_export_templates.tpz": {
+      "sha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011",
+      "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz"
+    },
+    "Godot_v4.7.2-stable_linux.x86_64.zip": {
+      "sha256": "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4",
+      "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip"
+    },
+    "Godot_v4.7.2-stable_win64.exe.zip": {
+      "sha256": "731980f9608d61333e5baf54a2ef17210acc7a538446c0cb9969f002aca1e953",
+      "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip"
+    }
+  },
+  "rollback_commit": "2d9e832ed32317cefa96b279c54fb297a361452b",
+  "capability_policy": "Only versioned 4.7 documentation plus executable and Windows/Web proof; no speculative/nightly APIs"
+}

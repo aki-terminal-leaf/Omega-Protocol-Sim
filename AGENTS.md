@@ -30,8 +30,10 @@ coherent, reviewable increments.
 - Every meaningful tool-driven operation must use a bounded command. Where
   this wrapper is unavailable (remote bridge), set the bridge's explicit hard
   timeout and collect a terminal status before resubmitting anything.
-- Current approved engine baseline is **Godot 4.4.1**, until the migration gates
-  in `docs/development/GODOT_UPGRADE_PLAN.md` pass. GDScript is upgraded with
+- Current approved engine baseline is **Godot 4.7.2-stable**, after the isolated
+  parser/mechanic/original-asset/Windows/Web migration gates passed on2026-10-21.
+  `top/data/engine_lock.json` pins engine/templates; rollback4.4.1 is commit2d9e832.
+  GDScript is upgraded with
   Godot, not as an independent package. Never share `.godot` caches between
   versions. New feature work after the migration uses only the pinned version's
   documented, locally verified Windows/Web-supported APIs. Do not introduce

@@ -1,7 +1,7 @@
 # Godot / GDScript upgrade plan
 
-Status: **isolated compatibility and export validation in progress, baseline not switched** (2026-10-21). Current executable/project baseline
-is Godot 4.4.1, GL Compatibility. GDScript ships with the Godot executable; there
+Status: **migration gates passed; pinned4.7.2 baseline** (2026-10-21). Current executable/project baseline
+is Godot4.7.2-stable, GL Compatibility. GDScript ships with the Godot executable; there
 is no separate GDScript package to upgrade.
 
 ## Pinned target and evidence
@@ -60,12 +60,12 @@ A failed gate leaves the migration pending, with its reproducer recorded.
 
 | Area | Adoption rule | Current state |
 | --- | --- | --- |
-| Typed arrays/dictionaries, script API typing | Exact pinned-version docs + parser/serialization regression; preserve JSON-native durable state | Existing 4.4 subset only; newer syntax not yet approved |
+| Typed arrays/dictionaries, script API typing | Exact pinned-version docs + parser/serialization regression; preserve JSON-native durable state | Existing used typed subset verified by4.7.2 parser/runtime; unused newer syntax still needs a probe |
 | Abstract classes / other newer GDScript syntax | Verify exact syntax and semantic support in versioned docs and a tiny executable probe before use | Candidate, not adopted |
-| SceneTree/Node/Resource/input API | API exists in pinned reference and representative Windows/Web runtime check passes | Baseline API set; upgrade unverified |
-| Rendering/materials/animation | GL Compatibility + real original-asset pixel validation on both export targets | Upgrade unverified |
-| Web threading/extensions/platform features | Explicit official Web support and export test; no desktop-only dependency in shared flow | Not approved by assumption |
-| Test runner/report/retry state | Error-sensitive headless runner, actual courses, JSON round-trip and failed-seed retention | 4.4 baseline only |
+| SceneTree/Node/Resource/input API | API exists in pinned reference and representative Windows/Web runtime check passes | Used API set passes actual Windows physical input and Web UI/input/JSON gates |
+| Rendering/materials/animation | GL Compatibility + real original-asset pixel validation on both export targets | Twelve original models/seven players pass import+motion; actual Windows/Web pixels inspected |
+| Web threading/extensions/platform features | Explicit official Web support and export test; no desktop-only dependency in shared flow | Non-threaded Web explicitly verified with matching templates; extensions/nightly-only APIs not adopted |
+| Test runner/report/retry state | Error-sensitive headless runner, actual courses, JSON round-trip and failed-seed retention | 4.7.2 error-sensitive suites and86 Main methods pass; state-specific restore scope remains explicit |
 
 A feature's presence in an unversioned `latest` document is insufficient. If the
 pinned target does not support a desired feature, select a documented supported
@@ -77,8 +77,8 @@ P3 transition and P4 Wave Cannon are collected/reviewed and production-wired
 (commits4e160e6/e9a6b9a). P6 actual request/target controls and public-reference
 post-cast locks are wired(e731cc6); ranged edge geometry remains unverified.
 Original VFX reconstruction, remaining route/source gaps, full five-profile
-coverage for the remaining legacy entries, complete Windows/Web release QA and
-this isolated engine migration are not complete. The target release API was
+coverage for the remaining legacy entries, remaining ranged-control release QA are not complete.
+The isolated engine migration itself has now passed its gates. The target release API was
 rechecked successfully during this follow-up; no4.7.2 download/import/export or
 baseline switch has been performed.
 
@@ -130,3 +130,28 @@ An explicit empty data-URL favicon removes that unrelated request; the portable
 smoke script also fixes the inspected menu-row coordinate and Windows UTF-8
 report decoding. Final console-clean Web acceptance follows this correction.
 Native ranged-target UI and a new published release are not claimed.
+
+## Version lock — completed2026-10-21
+
+`top/data/engine_lock.json`, project feature4.7 and the project execution contract
+now pin4.7.2. Clean native sourcefb7fab6 and clean Web source1e0a3cb6 ran the
+same compiled gameplay PCK SHA-256
+`c685ce1dcab84d1d2618e8f742c753c6c7df9caf1555b4a9532109a164b35806`.
+The latter adds only the verified favicon head/portable QA correction; final
+Chrome155.0.8059.80 menu→strategy/start/D/pause/orbit/wheel/Space/retry/JSON and
+new-selection-clears-state gate passes with zero browser errors. Native
+RX7900XT/OpenGL3.3 also passes physical F/caster4.5s+8.1s postlock and tank
+postlock checks, and actual1280×800→1440×900 resizing with M/F model pixels.
+Linux exported executable startup passes. Native manual-popup selection and
+ranged-target UI are not claimed by the CLI-preselected native gate.
+
+No arbitrary abstract-class or other new-syntax rewrite was introduced. Existing
+used APIs are verified on the pinned engine; a future newer feature still needs
+its own versioned-reference/runtime proof. GDScript upgrades with this engine.
+The4.4.1 source rollback is2d9e832, with its binary/templates retained and its
+cache kept separate. This closes the **engine** work, not the unresolved combat
+parameters, regional routes, VFX or publication condition.
+
+The inactive CI template's4.7.2 image tag/digest was checked via Docker Hub's
+public tag API on2026-10-21. It remains a template; Actions were not activated,
+and no CI-green claim is made.

@@ -20,9 +20,9 @@
 - Windows：完整解壓後開 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。
 - Linux：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
 - Web：在解壓資料夾執行 `python3 -m http.server 8000`，瀏覽 `http://localhost:8000`。不要直接開 `file://`。
-- 從原始碼：以 Godot **4.4.1** 開啟 **`top/project.godot`**，不是根目錄舊 DSR 專案。
+- 從原始碼：以 Godot **4.7.2-stable** 開啟 **`top/project.godot`**，不是根目錄舊 DSR 專案。
 
-Godot／GDScript **4.7.2-stable 升級仍在規劃，尚未切換基線**；先通過隔離匯入、判定回歸、原版素材與 Windows／Web 實機關卡，再以新版已驗證支援的功能開發。[升級計畫](docs/development/GODOT_UPGRADE_PLAN.md) · [分段提交與執行監督](docs/development/SUPERVISION.md)
+Godot／GDScript 已升級並鎖定 **4.7.2-stable**；隔離匯入、機制回歸、原版素材與 Windows／Web 操作關卡已通過。後續開發只使用此版本文件與實際執行已證明支援的功能；不將候選語法當成已驗證能力。[升級計畫](docs/development/GODOT_UPGRADE_PLAN.md) · [分段提交與執行監督](docs/development/SUPERVISION.md)
 
 不需要遊戲安裝、帳號、ACT、Dalamud、第三方標記器或網路登入。
 
@@ -69,7 +69,7 @@ godot --headless --path top --script tests/models.gd -- --require-official
 python3 tools/package.py --godot godot
 ```
 
-建置需官方 4.4.1 export templates。v0.2 已在 AnAn 實際操作；v0.3 的精確驗收紀錄另列，不能沿用舊版結果冒稱新版已測。[驗證紀錄](docs/VALIDATION.md)。GitHub OAuth 缺 workflow scope，CI 僅保留 [範本](docs/ci/top.yml)，未啟用 Actions。
+建置需與引擎完全同版的官方 **4.7.2** export templates；非執行緒 Web 需 `web_nothreads_debug.zip`／`web_nothreads_release.zip`。v0.2 已在 AnAn 實際操作；v0.3 的精確驗收紀錄另列，不能沿用舊版結果冒稱新版已測。[驗證紀錄](docs/VALIDATION.md)。GitHub OAuth 缺 workflow scope，CI 僅保留 [範本](docs/ci/top.yml)，未啟用 Actions。
 
 架構：`encounters.gd` 產生點名／段落；`interactions.gd` 處理移動中的接線；`statuses.gd` 保存感染／到期／成對線與地火狀態；`rules.gd` 從實際狀態判定；`main.gd` 控制輸入／流程；`arena.gd`／`visuals.gd` 呈現 3D。
 

@@ -93,3 +93,34 @@ cleanup owns the actual server, not only a shell; the one stale task-owned child
 was identified by exact PID/command and stopped. Web user arguments require the
 `--` separator. Software-rendered wall time can advance less simulation time;
 assert action deadlines against exported simulation timestamps.
+
+## Godot/GDScript4.7.2 migration acceptance —2026-10-21
+
+Official Linux executable/templates match the pinned release SHA-256 digests;
+separate worktree/cache, no4.4 cache reuse. Error-sensitive targeted gates: Rules
+196/0, Contacts21/0, Stateful72/0, Review211/0, P1 events1266/0, HW quick2002/0,
+Limitless quick92/0, P3 quick2268/0, P4 quick279/0, P6 movement1614/0, LB602/0
+with production locks, controls20/0. ContinuousP5:15/0. Original models12 and
+equipped players7:0 failures. Actual Main all20 mechanics/86 offered methods,
+seed17391:0 failures. Initial unsupported P1 --quick attempt exceeded its150s
+budget; retained as incomplete, replaced by the supported events gate.
+
+Native Windows exact exported PCK: physical D, relative right mouse, wheel, Space,
+P pause/R retry pass; CLI preselected scenario (not manual-menu proof). Tank and
+caster physical F request+finish and actual postlocks block D/sprint/Space.
+RX7900XT OpenGL3.3; actual resize1280×800 and1440×900 passed; original model/font
+pixels inspected. Linux exported executable startup passes.
+
+Chrome155.0.8059.80 on AnAn: actual menu/strategy/start/move/pause/orbit/zoom/jump/
+same-seed retry/JSON download/new-mechanism-needs-strategy pass; **zero final
+browser errors**, clean Web source1e0a3cb6. A preceding run's only console issue
+was confirmed /favicon.ico404, corrected by the explicit empty data-URL favicon.
+The two initial menu-driver attempts selected the placeholder, not a product
+judgment failure; actual inspected row558 and explicit Windows UTF-8 decoding
+are now in the portable smoke tool. This does not claim native ranged-target UI
+or a new published build.
+
+Gameplay PCK for nativefb7fab6 and Web1e0a3cb6 is identical:
+`c685ce1dcab84d1d2618e8f742c753c6c7df9caf1555b4a9532109a164b35806`.
+Project baseline now pins4.7.2; remaining fidelity/source gaps are separate
+publication blockers. No original media or raw private logs were staged.

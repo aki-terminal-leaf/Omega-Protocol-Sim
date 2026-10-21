@@ -49,13 +49,13 @@ python tools/export_official_models.py <共用目錄參數> --rig-dir <RIG_DIR> 
 
 ## 現有玩家外觀的可選轉換
 
-`tools/reuse_local_players.gd` 只轉換使用者既有 DSR pack 的七種配裝 model scenes，移除 scripts，輸出 GLB 與來源 SHA256。不啟動 DSR 主遊戲、不更動原始 pack。需要可讀該 pack 格式的編輯器 binary；這次以獨立目錄的 Godot 4.7.2 完成轉換，TOP 本身仍使用 4.4.1。以 `--reference-pack=<path>` 與 `--output=<path>` 指定本機來源／輸出。原始角色素材仍不併入公開程式碼。
+`tools/reuse_local_players.gd` 只轉換使用者既有 DSR pack 的七種配裝 model scenes，移除 scripts，輸出 GLB 與來源 SHA256。不啟動 DSR 主遊戲、不更動原始 pack。需要可讀該 pack 格式的編輯器 binary；這次以獨立目錄的 Godot 4.7.2 完成轉換，當時 TOP 基線為 4.4.1；現已通過獨立升級關卡並鎖定 4.7.2，見升級計畫。以 `--reference-pack=<path>` 與 `--output=<path>` 指定本機來源／輸出。原始角色素材仍不併入公開程式碼。
 
 ## 玩家包相容性與驗收
 
 DSR model-only presets 的 MeshInstance3D 保留 Skin / vertex weights，但 skeleton path 為空，由原控制器在執行時綁定。轉換器以最近的 Skeleton3D 補上本機相對路徑，加入場景樹後才匯出；不拷貝控制器。只匯出 Animation 名稱而沒有 skin 的 GLB 不通過驗收。
 
-4.7 產生的 `KHR_node_visibility` 在 TOP 的 4.4 importer 不支援，因此 `tools/prepare_reference_glb.py` 將預設隱藏部件烘焙為不引用 mesh 的節點，同時將玩家貼圖上限降至 512，保留原始 GLB / SHA256。網格、蒙皮、骨架、動畫資料不因貼圖降採樣而重建。角色顯示另用 0.55 比例以配合訓練尺度，不改變判定或移動座標。
+為保留 4.4 回退包，先前將 4.7 產生、4.4 importer 不支援的 `KHR_node_visibility` 相容化，因此 `tools/prepare_reference_glb.py` 將預設隱藏部件烘焙為不引用 mesh 的節點，同時將玩家貼圖上限降至 512，保留原始 GLB / SHA256。網格、蒙皮、骨架、動畫資料不因貼圖降採樣而重建。角色顯示另用 0.55 比例以配合訓練尺度，不改變判定或移動座標。
 
 `tests/models.gd -- --require-official` 驗證五形態原版 rig 的實際骨骼變動與形變範圍，以及七種配裝角色的真實走跑、停止回待機、直立方向、外觀動畫不改寫遊戲 actor 原點。每次仍須看實際畫面，不把匯出 exit 0 或動畫名稱視為造型正確的證明。
 

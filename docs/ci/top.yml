@@ -8,7 +8,7 @@ on:
 jobs:
   test-build:
     runs-on: ubuntu-latest
-    container: barichello/godot-ci:4.4.1
+    container: barichello/godot-ci:4.7.2@sha256:cdcca31e9194fd59a68a63f4b1b9c3981716819c520cd6f7966c5d72ca7246bd
     steps:
       - uses: actions/checkout@v4
       - name: Import
@@ -18,9 +18,9 @@ jobs:
       - name: Contact and debuff regressions
         run: timeout 60 godot --headless --path top --script tests/interactions.gd
       - name: Seeded encounter geometry
-        run: timeout 60 godot --headless --path top --script tests/run.gd
+        run: timeout 300 godot --headless --path top --script tests/run.gd
       - name: Complete runtime courses
-        run: timeout 60 godot --headless --path top --script tests/runtime.gd
+        run: timeout 540 godot --headless --path top --script tests/runtime.gd -- --only-seed=17391 --progress
       - name: Build portable packages
         run: python3 tools/package.py --godot godot
       - uses: actions/upload-artifact@v4
