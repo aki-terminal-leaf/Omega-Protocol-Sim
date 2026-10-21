@@ -107,26 +107,35 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 	var wanted: Array = beat.transfers.wanted
 	var pos: Vector2 = actors[actor].pos
 	if actor in wanted and actor not in holders:
-		var target := Vector2.ZERO
-		var best := INF
-		for k in holders.size():
-			if holders[k] in wanted and holders.count(holders[k]) == 1: continue
-			var source: Vector2 = beat.transfers.sources[k]
-			var endpoint: Vector2 = actors[int(holders[k])].pos
-			# Approach the actual current line, never replace its holder by fiat.
-			var t: float = clampf((pos - source).dot(endpoint - source) / maxf(0.01, source.distance_squared_to(endpoint)), 0.2, 0.8)
-			var pickup := source.lerp(endpoint, t)
-			if actor in state.tether_contacts[k]:
-				var normal := (endpoint - source).normalized().orthogonal()
-				if normal.length_squared() < 0.1: normal = Vector2.RIGHT
-				pickup = pos + normal * 1.5
-			if pos.distance_squared_to(pickup) < best: best = pos.distance_squared_to(pickup); target = pickup
 		var reserved: Array = []
 		for k in holders.size():
 			if holders[k] in wanted:
 				reserved.append([beat.transfers.sources[k], actors[int(holders[k])].pos])
-		if not clear_path(pos,target,reserved):
-			return navigate_goal(actor,pos,target,reserved,state)
+		var target := pos
+		var best := INF
+		var radius := float(beat.transfers.get("pickup_radius",Statuses.parameter("pickup_radius")))
+		for k in holders.size():
+			if holders[k] in wanted and holders.count(holders[k]) == 1: continue
+			var source: Vector2 = beat.transfers.sources[k]
+			var endpoint: Vector2 = actors[int(holders[k])].pos
+			var normal := (endpoint-source).normalized().orthogonal()
+			if normal.length_squared()<0.1:normal=Vector2.RIGHT
+			if actor in state.tether_contacts[k]:
+				# Leave the capsule before re-entering, obeying the same edge-trigger rule.
+				if (pos-Geometry2D.get_closest_point_to_segment(pos,source,endpoint)).dot(normal)<0:normal=-normal
+				var exit_point := pos+normal*1.5
+				if pos.distance_squared_to(exit_point)<best:best=pos.distance_squared_to(exit_point);target=exit_point
+				continue
+			var projection: float = clampf((pos-source).dot(endpoint-source)/maxf(0.01,source.distance_squared_to(endpoint)),0.2,0.95)
+			for t in [projection,0.3,0.5,0.7,0.9,0.95]:
+				for side in [-1,1]:
+					# Touch the near EDGE, not necessarily the center of a reserved-line corridor.
+					# Two close initial rays can have no centerline route with 1y clearance.
+					var pickup: Vector2=source.lerp(endpoint,t)+normal*side*radius*0.75
+					if reserved.any(func(line):return pickup.distance_to(Geometry2D.get_closest_point_to_segment(pickup,line[0],line[1]))<NAV_CLEARANCE):continue
+					var score:=pos.distance_squared_to(pickup)
+					if score<best:best=score;target=pickup
+		if not clear_path(pos,target,reserved):return navigate_goal(actor,pos,target,reserved,state)
 		return target
 	var ready := true
 	for h in wanted:
@@ -162,6 +171,18 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 						nearest = pos.distance_squared_to(candidate); refuge = candidate
 			state.loop_refuges[actor] = refuge
 		final = state.loop_refuges[actor]
+	# Yield proactively when standing in a carrier's intended sweep corridor.
+	# Otherwise a short live line and the waiting carrier can mutually block a
+	# retiring player's route; moving to the goal-side of the ray is a legal walk.
+	if ready and actor not in holders:
+		for k in holders.size():
+			var source: Vector2=beat.transfers.sources[k]
+			var end: Vector2=beat.positions[int(holders[k])]
+			var nearest:=Geometry2D.get_closest_point_to_segment(pos,source,end)
+			if pos.distance_to(nearest)<1.5 and actors[int(holders[k])].pos.distance_to(end)>1.0:
+				var normal: Vector2=(end-source).normalized().orthogonal()
+				if (final-source).dot(normal)<0:normal=-normal
+				return pos+normal*2.0
 	# Navigate around lines not owned by this bot. Contact has the same effect for bots and YOU.
 	var obstacles: Array = []
 	for k in holders.size():

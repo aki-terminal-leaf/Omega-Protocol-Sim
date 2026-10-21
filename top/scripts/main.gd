@@ -223,7 +223,7 @@ func choose_strategy(selection: int) -> void:
 	var method: Dictionary = strategy_select.get_item_metadata(selection)
 	for profile in strategies:
 		if profile.id == method.profile:
-			active_profile = profile; configured = true; set_launch_enabled(true); prepare(); return
+			active_profile = load("res://scripts/strategy_routes.gd").apply(profile,selected_item().id,method.get("overrides",{})); configured = true; set_launch_enabled(true); prepare(); return
 func prepare() -> void:
 	if not is_instance_valid(arena) or filtered.is_empty() or not configured or selected_item().is_empty(): return
 	running = false; paused = false; demo = false
@@ -244,7 +244,7 @@ func prepare() -> void:
 	cue.text = "準備完成 · %s · %d 個訓練判定" % [Encounter.ROLES[player], encounter.beats.size()]
 	feedback.text = "[color=#90a3bd]開始後控制黃色標示角色。\n關閉提示可練習獨立判斷。[/color]"
 	save_settings()
-func new_state() -> Dictionary: return {"dynamis": encounter.initial_dynamis.duplicate(), "spent": [], "lb": "", "lb_actor": -1, "aggro": 0, "sim_time": 0.0}
+func new_state() -> Dictionary: return {"dynamis": encounter.initial_dynamis.duplicate(), "spent": [], "lb": "", "lb_actor": -1, "aggro": 0, "sim_time": 0.0,"seed":encounter.seed}
 func oracle_state_before(target: int) -> Dictionary:
 	var result = new_state()
 	var simulated: Array = []
@@ -261,7 +261,7 @@ func oracle_state_before(target: int) -> Dictionary:
 			var dt := minf(0.05, float(b.duration) - clock)
 			var previous := simulated.duplicate(true)
 			for i in 8:
-				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * 11.0)
+				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * (6.0 if b.has("p6_route") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(result,i) else simulated[i].pos
 				simulated[i].face = b.facing.get(i, 0.0)
 			Interactions.tick(b, simulated, previous, result, dt)
 			clock += dt
@@ -365,8 +365,11 @@ func _process(delta: float) -> void:
 			var previous = actors.duplicate(true)
 			for i in 8:
 				if i == player and not demo: continue
-				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * 11.0)
+				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * (6.0 if current.has("p6_route") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(state,i) else actors[i].pos
 				actors[i].face = current.facing.get(i, 0.0)
+			state.motion_allowances=[]
+			for i in 8:state.motion_allowances.append(6.0*dt)
+			state.motion_allowances[player]=(7.5 if sprint_left>0 else 6.0)*dt+30.0*minf(dash_left,dt)
 			move_player(dt)
 			Interactions.tick(current, actors, previous, state, dt)
 			if Rules.v(actors[player].pos).length() >= 20 and not wall_recorded:
@@ -381,11 +384,12 @@ func _process(delta: float) -> void:
 				sample_elapsed = 0
 				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
 			if elapsed >= float(current.duration): resolve_beat()
-	arena.update_state(actors, current, player, hints.button_pressed or (paused and pending_advance))
+	arena.update_state(actors, current, player, hints.button_pressed or (paused and pending_advance), elapsed)
 	update_hud()
 func move_player(dt: float) -> void:
 	if demo: return
-	var allow_input := not (get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit)
+	var cast_locked: bool=load("res://scripts/p6_runtime.gd").is_locked(state,player)
+	var allow_input := not cast_locked and not (get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit)
 	var movement = Vector2.ZERO
 	if allow_input and (Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP)): movement.y -= 1
 	if allow_input and (Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN)): movement.y += 1
@@ -397,7 +401,7 @@ func move_player(dt: float) -> void:
 	sprint_left = maxf(0, sprint_left - dt); knockback_resist_left = maxf(0, knockback_resist_left - dt)
 	var speed = 7.5 if sprint_left > 0 else 6.0
 	actors[player].pos += movement.normalized() * speed * dt
-	if dash_left > 0:
+	if dash_left > 0 and not cast_locked:
 		var dash_dt = minf(dt, dash_left); actors[player].pos += dash_direction * 30.0 * dash_dt; dash_left -= dash_dt
 	var height: float = actors[player].get("height", 0.0)
 	var vertical: float = actors[player].get("vertical", 0.0)

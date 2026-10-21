@@ -111,7 +111,7 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 					if actor not in state.blaster_victims: state.blaster_victims.append(actor)
 				if caught.size() != 1: failures.append("Omega Blaster clipped another player")
 				if state.has("statuses"):
-					for actor in caught: load("res://scripts/statuses.gd").give(state,actor,"hp_penalty",float(load("res://scripts/statuses.gd").parameter("hp_penalty_duration")))
+					for actor in caught: load("res://scripts/statuses.gd").give(state,actor,"hp_penalty",float(load("res://scripts/statuses.gd").parameter("omega_hp_penalty_duration")))
 			"blaster":
 				for actor in caught:
 					apply_loop_ruin(actor, state, actors, failures, "Blaster")
@@ -123,21 +123,29 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 				var distance = v(actors[int(check.a)].pos).distance_to(v(actors[int(check.b)].pos))
 				if distance < float(check.get("min", 0)) or distance > float(check.get("max", INF)): failures.append("%s: %.1fy" % [name, distance])
 			"monitors":
-				var coverage = []
-				coverage.resize(8)
-				coverage.fill(0)
+				var status=load("res://scripts/statuses.gd");status.ensure(state)
+				var coverage:Array=[];coverage.resize(actors.size());coverage.fill(0)
+				var resolutions:Array=[]
 				for source in check.sources:
-					var caught = hits(source, actors)
-					if caught.size() != 2: failures.append("%s: monitor needs exactly 2 targets (got %d)" % [name, caught.size()])
-					for i in caught: coverage[i] += 1
-				for i in 8:
-					if coverage[i] != 1: failures.append("%s: %s targeted %d times" % [name, actors[i].role, coverage[i]])
+					var candidates=hits(source,actors).filter(func(i):return i not in state.dead)
+					var targets=monitor_targets(candidates,source,actors.size(),state)
+					if targets.size()!=2:failures.append(name+": not enough living monitor targets")
+					for target in targets:
+						for actor in hits({"actor":target,"radius":float(check.get("splash_radius",7.0))},actors):
+							if actor not in state.dead:coverage[actor]+=1
+					resolutions.append({"source_actor":source.get("actor",-1),"candidates":candidates,"targets":targets})
+				for i in actors.size():
+					if i not in state.dead and coverage[i]!=1:failures.append("%s: %s hit %d times (targeting + radius7 splash)"%[name,actors[i].role,coverage[i]])
+				status.event(state,"monitor_resolution",{"sources":resolutions,"coverage":coverage})
 			"regressions_resolved":
 				for tether in state.get("paired_tethers",[]):
 					if tether.id.begins_with(check.prefix) and not tether.broken: failures.append("Unresolved paired tether: " + tether.id)
 			"blaster_eligible":
-				for holder in state.get("tether_holders", []):
-					if int(state.dynamis[holder]) < 3 or holder in check.get("world_holders", []): failures.append("Omega Blaster: ineligible holder")
+				# Three-stack holders are a strategy allocation, not a server ownership gate.
+				# Real HP Penalty / World damage and final Dynamis determine success.
+				pass
+			"world_pulse":
+				resolve_world_pulse(check,actors,state,failures)
 			"world":
 				var near_path = chain(int(check.near), false, actors)
 				var far_path = chain(int(check.far), true, actors)
@@ -150,7 +158,7 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 						if receiver in touched: failures.append("Hello World: double-hit / bounce back")
 						touched.append(receiver)
 						if check.get("exclude_blaster", false) and receiver in state.get("blaster_victims", state.get("tether_holders", [])): failures.append("World hit live Blaster holder")
-						var blast = {"actor": receiver, "radius": float(check.get("holder_radius", 5)) if j == 0 else float(check.get("jump_radius", 2.5))}
+						var blast = {"actor": receiver, "radius": float(check.get("holder_radius", 8)) if j == 0 else float(check.get("jump_radius", 4))}
 						if hits(blast, actors).size() != 1: failures.append("Hello World: AoE clipped another player")
 				if failures.is_empty():
 					for i in touched: state.dynamis[i] = mini(3, int(state.dynamis[i]) + 1)
@@ -211,6 +219,68 @@ static func apply_loop_ruin(actor: int, state: Dictionary, actors: Array, failur
 	var now := float(state.get("sim_time", 0.0))
 	if float(state.loop_ruin_expires[actor]) > now: failures.append("%s: Twice-come Ruin ×2 → Doom (%s)" % [actors[actor].role, cause])
 	state.loop_ruin_expires[actor] = now + float(load("res://scripts/statuses.gd").parameter("ruin_duration"))
+
+
+static func monitor_targets(candidates: Array, source: Dictionary, count: int, state: Dictionary) -> Array:
+	var pool:=candidates.duplicate();var targets:Array=[]
+	while targets.size()<2:
+		if pool.is_empty():
+			for actor in count:
+				if actor not in targets and actor not in state.get("dead",[]) and actor!=int(source.get("actor",-1)):pool.append(actor)
+			if pool.is_empty():break
+		var seed_value:int=int(state.get("monitor_rng",state.get("seed",1)))
+		seed_value=posmod(seed_value*1103515245+12345,2147483647);state.monitor_rng=seed_value
+		var choice:int=seed_value%pool.size();targets.append(pool[choice]);pool.remove_at(choice)
+	return targets
+
+static func resolve_world_pulse(check: Dictionary, actors: Array, state: Dictionary, failures: Array) -> void:
+	var statuses = load("res://scripts/statuses.gd")
+	statuses.ensure(state)
+	if not state.has("world_chains"): state.world_chains = {}
+	var id: String = check.chain_id
+	var pulse := int(check.pulse)
+	if pulse==0:
+		state.world_chains[id] = {"holders":[int(check.near),int(check.far)],"next_pulse":0,"touched":[],"history":[]}
+	if not state.world_chains.has(id) or int(state.world_chains[id].next_pulse)!=pulse:
+		failures.append("World pulse missing/out of order: " + id)
+		return
+	var chain: Dictionary = state.world_chains[id]
+	var receivers: Array = chain.holders.duplicate()
+	if pulse>0:
+		for side in 2:
+			var holder: int = chain.holders[side]
+			var best := INF if side==0 else -INF
+			var receiver := -1
+			for actor in actors.size():
+				if actor==holder or actor in state.dead: continue
+				var distance := v(actors[holder].pos).distance_squared_to(v(actors[actor].pos))
+				if distance<best if side==0 else distance>best:
+					best=distance;receiver=actor
+			if receiver<0: failures.append("World: no living jump target");return
+			receivers[side]=receiver
+	var now := float(state.get("sim_time",0))
+	for side in 2:
+		var receiver: int = receivers[side]
+		if receiver in state.dead:
+			failures.append("World holder died before resolution")
+			continue
+		var radius := float(check.holder_radius) if pulse==0 else float(check.jump_radius)
+		var caught := hits({"actor":receiver,"radius":radius},actors).filter(func(a):return a not in state.dead)
+		if caught.size()!=1: failures.append("Hello World: AoE clipped another player")
+		for actor in caught:
+			if float(state.statuses[actor].get("world_vulnerability",{}).get("expires",0))>now:
+				failures.append("Hello World: double-hit / bounce back during vulnerability")
+				state.dead.append(actor)
+			if float(state.statuses[actor].get("hp_penalty",{}).get("expires",0))>now:
+				failures.append("World hit live Blaster holder while HP Penalty active")
+				if actor not in state.dead:state.dead.append(actor)
+			statuses.give(state,actor,"world_vulnerability",float(statuses.parameter("world_vulnerability_duration")))
+			state.dynamis[actor]=mini(3,int(state.dynamis[actor])+1)
+			chain.touched.append(actor)
+		var record := {"chain":id,"pulse":pulse,"side":"near" if side==0 else "far","from":chain.holders[side],"receiver":receiver,"hits":caught,"time":now}
+		chain.history.append(record)
+		statuses.event(state,"world_pulse",record)
+	chain.holders=receivers;chain.next_pulse=pulse+1
 
 static func same_members(a: Array, b: Array) -> bool:
 	if a.size() != b.size(): return false

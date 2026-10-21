@@ -88,30 +88,36 @@ func run() -> void:
 		Contact.tick(beat,actors,previous,state,0.1)
 		check(state.tether_holders==([0,1] if policy=="unverified_exclusive" else [1,1]),"double-line policy: "+policy)
 		check(beat.shapes[0].actor==state.tether_holders[0],"explosion follows real owner under "+policy)
-	# All explicitly supported shape families have a safe point; concrete attack boundaries are tested too.
+	# Independent guide decision: legs -> near, staff -> mid/far, shield -> toward M.
 	for orientation in [0.0,90.0,180.0,270.0]:
 		for sword in [false,true]:
 			for legs in [false,true]:
 				for second in [false,true]:
-					var shapes := Encounter.omega_shapes(sword,legs,orientation,second)
-					var known_safe := (Vector2(14,0) if sword else Vector2(-8,0)) if legs else (Vector2(15,6) if sword else Vector2(-12,6))
-					known_safe = known_safe.rotated(deg_to_rad(orientation+(90 if second else 0)))
-					check(shapes.all(func(shape):return not Rules.contains(shape,known_safe,[])),"independent known safe point for clone family %s" % str([orientation,sword,legs,second]))
-	var shapes := Encounter.omega_shapes(true,false,0,false)
-	check(Rules.contains(shapes[0],Vector2(-8,0),[]) and not Rules.contains(shapes[0],Vector2(3,0),[]),"sword circle has actual radius ten around clone")
+					var shapes:=Encounter.omega_shapes(sword,legs,orientation,second)
+					var m_angle:float=orientation+45.0+(90.0 if second else 0.0)
+					var safe_angle:float=orientation+(180.0 if second else 90.0)
+					var toward:bool=not legs or not sword
+					var dot:=Rules.direction(safe_angle).dot(Rules.direction(m_angle))
+					if (dot<0 and toward) or (dot>0 and not toward):safe_angle+=180
+					var known_safe:=Rules.direction(safe_angle)*(3.0 if legs else (18.0 if sword else 10.0))
+					check(shapes.all(func(shape):return not Rules.contains(shape,known_safe,[])),"independent guide cardinal for true clone family")
+	var shapes:=Encounter.omega_shapes(true,false,0,false)
+	var m:=Rules.direction(45)*10
+	check(Rules.contains(shapes[0],m,[]) and not Rules.contains(shapes[0],m+Vector2(11,0),[]),"sword circle has radius ten at the actual NE clone")
 	shapes=Encounter.omega_shapes(false,false,0,false)
-	check(not Rules.contains(shapes[0],Vector2(-8,0),[]) and Rules.contains(shapes[0],Vector2(3,0),[]),"shield donut reverses inside/outside")
+	check(not Rules.contains(shapes[0],m,[]) and Rules.contains(shapes[0],m+Vector2(11,0),[]),"shield donut reverses at actual clone")
 	shapes=Encounter.omega_shapes(true,true,0,false)
-	check(Rules.contains(shapes[1],Vector2(8,5),[]) or Rules.contains(shapes[2],Vector2(8,5),[]),"F side rectangles hit beyond four-unit corridor")
-	check(not Rules.contains(shapes[1],Vector2(8,3),[]) and not Rules.contains(shapes[2],Vector2(8,3),[]),"F side rectangles leave the actual narrow corridor")
-	check(Rules.contains(shapes[-2],Vector2(0,-10),[]) and not Rules.contains(shapes[-2],Vector2(10,0),[]),"Diffuse uses a 120-degree cone in its real direction")
+	var f:Vector2=-m;var side:=Rules.direction(135)
+	check(Rules.contains(shapes[1],f+side*5,[]) or Rules.contains(shapes[2],f+side*5,[]),"F side rectangles beyond4y corridor at actual diagonal facing")
+	check(not Rules.contains(shapes[1],f+side*3,[]) and not Rules.contains(shapes[2],f+side*3,[]),"F actual diagonal corridor is8y wide")
+	check(Rules.contains(shapes[-2],Vector2(0,-10),[]) and not Rules.contains(shapes[-2],Vector2(10,0),[]),"Diffuse uses its own cardinal axis, independent of clone facing")
 	var profiles=JSON.parse_string(FileAccess.get_file_as_string("res://data/strategies.json"))
-	var world: Dictionary=Encounter.new().build("p5_dynamis",47,profiles[0]).beats[1]
+	var world: Dictionary=Encounter.new().build("p5_dynamis",47,profiles[0]).beats[0]
 	actors=party()
 	for i in 8: actors[i].pos=world.positions[i]
 	state=fresh();state.blaster_victims=[world.checks[0].near];state.tether_holders=[world.checks[0].far]
-	world.checks[0].exclude_blaster=true
-	check(str(Rules.evaluate(world,actors,state)).contains("Blaster holder"),"World excludes actual earlier Blaster victims even if historical holder changes")
+	Status.give(state,world.checks[0].near,"hp_penalty",3.0)
+	check(str(Rules.evaluate(world,actors,state)).contains("Blaster holder"),"World resolves actual HP Penalty on earlier Blaster victim, not current ownership labels")
 	var first := Encounter.arrow_shapes(true,0); var next := Encounter.arrow_shapes(true,1)
 	check(first[0].width==10 and next[0].width==5 and absf(next[0].pos.x)==7.5,"Arrow first translation and widths")
 	check(absf(Encounter.arrow_shapes(true,2)[0].pos.x)==12.5,"Arrow subsequent translation is five, not a goal-shaped gap")

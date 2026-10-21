@@ -4,6 +4,9 @@ extends RefCounted
 ## Distances are yard-like training units; windows are intentionally slowed.
 const Params = preload("res://scripts/statuses.gd")
 const Rules = preload("res://scripts/rules.gd")
+const Clones = preload("res://scripts/clone_patterns.gd")
+const Routes = preload("res://scripts/strategy_routes.gd")
+const P6Courses = preload("res://scripts/p6_courses.gd")
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"]
 var rng = RandomNumberGenerator.new()
 var order: Array = []
@@ -18,9 +21,9 @@ var mechanic_id := ""
 func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot := -1) -> Dictionary:
 	mechanic_id = id
 	rng.seed = seed_value
-	profile = strategy
+	profile = Routes.apply(strategy,id)
 	priority = []
-	for role in strategy.priority: priority.append(ROLES.find(role))
+	for role in profile.priority: priority.append(ROLES.find(role))
 	order = range(8)
 	for i in range(7, 0, -1):
 		var j = rng.randi_range(0, i)
@@ -50,10 +53,10 @@ func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot 
 		"p5_full": solar_ray(); delta(); solar_ray(); sigma(); solar_ray(); omega(intended_stacks()); solar_ray()
 		"p5_solar": solar_ray()
 		"p6_memory": memory()
-		"p6_arrow_dive": cosmo_arrow(false); cosmo_dive()
-		"p6_exa_wave": exaflares(); wave_cannon()
-		"p6_arrow_wave": cosmo_arrow(true); wave_cannon(false)
-		"p6_exa_dive": exaflares(); cosmo_dive()
+		"p6_arrow_dive": P6Courses.append_arrow(self,false)
+		"p6_exa_wave": P6Courses.append_exaflares(self,false)
+		"p6_arrow_wave": P6Courses.append_arrow(self,true)
+		"p6_exa_dive": P6Courses.append_exaflares(self,true)
 		"p6_meteors": meteors()
 		"p6_magic": magic_number()
 	return {"id": id, "seed": seed_value, "beats": beats, "assignments": order.duplicate(), "profile": strategy.id, "initial_dynamis": initial_stacks(id)}
@@ -114,27 +117,24 @@ func shuffled(values: Array) -> Array:
 	return result
 
 func program_loop() -> void:
+	# Each wave chooses two of four right-angle slots in one +/-3 offset family.
+	# Actual FFLogs slots are (+/-3,+/-12)/(+/-12,+/-3), not an octagonal ring.
+	# Consecutive identical pairs are present in independent EU/CN clears.
 	var pattern: Array = []
-	var previous: Array = []
 	for _turn in 4:
-		var pairs: Array = []
-		for first in 8:
-			for second in range(first + 1, 8):
-				if first in previous or second in previous: continue
-				if posmod(second - first, 8) in [2, 4, 6]: pairs.append([first, second])
-		var chosen: Array = pairs[rng.randi_range(0, pairs.size() - 1)]
-		pattern.append(chosen); previous = chosen
+		var offset := 3.0 if rng.randi_range(0,1) else -3.0
+		var first := rng.randi_range(0,3)
+		var second := posmod(first+rng.randi_range(1,3),4)
+		pattern.append([Vector2(offset,-12).rotated(first*PI/2),Vector2(offset,-12).rotated(second*PI/2)])
 	for i in 8: label(i, "In Line %d" % (i / 2 + 1))
 	for turn in 4:
-		var first: int = pattern[turn][0]
-		var second: int = pattern[turn][1]
-		var targets = tower_pair([polar(first * 45, 13), polar(second * 45, 13)])
+		var targets = tower_pair(pattern[turn])
 		var soakers = group_pair([at(turn * 2), at(turn * 2 + 1)])
 		var tether_group = (turn + 2) % 4
 		var tethers = group_pair([at(tether_group * 2), at(tether_group * 2 + 1)])
 		var free: Array = []
 		for i in 8:
-			if i not in [first, second] and polar(i * 45, 17).distance_to(targets[0]) > 15.5 and polar(i * 45, 17).distance_to(targets[1]) > 15.5: free.append(polar(i * 45, 17))
+			if polar(i * 45, 17).distance_to(targets[0]) > 15.5 and polar(i * 45, 17).distance_to(targets[1]) > 15.5: free.append(polar(i * 45, 17))
 		var best_a: Vector2 = free[0]; var best_b: Vector2 = free[-1]; var largest = 0.0
 		for a in free:
 			for b in free:
@@ -159,7 +159,7 @@ func program_loop() -> void:
 		var item = beat("Program Loop %d/4 · towers %d / tethers %d" % [turn + 1, turn + 1, tether_group + 1], float(Params.parameter("loop_first_snapshot" if turn==0 else "loop_snapshot_interval")), "線可以被接走。塔消除 Looper；Blaster 打當下持線者。塔 1234／推薦接線 3412，重複受擊會累積 Twice-come Ruin。")
 		var numbers: Array = []; numbers.resize(8)
 		for n in 8: numbers[at(n)] = n / 2 + 1
-		item.program_loop = {"round": turn + 1, "numbers": numbers, "holders": [], "pickup_radius": 0.65}
+		item.program_loop = {"round": turn + 1, "numbers": numbers, "holders": [], "pickup_radius": float(Params.parameter("pickup_radius"))}
 		var initial: Array = order.slice(0, 2)
 		if turn == 0:
 			initial = shuffled(range(8)).slice(0, 2)
@@ -214,12 +214,16 @@ func p1_cannons() -> void:
 		item.checks.append({"kind": "furthest_tanks", "name": "Diffuse Wave Cannon"})
 
 func party_synergy() -> void:
-	var m_sword = bool(rng.randi_range(0, 1)); var f_legs = bool(rng.randi_range(0, 1))
-	var shapes = clone_shapes(m_sword, f_legs)
+	var m_sword = bool(profile.get("p2_sword",rng.randi_range(0,1)));var f_legs = bool(profile.get("p2_legs",rng.randi_range(0,1)))
+	var clone_angle := float(profile.get("p2_clone_angle",22.5+rng.randi_range(0,7)*45.0))
+	var shapes = clone_shapes(m_sword, f_legs,clone_angle)
 	var safe = find_safe(shapes)
-	for i in 8: pos(i, safe + Vector2(i * 0.04, 0))
-	var dodge = beat("Party Synergy · M %s / F %s" % ["SWORD" if m_sword else "SHIELD", "LEGS" if f_legs else "STAFF"], 7.0, "Read M and F stances before the eye. Model stances are shown in the cast cue.")
+	for i in 8: pos(i, safe)
+	var dodge = beat("Party Synergy · M %s / F %s" % ["SWORD" if m_sword else "SHIELD", "LEGS" if f_legs else "STAFF"], 5.1, "M/F 克隆在半徑10的22.5°斜角相對出現；先讀武器姿態，再看眼睛。")
 	dodge.shapes = shapes
+	dodge.stage_entities=Clones.pair_entities(clone_angle,m_sword,f_legs);dodge.hide_main_boss=true
+	dodge.spawn=[]
+	for i in 8:dodge.spawn.append(Vector2((i-3.5)*0.25,0))
 	var remote = bool(rng.randi_range(0, 1))
 	var symbols: Array = profile.shapes
 	for i in 4:
@@ -231,10 +235,13 @@ func party_synergy() -> void:
 		pos(i * 2 + 1, rotated(Vector2(x, other_z), angle))
 		label(i * 2, "%s · L · %s" % [symbols[i], "REMOTE" if remote else "MID"])
 		label(i * 2 + 1, "%s · R · %s" % [symbols[i], "REMOTE" if remote else "MID"])
-	var eye = beat("Optical Laser + Fire III · %s Glitch" % ("REMOTE" if remote else "MID"), 8.0, "Eye is relative north. Remember your symbol and left/right side.")
-	eye.shapes.append(line(Vector2.ZERO, angle, float(Params.parameter("p2_optical_width")), "Optical Laser"))
-	spread(eye, range(8), float(Params.parameter("p2_fire_radius")))
-	for i in 4: eye.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch"))
+	var eye = beat("Optimized Fire III · %s Glitch" % ("REMOTE" if remote else "MID"),6.4,"以眼睛為北，分散火圈與搭檔距離各自判定。")
+	eye.hide_main_boss=true
+	spread(eye,range(8),float(Params.parameter("p2_fire_radius")))
+	for i in 4:eye.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch"))
+	var optical=beat("Optical Laser · after Fire III",0.35,"火圈先結算，接著眼睛雷射；不是同一個快照。")
+	optical.hide_main_boss=true
+	optical.shapes.append({"kind":"line","pos":polar(angle,45),"angle":angle+180,"width":float(Params.parameter("p2_optical_width")),"start":0.0,"length":100.0,"name":"Optical Laser"})
 	var left: Array = []; var right: Array = []
 	for i in 4: left.append(at(i * 2)); right.append(at(i * 2 + 1))
 	var stacks = [at(rng.randi_range(0, 7)), at(rng.randi_range(0, 7))]
@@ -248,23 +255,24 @@ func party_synergy() -> void:
 		left.erase(selected); right.erase(selected); left.erase(partner); right.erase(partner)
 		if order.find(selected) % 2 == 0: right.append(selected); left.append(partner)
 		else: left.append(selected); right.append(partner)
-	var lp = polar(270, 5); var rp = polar(90 if remote else 180, 5)
-	group_goals(left, lp, 0.08); group_goals(right, rp, 0.08)
-	var knock = beat("Discharger + Spotlight · %s flex" % profile.stack_flex, 7.0, "Aim knockback into two safe gaps. One stack per group; flex with your symbol partner.")
-	knock.knockback = 13.0
-	for i in stacks: knock.shapes.append(targeted(i, float(Params.parameter("p2_spotlight_radius")), 4, "Spotlight"))
-	for deg in [0, 45, 135, 225, 315]: knock.shapes.append(circle(polar(deg, 18), 10.0, "Efficient Bladework"))
-	for i in 4: knock.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch after knockback"))
-	knock = rotate_beat(knock, angle)
+	var f_angle:=float(profile.get("p2_late_f_angle",rng.randi_range(0,7)*45.0))
+	var lp=polar(270,4.8);var rp=polar(90 if remote else 180,4.8)
+	group_goals(left,lp,0.06);group_goals(right,rp,0.06)
+	var knock=beat("Discharger · prepare two safe gaps",6.8,"以新F／三男中間為北，左組向西；右組近線向南、遠線向東。擊退後仍可移動。")
+	knock.knockback=13.0;knock=rotate_beat(knock,f_angle)
+	var clones:Array=[{"form":"female","pos":polar(f_angle,13),"facing":f_angle+180,"stance":"SWORD"}]
+	for k in 4:clones.append({"form":"male","pos":polar(f_angle+45+k*90,13),"facing":f_angle+225+k*90,"stance":"SWORD"})
+	knock.stage_entities=clones;knock.hide_main_boss=true
+	# Set guidance to the actual post-knockback locations, without teleporting actors.
+	for i in 8:positions[i]=knock.positions[i]+knock.positions[i].normalized()*13.0
+	var stacks_beat=beat("Spotlight + five clone circles · %s flex" % profile.stack_flex,4.3,"原始五個半徑10的克隆圓：F與另四個M，來源半徑13。距離與分攤在此時依實際位置結算。")
+	for i in stacks:stacks_beat.shapes.append(targeted(i,float(Params.parameter("p2_spotlight_radius")),4,"Spotlight"))
+	for clone in clones:stacks_beat.shapes.append(circle(clone.pos,10.0,"Efficient Bladework"))
+	for i in 4:stacks_beat.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch at Spotlight"))
+	stacks_beat.stage_entities=clones;stacks_beat.hide_main_boss=true
 
-func clone_shapes(sword: bool, legs: bool) -> Array:
-	var shapes: Array=[]
-	shapes.append(circle(Vector2(-11,0),10,"Efficient Bladework") if sword else {"kind":"donut","pos":Vector2(-11,0),"inner":10,"radius":40,"name":"Beyond Strength"})
-	if legs:
-		for axis in [0,180]:shapes.append({"kind":"line","pos":Vector2(11,0),"angle":axis,"start":4.0,"length":40.0,"width":80.0,"name":"Superliminal Steel"})
-	else:
-		for axis in [0,90]:shapes.append({"kind":"line","pos":Vector2(11,0),"angle":axis,"start":-100.0,"length":100.0,"width":10.0,"name":"Optimized Blizzard III"})
-	return shapes
+func clone_shapes(sword: bool,legs: bool,m_angle:=270.0) -> Array:
+	return Clones.pair_shapes(m_angle,sword,legs)
 
 func glitch_pair(a: int,b: int,remote: bool,name: String) -> Dictionary:
 	return pair(a,b,float(Params.parameter("glitch_remote_min" if remote else "glitch_mid_min")),float(Params.parameter("glitch_remote_max" if remote else "glitch_mid_max")),name)
@@ -348,20 +356,21 @@ func hello_world() -> void:
 			pos(blue + side, Vector2(sign_x * 7, 10)); label(blue + side, "Remote route")
 			pos(green + side, Vector2(sign_x * 17, -8)); label(green + side, "Local route")
 			if turn == 3: pos(green + side, Vector2(sign_x * 7, 12))
-		var b := beat("Hello World %d/4 · towers and bugs" % (turn + 1), float(Params.parameter("hw_tower_approach")), "Actual contacts propagate rot. Actual blast recipients acquire bugs; labels are route suggestions only. Timings are training parameters.")
+		var tower_window := float(Params.parameter("hw_first_tower_from_smells" if turn==0 else "hw_tower_approach"))
+		var b := beat("Hello World %d/4 · towers and bugs" % (turn + 1), tower_window, "初始氣味3秒後轉21/27秒狀態；各輪塔間隔21秒。感染與爆炸讀實際位置，路線文字不決定受擊者。")
 		b.hello_world = true
 		if turn == 0:
 			b.status_grants = []
 			for side in 2:
-				b.status_grants.append({"actor":at(defam+side),"name":defam_colour,"duration":float(Params.parameter("hw_initial_rot_remaining"))})
-				b.status_grants.append({"actor":at(stacker+side),"name":stack_colour,"duration":float(Params.parameter("hw_initial_rot_remaining"))})
-				b.status_grants.append({"actor":at(defam+side),"name":"overflow","duration":float(Params.parameter("hw_initial_bug_remaining"))})
-				b.status_grants.append({"actor":at(stacker+side),"name":"sync","duration":float(Params.parameter("hw_initial_bug_remaining"))})
-				b.status_grants.append({"actor":at(blue+side),"name":"latent_sync","duration":70.0})
-				b.status_grants.append({"actor":at(green+side),"name":"latent_overflow","duration":70.0})
+				b.status_grants.append({"actor":at(defam+side),"name":"smell_"+defam_colour,"duration":float(Params.parameter("hw_smell_duration"))})
+				b.status_grants.append({"actor":at(stacker+side),"name":"smell_"+stack_colour,"duration":float(Params.parameter("hw_smell_duration"))})
+				b.status_grants.append({"actor":at(defam+side),"name":"smell_overflow","duration":float(Params.parameter("hw_smell_duration"))})
+				b.status_grants.append({"actor":at(stacker+side),"name":"smell_sync","duration":float(Params.parameter("hw_smell_duration"))})
+				b.status_grants.append({"actor":at(green+side),"name":"latent_overflow","duration":float(Params.parameter("hw_initial_latent_defect_duration"))})
+			for actor in 8:b.status_grants.append({"actor":actor,"name":"latent_sync","duration":float(Params.parameter("hw_latent_sync_duration"))})
 		b.paired_tethers = [
-			{"id":"hw_remote_%d" % turn,"kind":"remote","a":at(blue),"b":at(blue+1),"delay":float(Params.parameter("hw_tower_approach")),"duration":float(Params.parameter("hw_regression_duration"))},
-			{"id":"hw_local_%d" % turn,"kind":"local","a":at(green),"b":at(green+1),"delay":float(Params.parameter("hw_tower_approach")),"duration":float(Params.parameter("hw_regression_duration"))}]
+			{"id":"hw_remote_%d" % turn,"kind":"remote","a":at(blue),"b":at(blue+1),"delay":tower_window-float(Params.parameter("hw_regression_activation_lead")),"duration":float(Params.parameter("hw_regression_live_duration"))},
+			{"id":"hw_local_%d" % turn,"kind":"local","a":at(green),"b":at(green+1),"delay":tower_window-float(Params.parameter("hw_regression_activation_lead")),"duration":float(Params.parameter("hw_regression_live_duration"))}]
 		for side in 2:
 			var t := tower(positions[at(defam+side)], 6, [], "Rot tower " + defam_colour)
 			t.erase("required"); t.count = 1; t.rot_colour = defam_colour; b.shapes.append(t)
@@ -390,14 +399,14 @@ func preview_blue_break(blue: int, stacker: int, turn: int) -> void:
 	for side in 2:
 		pos(blue+side, Vector2(-17 if side == 0 else 17,7))
 		pos(stacker+side, Vector2(-10 if side == 0 else 10,14))
-	var b := beat("Hello World %d/4 · Remote %s" % [turn+1,"LAST" if turn == 3 else "first"],float(Params.parameter("hw_break_window")))
+	var b := beat("Hello World %d/4 · Remote %s" % [turn+1,"LAST" if turn == 3 else "first"],float(Params.parameter("hw_remote_window")))
 	b.hello_world = true
 
 func preview_green_break(green: int, defam: int, turn: int) -> void:
 	for side in 2:
 		pos(green+side, Vector2(-1 if side == 0 else 1,-4))
 		pos(defam+side, Vector2(-12 if side == 0 else 12,-12))
-	var b := beat("Hello World %d/4 · Local %s" % [turn+1,"FIRST" if turn == 3 else "after vulnerability"],float(Params.parameter("hw_break_window")))
+	var b := beat("Hello World %d/4 · Local %s" % [turn+1,"FIRST" if turn == 3 else "after vulnerability"],float(Params.parameter("hw_local_window")))
 	b.hello_world = true
 
 func monitors() -> void:
@@ -409,24 +418,29 @@ func monitors() -> void:
 	non_holders.sort_custom(func(a, b): return p3_roles.find(ROLES[a]) < p3_roles.find(ROLES[b]))
 	order = m_holders + non_holders
 	var sign_x = 1 if rng.randi_range(0, 1) else -1
-	var canonical = [Vector2(-7, -11), Vector2(-13, -3), Vector2(-13, 3), Vector2(0, -16), Vector2(3, 0), Vector2(15, 0), Vector2(0, 10), Vector2(0, 16)]
-	var layout: String = profile.id if profile.id in ["aether","lpdu"] else "astoh"
+	var canonical = [Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-16),Vector2(3,0),Vector2(15,0),Vector2(0,9),Vector2(0,18)]
+	var layout: String = profile.get("monitor_layout",profile.id if profile.id in ["aether","lpdu"] else "astoh")
 	if layout == "aether": canonical = [Vector2(-11,-9),Vector2(-11,9),Vector2(10,11),Vector2(1,-15),Vector2(10,-11),Vector2(15,-4),Vector2(15,4),Vector2(1,15)]
 	elif layout == "lpdu": canonical = [Vector2(10,-11),Vector2(-11,-9),Vector2(-11,9),Vector2(1,-15),Vector2(15,-4),Vector2(15,4),Vector2(10,11),Vector2(1,15)]
+	if layout=="cn_mirror":canonical=[Vector2(-7,-13),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-9),Vector2(3,0),Vector2(16,0),Vector2(0,9),Vector2(0,18)]
+	elif layout=="kr_astoh":canonical=[Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(-0.7,-16),Vector2(3,0),Vector2(15,0),Vector2(-0.7,9),Vector2(-0.7,18)]
+	elif layout=="cn_fixed":canonical=[Vector2(-8 if sign_x==1 else 8,-17),Vector2(-11,-5.5),Vector2(-11,5.5),Vector2(-sign_x,-8),Vector2(6,0),Vector2(18,0),Vector2(-sign_x,8),Vector2(-sign_x,18)]
 	for i in 8:
-		pos(i, Vector2(canonical[i].x * sign_x, canonical[i].y))
+		pos(i,canonical[i] if layout=="cn_fixed" else Vector2(canonical[i].x*sign_x,canonical[i].y))
 		label(i, "MONITOR %d" % (i + 1) if i < 3 else "No monitor %d" % (i - 2))
-	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout,"EAST" if (sign_x == 1) == (layout == "astoh") else "WEST"], 10.0, "四個檢知各命中兩人，每人只受擊一次。Aether 第三檢知在南側；LPDU 第一檢知在北側。Q/E 或右鍵調整朝向。")
+	var layout_name: String={"astoh":"Astoh","aether":"Aether · 第三檢知南側","lpdu":"LPDU · 第一檢知北側","cn_fixed":"莫古力 · 固定左側","cn_mirror":"莫古力 · 鏡像換邊","kr_astoh":"09STOP"}.get(layout,layout)
+	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout_name,"EAST" if (sign_x == 1) == (layout not in ["aether","lpdu"]) else "WEST"],10.0,"每個檢知隨機命中其半場兩人，不足時補選其他人；還要避開半徑7的受擊小圓。Q/E 或右鍵調整朝向。")
 	b.monitor_layout = layout
-	var sources: Array = [{"kind": "half", "angle": (90 if layout == "astoh" else 270) * sign_x, "radius": 45, "name": "Boss monitor"}]
+	var sources: Array = [{"kind": "half", "angle": (270 if layout in ["aether","lpdu"] else 90) * sign_x, "radius": 45, "name": "Boss monitor"}]
 	var goals = [270.0 * sign_x, 0.0, 180.0]
+	if layout=="cn_fixed":goals=[270.0 if sign_x==1 else 98.5,0.0,180.0]
 	if layout == "aether": goals = [0.0,180.0,90.0 * sign_x]
 	elif layout == "lpdu": goals = [90.0 * sign_x,0.0,180.0]
 	for i in 3:
 		var offset = 90.0 if rng.randi_range(0, 1) else -90.0
 		b.facing[at(i)] = goals[i] - offset
 		sources.append({"kind": "half", "actor": at(i), "face_actor": at(i), "offset": offset, "radius": 45, "exclude": [at(i)], "name": "Player monitor"})
-	b.checks.append({"kind": "monitors", "sources": sources, "name": "Oversampled Wave Cannon"})
+	b.checks.append({"kind": "monitors", "sources": sources, "splash_radius":7.0,"name": "Oversampled Wave Cannon"})
 	b.monitors = sources
 	order = saved_order
 
@@ -620,9 +634,18 @@ func omega(entry_stacks: Array = []) -> void:
 	for i in 8:
 		if i not in first_holders and i not in monitors_pair: others.append(i)
 	var assignment = [first_holders[0], first_holders[1], others[0], others[1], others[2], others[3], monitors_pair[0], monitors_pair[1]]
+	var first_start := beats.size()
 	world_snapshot(assignment, "Omega · first World + two-stack monitors", false, 0)
-	var b: Dictionary = beats[-1]
+	var b: Dictionary = beats[first_start]
 	b.shapes.append({"kind": "half", "angle": 90, "radius": 45, "rule": "count", "count": 2, "required": monitors_pair, "name": "Omega monitors"})
+	# Monitors land between the initial World and its first jump, not at jump2.
+	var monitor_beat: Dictionary = b.duplicate(true)
+	monitor_beat.title = "Omega · monitor snapshot between World pulses"
+	monitor_beat.duration = 0.5; monitor_beat.checks = []
+	b.shapes = []; beats[first_start+1].duration = 0.5
+	beats.insert(first_start+1,monitor_beat)
+	for world_beat in beats.slice(first_start):
+		world_beat.stage_entities=[{"form":"final","pos":Vector2.ZERO,"facing":0.0}];world_beat.hide_main_boss=true
 	for i in assignment.slice(0, 6): stacks[i] = mini(3, int(stacks[i]) + 1)
 	var three: Array = []
 	for i in 8:
@@ -631,22 +654,25 @@ func omega(entry_stacks: Array = []) -> void:
 	for i in 8:
 		if i not in second_holders and i not in three: others.append(i)
 	assignment = [second_holders[0], second_holders[1], others[0], others[1], others[2], others[3], three[0], three[1]]
+	var second_start := beats.size()
 	world_snapshot(assignment, "Omega · second World + three-stack tethers", false, 0)
-	b = beats[-1]
-	b.checks.append({"kind": "dynamis", "value": [3, 3, 3, 3, 3, 3, 3, 3], "name": "P6 entry"})
+	b = beats[second_start]
+	beats[-1].checks.append({"kind": "dynamis", "value": [3, 3, 3, 3, 3, 3, 3, 3], "name": "P6 entry"})
 	b.note = "Blaster follows the actual transferred line holders. Only three-stack non-World players are eligible."
-	b.positions[three[0]] = Vector2(16,-10); b.positions[three[1]] = Vector2(16,10)
+	for pulse_beat in beats.slice(second_start):
+		pulse_beat.positions[three[0]] = Vector2(16,-10); pulse_beat.positions[three[1]] = Vector2(16,10)
+		pulse_beat.stage_entities=[{"form":"beetle","pos":Vector2(19,0),"facing":270.0}];pulse_beat.hide_main_boss=true
 	b.transfers = {"group":"omega_blaster","sources":[Vector2(19,0),Vector2(19,0)],"initial":shuffled(range(8)).slice(0,2),"wanted":three.duplicate(),"holders":[]}
 	b.checks.push_front({"kind":"blaster_eligible","world_holders":second_holders})
-	b.checks[1].exclude_blaster = true
+	b.duration = float(Params.parameter("omega_blaster_to_world"))
 	# Separate explosion from World while preserving the actual line owners.
 	var pickup: Dictionary = b.duplicate(true)
 	pickup.title = "Omega · collect beetle Blaster / explosion"
-	pickup.duration = 12.0
+	pickup.duration = 12.2
 	pickup.checks = [{"kind":"blaster_eligible","world_holders":second_holders}]
 	pickup.shapes = []
 	for k in 2: pickup.shapes.append({"actor":three[k],"tether_index":k,"radius":15.0,"rule":"omega_blaster","name":"Omega Blaster"})
-	beats.insert(beats.size()-1,pickup)
+	beats.insert(second_start,pickup)
 	b.erase("transfers") # Blaster has exploded; there is no line left to steal during World.
 
 
@@ -659,38 +685,46 @@ static func select_monitors(stacks: Array, first: Array, second: Array) -> Array
 		if stacks[i] == 2 and i not in first and i not in result: result.append(i)
 	return result
 
-static func omega_shapes(sword: bool, legs: bool, orientation: float, second: bool) -> Array:
-	# Shapes follow community event descriptions. Spawn topology remains a named training case.
-	var clone_rotation := orientation + (90.0 if second else 0.0)
-	var m := Vector2(-8,0).rotated(deg_to_rad(clone_rotation))
-	var f := Vector2(8,0).rotated(deg_to_rad(clone_rotation))
-	var shapes: Array = [{"kind":"circle","pos":m,"radius":10.0,"name":"Efficient Bladework"} if sword else {"kind":"donut","pos":m,"inner":10.0,"radius":40.0,"name":"Beyond Strength"}]
-	if legs:
-		for side in [-90,90]: shapes.append({"kind":"line","pos":f,"angle":clone_rotation+90+side,"start":4.0,"length":40.0,"width":80.0,"name":"Superliminal Steel"})
-	else:
-		for axis in [0,90]: shapes.append({"kind":"line","pos":f,"angle":clone_rotation+axis,"start":-100.0,"length":100.0,"width":10.0,"name":"Optimized Blizzard"})
-	# Diffuse is two 120-degree cones (not a fabricated safe wedge or a halfplane).
-	for side in [0,180]: shapes.append({"kind":"cone","pos":Vector2.ZERO,"angle":orientation+side+(90 if second else 0),"width":120.0,"radius":100.0,"name":"Omega Diffuse Wave Cannon"})
+static func omega_shapes(sword: bool, legs: bool, orientation: float, second: bool, diffuse_axis := -999.0, second_offset := 90.0) -> Array:
+	var m_angle := orientation+45.0+(second_offset if second else 0.0)
+	var shapes := Clones.pair_shapes(m_angle,sword,legs)
+	var axis: float = (orientation if diffuse_axis == -999.0 else diffuse_axis)+(90.0 if second else 0.0)
+	for side in [0,180]:shapes.append({"kind":"cone","pos":Vector2.ZERO,"angle":axis+side,"width":120.0,"radius":100.0,"name":"Omega Diffuse Wave Cannon"})
 	return shapes
 
 func omega_dodges() -> void:
 	var orientation := float(profile.get("omega_orientation",rng.randi_range(0,3)*90))
+	var second_offset := float(profile.get("omega_second_offset",90 if rng.randi_range(0,1) else -90))
+	var diffuse_axis := float(profile.get("omega_diffuse_axis",rng.randi_range(0,1)*90))
+	var patterns: Array=[]
 	for step in 2:
 		var sword := bool(profile.get("omega_sword",rng.randi_range(0,1)))
 		var legs := bool(profile.get("omega_legs",rng.randi_range(0,1)))
-		var shapes := omega_shapes(sword,legs,orientation,step==1)
-		# Enumerate safe geometry; no answer-shaped hazard is manufactured.
-		var safe := find_safe(shapes)
-		for i in 8: pos(i,safe)
-		var b := beat("Omega clones %d/2 · %s / %s" % [step+1,"sword" if sword else "shield","legs" if legs else "staff"],7.0,"Community attack geometry; clone spawn topology is an unverified training family.")
-		b.shapes = shapes
-		b.clone_pattern = {"sword":sword,"legs":legs,"orientation":orientation,"second":step==1,"status":"unverified_spawn_topology"}
+		if profile.has("omega_stances"):sword=profile.omega_stances[step][0];legs=profile.omega_stances[step][1]
+		patterns.append({"sword":sword,"legs":legs,"m_angle":orientation+45.0+(second_offset if step else 0.0)})
+	for step in 2:
+		var pattern: Dictionary=patterns[step]
+		var shapes := omega_shapes(pattern.sword,pattern.legs,orientation,step==1,diffuse_axis,second_offset)
+		var radius := 3.0 if pattern.legs else (18.0 if pattern.sword else 10.0)
+		var safe: Array=[]
+		for cardinal in [0,90,180,270]:
+			var point := polar(cardinal,radius)
+			if shapes.all(func(shape):return not Rules.contains(shape,point,[])):safe.append(point)
+		assert(safe.size()==1,"Omega source family must produce one guide cardinal")
+		for i in 8:pos(i,safe[0])
+		var b:=beat("Omega clones %d/2 · %s / %s" % [step+1,"sword" if pattern.sword else "shield","legs" if pattern.legs else "staff"],13.2 if step==0 else 4.0,"兩對克隆相對出現在半徑10的四個斜角；第二組可順／逆90°。遠點移動可使用疾跑1。")
+		b.shapes=shapes
+		b.clone_pattern={"sword":pattern.sword,"legs":pattern.legs,"orientation":orientation,"second":step==1,"m_angle":pattern.m_angle,"diffuse_axis":diffuse_axis+(90 if step else 0),"status":"fflogs_observed_intercardinal_family"}
+		b.stage_entities=[{"form":"final","pos":Vector2.ZERO,"facing":0.0}]
+		b.stage_entities.append_array(Clones.pair_entities(pattern.m_angle,pattern.sword,pattern.legs))
+		if step==0:b.stage_entities.append_array(Clones.pair_entities(patterns[1].m_angle,patterns[1].sword,patterns[1].legs,4.0))
+		b.hide_main_boss=true
 
 func intended_stacks() -> Array:
 	var values: Array = [0, 0, 0, 0, 0, 0, 0, 0]
 	for item in beats:
 		for check in item.checks:
-			if check.kind == "world":
+			if check.kind == "world" or (check.kind == "world_pulse" and int(check.pulse)==0):
 				for actor in check.near_path + check.far_path: values[int(actor)] = mini(3, values[int(actor)] + 1)
 	return values
 
@@ -698,13 +732,15 @@ func world_snapshot(assignment: Array, title: String, safe_half: bool, rotation:
 	# Six intended world recipients, then two non-participants. Nearest/furthest
 	# selections and clipping are recomputed from actual positions by Rules.
 	var points = [Vector2(-10, -1), Vector2(0, 8), Vector2(-18, 0), Vector2(-17, 7), Vector2(0, -18), Vector2(0, 18), Vector2(12, -6), Vector2(12, 6)]
-	if safe_half: points = [Vector2(-7, 6), Vector2(-2, 16), Vector2(-14, 8), Vector2(-12, 14), Vector2(18, 1), Vector2(-18, 1), Vector2(4, 7), Vector2(9, 11)]
+	if safe_half: points = [Vector2(-6, 6), Vector2(-2, 16), Vector2(-14, 8), Vector2(-12, 14), Vector2(18, 1), Vector2(-18, 1), Vector2(4, 7), Vector2(9, 11)]
 	for i in 8:
 		positions[int(assignment[i])] = rotated(points[i], rotation)
 		labels[int(assignment[i])] = ["HELLO NEAR", "HELLO DISTANT", "NEAR jump 1", "NEAR jump 2", "FAR jump 1", "FAR jump 2", "NO World / utility 1", "NO World / utility 2"][i]
-	var b = beat(title, 10.0, "Near jumps to nearest → nearest; Far jumps to furthest → furthest. Original holder remains eligible: avoid bounce-back and clipping.")
-	b.checks.append({"kind": "world", "near": assignment[0], "far": assignment[1], "near_path": [assignment[0], assignment[2], assignment[3]], "far_path": [assignment[1], assignment[4], assignment[5]], "holder_radius": 5, "jump_radius": 2.5})
-	b.world = b.checks[0]
+	var chain_id := "world_%d" % beats.size()
+	for pulse in 3:
+		var b = beat(title + (" · holders" if pulse==0 else " · jump %d/2" % pulse),10.0 if pulse==0 else float(Params.parameter("world_pulse_interval")),"每一跳讀取當下位置；原持有者仍可被跳回。提示分工不限定實際收線者。")
+		b.checks.append({"kind":"world_pulse","chain_id":chain_id,"pulse":pulse,"near":assignment[0],"far":assignment[1],"near_path":[assignment[0],assignment[2],assignment[3]],"far_path":[assignment[1],assignment[4],assignment[5]],"holder_radius":float(Params.parameter("world_holder_radius")),"jump_radius":float(Params.parameter("world_jump_radius"))})
+		b.world = b.checks[0]
 
 func dynamis_course() -> void:
 	# 24 total hits across four worlds must result in exactly 3 stacks per player.

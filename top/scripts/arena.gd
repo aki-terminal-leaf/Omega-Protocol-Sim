@@ -29,6 +29,9 @@ var actor_models: Array = []
 var animation_time = 0.0
 var positions_initialized = false
 var last_clone_cue = ""
+var stage_nodes: Array=[]
+var stage_signature := ""
+var beat_elapsed := 0.0
 
 func _ready() -> void:
 	var environment = WorldEnvironment.new()
@@ -115,11 +118,13 @@ func screen_to_world(screen: Vector2) -> Vector2:
 	if absf(direction.y) < 0.01: return Vector2.ZERO
 	var point = origin + direction * (-origin.y / direction.y)
 	return Vector2(point.x, point.z)
-func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints: bool) -> void:
+func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints: bool, elapsed := 0.0) -> void:
+	beat_elapsed = elapsed
 	actors = new_actors; current = beat_value; selected_player = player; guide = hints
 	for node in actor_nodes: node.visible = actors.size() == 8
 	if actors.size() != 8:
 		aoe.clear_surfaces(); signs.clear_surfaces(); positions_initialized = false
+	update_stage_entities()
 	update_clone_cues()
 	if player >= 0 and player < actors.size():
 		var p = Rules.v(actors[player].pos)
@@ -251,6 +256,7 @@ func draw_signs(tethers: Array) -> void:
 	signs.surface_end()
 
 func update_clone_cues() -> void:
+	if not current.get("stage_entities",[]).is_empty(): return
 	if bosses.size() != 2: return
 	var title = str(current.get("title", "")).to_upper()
 	if title == last_clone_cue: return
@@ -278,3 +284,22 @@ func update_clone_cues() -> void:
 				boss.rotation_degrees.y = (90 if i == 0 else -90)-rotation
 			else: boss.position = Vector3(-5 if i == 0 else 5,0,-15)
 			boss.visible = not active.is_empty()
+
+func update_stage_entities() -> void:
+	var entities: Array=current.get("stage_entities",[])
+	var signature:=str(entities)
+	if signature!=stage_signature:
+		for node in stage_nodes:remove_child(node);node.queue_free()
+		stage_nodes=[];stage_signature=signature
+		for entity in entities:
+			var node:Node3D=Visuals.boss(entity.form);add_child(node);stage_nodes.append(node)
+			var p:Vector2=entity.pos;node.position=Vector3(p.x,0,p.y)
+			node.rotation_degrees.y=180.0-float(entity.get("facing",0))
+			var stance:String=entity.get("stance","")
+			Visuals.Official.set_stance(node,stance)
+			for option in ["SWORD","SHIELD","LEGS","STAFF"]:
+				if node.has_node(option):node.get_node(option).visible=option==stance
+			var label:=Label3D.new();label.text=entity.form.to_upper()+(" / "+stance if not stance.is_empty() else "")
+			label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
+	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
+	for i in stage_nodes.size():stage_nodes[i].visible=actors.size()==8 and beat_elapsed>=float(entities[i].get("spawn_delay",0))

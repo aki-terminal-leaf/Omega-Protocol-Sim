@@ -1,0 +1,81 @@
+{
+  "p1_loop": {
+    "cn_moogle": {
+      "loop_start_angle": 0.0,
+      "_route_source": "CN full poster panel01: A(N) start CW"
+    },
+    "kr_09stop": {
+      "loop_start_angle": 0.0
+    }
+  },
+  "p2_synergy": {
+    "cn_moogle": {
+      "shapes": [
+        "O",
+        "X",
+        "Triangle",
+        "Square"
+      ],
+      "remote_full_cross": true,
+      "stack_flex": "south",
+      "_route_source": "CN full poster panels02-03: full reverse, lower stack flex"
+    },
+    "kr_09stop": {
+      "shapes": [
+        "O",
+        "Triangle",
+        "Square",
+        "X"
+      ],
+      "remote_full_cross": true,
+      "stack_flex": "north",
+      "_route_source": "09STOP Phase2 rows/diagram166; full reverse and nearer-eye flex"
+    }
+  },
+  "p3_monitors": {
+    "cn_moogle": {
+      "p3_priority": [
+        "H1",
+        "MT",
+        "ST",
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "H2"
+      ],
+      "monitor_layout": "cn_fixed",
+      "_route_source": "CN full poster panels05-06: global HTDH, fixed-left or mirror"
+    },
+    "kr_09stop": {
+      "p3_priority": [
+        "H1",
+        "H2",
+        "MT",
+        "ST",
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "monitor_layout": "kr_astoh",
+      "_route_source": "09STOP Phase3 row314"
+    }
+  },
+  "p6_exa_wave": {
+    "cn_moogle": {
+      "p6_stack_angle": 180.0
+    },
+    "kr_09stop": {
+      "p6_stack_angle": 180.0
+    }
+  },
+  "p6_arrow_wave": {
+    "cn_moogle": {
+      "p6_stack_angle": 180.0
+    },
+    "kr_09stop": {
+      "p6_stack_angle": 180.0
+    }
+  }
+}

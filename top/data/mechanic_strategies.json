@@ -2,7 +2,7 @@
   "p1_loop": [
     {
       "profile": "elemental",
-      "name": "HTDH · Elemental／莫古力優先序",
+      "name": "HTDH · Elemental NW起順時針",
       "description": "以 H1→MT→ST→D1→D2→D3→D4→H2 分配；Program Loop 從 NW 順時針。"
     },
     {
@@ -19,6 +19,11 @@
       "profile": "kr_09stop",
       "name": "HTDH · 09STOP 北起順時針",
       "description": "同 HTDH 優先序，塔從正北順時針找。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "HTDH · 莫古力 A起順時針",
+      "description": "從正北A起順時針，依全局HTDH優先序分配塔與空區接線。"
     }
   ],
   "p1_panto": [
@@ -60,6 +65,16 @@
       "profile": "lpdu",
       "name": "BPOG 全交叉 · LPDU 南端 flex",
       "description": "X→方塊→O→三角；Remote 全交叉；南端優先 flex。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · OX△□ 全交叉／南端補位",
+      "description": "遠線右側□△XO；同側雙分攤由靠下者與同圖形搭檔換側。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · O△□X 全交叉／北端補位",
+      "description": "遠線右側X□△O；同側雙分攤由靠近眼睛者與同圖形搭檔換側。"
     }
   ],
   "p2_limitless": [
@@ -98,6 +113,27 @@
       "profile": "lpdu",
       "name": "LPDU · 第一檢知北側",
       "description": "第一檢知在北側的 LPDU 陣型；依 RMTHHTMR 優先序分配，並驗證每人只命中一次。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 固定左側",
+      "description": "全局HTDH排序；檢知2/3固定左側，1與無點名124依Boss安全半場調整。",
+      "overrides": {
+        "monitor_layout": "cn_fixed"
+      }
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 鏡像換邊",
+      "description": "全局HTDH排序；無點名2/3危險半場，其餘人安全半場。",
+      "overrides": {
+        "monitor_layout": "cn_mirror"
+      }
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · HHTTDDDD 鏡像",
+      "description": "檢知／無檢知各依H1 H2 T1 T2 D1 D2 D3 D4排序，依Boss方向鏡像。"
     }
   ],
   "p4_wave": [

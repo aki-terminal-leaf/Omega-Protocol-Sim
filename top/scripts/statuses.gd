@@ -37,6 +37,9 @@ static func give(state: Dictionary, actor: int, name: String, duration: float, s
 		return
 	# Same colour does not extend an existing timer. Opposite rot overwrites it.
 	if buffs.has(name):
+		if name in ["world_vulnerability","magic_vulnerability"]:
+			buffs[name].expires = float(state.get("sim_time",0)) + duration
+			event(state,"status_refresh",{"actor":actor,"status":name,"expires":buffs[name].expires,"source":source})
 		if name in ["red","blue"] and parameter("same_colour_policy") == "refresh_timer_unverified": buffs[name].expires = float(state.get("sim_time",0)) + duration
 		return
 	if name in ["red", "blue"]:
@@ -49,6 +52,7 @@ static func give(state: Dictionary, actor: int, name: String, duration: float, s
 
 static func begin(beat: Dictionary, state: Dictionary) -> void:
 	ensure(state)
+	preload("res://scripts/p6_runtime.gd").begin(beat,state)
 	state.beat_started = float(state.get("sim_time", 0))
 	for grant in beat.get("status_grants", []): give(state, grant.actor, grant.name, grant.duration)
 	for raw in beat.get("paired_tethers", []):
@@ -94,6 +98,7 @@ static func contacts(actors: Array, previous: Array, state: Dictionary) -> void:
 
 static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -> void:
 	ensure(state, actors.size())
+	preload("res://scripts/p6_runtime.gd").tick(actors,previous,state,dt)
 	if state.paired_tethers.is_empty() and state.streams.is_empty() and state.statuses.all(func(s): return s.is_empty()): return
 	# Subdivide movement and time together so expiry cannot be bypassed by a large frame.
 	var finish := float(state.get("sim_time", 0))
@@ -174,6 +179,7 @@ static func streams(actors: Array, state: Dictionary) -> void:
 			stream.remaining -= 1
 
 static func sync(beat: Dictionary, state: Dictionary) -> void:
+	preload("res://scripts/p6_runtime.gd").sync(beat,state)
 	if not state.has("statuses"): return
 	if beat.has("shapes"):
 		beat.shapes = beat.shapes.filter(func(s): return not s.get("runtime_stream",false))

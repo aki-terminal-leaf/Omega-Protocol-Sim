@@ -14,14 +14,14 @@
     "source": "No live proof for either ownership policy"
   },
   "ruin_duration": {
-    "value": 16.0,
-    "status": "unverified_training",
-    "source": "Legacy training window; needs combat log calibration"
+    "value": 11.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P1 status2534 reports10.95..11s; nominal11s"
   },
   "hp_penalty_duration": {
-    "value": 16.0,
-    "status": "unverified_training",
-    "source": "Legacy training window; needs combat log calibration"
+    "value": 9.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P1 status3401 reports9000ms"
   },
   "rot_contact_radius": {
     "value": 1.0,
@@ -95,23 +95,23 @@
   },
   "hw_initial_rot_remaining": {
     "value": 14.0,
-    "status": "unverified_training",
-    "source": "Compressed entry into Hello World; not cast-relative server timing"
+    "status": "deprecated_not_used",
+    "source": "Superseded by real initial3s Smells,21/27s bugs and10s live regression; retained only for historical reports"
   },
   "hw_initial_bug_remaining": {
     "value": 8.0,
-    "status": "unverified_training",
-    "source": "Compressed entry into Hello World; not cast-relative server timing"
+    "status": "deprecated_not_used",
+    "source": "Superseded by real initial3s Smells,21/27s bugs and10s live regression; retained only for historical reports"
   },
   "hw_regression_duration": {
     "value": 13.0,
-    "status": "unverified_training",
-    "source": "Compressed entry into Hello World; not cast-relative server timing"
+    "status": "deprecated_not_used",
+    "source": "Superseded by real initial3s Smells,21/27s bugs and10s live regression; retained only for historical reports"
   },
   "hw_tower_approach": {
-    "value": 8.0,
+    "value": 10.0,
     "status": "unverified_training",
-    "source": "Compressed entry into Hello World; not cast-relative server timing"
+    "source": "Route planning window; 10+3+3+5 keeps actual tower intervals21s, not a separate server cast timer"
   },
   "contact_step": {
     "value": 0.025,
@@ -179,14 +179,14 @@
     "source": "Tuufless P3 Local/Remote Regression: one-second Thrice-come Ruin"
   },
   "loop_first_snapshot": {
-    "value": 16.0,
-    "status": "unverified_training",
-    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+    "value": 13.4,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); First Storage Violation about13.4s after InLine/Looper grant, not whole-pull time"
   },
   "loop_snapshot_interval": {
     "value": 9.0,
-    "status": "unverified_training",
-    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); Four P1 tower waves about9s apart"
   },
   "delta_activation_delay": {
     "value": 7.0,
@@ -242,5 +242,90 @@
     "value": 16.0,
     "status": "community_geometry",
     "source": "BossMod TOP P2PartySynergyOpticalLaser"
+  },
+  "looper_initial_duration": {
+    "value": 16.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P1 initial Looper durations16/25/34/43s"
+  },
+  "looper_duration_step": {
+    "value": 9.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P1 successive InLine expiry9s apart"
+  },
+  "omega_hp_penalty_duration": {
+    "value": 3.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P5 Omega status3401 reports3000ms"
+  },
+  "hw_smell_duration": {
+    "value": 3.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P3 initial four Smell statuses report3000ms"
+  },
+  "hw_latent_sync_duration": {
+    "value": 69.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P3 status3434 on all8 reports69000ms"
+  },
+  "hw_bug_duration": {
+    "value": 21.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P3 statuses3524/3525 reports21000ms"
+  },
+  "hw_regression_live_duration": {
+    "value": 10.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); P3 statuses3529/3530 reports10000ms"
+  },
+  "world_pulse_interval": {
+    "value": 1.0,
+    "status": "fflogs_observed_nominal",
+    "source": "fflogs_observations.json: four complete TOP clears (LKMGRJTzgY9HFynk/2, 3GW2hjTNk91FZwcK/9, 1bX86aKrVRwLWfTC/19, Vyq4AcJKZjkFQBpG/32); Near/Far World jumps each about1s apart"
+  },
+  "world_holder_radius": {
+    "value": 8.0,
+    "status": "community_geometry",
+    "source": "TOPEnums initial HelloNear/Distant World radius8"
+  },
+  "world_jump_radius": {
+    "value": 4.0,
+    "status": "community_geometry",
+    "source": "TOPEnums and P5NearDistantWorld jump radius4"
+  },
+  "world_vulnerability_duration": {
+    "value": 5.0,
+    "status": "fflogs_observed_nominal",
+    "source": "FFLogs status2941 applied by World hits reports4960ms; nominal5s"
+  },
+  "omega_blaster_to_world": {
+    "value": 1.7,
+    "status": "fflogs_observed_nominal",
+    "source": "Four complete FFLogs clears and TOPStates: Blaster then first World about1.7s"
+  },
+  "hw_first_tower_from_smells": {
+    "value": 24.0,
+    "status": "fflogs_observed_nominal",
+    "source": "Four FFLogs clears:3s initial Smell +21s Overflow/Sync; tower follows the bug expiry by~0.1s"
+  },
+  "hw_initial_latent_defect_duration": {
+    "value": 27.0,
+    "status": "fflogs_observed_nominal",
+    "source": "FFLogs status3527 on initialLocal pair reports27000ms"
+  },
+  "hw_regression_activation_lead": {
+    "value": 1.0,
+    "status": "fflogs_observed_nominal",
+    "source": "InitialCodeSmell23/44/65/86s; tower24/45/66/87s"
+  },
+  "hw_remote_window": {
+    "value": 3.0,
+    "status": "route_waypoint_window",
+    "source": "Guide movement window; Local must break before its real10s regression expires"
+  },
+  "hw_local_window": {
+    "value": 5.0,
+    "status": "route_waypoint_window",
+    "source": "Guide movement window; no status expiry or contacts are overridden"
   }
 }

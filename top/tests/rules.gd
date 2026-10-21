@@ -40,7 +40,11 @@ func _initialize() -> void:
 	for i in 8:party.append(actor(b.positions[i],Encounter.ROLES[i]))
 	var valid_state = state()
 	check(Rules.evaluate(b,party,valid_state).is_empty(),"world geometry accepted")
-	check(valid_state.dynamis.count(1)==6,"exactly six world gains")
+	check(valid_state.dynamis.count(1)==2,"only initial World holders gain before later pulses")
+	for pulse in [1,2]:
+		valid_state.sim_time=float(pulse)
+		check(Rules.evaluate(encounter.beats[pulse],party,valid_state).is_empty(),"separate live World jump accepted")
+	check(valid_state.dynamis.count(1)==6,"six World gains only after all three timed pulses")
 	party[int(b.world.near_path[1])].pos=party[int(b.world.near)].pos+Vector2(0.1,0)
 	check(not Rules.evaluate(b,party,state()).is_empty(),"world clipping rejected")
 	party=[actor(Vector2.ZERO),actor(Vector2(1,0)),actor(Vector2(10,0))]
@@ -68,20 +72,19 @@ func _initialize() -> void:
 	check(not Rules.evaluate({"checks":[{"kind":"distance","a":0,"b":1,"min":18,"max":29}]},party,state()).is_empty(),"Mid Glitch landing too far rejected")
 	check(Rules.evaluate({"checks":[{"kind":"distance","a":0,"b":1,"min":32,"max":40}]},party,state()).is_empty(),"Remote Glitch landing accepted")
 	encounter=Encounter.new().build("p6_arrow_wave",47,profiles[0])
-	var overlap_snapshots = 0
-	for item in encounter.beats:
-		var arrow=false;var beam=false
-		for shape in item.shapes:
-			if shape.name == "Concurrent Cosmo Arrow": arrow=true
-			if shape.name == "Wave Cannon spread": beam=true
-		if arrow and beam:overlap_snapshots+=1
-	check(overlap_snapshots==2,"Arrow and Wave must coexist on both spread snapshots")
+	# Actual proteans T17/T19 interleave Arrow T16/T18/T20; not one fake snapshot.
+	var events: Array=encounter.beats[0].p6_events
+	var proteans: Array=events.filter(func(e):return e.kind=="proteans")
+	check(proteans.size()==2,"two real protean volleys during Arrow")
+	for event in proteans:
+		check(events.any(func(e):return e.kind=="hazard" and is_equal_approx(float(e.at),float(event.at)-1)) and events.any(func(e):return e.kind=="hazard" and is_equal_approx(float(e.at),float(event.at)+1)),"Arrow damage brackets each interleaved protean volley")
+	var observed_repeated_pair := false
 	for seed_value in range(1, 17):
 		var loop = Encounter.new().build("p1_loop", seed_value, profiles[0])
 		var tower_points: Array = []
 		var angles_valid = true
 		var previous_points: Array = []
-		var no_consecutive_repeat = true
+		var authentic_slots = true
 		for item in loop.beats:
 			var points: Array = []
 			for shape in item.shapes:
@@ -89,12 +92,16 @@ func _initialize() -> void:
 					points.append(shape.pos)
 					if not tower_points.has(shape.pos): tower_points.append(shape.pos)
 			for point in points:
-				if point in previous_points: no_consecutive_repeat = false
+				var x: float = absf(point.x); var y: float = absf(point.y)
+				if minf(absf(x-3)+absf(y-12),absf(x-12)+absf(y-3)) > 0.01: authentic_slots = false
+			# LKMGRJTzgY9HFynk/2 waves3/4 and Vyq4AcJKZjkFQBpG/32 waves1/2 repeat.
+			if previous_points.size()==2 and points.all(func(p):return previous_points.any(func(q):return p.distance_to(q)<0.01)): observed_repeated_pair = true
 			previous_points = points
 			var gap = absf(rad_to_deg(points[0].angle_to(points[1])))
 			if absf(gap - 90) > 0.01 and absf(gap - 180) > 0.01: angles_valid = false
-		check(no_consecutive_repeat, "Program Loop towers cannot repeat on consecutive waves")
+		check(authentic_slots, "Program Loop uses logged +/-3,+/-12 slots, not an equal-angle octagon")
 		check(angles_valid, "Program Loop paired towers 90 or 180 degrees apart")
+	check(observed_repeated_pair,"Program Loop generator includes observed consecutive repeated pairs")
 	for role in 8:
 		for slot in 8:
 			var first=Encounter.new().build("p1_loop",921,profiles[0],role,slot)

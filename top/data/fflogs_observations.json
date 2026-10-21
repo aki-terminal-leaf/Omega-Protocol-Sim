@@ -1,0 +1,2685 @@
+{
+  "schema": 1,
+  "scope": "public FFLogs observations; no player names, credentials, or gear; not exhaustive server proof",
+  "coordinate_units": "(logged x/y - 10000) / 100; north negative y",
+  "position_caution": "FFLogs proxy/helper coordinates may be stale or default; validated geometric families only, not all cast locations",
+  "sources": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "url": "https://www.fflogs.com/reports/1bX86aKrVRwLWfTC?fight=19",
+      "retrieved_utc": "2026-10-21T02:31:49.024960+00:00",
+      "boss": 1077,
+      "kill": true,
+      "start": 13951737,
+      "end": 15079746,
+      "phases": [
+        {
+          "id": 1,
+          "startTime": 13951737
+        },
+        {
+          "id": 2,
+          "startTime": 14080401
+        },
+        {
+          "id": 3,
+          "startTime": 14214365
+        },
+        {
+          "id": 4,
+          "startTime": 14403162
+        },
+        {
+          "id": 5,
+          "startTime": 14474854
+        },
+        {
+          "id": 6,
+          "startTime": 14760926
+        }
+      ],
+      "casts": 1223,
+      "replay_events": 41345,
+      "replay_segments": 5,
+      "casts_pages": 3,
+      "verified_sha256_files": 7
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "url": "https://www.fflogs.com/reports/3GW2hjTNk91FZwcK?fight=9",
+      "retrieved_utc": "2026-10-21T02:31:48.922016+00:00",
+      "boss": 1077,
+      "kill": true,
+      "start": 5268255,
+      "end": 6381991,
+      "phases": [
+        {
+          "id": 1,
+          "startTime": 5268255
+        },
+        {
+          "id": 2,
+          "startTime": 5392886
+        },
+        {
+          "id": 3,
+          "startTime": 5524447
+        },
+        {
+          "id": 4,
+          "startTime": 5706033
+        },
+        {
+          "id": 5,
+          "startTime": 5777506
+        },
+        {
+          "id": 6,
+          "startTime": 6063634
+        }
+      ],
+      "casts": 1221,
+      "replay_events": 43132,
+      "replay_segments": 5,
+      "casts_pages": 3,
+      "verified_sha256_files": 7
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "url": "https://www.fflogs.com/reports/LKMGRJTzgY9HFynk?fight=2",
+      "retrieved_utc": "2026-10-21T02:30:35.436115+00:00",
+      "boss": 1077,
+      "kill": true,
+      "start": 180882,
+      "end": 1290286,
+      "phases": [
+        {
+          "id": 1,
+          "startTime": 180882
+        },
+        {
+          "id": 2,
+          "startTime": 300353
+        },
+        {
+          "id": 3,
+          "startTime": 431616
+        },
+        {
+          "id": 4,
+          "startTime": 622147
+        },
+        {
+          "id": 5,
+          "startTime": 693713
+        },
+        {
+          "id": 6,
+          "startTime": 979715
+        }
+      ],
+      "casts": 1216,
+      "replay_events": 46871,
+      "replay_segments": 5,
+      "casts_pages": 3,
+      "verified_sha256_files": 7
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "url": "https://www.fflogs.com/reports/Vyq4AcJKZjkFQBpG?fight=32",
+      "retrieved_utc": "2026-10-21T02:31:49.176920+00:00",
+      "boss": 1077,
+      "kill": true,
+      "start": 25886995,
+      "end": 26989995,
+      "phases": [
+        {
+          "id": 1,
+          "startTime": 25886995
+        },
+        {
+          "id": 2,
+          "startTime": 26005926
+        },
+        {
+          "id": 3,
+          "startTime": 26141324
+        },
+        {
+          "id": 4,
+          "startTime": 26325219
+        },
+        {
+          "id": 5,
+          "startTime": 26396709
+        },
+        {
+          "id": 6,
+          "startTime": 26682796
+        }
+      ],
+      "casts": 1215,
+      "replay_events": 44505,
+      "replay_segments": 5,
+      "casts_pages": 3,
+      "verified_sha256_files": 7
+    }
+  ],
+  "status_durations": {
+    "1000562": {
+      "names": [
+        "Prey",
+        "猎物"
+      ],
+      "count": 12,
+      "reported_duration_ms": {
+        "8000": 12
+      },
+      "by_phase": {
+        "2": {
+          "8000": 12
+        }
+      }
+    },
+    "1001672": {
+      "names": [
+        "Local Regression",
+        "回归方程：近"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "36000": 16
+      },
+      "by_phase": {
+        "5": {
+          "36000": 16
+        }
+      }
+    },
+    "1001673": {
+      "names": [
+        "Remote Regression",
+        "回归方程：远"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "12000": 16
+      },
+      "by_phase": {
+        "5": {
+          "12000": 16
+        }
+      }
+    },
+    "1002408": {
+      "names": [
+        "Down for the Count",
+        "击倒"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "9999000": 32
+      },
+      "by_phase": {
+        "6": {
+          "9999000": 32
+        }
+      }
+    },
+    "1002530": {
+      "names": [
+        "Thrice-come Ruin",
+        "破灭之印：叁"
+      ],
+      "count": 384,
+      "reported_duration_ms": {
+        "950": 24,
+        "960": 360
+      },
+      "by_phase": {
+        "3": {
+          "950": 16,
+          "960": 240
+        },
+        "5": {
+          "950": 8,
+          "960": 120
+        }
+      }
+    },
+    "1002534": {
+      "names": [
+        "Twice-come Ruin",
+        "破灭之印：贰"
+      ],
+      "count": 206,
+      "reported_duration_ms": {
+        "6950": 4,
+        "6960": 98,
+        "10950": 6,
+        "10960": 94,
+        "11000": 4
+      },
+      "by_phase": {
+        "1": {
+          "10950": 6,
+          "10960": 58
+        },
+        "2": {
+          "6960": 30
+        },
+        "3": {
+          "6960": 32
+        },
+        "5": {
+          "6950": 4,
+          "6960": 36,
+          "10960": 36,
+          "11000": 4
+        }
+      }
+    },
+    "1002940": {
+      "names": [
+        "Physical Vulnerability Up",
+        "物理受伤加重"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "1960": 8
+      },
+      "by_phase": {
+        "2": {
+          "1960": 8
+        }
+      }
+    },
+    "1002941": {
+      "names": [
+        "Magic Vulnerability Up",
+        "魔法受伤加重"
+      ],
+      "count": 1136,
+      "reported_duration_ms": {
+        "960": 80,
+        "1000": 80,
+        "1950": 12,
+        "1960": 747,
+        "4000": 23,
+        "4950": 4,
+        "4960": 172,
+        "9960": 18
+      },
+      "by_phase": {
+        "1": {
+          "1960": 176,
+          "9960": 18
+        },
+        "2": {
+          "1960": 64,
+          "4000": 7
+        },
+        "3": {
+          "960": 80,
+          "1000": 80,
+          "1960": 32,
+          "4960": 32
+        },
+        "4": {
+          "1960": 192
+        },
+        "5": {
+          "1960": 24,
+          "4000": 16,
+          "4950": 4,
+          "4960": 140
+        },
+        "6": {
+          "1950": 12,
+          "1960": 259
+        }
+      }
+    },
+    "1003004": {
+      "names": [
+        "First in Line",
+        "第一目标"
+      ],
+      "count": 24,
+      "reported_duration_ms": {
+        "9999000": 24
+      },
+      "by_phase": {
+        "1": {
+          "9999000": 16
+        },
+        "5": {
+          "9999000": 8
+        }
+      }
+    },
+    "1003005": {
+      "names": [
+        "Second in Line",
+        "第二目标"
+      ],
+      "count": 24,
+      "reported_duration_ms": {
+        "9999000": 24
+      },
+      "by_phase": {
+        "1": {
+          "9999000": 16
+        },
+        "5": {
+          "9999000": 8
+        }
+      }
+    },
+    "1003006": {
+      "names": [
+        "Third in Line",
+        "第三目标"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "9999000": 16
+      },
+      "by_phase": {
+        "1": {
+          "9999000": 16
+        }
+      }
+    },
+    "1003366": {
+      "names": [
+        "Vulnerability Up",
+        "受伤加重"
+      ],
+      "count": 154,
+      "reported_duration_ms": {
+        "9999000": 154
+      },
+      "by_phase": {
+        "2": {
+          "9999000": 88
+        },
+        "5": {
+          "9999000": 66
+        }
+      }
+    },
+    "1003401": {
+      "names": [
+        "HP Penalty",
+        "体力衰减"
+      ],
+      "count": 40,
+      "reported_duration_ms": {
+        "3000": 8,
+        "9000": 32
+      },
+      "by_phase": {
+        "1": {
+          "9000": 32
+        },
+        "5": {
+          "3000": 8
+        }
+      }
+    },
+    "1003424": {
+      "names": [
+        "Guided Missile Kyrios Incoming",
+        "跟踪导弹P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "12000": 8
+      },
+      "by_phase": {
+        "1": {
+          "12000": 8
+        }
+      }
+    },
+    "1003425": {
+      "names": [
+        "Sniper Cannon Fodder",
+        "狙击式波动炮"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "19000": 16
+      },
+      "by_phase": {
+        "3": {
+          "19000": 16
+        }
+      }
+    },
+    "1003426": {
+      "names": [
+        "High-powered Sniper Cannon Fodder",
+        "狙击式大功率波动炮"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "19000": 8
+      },
+      "by_phase": {
+        "3": {
+          "19000": 8
+        }
+      }
+    },
+    "1003427": {
+      "names": [
+        "Mid Glitch",
+        "故障：中"
+      ],
+      "count": 56,
+      "reported_duration_ms": {
+        "27000": 32,
+        "32000": 24
+      },
+      "by_phase": {
+        "2": {
+          "27000": 32
+        },
+        "5": {
+          "32000": 24
+        }
+      }
+    },
+    "1003428": {
+      "names": [
+        "Remote Glitch"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "32000": 8
+      },
+      "by_phase": {
+        "5": {
+          "32000": 8
+        }
+      }
+    },
+    "1003429": {
+      "names": [
+        "Critical Performance Bug",
+        "严重错误：性能"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "27000": 32
+      },
+      "by_phase": {
+        "3": {
+          "27000": 32
+        }
+      }
+    },
+    "1003430": {
+      "names": [
+        "Synchronization Debugger",
+        "修复错误：同步"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "9999000": 32
+      },
+      "by_phase": {
+        "3": {
+          "9999000": 32
+        }
+      }
+    },
+    "1003431": {
+      "names": [
+        "Overflow Debugger",
+        "修复错误：上溢"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "9999000": 32
+      },
+      "by_phase": {
+        "3": {
+          "9999000": 32
+        }
+      }
+    },
+    "1003432": {
+      "names": [
+        "Underflow Debugger",
+        "修复错误：下溢"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "9999000": 32
+      },
+      "by_phase": {
+        "3": {
+          "9999000": 32
+        }
+      }
+    },
+    "1003433": {
+      "names": [
+        "Performance Debugger",
+        "修复错误：性能"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "9999000": 32
+      },
+      "by_phase": {
+        "3": {
+          "9999000": 32
+        }
+      }
+    },
+    "1003434": {
+      "names": [
+        "Latent Synchronization Bug",
+        "潜在错误：同步"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "69000": 32
+      },
+      "by_phase": {
+        "3": {
+          "69000": 32
+        }
+      }
+    },
+    "1003435": {
+      "names": [
+        "Latent Performance Defect",
+        "潜在错误：性能"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "10000": 32
+      },
+      "by_phase": {
+        "3": {
+          "10000": 32
+        }
+      }
+    },
+    "1003436": {
+      "names": [
+        "Synchronization Code Smell",
+        "代码异味：同步"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "3000": 8
+      },
+      "by_phase": {
+        "3": {
+          "3000": 8
+        }
+      }
+    },
+    "1003437": {
+      "names": [
+        "Overflow Code Smell",
+        "代码异味：上溢"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "3000": 8
+      },
+      "by_phase": {
+        "3": {
+          "3000": 8
+        }
+      }
+    },
+    "1003438": {
+      "names": [
+        "Underflow Code Smell",
+        "代码异味：下溢"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "3000": 8
+      },
+      "by_phase": {
+        "3": {
+          "3000": 8
+        }
+      }
+    },
+    "1003439": {
+      "names": [
+        "Performance Code Smell",
+        "代码异味：性能"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "3000": 8
+      },
+      "by_phase": {
+        "3": {
+          "3000": 8
+        }
+      }
+    },
+    "1003440": {
+      "names": [
+        "Local Code Smell",
+        "代码异味：近"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "18000": 16
+      },
+      "by_phase": {
+        "5": {
+          "18000": 16
+        }
+      }
+    },
+    "1003441": {
+      "names": [
+        "Remote Code Smell",
+        "代码异味：远"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "23000": 8,
+        "44000": 8,
+        "65000": 8,
+        "86000": 8
+      },
+      "by_phase": {
+        "3": {
+          "23000": 8,
+          "44000": 8,
+          "65000": 8,
+          "86000": 8
+        }
+      }
+    },
+    "1003442": {
+      "names": [
+        "Hello, Near World",
+        "你好，近处世界"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "32000": 4,
+        "44000": 4,
+        "50000": 4,
+        "56000": 4
+      },
+      "by_phase": {
+        "5": {
+          "32000": 4,
+          "44000": 4,
+          "50000": 4,
+          "56000": 4
+        }
+      }
+    },
+    "1003443": {
+      "names": [
+        "Hello, Distant World",
+        "你好，远处世界"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "32000": 4,
+        "44000": 4,
+        "50000": 4,
+        "56000": 4
+      },
+      "by_phase": {
+        "5": {
+          "32000": 4,
+          "44000": 4,
+          "50000": 4,
+          "56000": 4
+        }
+      }
+    },
+    "1003451": {
+      "names": [
+        "Fourth in Line",
+        "第四目标"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "9999000": 16
+      },
+      "by_phase": {
+        "1": {
+          "9999000": 16
+        }
+      }
+    },
+    "1003452": {
+      "names": [
+        "Oversampled Wave Cannon Loading",
+        "探测式波动炮"
+      ],
+      "count": 10,
+      "reported_duration_ms": {
+        "9999000": 10
+      },
+      "by_phase": {
+        "3": {
+          "9999000": 6
+        },
+        "5": {
+          "9999000": 4
+        }
+      }
+    },
+    "1003453": {
+      "names": [
+        "Oversampled Wave Cannon Loading",
+        "探测式波动炮"
+      ],
+      "count": 6,
+      "reported_duration_ms": {
+        "9999000": 6
+      },
+      "by_phase": {
+        "3": {
+          "9999000": 6
+        }
+      }
+    },
+    "1003456": {
+      "names": [
+        "Looper",
+        "循环程序"
+      ],
+      "count": 64,
+      "reported_duration_ms": {
+        "16000": 8,
+        "18000": 32,
+        "25000": 8,
+        "34000": 8,
+        "43000": 8
+      },
+      "by_phase": {
+        "1": {
+          "16000": 8,
+          "25000": 8,
+          "34000": 8,
+          "43000": 8
+        },
+        "5": {
+          "18000": 32
+        }
+      }
+    },
+    "1003495": {
+      "names": [
+        "Guided Missile Kyrios Incoming",
+        "跟踪导弹P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "18000": 8
+      },
+      "by_phase": {
+        "1": {
+          "18000": 8
+        }
+      }
+    },
+    "1003496": {
+      "names": [
+        "Guided Missile Kyrios Incoming",
+        "跟踪导弹P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "24000": 8
+      },
+      "by_phase": {
+        "1": {
+          "24000": 8
+        }
+      }
+    },
+    "1003497": {
+      "names": [
+        "Guided Missile Kyrios Incoming",
+        "跟踪导弹P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "30000": 8
+      },
+      "by_phase": {
+        "1": {
+          "30000": 8
+        }
+      }
+    },
+    "1003499": {
+      "names": [
+        "Packet Filter M",
+        "防护程序M"
+      ],
+      "count": 25,
+      "reported_duration_ms": {
+        "9999000": 25
+      },
+      "by_phase": {
+        "2": {
+          "9999000": 25
+        }
+      }
+    },
+    "1003500": {
+      "names": [
+        "Packet Filter F",
+        "防护程序F"
+      ],
+      "count": 24,
+      "reported_duration_ms": {
+        "9999000": 24
+      },
+      "by_phase": {
+        "2": {
+          "9999000": 24
+        }
+      }
+    },
+    "1003503": {
+      "names": [
+        "Local Code Smell",
+        "代码异味：近"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "23000": 8,
+        "44000": 8,
+        "65000": 8,
+        "86000": 8
+      },
+      "by_phase": {
+        "3": {
+          "23000": 8,
+          "44000": 8,
+          "65000": 8,
+          "86000": 8
+        }
+      }
+    },
+    "1003504": {
+      "names": [
+        "Remote Code Smell",
+        "代码异味：远"
+      ],
+      "count": 16,
+      "reported_duration_ms": {
+        "18000": 16
+      },
+      "by_phase": {
+        "5": {
+          "18000": 16
+        }
+      }
+    },
+    "1003507": {
+      "names": [
+        "Condensed Wave Cannon Kyrios",
+        "大功率波动炮P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "12000": 8
+      },
+      "by_phase": {
+        "1": {
+          "12000": 8
+        }
+      }
+    },
+    "1003508": {
+      "names": [
+        "Condensed Wave Cannon Kyrios",
+        "大功率波动炮P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "18000": 8
+      },
+      "by_phase": {
+        "1": {
+          "18000": 8
+        }
+      }
+    },
+    "1003509": {
+      "names": [
+        "Condensed Wave Cannon Kyrios",
+        "大功率波动炮P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "24000": 8
+      },
+      "by_phase": {
+        "1": {
+          "24000": 8
+        }
+      }
+    },
+    "1003510": {
+      "names": [
+        "Condensed Wave Cannon Kyrios",
+        "大功率波动炮P"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "30000": 8
+      },
+      "by_phase": {
+        "1": {
+          "30000": 8
+        }
+      }
+    },
+    "1003516": {
+      "names": [
+        "Magic Vulnerability Up",
+        "魔法受伤加重"
+      ],
+      "count": 384,
+      "reported_duration_ms": {
+        "950": 24,
+        "960": 360
+      },
+      "by_phase": {
+        "3": {
+          "950": 16,
+          "960": 240
+        },
+        "5": {
+          "950": 8,
+          "960": 120
+        }
+      }
+    },
+    "1003524": {
+      "names": [
+        "Critical Synchronization Bug",
+        "严重错误：同步"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "21000": 32
+      },
+      "by_phase": {
+        "3": {
+          "21000": 32
+        }
+      }
+    },
+    "1003525": {
+      "names": [
+        "Critical Overflow Bug",
+        "严重错误：上溢"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "21000": 32
+      },
+      "by_phase": {
+        "3": {
+          "21000": 32
+        }
+      }
+    },
+    "1003526": {
+      "names": [
+        "Critical Underflow Bug",
+        "严重错误：下溢"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "27000": 32
+      },
+      "by_phase": {
+        "3": {
+          "27000": 32
+        }
+      }
+    },
+    "1003527": {
+      "names": [
+        "Latent Defect",
+        "潜在错误"
+      ],
+      "count": 8,
+      "reported_duration_ms": {
+        "27000": 8
+      },
+      "by_phase": {
+        "3": {
+          "27000": 8
+        }
+      }
+    },
+    "1003528": {
+      "names": [
+        "Cascading Latent Defect",
+        "潜在错误：下溢"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "10000": 32
+      },
+      "by_phase": {
+        "3": {
+          "10000": 32
+        }
+      }
+    },
+    "1003529": {
+      "names": [
+        "Local Regression",
+        "回归方程：近"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "10000": 32
+      },
+      "by_phase": {
+        "3": {
+          "10000": 32
+        }
+      }
+    },
+    "1003530": {
+      "names": [
+        "Remote Regression",
+        "回归方程：远"
+      ],
+      "count": 32,
+      "reported_duration_ms": {
+        "10000": 32
+      },
+      "by_phase": {
+        "3": {
+          "10000": 32
+        }
+      }
+    },
+    "1003532": {
+      "names": [
+        "Magic Number",
+        "魔数"
+      ],
+      "count": 58,
+      "reported_duration_ms": {
+        "6000": 58
+      },
+      "by_phase": {
+        "6": {
+          "6000": 58
+        }
+      }
+    }
+  },
+  "loop": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "tower_waves": [
+        {
+          "seconds": 29.195,
+          "slots": [
+            [
+              0.0,
+              -10.0
+            ],
+            [
+              0.0,
+              -10.0
+            ]
+          ],
+          "valid_slot_observation": false
+        },
+        {
+          "seconds": 38.226,
+          "slots": [
+            [
+              -3.0,
+              12.0
+            ],
+            [
+              12.0,
+              3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 47.21,
+          "slots": [
+            [
+              -12.0,
+              -3.0
+            ],
+            [
+              3.0,
+              -12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 56.223,
+          "slots": [
+            [
+              -12.0,
+              3.0
+            ],
+            [
+              -3.0,
+              -12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        }
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "tower_waves": [
+        {
+          "seconds": 29.328,
+          "slots": [
+            [
+              -12.0,
+              3.0
+            ],
+            [
+              3.0,
+              12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 38.355,
+          "slots": [
+            [
+              -3.0,
+              -12.0
+            ],
+            [
+              12.0,
+              -3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 47.386,
+          "slots": [
+            [
+              3.0,
+              -12.0
+            ],
+            [
+              -3.0,
+              12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 56.366,
+          "slots": [
+            [
+              3.0,
+              -12.0
+            ],
+            [
+              -3.0,
+              12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        }
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "tower_waves": [
+        {
+          "seconds": 29.267,
+          "slots": [
+            [
+              -12.0,
+              3.0
+            ],
+            [
+              12.0,
+              -3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 38.26,
+          "slots": [
+            [
+              -3.0,
+              -12.0
+            ],
+            [
+              3.0,
+              12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 47.305,
+          "slots": [
+            [
+              3.0,
+              -12.0
+            ],
+            [
+              -12.0,
+              -3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 56.305,
+          "slots": [
+            [
+              3.0,
+              -12.0
+            ],
+            [
+              -12.0,
+              -3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        }
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "tower_waves": [
+        {
+          "seconds": 28.948,
+          "slots": [
+            [
+              -3.0,
+              12.0
+            ],
+            [
+              -12.0,
+              -3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 38.004,
+          "slots": [
+            [
+              -3.0,
+              12.0
+            ],
+            [
+              -12.0,
+              -3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 46.962,
+          "slots": [
+            [
+              12.0,
+              3.0
+            ],
+            [
+              3.0,
+              -12.0
+            ]
+          ],
+          "valid_slot_observation": true
+        },
+        {
+          "seconds": 55.973,
+          "slots": [
+            [
+              -3.0,
+              -12.0
+            ],
+            [
+              -12.0,
+              3.0
+            ]
+          ],
+          "valid_slot_observation": true
+        }
+      ]
+    }
+  ],
+  "hello_world": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "initial_status_seconds": 304.084,
+      "latent_sync_targets": 8,
+      "tower_seconds_from_initial_smells": [
+        24.151,
+        45.22,
+        66.289,
+        87.374
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "initial_status_seconds": 297.689,
+      "latent_sync_targets": 8,
+      "tower_seconds_from_initial_smells": [
+        24.166,
+        45.184,
+        66.207,
+        87.263
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "initial_status_seconds": 292.29,
+      "latent_sync_targets": 8,
+      "tower_seconds_from_initial_smells": [
+        24.165,
+        45.206,
+        66.243,
+        87.287
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "initial_status_seconds": 295.865,
+      "latent_sync_targets": 8,
+      "tower_seconds_from_initial_smells": [
+        24.181,
+        45.238,
+        66.25,
+        87.303
+      ]
+    }
+  ],
+  "world_pulses": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 595.079,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 47
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 40
+        },
+        {
+          "offset": 1.026,
+          "ability": 31626,
+          "target": 45
+        },
+        {
+          "offset": 1.026,
+          "ability": 33041,
+          "target": 46
+        },
+        {
+          "offset": 2.004,
+          "ability": 31626,
+          "target": 44
+        },
+        {
+          "offset": 2.004,
+          "ability": 33041,
+          "target": 41
+        }
+      ]
+    },
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 689.311,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 41
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 44
+        },
+        {
+          "offset": 1.026,
+          "ability": 31626,
+          "target": 2
+        },
+        {
+          "offset": 1.026,
+          "ability": 33041,
+          "target": 47
+        },
+        {
+          "offset": 2.007,
+          "ability": 31626,
+          "target": 46
+        },
+        {
+          "offset": 2.007,
+          "ability": 33041,
+          "target": 43
+        }
+      ]
+    },
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 754.879,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 47
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 41
+        },
+        {
+          "offset": 1.025,
+          "ability": 31626,
+          "target": 43
+        },
+        {
+          "offset": 1.025,
+          "ability": 33041,
+          "target": 40
+        },
+        {
+          "offset": 2.006,
+          "ability": 31626,
+          "target": 2
+        },
+        {
+          "offset": 2.006,
+          "ability": 33041,
+          "target": 45
+        }
+      ]
+    },
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 772.85,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 43
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 44
+        },
+        {
+          "offset": 1.022,
+          "ability": 31626,
+          "target": 2
+        },
+        {
+          "offset": 1.022,
+          "ability": 33041,
+          "target": 45
+        },
+        {
+          "offset": 1.999,
+          "ability": 31626,
+          "target": 46
+        },
+        {
+          "offset": 1.999,
+          "ability": 33041,
+          "target": 40
+        }
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 581.253,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 7
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 5
+        },
+        {
+          "offset": 1.021,
+          "ability": 31626,
+          "target": 3
+        },
+        {
+          "offset": 1.021,
+          "ability": 33041,
+          "target": 4
+        },
+        {
+          "offset": 2.04,
+          "ability": 31626,
+          "target": 8
+        },
+        {
+          "offset": 2.04,
+          "ability": 33041,
+          "target": 9
+        }
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 675.392,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 8
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 5
+        },
+        {
+          "offset": 1.022,
+          "ability": 31626,
+          "target": 7
+        },
+        {
+          "offset": 1.022,
+          "ability": 33041,
+          "target": 4
+        },
+        {
+          "offset": 2.043,
+          "ability": 31626,
+          "target": 6
+        },
+        {
+          "offset": 2.043,
+          "ability": 33041,
+          "target": 2
+        }
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 740.982,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 7
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 2
+        },
+        {
+          "offset": 1.02,
+          "ability": 31626,
+          "target": 9
+        },
+        {
+          "offset": 1.02,
+          "ability": 33041,
+          "target": 6
+        },
+        {
+          "offset": 2.0,
+          "ability": 31626,
+          "target": 8
+        },
+        {
+          "offset": 2.0,
+          "ability": 33041,
+          "target": 3
+        }
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 758.98,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 4
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 3
+        },
+        {
+          "offset": 1.025,
+          "ability": 31626,
+          "target": 2
+        },
+        {
+          "offset": 1.025,
+          "ability": 33041,
+          "target": 9
+        },
+        {
+          "offset": 2.004,
+          "ability": 31626,
+          "target": 5
+        },
+        {
+          "offset": 2.004,
+          "ability": 33041,
+          "target": 6
+        }
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 584.791,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 9
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 10
+        },
+        {
+          "offset": 1.027,
+          "ability": 31626,
+          "target": 7
+        },
+        {
+          "offset": 1.027,
+          "ability": 33041,
+          "target": 8
+        },
+        {
+          "offset": 2.012,
+          "ability": 31626,
+          "target": 5
+        },
+        {
+          "offset": 2.012,
+          "ability": 33041,
+          "target": 3
+        }
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 678.945,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 7
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 10
+        },
+        {
+          "offset": 1.026,
+          "ability": 31626,
+          "target": 4
+        },
+        {
+          "offset": 1.026,
+          "ability": 33041,
+          "target": 3
+        },
+        {
+          "offset": 2.01,
+          "ability": 31626,
+          "target": 5
+        },
+        {
+          "offset": 2.01,
+          "ability": 33041,
+          "target": 6
+        }
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 744.371,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 8
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 4
+        },
+        {
+          "offset": 1.027,
+          "ability": 31626,
+          "target": 9
+        },
+        {
+          "offset": 1.027,
+          "ability": 33041,
+          "target": 7
+        },
+        {
+          "offset": 2.01,
+          "ability": 31626,
+          "target": 3
+        },
+        {
+          "offset": 2.01,
+          "ability": 33041,
+          "target": 6
+        }
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 762.369,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 6
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 10
+        },
+        {
+          "offset": 1.028,
+          "ability": 31626,
+          "target": 9
+        },
+        {
+          "offset": 1.028,
+          "ability": 33041,
+          "target": 4
+        },
+        {
+          "offset": 2.011,
+          "ability": 31626,
+          "target": 8
+        },
+        {
+          "offset": 2.011,
+          "ability": 33041,
+          "target": 5
+        }
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 581.56,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 1361
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 1313
+        },
+        {
+          "offset": 1.025,
+          "ability": 31626,
+          "target": 1359
+        },
+        {
+          "offset": 1.025,
+          "ability": 33041,
+          "target": 1357
+        },
+        {
+          "offset": 2.008,
+          "ability": 31626,
+          "target": 1363
+        },
+        {
+          "offset": 2.008,
+          "ability": 33041,
+          "target": 1364
+        }
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 675.625,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 1357
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 1361
+        },
+        {
+          "offset": 1.027,
+          "ability": 31626,
+          "target": 1359
+        },
+        {
+          "offset": 1.027,
+          "ability": 33041,
+          "target": 1363
+        },
+        {
+          "offset": 2.009,
+          "ability": 31626,
+          "target": 1362
+        },
+        {
+          "offset": 2.009,
+          "ability": 33041,
+          "target": 1358
+        }
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 741.105,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 1359
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 1362
+        },
+        {
+          "offset": 1.028,
+          "ability": 31626,
+          "target": 1364
+        },
+        {
+          "offset": 1.028,
+          "ability": 33041,
+          "target": 1313
+        },
+        {
+          "offset": 2.011,
+          "ability": 31626,
+          "target": 1357
+        },
+        {
+          "offset": 2.011,
+          "ability": 33041,
+          "target": 1358
+        }
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 759.078,
+      "events": [
+        {
+          "offset": 0.0,
+          "ability": 31625,
+          "target": 1361
+        },
+        {
+          "offset": 0.0,
+          "ability": 33040,
+          "target": 1363
+        },
+        {
+          "offset": 1.028,
+          "ability": 31626,
+          "target": 1364
+        },
+        {
+          "offset": 1.028,
+          "ability": 33041,
+          "target": 1313
+        },
+        {
+          "offset": 2.012,
+          "ability": 31626,
+          "target": 1362
+        },
+        {
+          "offset": 2.012,
+          "ability": 33041,
+          "target": 1358
+        }
+      ]
+    }
+  ],
+  "exaflares": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 931.448,
+      "origins": [
+        [
+          0.0,
+          -24.0
+        ],
+        [
+          -16.97,
+          -16.97
+        ],
+        [
+          -24.0,
+          0.0
+        ],
+        [
+          -16.97,
+          16.97
+        ]
+      ],
+      "angles_north_cw": [
+        0.0,
+        315.0,
+        270.0,
+        225.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.023,
+        2.004,
+        3.028
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": -1
+    },
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 1007.943,
+      "origins": [
+        [
+          0.0,
+          -24.0
+        ],
+        [
+          -16.97,
+          -16.97
+        ],
+        [
+          -24.0,
+          0.0
+        ],
+        [
+          -16.97,
+          16.97
+        ]
+      ],
+      "angles_north_cw": [
+        0.0,
+        315.0,
+        270.0,
+        225.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.027,
+        2.007,
+        3.032
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": -1
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 917.702,
+      "origins": [
+        [
+          16.97,
+          16.97
+        ],
+        [
+          0.0,
+          24.0
+        ],
+        [
+          -16.97,
+          16.97
+        ],
+        [
+          -24.0,
+          0.0
+        ]
+      ],
+      "angles_north_cw": [
+        135.0,
+        180.0,
+        225.0,
+        270.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.024,
+        2.045,
+        2.981
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": 1
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 994.23,
+      "origins": [
+        [
+          16.97,
+          -16.97
+        ],
+        [
+          0.0,
+          -24.0
+        ],
+        [
+          -16.97,
+          -16.97
+        ],
+        [
+          -24.0,
+          0.0
+        ]
+      ],
+      "angles_north_cw": [
+        45.0,
+        0.0,
+        315.0,
+        270.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.022,
+        2.0,
+        3.026
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": -1
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 921.143,
+      "origins": [
+        [
+          16.97,
+          16.97
+        ],
+        [
+          0.0,
+          24.0
+        ],
+        [
+          -16.97,
+          16.97
+        ],
+        [
+          -24.0,
+          0.0
+        ]
+      ],
+      "angles_north_cw": [
+        135.0,
+        180.0,
+        225.0,
+        270.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.027,
+        2.01,
+        3.038
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": 1
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 997.782,
+      "origins": [
+        [
+          -16.97,
+          16.97
+        ],
+        [
+          -24.0,
+          0.0
+        ],
+        [
+          -16.97,
+          -16.97
+        ],
+        [
+          0.0,
+          -24.0
+        ]
+      ],
+      "angles_north_cw": [
+        225.0,
+        270.0,
+        315.0,
+        0.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.029,
+        2.012,
+        3.036
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": 1
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 918.173,
+      "origins": [
+        [
+          16.97,
+          16.97
+        ],
+        [
+          24.0,
+          0.0
+        ],
+        [
+          16.97,
+          -16.97
+        ],
+        [
+          0.0,
+          -24.0
+        ]
+      ],
+      "angles_north_cw": [
+        135.0,
+        90.0,
+        45.0,
+        0.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.027,
+        2.012,
+        3.042
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": -1
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 994.859,
+      "origins": [
+        [
+          -24.0,
+          0.0
+        ],
+        [
+          -16.97,
+          16.97
+        ],
+        [
+          0.0,
+          24.0
+        ],
+        [
+          16.97,
+          16.97
+        ]
+      ],
+      "angles_north_cw": [
+        270.0,
+        225.0,
+        180.0,
+        135.0
+      ],
+      "first_offsets": [
+        0.0,
+        1.03,
+        2.011,
+        3.041
+      ],
+      "validated_adjacent45_radius24": true,
+      "direction": -1
+    }
+  ],
+  "arrows": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 893.352,
+      "family": "center_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 2.004,
+      "first_origins": [
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        2.004,
+        2.004,
+        2.004,
+        2.004
+      ]
+    },
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "first_seconds": 970.257,
+      "family": "sides_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 2.002,
+      "first_origins": [
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ],
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.002,
+        2.002
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 879.486,
+      "family": "sides_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 2.041,
+      "first_origins": [
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.041,
+        2.041
+      ]
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "first_seconds": 956.41,
+      "family": "center_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 1.999,
+      "first_origins": [
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ],
+        [
+          20.0,
+          -15.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        1.999,
+        1.999,
+        1.999,
+        1.999
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 883.012,
+      "family": "sides_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 1.968,
+      "first_origins": [
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ],
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.968,
+        1.968
+      ]
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "first_seconds": 959.87,
+      "family": "sides_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 2.017,
+      "first_origins": [
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ],
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.017,
+        2.017
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 879.973,
+      "family": "center_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 2.012,
+      "first_origins": [
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ],
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        2.012,
+        2.012,
+        2.012,
+        2.012
+      ]
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "first_seconds": 956.983,
+      "family": "sides_first",
+      "initial_casts": 6,
+      "rest_casts": 36,
+      "delayed_group_seconds": 2.011,
+      "first_origins": [
+        [
+          -20.0,
+          15.0
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          20.0,
+          -15.0
+        ],
+        [
+          -15.0,
+          -20.0
+        ],
+        [
+          -20.0,
+          0.0
+        ],
+        [
+          0.0,
+          -20.0
+        ]
+      ],
+      "first_offsets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.011,
+        2.011
+      ]
+    }
+  ],
+  "totals": {
+    "complete_fights": 4,
+    "enemy_casts": 4875,
+    "replay_events": 175853
+  }
+}

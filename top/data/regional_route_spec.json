@@ -1,0 +1,4093 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-21",
+  "purpose": "Research-only regional route evidence. Not runtime input and not an implementation claim.",
+  "catalog_base": "55bbc64",
+  "coordinate_policy": {
+    "origin": "arena center",
+    "axes": "North is up unless an entry explicitly declares a boss/eye-relative north. East is right. CW is viewed from above.",
+    "numeric_coordinates": "No game coordinates invented. Only LPDU published waymarks carry numeric coordinates.",
+    "roles": {
+      "MT": "T1",
+      "ST": "OT/T2",
+      "D1": "M1",
+      "D2": "M2",
+      "D3": "R1/physical ranged",
+      "D4": "R2/caster",
+      "H1": "regen healer",
+      "H2": "barrier healer"
+    },
+    "no_implicit_inheritance": "An unresolved community route must not silently use Elemental or another community. Common mechanics do not establish common routes."
+  },
+  "source_registry": {
+    "e": "https://ffxiv.tuufless.com/elemental/top/",
+    "a": "https://www.thepfstrat.com/u/top",
+    "l": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+    "cn": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+    "cnref": "https://www.bilibili.com/opus/800287973844189204",
+    "cnupper": "https://www.bilibili.com/video/av740517066",
+    "cnlower": "https://www.bilibili.com/video/BV1vz4y1B7xP",
+    "kr": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+    "krworld": "https://www.inven.co.kr/board/ff14/4338/6982",
+    "a6": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+    "ad": "https://ff14.toolboxgaming.space/?id=732288275415761&preview=1",
+    "as": "https://ff14.toolboxgaming.space/?id=107380954136761&preview=1",
+    "ao": "https://ff14.toolboxgaming.space/?id=078384491946761&preview=1",
+    "l5": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+    "l6": "https://raidplan.io/plan/mh3bX4KJ9d8rT9nk",
+    "e0": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+    "e1": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+    "e2": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+    "e3": "https://ffxiv.tuufless.com/elemental/top/04_blue_screen/",
+    "e4": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+    "e5": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_sigma/",
+    "e6": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_omega/",
+    "e7": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+    "k0": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=2089732780",
+    "k1": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1552381437",
+    "k2": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+    "k3": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=776696341",
+    "k4": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=895996912",
+    "k5": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=791137168",
+    "k6": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=577861208",
+    "k7": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449"
+  },
+  "mechanic_catalog_mapping": {
+    "loop": "p1_loop",
+    "pantokrator": "p1_panto",
+    "p1_cannons": "p1_cannons",
+    "party_synergy": "p2_synergy",
+    "limitless": "p2_limitless",
+    "p3_transition": "p3_transition",
+    "hello_world": "p3_hello",
+    "p3_monitors": "p3_monitors",
+    "blue_screen": "p4_wave",
+    "delta": "p5_delta",
+    "sigma": "p5_sigma",
+    "omega": "p5_omega",
+    "solar_ray": "p5_solar",
+    "cosmo_memory": "p6_memory",
+    "arrow_dive": "p6_arrow_dive",
+    "exaflare_wave": "p6_exa_wave",
+    "arrow_wave": "p6_arrow_wave",
+    "exaflare_dive": "p6_exa_dive",
+    "meteors": "p6_meteors",
+    "magic_number": "p6_magic"
+  },
+  "routes": [
+    {
+      "community": "elemental",
+      "mechanic": "loop",
+      "catalog_id": "p1_loop",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+          "location": "Program Loop, steps 1–9; homepage P1 macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > MT > ST > D1 > D2 > D3 > D4 > H2",
+        "Within each numbered pair, earlier priority takes first eligible position scanning CW from NW."
+      ],
+      "reference_axes": [
+        "True NW is scan origin; arena center is Omega."
+      ],
+      "relative_goals_and_waymarks": [
+        "Two active towers; tether holders use empty sectors, separated from towers and party."
+      ],
+      "branch_decisions": [
+        "Towers 1,2,3,4; tethers 3,4,1,2.",
+        "Use actual tower pattern each wave; do not reuse fixed role clockspots."
+      ],
+      "steps": [
+        "Stack to make initial tethers accessible; 3s intercept.",
+        "Take each tower/tether assignment; next tether pair collects after previous blast.",
+        "Heal 3s and 4s after HP penalty expires before their tower turn.",
+        "After fourth wave restore the final HP-penalty pair."
+      ],
+      "unresolved_source_facts": [
+        "Guide gives empty-sector priority but does not specify a deterministic choice among every legal empty-sector tie."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "pantokrator",
+      "catalog_id": "p1_panto",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+          "location": "Pantokrator / Condensed Waves and Guided Missiles; English/Japanese macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > MT > ST > D1 > D2 > D3 > D4 > H2",
+        "Earlier of each number goes NW; later SE. H1/H2 separated."
+      ],
+      "reference_axes": [
+        "True NW/SE initial references; rotate with observed Flamethrower."
+      ],
+      "relative_goals_and_waymarks": [
+        "Beam group trails within safe sector; missile holder leads it.",
+        "Missile outbound passes through center/inner lane; return uses outside lane."
+      ],
+      "branch_decisions": [
+        "If initial cones cover NW/SE, rotate CW to next safe sector.",
+        "Mirror movement for observed CW/CCW flame rotation.",
+        "Numbered 1–4 missile order; remaining three share beam."
+      ],
+      "steps": [
+        "Split by numbers.",
+        "1s start near middle, go ahead; group remains ahead of trailing flame.",
+        "After beam, move together one puddle; next missile player drops next puddle inward, next forward, then backward/out.",
+        "Return to group after missile and repeat through 4s."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "p1_cannons",
+      "catalog_id": "p1_cannons",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+          "location": "Wave Cannons steps 16–17; homepage cannon macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT/ST are two furthest players.",
+        "Non-tanks fixed macro order H1,D1,D3,D4,D2,H2 from west across south to east."
+      ],
+      "reference_axes": [
+        "True north."
+      ],
+      "relative_goals_and_waymarks": [
+        "Both tanks north outside targeting circle; non-tanks spread through southern half inside circle."
+      ],
+      "branch_decisions": [
+        "First three marked non-tanks take beams; other three take second set.",
+        "Both tanks invuln on fifth marker pulse."
+      ],
+      "steps": [
+        "Tanks move north and ensure distance targeting.",
+        "Non-tanks take six nonoverlapping radial lines.",
+        "Hold spread through both beam waves."
+      ],
+      "unresolved_source_facts": [
+        "Exact radial distances and six beam angles are diagram-derived, not numeric in macro."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "party_synergy",
+      "catalog_id": "p2_synergy",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+          "location": "Party Synergy steps 1–6; homepage macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Left H1,MT,D1,D3; right H2,ST,D2,D4, N→S.",
+        "Duplicate symbol on one side: lower player moves."
+      ],
+      "reference_axes": [
+        "First use true N for light-party lines; then eye=N; knockback uses newly converted male / center of three males=N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Mid: both sides O,X,triangle,square from eye.",
+        "Remote: left O,X,triangle,square; right square,X,triangle,O.",
+        "Knockback left group W; right S for mid, E for remote."
+      ],
+      "branch_decisions": [
+        "M sword/F legs: safe toward F; M shield/F legs: toward M.",
+        "M sword/F staff: outside M circle and F cross; M shield/F staff: lateral shield pocket.",
+        "If both stacks same side, farther-from-eye stack trades with its shape partner.",
+        "Tanks Provoke their Packet Filter target after gender swap."
+      ],
+      "steps": [
+        "Assign symbols; dodge actual M/F pair between waymarks.",
+        "Resolve optical beam and spreads with glitch distances.",
+        "Identify new north and stack adjustment.",
+        "Take knockback to selected W/S or W/E safe spots."
+      ],
+      "unresolved_source_facts": [
+        "Exact combined-M/F safe-pocket boundaries and mid-glitch distance tolerance require diagram geometry extraction."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "limitless",
+      "catalog_id": "p2_limitless",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+          "location": "Limitless Synergy steps 7–12",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT takes north intercardinal tether; ST south.",
+        "Tanks bait Beyond Defense; hit tank excludes self from Pile Pitch."
+      ],
+      "reference_axes": [
+        "True south for party bait; external shield clone defines subsequent facing."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party outside target circle south, then inside after Sagittarius telegraph.",
+        "Tanks separated outside hitbox on shield-clone side; party center."
+      ],
+      "branch_decisions": [
+        "Point collected tethers CW.",
+        "Beyond Defense hit tank circles to opposite side; other tank rejoins center.",
+        "Ignore flare separation with guide's mitigation-heavy center stack."
+      ],
+      "steps": [
+        "Stack south, collect tethers.",
+        "Dodge arrow into circle.",
+        "Tanks bait shield charge.",
+        "Hit tank leaves; seven share Pile Pitch plus flares; mitigate eye raidwide."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "p3_transition",
+      "catalog_id": "p3_transition",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+          "location": "Transition steps 1–10 and homepage transition macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > MT > ST > D1 > D2 > D3 > D4 > H2",
+        "Sort purple and white/no-debuff groups separately."
+      ],
+      "reference_axes": [
+        "True N; incoming arms alter local safe pocket."
+      ],
+      "relative_goals_and_waymarks": [
+        "White/no-debuff pairs NW and NE; purple order W,SW,SE,E."
+      ],
+      "branch_decisions": [
+        "First arms may form either triangle; wait outside moving ring then step into previously exploded arm intersection.",
+        "Pair each white with one no-debuff player by rank."
+      ],
+      "steps": [
+        "Shield; conga; allocate six positions.",
+        "Dodge first ring progression and return outward.",
+        "Watch first arm set; after its explosion move into shared safe pocket of ring and arms.",
+        "Resolve debuffs with second arm explosion."
+      ],
+      "unresolved_source_facts": [
+        "Exact conga direction is supplied by macro priority; arm-safe pocket radial coordinates not numerically specified."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "hello_world",
+      "catalog_id": "p3_hello",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+          "location": "Hello World setup, first/second/third iterations, fourth iteration",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Assignment is current debuff, not job priority.",
+        "Defamation pairs with red/green tether; stack with blue tether for rounds 1–3."
+      ],
+      "reference_axes": [
+        "Axes reorient to current colored towers every round."
+      ],
+      "relative_goals_and_waymarks": [
+        "Defamation on outward part of same-color tower; stack on inward part.",
+        "Red/green tether outside defamation tower; blue tether between stack towers."
+      ],
+      "branch_decisions": [
+        "Determine which color is defamation once, then retain mapping.",
+        "Rounds 1–3: resolve towers/bugs, transfer rot within 3 seconds, blue breaks first then red/green.",
+        "Round 4: red/green joins stack side; red/green breaks first; no rot transfer; blue breaks after."
+      ],
+      "steps": [
+        "Rot holders travel outside hitbox first; tether holders wait inside until rot holders placed.",
+        "Resolve bug/tower hits.",
+        "Tether holders collect rot; blue separates naturally; red/green converge.",
+        "Repeat rotated debuff roles four times; avoid final rot blasts; mitigate Critical Error."
+      ],
+      "unresolved_source_facts": [
+        "No deterministic job tie-breaker for equivalent tower partners is published in inspected prose."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "p3_monitors",
+      "catalog_id": "p3_monitors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+          "location": "Oversampled Wave Cannon; homepage Astoh macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > H2 > MT > ST > D1 > D2 > D3 > D4, separately rank monitors and unmarked."
+      ],
+      "reference_axes": [
+        "Boss faces true N; mirror horizontally for west-facing boss monitors."
+      ],
+      "relative_goals_and_waymarks": [
+        "East boss monitor: three monitor holders on W half; M1 NW facing outward W, M2 WNW pointing N, M3 WSW pointing S.",
+        "Unmarked 1 N, 2 slightly E of center, 3 farther E, 4 S inner, 5 S outer."
+      ],
+      "branch_decisions": [
+        "All three player monitors opposite boss monitors.",
+        "Angle M2/M3 slightly to avoid unmarked 3; unmarked adjust to monitor aim.",
+        "Each source must cover exactly two recipients; no double hits."
+      ],
+      "steps": [
+        "Line up N→S; split marked/unmarked rank.",
+        "Move to Astoh pattern and mirror if necessary.",
+        "Aim monitor half-planes; unmarked avoid crossing extra half-planes.",
+        "Resolve, then enrage."
+      ],
+      "unresolved_source_facts": [
+        "Exact monitor angles, target-recipient mapping and tolerances need diagram-specific transcription before executable geometry."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "blue_screen",
+      "catalog_id": "p4_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/04_blue_screen/",
+          "location": "Blue Screen first/second/third wave steps 1–12",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "West MT,D3,H1,D1; east ST,D4,H2,D2, N→S."
+      ],
+      "reference_axes": [
+        "True N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Spread west/east leaving southern gap; four-player stacks SW/SE of south."
+      ],
+      "branch_decisions": [
+        "Two stacks one side: lower stack swaps; opposite melee swaps.",
+        "Round 2 dodge expanding ring after spread before stack; round 3 stack before stepping inward for ring."
+      ],
+      "steps": [
+        "Spread and identify markers.",
+        "Resolve spread, gather south with adjustment, return original positions.",
+        "Repeat with round-specific ring timing.",
+        "Reach below 20% before Blue Screen."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "delta",
+      "catalog_id": "p5_delta",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+          "location": "Run Dynamis Delta steps 1–9",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Blue pairs at beetle; green pairs at Final Omega; one inner and one outer pair each.",
+        "Inner pair adjusts fist color."
+      ],
+      "reference_axes": [
+        "Beetle–Final axis; safe half determined by beetle side cleave."
+      ],
+      "relative_goals_and_waymarks": [
+        "Outer blue initially stretched to break; inner blue short.",
+        "Near World three rings from center on safe cardinal between bosses; Far World at wall on same cardinal.",
+        "Near receivers: beetle-side green at edge intercardinal and same-side marker.",
+        "Far receivers: other green unsafe player rotates to beetle, partner far intercardinal plus three notches; unmarked blues wall at opposite intercardinal minus three notches toward beetle."
+      ],
+      "branch_decisions": [
+        "Same fist color adjacent: inner pair swaps with tether partner.",
+        "Outer blue breaks on activation; inner blue after fist telegraphs.",
+        "Outer blue baits beetle-side arms; inner blue baits Beyond Defense; inner green side arms; outer green Final-side arms.",
+        "Player monitor points opposite Final's; Beyond Defense victim stays out of 3-blue Pile Pitch even if monitor holder.",
+        "Beetle-side green cuts at 15s remaining; last green at 2s."
+      ],
+      "steps": [
+        "Form tether lanes; adjust fists; stack fist partners after outer blue cuts.",
+        "Bait six rotating arms and shield charge.",
+        "Resolve monitors/Pile Pitch in safe corridor.",
+        "Move to cleave-safe World layout; resolve jumps and final tether."
+      ],
+      "unresolved_source_facts": [
+        "Initial inner/outer blue selection tie-breaker not explicit in this guide text; do not substitute Aether's Near/Far assignment without evidence.",
+        "Precise arm-bait angular offset depends on rotation and remains diagram geometry work."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "sigma",
+      "catalog_id": "p5_sigma",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_sigma/",
+          "location": "Sigma sections 1–3, steps 1–10; homepage tower macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > MT > ST > D1 > D2 > D3 > D4 > H2 for eligible Omega-F-side selection.",
+        "No World holders in three-player F group; at least two of group have one Dynamis."
+      ],
+      "reference_axes": [
+        "First Omega-M=N; towers use point/star=N (four towers=S); final Omega-F=N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Shape columns O,X,triangle,square.",
+        "Two-mark top pair N/S (left N); bottom W/E (left W). One-mark top unmarked NW/marked SE; lower unmarked NE/marked SW.",
+        "Mid towers: 1 NW,2 NE,A+3 W,D+4 E,B SW,C SE. Remote: 1+2 N,A W,D E,B+3 SW,C+4 SE.",
+        "World holders one ring inward of waymarks; Near first recipient edge cardinal/intercardinal, second four notches behind."
+      ],
+      "branch_decisions": [
+        "Mid use waymark line then tower center; remote wall then criss-cross toward tower outer edge.",
+        "Tower formation can reverse from initial male; map by actual tower point, retain previous actual waymark identity.",
+        "F legs: follow rotating laser into safe region; staff: wait outside cross first.",
+        "Prefer eligible tanks for arm lasers."
+      ],
+      "steps": [
+        "Assign shape pairs and six-marker spread; remember physical waymark.",
+        "Resolve knockback towers with actual glitch.",
+        "Allocate F-side trio; dodge F plus rotating laser.",
+        "Take World/arm positions; finish four players at one stack and four at two."
+      ],
+      "unresolved_source_facts": [
+        "All six World receiver coordinates and automarker tie-break/order require final diagrams; inspected text does not fully fix same-stack ties."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "omega",
+      "catalog_id": "p5_omega",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_omega/",
+          "location": "Omega sections 1–3",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Monitor: two-stack Second in Line first, then two-stack no-World; never First in Line.",
+        "Final tethers: the two three-stack players."
+      ],
+      "reference_axes": [
+        "M/F pair determines cardinal candidates; boss monitors true E/W; final beetle spawn defines relative N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Legs+sword: near away from M; legs+shield: near toward M; staff+sword: far toward M; staff+shield: middle toward M.",
+        "World holders one ring inside waymarks; monitor recipients on cleaved side; other six on safe side.",
+        "Final tethers beside beetle; other six World pattern opposite."
+      ],
+      "branch_decisions": [
+        "First central lights eliminate one cardinal candidate; second safe cardinal is 90° CW or CCW.",
+        "Mandatory two-stack Second in Line monitor ensures next Worlds can resolve.",
+        "After first World: exactly two at 3 stacks and six at 2. After second all eight at 3."
+      ],
+      "steps": [
+        "Read both M/F patterns and central cleave; dodge first then second.",
+        "Allocate monitors and six World roles.",
+        "Resolve first Worlds/monitors.",
+        "Three-stacks take tethers; resolve second Worlds then Solar Ray/Blind Faith."
+      ],
+      "unresolved_source_facts": [
+        "Source prose says lights eliminate direction; KR wording calls glowing direction safe. Preserve visual cue ambiguity until both diagrams are compared.",
+        "Exact six-person World geometry and eligible-tie ordering need diagram/AM transcription."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "solar_ray",
+      "catalog_id": "p5_solar",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+          "location": "Delta page Solar Ray table and notes",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tank jobs, not MT/ST, determine invuln sequence."
+      ],
+      "reference_axes": [
+        "Boss at center; separate tankbuster AoEs."
+      ],
+      "relative_goals_and_waymarks": [
+        "Swap between two hits if not using invuln."
+      ],
+      "branch_decisions": [
+        "With WAR: first PLD invuln > GNB invuln > swap/full; second DRK invuln > swap/full; third WAR invuln; fourth swap/full.",
+        "Without WAR: first PLD > GNB > DRK invuln; second GNB > DRK; third/fourth swap with Rampart split against 30%/healer mitigation.",
+        "Fast WAR+PLD and unavailable Hallowed: Holmgang second, use no-WAR fallback.",
+        "PLD MT first Solar + GNB ST second Solar changes P6 Wave invuln order."
+      ],
+      "steps": [
+        "Plan four casts by composition and available cooldowns.",
+        "Mitigate before first hit; invuln both or Provoke between hits.",
+        "Use 90s party mitigation after second hit to cover following trio."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "cosmo_memory",
+      "catalog_id": "p6_memory",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega preparation, Cosmo Memory, auto-attacks",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tank LB: WAR > PLD > DRK > GNB."
+      ],
+      "reference_axes": [
+        "True N; party returns from S death wall."
+      ],
+      "relative_goals_and_waymarks": [
+        "MT holds aggro; ST outside target circle as farthest for subsequent autos; party inside."
+      ],
+      "branch_decisions": [
+        "Every player must enter with three Dynamis; Memory converts to Brilliant.",
+        "Tank LB3 plus shields required."
+      ],
+      "steps": [
+        "Enter arena, heal/shield, assigned tank LB3 for cast.",
+        "Re-establish distinct MT and farthest ST for two autos."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "arrow_dive",
+      "catalog_id": "p6_arrow_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega Arrow→Dive steps 1–10",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks two closest, six-player group farthest."
+      ],
+      "reference_axes": [
+        "Arrow centered on arena; Dive relative to group."
+      ],
+      "relative_goals_and_waymarks": [
+        "Tanks separate inside hitbox; six stack outside hitbox."
+      ],
+      "branch_decisions": [
+        "Inside-first: In → wait → out → wait → out/spread → in.",
+        "Outside-first: out → wait → in → out/spread → in.",
+        "Read each Arrow independently; second is not guaranteed opposite first."
+      ],
+      "steps": [
+        "Read initial telegraphs.",
+        "Execute pattern through final inward movement.",
+        "Tanks move closest separated; group forms one distant stack; resolve Dive."
+      ],
+      "unresolved_source_facts": [
+        "First Arrow group's exact starting quadrant not established from text alone."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "exaflare_wave",
+      "catalog_id": "p6_exa_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega Unlimited Wave Cannon→Wave Cannon steps 1–6; homepage clock macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT heavy mitigation, ST invuln; PLD/GNB exception under Solar Ray."
+      ],
+      "reference_axes": [
+        "Exaflare first spawn and CW/CCW arc; return true E for stack."
+      ],
+      "relative_goals_and_waymarks": [
+        "Clockspread N=D3,NE=D4,E=H2,SE=D2,S=ST,SW=D1,W=H1,NW=MT.",
+        "Stack center for first bait; move to 1.5 waymarks (67°) BEFORE first exaflare along spawn arc.",
+        "By third bait reach just outside targeting circle; follow observed spawn direction through six baits.",
+        "Eight-player beam stack east with tanks the front two."
+      ],
+      "branch_decisions": [
+        "First four random targets then complementary four; preserve spread through both.",
+        "Mirror traversal if exaflare sequence reverses."
+      ],
+      "steps": [
+        "Bait six puddles following arc.",
+        "Spread clocks for two beam waves.",
+        "Stack E, tanks ahead; resolve hard beam."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "arrow_wave",
+      "catalog_id": "p6_arrow_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega Arrow→Wave Cannon steps 1–11",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Fixed clock roles; MT invuln, ST heavy mitigation, subject to tank-composition exception."
+      ],
+      "reference_axes": [
+        "True N clockspread; Arrow grid axes."
+      ],
+      "relative_goals_and_waymarks": [
+        "Clockspread N=D3,NE=D4,E=H2,SE=D2,S=ST,SW=D1,W=H1,NW=MT.",
+        "Stack east after both spread beam sets."
+      ],
+      "branch_decisions": [
+        "Inside-first: In → wait → out → wait → out/spread → in.",
+        "Outside-first: out → wait → in → out/spread → in.",
+        "Read each Arrow independently; second is not guaranteed opposite first."
+      ],
+      "steps": [
+        "Dodge initial Arrow pattern.",
+        "Spread during late out step for first four beams; dodge inward for second four.",
+        "After last Arrow join E stack, tanks front."
+      ],
+      "unresolved_source_facts": [
+        "Exact role-specific lateral displacement for simultaneous Arrow/proteans not fully specified by text and clock macro."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "exaflare_dive",
+      "catalog_id": "p6_exa_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega Unlimited Wave Cannon→Cosmo Dive steps 1–4",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT forward-left, ST forward-right relative to group facing center."
+      ],
+      "reference_axes": [
+        "Exaflare relative; final group location is rear of Y."
+      ],
+      "relative_goals_and_waymarks": [
+        "Stack center for first bait; move to 1.5 waymarks (67°) BEFORE first exaflare along spawn arc.",
+        "By third bait reach just outside targeting circle; follow observed spawn direction through six baits.",
+        "Six stay after sixth bait outside targeting circle; tanks advance into circle, split left/right."
+      ],
+      "branch_decisions": [
+        "Mirror exaflare route for reversed spawn direction.",
+        "Melees coordinate two LB3s after dodge; confirm gauge."
+      ],
+      "steps": [
+        "Center baits, exit and follow exaflares through six puddles.",
+        "Hold six-player stack; tanks advance for Dive.",
+        "Resolve Dive, then re-establish autos."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "elemental",
+      "mechanic": "meteors",
+      "catalog_id": "p6_meteors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega Cosmo Meteor steps 1–8",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "D4 caster LB3 first; D3 ranged LB3 second.",
+        "Healer center AST > SGE/SCH > WHM; agree pre-pull."
+      ],
+      "reference_axes": [
+        "True N/S meteor line."
+      ],
+      "relative_goals_and_waymarks": [
+        "D3 north for ranged LB; other assigned waymarks; one healer center after center AoE.",
+        "Flares cardinal; nonflares opposite D3 if D3 flare, with D3 otherwise."
+      ],
+      "branch_decisions": [
+        "D3 flare: N(D3),E,W flares; stack S.",
+        "D3 no flare: S,E,W flares; stack N.",
+        "Do not move LB-locked D3; others adjust."
+      ],
+      "steps": [
+        "Bait center, spread, caster LB center.",
+        "Heal four alternating random-AoE waves; wait for gauge refill.",
+        "Ranged LB through N/S meteors.",
+        "Resolve three flares and five-player stack."
+      ],
+      "unresolved_source_facts": [
+        "Exact meteor role-to-waymark map not fully transcribed from phase figure; do not reuse spread clocks blindly.",
+        "Tie-break between remaining flare players for E/W not explicit in inspected prose."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_encounter_resolution": "Four complete FFLogs clears each show six distinct CosmoComet15727 instances receiving casterLB damage; not five."
+    },
+    {
+      "community": "elemental",
+      "mechanic": "magic_number",
+      "catalog_id": "p6_magic",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_macro",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+          "location": "Alpha Omega Magic Number and preparation",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks DRK > MT > ST; healers H1 > H2."
+      ],
+      "reference_axes": [
+        "No directional route beyond safe party location."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party survives with Tank LB3; healer LB3 removes six-second debuff."
+      ],
+      "branch_decisions": [
+        "Two cycles use distinct available tank/healer Brilliant refunds.",
+        "DRK optional suicide variant changes tank order; not presumed default."
+      ],
+      "steps": [
+        "Tank LB3 before Magic Number hit.",
+        "Healer LB3 after debuff appears and before expiry.",
+        "Repeat with second tank/healer.",
+        "Use refunded final melee LB3 during enrage."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "loop",
+      "catalog_id": "p1_loop",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P1 Loop lines123–130",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Light parties; flex Tank > Melee > Ranged.",
+        "G1 NW/CCW; G2 N/CW."
+      ],
+      "reference_axes": [
+        "True N/NW scan origins."
+      ],
+      "relative_goals_and_waymarks": [
+        "Numbered pairs allocate two towers/tethers by group scan; G2 takes tower between NW and N."
+      ],
+      "branch_decisions": [
+        "Duplicate numbers within light party: TMR flex.",
+        "Towers1234; tethers3412."
+      ],
+      "steps": [
+        "Resolve duplicate number distribution.",
+        "Take towers and tethers using independent group scans.",
+        "Repeat four waves."
+      ],
+      "unresolved_source_facts": [
+        "Which same-role member flexes in every duplicate-number case and all empty-sector tether goals need P1 toolbox diagram audit.",
+        "Healer behavior beyond TMR is not explicit."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "pantokrator",
+      "catalog_id": "p1_panto",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P1 Pantokrator lines132–137",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Light party TMR flex."
+      ],
+      "reference_axes": [
+        "G1 NW/CCW,G2 N/CW preposition; observed cone movement determines travel."
+      ],
+      "relative_goals_and_waymarks": [
+        "Three-player beam group at back safe sector; missile ahead."
+      ],
+      "branch_decisions": [
+        "Each numbered player leaves on turn, rejoins after missile; count three puddles.",
+        "Flex group if duplicate number."
+      ],
+      "steps": [
+        "Split according to safe cones.",
+        "Stagger group along hitbox ahead of cone.",
+        "Missile goes ahead and loops back after hit; repeat."
+      ],
+      "unresolved_source_facts": [
+        "Exact initial sector under all cone orientations and role flex ties need P1 toolbox."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "p1_cannons",
+      "catalog_id": "p1_cannons",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "TB + Protean Beams lines141–149",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks NW/NE; remaining six conga south."
+      ],
+      "reference_axes": [
+        "True N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Marked beams W/E slightly south of D/B and directly S; unmarked max-melee SW/SE."
+      ],
+      "branch_decisions": [
+        "First three marked assigned by spread order; second three repeat same outlets."
+      ],
+      "steps": [
+        "Tanks split NW/NE for cleaves.",
+        "Three marked move to W/E/S beams.",
+        "First group returns safe as complementary three move out."
+      ],
+      "unresolved_source_facts": [
+        "Six-person role conga order not established in prose; do not substitute Elemental fixed six-way spread."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "party_synergy",
+      "catalog_id": "p2_synergy",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P2 Party Synergy lines156–169",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Recommended conga H1,R1,M1,MT,ST,M2,R2,H2; left/right of same symbol defines group."
+      ],
+      "reference_axes": [
+        "Eye=N; subsequent knockback orientation requires P2 toolbox."
+      ],
+      "relative_goals_and_waymarks": [
+        "Mid both X,square,O,triangle; remote left same, right triangle,square,O,X (GPOB, outer-only swap)."
+      ],
+      "branch_decisions": [
+        "If both stacks same side, northmost marked player and matching shape partner trade."
+      ],
+      "steps": [
+        "Conga and assign pairs.",
+        "Dodge M/F; spread eye-relative BPOG/GPOB.",
+        "North-flex stack pair; resolve knockback."
+      ],
+      "unresolved_source_facts": [
+        "Four stance combination safe pockets and knockback group destinations not supplied by inspected Aether prose."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_review": "Exact primary PF page explicitly says BPOG/GPOB; child reversed middle incorrectly. Corrected2026-10-21."
+    },
+    {
+      "community": "aether",
+      "mechanic": "limitless",
+      "catalog_id": "p2_limitless",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "TLDR phase2 lines53–54",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks bait Beyond Defense; six party center."
+      ],
+      "reference_axes": [
+        "True S/SW arrow bait; shield-clone side determines tank placement."
+      ],
+      "relative_goals_and_waymarks": [
+        "611: party S/SW hitbox bait; after dodge six middle, tanks separated on shield side.",
+        "Stack flares center with mitigation."
+      ],
+      "branch_decisions": [
+        "Hit tank must avoid Pile Pitch; detailed Aether rule needs P2 toolbox."
+      ],
+      "steps": [
+        "Bait arrow S/SW, dodge inward.",
+        "Tanks bait charge; party middle.",
+        "Resolve center flares/stack."
+      ],
+      "unresolved_source_facts": [
+        "Tether ownership and charge-victim escape complete branch details not verified in linked P2 toolbox."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "p3_transition",
+      "catalog_id": "p3_transition",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P3 Transition lines178–183",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Conga H1,R1,M1,MT,ST,M2,R2,H2; rank debuff groups by left-right."
+      ],
+      "reference_axes": [
+        "True N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Purple W,NW,NE,E; whites and empties paired in two southern safe slots."
+      ],
+      "branch_decisions": [
+        "Purple move forward from conga; whites backward.",
+        "Leftmost white pairs leftmost empty; rightmost pair likewise."
+      ],
+      "steps": [
+        "Conga; assign class-specific ranks.",
+        "Move to four north purple and two south pair positions.",
+        "Dodge ring/arms while preserving separation."
+      ],
+      "unresolved_source_facts": [
+        "Ring/arm safe pockets need Dylan toolbox steps1–10."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "hello_world",
+      "catalog_id": "p3_hello",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P3 Hello World lines185–193",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Debuff roles; fixed job tower priority not specified."
+      ],
+      "reference_axes": [
+        "Colored towers."
+      ],
+      "relative_goals_and_waymarks": [
+        "Tether players approach their corresponding rot holders; final non-defamation group shares stacks."
+      ],
+      "branch_decisions": [
+        "Ordinary loops blue breaks before red/green.",
+        "Final tower set blue breaks after vulnerability; watch final rot."
+      ],
+      "steps": [
+        "Follow color/bug tower placement.",
+        "Resolve tower then rot transfer and tethers.",
+        "Repeat four sets, final non-defamation stack-side grouping."
+      ],
+      "unresolved_source_facts": [
+        "Complete colored tower placement, fourth-round green order, and role cycling require Dylan steps11–28; not inherited from Elemental."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "p3_monitors",
+      "catalog_id": "p3_monitors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P3 Monitors lines194–203",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Vertical conga on left: H1,R1,M1,MT,ST,M2,R2,H2."
+      ],
+      "reference_axes": [
+        "True N; boss monitor cleaving half."
+      ],
+      "relative_goals_and_waymarks": [
+        "Monitor1 cleaving-side NW/NE inner marker corner; monitor2 same-side SW/SE inner corner; monitor3 safe-side SW/SE directly south of marker."
+      ],
+      "branch_decisions": [
+        "Mirror with boss monitor side; unmarked safe half rank by conga."
+      ],
+      "steps": [
+        "Conga marked/unmarked.",
+        "First2 monitors enter boss-cleaving half; third safe-side south.",
+        "Unmarked safe-side waymark slots; resolve."
+      ],
+      "unresolved_source_facts": [
+        "Five unmarked exact slots and all player facing angles need Dylan steps29–36.",
+        "Not Astoh: two marked players are on boss-cleaving side."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "blue_screen",
+      "catalog_id": "p4_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P4 Wave Cannons lines210–213",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Each side Tank,Ranged,Healer,Melee N→S."
+      ],
+      "reference_axes": [
+        "True N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Second/fourth in line on W/E and SW/SE waymarks; others above/between."
+      ],
+      "branch_decisions": [
+        "Southmost of two stacks swaps; opposite melee swaps."
+      ],
+      "steps": [
+        "Spread, read stacks, resolve beams.",
+        "Adjust to southern stacks, return original positions.",
+        "Repeat with ring mechanics."
+      ],
+      "unresolved_source_facts": [
+        "Aether prose does not fully specify all three ring timings; P4 toolbox not read."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "delta",
+      "catalog_id": "p5_delta",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P5 Delta lines227–241; linked Saus Delta",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Blue to beetle; Near-blue pair inner, Far-blue pair outer; green first-come first-served.",
+        "INNER pair swaps for matching fists."
+      ],
+      "reference_axes": [
+        "Eye/Beetle/Final frame; safe half from beetle cleave."
+      ],
+      "relative_goals_and_waymarks": [
+        "Green inner to N/S arms; outer green to Final arms; outer blue to beetle arms.",
+        "Near holder safe cardinal middle; Far holder wall cardinal; no-World blues wall between Far and far green."
+      ],
+      "branch_decisions": [
+        "Beyond Defense victim excluded from stack even if monitor holder; monitor south-facing opposite Final.",
+        "Safe-side green plants, unsafe partner moves.",
+        "Closest-beetle green breaks and receives Near; far green crosses to beetle wall and opposite wall for Far.",
+        "Last green waits for magic vulnerability to expire."
+      ],
+      "steps": [
+        "Assign tether lanes, inner fist adjustment.",
+        "Break outer blue and bait arms; inner blue breaks later.",
+        "Resolve monitors and Pile Pitch.",
+        "Go safe World layout, cut green at safe timings."
+      ],
+      "unresolved_source_facts": [
+        "Aether page's arm assignment differs from LPDU linked toolbox. Keep separate.",
+        "Exact blue-break timing and rotating-arm bait angular offsets need Delta diagram audit."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "sigma",
+      "catalog_id": "p5_sigma",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=107380954136761&preview=1",
+          "location": "Saus Sigma steps2–40",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Shape pairs BPOG; sort pair by north/south and number of markers.",
+        "Three F-side players have1 Dynamis and no World; remaining three no-World are receivers."
+      ],
+      "reference_axes": [
+        "M=N, tower point=N/four towers=S, F=N."
+      ],
+      "relative_goals_and_waymarks": [
+        "1-mark upper unmarkedNW/markedSE; lower unmarkedNE/markedSW. 2-mark upperN/S leftN; lowerE/W.",
+        "ABCD on bottom four towers in order; 1/2 top; mid3/4 W/E; far3/4 SW/SE.",
+        "World holders1 ring inside markers; other six wall."
+      ],
+      "branch_decisions": [
+        "Mid stand in front of waymarks and tower centers; far behind marks at wall and tower outer edges.",
+        "F hot-wing follow in; cross wait outside before following laser.",
+        "Looking inward, left arm baiter waits until rotation ends.",
+        "Receiver conga toward rotating AoE: Near1,Near2,Far."
+      ],
+      "steps": [
+        "Assign shape rows and six-mark spread; remember waymark.",
+        "Map tower using actual point and glitch, take knockback.",
+        "Allocate F-side trio and opposite five.",
+        "Resolve F first, follow laser, spread World/arm roles; finish4x1+4x2."
+      ],
+      "unresolved_source_facts": [
+        "Two-mark lower pair E/W left/right not stated in inspected text.",
+        "Full AM role-tie assignment and exact final receiver wall notches require diagram audit."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "omega",
+      "catalog_id": "p5_omega",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=078384491946761&preview=1",
+          "location": "Saus Omega steps6–44; linked monitor raidplan U0QfgaRAT6tcB0KX",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Chains1/2 monitors; attack1/4 Far receivers; attack2/3 Near receivers.",
+        "Final two3-stack players take beetle tethers."
+      ],
+      "reference_axes": [
+        "True N for first monitor layout; beetle=N for final layout."
+      ],
+      "relative_goals_and_waymarks": [
+        "Final Near S1 ring inside mark; Far E1 ring inside mark; four receivers wall; tethers near beetle parallel markers."
+      ],
+      "branch_decisions": [
+        "Solve F then M, choose safe cardinal using center cue; second dodge after first AoEs.",
+        "Four World debuffs assigned I/II; first use I, second II."
+      ],
+      "steps": [
+        "Dodge two predation combinations.",
+        "Use marked monitor/receiver positions and first Worlds.",
+        "Three-stacks take final tethers; six others second Worlds.",
+        "Below20% for Blind Faith."
+      ],
+      "unresolved_source_facts": [
+        "Required two-stack+II monitor priority is in diagram textboxes, not captured header prose; needs full diagram transcription.",
+        "Full four-combo rule3 and exact first World geometry unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "solar_ray",
+      "catalog_id": "p5_solar",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=078384491946761&preview=1",
+          "location": "Saus Omega steps2,43; Aether TOP Mitty link",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks coordinate."
+      ],
+      "reference_axes": [
+        "Boss-relative separated tank positions."
+      ],
+      "relative_goals_and_waymarks": [
+        "Two-hit tankbuster occurs before Omega and at its end."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Prepare assigned mitigation/invuln or swap."
+      ],
+      "unresolved_source_facts": [
+        "Aether-specific four-cast tank-composition plan not established; linked TOP Mitty remains unaudited."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "cosmo_memory",
+      "catalog_id": "p6_memory",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 step3",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "One tank LB3; role/job order not specified in inspected toolbox text."
+      ],
+      "reference_axes": [
+        "True arena center."
+      ],
+      "relative_goals_and_waymarks": [
+        "Three Dynamis convert to Brilliant on Memory."
+      ],
+      "branch_decisions": [
+        "Tank LB3 required."
+      ],
+      "steps": [
+        "Enter arena and Tank LB3 for first raidwide."
+      ],
+      "unresolved_source_facts": [
+        "Tank job priority, party start, shielding plan not established."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "arrow_dive",
+      "catalog_id": "p6_arrow_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 steps5–41;19,20,36,37",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tank/healer and DPS dodges differentiated.",
+        "Two closest players tanks; furthest player six-person stack (steps20/98)."
+      ],
+      "reference_axes": [
+        "Arena Arrow grid."
+      ],
+      "relative_goals_and_waymarks": [
+        "After final in take Dive positions.",
+        "Tanks loosely separated in hitbox; party on ring or slightly inside."
+      ],
+      "branch_decisions": [
+        "Plus/in-first: in→wait→out→wait→spread/out→in.",
+        "Box/out-first: out→wait→in→spread/out→in."
+      ],
+      "steps": [
+        "Read Plus/Box.",
+        "Dodge through sequence.",
+        "Re-form Dive positions before cast finishes."
+      ],
+      "unresolved_source_facts": [
+        "Exact first group quadrant, tanks' Dive endpoints, and side-step lanes not fully read."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "exaflare_wave",
+      "catalog_id": "p6_exa_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagram",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 steps42–53; diagram48 inspected",
+          "evidence_kind": "text_and_diagram",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks front; exact mitigation order unresolved."
+      ],
+      "reference_axes": [
+        "First exaflare appears random cardinal/intercardinal; final true S."
+      ],
+      "relative_goals_and_waymarks": [
+        "Step48 diagram: MT/GNB N,ST/DRK S,WHM W,SGE E,MCH NW,SMN NE,SAM SW,DRG SE. Job icons verified; generic D1/D2 assignment not assumed.",
+        "After sixth bait move to clock waymarks; after beams stack SOUTH."
+      ],
+      "branch_decisions": [
+        "Two sets4 proteans then wild-charge beam.",
+        "Exaflare direction independent per occurrence."
+      ],
+      "steps": [
+        "Find first exaflare and dodge six baits.",
+        "Spread clocks for two beam waves.",
+        "Stack S with tanks front."
+      ],
+      "unresolved_source_facts": [
+        "Precise exaflare exit-offset rule not in inspected step headers.",
+        "Melee D1/D2-to-job mapping and tank cooldown branches remain unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "arrow_wave",
+      "catalog_id": "p6_arrow_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 steps54–90;55,65,69",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tank/healer cardinals move CW into their quadrants; DPS intercardinal."
+      ],
+      "reference_axes": [
+        "True clock/quadrant grid."
+      ],
+      "relative_goals_and_waymarks": [
+        "Step48 diagram: MT/GNB N,ST/DRK S,WHM W,SGE E,MCH NW,SMN NE,SAM SW,DRG SE. Job icons verified; generic D1/D2 assignment not assumed.",
+        "Final wild charge SOUTH."
+      ],
+      "branch_decisions": [
+        "Plus/in-first: in→wait→out→wait→spread/out→in.",
+        "Box/out-first: out→wait→in→spread/out→in.",
+        "Plus: special TH lateral move at spread/out prevents protean clipping; only applies in-first."
+      ],
+      "steps": [
+        "Move cardinals CW into paired quadrants.",
+        "Execute independent Plus/Box pattern while separating proteans.",
+        "After second proteans join S stack."
+      ],
+      "unresolved_source_facts": [
+        "Exact TH lateral displacement still requires step65 diagram; Box timing differs and cannot be inferred from Plus."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "exaflare_dive",
+      "catalog_id": "p6_exa_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 steps91–99;97",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks split; both melees LB3 before meteor.",
+        "Two closest players tanks; furthest player six-person stack (steps20/98)."
+      ],
+      "reference_axes": [
+        "Last puddle defines relative party position."
+      ],
+      "relative_goals_and_waymarks": [
+        "After sixth bait rotate one extra step; party stays on or slightly inside hitbox ring.",
+        "Tanks loosely separated in hitbox; party on ring or slightly inside."
+      ],
+      "branch_decisions": [
+        "Follow observed exaflare direction."
+      ],
+      "steps": [
+        "Dodge six puddles.",
+        "One more rotation step; form Dive.",
+        "Use both melee LB3s here before meteor."
+      ],
+      "unresolved_source_facts": [
+        "Tank endpoint orientation and exact exaflare offset not established from inspected headers."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "aether",
+      "mechanic": "meteors",
+      "catalog_id": "p6_meteors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 steps100–110, including101,103,104,106–108",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Caster LB3 then ranged LB3; ranged fixed while LB-locked.",
+        "Regen healer may go center after bait AoEs disappear (step103)."
+      ],
+      "reference_axes": [
+        "True N/S."
+      ],
+      "relative_goals_and_waymarks": [
+        "Center bait then assigned waymark spread; stay spread until flares."
+      ],
+      "branch_decisions": [
+        "Ranged flare→party SOUTH; ranged no-flare→party NORTH.",
+        "All other flare endpoint selection remains diagram-dependent."
+      ],
+      "steps": [
+        "Center bait, spread with mitigation.",
+        "Caster then ranged LB; take two AoEs per player.",
+        "Resolve flare/stack around ranged."
+      ],
+      "unresolved_source_facts": [
+        "Meteor-specific clock swaps and remaining flare endpoint tie-breaks not fully diagram-audited."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_encounter_resolution": "Four complete FFLogs clears each show six distinct CosmoComet15727 instances receiving casterLB damage; not five."
+    },
+    {
+      "community": "aether",
+      "mechanic": "magic_number",
+      "catalog_id": "p6_magic",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+          "location": "Saus P6 step111 (full text inspected)",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tank1→Healer1, then Tank2→Healer2."
+      ],
+      "reference_axes": [
+        "No directional dependency."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party survives Tank LB3; healer LB3 only after Magic Number debuff is applied."
+      ],
+      "branch_decisions": [
+        "Repeat with second tank/healer; no early healer LB before debuff."
+      ],
+      "steps": [
+        "Tank1 LB3 as first cast begins; Healer1 waits for debuff then LB3.",
+        "Tank2 LB3 as second cast begins; Healer2 waits for debuff then LB3.",
+        "Finish Run:Dynamis enrage."
+      ],
+      "unresolved_source_facts": [
+        "Tank1/2 and Healer1/2 job-specific priorities are not prescribed in this toolbox."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "loop",
+      "catalog_id": "p1_loop",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase1 priority and raidplan",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "CW M1>M2>MT>OT>R1>R2>H1>H2 CCW."
+      ],
+      "reference_axes": [
+        "CW/CCW; scan origin not explicit in markdown."
+      ],
+      "relative_goals_and_waymarks": [
+        "Use published LPDU waymarks."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Assign numbered partners by published priority."
+      ],
+      "unresolved_source_facts": [
+        "Origin, tower/tether goal selection, empty-sector branches need linked raidplan 7gDX3dkkPX1kO9u2; priority alone is not complete."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "pantokrator",
+      "catalog_id": "p1_panto",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase1 Pantokrater priority",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "North MT>M1>R1>H1; south OT>M2>R2>H2."
+      ],
+      "reference_axes": [
+        "North/south group reference."
+      ],
+      "relative_goals_and_waymarks": [
+        "Use published LPDU waymarks."
+      ],
+      "branch_decisions": [
+        "This is TMRH panto, distinct from MTRH Loop."
+      ],
+      "steps": [
+        "Split numbered players using light-party order."
+      ],
+      "unresolved_source_facts": [
+        "Duplicate-number flex details, starting cone sectors, missile return lanes require P1 raidplan."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "p1_cannons",
+      "catalog_id": "p1_cannons",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Post7.0 changes / Phase1",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Post7.0 PLD composition: MT NW,OT NE."
+      ],
+      "reference_axes": [
+        "True N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Split tankbusters and kitchen-sink mitigation when PLD invuln timing forces change."
+      ],
+      "branch_decisions": [
+        "Markdown change explicitly applies to PLD comps; not universal invuln policy."
+      ],
+      "steps": [
+        "Split tanks per comp branch; mitigate."
+      ],
+      "unresolved_source_facts": [
+        "Non-tank beam assignments, non-PLD policy and detailed cleave timing need P1 raidplan."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "party_synergy",
+      "catalog_id": "p2_synergy",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase2; full overview; post7.0 changes",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "M side MT,H1,M1,R1; F side OT,H2,M2,R2.",
+        "Right side adjusts per overview."
+      ],
+      "reference_axes": [
+        "Eye=N for BPOG."
+      ],
+      "relative_goals_and_waymarks": [
+        "Mid X,square,O,triangle both sides; remote full reverse right."
+      ],
+      "branch_decisions": [
+        "NIN/SCH overview may place M1 on F and H2 on M.",
+        "Post7.0: non-PLD tank aggros both bosses/invulns; after tankbusters MT taunts Female,OT Male."
+      ],
+      "steps": [
+        "Establish prepositions and filter.",
+        "Perform shape spread and full-cross remote."
+      ],
+      "unresolved_source_facts": [
+        "Duplicate-symbol/stack adjust participant selection, full M/F and knockback routes need toolbox502396712985961; 'right adjusts' insufficient."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "limitless",
+      "catalog_id": "p2_limitless",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase2 toolbox502396712985961",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Not established in markdown."
+      ],
+      "reference_axes": [
+        "Unresolved."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "LPDU P2 linked toolbox not inspected through Limitless; tether ownership, arrow dodge branch, stack/flare and charge assignments unresolved."
+      ],
+      "route_coverage": "unresolved_route"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "p3_transition",
+      "catalog_id": "p3_transition",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase3 transition; overview",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "R1,M1,MT,H1,H2,OT,M2,R2 (RMTHHTMR)."
+      ],
+      "reference_axes": [
+        "Stacks north."
+      ],
+      "relative_goals_and_waymarks": [
+        "Healers shield before spreading."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Shield; assign debuff classes by conga; stacks north."
+      ],
+      "unresolved_source_facts": [
+        "Four purple slots and white/empty pairing placements need raidplan46r495ZATq3kCqz1."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "hello_world",
+      "catalog_id": "p3_hello",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase3 Hello World link",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Debuff/job priorities unresolved."
+      ],
+      "reference_axes": [
+        "Colored towers, exact route unverified."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Toolbox702399575985961 linked, not step-audited; do not presume Aether/Elemental Hello World equivalence."
+      ],
+      "route_coverage": "unresolved_route"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "p3_monitors",
+      "catalog_id": "p3_monitors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase3 monitors link and overview",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "RMTHHTMR overview order; role mapping R1,M1,MT,H1,H2,OT,M2,R2."
+      ],
+      "reference_axes": [
+        "Unresolved boss-relative geometry."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [
+        "Allocate by published conga only after confirming marked/unmarked handling."
+      ],
+      "unresolved_source_facts": [
+        "Toolbox736282987145761 not inspected; monitor-side allocation/facing/recipients unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "blue_screen",
+      "catalog_id": "p4_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase4 and overview",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "TRHM / MHRT; melee adjusts."
+      ],
+      "reference_axes": [
+        "North/south orientation implied overview, exact spread diagram unverified."
+      ],
+      "relative_goals_and_waymarks": [
+        "Two side groups."
+      ],
+      "branch_decisions": [
+        "Melee flex mentioned; stack-holder choice not explicitly in markdown."
+      ],
+      "steps": [
+        "Use side groups and melee adjustment."
+      ],
+      "unresolved_source_facts": [
+        "Toolbox595188367474761 not audited; exact stack swap rule and ring timelines unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "delta",
+      "catalog_id": "p5_delta",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+          "location": "LPDU-linked Dylan/Battle Litany P5 steps3–20",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Blue beetle,green Final; INNER pairs adjust identical fists.",
+        "First-break outer blue baits Beyond Defense; remaining blue baits beetle arms."
+      ],
+      "reference_axes": [
+        "Eye=N during first portion; beetle/Final W/E in worked example."
+      ],
+      "relative_goals_and_waymarks": [
+        "Green outer Final arms; green inner center N/S arms.",
+        "Green lines near wall; player monitor opposite Final.",
+        "Near middle close to cleave; Far wall cardinal; no-World blues intercardinal away from beetle."
+      ],
+      "branch_decisions": [
+        "Facing rotating fist: orange bait left,blue bait right.",
+        "Wait visible eye laser, not audio, before leaving fist stack.",
+        "Monitor victim of Beyond Defense moves toward Final; stack remains same corridor.",
+        "Beetle-side green breaks when safe; other green cuts around3s Patch remaining after World AoEs."
+      ],
+      "steps": [
+        "Set lanes/fists; first blue cuts then stacks.",
+        "Bait shield charge and six arms.",
+        "Resolve monitors/Pile Pitch excluding victim.",
+        "Move into non-glowing safe half; green split to Near/Far recipients; resolve Worlds and last cut."
+      ],
+      "unresolved_source_facts": [
+        "Exact inner/outer initial blue assignment not specified; source text has wording ambiguity at step6 versus8.",
+        "Final World notches require diagram audit; no numerical coordinates invented."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "sigma",
+      "catalog_id": "p5_sigma",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+          "location": "LPDU markdown Sigma macros; linked P5 steps22–45",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Quickmarch flex then BPOG.",
+        "Three1-stack/no-World toward F; prioritize MT. Mini-conga each side."
+      ],
+      "reference_axes": [
+        "M=N; towers newN at M or opposite; F=N for World."
+      ],
+      "relative_goals_and_waymarks": [
+        "First blank pair unmarked NW/partnerSE; second unmarkedNE/partnerSW; first double N/S(right of male S),last doubleE/W.",
+        "Mid1/2 top, A+3 left,D+4 right,B/C lower; far1+2 top,A/D sides,B+3/C+4 lower.",
+        "Far holder4th ring between arms; far recipients opposite wall and center of F-side trio; arm baits NW/NE; Near side wall few notches from cardinal."
+      ],
+      "branch_decisions": [
+        "Mid ring in front markers then tower center; remote wall then outer tower edge.",
+        "Staff wait; blades follow laser closely.",
+        "F-side arm baiter opposite rotation waits to end.",
+        "Aggro tank must not take second World bounce into auto vulnerability."
+      ],
+      "steps": [
+        "Flex shape pairs; fan and remember physical mark.",
+        "Resolve macro towers.",
+        "Mini-congas allocate arm/World roles.",
+        "Dodge rotating laser and stance; place six World roles; finish4x1+4x2."
+      ],
+      "unresolved_source_facts": [
+        "Exact near wall notches and same-rank conga ties left open by prose."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "omega",
+      "catalog_id": "p5_omega",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+          "location": "LPDU-linked P5 steps48–63",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "2-stack II-mark MUST monitor before blank2-stack; exclude First in Line.",
+        "Final3-stacks take tethers."
+      ],
+      "reference_axes": [
+        "First trueN,monitor E/W; final beetle=N."
+      ],
+      "relative_goals_and_waymarks": [
+        "First Far holder inside4th ring N/S or relativeW/E on safe side; receivers N/S wall cheated safe.",
+        "Near holder opposite monitor4th ring; two Near recipients wall.",
+        "Final tethers wall3 ticks from intercardinal toward beetle; Far holder E/W4th ring with wall receivers opposite; Near S4th ring with remaining wall receivers."
+      ],
+      "branch_decisions": [
+        "Sword M away/shield M toward; adjust toward F for legs,away for staff, while obeying center orbs.",
+        "Orbs mark safe side; second cleave flips.",
+        "Required II-mark2-stack monitor takes precedence."
+      ],
+      "steps": [
+        "Read both clone pairs; dodge first then second.",
+        "Mark monitors and Far receivers early.",
+        "Resolve Worlds1 leaving2x3+6x2.",
+        "Three-stacks grab tethers, second Worlds all3, heal tether tank before last Solar."
+      ],
+      "unresolved_source_facts": [
+        "Exact Near-receiver wall notches and permitted Far-holder alternatives need diagram calibration."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "solar_ray",
+      "catalog_id": "p5_solar",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+          "location": "P5 steps1,21,46,64; markdown general info",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT aggro; OT Provoke during first cast per toolbox.",
+        "Tank jobs/available cooldowns modify later casts."
+      ],
+      "reference_axes": [
+        "Separate tanks so AoEs do not overlap."
+      ],
+      "relative_goals_and_waymarks": [
+        "First both full mitigation+Reprisal; second invuln; third consider sharing without WAR; fourth full mitigation."
+      ],
+      "branch_decisions": [
+        "Prepop90s mitigation before third to recover for fourth.",
+        "PLD+GNB third GNB full/PLD healer help; fourth PLD full/GNB healer help.",
+        "90s raidwide mitigation on second hit covers each trio."
+      ],
+      "steps": [
+        "Plan four casts and available cooldowns.",
+        "Swap/invuln as specified.",
+        "Heal after final tether then last Solar."
+      ],
+      "unresolved_source_facts": [
+        "Toolbox and post7.0 comp guidance not reconciled into every tank-composition table."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "cosmo_memory",
+      "catalog_id": "p6_memory",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase6 Cosmo Memory",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT/OT positions explicit; tank LB job order not specified."
+      ],
+      "reference_axes": [
+        "True N/S."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party in front of C; MT between A and middle; OT outside near B away from party."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Start C; set separated autos after Memory."
+      ],
+      "unresolved_source_facts": [
+        "Tank LB3 timing/job order and shields not explicitly in markdown P6 paragraph."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "arrow_dive",
+      "catalog_id": "p6_arrow_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase6 Cosmo Arrow1→Dive1",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Party starts in front of2; tanks also start2; MT ends toward4 inside,OT toward1 inside."
+      ],
+      "reference_axes": [
+        "True numbered marks."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party ends in front of2 (SE)."
+      ],
+      "branch_decisions": [
+        "In/out branch mentioned but full Plus/Box sequences not in markdown."
+      ],
+      "steps": [
+        "Start2; dodge Arrow.",
+        "Re-form party at2; tanks move to4/1 directions near boss."
+      ],
+      "unresolved_source_facts": [
+        "Complete in-first/out-first footwork not specified; do not import Saus Arrow automatically."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "exaflare_wave",
+      "catalog_id": "p6_exa_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase6 Exajoels1; raidplan slide1",
+          "evidence_kind": "text_and_diagram",
+          "accessed_at": "2026-10-21"
+        },
+        {
+          "url": "https://raidplan.io/plan/mh3bX4KJ9d8rT9nk",
+          "location": "slide1 Wave cannon1",
+          "evidence_kind": "diagram_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "WC1 MT N,OT E,H1 W,H2 S,M1 SW,M2 SE,R1 NW,R2 NE."
+      ],
+      "reference_axes": [
+        "True N; published waymarks."
+      ],
+      "relative_goals_and_waymarks": [
+        "After exaflares clockspread; final stack in front of C."
+      ],
+      "branch_decisions": [
+        "Read exaflare start, group middle, move safe and follow."
+      ],
+      "steps": [
+        "Dodge exaflares; spread WC1.",
+        "After both beams gather C."
+      ],
+      "unresolved_source_facts": [
+        "Exact exaflare exit offset, six-bait path and tank invuln order not specified in markdown."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "arrow_wave",
+      "catalog_id": "p6_arrow_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase6 Arrow2; raidplan slide2",
+          "evidence_kind": "text_and_diagram",
+          "accessed_at": "2026-10-21"
+        },
+        {
+          "url": "https://raidplan.io/plan/mh3bX4KJ9d8rT9nk",
+          "location": "slide2 Wave cannon2",
+          "evidence_kind": "diagram_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "NW MT+R1; NE OT+R2; SW H1+M1; SE H2+M2."
+      ],
+      "reference_axes": [
+        "True quadrants; arrows relative to cardinal grid."
+      ],
+      "relative_goals_and_waymarks": [
+        "Slide2: MT goes E,OT W; H1 E,H2 W; R1/R2 S; M1/M2 N into arrow-safe lanes.",
+        "After final dodge/beam stack C."
+      ],
+      "branch_decisions": [
+        "Role/marker determines dodge; Plus/Box timing not fully represented by static slide."
+      ],
+      "steps": [
+        "Take quadrant pair positions.",
+        "Use slide arrows to split TH horizontal/DPS vertical.",
+        "Wait spread beams then gather C."
+      ],
+      "unresolved_source_facts": [
+        "Full start-pattern temporal branch not verified; static arrows are not complete timeline."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "exaflare_dive",
+      "catalog_id": "p6_exa_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase6 Exajoels2→Dive2",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT through boss left;OT through boss right."
+      ],
+      "reference_axes": [
+        "Party final exaflare endpoint defines rear of Y."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party outside hitbox where last exaflare exploded; tanks advance split Y."
+      ],
+      "branch_decisions": [
+        "Confirm LB gauge before first melee LB."
+      ],
+      "steps": [
+        "Group/dodge exaflares.",
+        "Hold party endpoint; tanks through boss left/right.",
+        "Resolve Dive and melee LBs."
+      ],
+      "unresolved_source_facts": [
+        "Exact six-puddle path/exaflare offset not given by markdown."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "meteors",
+      "catalog_id": "p6_meteors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase6 Meteors; raidplan slide3",
+          "evidence_kind": "text_and_diagram",
+          "accessed_at": "2026-10-21"
+        },
+        {
+          "url": "https://raidplan.io/plan/mh3bX4KJ9d8rT9nk",
+          "location": "slide3 Meteor spreads",
+          "evidence_kind": "diagram_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "WC1 but MT↔R1 and H2↔OT."
+      ],
+      "reference_axes": [
+        "True N/S meteor line."
+      ],
+      "relative_goals_and_waymarks": [
+        "Slide3: R1 N,MT NW,R2 NE,H1 W,H2 E,M1 SW,M2 SE,OT S.",
+        "MT short cooldown R1;OT short cooldown caster."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Use meteor-specific spread after center bait.",
+        "Tanks support ranged/caster."
+      ],
+      "unresolved_source_facts": [
+        "Caster/ranged LB timing, flare endpoints and tie-break branches not specified by inspected LPDU prose/three-slide spread plan."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_encounter_resolution": "Four complete FFLogs clears each show six distinct CosmoComet15727 instances receiving casterLB damage; not five."
+    },
+    {
+      "community": "lpdu",
+      "mechanic": "magic_number",
+      "catalog_id": "p6_magic",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Full LPDU video and P6 mitigation references",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Not established in LPDU inspected source."
+      ],
+      "reference_axes": [
+        "No verified directional assignment."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Tank/healer LB ownership and refund order require full LPDU video qNdjZOgCU1I or mitigation workbook. Video not watched."
+      ],
+      "route_coverage": "unresolved_route"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "loop",
+      "catalog_id": "p1_loop",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "route_unresolved_macro_scope_only",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 all-phase priority; pages1–2 route macro",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "Not established for this mechanic by macro."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Full mechanic-specific route not present in the inspected macro. Author's diagram/video required; no Elemental route inheritance.",
+        "Shared priority does not establish matching spatial layout or branches."
+      ],
+      "route_coverage": "unresolved_route",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "pantokrator",
+      "catalog_id": "p1_panto",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P1 全能之主",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2.",
+        "Left high priority; right low."
+      ],
+      "reference_axes": [
+        "B/D start per macro; exact interpretation of left/right view must be checked against video."
+      ],
+      "relative_goals_and_waymarks": [
+        "Macro says BD起跑，左高右低."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Start from B/D convention, assign high/low side."
+      ],
+      "unresolved_source_facts": [
+        "Cone-pattern adjustment, missile/beam front/back and travel paths not resolved from macro; full guide necessary."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "p1_cannons",
+      "catalog_id": "p1_cannons",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P1 激光死刑 diagram",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT/ST north outside; D3 west,D4 east; H1,D1,D2,H2 southern interior."
+      ],
+      "reference_axes": [
+        "True A north, boss center."
+      ],
+      "relative_goals_and_waymarks": [
+        "Macro diagram top both tanks; A beneath tanks; D3–Omega–D4 middle row; H1 D1 D2 H2 lower row.",
+        "Tanks outside circle, party inside."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "After panto place both tanks outside north and six inside in macro arrangement."
+      ],
+      "unresolved_source_facts": [
+        "Invuln timing and exact six laser angles/two-wave adjustment rule not stated.",
+        "Do not use Elemental H1/H2 side layout: CN explicitly places D3/D4 sides."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "party_synergy",
+      "catalog_id": "p2_synergy",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "route_unresolved_macro_scope_only",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 all-phase priority; pages1–2 route macro",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "Not established for this mechanic by macro."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Full mechanic-specific route not present in the inspected macro. Author's diagram/video required; no Elemental route inheritance.",
+        "Shared priority does not establish matching spatial layout or branches."
+      ],
+      "route_coverage": "unresolved_route",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "limitless",
+      "catalog_id": "p2_limitless",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P2 射手天箭",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "MT north-half tether; ST south-half tether."
+      ],
+      "reference_axes": [
+        "True A/C reference."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party gathers A; fixed A/C tether pulls."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Group at A, tanks collect their half's tether and take fixed A/C layout."
+      ],
+      "unresolved_source_facts": [
+        "Arrow-dodge alternate branch, tether clockwise orientation, shield charge/Pile Pitch/flare resolution not given in macro.",
+        "Party A differs from Elemental/KR C bait."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "p3_transition",
+      "catalog_id": "p3_transition",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P2.5 转场 diagram",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2.",
+        "Manual: forbid1+bind1 pair,forbid2+bind2 pair; attack1–4 solo."
+      ],
+      "reference_axes": [
+        "A north,C south,D west,B east."
+      ],
+      "relative_goals_and_waymarks": [
+        "Forbid1+bind1 NW;forbid2+bind2 NE;attack1 W;attack2 SW;attack3 SE;attack4 E."
+      ],
+      "branch_decisions": [
+        "Follow hand-mark timing; exact mark-to-debuff mapping not explicitly printed."
+      ],
+      "steps": [
+        "Receive manual markers and go six-slot layout.",
+        "Handle transition timing per source reminder."
+      ],
+      "unresolved_source_facts": [
+        "Who is marked forbid/bind/attack and how same-class ties apply needs guide confirmation.",
+        "Arm/ring dodge paths not specified by macro."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "hello_world",
+      "catalog_id": "p3_hello",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P3HW 提示+移动规则",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Current debuff determines role; all-phase priority does not replace debuff logic."
+      ],
+      "reference_axes": [
+        "Boss targeting circle as radial reference."
+      ],
+      "relative_goals_and_waymarks": [
+        "Large-circle rot outside target circle; stack rot on circle; Near/Far tethers inside circle."
+      ],
+      "branch_decisions": [
+        "Macro cycle: drop big→soak stack→drop stack→soak big (diagram cycle)."
+      ],
+      "steps": [
+        "Identify rot/bug role and position by circle.",
+        "Rotate through big/stack assignments."
+      ],
+      "unresolved_source_facts": [
+        "Tower colors, partner selection, rot-transfer route, blue/green break order, final-round exception absent from macro."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "p3_monitors",
+      "catalog_id": "p3_monitors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P3 小电视：小电视点名在安全区",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2. No separately printed P3 priority override found."
+      ],
+      "reference_axes": [
+        "Boss safe side opposite monitors."
+      ],
+      "relative_goals_and_waymarks": [
+        "Player monitors named to safe area."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Marked players go safe side."
+      ],
+      "unresolved_source_facts": [
+        "Exact three monitor/five unmarked positions, facing angles, and rank order not given.",
+        "Existing HTD P3 preset is not evidence of CN route."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "blue_screen",
+      "catalog_id": "p4_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P4 蓝屏 diagram",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "West MT,D3,H1,D1; east ST,D4,H2,D2.",
+        "Macro says D1/D2 swap."
+      ],
+      "reference_axes": [
+        "A north,C south; D/B west/east."
+      ],
+      "relative_goals_and_waymarks": [
+        "D3 atD,D4 atB; D1 near3,D2 near2; two stacks either sideC."
+      ],
+      "branch_decisions": [
+        "D1/D2 adjustment explicitly named; trigger and stack-holder swapping not fully stated."
+      ],
+      "steps": [
+        "Use shown TRHM spread; gather southern split stacks; apply D1/D2 adjustment when source trigger confirmed."
+      ],
+      "unresolved_source_facts": [
+        "Do not infer southern marked player's swap from Elemental; macro only says D12换位.",
+        "Three ring/echo sequences need guide."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "delta",
+      "catalog_id": "p5_delta",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "route_unresolved_macro_scope_only",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 all-phase priority; pages1–2 route macro",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "Not established for this mechanic by macro."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Full mechanic-specific route not present in the inspected macro. Author's diagram/video required; no Elemental route inheritance.",
+        "Shared priority does not establish matching spatial layout or branches."
+      ],
+      "route_coverage": "unresolved_route",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "sigma",
+      "catalog_id": "p5_sigma",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P5二运二传",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "1-Dynamis gets attack mark; no-buff idle gets forbid.",
+        "Attack1/2/3 go F; remaining opposite; attack5 treated like forbid."
+      ],
+      "reference_axes": [
+        "F defines near/far split; tower orientation unresolved."
+      ],
+      "relative_goals_and_waymarks": [
+        "Manual marking time is emphasized."
+      ],
+      "branch_decisions": [
+        "No-buff/idle terminology may exclude World holders; must confirm video rather than treating all unstacked players the same."
+      ],
+      "steps": [
+        "Apply manual mark categories.",
+        "Attack1–3 group atF; others opposite; attack5 follows forbid category."
+      ],
+      "unresolved_source_facts": [
+        "Shape order/six-marker fan/tower macros, final receiver positions, bind/forbid meanings and laser rotation rules not provided."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "omega",
+      "catalog_id": "p5_omega",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P5三运三传 / 三运四传",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "First Worlds unmarked.",
+        "Only1-Dynamis or Second-in-Line+1 → attack; only2 → bind; Second-in-Line+2 → forbid.",
+        "Second resolution: Second-in-Line unmarked;2-Dynamis→attack;3-Dynamis→forbid."
+      ],
+      "reference_axes": [
+        "Not printed; source diagram required."
+      ],
+      "relative_goals_and_waymarks": [
+        "Manual marker categories verified; monitor/tether destinations not printed."
+      ],
+      "branch_decisions": [
+        "First and second World resolutions use different marker classification.",
+        "Two-stack Second-in-Line gets distinguished forbid mark rather than ordinary bind."
+      ],
+      "steps": [
+        "Apply first-resolution marker categories after timed prompt.",
+        "Resolve first Worlds then reclassify to2-stack attack/3-stack forbid for second."
+      ],
+      "unresolved_source_facts": [
+        "Mapping forbid/bind to monitor recipients and tie selection must be corroborated by diagram/video; macro category alone is not full monitor rule.",
+        "All six World locations, boss-relative axes and tether endpoints unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "solar_ray",
+      "catalog_id": "p5_solar",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "route_unresolved_macro_scope_only",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 all-phase priority; pages1–2 route macro",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "Not established for this mechanic by macro."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Full mechanic-specific route not present in the inspected macro. Author's diagram/video required; no Elemental route inheritance.",
+        "Shared priority does not establish matching spatial layout or branches."
+      ],
+      "route_coverage": "unresolved_route",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "cosmo_memory",
+      "catalog_id": "p6_memory",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "route_unresolved_macro_scope_only",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 all-phase priority; pages1–2 route macro",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "Not established for this mechanic by macro."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Full mechanic-specific route not present in the inspected macro. Author's diagram/video required; no Elemental route inheritance.",
+        "Shared priority does not establish matching spatial layout or branches."
+      ],
+      "route_coverage": "unresolved_route",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "arrow_dive",
+      "catalog_id": "p6_arrow_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P6 八方站位 / 宇宙箭 / 宇宙龙炎",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2.",
+        "Cosmo Dive: MT left out,ST right out."
+      ],
+      "reference_axes": [
+        "True eight-direction clock unless Dive-relative.",
+        "Left/right relative to party facing boss; video orientation not independently confirmed."
+      ],
+      "relative_goals_and_waymarks": [
+        "N MT,NE D4,E ST,SE D2,S H2,SW D1,W H1,NW D3."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Take separate MT-left/ST-right Dive endpoints while party stacks."
+      ],
+      "unresolved_source_facts": [
+        "Full Arrow/Exaflare approach, starting quadrant, tank distance targets and both pattern branches not printed."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "exaflare_wave",
+      "catalog_id": "p6_exa_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P6 八方站位 / 宇宙箭 / 宇宙龙炎",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "True eight-direction clock unless Dive-relative."
+      ],
+      "relative_goals_and_waymarks": [
+        "N MT,NE D4,E ST,SE D2,S H2,SW D1,W H1,NW D3."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Use macro eight-direction spread."
+      ],
+      "unresolved_source_facts": [
+        "Exaflare path/direction/offset, sixth-puddle exit, wave-stack direction and tank mitigation rotation unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "arrow_wave",
+      "catalog_id": "p6_arrow_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P6 八方站位 / 宇宙箭 / 宇宙龙炎",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2.",
+        "Second Arrow: tanks/healers cardinals; DPS diagonals."
+      ],
+      "reference_axes": [
+        "True eight-direction clock unless Dive-relative."
+      ],
+      "relative_goals_and_waymarks": [
+        "N MT,NE D4,E ST,SE D2,S H2,SW D1,W H1,NW D3."
+      ],
+      "branch_decisions": [
+        "Role groups separate into cardinal TH and diagonal DPS lanes."
+      ],
+      "steps": [
+        "Use TH cardinals and DPS diagonals for second Arrow spread."
+      ],
+      "unresolved_source_facts": [
+        "Plus/Box footwork, quadrant pairing, spread beam timing and final stack direction unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "exaflare_dive",
+      "catalog_id": "p6_exa_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P6 八方站位 / 宇宙箭 / 宇宙龙炎",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2.",
+        "Cosmo Dive: MT left out,ST right out."
+      ],
+      "reference_axes": [
+        "True eight-direction clock unless Dive-relative.",
+        "Left/right relative to party facing boss; video orientation not independently confirmed."
+      ],
+      "relative_goals_and_waymarks": [
+        "N MT,NE D4,E ST,SE D2,S H2,SW D1,W H1,NW D3."
+      ],
+      "branch_decisions": [],
+      "steps": [
+        "Take separate MT-left/ST-right Dive endpoints while party stacks."
+      ],
+      "unresolved_source_facts": [
+        "Full Arrow/Exaflare approach, starting quadrant, tank distance targets and both pattern branches not printed."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "meteors",
+      "catalog_id": "p6_meteors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_macro_partial",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page2 P6 八方站位 / 宇宙箭 / 宇宙龙炎",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "True eight-direction clock unless Dive-relative."
+      ],
+      "relative_goals_and_waymarks": [
+        "N D3,NW MT,NE D4,E ST,SE D2,S H2,SW D1,W H1."
+      ],
+      "branch_decisions": [
+        "Swap MT and D3 from macro clocks for meteors; no H2/ST swap is printed."
+      ],
+      "steps": [
+        "Use meteor-specific MT/D3-swapped spread."
+      ],
+      "unresolved_source_facts": [
+        "Caster/ranged LB sequence, flare branches, E/W tie-break and healer-center assignment require diagram/video.",
+        "Do not add LPDU's H2/OT meteor swap: CN macro lacks it."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md",
+      "parent_encounter_resolution": "Four complete FFLogs clears each show six distinct CosmoComet15727 instances receiving casterLB damage; not five."
+    },
+    {
+      "community": "cn_moogle",
+      "mechanic": "magic_number",
+      "catalog_id": "p6_magic",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "route_unresolved_macro_scope_only",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 all-phase priority; pages1–2 route macro",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "All-phase macro order H1 > MT > ST > D1 > D2 > D3 > D4 > H2."
+      ],
+      "reference_axes": [
+        "Not established for this mechanic by macro."
+      ],
+      "relative_goals_and_waymarks": [],
+      "branch_decisions": [],
+      "steps": [],
+      "unresolved_source_facts": [
+        "Full mechanic-specific route not present in the inspected macro. Author's diagram/video required; no Elemental route inheritance.",
+        "Shared priority does not establish matching spatial layout or branches."
+      ],
+      "route_coverage": "unresolved_route",
+      "parent_additional_source": "Full1125x33824 poster visually read in15panels; docs/research/CN_POSTER_AUDIT.md"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "loop",
+      "catalog_id": "p1_loop",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=2089732780",
+          "location": "#Phase.1_ rows 14–93; diagrams row 17",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > T1 > T2 > D1 > D2 > D3 > D4 > H2",
+        "Scan clockwise from true N."
+      ],
+      "reference_axes": [
+        "True N=12 o'clock; A north, B east, C south, D west."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party initially 6 o'clock; 3s slightly inside to intercept.",
+        "Use tower-free sectors for Blaster; others shelter by active tower's letter marker."
+      ],
+      "branch_decisions": [
+        "Tower order 1234; tether order 3412.",
+        "Initial N/S tower pair: 3s wait briefly so north tower soaker can pass.",
+        "Outgoing holder stays still until tether taken."
+      ],
+      "steps": [
+        "Gather south, assign numbers/priorities.",
+        "3s intercept and move CW to empty sectors; 1s soak.",
+        "Transfer 4→1→2 after each blast, taking numbered towers in order.",
+        "Heal HP-penalty recovery before 3/4 towers; face boss N afterward."
+      ],
+      "unresolved_source_facts": [
+        "Every empty-sector tie is not formalized as executable geometry."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "pantokrator",
+      "catalog_id": "p1_panto",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=2089732780",
+          "location": "#Phase.1_ rows 98–178; row 103 image 11 (zero-based)",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > T1 > T2 > D1 > D2 > D3 > D4 > H2",
+        "Earlier number partner H1 group; later H2 group."
+      ],
+      "reference_axes": [
+        "True cardinal axes; six initial flame patterns in row 103."
+      ],
+      "relative_goals_and_waymarks": [
+        "H1 starts safe sector on north/west half; H2 opposite.",
+        "Six-panel figure shows H1 NW,NNW,N,NNE,NE,W depending on initial flame sectors; H2 diametric."
+      ],
+      "branch_decisions": [
+        "Move in observed CW/CCW direction.",
+        "1s ahead initially; 2–4 middle of safe wedge.",
+        "Active missile exits through center, returns outside; other three share."
+      ],
+      "steps": [
+        "Identify safe wedge using row-103 pattern.",
+        "Split all numbers into healer groups.",
+        "Stagger puddles with flame; each number goes ahead then rejoins via outer lane.",
+        "Repeat 1–4."
+      ],
+      "unresolved_source_facts": [
+        "Panel-to-exact flame angle mapping needs numerical transcription; do not substitute Elemental NW default."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "p1_cannons",
+      "catalog_id": "p1_cannons",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=2089732780",
+          "location": "#Phase.1_ rows 183–206",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "T1/T2 farthest north; six non-tanks spread."
+      ],
+      "reference_axes": [
+        "True N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Tanks max-melee north with invulns; six inside hitbox."
+      ],
+      "branch_decisions": [
+        "Three random non-tanks then complementary three.",
+        "Source calls tank cleave 90°; Elemental says 120°. Preserve discrepancy."
+      ],
+      "steps": [
+        "Tanks north after panto.",
+        "Non-tanks spread as row-186 figure.",
+        "Time invulns without castbar; hold spread for two waves."
+      ],
+      "unresolved_source_facts": [
+        "Exact six non-tank positions in row-186 diagram not inspected in this pass.",
+        "Tank cleave angle conflict needs encounter evidence."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "party_synergy",
+      "catalog_id": "p2_synergy",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1552381437",
+          "location": "#Phase.2 rows 58,83–156,186,210,239–285; image 29 row166",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > T1 > T2 > D1 > D2 > D3 > D4 > H2 used for west/east conga endpoints; H1 always group 1, H2 group 2.",
+        "Same symbol west member group1, east group2."
+      ],
+      "reference_axes": [
+        "Eye=N for spread; three-male row=N for knockback."
+      ],
+      "relative_goals_and_waymarks": [
+        "Mid both O,triangle,square,X; remote left O,triangle,square,X, right X,square,triangle,O.",
+        "Stay outside eye-beam waymark corridor.",
+        "Remote knockback W/E at wall; mid W/S near marker after knockback."
+      ],
+      "branch_decisions": [
+        "Both stacks same side: nearer-eye stack and same symbol partner trade.",
+        "M sword/F legs→F; shield/legs→M; sword/staff→outside; shield/staff→shield lateral pockets.",
+        "After gender swap tanks re-Provoke original assigned target."
+      ],
+      "steps": [
+        "Conga, identify groups; optional manual shape marks.",
+        "Dodge M/F before tethers become relevant.",
+        "Resolve shape spread with mid/remote distances.",
+        "Check stack distribution; knockback by new male north."
+      ],
+      "unresolved_source_facts": [
+        "Initial complete role-to-conga order requires row-38 figure; source endpoint roles are explicit."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "limitless",
+      "catalog_id": "p2_limitless",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1552381437",
+          "location": "#Phase.2 rows 290–461",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "T1 west tether; T2 east tether.",
+        "Two tanks closest to shield clone."
+      ],
+      "reference_axes": [
+        "True C south bait; external shield M for charge."
+      ],
+      "relative_goals_and_waymarks": [
+        "Party in front of C; tanks extend tethers clockwise outward.",
+        "Party center for mitigation-heavy flare stack."
+      ],
+      "branch_decisions": [
+        "Sagittarius source at N/S: center dodge insufficient; move toward numbered waymark where tether add spawned.",
+        "Other arrow sources: move into boss hitbox.",
+        "Beyond Defense victim circles opposite shield; unhit tank joins seven stack."
+      ],
+      "steps": [
+        "Collect assigned west/east tethers.",
+        "Bait arrow C and use source-dependent dodge.",
+        "Tanks bait shield charge; hit tank leaves.",
+        "Seven share Pile Pitch/flares; use mitigation lasting through eye raidwide."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "p3_transition",
+      "catalog_id": "p3_transition",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+          "location": "#Phase.3 rows 9–114",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > T1 > T2 > D1 > D2 > D3 > D4 > H2 conga; rank each debuff class independently."
+      ],
+      "reference_axes": [
+        "True N; arm triangle may invert."
+      ],
+      "relative_goals_and_waymarks": [
+        "Six assignment slots shown row18; text only does not name all directions."
+      ],
+      "branch_decisions": [
+        "Wait outermost ring, step in after preceding ring, return out.",
+        "At second ring plus first arm explosion step inward into first-arm safe space.",
+        "Shield before spread."
+      ],
+      "steps": [
+        "Conga and separate purple, white, empty.",
+        "Pair empty with white; purple separate.",
+        "Dodge ring/first arms then second arms while preserving debuff spread."
+      ],
+      "unresolved_source_facts": [
+        "Full six-slot position map and priority direction not visually inspected; no inherited Elemental coordinates."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "hello_world",
+      "catalog_id": "p3_hello",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+          "location": "#Phase.3 rows 118–303",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Roles assigned by debuffs; no fixed job-order tower assignment."
+      ],
+      "reference_axes": [
+        "Reorient to colored towers."
+      ],
+      "relative_goals_and_waymarks": [
+        "Blue tether between stack-color towers; green outside defamation-color towers.",
+        "Defamation holders max-melee at waymark direction."
+      ],
+      "branch_decisions": [
+        "Red-defamation and blue-defamation are both explicit.",
+        "Towers/bugs resolve before tether holders move to acquire rot.",
+        "Blue breaks while acquiring; then blue goes inward, green converges to break.",
+        "Fourth round differs; exact row277 final figure still needs full audit."
+      ],
+      "steps": [
+        "Color holders move first without crossing each other; tethers wait.",
+        "Resolve tower and bug.",
+        "Tether holders approach nearest rot; defamation+green meet on marker.",
+        "Blue breaks first then green; repeat."
+      ],
+      "unresolved_source_facts": [
+        "Final-round green-first/no-transfer exception not fully re-read in truncated KR text; verify rows 277–303 before declaring complete.",
+        "Equal partner selection needs clarification."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "p3_monitors",
+      "catalog_id": "p3_monitors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+          "location": "#Phase.3 rows314–388; image40 row314 (east-facing boss)",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "H1 > H2 > T1 > T2 > D1 > D2 > D3 > D4 separately for marked/unmarked."
+      ],
+      "reference_axes": [
+        "Boss true N; mirror across N/S for monitor side."
+      ],
+      "relative_goals_and_waymarks": [
+        "Boss east: marked1 NW facing W, marked2 WNW faces N, marked3 WSW faces S.",
+        "Unmarked1 N west of midline,2 just E center,3 outer E,4 inner S west of midline,5 outer S west of midline."
+      ],
+      "branch_decisions": [
+        "West boss monitor mirrors all positions.",
+        "Optional fixed-DPS unmarked variant: nonmonitor DPS remain preset; TH fill northern position and vacated DPS spots; D3 may replace D4.",
+        "Monitor angle should align with square waymark edges."
+      ],
+      "steps": [
+        "Rank marked/unmarked.",
+        "Position by boss monitor side.",
+        "Aim each player monitor at two intended receivers; keep 1/4/5 off boss half.",
+        "Resolve before enrage."
+      ],
+      "unresolved_source_facts": [
+        "Fixed-DPS variant's complete role-slot picture not transcribed.",
+        "Exact angle tolerances and receiver pairs require calibrated geometry."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "blue_screen",
+      "catalog_id": "p4_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=776696341",
+          "location": "#Phase.4 rows15–220; image0 row15",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "West T1,D3,H1,D1; east T2,D4,H2,D2."
+      ],
+      "reference_axes": [
+        "True N; south stacks between 3/C and C/2."
+      ],
+      "relative_goals_and_waymarks": [
+        "DPS on waymarks; tanks/healers between; boss hitbox is spread reference."
+      ],
+      "branch_decisions": [
+        "Two stack markers one side: southern marker trades with opposite melee.",
+        "Return original slots after each stack.",
+        "Wave2: spread then inward ring dodge then stack. Wave3: stack outside then wait for ring before inward."
+      ],
+      "steps": [
+        "Spread eight beams.",
+        "Move to two southern groups avoiding echo beams; adjust if needed.",
+        "Repeat with wave-specific ring timing.",
+        "Bring boss below20%."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "delta",
+      "catalog_id": "p5_delta",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=895996912",
+          "location": "#Phase.5_Delta rows149–359; row338 images38/39 show both cleave sides",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tether/color and starting inner/outer pair determine jobs; no role priority claimed.",
+        "OUTER pair swaps sides for identical fist colors."
+      ],
+      "reference_axes": [
+        "Beetle=N; Final opposite; side cleave selects E/W half."
+      ],
+      "relative_goals_and_waymarks": [
+        "Blue to beetle, green to Final; one outer pair and one marker-line pair each.",
+        "Final World differs from Elemental: Far holder close to center at safe cleave boundary; Near holder near beetle-side intercardinal, one floor unit inward.",
+        "Unmarked blues outer safe cardinal ±2 floor notches; original outer green pair near opposite-beetle intercardinal, two units inward; other green pair far endpoints by beetle and opposite."
+      ],
+      "branch_decisions": [
+        "Blue2 (outer) breaks on activation then joins blue1.",
+        "After fists: blue1 breaks and baits beetle arms; blue2 baits Beyond Defense.",
+        "Green1 outer baits Final arms; green2 inner baits side arms.",
+        "Monitor faces opposite Final; charge victim excluded even if monitor.",
+        "Break green1 only after monitor/charge ruin expires; green2 after World vulnerability expires.",
+        "Reflect World layout when safe cleave side changes."
+      ],
+      "steps": [
+        "Set lanes; outer fist pair adjusts.",
+        "Stack fist partners after activation break.",
+        "Bait arms and charge, resolve monitors/three-person Pile Pitch.",
+        "Move into safe half; make staggered green cuts and World positions."
+      ],
+      "unresolved_source_facts": [
+        "Fist pairing initial tie-break not specified; exact floor-unit coordinate scale needs arena calibration.",
+        "Source describes eye safe line ambiguously; diagram should govern."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "sigma",
+      "catalog_id": "p5_sigma",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=791137168",
+          "location": "#Phase.5_Sigma rows49–347; row287 image24, row145 image16",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Group pairs in O,triangle,square,X order.",
+        "Manual: one-stack/no-World players claim bind1–3; remaining no-World claim attack1–3."
+      ],
+      "reference_axes": [
+        "First M=N; tower four-tower side defines orientation; final F=N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Two-mark pairs assigned N/S then W/E; one-mark pairs use opposite arm diagonals, unmarked away from arm.",
+        "Bind1 NW arm,bind2 N far receiver,bind3 NE arm; Far holder N third ring.",
+        "Attack1 S far receiver; Near rotates90° with laser to side; attack2/3 on either side of near-side arm, separated two notches."
+      ],
+      "branch_decisions": [
+        "Mid at waymarks and tower centers; remote at wall/tower outer edge.",
+        "Select tower using remembered physical waymark macro and actual 4-tower side; layout can invert.",
+        "F staff wait outside cross; legs follow laser.",
+        "Near side rotates with CW/CCW; bind1/3 fixed relative NW/NE regardless of rotation."
+      ],
+      "steps": [
+        "Assign shape spread and count red markers.",
+        "Remember waymark and select knockback tower via macro.",
+        "Assign bind/attack marks and go N/S groups (Far N,Near S initially).",
+        "Resolve F stance, rotating laser, arm baits and Worlds; finish 4x1+4x2."
+      ],
+      "unresolved_source_facts": [
+        "Exact per-waymark tower macro mapping must be transcribed from #Simulater&Macro; do not use Elemental mapping by assumption.",
+        "Both laser directions not fully visually audited; selected CW diagram read."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "omega",
+      "catalog_id": "p5_omega",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=577861208",
+          "location": "#Phase.5_Omega rows25–260; images36 row183 and38 row229",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "First monitors: 2-stack Second in Line > 2-stack no-World; First in Line excluded.",
+        "Final tethers: two 3-stack players; other six resolve Worlds."
+      ],
+      "reference_axes": [
+        "First boss monitors true E/W; final beetle=N."
+      ],
+      "relative_goals_and_waymarks": [
+        "Monitor recipients inside intercardinal on boss-monitor half; Far holder N or S third ring, Far receivers N/S wall cheated safe.",
+        "Near holder on opposite B/D side third ring; Near receivers wall ±2 floor notches.",
+        "Final tethers near NW/NE wall two floor notches toward beetle from intercardinal; Far holder E or W third ring, receivers E/W wall slightly south; Near S third ring and wall recipients ±2."
+      ],
+      "branch_decisions": [
+        "M/F four combos classified inner/front-of-marker/outside-marker; central light selects cardinal; second cleave reverses.",
+        "KR calls lit side safe; preserve difference from Elemental prose.",
+        "World1 must leave 2 players at3 and six at2; World2 all3."
+      ],
+      "steps": [
+        "Solve first and second M/F combos sequentially.",
+        "Manually mark required monitor recipients; place six World roles.",
+        "Resolve monitors/World1.",
+        "Three-stacks take beetle tethers; execute second World layout; heal tanks for Solar."
+      ],
+      "unresolved_source_facts": [
+        "Four-combo icon decision tree not fully visually transcribed; source light wording conflicts with Elemental.",
+        "Tie-break among equally eligible two-stack no-World players remains free/manual."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "solar_ray",
+      "catalog_id": "p5_solar",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=895996912",
+          "location": "#Phase.5_Delta rows11–16; #Phase.5_Omega rows270–275",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tank composition determines swap or invuln; specific composition workbook linked."
+      ],
+      "reference_axes": [
+        "Boss north, separate tanks."
+      ],
+      "relative_goals_and_waymarks": [
+        "Two consecutive hits on aggro target; swap with mitigation or invuln both."
+      ],
+      "branch_decisions": [
+        "Four occurrences.",
+        "T1 and D3 use90s mitigation on first Solar second hit to cover trio raidwides.",
+        "Final Solar: start mitigation before Worlds finish, not after cast starts."
+      ],
+      "steps": [
+        "Plan invulns/cooldowns by comp.",
+        "Take both hits or swap between.",
+        "Heal next aggro tank before trio."
+      ],
+      "unresolved_source_facts": [
+        "Linked tank composition sheets not audited; exact four-cast plan unresolved."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "cosmo_memory",
+      "catalog_id": "p6_memory",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows9–19",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "WAR > PLD > GNB > DRK tank LB; negotiable."
+      ],
+      "reference_axes": [
+        "True N; exit south wall."
+      ],
+      "relative_goals_and_waymarks": [
+        "MT north inside; other tank west max-melee for farthest autos; party inside."
+      ],
+      "branch_decisions": [
+        "Three Dynamis required; Tank LB3 plus party mitigation.",
+        "Distinct MT and farthest player must take autos."
+      ],
+      "steps": [
+        "Enter arena; tank LB cast.",
+        "Set north/west tank autos."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "arrow_dive",
+      "catalog_id": "p6_arrow_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows21–85",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "T1 11 o'clock, T2 1 o'clock, six-person party7 o'clock."
+      ],
+      "reference_axes": [
+        "True N for first Arrow."
+      ],
+      "relative_goals_and_waymarks": [
+        "Tanks end inside boss at11/1; party hitbox boundary SW."
+      ],
+      "branch_decisions": [
+        "Inside-first: wait inner border→in→wait again→out to number markers splitting TH left/DPS right facing boss→wait at letter line→side→in.",
+        "Outside-first: wait outer border→out→wait again→forward→side (TH left/DPS right)→forward."
+      ],
+      "steps": [
+        "Preposition three groups.",
+        "Read inner/outer-first and perform listed sequence.",
+        "Finish separated tanks and six-player stack for Dive."
+      ],
+      "unresolved_source_facts": [
+        "Workbook calls Dive three closest targets, conflicting with Elemental two closest plus farthest; route positions are independently supported.",
+        "Animated Arrow figures not frame-by-frame audited."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "exaflare_wave",
+      "catalog_id": "p6_exa_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text_and_selected_diagrams",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows87–142; row121 image4",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Tanks front of final south stack."
+      ],
+      "reference_axes": [
+        "True clocks; first exaflare and observed CW/CCW arc."
+      ],
+      "relative_goals_and_waymarks": [
+        "N D3, NE D4, E H2, SE D2, S T2, SW D1, W H1, NW T1.",
+        "Start center; move opposite spawn progression toward marker preceding first exaflare.",
+        "Guide recommends an extra half-marker offset for safety, then follow arc through six puddles.",
+        "Final eight stack south."
+      ],
+      "branch_decisions": [
+        "Four random beams then other four; stay assigned clocks.",
+        "15s party mitigation after sixth bait;10s debuff about30% into11s cast to cover stack."
+      ],
+      "steps": [
+        "Bait six puddles.",
+        "Spread eight clocks.",
+        "Resolve both beam sets then south stack with two tanks front."
+      ],
+      "unresolved_source_facts": [
+        "Exact tank invuln rotation delegated to linked mitigation sheet."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "arrow_wave",
+      "catalog_id": "p6_arrow_wave",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows149–219",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Pairs by quadrant; TH left, DPS right when facing boss."
+      ],
+      "reference_axes": [
+        "True arena quadrants."
+      ],
+      "relative_goals_and_waymarks": [
+        "N D3, NE D4, E H2, SE D2, S T2, SW D1, W H1, NW T1.",
+        "Start four two-player pairs; spread naturally into clocks; final stack south."
+      ],
+      "branch_decisions": [
+        "Inside-first: wait inner border→in→wait again→out to number markers splitting TH left/DPS right facing boss→wait at letter line→side→in.",
+        "Outside-first: wait outer border→out→wait again→forward→side (TH left/DPS right)→forward."
+      ],
+      "steps": [
+        "After autos pair for Arrow.",
+        "Execute independent inner/outer-first pattern while separating two beam sets.",
+        "Gather south with tanks front."
+      ],
+      "unresolved_source_facts": [
+        "Exact pair-to-quadrant layout and animated timing not fully audited."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "exaflare_dive",
+      "catalog_id": "p6_exa_dive",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows222–258",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "T1 relative11, T2 relative1; party relative6.",
+        "Melee LB D1 then D2, except DRG later."
+      ],
+      "reference_axes": [
+        "Final bait location defines relative S."
+      ],
+      "relative_goals_and_waymarks": [
+        "Start center; move opposite spawn progression toward marker preceding first exaflare.",
+        "Guide recommends an extra half-marker offset for safety, then follow arc through six puddles.",
+        "After sixth bait take one more step; six stay hitbox boundary; tanks enter boss split left/right."
+      ],
+      "branch_decisions": [
+        "Rotate route with exaflare start/direction.",
+        "After Dive party slightly in and farthest tank out for autos."
+      ],
+      "steps": [
+        "Bait six puddles and extra step.",
+        "Tanks enter Y endpoints; six stack.",
+        "Use two melee LB3s and restore autos."
+      ],
+      "unresolved_source_facts": [
+        "Same Dive target-selection wording conflict as first Dive."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "meteors",
+      "catalog_id": "p6_meteors",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows264–313",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "D4 caster LB3 then D3 ranged LB3 from A.",
+        "Healers can step in; choose center healer before pull."
+      ],
+      "reference_axes": [
+        "True N/S meteor axis."
+      ],
+      "relative_goals_and_waymarks": [
+        "N D3, NE D4, E H2, SE D2, S T2, SW D1, W H1, NW T1.",
+        "Center bait then eight spread; D3 remains north during LB."
+      ],
+      "branch_decisions": [
+        "D3 no flare: three flares B/C/D, five stack A.",
+        "D3 flare: other flares B/D, five stack C.",
+        "Tank/melee flares max-melee; healer/ranged flares wall.",
+        "Workbook says six comets; Elemental says five. Do not resolve using assumption."
+      ],
+      "steps": [
+        "Bait center AoE, spread and caster LB.",
+        "Healers top up through four random-AoE waves.",
+        "Ranged LB A→C after refill.",
+        "Resolve flares/stack around locked D3."
+      ],
+      "unresolved_source_facts": [
+        "E/W assignment tie-break among flare holders not specified.",
+        "Comet-count conflict requires encounter evidence."
+      ],
+      "route_coverage": "partial_route_with_verified_rules",
+      "parent_encounter_resolution": "Four complete FFLogs clears each show six distinct CosmoComet15727 instances receiving casterLB damage; not five."
+    },
+    {
+      "community": "kr_09stop",
+      "mechanic": "magic_number",
+      "catalog_id": "p6_magic",
+      "implementation_status": "not_assessed_research_only",
+      "source_verification": "verified_text",
+      "complete_route_verified": false,
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+          "location": "#Phase.6_Alpha Omega rows320–324",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "role_priorities": [
+        "Default T1→H1 then T2→H2; DRK may tank LB first."
+      ],
+      "reference_axes": [
+        "No directional dependency."
+      ],
+      "relative_goals_and_waymarks": [
+        "Tank LB3 before hit; healer LB3 after debuff visibly applied within6s."
+      ],
+      "branch_decisions": [
+        "Do not healer LB immediately on damage before debuff exists.",
+        "Optional DRK suicide variant is explicitly optional.",
+        "Last healer refund enables final melee LB3."
+      ],
+      "steps": [
+        "Tank LB, receive debuff, healer LB.",
+        "Repeat second pair.",
+        "Final melee LB and enrage burst."
+      ],
+      "unresolved_source_facts": [
+        "Text/macro supplies this logical sequence; exhaustive diagram geometry, every equivalent-role tie, and encounter-level validation were not completed in this research pass."
+      ],
+      "route_coverage": "partial_route_with_verified_rules"
+    }
+  ],
+  "published_waymark_layouts": {
+    "lpdu": {
+      "source": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+      "location": "Waymarks JSON",
+      "game_origin": {
+        "X": 100,
+        "Z": 100
+      },
+      "A": {
+        "X": 100,
+        "Z": 86
+      },
+      "B": {
+        "X": 114,
+        "Z": 100
+      },
+      "C": {
+        "X": 100,
+        "Z": 114
+      },
+      "D": {
+        "X": 86,
+        "Z": 100
+      },
+      "One": {
+        "X": 110,
+        "Z": 90
+      },
+      "Two": {
+        "X": 110,
+        "Z": 110
+      },
+      "Three": {
+        "X": 90,
+        "Z": 110
+      },
+      "Four": {
+        "X": 90,
+        "Z": 90
+      },
+      "Y": 0
+    }
+  },
+  "audit_scope": {
+    "communities": [
+      "elemental",
+      "aether",
+      "lpdu",
+      "cn_moogle",
+      "kr_09stop"
+    ],
+    "mechanics": 20,
+    "entries": 100,
+    "implementation": "No runtime/model/test/profile change. All entries research only.",
+    "completeness": "100 requested cells are present; this is not 100 exhaustive source-verified routes. Some entries contain only macro facts or explicit unresolved fields.",
+    "read_only_browser": "Task-created tabs on existing Chrome CDP; parent FFLogs tabs not navigated or mutated.",
+    "assets": "No guide artwork, screenshot, video or official game asset is included in the repository.",
+    "source_semantics": "Verified means the listed facts were read, not that every route branch is verified. Array emptiness plus unresolved facts means unknown, never default."
+  },
+  "correspondence_evidence": [
+    {
+      "scope": "Blue Screen side order and adjustment only",
+      "communities": [
+        "elemental",
+        "aether",
+        "kr_09stop"
+      ],
+      "facts": "TRHM N→S each side; southern of two stack targets trades with opposite melee.",
+      "evidence": [
+        "Elemental Blue Screen first-wave steps1–3",
+        "Aether P4 Wave Cannons lines212–213",
+        "KR #Phase.4 rows88–113 plus row15 figure"
+      ],
+      "not_proven": "Identical exact coordinates, all ring timings for Aether, or LPDU/CN full route."
+    },
+    {
+      "scope": "Sigma waymark tower allocation only",
+      "communities": [
+        "elemental",
+        "aether",
+        "lpdu"
+      ],
+      "facts": "ABCD lower4 left→right;1/2 upper;3/4 mid W/E,remote SW/SE; mid tower center,remote outer edge.",
+      "evidence": [
+        "Elemental Sigma knockback macro",
+        "Aether Saus Sigma steps17–23",
+        "LPDU markdown Sigma macros and P5 steps29–33"
+      ],
+      "not_proven": "Same shape ordering, marker allocator, final Worlds, or KR macro."
+    },
+    {
+      "scope": "P6 first-Wave clock assignment only",
+      "communities": [
+        "lpdu",
+        "cn_moogle"
+      ],
+      "facts": "MT N,OT/ST E,H1 W,H2 S,M1/D1 SW,M2/D2 SE,physical ranged NW,caster NE.",
+      "evidence": [
+        "LPDU P6 raidplan slide1 visually read",
+        "CN QQ macro page2 eight-way diagram visually read"
+      ],
+      "not_proven": "Same Arrow movement, stack direction, exaflare path or meteor layout. LPDU meteor adds H2/OT swap; CN macro only MT/D3 swap."
+    },
+    {
+      "scope": "Omega mandatory monitor eligibility",
+      "communities": [
+        "elemental",
+        "lpdu",
+        "kr_09stop"
+      ],
+      "facts": "Two-stack Second in Line must receive monitor before two-stack no-World; First in Line cannot monitor.",
+      "evidence": [
+        "Elemental Omega first Hello World prose",
+        "LPDU P5 step54",
+        "KR #Phase.5_Omega row214"
+      ],
+      "not_proven": "Identical World geometry or eligible tie-break. CN marker classification is corroborating partial evidence only."
+    }
+  ],
+  "source_read_manifest": [
+    {
+      "source": "elemental",
+      "obtained": "Homepage EN/JP macros and full text of all8 phase pages.",
+      "visual": "Homepage textual diagrams read; phase image geometry not exhaustively inspected.",
+      "unread": "Original linked PoVs and animated phase figures not frame-audited."
+    },
+    {
+      "source": "aether",
+      "obtained": "PF page; Saus Sigma all40 step headers/descriptions; Saus Omega all44; P6 all111 step titles plus selected substantive steps3,19,20,43–45,47,48,51,52,55,65,66,68,69,85,86,97,98,100,101,103,104,106–108,110,111.",
+      "visual": "P6 step48 clock diagram read after closing ordinary ad overlay.",
+      "unread": "Other P5/P6 figure geometry; linked videos; early phase toolboxes."
+    },
+    {
+      "source": "lpdu",
+      "obtained": "Entire raw markdown including post7.0 changes; all65 P5 toolbox step headers/descriptions.",
+      "visual": "All3 linked P6 raidplan slides read.",
+      "unread": "P1 raidplan; P2/P3/P4 linked toolboxes; full LPDU video and mitigation workbooks."
+    },
+    {
+      "source": "cn_moogle",
+      "obtained": "QQ macro rendered in normal browser; full route macro on pages1–2 and functional marker section into page3 read. Bilibili author reference text read.",
+      "visual": "QQ route diagrams pages1–2 visually read; Bilibili displayed cropped P5 cover, not full tall guide.",
+      "unread": "Full tall reference diagram and upper/lower video contents; no transcript or video-route verification claimed."
+    },
+    {
+      "source": "kr_09stop",
+      "obtained": "All8 phase tab texts read through public htmlview/sheet; tab gids indexed. Some long outputs truncated, explicitly reflected in unresolved fields.",
+      "visual": "Selected diagrams P1 row103, P2 row166, P3 row314, P4 row15, Delta row338 both cleave sides, Sigma row145 and one row287 pattern, Omega row183 and row229, P6 row121.",
+      "unread": "Every animation frame, all alternate diagram rows, complete macro tab, composition mitigation tabs, independent manual-world article6982 (web decoding failure)."
+    }
+  ]
+}
