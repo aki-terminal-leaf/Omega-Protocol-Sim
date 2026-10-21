@@ -79,3 +79,9 @@ This is original geometry/texture provenance, not an exact renderer recreation:
 static phase-layer selection, BG shaders, alpha/blending, lighting, fog,
 transitions and multi-axis placement conventions still need visual calibration.
 No original encounter timings, radii or character collision rules changed.
+
+Pixel review rejected an opaque substitute for the original vertical-fog meshes.
+Those three shader-only meshes are now intentionally omitted rather than covering
+the original scene with white sheets. Original BG diffuse tint constants are
+preserved in the PBR conversion; all source shader constants remain in GLB extras.
+This does not implement original fog, weather or dynamic shader effects.

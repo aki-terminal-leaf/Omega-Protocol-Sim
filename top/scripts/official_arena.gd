@@ -11,6 +11,8 @@ const LAYERS := {
 	5: ["p5_boss", "p3_enkei"],
 	6: ["p7_boss", "p7_enkei"],
 }
+# These meshes require the original vertical-fog shader; opaque PBR is not a valid substitute.
+const DEFERRED_FOG := ["z3oe_a1_vfg01", "z3of_a4_vfog1", "z3of_a4_vfog2"]
 static var manifest: Dictionary = {}
 static var scenes: Dictionary = {}
 
@@ -22,7 +24,7 @@ static func instantiate(phase: int) -> Node3D:
 		manifest = data
 	var selected: Array = []
 	for placement in manifest.get("placements", []):
-		if placement.layer in LAYERS.get(phase, LAYERS[1]): selected.append(placement)
+		if placement.layer in LAYERS.get(phase, LAYERS[1]) and not str(placement.path).get_file().get_basename() in DEFERRED_FOG: selected.append(placement)
 	if selected.is_empty(): return null
 	# Fail the entire optional scene pack back to the known original fallback,
 	# never render a silently incomplete floor with missing meshes.

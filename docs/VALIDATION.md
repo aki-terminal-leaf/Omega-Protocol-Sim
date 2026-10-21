@@ -258,3 +258,15 @@ no local pixel gate passed. Windows headless GPU acceptance is tracked separatel
 The reusable public exporter was separately run against the local SqPack; every
 one of the 34 GLB SHA256 values and all 103 placement records exactly reproduced
 the inspected pack. Evidence: main/artifacts/top-immersive-20261022.
+
+Initial Windows headless Chrome pixel/input/download checks passed for P1 Loop,
+P3 Hello World and P6 Meteors: true player practice, 1440x900 world, camera follow,
+no hints, JSON downloaded, zero browser/script errors. Pixel inspection then
+identified the invalid opaque vertical-fog surfaces; final acceptance must use
+the corrected pack rather than relabeling these initial screenshots.
+
+Final corrected source gate: arena 3972, presentation 27, input routing 19,
+party statuses 107, camera 60, P6 controls 20 assertions; zero failures/errors/skips.
+All 34 final converted hashes and 77 original diffuse-tint material bindings were
+verified. Three original shader-only fog meshes are deferred, not drawn opaque.
+Version 0.3.2-preview exports must pass their own final artifact checks.

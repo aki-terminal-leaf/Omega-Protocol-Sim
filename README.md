@@ -1,5 +1,13 @@
 # Omega Protocol — Practice Lab
 
+## v0.3.2-preview 候選版
+
+- 練習預設只有遊戲場景、八人 Buff／Debuff 與必要的 LB 控制。
+- **Tab** 顯示／隱藏練習工具；**Esc** 暫停並返回設定。重開／返回練習會收起工具。
+- 本機遊戲素材包新增各階段原版場景模型、地板、貼圖及配置；特殊光效、霧效仍未完整復刻。
+- 只使用 headless 驗收；既有 0.3.1 與 0.3.0 不會被改寫。
+
+
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot 4 單人走位練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
 ## v0.3.1-preview（已發佈，後續持續開發）

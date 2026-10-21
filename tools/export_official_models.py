@@ -237,6 +237,11 @@ def export_model(realm,args,form,meta):
             pbr={'metallicFactor':0.25,'roughnessFactor':0.65,'baseColorFactor':[1,1,1,1]}
             gmat={'name':group.Material,'pbrMetallicRoughness':pbr,'doubleSided':True,
                   'extras':{'original_material':mpath,'original_shader':mat.ShaderPackRaw,'shader_fidelity':'PBR approximation, not the game shader'}}
+            if meta.get('source_path'):
+                constants={int(c.ConstantId):[float(v) for v in c.Values] for c in mat.ShaderConstants}
+                gmat['extras']['original_shader_constants']={hex(k):v for k,v in constants.items()}
+                diffuse=constants.get(0x2C2A34DD,[1,1,1])
+                if len(diffuse)>=3:pbr['baseColorFactor']=[min(1.0,max(0.0,v)) for v in diffuse[:3]]+[1]
             for tex in mat.Textures:
                 usage={0x115306BE:'Diffuse',0x0C5EC1F1:'Normal',510652316:'Diffuse',2863978985:'Normal'}.get(int(tex.Sampler.SamplerIdRaw),'Other')
                 if usage not in ['Diffuse','Normal']:continue

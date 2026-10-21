@@ -27,6 +27,7 @@ func _initialize() -> void:
 			var path: String = anchor.get_meta("source_path", "")
 			var placements: Array = Official.manifest.placements.filter(func(p):return p.path==path and p.layer==anchor.get_meta("source_layer"))
 			check(not placements.is_empty(),"rendered asset has source placement provenance")
+			check(not path.get_file().get_basename() in Official.DEFERRED_FOG,"unsupported fog cannot become opaque white geometry")
 			if anchor.get_meta("source_layer").ends_with("boss"):
 				check(anchor.position.length()<1.0,"original floor origin recentered without rescaling")
 		check(not scene.get_children().any(func(n):return str(n.get_meta("source_layer")).begins_with("cut_")),"cutscene-only geometry excluded")
