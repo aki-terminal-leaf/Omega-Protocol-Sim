@@ -1,0 +1,394 @@
+{
+  "schema_version": 1,
+  "coordinate_policy": "Legal numerical realizations of guide formations, not official guide coordinates; center [0,0], north -Y. Four empirical timing families are captures, not random ring geometries.",
+  "profiles": [
+    {
+      "id": "elemental",
+      "sources": [
+        "https://ffxiv.tuufless.com/elemental/top/04_blue_screen/"
+      ],
+      "accessed_at": "2026-10-21",
+      "west": [
+        0,
+        6,
+        2,
+        4
+      ],
+      "east": [
+        1,
+        7,
+        3,
+        5
+      ],
+      "spread_angles": [
+        292.5,
+        67.5,
+        247.5,
+        112.5,
+        225,
+        135,
+        270,
+        90
+      ],
+      "stack_angles": [
+        202.5,
+        157.5
+      ],
+      "swap": "lower marked player exchanges with opposite melee",
+      "audit": "primary phase text and regional diagram audit",
+      "complete_source_geometry": false
+    },
+    {
+      "id": "aether",
+      "sources": [
+        "https://www.thepfstrat.com/u/top",
+        "https://ff14.toolboxgaming.space/?id=595188367474761&preview=1"
+      ],
+      "accessed_at": "2026-10-21",
+      "west": [
+        0,
+        6,
+        2,
+        4
+      ],
+      "east": [
+        1,
+        7,
+        3,
+        5
+      ],
+      "spread_angles": [
+        292.5,
+        67.5,
+        247.5,
+        112.5,
+        225,
+        135,
+        270,
+        90
+      ],
+      "stack_angles": [
+        202.5,
+        157.5
+      ],
+      "swap": "lower marked player exchanges with opposite melee",
+      "audit": "Primary P4 TRHM prose and linked 595188367474761; all 15 cached steps audited including raw player positions by job labels.",
+      "complete_source_geometry": false
+    },
+    {
+      "id": "lpdu",
+      "sources": [
+        "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+        "https://ff14.toolboxgaming.space/?id=595188367474761&preview=1"
+      ],
+      "accessed_at": "2026-10-21",
+      "west": [
+        0,
+        6,
+        2,
+        4
+      ],
+      "east": [
+        1,
+        7,
+        3,
+        5
+      ],
+      "spread_angles": [
+        292.5,
+        67.5,
+        247.5,
+        112.5,
+        225,
+        135,
+        270,
+        90
+      ],
+      "stack_angles": [
+        202.5,
+        157.5
+      ],
+      "swap": "lower marked player exchanges with opposite melee",
+      "audit": "Live primary markdown Phase4 links exactly 595188367474761; all 15 cached steps audited including raw player positions by job labels (object keys are repurposed).",
+      "complete_source_geometry": false
+    },
+    {
+      "id": "cn_moogle",
+      "sources": [
+        "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+        "https://www.bilibili.com/opus/800287973844189204",
+        "https://www.bilibili.com/video/av740517066/?p=3"
+      ],
+      "accessed_at": "2026-10-21",
+      "west": [
+        0,
+        6,
+        2,
+        4
+      ],
+      "east": [
+        1,
+        7,
+        3,
+        5
+      ],
+      "spread_angles": [
+        292.5,
+        67.5,
+        247.5,
+        112.5,
+        225,
+        135,
+        270,
+        90
+      ],
+      "stack_angles": [
+        202.5,
+        157.5
+      ],
+      "swap": "lower marked player exchanges with opposite melee",
+      "audit": "Original full poster P4 panel visually inspected at y15500..16875 on 2026-10-21: explicit lower marked/opposite D1/D2 swap. Original av740517066 part3 titled P3&P4 verified in owned public CDP tab; login/30-second preview prevents later phase inspection without authentication.",
+      "complete_source_geometry": false
+    },
+    {
+      "id": "kr_09stop",
+      "sources": [
+        "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/htmlview?gid=776696341"
+      ],
+      "accessed_at": "2026-10-21",
+      "west": [
+        0,
+        6,
+        2,
+        4
+      ],
+      "east": [
+        1,
+        7,
+        3,
+        5
+      ],
+      "spread_angles": [
+        292.5,
+        67.5,
+        247.5,
+        112.5,
+        225,
+        135,
+        270,
+        90
+      ],
+      "stack_angles": [
+        202.5,
+        157.5
+      ],
+      "swap": "lower marked player exchanges with opposite melee",
+      "audit": "Primary Phase.4 gid776696341 title verified; full public sheet text read, rows9-12,35,62,88,113,141,168,195,220; initial diagram role map crosschecked against cached regional audit.",
+      "complete_source_geometry": false
+    }
+  ],
+  "families": [
+    {
+      "id": "1bX86aKrVRwLWfTC/19",
+      "source_url": "https://www.fflogs.com/reports/1bX86aKrVRwLWfTC?fight=19",
+      "retrieved_utc": "2026-10-21T02:31:49.024960+00:00",
+      "hash_verified_uncompressed_files": 7,
+      "manifest_sha256": "622656039bd21815a6e144cc0704ece52dfb253d187dd921aca965e06736aace",
+      "proteans": [
+        5.604,
+        15.771,
+        25.984
+      ],
+      "repeat": [
+        10.354,
+        20.524,
+        30.729
+      ],
+      "repeat_cast_start": [
+        5.071,
+        15.237,
+        25.451
+      ],
+      "markers": [
+        2.538,
+        12.663,
+        22.876
+      ],
+      "stacks": [
+        10.576,
+        20.702,
+        30.907
+      ],
+      "rings": [
+        12.973,
+        15.104,
+        17.15,
+        19.237,
+        30.417,
+        32.507,
+        34.593,
+        36.638
+      ]
+    },
+    {
+      "id": "3GW2hjTNk91FZwcK/9",
+      "source_url": "https://www.fflogs.com/reports/3GW2hjTNk91FZwcK?fight=9",
+      "retrieved_utc": "2026-10-21T02:31:48.922016+00:00",
+      "hash_verified_uncompressed_files": 7,
+      "manifest_sha256": "fb50140d950c327c1f86e7a8800a7f3363675f0f2079c4708af4dc3d3e9dcc6a",
+      "proteans": [
+        5.596,
+        15.771,
+        25.985
+      ],
+      "repeat": [
+        10.349,
+        20.519,
+        30.744
+      ],
+      "repeat_cast_start": [
+        5.061,
+        15.237,
+        25.451
+      ],
+      "markers": [
+        2.532,
+        12.664,
+        22.874
+      ],
+      "stacks": [
+        10.572,
+        20.697,
+        30.879
+      ],
+      "rings": [
+        13.018,
+        15.149,
+        17.234,
+        19.32,
+        30.432,
+        32.527,
+        34.574,
+        36.625
+      ]
+    },
+    {
+      "id": "LKMGRJTzgY9HFynk/2",
+      "source_url": "https://www.fflogs.com/reports/LKMGRJTzgY9HFynk?fight=2",
+      "retrieved_utc": "2026-10-21T02:30:35.436115+00:00",
+      "hash_verified_uncompressed_files": 7,
+      "manifest_sha256": "8bfb4d06f41587b3e85847e3cdb5c7a5e07a521e1459291a720f2c7b03fe3347",
+      "proteans": [
+        5.621,
+        15.8,
+        26.027
+      ],
+      "repeat": [
+        10.357,
+        20.533,
+        30.762
+      ],
+      "repeat_cast_start": [
+        5.084,
+        15.264,
+        25.49
+      ],
+      "markers": [
+        2.539,
+        12.674,
+        22.9
+      ],
+      "stacks": [
+        10.581,
+        20.711,
+        30.94
+      ],
+      "rings": [
+        13.029,
+        15.129,
+        17.183,
+        19.238,
+        30.45,
+        32.544,
+        34.599,
+        36.654
+      ]
+    },
+    {
+      "id": "Vyq4AcJKZjkFQBpG/32",
+      "source_url": "https://www.fflogs.com/reports/Vyq4AcJKZjkFQBpG?fight=32",
+      "retrieved_utc": "2026-10-21T02:31:49.176920+00:00",
+      "hash_verified_uncompressed_files": 7,
+      "manifest_sha256": "a5e57ad8e5ff4288ae7b1ed882496ee65a5b7fa1e1706cca16ca0731418b5313",
+      "proteans": [
+        5.583,
+        15.732,
+        25.931
+      ],
+      "repeat": [
+        10.32,
+        20.472,
+        30.671
+      ],
+      "repeat_cast_start": [
+        5.047,
+        15.194,
+        25.394
+      ],
+      "markers": [
+        2.502,
+        12.6,
+        22.799
+      ],
+      "stacks": [
+        10.544,
+        20.606,
+        30.804
+      ],
+      "rings": [
+        13.001,
+        15.106,
+        17.162,
+        19.219,
+        30.357,
+        32.456,
+        34.515,
+        36.571
+      ]
+    }
+  ],
+  "geometry": {
+    "line_length": 100,
+    "line_width": 6,
+    "ring_radii": [
+      6,
+      12,
+      18,
+      24
+    ],
+    "deathwall_radius": 20,
+    "boss_source": [
+      0,
+      0
+    ]
+  },
+  "unknowns": [
+    "Sub-frame initial protean angular snapshot versus repeat begin-cast (~0.535s earlier) is not proved by replay position sampling; model locks at initial protean resolution.",
+    "No HP, mitigation, Blue Screen DPS/enrage verdict, optional solo-tank stack or animation lock model.",
+    "CN original av740517066 part3 presents login/30-second preview in normal public browser; later P4 video frames not inspected. Poster P4 assignment and swap are independently verified. Exhaustive primary diagram pixel calibration remains unclaimed."
+  ],
+  "reference_audit": {
+    "license_policy": "C# read-only behavioral crosscheck; original GDScript, no source translation/copy.",
+    "files": {
+      "TOPEnums.cs": "097066c4af289b2eca330890c8f020f5bd1e77c131f5edb513ad1524267dc1f1",
+      "TOPStates.cs": "89515beaccd3c9de38d254ce5b521a08186ded911a6e142f99d4812e79d90fe8",
+      "P4WaveCannon.cs": "282cd111af40d60b9a55fd1a73fee95d7a4073137784ee2d62409875dea0f6ee",
+      "P3Intermission.cs": "1388c77de29e1512c1f905cba6f3178ca73c582a2281f69280831d01768a99c3",
+      "cn-moogle-full.jpg": "2b308bdceec74dabf05ef609a7d05f204815ebcb19c168273f5b6bfe7e1c4d35",
+      "CN_POSTER_AUDIT.md": "70b534fbe1d42b8be2ab49fb94a5d62fb10f3d694863ceeca1cc8d17dd27a983",
+      "fflogs/western-guide-toolbox-data.json": "80762b9b9381386f18a9eae4e7c045f294b82d8cbab2fa6399cbb6dd091fc52e"
+    },
+    "source_center_evidence": "All four live boss 31617 casts at raw(9999,9999). All 24 stack casts,96 repeat casts,32 ring casts at raw(10000,10000). Three clears have all proteans at center. 3GW first-cycle helper samples include stale raw(10000,9000) and inconsistent facing; rejected, not treated as boss movement. Player targets and the live boss/reference corroborate center. Raw coordinates /100 minus [100,100].",
+    "geometry_confidence": "100x6 rectangles and 0/6/12/18/24 rings high behavioral-reference confidence. Center high across live boss/stack/repeat/rings. Numeric waypoint radii14/9 and angles are tested legal constructions, not official coordinates."
+  }
+}

@@ -67,9 +67,9 @@
     "id": "p4_wave",
     "phase": 4,
     "name": "Blue Screen / ブルースクリーン",
-    "focus": "三輪散開→回波→分攤、TRHM 調整",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "focus": "三輪八方向／舊方向回波、雙直線4+4與八次圓環",
+    "fidelity": "stateful; observed timings; angular snapshot uncertainty; HP/DPS unmodeled",
+    "timing": "four observed encounter samples; exact sub-frame angular snapshot unresolved"
   },
   {
     "id": "p5_delta",

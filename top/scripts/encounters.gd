@@ -347,33 +347,7 @@ func monitors() -> void:
 	order = saved_order
 
 func p4_wave() -> void:
-	var left = [0, 6, 2, 4]; var right = [1, 7, 3, 5]
-	for turn in 3:
-		var marked = [rng.randi_range(0, 7), rng.randi_range(0, 7)]
-		while marked[0] == marked[1]: marked[1] = rng.randi_range(0, 7)
-		for i in 4:
-			positions[left[i]] = polar(250 + i * -14, 13 if turn != 1 else 17)
-			positions[right[i]] = polar(110 + i * 14, 13 if turn != 1 else 17)
-		var b = beat("Blue Screen · proteans %d/3" % (turn + 1), 6.0, "TRHM north→south. Remember both stack targets; dodge the old beams before stacking.")
-		spread(b, range(8), 1.8)
-		var old_shapes: Array = []
-		for i in 8:
-			var echo = line(Vector2.ZERO, rad_to_deg(atan2(positions[i].x, -positions[i].y)), 2.3, "Wave Cannon echo")
-			echo.snapshot_direction_actor = i
-			old_shapes.append(echo)
-		var a = left.duplicate(); var c = right.duplicate()
-		if (marked[0] in a) == (marked[1] in a):
-			var from: Array = a if marked[0] in a else c
-			var to: Array = c if marked[0] in a else a
-			var selected: int = marked[0] if from.find(marked[0]) > from.find(marked[1]) else marked[1]
-			var flex = 5 if to == right else 4
-			from.erase(selected); to.erase(flex); from.append(flex); to.append(selected)
-		group_goals(a, polar(270, 9 if turn == 1 else 16), 0.15)
-		group_goals(c, polar(90, 9 if turn == 1 else 16), 0.15)
-		b = beat("Blue Screen · stack/flex %d/3" % (turn + 1), 7.0, "Lowest stack crosses; opposite melee flexes. Wave Repeater timing changes between sets.")
-		b.shapes = old_shapes
-		for i in marked: b.shapes.append(targeted(i, 3, 4, "Condensed Wave Cannon"))
-		if turn > 0: b.shapes.append({"kind": "donut", "inner": 12 if turn == 1 else 0, "radius": 22 if turn == 1 else 12, "name": "Wave Repeater"})
+	preload("res://scripts/p4_wave_courses.gd").append_wave(self)
 
 func delta() -> void:
 	var colours: Array = [0, 1, 1, 0, 0, 0, 1, 1]

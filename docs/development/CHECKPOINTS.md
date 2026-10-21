@@ -36,8 +36,8 @@ segment; the production baseline remains 4.4.1 until its gates pass.
 
 ## Still pending
 
-- P4 Wave Cannon: terminal worker evidence collected; parent integration pending.
-  Preserve existing shared Status hooks while integrating its new modules.
+- P3 transition and P4 Wave Cannon are integrated; exported visual/input QA and
+  their explicitly documented source/combat gaps remain pending.
 - Wire P6 LB request/selection/cast controls and actual post-cast locks; audit
   ranged full-width/half-width before declaring correct.
 - Original particle/VFX reconstruction, remaining route/source uncertainties,
@@ -53,3 +53,10 @@ ring events, six original-form arms and current-debuff sniper judgments. Parent
 quick2268/0; full23418/0 across4243 physical runs; actual Main15/0; shared211/0.
 Void lifetime, arm cue/handedness inference, HP/shields and CN video limits remain
 explicit in `docs/research/P3_TRANSITION_FIDELITY.md`. No release/export claimed.
+
+## P4 Wave Cannon — integrated and independently gated
+
+Five audited selectors; three real protean/repeat/line-stack cycles; eight
+concurrent rings. Parent quick279/0; full2454/0 across560 physical cases;
+actual Main15/0; shared211/0; P3 quick2268/0. See
+`docs/research/P4_WAVE_FIDELITY.md` for angular-lock/source/combat limits.
