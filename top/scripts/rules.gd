@@ -83,6 +83,8 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 		if shape.get("decorative", false): continue
 		var caught = hits(shape, actors)
 		var name: String = shape.get("name", "AoE")
+		if shape.has("hit_status") and state.has("statuses"):
+			for actor in caught:load("res://scripts/statuses.gd").give(state,int(actor),str(shape.hit_status),float(shape.get("hit_status_duration",2.0)))
 		match shape.get("rule", "avoid"):
 			"avoid":
 				for i in caught: failures.append("%s: %s" % [actors[i].role, name])
@@ -97,7 +99,11 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 					if bool(state.loop_cleansed[actor]) or float(state.get("sim_time",0))>=float(state.loop_deadlines[actor]): failures.append("Storage Violation Obliteration: %s has no Looper" % actors[actor].role)
 					else:
 						state.loop_cleansed[actor] = true
-						if state.has("statuses"): state.statuses[actor].erase("looper")
+						if state.has("statuses"):
+							state.statuses[actor].erase("looper")
+							var key: String=["first_in_line","second_in_line","third_in_line","fourth_in_line"][int(state.loop_numbers[actor])-1]
+							state.statuses[actor].erase(key)
+							loop_event(state,"status_remove",{"actor":actor,"status":key,"cause":"Storage Violation"})
 						loop_event(state,"status_remove",{"actor":actor,"status":"looper","cause":"Storage Violation"})
 						if loop_hp_active(actor,state): failures.append("%s: tower damage while HP Penalty active" % actors[actor].role)
 						apply_loop_ruin(actor, state, actors, failures, "Storage Violation")
@@ -145,6 +151,12 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 					resolutions.append({"source_actor":source.get("actor",-1),"candidates":candidates,"targets":targets})
 				for i in actors.size():
 					if i not in state.dead and coverage[i]!=1:failures.append("%s: %s hit %d times (targeting + radius7 splash)"%[name,actors[i].role,coverage[i]])
+				for i in actors.size():
+					if coverage[i]>0:
+						status.give(state,i,"magic_vulnerability",5.0)
+						status.give(state,i,"twice_come_ruin",7.0)
+					for key in ["monitor_left","monitor_right"]:
+						state.statuses[i][key]={"expires":float(state.get("sim_time",0))}
 				status.event(state,"monitor_resolution",{"sources":resolutions,"coverage":coverage})
 			"regressions_resolved":
 				for tether in state.get("paired_tethers",[]):
@@ -231,7 +243,11 @@ static func ensure_loop_state(beat: Dictionary, state: Dictionary) -> void:
 		state.loop_hp_starts.append(0.0); state.loop_max_hp.append(1.0)
 		var deadline: float=state.loop_started+[16.0,25.0,34.0,43.0][int(beat.program_loop.numbers[_i])-1]
 		state.loop_deadlines.append(deadline)
-		if state.has("statuses"): state.statuses[_i].looper={"expires":deadline}
+		if state.has("statuses"):
+			state.statuses[_i].looper={"expires":deadline}
+			var key: String=["first_in_line","second_in_line","third_in_line","fourth_in_line"][int(state.loop_numbers[_i])-1]
+			state.statuses[_i][key]={"expires":1.0e30}
+			loop_event(state,"status_gain",{"actor":_i,"status":key})
 		loop_event(state,"status_gain",{"actor":_i,"status":"looper","expires":deadline})
 static func loop_event(state: Dictionary, kind: String, details: Dictionary) -> void:
 	if not state.has("timeline"): state.timeline=[]
@@ -278,7 +294,7 @@ static func apply_loop_ruin(actor: int, state: Dictionary, actors: Array, failur
 		if actor not in state.dead: state.dead.append(actor)
 		loop_event(state,"doom",{"actor":actor,"cause":cause})
 	state.loop_ruin_expires[actor] = now + 11.0
-	if state.has("statuses"): state.statuses[actor].p1_ruin={"expires":now+11.0}
+	if state.has("statuses"): state.statuses[actor].p1_ruin={"expires":now+11.0,"stacks":2 if actor in state.get("dead",[]) else 1}
 	loop_event(state,"status_gain",{"actor":actor,"status":"p1_ruin","expires":now+11.0,"cause":cause})
 
 
@@ -301,6 +317,11 @@ static func resolve_world_pulse(check: Dictionary, actors: Array, state: Diction
 	var id: String = check.chain_id
 	var pulse := int(check.pulse)
 	if pulse==0:
+		for actor in [int(check.near),int(check.far)]:
+			for key in ["near_world","distant_world","delta_near_world","delta_distant_world","omega_near_world","omega_distant_world","first_in_line","second_in_line"]:
+				if state.statuses[actor].has(key):
+					state.statuses[actor].erase(key)
+					statuses.event(state,"status_remove",{"actor":actor,"status":key,"cause":"World resolution"})
 		state.world_chains[id] = {"holders":[int(check.near),int(check.far)],"next_pulse":0,"touched":[],"history":[]}
 	if not state.world_chains.has(id) or int(state.world_chains[id].next_pulse)!=pulse:
 		failures.append("World pulse missing/out of order: " + id)

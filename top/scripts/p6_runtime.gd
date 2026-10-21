@@ -113,6 +113,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			for target in targets:
 				var caught := Rules.hits(Patterns.beam(int(target)),actors)
 				record.hits.append(caught)
+				for actor in caught:load("res://scripts/statuses.gd").give(state,actor,"magic_vulnerability",2.0)
 				if caught != [int(target)]: failure(state,"P6 8-wide protean clipped: target %d hits %s" % [target,str(caught)],caught)
 		"charge":
 			var beam := Patterns.beam(int(event.target))
@@ -134,6 +135,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 		"spread":
 			for target in targets:
 				var caught := Rules.hits({"actor":target,"radius":5.0},actors)
+				for actor in caught:load("res://scripts/statuses.gd").give(state,actor,"magic_vulnerability",2.0)
 				if caught != [int(target)]: failure(state,"P6 Meteor radius-5 spread overlap",caught)
 		"flare_markers":
 			state.p6.flare_targets=targets.duplicate()

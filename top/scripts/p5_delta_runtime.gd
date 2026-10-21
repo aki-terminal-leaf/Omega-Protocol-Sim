@@ -35,7 +35,7 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 		var tether: Dictionary=pair.duplicate(true)
 		tether.broken=false; tether.active_at=now+17.976; tether.expires=tether.active_at+(36 if tether.kind=="local" else 12)
 		state.delta.tethers.append(tether)
-		for a in [pair.a,pair.b]: grant(state,int(a),"delta_local_smell" if pair.kind=="local" else "delta_remote_smell",18.0,3503 if pair.kind=="local" else 3441)
+		for a in [pair.a,pair.b]: grant(state,int(a),"delta_local_smell" if pair.kind=="local" else "delta_remote_smell",18.0,3440 if pair.kind=="local" else 3504)
 	grant(state,int(c.assignment.near),"delta_near_world",44.0,3442)
 	grant(state,int(c.assignment.far),"delta_distant_world",44.0,3443)
 

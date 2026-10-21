@@ -38,11 +38,14 @@ static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -
 			continue
 		var sample: Array=actors.duplicate(true)
 		for i in sample.size(): sample[i].pos=Rules.v(previous[i].pos).lerp(Rules.v(actors[i].pos),clampf((float(event.at)-start)/dt,0,1))
+		state.sim_time=float(event.at)
 		resolve(event,sample,state)
+		state.sim_time=finish
 		Patterns.sorted(state.p1.pending)
 
 static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void:
 	var record:=event.duplicate(true)
+	var status=load("res://scripts/statuses.gd")
 	record.observed_positions=[]
 	for actor in actors: record.observed_positions.append(Patterns.xy(Rules.v(actor.pos)))
 	match str(event.kind):
@@ -60,10 +63,16 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			for raw in event.missiles:
 				var target:=int(raw); var caught:=Rules.hits({"actor":target,"radius":5.0},actors)
 				record.missile_hits.append(caught)
+				if state.has("statuses"):
+					for key in ["first_in_line","second_in_line","third_in_line","fourth_in_line"]:
+						if state.statuses[target].has(key):
+							state.statuses[target].erase(key);status.event(state,"status_remove",{"actor":target,"status":key,"time":event.at,"cause":"Guided Missile Kyrios"})
+				for actor in caught: status.give(state,actor,"magic_vulnerability",2.0)
 				for actor in caught: coverage[actor]+=1
 				if caught!=[target]: fail(state,"P1 Guided Missile %d overlaps at %.3f" % [target,event.at],caught)
 			for raw in event.beams:
 				var target:=int(raw); var shape:=Patterns.beam(target); var caught:=Rules.hits(shape,actors)
+				for actor in caught: status.give(state,actor,"magic_vulnerability",2.0)
 				record.beam_hits.append(caught); record.aims.append(Patterns.xy(Rules.aim(shape,actors)))
 				for actor in caught: coverage[actor]+=1
 				if caught.size()!=3: fail(state,"P1 Condensed Wave target %d requires three, hit %s at %.3f" % [target,str(caught),event.at],caught)
@@ -74,6 +83,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			for raw in event.targets:
 				var target:=int(raw); var caught:=Rules.hits(Patterns.beam(target),actors)
 				record.hits.append(caught)
+				for actor in caught: status.give(state,actor,"magic_vulnerability",2.0)
 				if caught!=[target]: fail(state,"P1 Wave Cannon %d clips %s" % [target,str(caught)],caught)
 		"cleaves":
 			var ranked:=range(actors.size())
@@ -83,6 +93,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			for target in record.targets:
 				var shape: Dictionary={"kind":"cone","pos":[0,0],"target":target,"width":120.0,"radius":60.0}
 				var caught:=Rules.hits(shape,actors); record.hits.append(caught); record.aims.append(Patterns.xy(Rules.aim(shape,actors)))
+				for actor in caught: status.give(state,actor,"magic_vulnerability",10.0)
 				for actor in caught:
 					if actor>=2: fail(state,"P1 tank cleave hit non-tank %d" % actor,[actor])
 			record.damage_model="role and geometry only; invulnerability/mitigation HP unmodeled"

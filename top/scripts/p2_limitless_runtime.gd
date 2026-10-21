@@ -63,7 +63,9 @@ static func resolve(event:Dictionary,actors:Array,state:Dictionary)->void:
 				if holder>=2:fail(state,"actual tether holder is not a tank",[holder])
 				for actor in caught:
 					if actor>=2:fail(state,"Bladedance clipped non-tank",[actor])
-		"flare_markers":state.limitless.flare_marked=true;item.targets=c.flare_targets.duplicate()
+		"flare_markers":
+			state.limitless.flare_marked=true;item.targets=c.flare_targets.duplicate()
+			for actor in c.flare_targets:status().give(state,int(actor),"prey",8.0)
 		"defense":
 			var ranked:=closest(actors,state,R.v(c.shield_source))
 			if ranked.size()<2:fail(state,"insufficient living Defense candidates")
@@ -75,6 +77,7 @@ static func resolve(event:Dictionary,actors:Array,state:Dictionary)->void:
 				item.jumped_source=state.limitless.shield_current.duplicate()
 				if caught!=[target]:fail(state,"Beyond Defense collateral/knockback",caught.filter(func(a):return a!=target))
 				ruin(state,caught)
+				for actor in caught:status().give(state,actor,"physical_vulnerability",2.0)
 		"flares":
 			item.origins=[];item.distances=[];item.hits=[]
 			for target in c.flare_targets:

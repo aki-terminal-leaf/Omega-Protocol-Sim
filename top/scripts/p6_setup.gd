@@ -4,7 +4,14 @@ extends RefCounted
 const LB=preload("res://scripts/p6_lb.gd")
 const JOBS=["DRK","PLD","AST","SCH","MNK","NIN","BRD","PCT"]
 static func initialize(state:Dictionary,actors:Array,scenario:String,human:int,job:String="",loadout_actor:int=-1) -> void:
-	if scenario not in ["p6_memory","p6_meteors","p6_magic"]:return
+	if scenario not in ["p6_memory","p6_meteors","p6_magic"]:
+		if scenario.begins_with("p6_"):
+			var statuses=load("res://scripts/statuses.gd");statuses.ensure(state)
+			if not state.get("p6_combo_entry",false):
+				state.p6_combo_entry=true
+				for actor in actors.size():statuses.give(state,actor,"brilliant_dynamis",1.0e30)
+				state.p6_training_entry={"scenario":scenario,"brilliant":"explicit standalone post-Memory snapshot; not a reward for following this route"}
+		return
 	# Control ownership changes on checkpoint entry; cast/gauge history does not.
 	state.human_actor=human
 	if state.has("p6_lb"):return

@@ -33,7 +33,7 @@ static func begin(state: Dictionary, actors: Array, config: Dictionary) -> void:
 	# Caller supplies actual job identities, gauge, and entry buffs. Never reset
 	# these at a beat boundary (or manufacture Brilliant from route progress).
 	if state.has("p6_lb"): return
-	state.p6_lb={"jobs":config.get("jobs",[]).duplicate(),"gauge":int(config.get("gauge",0)),"brilliant":config.get("brilliant",[]).duplicate(),"casts":[],"effects":[],"history":[],"targets":[],"tank_buffs":[],"doom":[],"next_id":1,"final_melee":false,"animation_seconds":config.get("animation_seconds",{}).duplicate(true)}
+	state.p6_lb={"jobs":config.get("jobs",[]).duplicate(),"gauge":int(config.get("gauge",0)),"brilliant":config.get("brilliant",[]).duplicate(),"sparks":config.get("sparks",[]).duplicate(),"casts":[],"effects":[],"history":[],"targets":[],"tank_buffs":[],"doom":[],"next_id":1,"final_melee":false,"animation_seconds":config.get("animation_seconds",{}).duplicate(true)}
 	if not state.has("spent"): state.spent=[]
 	state.p6_lb.targets=config.get("targets",[]).duplicate(true)
 	state.p6_lb.calibration={"cast_clock":"nominal Action.Cast100ms; DPS packets are ~0.53s shorter","damage_clock":"conservative packet envelope from PCT/SMN and BRD/MCH/DNC captures","animation":"unknown unless caller supplies job animation_seconds","ranged_width":"CastType4 XAxisModifier=8 is full width8 / half4 per pinned community conversion; NPC-hitbox and range-edge behavior unmeasured"}
@@ -130,6 +130,9 @@ static func finish_cast(state: Dictionary, cast: Dictionary) -> void:
 		emit(state,"doom_cleansed",at,{"actor":cast.actor})
 	if cast.refund:
 		state.spent.append(int(cast.actor))
+		if not lb.has("sparks"):lb.sparks=[]
+		if int(cast.actor) not in lb.sparks:lb.sparks.append(int(cast.actor))
+		emit(state,"dynamis_transform",at,{"actor":int(cast.actor),"removed_status_id":3446,"status_id":3448})
 		lb.effects.append({"kind":"refund","at":at+(6.05 if cast.kind=="healer" else (3.85 if cast.kind=="tank" else 5.05)),"actor":cast.actor,"cast_id":cast.id})
 	# Animation duration is an explicit parent calibration, never stationary-log inference.
 	var animation := float(lb.animation_seconds.get(cast.job,0.0))
@@ -141,6 +144,7 @@ static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -
 	var lb: Dictionary=state.p6_lb; var now := float(state.sim_time); var start := now-dt
 	state.dead=state.get("dead",[]).map(func(a):return int(a))
 	lb.brilliant=lb.brilliant.filter(func(a):return int(a) not in state.dead)
+	if lb.has("sparks"):lb.sparks=lb.sparks.filter(func(a):return int(a) not in state.dead)
 	for effect in lb.effects:
 		if effect.kind=="unlock" and minf(now,float(effect.at))>maxf(start,float(effect.start)):
 			var actor := int(effect.actor)

@@ -246,6 +246,7 @@ func party_synergy() -> void:
 	var eye = beat("Optimized Fire III · %s Glitch" % ("REMOTE" if remote else "MID"),6.4,"以眼睛為北，分散火圈與搭檔距離各自判定。")
 	eye.hide_main_boss=true
 	spread(eye,range(8),float(Params.parameter("p2_fire_radius")))
+	for shape in eye.shapes:shape.hit_status="magic_vulnerability";shape.hit_status_duration=2.0
 	for i in 4:eye.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch"))
 	var optical=beat("Optical Laser · after Fire III",0.35,"火圈先結算，接著眼睛雷射；不是同一個快照。")
 	optical.hide_main_boss=true
@@ -274,7 +275,9 @@ func party_synergy() -> void:
 	# Set guidance to the actual post-knockback locations, without teleporting actors.
 	for i in 8:positions[i]=knock.positions[i]+knock.positions[i].normalized()*13.0
 	var stacks_beat=beat("Spotlight + five clone circles · %s flex" % profile.stack_flex,4.3,"原始五個半徑10的克隆圓：F與另四個M，來源半徑13。距離與分攤在此時依實際位置結算。")
-	for i in stacks:stacks_beat.shapes.append(targeted(i,float(Params.parameter("p2_spotlight_radius")),4,"Spotlight"))
+	for i in stacks:
+		var share:=targeted(i,float(Params.parameter("p2_spotlight_radius")),4,"Spotlight")
+		share.hit_status="magic_vulnerability";share.hit_status_duration=2.0;stacks_beat.shapes.append(share)
 	for clone in clones:stacks_beat.shapes.append(circle(clone.pos,10.0,"Efficient Bladework"))
 	for i in 4:stacks_beat.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch at Spotlight"))
 	stacks_beat.stage_entities=clones;stacks_beat.hide_main_boss=true

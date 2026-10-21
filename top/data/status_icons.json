@@ -169,6 +169,501 @@
         },
         "Name": "Hello, Distant World"
       }
+    },
+    {
+      "id": 3434,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Latent Synchronization Bug",
+        "Icon": {
+          "id": 215133,
+          "path": "ui/icon/215000/215133.tex"
+        }
+      }
+    },
+    {
+      "id": 3527,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Latent Defect",
+        "Icon": {
+          "id": 215921,
+          "path": "ui/icon/215000/215921.tex"
+        }
+      }
+    },
+    {
+      "id": 3432,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Underflow Debugger",
+        "Icon": {
+          "id": 215920,
+          "path": "ui/icon/215000/215920.tex"
+        }
+      }
+    },
+    {
+      "id": 3433,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Performance Debugger",
+        "Icon": {
+          "id": 215132,
+          "path": "ui/icon/215000/215132.tex"
+        }
+      }
+    },
+    {
+      "id": 3431,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Overflow Debugger",
+        "Icon": {
+          "id": 215919,
+          "path": "ui/icon/215000/215919.tex"
+        }
+      }
+    },
+    {
+      "id": 3430,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Synchronization Debugger",
+        "Icon": {
+          "id": 215918,
+          "path": "ui/icon/215000/215918.tex"
+        }
+      }
+    },
+    {
+      "id": 3438,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Underflow Code Smell",
+        "Icon": {
+          "id": 215137,
+          "path": "ui/icon/215000/215137.tex"
+        }
+      }
+    },
+    {
+      "id": 3439,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Performance Code Smell",
+        "Icon": {
+          "id": 215138,
+          "path": "ui/icon/215000/215138.tex"
+        }
+      }
+    },
+    {
+      "id": 3437,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Overflow Code Smell",
+        "Icon": {
+          "id": 215136,
+          "path": "ui/icon/215000/215136.tex"
+        }
+      }
+    },
+    {
+      "id": 3436,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Synchronization Code Smell",
+        "Icon": {
+          "id": 215135,
+          "path": "ui/icon/215000/215135.tex"
+        }
+      }
+    },
+    {
+      "id": 3427,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Mid Glitch",
+        "Icon": {
+          "id": 215129,
+          "path": "ui/icon/215000/215129.tex"
+        }
+      }
+    },
+    {
+      "id": 3428,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Remote Glitch",
+        "Icon": {
+          "id": 215130,
+          "path": "ui/icon/215000/215130.tex"
+        }
+      }
+    },
+    {
+      "id": 3425,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Sniper Cannon Fodder",
+        "Icon": {
+          "id": 215127,
+          "path": "ui/icon/215000/215127.tex"
+        }
+      }
+    },
+    {
+      "id": 3426,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "High-powered Sniper Cannon Fodder",
+        "Icon": {
+          "id": 215128,
+          "path": "ui/icon/215000/215128.tex"
+        }
+      }
+    },
+    {
+      "id": 3444,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Quickening Dynamis",
+        "Icon": {
+          "id": 219657,
+          "path": "ui/icon/219000/219657.tex"
+        }
+      }
+    },
+    {
+      "id": 3446,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Brilliant Dynamis",
+        "Icon": {
+          "id": 215143,
+          "path": "ui/icon/215000/215143.tex"
+        }
+      }
+    },
+    {
+      "id": 3532,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Magic Number",
+        "Icon": {
+          "id": 215171,
+          "path": "ui/icon/215000/215171.tex"
+        }
+      }
+    },
+    {
+      "id": 3452,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Oversampled Wave Cannon Loading",
+        "Icon": {
+          "id": 215146,
+          "path": "ui/icon/215000/215146.tex"
+        }
+      }
+    },
+    {
+      "id": 3453,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Oversampled Wave Cannon Loading",
+        "Icon": {
+          "id": 215146,
+          "path": "ui/icon/215000/215146.tex"
+        }
+      }
+    },
+    {
+      "id": 3004,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "First in Line",
+        "Icon": {
+          "id": 215401,
+          "path": "ui/icon/215000/215401.tex"
+        }
+      }
+    },
+    {
+      "id": 3005,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Second in Line",
+        "Icon": {
+          "id": 215402,
+          "path": "ui/icon/215000/215402.tex"
+        }
+      }
+    },
+    {
+      "id": 3006,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Third in Line",
+        "Icon": {
+          "id": 215403,
+          "path": "ui/icon/215000/215403.tex"
+        }
+      }
+    },
+    {
+      "id": 3451,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Fourth in Line",
+        "Icon": {
+          "id": 215118,
+          "path": "ui/icon/215000/215118.tex"
+        }
+      }
+    },
+    {
+      "id": 3456,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Looper",
+        "Icon": {
+          "id": 215892,
+          "path": "ui/icon/215000/215892.tex"
+        }
+      }
+    },
+    {
+      "id": 50,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Sprint",
+        "Icon": {
+          "id": 210101,
+          "path": "ui/icon/210000/210101.tex"
+        }
+      }
+    },
+    {
+      "id": 196,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Last Bastion",
+        "Icon": {
+          "id": 216306,
+          "path": "ui/icon/216000/216306.tex"
+        }
+      }
+    },
+    {
+      "id": 1672,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Local Regression",
+        "Icon": {
+          "id": 215923,
+          "path": "ui/icon/215000/215923.tex"
+        }
+      }
+    },
+    {
+      "id": 1673,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Remote Regression",
+        "Icon": {
+          "id": 215924,
+          "path": "ui/icon/215000/215924.tex"
+        }
+      }
+    },
+    {
+      "id": 3440,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Local Code Smell",
+        "Icon": {
+          "id": 215139,
+          "path": "ui/icon/215000/215139.tex"
+        }
+      }
+    },
+    {
+      "id": 3504,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Remote Code Smell",
+        "Icon": {
+          "id": 215140,
+          "path": "ui/icon/215000/215140.tex"
+        }
+      }
+    },
+    {
+      "id": 863,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Land Waker",
+        "Icon": {
+          "id": 216306,
+          "path": "ui/icon/216000/216306.tex"
+        }
+      }
+    },
+    {
+      "id": 864,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Dark Force",
+        "Icon": {
+          "id": 216306,
+          "path": "ui/icon/216000/216306.tex"
+        }
+      }
+    },
+    {
+      "id": 1931,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Gunmetal Soul",
+        "Icon": {
+          "id": 216306,
+          "path": "ui/icon/216000/216306.tex"
+        }
+      }
+    },
+    {
+      "id": 2534,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Twice-come Ruin",
+        "Icon": {
+          "id": 219861,
+          "path": "ui/icon/219000/219861.tex"
+        }
+      }
+    },
+    {
+      "id": 3401,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "HP Penalty",
+        "Icon": {
+          "id": 215076,
+          "path": "ui/icon/215000/215076.tex"
+        }
+      }
+    },
+    {
+      "id": 2530,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Thrice-come Ruin",
+        "Icon": {
+          "id": 219861,
+          "path": "ui/icon/219000/219861.tex"
+        }
+      }
+    },
+    {
+      "id": 2941,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Magic Vulnerability Up",
+        "Icon": {
+          "id": 215057,
+          "path": "ui/icon/215000/215057.tex"
+        }
+      }
+    },
+    {
+      "id": 2940,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Physical Vulnerability Up",
+        "Icon": {
+          "id": 215053,
+          "path": "ui/icon/215000/215053.tex"
+        }
+      }
+    },
+    {
+      "id": 3516,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Magic Vulnerability Up",
+        "Icon": {
+          "id": 218021,
+          "path": "ui/icon/218000/218021.tex"
+        }
+      }
+    },
+    {
+      "id": 562,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Prey",
+        "Icon": {
+          "id": 215026,
+          "path": "ui/icon/215000/215026.tex"
+        }
+      }
+    },
+    {
+      "id": 3499,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Packet Filter M",
+        "Icon": {
+          "id": 215911,
+          "path": "ui/icon/215000/215911.tex"
+        }
+      }
+    },
+    {
+      "id": 3500,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Packet Filter F",
+        "Icon": {
+          "id": 215912,
+          "path": "ui/icon/215000/215912.tex"
+        }
+      }
+    },
+    {
+      "id": 3366,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Vulnerability Up",
+        "Icon": {
+          "id": 215020,
+          "path": "ui/icon/215000/215020.tex"
+        }
+      }
+    },
+    {
+      "id": 1626,
+      "source": "read-only local Status.csv; FFLogs status observations",
+      "fields": {
+        "Name": "Memory Loss",
+        "Icon": {
+          "id": 215893,
+          "path": "ui/icon/215000/215893.tex"
+        }
+      }
+    },
+    {
+      "id": 3448,
+      "source": "Status.csv and primary Alpha Omega guide",
+      "fields": {
+        "Name": "Spark of Dynamis",
+        "Icon": {
+          "id": 215145,
+          "path": "ui/icon/215000/215145.tex"
+        }
+      }
     }
   ]
 }

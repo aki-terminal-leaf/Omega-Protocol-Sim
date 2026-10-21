@@ -33,7 +33,7 @@ func run()->void:
 	check(item(rows,7,"packet_named_effect").icon==215146 and item(rows,7,"packet_named_effect").name.contains("Left"),"actual packet identity resolves icon/name without parsing labels")
 	check(item(rows,1,"unknown_effect").stacks==2 and item(rows,1,"unknown_effect").icon==0,"unknown actual effect retained with stack and honest text fallback")
 	check(item(rows,3,"dynamis").stacks==3,"actual Dynamis stacks")
-	check(item(rows,0,"first_in_line").is_empty() and item(rows,0,"looper").remaining==6.0,"Looper order does not fabricate a separate In Line buff")
+	check(item(rows,0,"first_in_line").is_empty() and item(rows,0,"looper").remaining==6.0,"projection alone does not invent In Line without an actual runtime grant")
 	check(JSON.stringify(state)==before and JSON.stringify(actors)==before_actors,"getter does not mutate status history or actor state")
 	Status.give(state,0,"blue",9.0);rows=Party.rows(actors,state)
 	check(item(rows,0,"red").is_empty() and item(rows,0,"blue").remaining==9.0,"real opposing rot overwrite shown immediately")

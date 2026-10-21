@@ -81,7 +81,7 @@ func negatives() -> void:
 	R.sync(visual,restored);R.sync(visual,restored)
 	check(visual.shapes.size()==9 and visual.shapes[0].name=="parent shape","sync preserves parent shapes and is idempotent")
 	check(visual.shapes.slice(1).all(func(shape):return shape.decorative and shape.p4_wave_preview),"preview does not double-judge hazards")
-	check(restored.statuses.all(func(buffs):return buffs.is_empty()),"no guide-derived status grants")
+	check(restored.statuses.all(func(buffs):return buffs.has("magic_vulnerability") and is_equal_approx(float(buffs.magic_vulnerability.expires),2.0)),"actual eight successful protean recipients gain short vulnerability, independent of guide goals")
 	# Move into somebody else's OLD beam, while its owner goes elsewhere.
 	var locked: Dictionary=restored.p4_wave.pending[0]
 	actors[0].pos=Vector2(0,14); actors[1].pos=Rules.direction(float(locked.shape.angle))*14

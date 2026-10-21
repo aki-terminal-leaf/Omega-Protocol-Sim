@@ -44,7 +44,9 @@ static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -
 		var observed: Array=actors.duplicate(true)
 		var fraction := clampf((float(event.at)-start)/dt,0,1)
 		for i in observed.size(): observed[i].pos=Rules.v(previous[i].pos).lerp(Rules.v(actors[i].pos),fraction)
+		state.sim_time=float(event.at)
 		resolve(event,observed,state)
+		state.sim_time=finish
 		P.sorted(state.p4_wave.pending)
 static func living_hits(shape: Dictionary, actors: Array, state: Dictionary) -> Array:
 	return Rules.hits(shape,actors).filter(func(i):return i not in state.dead)
@@ -63,6 +65,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 				var shape := P.beam(Rules.v(event.origin),Rules.v(actors[target].pos))
 				var caught := living_hits(shape,actors,state)
 				record.beams.append(shape.duplicate(true)); record.hits.append(caught)
+				for actor in caught:load("res://scripts/statuses.gd").give(state,actor,"magic_vulnerability",2.0)
 				if caught != [target]: victims.append_array(caught)
 				state.p4_wave.pending.append({"kind":"repeat","at":event.repeat_at,"locked_at":event.at,"cycle":event.cycle,"owner":target,"shape":shape})
 			if not victims.is_empty(): fail(state,"protean overlap",victims)
@@ -82,6 +85,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 				var shape := P.beam(Rules.v(event.origin),Rules.v(actors[target].pos))
 				var caught := living_hits(shape,actors,state)
 				record.lines.append(shape); record.hits.append(caught)
+				for actor in caught:load("res://scripts/statuses.gd").give(state,actor,"magic_vulnerability",2.0)
 				if caught.size()!=4: bad=true
 				for actor in caught: coverage[actor]+=1
 			for actor in actors.size():

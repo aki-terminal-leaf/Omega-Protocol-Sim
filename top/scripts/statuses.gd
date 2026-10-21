@@ -62,7 +62,10 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 	preload("res://scripts/hw_runtime.gd").begin(beat,state)
 	preload("res://scripts/p2_limitless_runtime.gd").begin(beat,state)
 	state.beat_started = float(state.get("sim_time", 0))
-	for grant in beat.get("status_grants", []): give(state, grant.actor, grant.name, grant.duration)
+	for grant in beat.get("status_grants", []):
+		give(state, grant.actor, grant.name, grant.duration)
+		if grant.has("status_id") and state.statuses[int(grant.actor)].has(str(grant.name)):
+			state.statuses[int(grant.actor)][str(grant.name)].status_id=int(grant.status_id)
 	for raw in beat.get("paired_tethers", []):
 		var tether: Dictionary = raw.duplicate(true)
 		if state.paired_tethers.any(func(t): return t.id == tether.id): continue

@@ -39,6 +39,9 @@ func run() -> void:
 				if "--diagnose" in OS.get_cmdline_user_args() and not app.all_errors.is_empty():
 					for entry in app.journal: print("BEAT ",entry.title," ERR ",entry.failures," HOLDERS ",entry.actual_tether_holders," ACTORS ",entry.get("actors",[]))
 					print("PICKUPS ",app.state.get("tether_events",[]))
+				# Source tests queue UI/model nodes for deletion; process their frees each
+				# course so an exhaustive matrix does not retain hundreds of scenes.
+				await process_frame
 				var completed: String = app.encounter.id
 				app._process(10.0)
 				if app.running or app.encounter.id != completed: print("FLOW FAIL: changed mechanism without user selection"); errors += 1

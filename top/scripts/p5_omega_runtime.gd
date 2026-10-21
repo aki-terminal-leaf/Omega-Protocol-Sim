@@ -42,6 +42,7 @@ static func begin(b:Dictionary,state:Dictionary) -> void:
 		state.omega={"id":str(c.id),"origin":float(state.get("sim_time",0)),"first_roles":[],"second_roles":[],"config":c.duplicate(true),"utility_fixed":false,"until":float(state.get("sim_time",0))+50.1}
 		for j in 2:
 			for actor in (c.first if j==0 else c.second):
+				status().give(state,int(actor),"first_in_line" if j==0 else "second_in_line",1.0e30)
 				status().give(state,int(actor),"omega_near_world" if int(actor)==int((c.first if j==0 else c.second)[0]) else "omega_distant_world",29.9 if j==0 else 47.9)
 		if not c.get("standalone",true):
 			var counts:Array=state.dynamis.map(func(x):return int(x));counts.sort()

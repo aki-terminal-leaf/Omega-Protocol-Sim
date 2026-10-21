@@ -8,14 +8,17 @@ static func definition(key: String) -> Dictionary:
 static func effect(key: String, raw: Dictionary, now: float) -> Dictionary:
 	var result := definition(key)
 	result.merge(raw,true); result.key = key
+	result.kind="marker" if bool(raw.get("marker",false)) else "status"
 	# A runtime packet can provide a precise identity for an otherwise unknown key.
 	if int(raw.get("status_id",0))>0:
 		for known in definitions.values():
-			if int(known.status_id)==int(raw.status_id):
+			if int(known.status_id)==int(raw.status_id) or known.get("variants",[]).any(func(v):return int(v.status_id)==int(raw.status_id)):
 				if not raw.has("icon"): result.icon=known.icon
+				if not raw.has("category"):result.category=known.get("category","unknown")
 				if not raw.has("name"): result.name=known.name
 				break
 	result.remaining = maxf(0,float(raw.expires)-now) if raw.has("expires") and float(raw.expires)<1.0e20 else float(raw.get("remaining",-1))
+	if bool(result.get("permanent",false)): result.remaining=-1.0
 	result.stacks = int(raw.get("stacks",1))
 	return result
 static func add(effects: Dictionary, key: String, raw: Dictionary, now: float) -> void:
@@ -35,9 +38,10 @@ static func rows(actors: Array,state: Dictionary,beat: Dictionary={},controls: D
 			effects.erase(str(key)) # Runtime expiry overrides any presentation metadata.
 			add(effects,str(key),buffs[key],now)
 		var stacks:=int(state.get("dynamis",[])[i]) if i<state.get("dynamis",[]).size() else 0
-		if lb.is_empty() or bool(lb.get("memory_entry",false)):
+		if (lb.is_empty() or bool(lb.get("memory_entry",false))) and not buffs.has("brilliant_dynamis") and not buffs.has("spark_dynamis"):
 			if stacks>0: add(effects,"dynamis",{"stacks":stacks},now)
 		elif i in lb.get("brilliant",[]) and i not in state.get("spent",[]): add(effects,"brilliant_dynamis",{},now)
+		if i in lb.get("sparks",[]): add(effects,"spark_dynamis",{},now)
 		for buff in lb.get("tank_buffs",[]):
 			if float(buff.start)<=now and now<float(buff.end):
 				var job:=str(lb.get("jobs",[])[int(buff.actor)]) if int(buff.actor)<lb.get("jobs",[]).size() else ""

@@ -5,287 +5,499 @@
     "red": {
       "status_id": 3526,
       "name": "Critical Underflow Bug",
-      "icon": 215917
+      "icon": 215917,
+      "category": "debuff"
     },
     "blue": {
       "status_id": 3429,
       "name": "Critical Performance Bug",
-      "icon": 215131
+      "icon": 215131,
+      "category": "debuff"
     },
     "overflow": {
       "status_id": 3525,
       "name": "Critical Overflow Bug",
-      "icon": 215916
+      "icon": 215916,
+      "category": "debuff"
     },
     "sync": {
       "status_id": 3524,
       "name": "Critical Synchronization Bug",
-      "icon": 215915
+      "icon": 215915,
+      "category": "debuff"
     },
     "latent_red": {
       "status_id": 3528,
       "name": "Cascading Latent Defect",
-      "icon": 215922
+      "icon": 215922,
+      "category": "debuff"
     },
     "latent_blue": {
       "status_id": 3435,
       "name": "Latent Performance Defect",
-      "icon": 215134
+      "icon": 215134,
+      "category": "debuff"
     },
     "latent_sync": {
       "status_id": 3434,
       "name": "Latent Synchronization Bug",
-      "icon": 215133
+      "icon": 215133,
+      "category": "debuff"
     },
     "latent_overflow": {
       "status_id": 3527,
       "name": "Latent Defect",
-      "icon": 215921
+      "icon": 215921,
+      "category": "debuff"
     },
     "red_debugger": {
       "status_id": 3432,
       "name": "Underflow Debugger",
-      "icon": 215920
+      "icon": 215920,
+      "category": "debuff",
+      "permanent": true
     },
     "blue_debugger": {
       "status_id": 3433,
       "name": "Performance Debugger",
-      "icon": 215132
+      "icon": 215132,
+      "category": "debuff",
+      "permanent": true
     },
     "overflow_debugger": {
       "status_id": 3431,
       "name": "Overflow Debugger",
-      "icon": 215919
+      "icon": 215919,
+      "category": "debuff",
+      "permanent": true
     },
     "sync_debugger": {
       "status_id": 3430,
       "name": "Synchronization Debugger",
-      "icon": 215918
+      "icon": 215918,
+      "category": "debuff",
+      "permanent": true
     },
     "smell_red": {
       "status_id": 3438,
       "name": "Underflow Code Smell",
-      "icon": 215137
+      "icon": 215137,
+      "category": "debuff"
     },
     "smell_blue": {
       "status_id": 3439,
       "name": "Performance Code Smell",
-      "icon": 215138
+      "icon": 215138,
+      "category": "debuff"
     },
     "smell_overflow": {
       "status_id": 3437,
       "name": "Overflow Code Smell",
-      "icon": 215136
+      "icon": 215136,
+      "category": "debuff"
     },
     "smell_sync": {
       "status_id": 3436,
       "name": "Synchronization Code Smell",
-      "icon": 215135
+      "icon": 215135,
+      "category": "debuff"
     },
     "local_code_smell": {
       "status_id": 3503,
       "name": "Local Code Smell",
-      "icon": 215139
+      "icon": 215139,
+      "category": "debuff"
     },
     "remote_code_smell": {
       "status_id": 3441,
       "name": "Remote Code Smell",
-      "icon": 215140
+      "icon": 215140,
+      "category": "debuff"
     },
     "local": {
       "status_id": 3529,
       "name": "Local Regression",
-      "icon": 215923
+      "icon": 215923,
+      "category": "debuff"
     },
     "remote": {
       "status_id": 3530,
       "name": "Remote Regression",
-      "icon": 215924
+      "icon": 215924,
+      "category": "debuff"
     },
     "near_world": {
       "status_id": 3442,
       "name": "Hello, Near World",
-      "icon": 215141
+      "icon": 215141,
+      "category": "debuff"
     },
     "distant_world": {
       "status_id": 3443,
       "name": "Hello, Distant World",
-      "icon": 215142
+      "icon": 215142,
+      "category": "debuff"
     },
     "mid_glitch": {
       "status_id": 3427,
       "name": "Mid Glitch",
-      "icon": 215129
+      "icon": 215129,
+      "category": "debuff"
     },
     "remote_glitch": {
       "status_id": 3428,
       "name": "Remote Glitch",
-      "icon": 215130
+      "icon": 215130,
+      "category": "debuff"
     },
     "sniper_cannon_fodder": {
       "status_id": 3425,
       "name": "Sniper Cannon Fodder",
-      "icon": 215127
+      "icon": 215127,
+      "category": "debuff"
     },
     "high_powered_sniper_cannon_fodder": {
       "status_id": 3426,
       "name": "High-powered Sniper Cannon Fodder",
-      "icon": 215128
+      "icon": 215128,
+      "category": "debuff"
     },
     "dynamis": {
       "status_id": 3444,
       "name": "Quickening Dynamis",
-      "icon": 219657
+      "icon": 219657,
+      "category": "buff"
     },
     "brilliant_dynamis": {
       "status_id": 3446,
       "name": "Brilliant Dynamis",
-      "icon": 215143
+      "icon": 215143,
+      "category": "buff"
     },
     "magic_number": {
       "status_id": 3532,
       "name": "Magic Number",
-      "icon": 215171
+      "icon": 215171,
+      "category": "debuff"
     },
     "monitor_right": {
       "status_id": 3452,
       "name": "Oversampled Wave Cannon Loading (Right)",
-      "icon": 215146
+      "icon": 215146,
+      "category": "debuff"
     },
     "monitor_left": {
       "status_id": 3453,
       "name": "Oversampled Wave Cannon Loading (Left)",
-      "icon": 215146
+      "icon": 215146,
+      "category": "debuff"
     },
     "first_in_line": {
       "status_id": 3004,
       "name": "First in Line",
-      "icon": 215401
+      "icon": 215401,
+      "category": "debuff"
     },
     "second_in_line": {
       "status_id": 3005,
       "name": "Second in Line",
-      "icon": 215402
+      "icon": 215402,
+      "category": "debuff"
     },
     "third_in_line": {
       "status_id": 3006,
       "name": "Third in Line",
-      "icon": 215403
+      "icon": 215403,
+      "category": "debuff"
     },
     "fourth_in_line": {
       "status_id": 3451,
       "name": "Fourth in Line",
-      "icon": 215118
+      "icon": 215118,
+      "category": "debuff"
     },
     "looper": {
       "status_id": 3456,
       "name": "Looper",
-      "icon": 215892
+      "icon": 215892,
+      "category": "debuff"
     },
     "sprint": {
       "status_id": 50,
       "name": "Sprint",
-      "icon": 210101
+      "icon": 210101,
+      "category": "buff"
     },
     "arms_length": {
       "status_id": 0,
       "icon": 0,
-      "name": "Knockback Resistance"
+      "name": "Knockback Resistance",
+      "category": "unknown"
     },
     "tank_lb": {
       "status_id": 196,
       "name": "Last Bastion",
-      "icon": 216306
+      "icon": 216306,
+      "category": "buff"
     },
     "delta_near_world": {
       "status_id": 3442,
       "name": "Hello, Near World",
-      "icon": 215141
+      "icon": 215141,
+      "category": "debuff"
     },
     "delta_distant_world": {
       "status_id": 3443,
       "name": "Hello, Distant World",
-      "icon": 215142
+      "icon": 215142,
+      "category": "debuff"
     },
     "delta_local": {
-      "status_id": 3529,
+      "status_id": 1672,
       "name": "Local Regression",
-      "icon": 215923
+      "icon": 215923,
+      "category": "debuff"
     },
     "delta_remote": {
-      "status_id": 3530,
+      "status_id": 1673,
       "name": "Remote Regression",
-      "icon": 215924
+      "icon": 215924,
+      "category": "debuff"
     },
     "delta_local_smell": {
-      "status_id": 3503,
+      "status_id": 3440,
       "name": "Local Code Smell",
-      "icon": 215139
+      "icon": 215139,
+      "category": "debuff"
     },
     "delta_remote_smell": {
-      "status_id": 3441,
+      "status_id": 3504,
       "name": "Remote Code Smell",
-      "icon": 215140
+      "icon": 215140,
+      "category": "debuff"
     },
     "omega_near_world": {
       "status_id": 3442,
       "name": "Hello, Near World",
-      "icon": 215141
+      "icon": 215141,
+      "category": "debuff"
     },
     "omega_distant_world": {
       "status_id": 3443,
       "name": "Hello, Distant World",
-      "icon": 215142
+      "icon": 215142,
+      "category": "debuff"
     },
     "omega_local": {
       "status_id": 3529,
       "name": "Local Regression",
-      "icon": 215923
+      "icon": 215923,
+      "category": "debuff"
     },
     "omega_remote": {
       "status_id": 3530,
       "name": "Remote Regression",
-      "icon": 215924
+      "icon": 215924,
+      "category": "debuff"
     },
     "omega_local_smell": {
       "status_id": 3503,
       "name": "Local Code Smell",
-      "icon": 215139
+      "icon": 215139,
+      "category": "debuff"
     },
     "omega_remote_smell": {
       "status_id": 3441,
       "name": "Remote Code Smell",
-      "icon": 215140
+      "icon": 215140,
+      "category": "debuff"
     },
     "tank_lb_pld": {
       "status_id": 196,
       "icon": 216306,
-      "name": "Last Bastion"
+      "name": "Last Bastion",
+      "category": "buff"
     },
     "tank_lb_war": {
       "status_id": 863,
       "icon": 216306,
-      "name": "Land Waker"
+      "name": "Land Waker",
+      "category": "buff"
     },
     "tank_lb_drk": {
       "status_id": 864,
       "icon": 216306,
-      "name": "Dark Force"
+      "name": "Dark Force",
+      "category": "buff"
     },
     "tank_lb_gnb": {
       "status_id": 1931,
       "icon": 216306,
-      "name": "Gunmetal Soul"
+      "name": "Gunmetal Soul",
+      "category": "buff"
     },
     "guided_missile_kyrios": {
       "status_id": 0,
       "name": "Guided Missile Kyrios Incoming",
-      "icon": 215126
+      "icon": 215126,
+      "category": "debuff",
+      "variants": [
+        {
+          "status_id": 3424,
+          "duration": 12
+        },
+        {
+          "status_id": 3495,
+          "duration": 18
+        },
+        {
+          "status_id": 3496,
+          "duration": 24
+        },
+        {
+          "status_id": 3497,
+          "duration": 30
+        }
+      ]
     },
     "condensed_wave_cannon_kyrios": {
       "status_id": 0,
       "name": "Condensed Wave Cannon Kyrios",
-      "icon": 215026
+      "icon": 215026,
+      "category": "debuff",
+      "variants": [
+        {
+          "status_id": 3507,
+          "duration": 12
+        },
+        {
+          "status_id": 3508,
+          "duration": 18
+        },
+        {
+          "status_id": 3509,
+          "duration": 24
+        },
+        {
+          "status_id": 3510,
+          "duration": 30
+        }
+      ]
+    },
+    "p1_ruin": {
+      "status_id": 2534,
+      "name": "Twice-come Ruin",
+      "icon": 219861,
+      "category": "debuff"
+    },
+    "p1_hp_penalty": {
+      "status_id": 3401,
+      "name": "HP Penalty",
+      "icon": 215076,
+      "category": "debuff"
+    },
+    "hp_penalty": {
+      "status_id": 3401,
+      "name": "HP Penalty",
+      "icon": 215076,
+      "category": "debuff"
+    },
+    "twice_come_ruin": {
+      "status_id": 2534,
+      "name": "Twice-come Ruin",
+      "icon": 219861,
+      "category": "debuff"
+    },
+    "limitless_ruin": {
+      "status_id": 2534,
+      "name": "Twice-come Ruin",
+      "icon": 219861,
+      "category": "debuff"
+    },
+    "delta_twice_ruin": {
+      "status_id": 2534,
+      "name": "Twice-come Ruin",
+      "icon": 219861,
+      "category": "debuff"
+    },
+    "omega_ruin": {
+      "status_id": 2534,
+      "name": "Twice-come Ruin",
+      "icon": 219861,
+      "category": "debuff"
+    },
+    "thrice_come_ruin": {
+      "status_id": 2530,
+      "name": "Thrice-come Ruin",
+      "icon": 219861,
+      "category": "debuff"
+    },
+    "magic_vulnerability": {
+      "status_id": 2941,
+      "name": "Magic Vulnerability Up",
+      "icon": 215057,
+      "category": "debuff"
+    },
+    "world_vulnerability": {
+      "status_id": 2941,
+      "name": "Magic Vulnerability Up",
+      "icon": 215057,
+      "category": "debuff"
+    },
+    "physical_vulnerability": {
+      "status_id": 2940,
+      "name": "Physical Vulnerability Up",
+      "icon": 215053,
+      "category": "debuff"
+    },
+    "regression_magic_vulnerability": {
+      "status_id": 3516,
+      "name": "Magic Vulnerability Up",
+      "icon": 218021,
+      "category": "debuff"
+    },
+    "prey": {
+      "status_id": 562,
+      "name": "Prey",
+      "icon": 215026,
+      "category": "debuff"
+    },
+    "packet_filter_m": {
+      "status_id": 3499,
+      "name": "Packet Filter M",
+      "icon": 215911,
+      "category": "debuff"
+    },
+    "packet_filter_f": {
+      "status_id": 3500,
+      "name": "Packet Filter F",
+      "icon": 215912,
+      "category": "debuff"
+    },
+    "vulnerability_up": {
+      "status_id": 3366,
+      "name": "Vulnerability Up",
+      "icon": 215020,
+      "category": "debuff"
+    },
+    "memory_loss": {
+      "status_id": 1626,
+      "name": "Memory Loss",
+      "icon": 215893,
+      "category": "debuff"
+    },
+    "delta_monitor": {
+      "status_id": 3452,
+      "name": "Oversampled Wave Cannon Loading",
+      "icon": 215146,
+      "category": "debuff"
+    },
+    "spark_dynamis": {
+      "status_id": 3448,
+      "name": "Spark of Dynamis",
+      "icon": 215145,
+      "category": "buff",
+      "permanent": true
     }
   }
 }

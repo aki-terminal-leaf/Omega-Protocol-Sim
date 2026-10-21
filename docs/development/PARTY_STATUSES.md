@@ -38,13 +38,13 @@ its text property, so the mirrored HUD omitted appended review text. Logging
 now updates the authoritative rich text property; actual failure/retry tests
 verify the visible mirrored review, not only the source feedback widget.
 
-Review also rejected an inferred In Line icon for Program Loop: its actual
-Looper expiry is sufficient; route/order numbers must not invent another buff.
-
-Pantokrator displays its already-granted missile and wave countdowns with
-verified shared icons. Their multiple same-name Status.csv variants are not
-resolved by the current model, so the definition retains status_id=0 rather
-than guessing a particular variant. No numbered In Line buff is fabricated.
+2026-10-22 correction: four-clear status observations and the primary P1 guide
+confirm actual First/Second/Third/Fourth in Line in Program Loop and Pantokrator.
+They now originate in runtime grants, persist without fabricated countdowns,
+and are removed by actual tower cleansing / missile resolution respectively.
+The earlier rejection of these effects was incorrect. Pantokrator missile/beam
+variants retain their observed per-duration packet IDs (3424/3495-3497 and
+3507-3510). Successful hits grant real Magic Vulnerability Up as well.
 
 The generic training knockback-resistance control has no job-specific status
 packet identity. Its timer is shown under a neutral name/text fallback, not

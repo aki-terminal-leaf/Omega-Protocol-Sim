@@ -79,8 +79,9 @@ static func append_panto(ctx) -> void:
 	ctx.beats[start].status_grants=[]
 	for actor in 8:
 		var number:=int(numbers[actor])
-		ctx.beats[start].status_grants.append({"actor":actor,"name":"guided_missile_kyrios","duration":12.0+6*(number-1)})
-		ctx.beats[start].status_grants.append({"actor":actor,"name":"condensed_wave_cannon_kyrios","duration":12.0+6*([3,4,1,2].find(number))})
+		ctx.beats[start].status_grants.append({"actor":actor,"name":["first_in_line","second_in_line","third_in_line","fourth_in_line"][number-1],"duration":1.0e30})
+		ctx.beats[start].status_grants.append({"actor":actor,"name":"guided_missile_kyrios","duration":12.0+6*(number-1),"status_id":[3424,3495,3496,3497][number-1]})
+		ctx.beats[start].status_grants.append({"actor":actor,"name":"condensed_wave_cannon_kyrios","duration":12.0+6*([3,4,1,2].find(number)),"status_id":[3507,3508,3509,3510][[3,4,1,2].find(number)]})
 
 static func safe_sector(id: String, flame: float, preferred: float) -> float:
 	var target:=preferred
