@@ -107,6 +107,10 @@ static func boss(form: String) -> Node3D:
 		ring(imported, Vector3(0, 0.045, 0), 4 if form == "beetle" else 2.5, 0.045, Color("e59074"))
 		return imported
 	var root = Node3D.new()
+	if form not in ["beetle","male","female","final","alpha"]:
+		# Unknown/missing auxiliary assets must never become a fake Final Omega.
+		root.set_meta("missing_official_form",form)
+		return root
 	var armor = Color("697886"); var gold = Color("c4a875"); var glow = Color("69e9de")
 	if form == "beetle":
 		ball(root, Vector3(0, 2.1, 0), Vector3(3.4, 1.7, 4.1), armor)

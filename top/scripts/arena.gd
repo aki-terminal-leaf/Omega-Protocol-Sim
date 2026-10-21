@@ -32,6 +32,11 @@ var last_clone_cue = ""
 var stage_nodes: Array=[]
 var stage_signature := ""
 var beat_elapsed := 0.0
+var observed_state:Dictionary={}
+var status_labels:Array=[]
+var world_icons:Array=[]
+var world_textures:Dictionary={}
+var debuff_icons:Array=[]
 
 func _ready() -> void:
 	var environment = WorldEnvironment.new()
@@ -57,13 +62,24 @@ func _ready() -> void:
 	var material = ShaderMaterial.new(); material.shader = shader
 	aoe_node.mesh = aoe; aoe_node.material_override = material; add_child(aoe_node)
 	signs_node.mesh = signs; signs_node.material_override = material; add_child(signs_node)
+	var icon_sources:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/status_icons.json"))
+	for source_row in icon_sources.rows:
+		var icon_id:int=int(source_row.fields.Icon.id)
+		var texture:=original_icon(icon_id)
+		if texture!=null:world_textures[icon_id]=texture
 	for i in 8:
 		var root = Node3D.new(); add_child(root)
 		var body = Visuals.humanoid(i); root.add_child(body); actor_models.append(body)
-		var label = Label3D.new(); label.billboard = BaseMaterial3D.BILLBOARD_ENABLED; label.font_size = 34; label.pixel_size = 0.017; label.outline_size = 8; label.position.y = 2.7; label.no_depth_test = true; root.add_child(label)
+		var label = Label3D.new(); label.billboard = BaseMaterial3D.BILLBOARD_ENABLED; label.font_size = 34; label.pixel_size = 0.028; label.outline_size = 8; label.position.y = 2.3; label.no_depth_test = true; root.add_child(label)
 		var arrow = Node3D.new(); root.add_child(arrow)
 		var cone = PrismMesh.new(); cone.size = Vector3(0.5, 0.05, 0.8)
 		var facing = MeshInstance3D.new(); facing.mesh = cone; facing.position = Vector3(0, 0.12, -0.85); facing.rotation_degrees.x = 180; facing.material_override = mat(Color("fff3b2")); arrow.add_child(facing)
+		var effects:=Label3D.new();effects.billboard=BaseMaterial3D.BILLBOARD_ENABLED;effects.font_size=29;effects.pixel_size=0.026;effects.outline_size=8;effects.position.y=3.1;effects.no_depth_test=true;root.add_child(effects);status_labels.append(effects)
+		var icon:=Sprite3D.new();icon.billboard=BaseMaterial3D.BILLBOARD_ENABLED;icon.no_depth_test=true;icon.pixel_size=0.034;icon.position.y=4.5;icon.visible=false;root.add_child(icon);world_icons.append(icon)
+		var badges:Array=[]
+		for slot in 3:
+			var badge:=Sprite3D.new();badge.billboard=BaseMaterial3D.BILLBOARD_ENABLED;badge.no_depth_test=true;badge.position=Vector3((slot-1)*1.15,4.0,0);badge.visible=false;root.add_child(badge);badges.append(badge)
+		debuff_icons.append(badges)
 		actor_nodes.append(root); actor_labels.append(label); actor_arrows.append(arrow)
 
 func mat(colour: Color) -> StandardMaterial3D:
@@ -118,7 +134,8 @@ func screen_to_world(screen: Vector2) -> Vector2:
 	if absf(direction.y) < 0.01: return Vector2.ZERO
 	var point = origin + direction * (-origin.y / direction.y)
 	return Vector2(point.x, point.z)
-func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints: bool, elapsed := 0.0) -> void:
+func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints: bool, elapsed := 0.0, runtime:Dictionary={}) -> void:
+	observed_state=runtime
 	beat_elapsed = elapsed
 	actors = new_actors; current = beat_value; selected_player = player; guide = hints
 	for node in actor_nodes: node.visible = actors.size() == 8
@@ -140,12 +157,25 @@ func _process(delta: float) -> void:
 		var velocity = (next_position - actor_nodes[i].position) / maxf(delta, 0.001) if positions_initialized else Vector3.ZERO
 		actor_nodes[i].position = next_position
 		actor_models[i].position.y = float(actors[i].get("height", 0.0))
-		actor_labels[i].position.y = 2.7 + float(actors[i].get("height", 0.0))
+		actor_labels[i].position.y = 2.3 + float(actors[i].get("height", 0.0))
 		Visuals.animate(actor_models[i], animation_time + i * 0.5, velocity.length())
 		actor_models[i].rotation.y = lerp_angle(actor_models[i].rotation.y, -deg_to_rad(float(actors[i].face)), 1.0 - exp(-delta * 15))
 		actor_arrows[i].rotation_degrees.y = -float(actors[i].face)
 		actor_labels[i].text = ("YOU / " if i == selected_player else "") + actors[i].role + "\n" + str(current.get("labels", ["", "", "", "", "", "", "", ""])[i])
 		actor_labels[i].modulate = Color("fff3b2") if i == selected_player else Color("c5d8ee")
+		var cue:=observed_cue(i)
+		status_labels[i].text=cue.text;status_labels[i].modulate=cue.colour;status_labels[i].position.y=3.1+float(actors[i].get("height",0.0))
+		var icon_id:=int(cue.icon)
+		world_icons[i].visible=world_textures.has(icon_id)
+		if world_icons[i].visible:world_icons[i].texture=world_textures[icon_id]
+		world_icons[i].position.y=5.5+float(actors[i].get("height",0.0))
+		for slot in 3:
+			var badge:Sprite3D=debuff_icons[i][slot]
+			var effect_id:int=int(cue.badges[slot].icon) if slot<cue.badges.size() else 0
+			badge.visible=world_textures.has(effect_id)
+			if badge.visible:
+				badge.texture=world_textures[effect_id];badge.pixel_size=1.0/float(badge.texture.get_width())
+			badge.position=Vector3((slot-(cue.badges.size()-1)*0.5)*1.15,4.0+float(actors[i].get("height",0.0)),0)
 	positions_initialized = true
 	redraw_elapsed += delta
 	if redraw_elapsed < 0.07: return
@@ -192,7 +222,7 @@ func draw_indicators() -> void:
 		if int(tether.a) < 0 or int(tether.a) >= actors.size() or int(tether.b) >= actors.size(): continue
 		var p = Rules.v(actors[int(tether.a)].pos)
 		var q = Rules.v(actors[int(tether.b)].pos) if int(tether.b) >= 0 else Rules.v(tether.get("source", Vector2.ZERO))
-		rectangle(p, (q - p).normalized(), 0, p.distance_to(q), 0.12, Color("8edbff"))
+		rectangle(p, (q - p).normalized(), 0, p.distance_to(q), 0.12, Color("79e49c") if tether.get("kind","")=="local" else Color("8edbff"))
 	if current.has("world"):
 		for key in ["near", "far"]:
 			var i = int(current.world[key]); disk(Rules.v(actors[i].pos), 4.85, 5.0, Color(0.75, 0.45, 1, 0.8))
@@ -226,7 +256,7 @@ func draw_signs(tethers: Array) -> void:
 		if a < 0 or a >= actors.size() or b >= actors.size(): continue
 		var p = actor_nodes[a].position + Vector3(0, 1.8, 0)
 		var q = actor_nodes[b].position + Vector3(0, 1.8, 0) if b >= 0 else Vector3(Rules.v(tether.get("source", Vector2.ZERO)).x, 1.8, Rules.v(tether.get("source", Vector2.ZERO)).y)
-		sign_line(p, q, Color("ffba67"))
+		sign_line(p, q, Color("79e49c") if tether.get("kind","")=="local" else Color("8edbff"))
 		sign_ring(p + Vector3(0, 0.65, 0), 0.42, Color("ffcc76"))
 		sign_line(p + Vector3(0, 0.7, 0), p + Vector3(0, 1.25, 0), Color("ffcc76"))
 	for shape in current.get("shapes", []):
@@ -305,6 +335,51 @@ func update_stage_entities() -> void:
 			Visuals.Official.set_stance(node,stance);node.set_meta("last_stance",stance)
 			for option in ["SWORD","SHIELD","LEGS","STAFF"]:
 				if node.has_node(option):node.get_node(option).visible=option==stance
-			node.get_node("EntityLabel").text=str(entity.get("label",entity.form.to_upper()))+(" / "+stance if not stance.is_empty() else "")
-		node.visible=actors.size()==8 and bool(entity.get("visible",true)) and beat_elapsed>=float(entity.get("spawn_delay",0))
+			var display_names:Dictionary={"beetle":"Omega","male":"Omega M","female":"Omega F","male_p5":"Omega M","female_p5":"Omega F","final":"Omega Reconfigured","alpha":"Alpha Omega","fist_b5":"拳 A","fist_b6":"拳 B","arm_left":"","arm_right":"","rear_unit":"Rear Power Unit","optical_unit":"Optical Unit"}
+			node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))+(" / "+stance if stance in ["SWORD","SHIELD","LEGS","STAFF"] else "")
+		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed>=float(entity.get("spawn_delay",0))
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
+
+func original_icon(id:int)->Texture2D:
+	var path:="res://assets/official/icons/%d.png"%id
+	if (not FileAccess.file_exists(path) or FileAccess.file_exists(path+".import")) and ResourceLoader.exists(path):
+		return load(path) as Texture2D
+	if FileAccess.file_exists(path):
+		var pixels:=Image.load_from_file(path)
+		if pixels!=null and not pixels.is_empty():return ImageTexture.create_from_image(pixels)
+	return null
+
+func observed_cue(actor:int)->Dictionary:
+	var result:Dictionary={"text":"","colour":Color("fff3b2"),"icon":0,"badges":[]}
+	if observed_state.is_empty():return result
+	if observed_state.get("dead",[]).any(func(a):return int(a)==actor):
+		result.text="×";result.colour=Color("ff6e84");return result
+	var buffs:Dictionary=observed_state.get("statuses",[{}, {}, {}, {}, {}, {}, {}, {}])[actor]
+	var now:=float(observed_state.get("sim_time",0))
+	for spec in [["red",215917,"紅"],["blue",215131,"藍"],["overflow",215916,"大圈"],["sync",215915,"分攤"],["latent_red",215922,"待紅"],["latent_blue",215134,"待藍"]]:
+		add_status_badge(result,buffs,str(spec[0]),int(spec[1]),str(spec[2]),now)
+	for tether in observed_state.get("paired_tethers",[]):
+		if not tether.broken and now>=float(tether.active_at) and actor in [int(tether.a),int(tether.b)] and result.badges.size()<3:
+			result.badges.append({"icon":215923 if tether.kind=="local" else 215924,"label":"近線" if tether.kind=="local" else "遠線","remaining":float(tether.expires)-now})
+	var first_smell:=""
+	for key in ["local_code_smell","remote_code_smell"]:
+		if buffs.has(key) and float(buffs[key].expires)>now and (first_smell=="" or float(buffs[key].expires)<float(buffs[first_smell].expires)):first_smell=key
+	if first_smell!="":add_status_badge(result,buffs,first_smell,215139 if first_smell=="local_code_smell" else 215140,"近" if first_smell=="local_code_smell" else "遠",now)
+	for spec in [["smell_red","紅氣味"],["smell_blue","藍氣味"],["smell_overflow","大圈氣味"],["smell_sync","分攤氣味"]]:add_status_badge(result,buffs,str(spec[0]),0,str(spec[1]),now)
+	var titles:PackedStringArray=[]
+	for badge in result.badges:titles.append(("" if world_textures.has(int(badge.icon)) else str(badge.label))+"%.0f"%ceilf(maxf(0.0,float(badge.remaining))))
+	for key in ["delta_near_world","omega_near_world"]:
+		if buffs.has(key) and float(buffs[key].expires)>now:result.icon=215141
+	for key in ["delta_distant_world","omega_distant_world"]:
+		if buffs.has(key) and float(buffs[key].expires)>now:result.icon=215142
+	if current.has("world"):
+		if actor==int(current.world.near):result.icon=215141
+		elif actor==int(current.world.far):result.icon=215142
+	if observed_state.has("limitless") and observed_state.limitless.flare_marked and now<float(observed_state.limitless.start)+27.45 and actor in observed_state.limitless.config.flare_targets:titles.append("Flare")
+	if int(result.icon)!=0 and not world_textures.has(int(result.icon)):titles.append("近世界" if result.icon==215141 else "遠世界")
+	result.text="  ".join(titles)
+	return result
+
+func add_status_badge(result:Dictionary,buffs:Dictionary,key:String,icon_id:int,title:String,now:float)->void:
+	if result.badges.size()>=3 or not buffs.has(key) or float(buffs[key].expires)<=now:return
+	result.badges.append({"icon":icon_id,"label":title,"remaining":float(buffs[key].expires)-now})

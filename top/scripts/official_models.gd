@@ -2,7 +2,7 @@
 extends RefCounted
 ## Optional original local-game meshes and resident animations. No game assets are embedded in source.
 const PACK := "res://assets/official/"
-const SCALES := {"beetle": 0.9, "male": 3.0, "female": 3.0, "final": 1.4, "alpha":0.8,"fist_b5":1.5,"fist_b6":1.5,"arm_left":1.4,"arm_right":1.4,"male_p5":3.0,"female_p5":3.0,"rear_unit":1.4,"meteor":1.0,"comet":1.0}
+const SCALES := {"beetle": 0.9, "male": 3.0, "female": 3.0, "final": 1.4, "alpha":0.8,"fist_b5":1.5,"fist_b6":1.5,"arm_left":1.4,"arm_right":1.4,"male_p5":3.0,"female_p5":3.0,"rear_unit":1.4}
 const PLAYERS := ["pc_war_miq", "pc_war_miq", "pc_whm_aur", "pc_sch_hyr", "pc_drg_miq", "pc_sam_miq", "pc_brd_vra", "pc_blm_miq"]
 static var scenes: Dictionary = {}
 

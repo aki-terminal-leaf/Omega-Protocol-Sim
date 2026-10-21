@@ -23,7 +23,8 @@ func run() -> void:
 		var skeleton := find_skeleton(model)
 		check(animation != null and skeleton != null,str(form)+" missing imported animation/rig")
 		if animation != null and skeleton != null:
-			check(skeleton.get_bone_count()>=90,str(form)+" incomplete original rig")
+			var source_counts:Dictionary={"fist_b5":41,"fist_b6":41,"arm_left":20,"arm_right":20,"male_p5":96,"female_p5":114,"rear_unit":5}
+			check(skeleton.get_bone_count()==source_counts[form] if source_counts.has(form) else skeleton.get_bone_count()>=90,str(form)+" incomplete original rig")
 			check(model.has_meta("original_idle"),str(form)+" missing idle clip")
 			animation.advance(0.01)
 			var before: Array = []
@@ -32,7 +33,12 @@ func run() -> void:
 			var moved := false
 			for i in skeleton.get_bone_count():
 				if not before[i].is_equal_approx(skeleton.get_bone_pose(i)): moved = true
-			check(moved,str(form)+" idle clip does not animate actual bones")
+			var original:Animation=animation.get_animation(animation.current_animation)
+			var animated_keys:=false
+			for track in original.get_track_count():
+				for key in range(1,original.track_get_key_count(track)):
+					if original.track_get_key_value(track,key)!=original.track_get_key_value(track,0):animated_keys=true
+			check(moved if animated_keys else not str(form) in ["beetle","male","female","final","alpha"],str(form)+" original dynamic idle did not move actual bones")
 			var rest_extent := 0.0; var pose_extent := 0.0
 			for i in skeleton.get_bone_count():
 				rest_extent = maxf(rest_extent,skeleton.get_bone_global_rest(i).origin.length())

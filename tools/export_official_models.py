@@ -151,6 +151,48 @@ def initialize(args):
     opts=LuminaOptions();opts.LoadMultithreaded=False
     return GameData(str(args.game_dir/'game'/'sqpack'),opts)
 
+def bake_original_colorset(glb,realm,material,gmat,maximum=1024):
+    """Bake original legacy color-table diffuse/emission into standard glTF maps.
+
+    Row pairs are selected by the original index image (R /17, G blend).
+    This preserves source colours/HDR intensity, not the full game shader.
+    """
+    from Lumina.Data.Files import TexFile
+    from PIL import Image
+    bindings={int(t.Sampler.SamplerIdRaw):str(t.Dx11Path) for t in material.Textures}
+    base=bindings.get(0x115306BE);index=bindings.get(1449103320)
+    if not base or not index or len(material.ColorSetData)<1024:return
+    def original(path):
+        tex=realm.GetFile[TexFile](path)
+        if tex is None:raise RuntimeError('Missing original color-table image: '+path)
+        return Image.frombytes('RGBA',(int(tex.Header.Width),int(tex.Header.Height)),bytes(tex.ImageData),'raw','BGRA')
+    image=original(base).convert('RGB');image.thumbnail((maximum,maximum),Image.Resampling.LANCZOS);indices=original(index).resize(image.size,Image.Resampling.BILINEAR)
+    rows=[float(str(v)) for v in material.ColorSetData]
+    def srgb(x):return round(255*(12.92*x if x<=0.0031308 else 1.055*x**(1/2.4)-0.055))
+    linear=[(v/255/12.92 if v/255<=0.04045 else ((v/255+0.055)/1.055)**2.4) for v in range(256)]
+    strength=max([1.0]+[rows[r*32+c] for r in range(32) for c in [8,9,10]])
+    diffuse_table=[];emission_table=[]
+    for red in range(256):
+        row=min(15,max(0,round(red/17)))*2
+        for green in range(256):
+            blend=1-green/255
+            def value(column):return max(0.0,rows[row*32+column]*(1-blend)+rows[min(31,row+1)*32+column]*blend)
+            diffuse_table.append(tuple(value(c) for c in range(3)))
+            emission_table.append(tuple(srgb(min(1.0,value(c+8)/strength)) for c in range(3)))
+    def pixels(im):return im.get_flattened_data() if hasattr(im,'get_flattened_data') else im.getdata()
+    ids=[r*256+g for r,g,_b,_a in pixels(indices)]
+    diffuse=Image.new('RGB',image.size);diffuse.putdata([tuple(max(0,min(255,srgb(min(1.0,linear[p[c]]*diffuse_table[i][c])))) for c in range(3)) for p,i in zip(pixels(image),ids)])
+    emission=Image.new('RGB',image.size);emission.putdata([emission_table[i] for i in ids])
+    def texture(im,name):
+        stream=io.BytesIO();im.save(stream,format='PNG');return glb.image(stream.getvalue(),name)
+    gmat['pbrMetallicRoughness']['baseColorTexture']={'index':texture(diffuse,base+' [original colorset bake]')}
+    if emission.getbbox():
+        gmat['emissiveTexture']={'index':texture(emission,index+' [original colorset emission]')};gmat['emissiveFactor']=[1,1,1]
+        gmat.setdefault('extensions',{})['KHR_materials_emissive_strength']={'emissiveStrength':strength}
+        used=glb.doc.setdefault('extensionsUsed',[])
+        if 'KHR_materials_emissive_strength' not in used:used.append('KHR_materials_emissive_strength')
+    gmat['extras']['colorset_bake']={'rows':32,'index_source':index,'emissive_strength':strength,'scope':'original diffuse/emission tables; specular, tiling and particle effects remain approximations'}
+
 def export_model(realm,args,form,meta):
     from Lumina.Data import FileResource
     from Lumina.Data.Files import TexFile
@@ -204,14 +246,21 @@ def export_model(realm,args,form,meta):
                     tf=realm.GetFile[TexFile](tp)
                     if tf is None:raise RuntimeError('Missing texture: '+tp)
                     im=Image.frombytes('RGBA',(int(tf.Header.Width),int(tf.Header.Height)),bytes(tf.ImageData),'raw','BGRA')
+                    im.thumbnail((getattr(args,'max_texture_size',1024),getattr(args,'max_texture_size',1024)),Image.Resampling.LANCZOS)
                     # Character texture alpha contains shader information, not general opacity.
                     # Preserve opaque game surfaces rather than turning the whole mesh invisible.
                     if usage=='Diffuse':im.putalpha(255)
                     else:
-                        r,g,b,a=im.split();im=Image.merge('RGBA',(r,ImageOps.invert(g),b,a))
+                        r,g,_b,a=im.split();g=ImageOps.invert(g)
+                        # Legacy monster normal B stores opacity, not normal Z.
+                        # Reconstruct the positive tangent normal from original XY.
+                        pixels=lambda image:image.get_flattened_data() if hasattr(image,'get_flattened_data') else image.getdata()
+                        z=Image.new('L',im.size);z.putdata([round(127.5*(1+max(0.0,1-(rr/127.5-1)**2-(gg/127.5-1)**2)**0.5)) for rr,gg in zip(pixels(r),pixels(g))])
+                        im=Image.merge('RGBA',(r,g,z,a))
                     data=io.BytesIO();im.save(data,format='PNG');tex_cache[key]=glb.image(data.getvalue(),tp)
                 if usage=='Diffuse':pbr['baseColorTexture']={'index':tex_cache[key]}
                 else:gmat['normalTexture']={'index':tex_cache[key],'scale':0.65}
+            if getattr(args,'bake_colorset',False) and str(mat.ShaderPackRaw)=='characterlegacy.shpk':bake_original_colorset(glb,realm,mat,gmat,getattr(args,'max_texture_size',1024))
             glb.doc['materials'].append(gmat);mat_cache[mpath]=len(glb.doc['materials'])-1
         for pi,part in enumerate(group.Parts):
             if not part.Vertices.Count or not part.TriangleIndices.Count:continue
@@ -249,16 +298,20 @@ def export_model(realm,args,form,meta):
             mesh_info.append({'name':name,'vertices':len(vertices),'triangles':len(indices)//3,'attributes':attrs})
     glb.doc['asset']['extras']={'source_game_path':path,'source_sha256':hashlib.sha256(bytes(raw.Data)).hexdigest(),'pose':'original sampled resident animations' if rig else 'unanimated bind pose','copyright':'SQUARE ENIX','source_ids':meta}
     target=args.output/(form+'.glb');glb.save(target)
-    return dict(meta,imc=variant_details,form=form,file=target.name,bytes=target.stat().st_size,sha256=hashlib.sha256(target.read_bytes()).hexdigest(),source_path=path,source_sha256=hashlib.sha256(bytes(raw.Data)).hexdigest(),parts=mesh_info,animations=[a['name'] for a in glb.doc.get('animations',[])],bones=len(rig['bones']) if rig else 0,limitations=([] if rig else ['Static bind pose; no official skeleton animation'])+['PBR shader approximates original legacy shader; no colorset/VFX reconstruction','Part/stance mapping requires visual calibration'])
+    return dict(meta,imc=variant_details,form=form,file=target.name,bytes=target.stat().st_size,sha256=hashlib.sha256(target.read_bytes()).hexdigest(),source_path=path,source_sha256=hashlib.sha256(bytes(raw.Data)).hexdigest(),parts=mesh_info,animations=[a['name'] for a in glb.doc.get('animations',[])],bones=len(rig['bones']) if rig else 0,limitations=([] if rig else ['Static bind pose; no official skeleton animation'])+(['Original colorset diffuse/emission baked; specular, tiling and VFX remain approximations'] if getattr(args,'bake_colorset',False) else ['PBR shader approximates original legacy shader; colorset/emission/VFX not reconstructed'])+['Part/stance mapping requires visual calibration'])
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for n in ['game-dir','lumina-dir','textools-dir','output']:parser.add_argument('--'+n,type=Path,required=True)
     parser.add_argument('--pythonnet-dir',type=Path)
+    parser.add_argument('--max-texture-size',type=int,default=1024,help='Runtime texture limit; original mesh/rig and source hashes remain unchanged')
+    parser.add_argument('--bake-colorset',action='store_true',help='Bake original legacy index/color-table diffuse and HDR emission into glTF')
     parser.add_argument('--extract-rigs-only',action='store_true',help='Read local SKLB and resident PAP files for the 32-bit sampler')
     parser.add_argument('--rig-dir',type=Path,help='Original skeleton/resident animation samples from sample_official_animations.py')
     parser.add_argument('--forms',nargs='+',choices=list(MODELS),default=list(MODELS))
-    args=parser.parse_args();realm=initialize(args)
+    args=parser.parse_args()
+    if args.max_texture_size<1:parser.error('Texture limit must be positive')
+    realm=initialize(args)
     if args.extract_rigs_only:
         from Lumina.Data import FileResource
         for form in args.forms:

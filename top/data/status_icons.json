@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "source": "XIVAPI public Status rows; original icons loaded separately from local SqPack",
+  "rows": [
+    {
+      "id": 3526,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3526?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215917,
+          "path": "ui/icon/215000/215917.tex",
+          "path_hr1": "ui/icon/215000/215917_hr1.tex"
+        },
+        "Name": "Critical Underflow Bug"
+      }
+    },
+    {
+      "id": 3429,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3429?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215131,
+          "path": "ui/icon/215000/215131.tex",
+          "path_hr1": "ui/icon/215000/215131_hr1.tex"
+        },
+        "Name": "Critical Performance Bug"
+      }
+    },
+    {
+      "id": 3525,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3525?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215916,
+          "path": "ui/icon/215000/215916.tex",
+          "path_hr1": "ui/icon/215000/215916_hr1.tex"
+        },
+        "Name": "Critical Overflow Bug"
+      }
+    },
+    {
+      "id": 3524,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3524?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215915,
+          "path": "ui/icon/215000/215915.tex",
+          "path_hr1": "ui/icon/215000/215915_hr1.tex"
+        },
+        "Name": "Critical Synchronization Bug"
+      }
+    },
+    {
+      "id": 3528,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3528?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215922,
+          "path": "ui/icon/215000/215922.tex",
+          "path_hr1": "ui/icon/215000/215922_hr1.tex"
+        },
+        "Name": "Cascading Latent Defect"
+      }
+    },
+    {
+      "id": 3435,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3435?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215134,
+          "path": "ui/icon/215000/215134.tex",
+          "path_hr1": "ui/icon/215000/215134_hr1.tex"
+        },
+        "Name": "Latent Performance Defect"
+      }
+    },
+    {
+      "id": 3503,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3503?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215139,
+          "path": "ui/icon/215000/215139.tex",
+          "path_hr1": "ui/icon/215000/215139_hr1.tex"
+        },
+        "Name": "Local Code Smell"
+      }
+    },
+    {
+      "id": 3441,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3441?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215140,
+          "path": "ui/icon/215000/215140.tex",
+          "path_hr1": "ui/icon/215000/215140_hr1.tex"
+        },
+        "Name": "Remote Code Smell"
+      }
+    },
+    {
+      "id": 3529,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3529?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215923,
+          "path": "ui/icon/215000/215923.tex",
+          "path_hr1": "ui/icon/215000/215923_hr1.tex"
+        },
+        "Name": "Local Regression"
+      }
+    },
+    {
+      "id": 3530,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3530?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215924,
+          "path": "ui/icon/215000/215924.tex",
+          "path_hr1": "ui/icon/215000/215924_hr1.tex"
+        },
+        "Name": "Remote Regression"
+      }
+    },
+    {
+      "id": 3442,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3442?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215141,
+          "path": "ui/icon/215000/215141.tex",
+          "path_hr1": "ui/icon/215000/215141_hr1.tex"
+        },
+        "Name": "Hello, Near World"
+      }
+    },
+    {
+      "id": 3443,
+      "url": "https://v2.xivapi.com/api/sheet/Status/3443?fields=Name,Icon",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4",
+      "fields": {
+        "Icon": {
+          "id": 215142,
+          "path": "ui/icon/215000/215142.tex",
+          "path_hr1": "ui/icon/215000/215142_hr1.tex"
+        },
+        "Name": "Hello, Distant World"
+      }
+    }
+  ]
+}
