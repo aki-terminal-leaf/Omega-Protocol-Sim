@@ -8,7 +8,7 @@
 - Program Loop／Limitless／Omega 使用實際移動接線與當下 owner；Delta 的成對線在移動中斷開，不混成可轉移的 Boss 線。
 - Hello World 加入自由感染、覆蓋、Debugger、Latent、到期爆炸與提前斷線；判定不以建議落點代替實際狀態。
 - 分開 Aether／LPDU 檢知陣型；六手臂六發鎖定旋轉、十四發 Sigma 雷射與持續移動的地火。
-- 本機素材包可載入 **5 種原版首領網格／貼圖／骨架／常駐動畫**，以及既有 DSR 的 **7 種配裝角色**，以實際位移切換走跑。公開原始碼不包含遊戲素材，未安裝時使用訓練外觀。[來源與轉換](docs/research/OFFICIAL_ASSETS.md)
+- 本機素材包可載入 **12 種原版首領／部件網格、貼圖、骨架／動作**，以及既有 DSR 的 **7 種配裝角色**，以實際位移切換走跑。公開原始碼不包含遊戲素材，未安裝時使用訓練外觀。[來源與轉換](docs/research/OFFICIAL_ASSETS.md)
 - DSR 式操作、同種子／分段重來、七名 Bot；JSON 保存實際事件、感染、受擊者、參數、攻略定義及重試歷史。
 
 **尚未完成所有區服／全部原始判定。** 接線半徑、部分時長、所有原始克隆／地火起點、完整區服路線與 HP／減傷／死亡後行為仍有未完成項目。這是可操作的開發預覽，不把社群參數或自動測試當成實戰校準。[逐項範圍](docs/research/FIDELITY.md)
@@ -21,6 +21,8 @@
 - Linux：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
 - Web：在解壓資料夾執行 `python3 -m http.server 8000`，瀏覽 `http://localhost:8000`。不要直接開 `file://`。
 - 從原始碼：以 Godot **4.4.1** 開啟 **`top/project.godot`**，不是根目錄舊 DSR 專案。
+
+Godot／GDScript **4.7.2-stable 升級仍在規劃，尚未切換基線**；先通過隔離匯入、判定回歸、原版素材與 Windows／Web 實機關卡，再以新版已驗證支援的功能開發。[升級計畫](docs/development/GODOT_UPGRADE_PLAN.md) · [分段提交與執行監督](docs/development/SUPERVISION.md)
 
 不需要遊戲安裝、帳號、ACT、Dalamud、第三方標記器或網路登入。
 
