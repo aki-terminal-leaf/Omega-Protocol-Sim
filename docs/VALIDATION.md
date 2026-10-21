@@ -46,3 +46,14 @@
 - GitHub Actions 未啟用，僅有範本；以上都是已執行的本機／AnAn／瀏覽器驗證。
 
 [逐項精確度與未完成事項](research/FIDELITY.md) · [實際看過的素材參考](research/VISUAL_REFERENCE.md)
+
+## 2026-10-21 exported UI font follow-up
+
+Actual Chromium pixels on the P6 production development build exposed missing
+glyphs in the older Noto Sans TC subset (including 突進, 鏡頭 and the circled
+flow numerals). Rebuilt the existing SIL-OFL font with maintained FontTools from
+the cached original, covering current top/*.gd/*.json/*.tscn/*.godot source text
+and common punctuation/symbol ranges. Required source CJK and①②③Ω coverage
+is checked against the output cmap; no game assets are added. This is a font
+resource fix, not a new mechanic or an engine upgrade. Export/runtime visual
+verification follows this commit; local evidence retains both before/after pixels.
