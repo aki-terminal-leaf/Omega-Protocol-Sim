@@ -1,46 +1,52 @@
-# v0.2.0 精確度、驗證範圍與未完成事項
+# v0.3-preview 精確度與未完成範圍
 
-本版是**可玩的示意型走位／判斷練習原型**。20 項獨立機制不等於完整原戰鬥或完整區服戰術。以下限制同樣適用預設、示範與測試。
+本分支接續 v0.2 的 20 項獨立練習，加入持續狀態與原版素材管線；**不是完整所有區服／全部伺服器判定已還原的宣告**。來源、參數狀態、程式驗收與實戰校準是不同證據，不能互相替代。
 
-## 全域
+## 本次實際新增
 
-- 3D 場地半徑 20 個 yard-like 單位；移動 6、疾跑 8；Bot 11。半徑、擊退、分攤／塔／連線距離是訓練參數，未由遊戲封包或逐幀錄影校準。
-- 時間軸大部分為放慢且可調速的 beat，不是原遊戲 cast timestamps。Program Loop 參考 Looper 的 16/25/34/43 秒，仍未逐幀校準出塔與 Blaster 的分開 snapshot。多個連續動作可能合為一個檢查點。
-- 1 玩家、7 Bot；Program Loop／Limitless 連線在移動中做 swept 接觸轉移；其他大部分 AoE 在每個 beat 結束時 snapshot。死亡牆在移動中亦記錯。不是持續的所有 AoE 碰撞模擬；可穿過暫時未結算的紅色預警。
-- 判定從實際八人位置／朝向計算，不讀建議答案；示範只證明內部幾何自洽，**不證明與遊戲精確一致**。
-- 沒有完整 HP、輸出、職業技能表、真實減傷／無敵、完整仇恨、腐毒自由接觸狀態機、復活、延遲或八人連線。Program Loop 有 Looper／Ruin／HP Penalty 邏輯；沒有補血操作，HP Penalty 消退後假設已補血。LB 是角色／時窗／一次使用驗證，不是實際量表與動畫鎖模擬。
-- 無提示僅隱藏建議落點和 World 建議路線；仍保留可讀 AoE／文字 cue，並非完全模擬遊戲無預警技能。
+- Hello World 由真實接觸傳播紅／藍腐毒，保留原持有者；相反顏色覆蓋、Debugger、代碼氣味、潛在錯誤、到期爆炸與提前斷線均有運行狀態，不再用最後交接站位替代感染。
+- Delta 成對線會在移動中斷開；Omega 可轉移的 Blaster 線跟隨實際 owner，先爆炸再結算 World，排除實際受擊者。不同類型的線不混為一種所有權規則。
+- Delta 六手臂各六次判定：半徑 20 的來源、寬 8、每次轉 20°、間隔 0.6 秒；角度讀第一次實際引導，不隨後續位置重新瞄準。Sigma 為十四發寬 12 雷射，間隔 0.6 秒、每發轉 9°。
+- 地火依位置、推進、下一次爆炸時間與剩餘次數持續運作。社群事件資料支持半徑 8、每次推進 8、間隔 1.1 秒、每條七次；**原始起點族群仍未完整校準**。
+- Aether／LPDU 檢知使用不同的第三檢知南側／第一檢知北側陣型，不再只換優先序名稱。Panto 的起始軸與 LPDU 兩小隊 TMR 補位分開處理。
+- JSON 保存實際狀態、受擊者、所有權、事件時間、校準參數、攻略定義與重試歷史；重練恢復前置狀態和動作時長，分段起點實際模擬先前交互，而非直接指定理想線 owner。
+- 本機包可載入五種原版首領網格／貼圖／骨架／resident 動作，以及既有 DSR 的七種配裝角色；詳見 [素材來源](OFFICIAL_ASSETS.md)。公開原始碼不包含遊戲素材。
 
-## 各練習
+## 全域界線
 
-| 模組 | 實際可練 | 簡化／未完成 |
+場地半徑 20；玩家移動 6、疾跑 7.5、Bot 11 個訓練單位／秒。大部分攻擊仍在各事件 snapshot 判定；腐毒、成對線、可轉移線與地火有移動中的狀態。數值積分步長不是量測的 server tick。
+
+沒有完整 HP／治療／輸出、所有職業減傷／無敵、復活後繼承、完整仇恨與 LB 量表、伺服器延遲或八人連線。致死事件可記錄失敗，但尚非完整角色死亡／屍體／死後技能規則。其他攻擊不能因通過示範就稱與遊戲完全一致。
+
+無提示只隱藏建議落點與 World 建議線，仍可顯示文字與 AoE 訓練提示，不等於遊戲所有無預警技能。P5 接續只保留為內部驗收 fixture，不重新放回玩家的機制選單。
+
+## 逐項範圍
+
+| 機制 | 已實作 | 仍待完成／校準 |
 | --- | --- | --- |
-| Program Loop | 隨機初始線、移動接線、跨輪保留持有者、實際持線者吃 Blaster、塔消除實際踩塔者的 Looper、過期 Memory Loss、重複受擊 Ruin→Doom；同號可以交換塔 | 接線半徑 0.65、Ruin／HP Penalty 16 秒為待校準訓練參數；目前一人最多持一條線，雙線分支尚未核對。塔對相隔 90°/180°且不連續重複，允許隔輪重複；不強制八點各一次。無完整 HP／補血；塔與 Blaster 同一 snapshot |
-| Pantokrator | 隨機 CW/CCW、飛彈前出、三人 beam、舊 puddle 與 cone | 每輪三個檢查點；非原 puddle tick、導彈／分攤所有真實 debuff timers |
-| P1 Cannons | 最遠雙坦與兩輪三人 protean | 不模擬五連擊傷害、無敵 CD |
-| Party Synergy | M sword/shield、F staff/legs、眼睛軸、圖形／距離、分攤 flex、實際擊退 | clone 排列是固定示意；沒有全原始 clone spawn pattern。Mid/Remote 距離為近似值 |
-| Limitless | 實際可搶線，坦克按接到的 clone 來源分側、即時 cone 目標、分散 flare、Defense／Pitch 示意 | 接線來源位置與半徑未逐幀校準；Defense／Pitch 尚未完整建立持續 debuff／目標狀態；未實作 611、血量或擊殺次序 |
-| Reconfiguration | 四紫、二白二無；三輪 Wave Repeater；手臂危險區 | 手臂位置／波時序示意化，非完整所有轉場 pattern |
-| Hello World | 四組輪替、正確腐毒塔角色、defam/stack、近身交接、前三輪藍先綠後、第四輪綠先藍後且不傳腐毒 | 腐毒顏色隨點名綁定，沒有自由接觸感染／完整 Debugger/Latent 狀態；藍綠先後由獨立 beat 強制，不模擬提前斷線事件 |
-| P3 Monitors | 四個半平面各恰有二人、每人恰中一次、玩家監視器左右方向 | 所有預設共用 Astoh 形狀；不是 Dylan／LPDU 真實位置切換；半平面內隨機二人的危險以「必須恰二人」驗證 |
-| Blue Screen | 三輪 spread/echo/stack、TRHM 同側調整、donut 進出 | echo beam 和 ring 的時序、大小為訓練近似；沒有 DPS <20% 檢查 |
-| Delta | 同類線分側、異色拳配對、拳 snapshot、inner blue break、檢知／Pitch、safe-half World | 拳色依原規則隨機產生（一組黃黃、一組藍藍、兩組混色），有內側 swap 分支；六手臂檢查最近引導，旋轉後依實際 bait 方位判定；旋轉角／大小仍是訓練參數；線斷法是分段距離檢查 |
-| Sigma | 隨機六標記、雙標／單標配對、五／六塔容量、徑向擊退、旋轉雷射、World | 塔位拓撲對照原圖，實際半徑／Glitch 門檻仍是近似值；前段與擊退落塔均檢查 Glitch；14 發雷射合成 7 個檢查點；獨立模組的 Dynamis 初值是 0，不提供自動跨機制接續 |
-| Omega | 兩組 stance→安全方向／距離提示、二層 second-in-line 優先檢知、兩次 World、三層入 P6 | M/F 用結果安全扇區替代完整 clone 幾何；初始 stack 分布為洗牌後 4×2+4×1；第二組 World 的 Blaster 爆炸尚未實作；不是所有可能的 World/debuff 組合生成器 |
-| Solar Ray | 兩段分開承受、第二擊 V 換坦 | 無敵／減傷職業相容計畫未模擬 |
-| Cosmo Memory | 三層檢查、正確坦克 LB 角色與時窗 | 無 shield／真實傷害檢查 |
-| Arrow→Dive | 十字線躲避 cadence、最近雙坦、六人最遠分攤 | 線是各檢查點的示意 lane，不是完整向外平移的幀級動畫 |
-| Exaflare→Wave / Dive | 四條地火流、六次引導、1.5 marker 出發、後續散開／雙坦前排或 Dive | 追蹤方向／速度示意化，沒有所有原始四條地火起點 pattern |
-| Arrow→Wave | 天箭 cadence、兩輪 beam、八人 stack | 兩個 spread snapshot 同時保留交錯箭線判定；箭線為近似 lane 幾何，尚未逐幀對照原版位移 |
-| Meteors | Caster/Ranged LB 各一次、四輪四人 AoE、D3 有／無 flare 的三核爆與五人 stack | 沒有實體隕石 HP、aim line、LB 動畫鎖與實際傷害；D3 必須站北的配置是訓練約定 |
-| Magic Number | 兩輪 tank LB → 6 秒內 healer LB，角色／已用 Dynamis 限制 | 無真實量表回填／傷害數值；補師 LB 只可在對應 beat 使用 |
+| Program Loop | swept 接線、跨輪 owner、實際持線者受擊、塔消除實際踩塔者的 Looper、Ruin／HP Penalty；塔 3、Blaster 15 | 接線半徑、雙線政策、Debuff 時長為明示待驗證參數；Looper 過期仍於該輪結算檢查；塔／Blaster 尚合為一個 snapshot，非完整 HP／補血 |
+| Pantokrator | 分組／補位、已核對起始軸、飛彈前出、三人 beam | 每輪三段為訓練近似；水圈與噴火未全部改為原始連續事件／實際自由引導 |
+| P1 Cannons | 實際最遠雙坦選人、兩輪 protean | 五連擊傷害、無敵、職業 CD 未模擬 |
+| Party Synergy | M/F 姿態、圖形、距離、同側雙分攤補位、實際擊退 | 不包含所有原始 clone 位置排列與精確預警時序；只支持明示的生成族群 |
+| Limitless | 真正接線、按來源分側；Defense 讀取兩名最近候選之一，Pitch 排除實際受擊者、按當下最近目標結算 | 未完整加入 Sagittarius Arrow 所有來源／引導、流星傷害衰減、擊殺次序、Defense 易傷完整時長與 HP |
+| P3 轉場 | 紫／白分配、Wave Repeater／手臂幾何 | 全部出現位置、波次與技能精確間隔尚未完成 |
+| Hello World | 自由接觸、原持有者保留、覆蓋、Debugger、Smell、Latent、實際爆炸受擊者、Local／Remote 即時斷線；最後 Local 先於 Remote | 接觸半徑、同色刷新、同時異色的伺服器次序、壓縮後初始剩餘時長／下一輪時程未實測。相衝的同時感染明示為未驗證分支，不冒稱伺服器必定判死 |
+| P3 Monitors | Astoh、Aether 第三檢知南側、LPDU 第一檢知北側；左右鏡像／朝向、各兩人且每人一次 | CN／KR 完整陣型尚未逐圖核對；半平面內原版隨機選兩人的風險以恰兩人站位驗證 |
+| Blue Screen | TRHM、回波讀取真正先前位置、雙分攤補位、圓環 | 尺寸／時序部分近似；沒有 DPS 壓至 20% 的戰鬥檢查 |
+| Delta | 真正成對斷線、易傷／Ruin、拳配色與交換、六手臂鎖定後六發旋轉、檢知與 World | 線門檻與時間仍有訓練值；拳實體的出現／重複鎖定／死亡規則、完整出現族群尚未完成 |
+| Sigma | 六標記、五／六塔容量、擊退落點與 Glitch、十四發旋轉雷射、實際 World 跳轉 | F 克隆所有位置／階段重疊、所有區服路線未齊全；第一發暖身時間不等於原戰鬥絕對時間 |
+| Omega | 真正圓／環／十字／側邊矩形與 Diffuse cone，不再用答案形安全扇區；實際接線 Blaster、受擊後 World 排除 | 明示生成族群的姿態／旋轉測試不等於所有原始 spawn；World 初始組合未枚舉全部實戰可能 |
+| Solar Ray | 兩段分開承受、換坦 | 減傷／無敵與真實傷害未模擬 |
+| Cosmo Memory | Dynamis 三層與坦 LB 角色／時窗 | 沒有盾量、量表與真實傷害 |
+| Arrow→Dive | 交錯線條平移、最近雙坦／最遠六人 | 完整原始發生族群／所有線條重疊時程未逐幀對照 |
+| Exaflare→Wave | 真正移動地火事件、實際舊引導點、散開／前排坦克分攤 | 四方起點與目前安全路線仍為訓練族群，不是所有原始 pattern |
+| Arrow→Wave | 交錯線與同時 beam 判定 | 不是完整所有原始起點／輪次生成器 |
+| Exaflare→Dive | 移動地火後最近雙坦／最遠六人 | 同上，不能把已知步長／間隔當成全部原始起點已完成 |
+| Meteors | Caster／Ranged LB、散開、核爆與五人分攤 | 實體隕石 HP、瞄準線、LB 動畫鎖與真實傷害未完成 |
+| Magic Number | 兩輪坦 LB 與六秒內補 LB，角色／已耗 Dynamis 限制 | 真實量表、補量、死人與復活處理尚未完成 |
 
-## 推進正式版的驗收工作
+## 證據標籤
 
-1. 為每種區服／社群打法取得可讀宏、逐張圖和實戰錄影，再以來源支持的名稱發布 preset；不可僅用影片標題命名實作。
-2. 以遊戲視角校準真正範圍、步速、snapshot、前後搖、判定 tick、擊退和所有 clone/exaflare pattern。
-3. 以實戰錄影校準已加入的 Delta 同色拳／旋轉手臂、Sigma 落塔 Glitch、P5 全序列狀態與 Arrow+Wave 同時判定。
-4. 為 P3 建立完整腐毒／Debugger、接觸感染與可提前斷線的狀態機；P1 接線已實作；P5 仍需完整建立可轉移線與提前斷線狀態機。
-5. Windows 已在 AnAn 實際操作鏡頭、移動、跳躍與技能；不同解析度、控制器與全部機制逐項實戰對照仍未完成。
+[參數表](../../top/data/fidelity_parameters.json) 的 `guide_documented` 表示可讀攻略有敘述，`community_geometry` 表示獨立社群事件實作有資料；兩者均不是本次遊戲伺服器實測。`unverified_training`／`unverified_branch` 明確不是已校準。
 
-不能將這份清單描述成「已完成所有區服／全部原版機制」。
+自動快照只證明幾何自洽；實際 Bot 流程證明模型中的交互可執行；負向測試證明特定錯誤會失敗。這些不證明所有區服宏、所有原始 pattern 或網路時序。要消除上述剩餘項目，仍需逐項對照可重現的實戰錄影／戰鬥紀錄與各社群原始攻略，而不是由 datamining 資料表推測伺服器邏輯。

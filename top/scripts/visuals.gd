@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
-## Original low-poly construction kit. No imported art or upstream controller code.
+## Optional local original-game bosses, with original procedural fallbacks.
+const Official = preload("res://scripts/official_models.gd")
 static var materials: Dictionary = {}
 
 static func material(c: Color, glow := false) -> StandardMaterial3D:
@@ -43,6 +44,9 @@ static func ring(parent: Node3D, p: Vector3, radius: float, width: float, c: Col
 	return part(parent, m, p, c, true)
 
 static func humanoid(role: int, tint := Color.WHITE, equipped := true) -> Node3D:
+	if tint == Color.WHITE and equipped:
+		var imported := Official.player(role)
+		if imported != null: return imported
 	var root = Node3D.new()
 	var c = ([Color("559bec"), Color("559bec"), Color("65d6af"), Color("65d6af"), Color("e87879"), Color("e87879"), Color("e9ae64"), Color("ba96ed")][role] if tint == Color.WHITE else tint)
 	box(root, Vector3(0, 1.18, 0), Vector3(0.58, 0.65, 0.32), c)
@@ -72,6 +76,9 @@ static func humanoid(role: int, tint := Color.WHITE, equipped := true) -> Node3D
 	return root
 
 static func animate(root: Node3D, time: float, speed: float) -> void:
+	if root.get_meta("official_player",false):
+		Official.animate_player(root,speed)
+		return
 	var limbs: Array = root.get_meta("limbs", [])
 	var moving = clampf(speed / 6.0, 0, 1)
 	for i in limbs.size():
@@ -95,6 +102,10 @@ static func floor_model(phase := 1) -> Node3D:
 	return root
 
 static func boss(form: String) -> Node3D:
+	var imported := Official.instantiate(form)
+	if imported != null:
+		ring(imported, Vector3(0, 0.045, 0), 4 if form == "beetle" else 2.5, 0.045, Color("e59074"))
+		return imported
 	var root = Node3D.new()
 	var armor = Color("697886"); var gold = Color("c4a875"); var glow = Color("69e9de")
 	if form == "beetle":

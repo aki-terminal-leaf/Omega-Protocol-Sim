@@ -1,0 +1,246 @@
+{
+  "pickup_radius": {
+    "value": 0.65,
+    "status": "unverified_training",
+    "source": "No measured server contact radius"
+  },
+  "double_line_policy": {
+    "value": "unverified_exclusive",
+    "status": "unverified_branch",
+    "alternatives": [
+      "unverified_exclusive",
+      "allow_multiple"
+    ],
+    "source": "No live proof for either ownership policy"
+  },
+  "ruin_duration": {
+    "value": 16.0,
+    "status": "unverified_training",
+    "source": "Legacy training window; needs combat log calibration"
+  },
+  "hp_penalty_duration": {
+    "value": 16.0,
+    "status": "unverified_training",
+    "source": "Legacy training window; needs combat log calibration"
+  },
+  "rot_contact_radius": {
+    "value": 1.0,
+    "status": "unverified_training",
+    "source": "Tuufless describes touching, not an exact radius"
+  },
+  "rot_duration": {
+    "value": 27.0,
+    "status": "guide_documented",
+    "source": "Tuufless P3 Critical Underflow/Performance"
+  },
+  "bug_duration": {
+    "value": 21.0,
+    "status": "unverified_training",
+    "source": "Training 21s cycle; TOPStates towers approximately 21.1s apart, bug refresh timer unverified"
+  },
+  "rot_radius": {
+    "value": 5.0,
+    "status": "community_geometry",
+    "source": "TOPEnums HWRedRot/HWBlueRot"
+  },
+  "overflow_radius": {
+    "value": 20.0,
+    "status": "community_geometry",
+    "source": "TOPEnums HWDefamation"
+  },
+  "sync_radius": {
+    "value": 5.0,
+    "status": "community_geometry",
+    "source": "TOPEnums HWStack"
+  },
+  "regression_local_distance": {
+    "value": 3.0,
+    "status": "unverified_training",
+    "source": "Guide describes near; threshold not measured"
+  },
+  "regression_remote_distance": {
+    "value": 30.0,
+    "status": "unverified_training",
+    "source": "Guide describes far; threshold not measured"
+  },
+  "regression_vulnerability": {
+    "value": 1.0,
+    "status": "unverified_training",
+    "source": "Guide documents one-second Ruin, exact Magic Vulnerability duration uncalibrated"
+  },
+  "latent_duration": {
+    "value": 10.0,
+    "status": "unverified_training",
+    "source": "Training expiry window"
+  },
+  "simultaneous_rot_policy": {
+    "value": "reject_ambiguous",
+    "status": "unverified_branch",
+    "source": "Simultaneous opposite-colour contacts unresolved; record failure, do not choose by actor iteration"
+  },
+  "exaflare_step": {
+    "value": 8.0,
+    "status": "community_geometry",
+    "source": "BossMod P6WaveCannon.cs P6WaveCannonExaflare: advance8, interval1.1, seven explosions"
+  },
+  "exaflare_interval": {
+    "value": 1.1,
+    "status": "community_geometry",
+    "source": "BossMod P6WaveCannon.cs P6WaveCannonExaflare: advance8, interval1.1, seven explosions"
+  },
+  "exaflare_radius": {
+    "value": 8.0,
+    "status": "community_geometry",
+    "source": "TOPEnums P6WaveCannonExaflareFirst/Rest"
+  },
+  "hw_initial_rot_remaining": {
+    "value": 14.0,
+    "status": "unverified_training",
+    "source": "Compressed entry into Hello World; not cast-relative server timing"
+  },
+  "hw_initial_bug_remaining": {
+    "value": 8.0,
+    "status": "unverified_training",
+    "source": "Compressed entry into Hello World; not cast-relative server timing"
+  },
+  "hw_regression_duration": {
+    "value": 13.0,
+    "status": "unverified_training",
+    "source": "Compressed entry into Hello World; not cast-relative server timing"
+  },
+  "hw_tower_approach": {
+    "value": 8.0,
+    "status": "unverified_training",
+    "source": "Compressed entry into Hello World; not cast-relative server timing"
+  },
+  "contact_step": {
+    "value": 0.025,
+    "status": "unverified_training",
+    "source": "Numerical integration step, NOT a measured server tick"
+  },
+  "same_colour_policy": {
+    "value": "preserve_timer_unverified",
+    "status": "unverified_training",
+    "source": "Guide does not specify refresh on repeated same-colour contact"
+  },
+  "delta_remote_distance": {
+    "value": 22.0,
+    "status": "unverified_training",
+    "source": "Training threshold; guide only says stretch away"
+  },
+  "delta_local_distance": {
+    "value": 3.0,
+    "status": "unverified_training",
+    "source": "Training threshold; guide only says approach"
+  },
+  "delta_regression_duration": {
+    "value": 65.0,
+    "status": "unverified_training",
+    "source": "Slowed course duration, not original status expiry"
+  },
+  "sigma_step_degrees": {
+    "value": 9.0,
+    "status": "community_geometry",
+    "source": "P5Sigma.cs Rear Power Unit rotation"
+  },
+  "sigma_shot_interval": {
+    "value": 0.6,
+    "status": "community_geometry",
+    "source": "BossMod P5SigmaRearLasers schedules fourteen shots 0.6 seconds apart"
+  },
+  "arrow_side_start": {
+    "value": 15.0,
+    "status": "unverified_training",
+    "source": "Uncalibrated symmetric side-start family"
+  },
+  "exaflare_origin_radius": {
+    "value": 24.0,
+    "status": "unverified_training",
+    "source": "Explicit unverified four-cardinal training origin family"
+  },
+  "exaflare_explosions": {
+    "value": 7,
+    "status": "community_geometry",
+    "source": "BossMod P6WaveCannon.cs P6WaveCannonExaflare: advance8, interval1.1, seven explosions"
+  },
+  "exaflare_first_delay": {
+    "value": 2.0,
+    "status": "unverified_training",
+    "source": "Training delay, not cast-relative server timestamp"
+  },
+  "exaflare_stream_stagger": {
+    "value": 1.0,
+    "status": "unverified_training",
+    "source": "TOPStates describes one second between lines; starts otherwise uncalibrated"
+  },
+  "regression_ruin_duration": {
+    "value": 1.0,
+    "status": "guide_documented",
+    "source": "Tuufless P3 Local/Remote Regression: one-second Thrice-come Ruin"
+  },
+  "loop_first_snapshot": {
+    "value": 16.0,
+    "status": "unverified_training",
+    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+  },
+  "loop_snapshot_interval": {
+    "value": 9.0,
+    "status": "unverified_training",
+    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+  },
+  "delta_activation_delay": {
+    "value": 7.0,
+    "status": "unverified_training",
+    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+  },
+  "hw_collect_window": {
+    "value": 3.0,
+    "status": "unverified_training",
+    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+  },
+  "hw_break_window": {
+    "value": 5.0,
+    "status": "unverified_training",
+    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+  },
+  "critical_error_bug_duration": {
+    "value": 3.0,
+    "status": "unverified_training",
+    "source": "Existing slowed training schedule; not measured cast-relative server timestamp"
+  },
+  "glitch_mid_min": {
+    "value": 20.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP P2PartySynergy.DistanceRange"
+  },
+  "glitch_mid_max": {
+    "value": 26.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP P2PartySynergy.DistanceRange"
+  },
+  "glitch_remote_min": {
+    "value": 34.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP P2PartySynergy.DistanceRange"
+  },
+  "glitch_remote_max": {
+    "value": 50.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP P2PartySynergy.DistanceRange"
+  },
+  "p2_fire_radius": {
+    "value": 7.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP P2PartySynergyOptimizedFire"
+  },
+  "p2_spotlight_radius": {
+    "value": 6.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP TOPEnums Spotlight"
+  },
+  "p2_optical_width": {
+    "value": 16.0,
+    "status": "community_geometry",
+    "source": "BossMod TOP P2PartySynergyOpticalLaser"
+  }
+}

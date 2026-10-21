@@ -314,5 +314,60 @@
       "HTTP 403 challenge; not bypassed"
     ],
     "checked_at": "2026-10-20T16:37:10.669827+00:00"
+  },
+  {
+    "id": "stateful_p3",
+    "region": "mechanic reference",
+    "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+    "status": "read",
+    "supports": [
+      "Read actual debuff explanations and final iteration: contact infection, opposite overwrite, Debugger, latents, local-before-remote; exact contact radius and server tick NOT supplied"
+    ],
+    "checked_at": "2026-10-21",
+    "evidence_limit": "Community/guide evidence, not a server implementation or live packet/log verification."
+  },
+  {
+    "id": "stateful_delta",
+    "region": "mechanic reference",
+    "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+    "status": "read",
+    "supports": [
+      "Read paired regression breaks and vulnerabilities; Delta lines are not transferable boss tethers"
+    ],
+    "checked_at": "2026-10-21",
+    "evidence_limit": "Community/guide evidence, not a server implementation or live packet/log verification."
+  },
+  {
+    "id": "stateful_sigma",
+    "region": "mechanic reference",
+    "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_sigma/",
+    "status": "read",
+    "supports": [
+      "Read fourteen Rear Power Unit shots and waymark tower allocation"
+    ],
+    "checked_at": "2026-10-21",
+    "evidence_limit": "Community/guide evidence, not a server implementation or live packet/log verification."
+  },
+  {
+    "id": "stateful_omega",
+    "region": "mechanic reference",
+    "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_omega/",
+    "status": "read",
+    "supports": [
+      "Read second World three-stack beetle tether roles; does not calibrate all clone spawns"
+    ],
+    "checked_at": "2026-10-21",
+    "evidence_limit": "Community/guide evidence, not a server implementation or live packet/log verification."
+  },
+  {
+    "id": "stateful_community",
+    "region": "mechanic reference",
+    "url": "D:/Dev/OpenClawCodexBridge/research/top-v03",
+    "status": "read",
+    "supports": [
+      "Read supplied TOPEnums/States, P1ProgramLoop, P3HelloWorld, P5Delta/Sigma/Omega, P6CosmoArrow as community observations, not server proof. Original GDScript implementation; no source copied."
+    ],
+    "checked_at": "2026-10-21",
+    "evidence_limit": "Community/guide evidence, not a server implementation or live packet/log verification."
   }
 ]

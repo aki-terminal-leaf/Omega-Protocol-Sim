@@ -1,15 +1,28 @@
-; Independent TOP project: no upstream game assets required.
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
 
 [application]
+
 config/name="Omega Protocol — Practice Lab"
-config/version="0.2.0"
+config/version="0.3.0-preview"
 run/main_scene="res://scenes/main.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Omega Protocol Practice Lab"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+
+[debug]
+
+gdscript/warnings/treat_warnings_as_errors=false
 
 [display]
+
 window/size/viewport_width=1440
 window/size/viewport_height=900
 window/size/window_width_override=1440
@@ -17,9 +30,7 @@ window/size/window_height_override=900
 window/stretch/mode="canvas_items"
 
 [rendering]
+
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.025,0.035,0.06,1)
-
-[debug]
-gdscript/warnings/treat_warnings_as_errors=false
+environment/defaults/default_clear_color=Color(0.025, 0.035, 0.06, 1)

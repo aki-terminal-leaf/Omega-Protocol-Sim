@@ -24,18 +24,18 @@
   "p1_panto": [
     {
       "profile": "elemental",
-      "name": "HTDH · Elemental／莫古力優先序",
-      "description": "以 H1→MT→ST→D1→D2→D3→D4→H2 分配；Program Loop 從 NW 順時針。"
+      "name": "HTDH · Elemental NW/SE",
+      "description": "NW/SE 起始軸、HTDH 優先序；飛彈前出，另三人分攤。火與水圈節奏仍為訓練近似。"
     },
     {
       "profile": "aether",
-      "name": "TMR · Aether 分組／補位",
-      "description": "Aether light-party flex；塔由 NW 逆時針／N 順時針找。"
+      "name": "TMR 補位 · Aether NE/SW",
+      "description": "NE/SW 起始軸、兩小隊 TMR 補位，治療不補位；飛彈前出，另三人分攤。火與水圈節奏仍為訓練近似。"
     },
     {
       "profile": "lpdu",
-      "name": "MTRH · LPDU 優先序",
-      "description": "D1→D2→MT→ST→D3→D4→H1→H2。"
+      "name": "TMR 補位 · LPDU N/S",
+      "description": "N/S 起始軸、兩小隊 TMR 補位，治療不補位；飛彈前出，另三人分攤。火與水圈節奏仍為訓練近似。"
     }
   ],
   "p1_cannons": [
@@ -53,8 +53,8 @@
     },
     {
       "profile": "aether",
-      "name": "BPOG 全交叉 · Aether 北端 flex",
-      "description": "X→方塊→O→三角；Remote 全交叉；北端優先 flex。"
+      "name": "BPOG / GPOB · Aether 北端補位",
+      "description": "Remote 只交換最外側圖形，中間紫／橙不全交叉；依眼睛相對北端補位，不是 LPDU 全交叉。"
     },
     {
       "profile": "lpdu",
@@ -80,24 +80,24 @@
     {
       "profile": "elemental",
       "name": "Hello World 四輪循環（示意）",
-      "description": "前三輪藍先綠後；第四輪綠先藍後且不傳腐毒。完整接觸感染／Debugger 尚未實作，此項仍為示意練習。"
+      "description": "Free rot contacts, actual bug blast recipients, Debugger and latent expiry; live paired regression breaks. Fourth iteration Local before Remote. Contact radii and training schedule are not server-calibrated."
     }
   ],
   "p3_monitors": [
     {
       "profile": "elemental",
       "name": "Astoh / HHTTDDDD",
-      "description": "已核對選人優先序；本版皆使用 Astoh 示意幾何，不代表完整區服站位。"
+      "description": "Astoh / HHTTDDDD 陣型；玩家左右檢知與 Boss 方向分開判定。"
     },
     {
       "profile": "aether",
-      "name": "Aether 檢知優先序",
-      "description": "已核對選人優先序；本版皆使用 Astoh 示意幾何，不代表完整區服站位。"
+      "name": "Dylan · Aether 第三檢知南側",
+      "description": "採用第三檢知在南側的實際陣型，不再共用 Astoh 站位；依點名優先序分配，左右鏡像與個人檢知方向分開判定。"
     },
     {
       "profile": "lpdu",
-      "name": "LPDU 檢知優先序",
-      "description": "已核對選人優先序；本版皆使用 Astoh 示意幾何，不代表完整區服站位。"
+      "name": "LPDU · 第一檢知北側",
+      "description": "第一檢知在北側的 LPDU 陣型；依 RMTHHTMR 優先序分配，並驗證每人只命中一次。"
     }
   ],
   "p4_wave": [
@@ -111,21 +111,21 @@
     {
       "profile": "elemental",
       "name": "同色線分組／內側換拳（示意）",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "description": "Elemental Kinda Awk family: paired regression lines persist across movement and break on distance. Colour-pair fist swaps retained. Exact tether thresholds and vulnerability durations are unverified."
     }
   ],
   "p5_sigma": [
     {
       "profile": "elemental",
       "name": "Waymark 塔位／近遠世界（示意）",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "description": "Waymark 塔位與近遠世界；旋轉雷射為十四發獨立判定，寬 12、間隔 0.6 秒、每發轉 9°。其他區服路線未冒稱相同。"
     }
   ],
   "p5_omega": [
     {
       "profile": "elemental",
       "name": "二層檢知優先／近遠世界（示意）",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "description": "Actual clone attack shapes, two-stack monitor priority, transferable radius-15 beetle Blaster, then World. Spawn topology is an explicit training family, not all observed clone spawns."
     }
   ],
   "p5_solar": [
@@ -152,13 +152,13 @@
   "p6_exa_wave": [
     {
       "profile": "elemental",
-      "name": "東側分攤 · Elemental",
-      "description": "共用天箭／地火練習；Wave Cannon 往東側分攤。"
+      "name": "東側分攤 · 移動地火訓練族群",
+      "description": "地火半徑 8、每次推進 8、間隔 1.1 秒、七次爆炸；起點分布與路線仍待實戰校準，不代表所有原始 pattern。"
     },
     {
       "profile": "lpdu",
-      "name": "南側分攤 · LPDU 約定",
-      "description": "共用天箭／地火練習；Wave Cannon 往南側分攤。"
+      "name": "南側分攤 · 移動地火訓練族群",
+      "description": "地火半徑 8、每次推進 8、間隔 1.1 秒、七次爆炸；起點分布與路線仍待實戰校準，不代表所有原始 pattern。"
     }
   ],
   "p6_arrow_wave": [
@@ -176,8 +176,8 @@
   "p6_exa_dive": [
     {
       "profile": "elemental",
-      "name": "地火 → 雙坦近／六人遠分攤",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "東側分攤 · 移動地火訓練族群",
+      "description": "地火半徑 8、每次推進 8、間隔 1.1 秒、七次爆炸；起點分布與路線仍待實戰校準，不代表所有原始 pattern。"
     }
   ],
   "p6_meteors": [
@@ -192,6 +192,13 @@
       "profile": "elemental",
       "name": "坦 LB3 → 補 LB3",
       "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+    }
+  ],
+  "p5_full": [
+    {
+      "profile": "elemental",
+      "name": "P5 continuous stateful training course",
+      "description": "Delta ? Sigma ? Omega with persistent statuses, paired lines, transferable Blaster and actual Dynamis. Shared training geometry and uncalibrated timing; not a full live-server reproduction."
     }
   ]
 }

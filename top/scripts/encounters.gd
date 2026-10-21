@@ -2,6 +2,7 @@
 extends RefCounted
 ## Encounter -> timed beats -> bot goals and independent snapshot rules.
 ## Distances are yard-like training units; windows are intentionally slowed.
+const Params = preload("res://scripts/statuses.gd")
 const Rules = preload("res://scripts/rules.gd")
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"]
 var rng = RandomNumberGenerator.new()
@@ -12,8 +13,10 @@ var labels: Array = []
 var positions: Array = []
 var profile: Dictionary
 var angle = 0.0
+var mechanic_id := ""
 
 func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot := -1) -> Dictionary:
+	mechanic_id = id
 	rng.seed = seed_value
 	profile = strategy
 	priority = []
@@ -86,7 +89,7 @@ func group_goals(members: Array, p: Vector2, spacing := 0.55) -> void:
 	for i in members.size(): positions[int(members[i])] = p + Vector2((i % 2) * spacing, (i / 2) * spacing)
 
 func group_pair(values: Array) -> Array:
-	if profile.id != "aether": return ranked(values)
+	if profile.id != "aether" and not (profile.id == "lpdu" and mechanic_id == "p1_panto"): return ranked(values)
 	var g1 := [0, 2, 4, 6]
 	var first: int = values[0]; var second: int = values[1]
 	if (first in g1) != (second in g1): return [first, second] if first in g1 else [second, first]
@@ -131,7 +134,7 @@ func program_loop() -> void:
 		var tethers = group_pair([at(tether_group * 2), at(tether_group * 2 + 1)])
 		var free: Array = []
 		for i in 8:
-			if i not in [first, second] and polar(i * 45, 17).distance_to(targets[0]) > 11 and polar(i * 45, 17).distance_to(targets[1]) > 11: free.append(polar(i * 45, 17))
+			if i not in [first, second] and polar(i * 45, 17).distance_to(targets[0]) > 15.5 and polar(i * 45, 17).distance_to(targets[1]) > 15.5: free.append(polar(i * 45, 17))
 		var best_a: Vector2 = free[0]; var best_b: Vector2 = free[-1]; var largest = 0.0
 		for a in free:
 			for b in free:
@@ -140,12 +143,20 @@ func program_loop() -> void:
 		best_a = tether_spots[0]; best_b = tether_spots[1]
 		for i in 8:
 			var refuge = targets[i % 2] * 0.68
-			if refuge.distance_to(best_a) < 10.5 or refuge.distance_to(best_b) < 10.5: refuge = targets[1 - i % 2] * 0.68
+			if refuge.distance_to(best_a) < 15.5 or refuge.distance_to(best_b) < 15.5: refuge = targets[1 - i % 2] * 0.68
+			if refuge.distance_to(best_a) < 15.5 or refuge.distance_to(best_b) < 15.5:
+				var best_score := -INF
+				for x in range(-18, 19):
+					for y in range(-18, 19):
+						var candidate := Vector2(x, y)
+						if candidate.length() >= 19 or candidate.distance_to(targets[0]) < 3.5 or candidate.distance_to(targets[1]) < 3.5: continue
+						var score := minf(candidate.distance_to(best_a), candidate.distance_to(best_b))
+						if score > best_score: best_score = score; refuge = candidate
 			positions[i] = refuge
 		for i in 2:
 			positions[soakers[i]] = targets[i]
 			positions[tethers[i]] = best_a if i == 0 else best_b
-		var item = beat("Program Loop %d/4 · towers %d / tethers %d" % [turn + 1, turn + 1, tether_group + 1], 16.0 if turn == 0 else 9.0, "線可以被接走。塔消除 Looper；Blaster 打當下持線者。塔 1234／推薦接線 3412，重複受擊會累積 Twice-come Ruin。")
+		var item = beat("Program Loop %d/4 · towers %d / tethers %d" % [turn + 1, turn + 1, tether_group + 1], float(Params.parameter("loop_first_snapshot" if turn==0 else "loop_snapshot_interval")), "線可以被接走。塔消除 Looper；Blaster 打當下持線者。塔 1234／推薦接線 3412，重複受擊會累積 Twice-come Ruin。")
 		var numbers: Array = []; numbers.resize(8)
 		for n in 8: numbers[at(n)] = n / 2 + 1
 		item.program_loop = {"round": turn + 1, "numbers": numbers, "holders": [], "pickup_radius": 0.65}
@@ -157,18 +168,20 @@ func program_loop() -> void:
 			item.spawn = []
 			for actor in 8: item.spawn.append(Vector2(-3.5 + actor, 6.0))
 		for i in 2:
-			var storage = tower(targets[i], 2.3, [soakers[i]], "Storage Violation")
+			var storage = tower(targets[i], 3.0, [soakers[i]], "Storage Violation")
 			storage.erase("required"); storage.looper_tower = true
 			item.shapes.append(storage)
-			item.shapes.append({"kind": "circle", "actor": initial[i], "tether_index": i, "radius": 10.0, "rule": "blaster", "name": "Blaster"})
+			item.shapes.append({"kind": "circle", "actor": initial[i], "tether_index": i, "radius": 15.0, "rule": "blaster", "name": "Blaster"})
 		item.tethers = [{"a": tethers[0], "b": -1}, {"a": tethers[1], "b": -1}]
 
 func pantokrator() -> void:
 	var clockwise = 1 if rng.randi_range(0, 1) else -1
-	for i in 8: label(i, "Missile %d · G%d" % [i / 2 + 1, i % 2 + 1])
+	for i in 8:
+		var pairing := group_pair([at((i / 2) * 2), at((i / 2) * 2 + 1)])
+		label(i, "Missile %d · G%d" % [i / 2 + 1, pairing.find(at(i)) + 1])
 	for turn in 4:
 		for step in 3:
-			var theta = angle + clockwise * (turn * 54 + step * 18)
+			var theta = float(profile.get("panto_reference_angle",315.0)) + clockwise * (turn * 54 + step * 18)
 			for i in 8:
 				var pairing: Array = group_pair([at((i / 2) * 2), at((i / 2) * 2 + 1)])
 				var group_angle = theta + pairing.find(at(i)) * 180
@@ -211,7 +224,7 @@ func party_synergy() -> void:
 	var symbols: Array = profile.shapes
 	for i in 4:
 		var z = -12.0 + i * 8.0
-		var x = sqrt(18.0 * 18.0 - z * z) if remote else 10.0
+		var x = sqrt(18.0 * 18.0 - z * z) if remote else 11.0
 		pos(i * 2, rotated(Vector2(-x, z), angle))
 		var other_z = -z if remote and profile.get("remote_full_cross", true) else z
 		if remote and not profile.get("remote_full_cross", true): other_z = -z if i in [0, 3] else z
@@ -219,16 +232,16 @@ func party_synergy() -> void:
 		label(i * 2, "%s · L · %s" % [symbols[i], "REMOTE" if remote else "MID"])
 		label(i * 2 + 1, "%s · R · %s" % [symbols[i], "REMOTE" if remote else "MID"])
 	var eye = beat("Optical Laser + Fire III · %s Glitch" % ("REMOTE" if remote else "MID"), 8.0, "Eye is relative north. Remember your symbol and left/right side.")
-	eye.shapes.append(line(Vector2.ZERO, angle, 12.0, "Optical Laser"))
-	spread(eye, range(8), 3.5)
-	for i in 4: eye.checks.append(pair(at(i * 2), at(i * 2 + 1), 32.0 if remote else 18.0, 40.0 if remote else 27.0, "Glitch"))
+	eye.shapes.append(line(Vector2.ZERO, angle, float(Params.parameter("p2_optical_width")), "Optical Laser"))
+	spread(eye, range(8), float(Params.parameter("p2_fire_radius")))
+	for i in 4: eye.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch"))
 	var left: Array = []; var right: Array = []
 	for i in 4: left.append(at(i * 2)); right.append(at(i * 2 + 1))
 	var stacks = [at(rng.randi_range(0, 7)), at(rng.randi_range(0, 7))]
 	while stacks[1] == stacks[0]: stacks[1] = at(rng.randi_range(0, 7))
 	if (stacks[0] in left) == (stacks[1] in left):
 		var candidates = stacks.duplicate()
-		candidates.sort_custom(func(a, b): return order.find(a) / 2 < order.find(b) / 2)
+		candidates.sort_custom(func(a,b): return rotated(positions[a],-angle).y < rotated(positions[b],-angle).y)
 		var selected = candidates[0] if profile.stack_flex == "north" else candidates[-1]
 		var symbol_index = order.find(selected) / 2
 		var partner = at(symbol_index * 2 + (1 if selected in left else 0))
@@ -239,19 +252,23 @@ func party_synergy() -> void:
 	group_goals(left, lp, 0.08); group_goals(right, rp, 0.08)
 	var knock = beat("Discharger + Spotlight · %s flex" % profile.stack_flex, 7.0, "Aim knockback into two safe gaps. One stack per group; flex with your symbol partner.")
 	knock.knockback = 13.0
-	for i in stacks: knock.shapes.append(targeted(i, 4.0, 4, "Spotlight"))
-	for deg in [0, 45, 135, 225, 315]: knock.shapes.append(circle(polar(deg, 18), 7.0, "Efficient Bladework"))
-	for i in 4: knock.checks.append(pair(at(i * 2), at(i * 2 + 1), 32.0 if remote else 18.0, 40.0 if remote else 29.0, "Glitch after knockback"))
+	for i in stacks: knock.shapes.append(targeted(i, float(Params.parameter("p2_spotlight_radius")), 4, "Spotlight"))
+	for deg in [0, 45, 135, 225, 315]: knock.shapes.append(circle(polar(deg, 18), 10.0, "Efficient Bladework"))
+	for i in 4: knock.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch after knockback"))
 	knock = rotate_beat(knock, angle)
 
 func clone_shapes(sword: bool, legs: bool) -> Array:
-	var shapes: Array = []
-	shapes.append(circle(Vector2(-11, 0), 10, "Efficient Bladework") if sword else {"kind": "donut", "pos": Vector2(-11, 0), "inner": 7, "radius": 45, "name": "Beyond Strength"})
+	var shapes: Array=[]
+	shapes.append(circle(Vector2(-11,0),10,"Efficient Bladework") if sword else {"kind":"donut","pos":Vector2(-11,0),"inner":10,"radius":40,"name":"Beyond Strength"})
 	if legs:
-		shapes.append(line(Vector2(1, 0), 0, 13, "Superliminal Steel")); shapes.append(line(Vector2(21, 0), 0, 13, "Superliminal Steel"))
+		for axis in [0,180]:shapes.append({"kind":"line","pos":Vector2(11,0),"angle":axis,"start":4.0,"length":40.0,"width":80.0,"name":"Superliminal Steel"})
 	else:
-		shapes.append(line(Vector2(11, 0), 0, 7, "Optimized Blizzard III")); shapes.append(line(Vector2(11, 0), 90, 7, "Optimized Blizzard III"))
+		for axis in [0,90]:shapes.append({"kind":"line","pos":Vector2(11,0),"angle":axis,"start":-100.0,"length":100.0,"width":10.0,"name":"Optimized Blizzard III"})
 	return shapes
+
+func glitch_pair(a: int,b: int,remote: bool,name: String) -> Dictionary:
+	return pair(a,b,float(Params.parameter("glitch_remote_min" if remote else "glitch_mid_min")),float(Params.parameter("glitch_remote_max" if remote else "glitch_mid_max")),name)
+
 func find_safe(shapes: Array) -> Vector2:
 	for y in range(-16, 17):
 		for x in range(-16, 17):
@@ -271,12 +288,12 @@ func rotate_beat(item: Dictionary, degrees: float) -> Dictionary:
 
 func limitless() -> void:
 	positions[0] = Vector2(-16, -5); positions[1] = Vector2(16, -5)
-	for i in range(2, 8): positions[i] = Vector2(0, 9 + (i - 2) * 0.15)
+	for i in range(2, 8): positions[i] = Vector2(0, 5 + (i - 2) * 0.15)
 	var b = beat("Limitless Synergy · tanks intercept tethers", 7.0, "Tanks take Bladedance away from the baited arrow and the party.")
 	b.transfers = {"group": "limitless", "sources": [Vector2(-12, -16), Vector2(12, -16)], "initial": [at(2), at(3)], "wanted": [0, 1], "holders": []}
 	b.spawn = []
 	for i in 8: b.spawn.append(Vector2(-8 if i == 0 else 8, 0) if i < 2 else Vector2(-1.25 + (i - 2) * 0.5, 9))
-	for i in 2: b.shapes.append({"kind": "cone", "pos": b.transfers.sources[i], "target": b.transfers.initial[i], "tether_index": i, "width": 60, "radius": 40, "rule": "count", "count": 1, "name": "Optimized Bladedance"})
+	for i in 2: b.shapes.append({"kind": "cone", "pos": b.transfers.sources[i], "target": b.transfers.initial[i], "tether_index": i, "width": 90, "radius": 100, "rule": "count", "count": 1, "name": "Optimized Bladedance"})
 	b.checks.append({"kind": "tether_tanks", "name": "Optimized Bladedance holders"})
 	b.tethers = [{"a": 0, "b": -1}, {"a": 1, "b": -1}]
 	var flare_actors = [at(2), at(3), at(4)]
@@ -288,13 +305,17 @@ func limitless() -> void:
 	positions[0] = Vector2(-10, -4); positions[1] = Vector2(-10, 4)
 	for i in range(2, 8): positions[i] = Vector2(5, 3)
 	b = beat("Beyond Defense · tanks bait closest two", 6.0)
-	b.shapes.append(targeted(defense, 4, 1, "Beyond Defense"))
-	b.checks.append({"kind": "closest", "pos": Vector2(-16, 0), "members": [0, 1], "count": 2, "name": "Beyond Defense bait"})
+	var defense_hit := targeted(defense,5,1,"Beyond Defense")
+	defense_hit.rule="beyond_defense";defense_hit.dynamic_actor={"selector":"closest","ordinal":defense,"pos":Vector2(-16,0)}
+	b.shapes.append(defense_hit)
 	positions[defense] = Vector2(-12, -10)
 	for i in 8:
 		if i != defense: positions[i] = Vector2(-9, 3) + Vector2(0.1 * i, 0)
 	b = beat("Pile Pitch · exclude Beyond Defense victim", 6.0)
-	b.shapes.append(targeted(1 - defense, 4, 7, "Pile Pitch"))
+	b.defense_followup=true
+	var pitch := targeted(1-defense,6,3,"Pile Pitch")
+	pitch.rule="pile_pitch";pitch.min_count=3;pitch.dynamic_actor={"selector":"closest","pos":Vector2(-16,0)}
+	b.shapes.append(pitch)
 
 func transition() -> void:
 	for i in 4: label(i, "PURPLE · spread")
@@ -314,50 +335,70 @@ func transition() -> void:
 			b.shapes.append(targeted(at(4), 3, 2, "High-powered Sniper Cannon")); b.shapes.append(targeted(at(5), 3, 2, "High-powered Sniper Cannon"))
 
 func hello_world() -> void:
-	var red_defam = bool(rng.randi_range(0, 1))
+	var red_defam := bool(rng.randi_range(0, 1))
+	var defam_colour := "red" if red_defam else "blue"
+	var stack_colour := "blue" if red_defam else "red"
 	for turn in 4:
-		var defam = posmod(-turn * 2, 8); var blue = posmod(2 - turn * 2, 8); var stacker = posmod(4 - turn * 2, 8); var green = posmod(6 - turn * 2, 8)
+		var defam := posmod(-turn * 2, 8); var blue := posmod(2 - turn * 2, 8)
+		var stacker := posmod(4 - turn * 2, 8); var green := posmod(6 - turn * 2, 8)
 		for side in 2:
-			var sign_x = -1 if side == 0 else 1
-			pos(defam + side, Vector2(sign_x * 11, -9)); label(defam + side, "DEFAM · %s rot" % ("RED" if red_defam else "BLUE"))
-			pos(green + side, Vector2(sign_x * 17, -8)); label(green + side, "GREEN tether → Defam")
-			pos(stacker + side, Vector2(sign_x * 11, 10)); label(stacker + side, "STACK · %s rot" % ("BLUE" if red_defam else "RED"))
-			pos(blue + side, Vector2(sign_x * 12, 12)); label(blue + side, "BLUE tether → Stack")
-			if turn == 3: pos(green + side, Vector2(sign_x * 6, 12))
-		var b = beat("Hello World %d/4 · Latent Defect + towers" % (turn + 1), 8.0, "Cycle: Defam → Blue tether → Stack → Green tether. Rot colours remain tied to stack/defam for the whole pull.")
+			var sign_x := -1 if side == 0 else 1
+			pos(defam + side, Vector2(sign_x * 11, -12)); label(defam + side, "Overflow route")
+			pos(stacker + side, Vector2(sign_x * 11, 10)); label(stacker + side, "Synchronization route")
+			pos(blue + side, Vector2(sign_x * 7, 10)); label(blue + side, "Remote route")
+			pos(green + side, Vector2(sign_x * 17, -8)); label(green + side, "Local route")
+			if turn == 3: pos(green + side, Vector2(sign_x * 7, 12))
+		var b := beat("Hello World %d/4 · towers and bugs" % (turn + 1), float(Params.parameter("hw_tower_approach")), "Actual contacts propagate rot. Actual blast recipients acquire bugs; labels are route suggestions only. Timings are training parameters.")
+		b.hello_world = true
+		if turn == 0:
+			b.status_grants = []
+			for side in 2:
+				b.status_grants.append({"actor":at(defam+side),"name":defam_colour,"duration":float(Params.parameter("hw_initial_rot_remaining"))})
+				b.status_grants.append({"actor":at(stacker+side),"name":stack_colour,"duration":float(Params.parameter("hw_initial_rot_remaining"))})
+				b.status_grants.append({"actor":at(defam+side),"name":"overflow","duration":float(Params.parameter("hw_initial_bug_remaining"))})
+				b.status_grants.append({"actor":at(stacker+side),"name":"sync","duration":float(Params.parameter("hw_initial_bug_remaining"))})
+				b.status_grants.append({"actor":at(blue+side),"name":"latent_sync","duration":70.0})
+				b.status_grants.append({"actor":at(green+side),"name":"latent_overflow","duration":70.0})
+		b.paired_tethers = [
+			{"id":"hw_remote_%d" % turn,"kind":"remote","a":at(blue),"b":at(blue+1),"delay":float(Params.parameter("hw_tower_approach")),"duration":float(Params.parameter("hw_regression_duration"))},
+			{"id":"hw_local_%d" % turn,"kind":"local","a":at(green),"b":at(green+1),"delay":float(Params.parameter("hw_tower_approach")),"duration":float(Params.parameter("hw_regression_duration"))}]
 		for side in 2:
-			b.shapes.append(tower(positions[at(defam + side)], 2.5, [at(defam + side)], "Rot tower (%s)" % ("RED" if red_defam else "BLUE")))
-			b.shapes.append(tower(positions[at(stacker + side)], 1.8, [at(stacker + side)], "Rot tower (%s)" % ("BLUE" if red_defam else "RED")))
-			b.shapes.append(targeted(at(defam + side), 7.5, 1 if turn == 3 else 2, "Critical Overflow Bug"))
-			b.shapes.append(targeted(at(stacker + side), 3.0, 2, "Critical Synchronization Bug"))
+			var t := tower(positions[at(defam+side)], 6, [], "Rot tower " + defam_colour)
+			t.erase("required"); t.count = 1; t.rot_colour = defam_colour; b.shapes.append(t)
+			t = tower(Vector2(-16 if side == 0 else 16,10), 6, [], "Rot tower " + stack_colour)
+			t.erase("required"); t.count = 1; t.rot_colour = stack_colour; b.shapes.append(t)
 		if turn < 3:
 			for side in 2:
-				pos(blue + side, positions[at(stacker + side)] + Vector2(0, 0.5))
-				pos(green + side, positions[at(defam + side)] + Vector2(0, 0.5))
-			b = beat("Hello World %d/4 · collect rot" % (turn + 1), 5.0, "Touch only your correct rot source, then separate before the expiry AoEs.")
-			for side in 2:
-				b.checks.append(pair(at(blue + side), at(stacker + side), 0, 1.2, "Transfer stack rot"))
-				b.checks.append(pair(at(green + side), at(defam + side), 0, 1.2, "Transfer defam rot"))
+				pos(blue+side, positions[at(stacker+side)] + Vector2(0,0.5))
+				pos(green+side, positions[at(defam+side)] + Vector2(0,0.5))
+			b = beat("Hello World %d/4 · free contact" % (turn+1),float(Params.parameter("hw_collect_window")),"Touch a source and leave; infection does not require ending at a guide point.")
+			b.hello_world = true
+			# Both collectors leave before old rot expires. Local stays separated until Remote resolves.
+			for side in 2: pos(green+side, Vector2(-17 if side == 0 else 17,-4))
 			preview_blue_break(blue, stacker, turn)
 			preview_green_break(green, defam, turn)
 		else:
-			# Final iteration reverses the order. Debugger prevents fresh Nisi;
-			# never teach an unnecessary fourth contact-transfer step.
 			preview_green_break(green, defam, turn)
 			preview_blue_break(blue, stacker, turn)
+	# Critical Error grants are blocked by accumulated Overflow Debuggers, not by route labels.
+	var b := beat("Critical Error · Debugger check", 8.0)
+	b.hello_world = true; b.status_grants = []
+	for i in 8: b.status_grants.append({"actor":i,"name":"overflow","duration":float(Params.parameter("critical_error_bug_duration"))})
+	b.checks.append({"kind":"regressions_resolved","prefix":"hw_"})
 
 func preview_blue_break(blue: int, stacker: int, turn: int) -> void:
-	for side in 2: pos(blue + side, Vector2(-17 if side == 0 else 17, 7))
-	for side in 2: pos(stacker + side, Vector2(-10 if side == 0 else 10, 14))
-	var b = beat("Hello World %d/4 · break BLUE %s" % [turn + 1, "LAST" if turn == 3 else "first"], 5.0)
-	b.checks.append(pair(at(blue), at(blue + 1), 30, 40, "Remote Regression"))
-	for side in 2: b.shapes.append(targeted(at(stacker + side), 4, 1, "Rot expiry"))
+	for side in 2:
+		pos(blue+side, Vector2(-17 if side == 0 else 17,7))
+		pos(stacker+side, Vector2(-10 if side == 0 else 10,14))
+	var b := beat("Hello World %d/4 · Remote %s" % [turn+1,"LAST" if turn == 3 else "first"],float(Params.parameter("hw_break_window")))
+	b.hello_world = true
+
 func preview_green_break(green: int, defam: int, turn: int) -> void:
-	for side in 2: pos(green + side, Vector2(-1 if side == 0 else 1, -4))
-	for side in 2: pos(defam + side, Vector2(-12 if side == 0 else 12, -12))
-	var b = beat("Hello World %d/4 · break GREEN %s" % [turn + 1, "FIRST (final iteration)" if turn == 3 else "after vulnerability"], 5.0, "Final iteration: Local first, then Remote; do not pass Nisi. Other iterations: Blue before Green.")
-	b.checks.append(pair(at(green), at(green + 1), 0, 3, "Local Regression"))
-	for side in 2: b.shapes.append(targeted(at(defam + side), 4, 1, "Rot expiry"))
+	for side in 2:
+		pos(green+side, Vector2(-1 if side == 0 else 1,-4))
+		pos(defam+side, Vector2(-12 if side == 0 else 12,-12))
+	var b := beat("Hello World %d/4 · Local %s" % [turn+1,"FIRST" if turn == 3 else "after vulnerability"],float(Params.parameter("hw_break_window")))
+	b.hello_world = true
 
 func monitors() -> void:
 	var saved_order: Array = order.duplicate()
@@ -369,12 +410,18 @@ func monitors() -> void:
 	order = m_holders + non_holders
 	var sign_x = 1 if rng.randi_range(0, 1) else -1
 	var canonical = [Vector2(-7, -11), Vector2(-13, -3), Vector2(-13, 3), Vector2(0, -16), Vector2(3, 0), Vector2(15, 0), Vector2(0, 10), Vector2(0, 16)]
+	var layout: String = profile.id if profile.id in ["aether","lpdu"] else "astoh"
+	if layout == "aether": canonical = [Vector2(-11,-9),Vector2(-11,9),Vector2(10,11),Vector2(1,-15),Vector2(10,-11),Vector2(15,-4),Vector2(15,4),Vector2(1,15)]
+	elif layout == "lpdu": canonical = [Vector2(10,-11),Vector2(-11,-9),Vector2(-11,9),Vector2(1,-15),Vector2(15,-4),Vector2(15,4),Vector2(10,11),Vector2(1,15)]
 	for i in 8:
 		pos(i, Vector2(canonical[i].x * sign_x, canonical[i].y))
 		label(i, "MONITOR %d" % (i + 1) if i < 3 else "No monitor %d" % (i - 2))
-	var b = beat("Oversampled Wave Cannon · %s" % ("EAST" if sign_x == 1 else "WEST"), 10.0, "Astoh geometry drill: each of four monitor sources must see exactly two people. Face with Q/E or right-click.")
-	var sources: Array = [{"kind": "half", "angle": 90 * sign_x, "radius": 45, "name": "Boss monitor"}]
+	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout,"EAST" if (sign_x == 1) == (layout == "astoh") else "WEST"], 10.0, "四個檢知各命中兩人，每人只受擊一次。Aether 第三檢知在南側；LPDU 第一檢知在北側。Q/E 或右鍵調整朝向。")
+	b.monitor_layout = layout
+	var sources: Array = [{"kind": "half", "angle": (90 if layout == "astoh" else 270) * sign_x, "radius": 45, "name": "Boss monitor"}]
 	var goals = [270.0 * sign_x, 0.0, 180.0]
+	if layout == "aether": goals = [0.0,180.0,90.0 * sign_x]
+	elif layout == "lpdu": goals = [90.0 * sign_x,0.0,180.0]
 	for i in 3:
 		var offset = 90.0 if rng.randi_range(0, 1) else -90.0
 		b.facing[at(i)] = goals[i] - offset
@@ -433,11 +480,18 @@ func delta() -> void:
 	b.checks.append(pair(at(0), at(1), 22, 40, "Outer BLUE break")); b.checks.append(pair(at(2), at(3), 0, 16, "Inner BLUE hold"))
 	b.checks.append(pair(at(4), at(5), 18, 40, "GREEN hold")); b.checks.append(pair(at(6), at(7), 8, 40, "GREEN hold"))
 	b.tethers = [{"a": at(0), "b": at(1)}, {"a": at(2), "b": at(3)}, {"a": at(4), "b": at(5)}, {"a": at(6), "b": at(7)}]
+	b.paired_tethers = []
+	for pair_index in 4:
+		b.paired_tethers.append({"id":"delta_%d" % pair_index,"kind":"remote" if pair_index < 2 else "local","a":at(pair_index*2),"b":at(pair_index*2+1),"delay":float(Params.parameter("delta_activation_delay")),"duration":float(Params.parameter("delta_regression_duration")),"threshold":float(Params.parameter("delta_remote_distance" if pair_index < 2 else "delta_local_distance"))})
+	var blue_inner: Array = [positions[at(2)],positions[at(3)]]
 	for i in [0, 1, 4, 5]:
 		var outer: Vector2 = positions[at(i)]
 		var needs_swap: bool = colours[(i / 4) * 4] == colours[(i / 4) * 4 + 2]
 		var destination: int = (i + 1 if i % 2 == 0 else i - 1) if needs_swap else i
-		pos(i + 2, positions[at(destination)] + Vector2(0.5, 0))
+		if i < 2:
+			pos(i+2,blue_inner[destination])
+			pos(i,blue_inner[i]+Vector2(0.5,0))
+		else: pos(i + 2, positions[at(destination)] + Vector2(0.5, 0))
 	b = beat("Delta · Rocket Punch pair bait", 6.0, "Each blue fist must meet one yellow fist. Record these bait locations before moving.")
 	b.checks.append({"kind": "fists", "colours": actor_colours, "name": "Rocket Punch"})
 	var fists: Array = []
@@ -446,32 +500,35 @@ func delta() -> void:
 		var fist = circle(positions[at(i)], 5, "Rocket Punch snapshot"); fist.snapshot_position_actor = at(i)
 		fists.append(fist)
 	for i in 8: pos(i, polar(22.5 + i * 45, 17))
-	pos(2, Vector2(-2, -2)); pos(3, Vector2(2, 2))
+	pos(2, Vector2(-17, -4)); pos(3, Vector2(17, 4))
 	b = beat("Delta · leave fists / bait spinning arm lasers", 7.0)
 	b.shapes = fists
-	b.checks.append(pair(at(2), at(3), 4, 40, "Inner BLUE now breaks"))
-	var arm_shapes: Array = []; var rotated_shapes: Array = []; var rotation_sources: Array = []
-	var bait_slots := [0, 1, 4, 5, 6, 7]
+	b.checks.append(pair(at(2), at(3), float(Params.parameter("delta_remote_distance")), 40, "Inner BLUE now breaks"))
+	var arm_shapes: Array = []; var arm_sources: Array = []
+	var bait_slots := [0,1,4,5,6,7]
 	for j in 6:
-		var radial := polar(30 + j * 60, 1)
-		var rotation_sign: int = 1 if rng.randi_range(0, 1) else -1
-		var tangent := radial.rotated(PI / 2)
-		var origin: Vector2 = radial * 24
-		pos(bait_slots[j], radial * 17 - tangent * rotation_sign * 6)
-		var bait_actor: int = at(bait_slots[j])
-		var axis: Vector2 = (positions[bait_actor] - origin).normalized()
-		var base_angle: float = rad_to_deg(atan2(axis.x, -axis.y))
-		arm_shapes.append({"kind": "line", "decorative": true, "pos": origin, "target": bait_actor, "width": 2.5, "length": 45, "rule": "count", "count": 1, "required": [bait_actor], "name": "Arm bait " + ("CW" if rotation_sign > 0 else "CCW")})
-		rotated_shapes.append({"kind": "line", "pos": origin, "angle": base_angle + rotation_sign * 90, "width": 2.5, "length": 45, "name": "Rotating Hyper Pulse"})
-		rotation_sources.append({"pos": origin, "target": bait_actor, "turn": rotation_sign * 90})
-		labels[bait_actor] += " · ARM " + ("CW" if rotation_sign > 0 else "CCW")
-	pos(2, Vector2(-2, -2)); pos(3, Vector2(2, 2))
-	b = beat("Delta · bait six rotating arms", 8.0, "Read each CW/CCW arrow. Bait on the side that makes the rotating laser sweep outward.")
-	b.shapes = arm_shapes
-	for j in 6: b.checks.append({"kind": "closest", "pos": arm_shapes[j].pos, "members": [at(bait_slots[j])], "count": 1, "name": "Nearest arm bait"})
-	b = beat("Delta · arms rotate outward", 3.0)
-	b.shapes = rotated_shapes
-	b.rotation_sources = rotation_sources
+		var degrees := float(j*60)
+		var rotation_sign := 1 if rng.randi_range(0,1) else -1
+		var origin := polar(degrees,20.0)
+		pos(bait_slots[j],polar(degrees-rotation_sign*3.0,19.0))
+		var target: int = at(bait_slots[j])
+		var axis: Vector2 = positions[target]-origin
+		var base_angle := rad_to_deg(atan2(axis.x,-axis.y))
+		arm_shapes.append({"kind":"line","decorative":true,"pos":origin,"target":target,"width":8.0,"length":100.0,"name":"Hyper Pulse bait"})
+		arm_sources.append({"pos":origin,"target":target,"angle":base_angle,"sign":rotation_sign})
+		labels[target] += " · ARM " + ("CW" if rotation_sign>0 else "CCW")
+	pos(2,Vector2(-2,-2));pos(3,Vector2(2,2))
+	b=beat("Delta · bait six rotating arms",8.0,"先引導六手臂，再往內離開鎖定線。六發每次轉 20°、間隔 0.6 秒；手臂距中心 20、雷射寬 8。")
+	b.shapes=arm_shapes
+	for j in 6:b.checks.append({"kind":"closest","pos":arm_sources[j].pos,"members":[at(bait_slots[j])],"count":1,"name":"Nearest arm bait"})
+	for pulse in 6:
+		for j in 6:pos(bait_slots[j],polar(j*60,5.0))
+		b=beat("Delta · Hyper Pulse %d/6" % (pulse+1),2.5 if pulse==0 else 0.6,"角度只在第一發前鎖定一次，之後六發不會重新追蹤玩家。")
+		b.rotation_group="delta_arms";b.rotation_sources=[]
+		for source in arm_sources:
+			var turn := float(source.sign)*20.0*pulse
+			b.shapes.append({"kind":"line","pos":source.pos,"angle":float(source.angle)+turn,"width":8.0,"length":100.0,"name":"Rotating Hyper Pulse"})
+			b.rotation_sources.append({"pos":source.pos,"target":source.target,"turn":turn})
 	# A single monitor and the boss monitor each choose two green-tether players.
 	for i in 8: pos(i, Vector2(-1 + (i % 3) * 0.25, 3))
 	pos(0, Vector2(-10, 0)); pos(1, Vector2(-2, 5)); pos(2, Vector2(-1, 5)); pos(3, Vector2(0, 5))
@@ -481,6 +538,8 @@ func delta() -> void:
 	b.shapes.append(targeted(at(0), 4, 1, "Beyond Defense")); b.shapes.append(targeted(at(2), 3, 3, "Pile Pitch"))
 	b.shapes.append({"kind": "half", "angle": 0, "radius": 45, "rule": "count", "count": 2, "required": [at(4), at(5)], "name": "Final Omega monitor"})
 	b.shapes.append({"kind": "half", "actor": at(1), "face_actor": at(1), "offset": 90, "radius": 45, "exclude": [at(1)], "rule": "count", "count": 2, "required": [at(6), at(7)], "name": "Player monitor"})
+	pos(4, Vector2(-1,-12)); pos(5, Vector2(1,-12))
+	b = beat("Delta · first Local contact", 4.0, "Break this paired line by contact after the earlier raidwide vulnerability. It cannot transfer to another player.")
 	# Training snapshot makes the GREEN break order explicit.
 	world_snapshot([at(0), at(1), at(4), at(5), at(6), at(7), at(2), at(3)], "Delta · Near/Far + first GREEN break", true, 0)
 	b = beats[-1]
@@ -489,6 +548,7 @@ func delta() -> void:
 	pos(6, Vector2(-1, 12)); pos(7, Vector2(1, 12))
 	b = beat("Delta · last GREEN breaks after vulnerability", 6.0)
 	b.checks.append(pair(at(6), at(7), 0, 3, "Last Local Regression"))
+	b.checks.append({"kind":"regressions_resolved","prefix":"delta_"})
 
 func sigma() -> void:
 	var remote = bool(rng.randi_range(0, 1))
@@ -518,7 +578,7 @@ func sigma() -> void:
 		var target_actor: int = at(singles[j] * 2)
 		b.shapes.append({"kind": "line", "pos": arm_pos, "target": target_actor, "width": 2.5, "length": 45, "rule": "count", "count": 1, "required": [target_actor], "name": "Furthest-player Hyper Pulse"})
 		b.checks.append({"kind": "furthest", "pos": arm_pos, "members": [target_actor], "count": 1, "name": "Hyper Pulse bait"})
-	for i in 4: b.checks.append(pair(at(i * 2), at(i * 2 + 1), 32 if remote else 18, 40 if remote else 27, "Sigma Glitch"))
+	for i in 4: b.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Sigma Glitch"))
 	# Waymark routing is a consequence of the previous spread, not role order.
 	var by_mark = {}
 	for i in 8: by_mark[int(round(float(directions[i]) / 45.0)) % 8] = at(i)
@@ -541,13 +601,13 @@ func sigma() -> void:
 	b = beat("Sigma · knockback towers · %s" % ("REMOTE (5 towers)" if remote else "MID (6 towers)"), 10.0, "Use your previous waymark. Tower capacities are enforced after the radial knockback.")
 	b.knockback = 13.0
 	for deg in group_by_tower: b.shapes.append(tower(polar(deg, 18), 2.5, group_by_tower[deg], "Sigma tower"))
-	for i in 4: b.checks.append(pair(at(i * 2), at(i * 2 + 1), 32 if remote else 18, 40 if remote else 29, "Sigma landing Glitch"))
+	for i in 4: b.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Sigma landing Glitch"))
 	if rng.randi_range(0, 1): rotate_beat(b, 180)
 	var rotate_direction = 1 if rng.randi_range(0, 1) else -1
-	for j in 7:
-		for i in 8: pos(i, polar(20 + rotate_direction * j * 20 + (0 if i < 3 else 180), 13))
-		b = beat("Sigma · rotating Rear Power Unit %d/7" % (j + 1), 2.6, "Follow the rotating laser; training groups the fourteen shots into seven movement checkpoints.")
-		b.shapes.append(line(Vector2.ZERO, rotate_direction * j * 20, 4, "Rear Power Unit"))
+	for j in 14:
+		for i in 8: pos(i, polar(40 + rotate_direction * j * float(Params.parameter("sigma_step_degrees")) + (0 if i < 3 else 180), 13))
+		b = beat("Sigma · rotating Rear Power Unit %d/14" % (j + 1), 5.0 if j == 0 else float(Params.parameter("sigma_shot_interval")), "十四發獨立判定，寬 12、每 0.6 秒旋轉 9°；可用速度選項放慢。")
+		b.shapes.append(line(Vector2.ZERO, rotate_direction * j * float(Params.parameter("sigma_step_degrees")), 12, "Rear Power Unit"))
 	world_snapshot(order.duplicate(), "Sigma · Hello Near / Distant World", false, 0)
 
 func omega(entry_stacks: Array = []) -> void:
@@ -574,7 +634,21 @@ func omega(entry_stacks: Array = []) -> void:
 	world_snapshot(assignment, "Omega · second World + three-stack tethers", false, 0)
 	b = beats[-1]
 	b.checks.append({"kind": "dynamis", "value": [3, 3, 3, 3, 3, 3, 3, 3], "name": "P6 entry"})
-	b.note = "Players already at three stacks take beetle tethers; everyone else gets the final World. Snapshot model omits the earlier Blaster explosion."
+	b.note = "Blaster follows the actual transferred line holders. Only three-stack non-World players are eligible."
+	b.positions[three[0]] = Vector2(16,-10); b.positions[three[1]] = Vector2(16,10)
+	b.transfers = {"group":"omega_blaster","sources":[Vector2(19,0),Vector2(19,0)],"initial":shuffled(range(8)).slice(0,2),"wanted":three.duplicate(),"holders":[]}
+	b.checks.push_front({"kind":"blaster_eligible","world_holders":second_holders})
+	b.checks[1].exclude_blaster = true
+	# Separate explosion from World while preserving the actual line owners.
+	var pickup: Dictionary = b.duplicate(true)
+	pickup.title = "Omega · collect beetle Blaster / explosion"
+	pickup.duration = 12.0
+	pickup.checks = [{"kind":"blaster_eligible","world_holders":second_holders}]
+	pickup.shapes = []
+	for k in 2: pickup.shapes.append({"actor":three[k],"tether_index":k,"radius":15.0,"rule":"omega_blaster","name":"Omega Blaster"})
+	beats.insert(beats.size()-1,pickup)
+	b.erase("transfers") # Blaster has exploded; there is no line left to steal during World.
+
 
 static func select_monitors(stacks: Array, first: Array, second: Array) -> Array:
 	var result: Array = []
@@ -585,19 +659,32 @@ static func select_monitors(stacks: Array, first: Array, second: Array) -> Array
 		if stacks[i] == 2 and i not in first and i not in result: result.append(i)
 	return result
 
+static func omega_shapes(sword: bool, legs: bool, orientation: float, second: bool) -> Array:
+	# Shapes follow community event descriptions. Spawn topology remains a named training case.
+	var clone_rotation := orientation + (90.0 if second else 0.0)
+	var m := Vector2(-8,0).rotated(deg_to_rad(clone_rotation))
+	var f := Vector2(8,0).rotated(deg_to_rad(clone_rotation))
+	var shapes: Array = [{"kind":"circle","pos":m,"radius":10.0,"name":"Efficient Bladework"} if sword else {"kind":"donut","pos":m,"inner":10.0,"radius":40.0,"name":"Beyond Strength"}]
+	if legs:
+		for side in [-90,90]: shapes.append({"kind":"line","pos":f,"angle":clone_rotation+90+side,"start":4.0,"length":40.0,"width":80.0,"name":"Superliminal Steel"})
+	else:
+		for axis in [0,90]: shapes.append({"kind":"line","pos":f,"angle":clone_rotation+axis,"start":-100.0,"length":100.0,"width":10.0,"name":"Optimized Blizzard"})
+	# Diffuse is two 120-degree cones (not a fabricated safe wedge or a halfplane).
+	for side in [0,180]: shapes.append({"kind":"cone","pos":Vector2.ZERO,"angle":orientation+side+(90 if second else 0),"width":120.0,"radius":100.0,"name":"Omega Diffuse Wave Cannon"})
+	return shapes
+
 func omega_dodges() -> void:
-	var first_angle = float(rng.randi_range(0, 3) * 90)
-	var turn = 90 if rng.randi_range(0, 1) else -90
+	var orientation := float(profile.get("omega_orientation",rng.randi_range(0,3)*90))
 	for step in 2:
-		var sword = bool(rng.randi_range(0, 1)); var legs = bool(rng.randi_range(0, 1))
-		var radius = 5.0 if legs else (17.0 if sword else 11.5)
-		var deg = first_angle + step * turn
-		for i in 8: pos(i, polar(deg, radius) + Vector2(i * 0.03, 0))
-		var b = beat("Omega dodge %d/2 · %s + %s" % [step + 1, "SWORD" if sword else "SHIELD", "LEGS" if legs else "STAFF"], 7.0, "Legs: near, away from sword / towards shield. Staff: toward M, far for sword / middle for shield. Second safe cardinal is ±90°.")
-		# This drill encodes the resulting cardinal/radial safe sectors, not misleading clone hitboxes.
-		b.shapes.append({"kind": "cone", "angle": deg + 180, "width": 320, "radius": 40, "name": "M/F + Diffuse Wave Cannon (safe cardinal gap)"})
-		b.shapes.append({"kind": "donut", "inner": radius + 2.5, "radius": 40, "name": "Wrong distance band"})
-		if radius > 3: b.shapes.append(circle(Vector2.ZERO, radius - 2.5, "Wrong distance band"))
+		var sword := bool(profile.get("omega_sword",rng.randi_range(0,1)))
+		var legs := bool(profile.get("omega_legs",rng.randi_range(0,1)))
+		var shapes := omega_shapes(sword,legs,orientation,step==1)
+		# Enumerate safe geometry; no answer-shaped hazard is manufactured.
+		var safe := find_safe(shapes)
+		for i in 8: pos(i,safe)
+		var b := beat("Omega clones %d/2 · %s / %s" % [step+1,"sword" if sword else "shield","legs" if legs else "staff"],7.0,"Community attack geometry; clone spawn topology is an unverified training family.")
+		b.shapes = shapes
+		b.clone_pattern = {"sword":sword,"legs":legs,"orientation":orientation,"second":step==1,"status":"unverified_spawn_topology"}
 
 func intended_stacks() -> Array:
 	var values: Array = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -650,39 +737,38 @@ func memory() -> void:
 	b.checks.append({"kind": "dynamis", "value": [3, 3, 3, 3, 3, 3, 3, 3]})
 	lb_check(b, "tank", 0, "Cosmo Memory")
 
+static func arrow_shapes(inside_out: bool, pulse: int, concurrent := false) -> Array:
+	var offsets: Array
+	if inside_out: offsets = [0.0] if pulse == 0 else [-7.5-5.0*(pulse-1),7.5+5.0*(pulse-1)]
+	else:
+		var start := float(Params.parameter("arrow_side_start"))
+		offsets = [-start,start] if pulse == 0 else [-start+7.5+5.0*(pulse-1),start-7.5-5.0*(pulse-1)]
+	var result: Array = []
+	for axis in [0,90]:
+		for offset in offsets:
+			result.append({"kind":"line","pos":Vector2(offset,0) if axis==0 else Vector2(0,offset),"angle":axis,"start":-50.0,"length":50.0,"width":10.0 if pulse==0 else 5.0,"name":"Concurrent Cosmo Arrow" if concurrent else "Cosmo Arrow translation"})
+	return result
+
 func cosmo_arrow(with_waves: bool) -> void:
-	var inside_first = bool(rng.randi_range(0, 1))
-	# Schematic strips preserve the in/wait/out cadence. Real arrows travel as
-	# crossing orthogonal strips; do not represent them as circular rings.
-	var radii: Array = [5.0, 5.0, 11.0, 11.0, 16.0, 6.0] if inside_first else [16.0, 16.0, 7.0, 16.0, 6.0]
-	for j in radii.size():
-		var r: float = radii[j]
-		for i in 8:
-			positions[i] = polar(45, r) if not with_waves or j < radii.size() - 2 else polar(i * 45, r)
-		var b = beat("Cosmo Arrow · %s-first · dodge %d/%d" % ["IN" if inside_first else "OUT", j + 1, radii.size()], 4.5, "Watch the crossing line strips, not an invented circle AoE. Training cadence is slowed.")
-		var lane = r / sqrt(2.0)
-		for axis in [0, 90]:
-			for offset in [-18.0, -12.0, -6.0, 0.0, 6.0, 12.0, 18.0]:
-				# Keep the currently required band open on both x and z.
-				if absf(absf(offset) - lane) < 3.5: continue
-				b.shapes.append(line(Vector2(offset, 0) if axis == 0 else Vector2(0, offset), axis, 2.2, "Cosmo Arrow travelling strip"))
-		if with_waves and j >= radii.size() - 2:
-			# Role clock positions avoid overlap while still respecting both strip axes.
-			b.shapes = []
+	var inside_out := bool(profile.get("arrow_inside_out",rng.randi_range(0,1)))
+	var pulses := 4 if inside_out else 7
+	for j in pulses:
+		var concurrent := with_waves and j >= pulses-2
+		var shapes := arrow_shapes(inside_out,j,concurrent)
+		if with_waves:
+			# Choose safe radial positions for each role ray against the real translated strips.
 			for i in 8:
-				var a = 22.5 + i * 45
-				positions[i] = polar(a, r)
-			b.positions = positions.duplicate()
-			var targets = [0, 2, 4, 6] if j == radii.size() - 2 else [1, 3, 5, 7]
-			for actor in targets: b.shapes.append({"kind": "line", "pos": Vector2.ZERO, "target": actor, "width": 2.0, "length": 40, "rule": "count", "count": 1, "name": "Wave Cannon spread"})
-			# All eight clock positions have two shared absolute x/z lane values.
-			# Keep those lanes safe while retaining simultaneous crossing strips.
-			var safe_x: float = absf(positions[0].x)
-			var safe_y: float = absf(positions[0].y)
-			for axis in [0, 90]:
-				for offset in [-18.0, -12.0, -6.0, 0.0, 6.0, 12.0, 18.0]:
-					if minf(absf(absf(offset) - safe_x), absf(absf(offset) - safe_y)) < 1.7: continue
-					b.shapes.append(line(Vector2(offset, 0) if axis == 0 else Vector2(0, offset), axis, 2.2, "Concurrent Cosmo Arrow"))
+				for r in range(19,2,-1):
+					var candidate := polar(22.5+i*45,r)
+					if shapes.all(func(shape): return not Rules.contains(shape,candidate,[])):
+						positions[i] = candidate; break
+		else:
+			var safe := find_safe(shapes)
+			for i in 8: positions[i] = safe
+		var b := beat("Cosmo Arrow · %s · pulse %d/%d" % ["center-out" if inside_out else "sides-in",j+1,pulses],8.0 if j==0 else 2.0,"Orthogonal strips: first width 10, first translation 7.5, subsequent translation 5. Community geometry; starting topology remains training data.")
+		b.shapes = shapes
+		if concurrent:
+			for actor in ([0,2,4,6] if j==pulses-2 else [1,3,5,7]): b.shapes.append({"kind":"line","pos":Vector2.ZERO,"target":actor,"width":2.0,"length":40,"rule":"count","count":1,"name":"Wave Cannon spread"})
 
 func cosmo_dive() -> void:
 	positions[0] = Vector2(-4, -4); positions[1] = Vector2(4, -4)
@@ -693,21 +779,26 @@ func cosmo_dive() -> void:
 		var hit = targeted(ordinal, 5, 1, "Cosmo Dive tank"); hit.dynamic_actor = {"selector": "closest", "ordinal": ordinal}; b.shapes.append(hit)
 	var stack = targeted(7, 4, 6, "Cosmo Dive party"); stack.dynamic_actor = {"selector": "furthest", "ordinal": 0}; b.shapes.append(stack)
 
+static func exaflare_streams(orientation: float) -> Array:
+	var result: Array = []
+	var params = preload("res://scripts/statuses.gd")
+	for i in 4:
+		var axis := Rules.direction(orientation+i*90)
+		result.append({"id":"exa_%d" % i,"pos":axis*float(params.parameter("exaflare_origin_radius")),"advance":-axis*float(params.parameter("exaflare_step")),"radius":float(params.parameter("exaflare_radius")),"delay":float(params.parameter("exaflare_first_delay"))+i*float(params.parameter("exaflare_stream_stagger")),"interval":float(params.parameter("exaflare_interval")),"remaining":int(params.parameter("exaflare_explosions")),"source_status":"unverified_origin_family"})
+	return result
+
 func exaflares() -> void:
-	var clockwise = 1 if rng.randi_range(0, 1) else -1
-	var start = angle
+	# This explicit origin family is a training fixture, not claimed to enumerate live spawns.
 	for j in 6:
-		var deg = start + clockwise * (67.5 + j * 22.5)
-		for i in 8: positions[i] = polar(deg, 12) + Vector2(0.04 * i, 0)
-		var b = beat("Unlimited Wave Cannon · bait %d/6 · %s" % [j + 1, "CW" if clockwise == 1 else "CCW"], 3.0, "Begin 1.5 waymarks from the first exaflare, then follow the arc. Six baited AoEs.")
-		for stream in 4:
-			var exa_angle = start + clockwise * (j * 22.5 - stream * 22.5)
-			b.shapes.append(circle(polar(exa_angle, 17), 5.0, "Exaflare stream"))
+		var p := Vector2(9,9) if j%2==0 else Vector2(13.6,13.6)
+		p = p.rotated(deg_to_rad(angle))
+		for i in 8: positions[i] = p
+		var b := beat("Unlimited Wave Cannon · moving streams / bait %d/6" % (j+1),3.0,"Moving straight streams; radius 8 from community events. 每條推進 8、間隔 1.1 秒、共七次爆炸；起點分布仍是待校準訓練族群。")
+		if j == 0: b.streams = exaflare_streams(angle)
 		if j > 0:
 			for actor in 8:
-				var puddle = circle(polar(deg - clockwise * 22.5, 12), 4.0, "Baited wave (previous snapshot)")
+				var puddle := circle((Vector2(9,9) if j%2==1 else Vector2(13.6,13.6)).rotated(deg_to_rad(angle)),6.0,"Baited wave (previous snapshot)")
 				puddle.snapshot_position_actor = actor; b.shapes.append(puddle)
-		b.shapes.append({"kind": "circle", "pos": polar(start, 22), "radius": 2.0, "decorative": true, "name": "First exaflare indicator"})
 
 func wave_cannon(with_spreads := true) -> void:
 	if with_spreads:

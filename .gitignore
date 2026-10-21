@@ -6,3 +6,6 @@
 /build/
 /dist/
 **/__pycache__/
+
+# Locally extracted game assets: retain on machine, never stage in source.
+/top/assets/official/

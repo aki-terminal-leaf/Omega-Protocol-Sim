@@ -82,6 +82,9 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 			"count":
 				if caught.size() != int(shape.get("count", 1)): failures.append("%s: %d / %d players" % [name, caught.size(), int(shape.get("count", 1))])
 				if shape.has("required") and not same_members(caught, shape.required): failures.append("%s: wrong players / wrong debuff" % name)
+				if shape.has("rot_colour") and state.has("statuses"):
+					for actor in caught:
+						load("res://scripts/statuses.gd").give(state, actor, "latent_" + shape.rot_colour, float(load("res://scripts/statuses.gd").parameter("latent_duration")))
 				if shape.get("looper_tower", false) and caught.size() == 1:
 					var actor: int = caught[0]
 					if bool(state.loop_cleansed[actor]): failures.append("Storage Violation Obliteration: %s has no Looper" % actors[actor].role)
@@ -92,10 +95,27 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 			"tankbuster":
 				for actor in caught:
 					if actor >= 2: failures.append("%s: %s hit a non-tank" % [actors[actor].role, name])
+			"beyond_defense":
+				state.defense_victims=caught.duplicate()
+				if caught.size()!=1:failures.append("Beyond Defense clipped another player")
+				var status=load("res://scripts/statuses.gd");status.ensure(state);status.event(state,"beyond_defense",{"victims":caught})
+			"pile_pitch":
+				if caught.size()<int(shape.get("min_count",3)):failures.append("Pile Pitch: insufficient stack members")
+				for actor in caught:
+					if actor in state.get("defense_victims",[]):failures.append("%s: Beyond Defense victim clipped by Pile Pitch" % actors[actor].role)
+				var status=load("res://scripts/statuses.gd");status.ensure(state);status.event(state,"pile_pitch",{"hits":caught,"excluded":state.get("defense_victims",[]).duplicate()})
+				state.defense_victims=[]
+			"omega_blaster":
+				if not state.has("blaster_victims"): state.blaster_victims = []
+				for actor in caught:
+					if actor not in state.blaster_victims: state.blaster_victims.append(actor)
+				if caught.size() != 1: failures.append("Omega Blaster clipped another player")
+				if state.has("statuses"):
+					for actor in caught: load("res://scripts/statuses.gd").give(state,actor,"hp_penalty",float(load("res://scripts/statuses.gd").parameter("hp_penalty_duration")))
 			"blaster":
 				for actor in caught:
 					apply_loop_ruin(actor, state, actors, failures, "Blaster")
-					state.loop_hp_penalty[actor] = float(state.get("sim_time", 0.0)) + 16.0
+					state.loop_hp_penalty[actor] = float(state.get("sim_time", 0.0)) + float(load("res://scripts/statuses.gd").parameter("hp_penalty_duration"))
 	for check in beat.get("checks", []):
 		var name: String = check.get("name", check.kind)
 		match check.kind:
@@ -112,6 +132,12 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 					for i in caught: coverage[i] += 1
 				for i in 8:
 					if coverage[i] != 1: failures.append("%s: %s targeted %d times" % [name, actors[i].role, coverage[i]])
+			"regressions_resolved":
+				for tether in state.get("paired_tethers",[]):
+					if tether.id.begins_with(check.prefix) and not tether.broken: failures.append("Unresolved paired tether: " + tether.id)
+			"blaster_eligible":
+				for holder in state.get("tether_holders", []):
+					if int(state.dynamis[holder]) < 3 or holder in check.get("world_holders", []): failures.append("Omega Blaster: ineligible holder")
 			"world":
 				var near_path = chain(int(check.near), false, actors)
 				var far_path = chain(int(check.far), true, actors)
@@ -123,6 +149,7 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 						var receiver: int = path[j]
 						if receiver in touched: failures.append("Hello World: double-hit / bounce back")
 						touched.append(receiver)
+						if check.get("exclude_blaster", false) and receiver in state.get("blaster_victims", state.get("tether_holders", [])): failures.append("World hit live Blaster holder")
 						var blast = {"actor": receiver, "radius": float(check.get("holder_radius", 5)) if j == 0 else float(check.get("jump_radius", 2.5))}
 						if hits(blast, actors).size() != 1: failures.append("Hello World: AoE clipped another player")
 				if failures.is_empty():
@@ -183,7 +210,7 @@ static func ensure_loop_state(beat: Dictionary, state: Dictionary) -> void:
 static func apply_loop_ruin(actor: int, state: Dictionary, actors: Array, failures: Array, cause: String) -> void:
 	var now := float(state.get("sim_time", 0.0))
 	if float(state.loop_ruin_expires[actor]) > now: failures.append("%s: Twice-come Ruin ×2 → Doom (%s)" % [actors[actor].role, cause])
-	state.loop_ruin_expires[actor] = now + 16.0
+	state.loop_ruin_expires[actor] = now + float(load("res://scripts/statuses.gd").parameter("ruin_duration"))
 
 static func same_members(a: Array, b: Array) -> bool:
 	if a.size() != b.size(): return false

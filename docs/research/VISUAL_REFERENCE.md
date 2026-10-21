@@ -25,3 +25,7 @@
 AnAn 作業 `top-visuals-controls-20261021`，隔離分支 `openclaw/top-visuals-controls-20261021`（同名 worktree）。三個變更檔及新檔已由父層下載逐一審閱，再整合輸入與接線；原 checkout 保持未修改。原作業參考圖下載失敗，父層已透過另一個可正常取得圖片的環境完成上述圖／動畫查看。
 
 Godot 4.4.1 Windows import／規則測試、原生 OpenGL 畫面、相機 API 均有實測。整合後再於 AnAn 桌面以真正的相對滑鼠／掃描碼鍵盤事件操作，不以 SetCursorPos 當成遊戲的 raw mouse 動作。完整結果見 [驗證紀錄](../VALIDATION.md)。
+
+## v0.3-preview 本機原版素材
+
+本次已從 AnAn 的已安裝遊戲唯讀取得五種首領網格、貼圖、骨架與 56 段 resident 動作；另由使用者現有 DSR 1.1.0 轉出七種配裝角色、保留蒙皮與動作，沒有拷貝 DSR controller。具體來源、hash、相容性與未完整復刻的 shader / VFX 見 [OFFICIAL_ASSETS](OFFICIAL_ASSETS.md)。上面的「沒有官方素材」是 v0.2 的歷史描述，不再代表 v0.3 本機包；公開 source 仍不內附遊戲素材。

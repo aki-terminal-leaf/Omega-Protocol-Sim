@@ -37,13 +37,16 @@
       "priority",
       "shapes",
       "remote_full_cross",
-      "p3_priority"
+      "p3_priority",
+      "panto_reference_angle"
     ],
     "training_only_fields": [
       "monitor_geometry",
-      "p5_geometry"
+      "p5_geometry",
+      "panto_tick_geometry"
     ],
-    "short_scope": "部分約定預設 · 共用訓練幾何"
+    "short_scope": "部分約定預設 · 共用訓練幾何",
+    "panto_reference_angle": 315
   },
   {
     "id": "aether",
@@ -64,7 +67,7 @@
       "O",
       "Triangle"
     ],
-    "remote_full_cross": true,
+    "remote_full_cross": false,
     "stack_flex": "north",
     "p6_stack_angle": 180,
     "source": "https://www.thepfstrat.com/u/top",
@@ -83,14 +86,17 @@
       "priority",
       "shapes",
       "remote_full_cross",
-      "p3_priority"
+      "p3_priority",
+      "panto_reference_angle"
     ],
     "training_only_fields": [
       "monitor_geometry",
       "p5_geometry",
-      "p6_stack_angle"
+      "p6_stack_angle",
+      "panto_tick_geometry"
     ],
-    "short_scope": "部分約定預設 · 共用訓練幾何"
+    "short_scope": "部分約定預設 · 共用訓練幾何",
+    "panto_reference_angle": 45
   },
   {
     "id": "lpdu",
@@ -130,13 +136,16 @@
       "priority",
       "shapes",
       "remote_full_cross",
-      "p3_priority"
+      "p3_priority",
+      "panto_reference_angle"
     ],
     "training_only_fields": [
       "monitor_geometry",
-      "p5_geometry"
+      "p5_geometry",
+      "panto_tick_geometry"
     ],
-    "short_scope": "部分約定預設 · 共用訓練幾何"
+    "short_scope": "部分約定預設 · 共用訓練幾何",
+    "panto_reference_angle": 0
   },
   {
     "id": "cn_moogle",
@@ -181,9 +190,12 @@
       "stack_flex",
       "p6_stack_angle",
       "monitor_geometry",
-      "p5_geometry"
+      "p5_geometry",
+      "panto_tick_geometry",
+      "panto_reference_angle"
     ],
-    "short_scope": "已核對全程優先序；其他欄位為訓練預設"
+    "short_scope": "已核對全程優先序；其他欄位為訓練預設",
+    "panto_reference_angle": 315
   },
   {
     "id": "kr_09stop",
@@ -230,9 +242,12 @@
       "stack_flex",
       "p6_stack_angle",
       "monitor_geometry",
-      "p5_geometry"
+      "p5_geometry",
+      "panto_tick_geometry",
+      "panto_reference_angle"
     ],
     "short_scope": "已核對 P1/P3 優先序；其他欄位為訓練預設",
-    "loop_start_angle": 0
+    "loop_start_angle": 0,
+    "panto_reference_angle": 315
   }
 ]

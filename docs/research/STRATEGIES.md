@@ -1,6 +1,6 @@
 # TOP 戰術研究與來源邊界
 
-查核日期：2026-10-21（Asia/Taipei）。原始來源、具體可支持的結論和讀取限制見 [sources.json](sources.json)。
+查核日期：2026-10-21（Asia/Taipei）。原始來源、具體可支持的結論和讀取限制見 [sources.json](../../top/data/sources.json)。
 
 ## 方法
 
@@ -61,3 +61,24 @@ CN 一圖流／莫靈喵／MM+W 的完整陣型、KR 每一張站位圖、更多
 ## 新增 CN/KR 優先序預設的邊界
 
 莫古力與 09STOP 的可讀文字均支持 HTDH 優先序，但這不表示其 P2 圖形、P5 全陣型、P6 集合方向與 Elemental 相同。設定中的 `verified_fields` / `training_only_fields` 分開列出，介面選擇時亦顯示「其他欄位為訓練預設」。KR 的 Loop 依原文從北開始順時針；P3 依原文 HH TT DPS 排序。
+
+
+## Stateful implementation audit (2026-10-21)
+
+Mechanic selection still precedes independent strategy selection. Only `mechanic_strategies.json` entries appear for the selected mechanic; the global profile is not an assertion that every mechanic has that regional route.
+
+- Loop: Elemental NW/CW HTDH; Aether light-party TMR flex with its tower-order search; LPDU priority; KR north/CW priority. These remain distinct implemented conventions. CN priority alone does not create a separate complete route.
+- Panto: missile-ahead / three-player beam descriptions replace the incorrect Loop tower descriptions. Elemental uses a NW/SE reference; LPDU uses N/S. Aether retains its light-party flex. The precise flame/puddle sequence is still a training approximation, including reference-sector adjustment.
+- P3: only the Elemental-family training route is exposed for Hello World. Actual infections, blasts and Debugger state are independent of its labels. Other regional routes have not been added merely by renaming this geometry.
+- P5: one explicit Elemental-family training implementation; continuous P5 is a hidden test fixture, not a selectable course; Delta pair-break order and Sigma waymark concepts are supported by readable pages. Omega clone spawn arrangements remain a training family. No claim of complete Aether, LPDU, CN or KR P5 routes.
+- P6: moving exaflare entries now say training family, not a regional route. The four-cardinal starts and two-point training movement are unverified. Existing P6 stack-direction conventions remain limited to their documented scope.
+
+Previously recorded CN/KR macro priorities are retained with their existing `verified_fields`/`training_only_fields` distinction. This pass did not obtain additional readable CN/KR full-route macros. Missing regional implementations remain missing; no clone labels were added to imply otherwise.
+
+## 父層獨立複核
+
+- [BossMod TOP issue 350](https://github.com/awgil/ffxiv_bossmod/pull/350) 提供 Aether 與 LPDU 的具體差異：Panto NE/SW、Remote GPOB、北端補位與第三檢知南側。配合可讀主攻略，不能把這些差異簡化成同一條路線換標籤。
+- [P3OversampledWaveCannon](https://github.com/awgil/ffxiv_bossmod/blob/master/BossMod.Ultimate/Endwalker/Ultimate/TOP/P3OversampledWaveCannon.cs) 的實際陣型資料支持 Aether 第三檢知南側、LPDU 第一檢知北側；本專案使用原創 GDScript，分別驗證左右鏡像與四個監視器的覆蓋。
+- 新增測試明確檢查該陣型與相反朝向的失敗，而非只檢查 profile 名稱。
+
+這些仍不構成其他未核對社群的完整路線；保留 CN/KR 可核對優先序，不將它們冒稱所有機制的完整陣型。

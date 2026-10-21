@@ -2,21 +2,20 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot 4 單人走位練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-## v0.2.0
+## v0.3-preview（接續開發）
 
-- **先選機制 → 再選該機制的攻略方式 → 單獨練習。** P1–P6 共 20 項；結束後不會播放下一個機制。移除選單中的完整 P5／四世界接續課程。
-- **Program Loop 可實際接走連線**：隨機初始持線者、持有者跨輪保留、移動穿線、Blaster 跟隨當下持線者、Looper 消除／過期、Ruin 重複受擊。玩家與 Bot 共用接線碰撞規則，不以到達建議終點代替接線。
-- Limitless Synergy 由坦克真正攔截連線；依接到的來源站位。P4 回波、Delta 拳與地火引導讀取真正留下的位置；部分近遠攻擊依實際距離選人。
-- 人形角色、分階段 Boss 外型、機械場地、立體塔／連線標記；透視環繞鏡頭、相機相對移動與跟隨。操作參考 DSR。
-- 同種子重來、指定分配、教學提示、分段重練、七名 Bot、JSON 操作／接線紀錄。
+- **先選機制 → 再選此機制的攻略 → 單獨練習。** 保持 P1–P6 共 20 項，結束後不連播。完整 P5 僅是內部驗收 fixture。
+- Program Loop／Limitless／Omega 使用實際移動接線與當下 owner；Delta 的成對線在移動中斷開，不混成可轉移的 Boss 線。
+- Hello World 加入自由感染、覆蓋、Debugger、Latent、到期爆炸與提前斷線；判定不以建議落點代替實際狀態。
+- 分開 Aether／LPDU 檢知陣型；六手臂六發鎖定旋轉、十四發 Sigma 雷射與持續移動的地火。
+- 本機素材包可載入 **5 種原版首領網格／貼圖／骨架／常駐動畫**，以及既有 DSR 的 **7 種配裝角色**，以實際位移切換走跑。公開原始碼不包含遊戲素材，未安裝時使用訓練外觀。[來源與轉換](docs/research/OFFICIAL_ASSETS.md)
+- DSR 式操作、同種子／分段重來、七名 Bot；JSON 保存實際事件、感染、受擊者、參數、攻略定義及重試歷史。
 
-**仍非全機制完全還原。** 新版改善互動判定，但其餘項目仍有示意實作；碰撞半徑、部分 Debuff 時長與原戰鬥時序尚未逐項實測。Hello World 自由感染／Debugger、P5 線與完整克隆／地火模式仍未完成。請見 [逐項精確度](docs/research/FIDELITY.md)。
-
-![AnAn 實際 Windows 操作畫面](docs/images/practice-lab.webp)
+**尚未完成所有區服／全部原始判定。** 接線半徑、部分時長、所有原始克隆／地火起點、完整區服路線與 HP／減傷／死亡後行為仍有未完成項目。這是可操作的開發預覽，不把社群參數或自動測試當成實戰校準。[逐項範圍](docs/research/FIDELITY.md)
 
 ## 下載
 
-[Releases](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases) 提供 Windows、Linux、Web 與原始碼。
+[Releases](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases) 保留先前版本的 Windows、Linux、Web 與原始碼；本分支為 v0.3-preview。含本機遊戲素材的包標記為 `local-game-models`，不等同公開 source ZIP 內附素材。
 
 - Windows：完整解壓後開 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。
 - Linux：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
@@ -59,16 +58,19 @@ Elemental、Aether、LPDU、莫古力與 09STOP 的**部分優先序／約定**�
 godot --headless --path top --editor --import --quit
 godot --headless --path top --script tests/rules.gd
 godot --headless --path top --script tests/interactions.gd
+godot --headless --path top --script tests/stateful.gd
+godot --headless --path top --script tests/review.gd
 godot --headless --path top --script tests/run.gd
 godot --headless --path top --script tests/runtime.gd
 godot --headless --path top --script tests/runtime.gd -- --contact-stress
+godot --headless --path top --script tests/models.gd -- --require-official
 python3 tools/package.py --godot godot
 ```
 
-建置需官方 4.4.1 export templates。Windows 已在 AnAn 實際操作，不再只以跨平台匯出代表實測。[驗證紀錄](docs/VALIDATION.md)。GitHub OAuth 缺 workflow scope，CI 僅保留 [範本](docs/ci/top.yml)，未啟用 Actions。
+建置需官方 4.4.1 export templates。v0.2 已在 AnAn 實際操作；v0.3 的精確驗收紀錄另列，不能沿用舊版結果冒稱新版已測。[驗證紀錄](docs/VALIDATION.md)。GitHub OAuth 缺 workflow scope，CI 僅保留 [範本](docs/ci/top.yml)，未啟用 Actions。
 
-架構：`encounters.gd` 產生點名／段落；`interactions.gd` 處理移動中的接線；`rules.gd` 從實際狀態判定；`main.gd` 控制輸入／流程；`arena.gd`／`visuals.gd` 呈現 3D。
+架構：`encounters.gd` 產生點名／段落；`interactions.gd` 處理移動中的接線；`statuses.gd` 保存感染／到期／成對線與地火狀態；`rules.gd` 從實際狀態判定；`main.gd` 控制輸入／流程；`arena.gd`／`visuals.gd` 呈現 3D。
 
 ## 授權
 
-保留上游 [LICENSE](LICENSE) 及各檔聲明；原 README 見 [README.upstream.md](README.upstream.md)。上游部分程式有 GPL 標頭，未移除或重新授權。新增 TOP 程式為 MIT；字型為 SIL OFL。模型為自行製作的低多邊形訓練表現，未將 DSR PCK 或攻略圖／影片包進發行物。FFXIV 名稱屬各權利人；此為非官方工具。
+保留上游 [LICENSE](LICENSE) 及各檔聲明；原 README 見 [README.upstream.md](README.upstream.md)。上游部分程式有 GPL 標頭，未移除或重新授權。新增 TOP 程式為 MIT；字型為 SIL OFL。程序式 fallback 為自行製作；可選本機遊戲素材不屬於 MIT 程式碼授權。未將整個 DSR PCK 或攻略圖／影片包進發行物，source ZIP 排除遊戲素材。FFXIV 名稱屬各權利人；此為非官方工具。

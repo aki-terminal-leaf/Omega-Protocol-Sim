@@ -25,6 +25,8 @@ var state: Dictionary = {}
 var current: Dictionary = {}
 var before_state: Dictionary = {}
 var start_actors: Array = []
+var start_controls: Dictionary = {}
+var retry_history: Array = []
 var journal: Array = []
 var samples: Array = []
 var all_errors: Array = []
@@ -119,7 +121,7 @@ func build_ui() -> void:
 	var root = VBoxContainer.new(); root.add_theme_constant_override("separation", 12); margin.add_child(root)
 	var header = HBoxContainer.new(); root.add_child(header)
 	header.add_child(label("Ω  OMEGA PROTOCOL", 26, Color("8ce3d1")))
-	var subtitle = label("PRACTICE LAB  /  v0.2", 14, Color("8096b4")); subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
+	var subtitle = label("PRACTICE LAB  /  v0.3 preview", 14, Color("8096b4")); subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
 	header.add_child(button("攻略來源", show_research))
 	var body = HBoxContainer.new(); body.add_theme_constant_override("separation", 12); body.size_flags_vertical = Control.SIZE_EXPAND_FILL; root.add_child(body)
 	var left_scroll = ScrollContainer.new(); left_scroll.custom_minimum_size.x = 290; left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; body.add_child(left_scroll)
@@ -187,7 +189,7 @@ func filter_catalog() -> void:
 	return_to_selection()
 func return_to_selection() -> void:
 	running = false; paused = false; pending_advance = false; configured = false
-	encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; samples = []; all_errors = []; checkpoint_assisted = false
+	encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; retry_history = []; samples = []; all_errors = []; checkpoint_assisted = false
 	if is_instance_valid(arena): arena.update_state([], {}, role_select.selected, false)
 	scenario_list.deselect_all(); strategy_select.clear(); strategy_select.add_item("請先選擇機制"); strategy_select.disabled = true
 	checkpoint_select.clear(); title_label.text = "① 選擇機制 → ② 選攻略方式 → ③ 單獨練習"
@@ -200,7 +202,7 @@ func selected_item() -> Dictionary:
 	var selected = scenario_list.get_selected_items()
 	return filtered[selected[0]] if selected.size() and not filtered.is_empty() else {}
 func choose_mechanic(selection: int) -> void:
-	running = false; paused = false; configured = false; encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; samples = []; all_errors = []; checkpoint_assisted = false
+	running = false; paused = false; configured = false; encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; retry_history = []; samples = []; all_errors = []; checkpoint_assisted = false
 	scenario_list.select(selection)
 	var item = selected_item()
 	if item.is_empty(): return
@@ -237,7 +239,7 @@ func prepare() -> void:
 	var method: Dictionary = strategy_select.get_item_metadata(strategy_select.selected)
 	profile_note.tooltip_text = active_profile.scope
 	profile_note.text = method.get("description", "自訂約定；未經外部核對。")
-	index = 0; state = new_state(); journal = []; samples = []; all_errors = []; beat_passed = 0; beat_failed = 0
+	index = 0; state = new_state(); journal = []; retry_history = []; samples = []; all_errors = []; beat_passed = 0; beat_failed = 0
 	begin_beat(true)
 	cue.text = "準備完成 · %s · %d 個訓練判定" % [Encounter.ROLES[player], encounter.beats.size()]
 	feedback.text = "[color=#90a3bd]開始後控制黃色標示角色。\n關閉提示可練習獨立判斷。[/color]"
@@ -245,16 +247,34 @@ func prepare() -> void:
 func new_state() -> Dictionary: return {"dynamis": encounter.initial_dynamis.duplicate(), "spent": [], "lb": "", "lb_actor": -1, "aggro": 0, "sim_time": 0.0}
 func oracle_state_before(target: int) -> Dictionary:
 	var result = new_state()
+	var simulated: Array = []
 	for k in target:
 		var b: Dictionary = encounter.beats[k].duplicate(true)
-		result.sim_time += float(b.duration)
-		if b.has("transfers"):
-			Interactions.begin(b, [], result); result.tether_holders = b.transfers.wanted.duplicate(); Interactions.sync(b, result)
-		var simulated = oracle_actors(b)
+		if simulated.is_empty():
+			simulated = oracle_actors(b)
+			if b.has("spawn"):
+				for i in 8: simulated[i].pos = b.spawn[i]
+		bind_snapshot_geometry(b,simulated,result)
+		Interactions.begin(b, simulated, result)
+		var clock := 0.0
+		while clock < float(b.duration):
+			var dt := minf(0.05, float(b.duration) - clock)
+			var previous := simulated.duplicate(true)
+			for i in 8:
+				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * 11.0)
+				simulated[i].face = b.facing.get(i, 0.0)
+			Interactions.tick(b, simulated, previous, result, dt)
+			clock += dt
 		for check in b.checks:
 			if check.kind == "lb": result.lb = check.type; result.lb_actor = check.eligible[0]
 			if check.kind == "aggro": result.aggro = check.actor
-		Rules.evaluate(b, simulated, result)
+		if b.has("knockback"):
+			for actor in simulated: actor.pos += Rules.v(actor.pos).normalized() * float(b.knockback)
+		var errors := Rules.evaluate(b, simulated, result)
+		for error in errors: Interactions.Statuses.fail(result,error)
+		Interactions.Statuses.event(result,"snapshot",{"title":b.title,"failures":errors,"actors":simulated.duplicate(true)})
+		result.last_snapshot_actors = simulated.duplicate(true)
+	result.checkpoint_actors = simulated
 	return result
 func oracle_actors(b: Dictionary) -> Array:
 	var simulated: Array = []
@@ -270,7 +290,8 @@ func start_run(checkpoint := 0) -> void:
 	prepare(); demo = demonstrate
 	index = clampi(checkpoint, 0, encounter.beats.size() - 1)
 	state = oracle_state_before(index)
-	journal = []; samples = []; all_errors = []; beat_passed = 0; beat_failed = 0
+	if index > 0: actors = state.checkpoint_actors.duplicate(true)
+	journal = []; retry_history = []; samples = []; all_errors = []; beat_passed = 0; beat_failed = 0
 	sprint_left = 0; knockback_resist_left = 0; dash_left = 0
 	running = true; paused = false; pending_advance = false; sample_elapsed = 0; pause_button.text = "暫停  P"
 	feedback.text = "[color=#8ce3d1]%s · seed %s[/color]\n" % ["示範模式（不計入成績）" if demo else "練習開始", seed_edit.text]
@@ -279,7 +300,9 @@ func begin_beat(reset_positions := false) -> void:
 	current = encounter.beats[index].duplicate(true)
 	elapsed = 0; wall_recorded = false; pending_advance = false
 	state.lb = ""; state.lb_actor = -1
-	if reset_positions or actors.size() != 8:
+	if reset_positions and state.get("checkpoint_actors", []).size() == 8:
+		actors = state.checkpoint_actors.duplicate(true)
+	elif reset_positions or actors.size() != 8:
 		actors = []
 		var initial: Dictionary = encounter.beats[maxi(0, index - 1)] if index > 0 else current
 		for i in 8:
@@ -287,32 +310,46 @@ func begin_beat(reset_positions := false) -> void:
 			if index > 0 and initial.has("knockback"): p += p.normalized() * float(initial.knockback)
 			if index == 0 and current.has("spawn"): p = current.spawn[i]
 			actors.append({"role": Encounter.ROLES[i], "pos": p, "face": 0.0})
-	for shape in current.get("shapes", []):
-		if shape.has("snapshot_position_actor"):
-			shape.pos = Rules.v(state.get("last_snapshot_actors", actors)[int(shape.snapshot_position_actor)].pos)
-		if shape.has("snapshot_direction_actor"):
-			var axis = Rules.v(state.get("last_snapshot_actors", actors)[int(shape.snapshot_direction_actor)].pos) - Rules.v(shape.get("pos", Vector2.ZERO))
-			shape.angle = rad_to_deg(atan2(axis.x, -axis.y))
+	bind_snapshot_geometry(current,actors,state)
 	Interactions.begin(current, actors, state)
 	if current.has("program_loop"): Rules.ensure_loop_state(current, state)
 	before_state = state.duplicate(true)
-	if current.has("rotation_sources"):
-		for j in current.rotation_sources.size():
-			var source: Dictionary = current.rotation_sources[j]
-			var axis: Vector2 = Rules.v(actors[int(source.target)].pos) - Rules.v(source.pos)
-			current.shapes[j].angle = rad_to_deg(atan2(axis.x, -axis.y)) + float(source.turn)
 	start_actors = actors.duplicate(true)
+	start_controls = {"sprint":sprint_left,"resist":knockback_resist_left,"dash":dash_left,"direction":dash_direction}
 	cue.text = current.title
 	note.text = current.note
 	checkpoint_select.select(index)
 	update_hud()
+func bind_snapshot_geometry(b: Dictionary, party_actors: Array, runtime: Dictionary) -> void:
+	for shape in b.get("shapes", []):
+		if shape.has("snapshot_position_actor"):
+			shape.pos = Rules.v(runtime.get("last_snapshot_actors", party_actors)[int(shape.snapshot_position_actor)].pos)
+		if shape.has("snapshot_direction_actor"):
+			var axis = Rules.v(runtime.get("last_snapshot_actors", party_actors)[int(shape.snapshot_direction_actor)].pos) - Rules.v(shape.get("pos", Vector2.ZERO))
+			shape.angle = rad_to_deg(atan2(axis.x, -axis.y))
+	if b.has("rotation_sources"):
+		var group: String=b.get("rotation_group","")
+		if not runtime.has("rotation_snapshots"):runtime.rotation_snapshots={}
+		if not group.is_empty() and not runtime.rotation_snapshots.has(group):
+			var angles: Array=[]
+			for source in b.rotation_sources:
+				var axis: Vector2=Rules.v(party_actors[int(source.target)].pos)-Rules.v(source.pos)
+				angles.append(rad_to_deg(atan2(axis.x,-axis.y)))
+			runtime.rotation_snapshots[group]=angles
+		for j in b.rotation_sources.size():
+			var source: Dictionary=b.rotation_sources[j]
+			var axis: Vector2=Rules.v(party_actors[int(source.target)].pos)-Rules.v(source.pos)
+			var angle: float=rad_to_deg(atan2(axis.x,-axis.y)) if group.is_empty() else runtime.rotation_snapshots[group][j]
+			b.shapes[j].angle=angle+float(source.turn)
 func toggle_pause() -> void:
 	if not running: return
 	paused = not paused; pause_button.text = "繼續  P" if paused else "暫停  P"
 	if paused: write_report()
 func retry_beat() -> void:
 	if encounter.is_empty(): return
+	retry_history.append({"beat":index,"elapsed":elapsed,"state":state.duplicate(true),"actors":actors.duplicate(true),"controls":{"sprint":sprint_left,"resist":knockback_resist_left,"dash":dash_left,"direction":dash_direction}})
 	state = before_state.duplicate(true); actors = start_actors.duplicate(true)
+	sprint_left = start_controls.get("sprint",0.0); knockback_resist_left = start_controls.get("resist",0.0); dash_left = start_controls.get("dash",0.0); dash_direction = start_controls.get("direction",Vector2.ZERO)
 	running = true; paused = false; elapsed = 0; pending_advance = false; wall_recorded = false
 	Interactions.sync(current, state)
 	status.text = "重練：" + current.title
@@ -342,7 +379,7 @@ func _process(delta: float) -> void:
 			sample_elapsed += dt
 			if sample_elapsed >= 0.2:
 				sample_elapsed = 0
-				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "face": actors[player].face, "tether_holders": state.get("tether_holders", []).duplicate()})
+				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
 			if elapsed >= float(current.duration): resolve_beat()
 	arena.update_state(actors, current, player, hints.button_pressed or (paused and pending_advance))
 	update_hud()
@@ -431,9 +468,13 @@ func resolve_beat() -> void:
 			if i == player and not demo and knockback_resist_left > 0: continue
 			actors[i].pos += Rules.v(actors[i].pos).normalized() * float(current.knockback)
 	var errors = Rules.evaluate(current, actors, state)
+	for failure in state.get("runtime_failures", []).slice(int(state.get("failure_cursor",0))):
+		if failure not in errors: errors.append(failure)
+	Interactions.Statuses.event(state,"snapshot",{"title":current.title,"failures":errors,"actors":actors.duplicate(true)})
+	state.failure_cursor = state.get("runtime_failures",[]).size()
 	state.last_snapshot_actors = actors.duplicate(true)
 	if wall_recorded and not ("Death wall (earlier during movement)" in errors): errors.append("Death wall (earlier during movement)")
-	journal.append({"beat": index, "title": current.title, "seed": encounter.seed, "failures": errors, "dynamis": state.dynamis.duplicate(), "mode": "demo" if demo else "practice", "actual_tether_holders": state.get("tether_holders", []).duplicate(), "loop_cleansed": state.get("loop_cleansed", []).duplicate(), "loop_ruin_expires": state.get("loop_ruin_expires", []).duplicate()})
+	journal.append({"beat": index, "title": current.title, "seed": encounter.seed, "failures": errors, "dynamis": state.dynamis.duplicate(), "mode": "demo" if demo else "practice", "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "actors": actors.duplicate(true), "actual_tether_holders": state.get("tether_holders", []).duplicate(), "loop_cleansed": state.get("loop_cleansed", []).duplicate(), "loop_ruin_expires": state.get("loop_ruin_expires", []).duplicate()})
 	if errors.is_empty(): beat_passed += 1; log_feedback("✓ " + current.title, true)
 	else:
 		beat_failed += 1; all_errors.append_array(errors)
@@ -469,9 +510,20 @@ func update_hud() -> void:
 		text_value += "\nYOU · %s" % ("Looper 已消除" if state.loop_cleansed[player] else "Looper %d" % int(current.program_loop.numbers[player]))
 		if float(state.loop_ruin_expires[player]) > float(state.sim_time): text_value += " · Ruin 1"
 		if float(state.loop_hp_penalty[player]) > float(state.sim_time): text_value += " · HP Penalty"
+	if state.has("statuses"):
+		var names := {"red":"紅色腐毒", "blue":"藍色腐毒", "overflow":"Critical Overflow", "sync":"Critical Synchronization", "latent_red":"紅塔潛在錯誤", "latent_blue":"藍塔潛在錯誤", "latent_sync":"Latent Synchronization", "latent_overflow":"Latent Overflow", "red_debugger":"紅色除錯", "blue_debugger":"藍色除錯", "overflow_debugger":"Overflow Debugger", "sync_debugger":"Synchronization Debugger", "magic_vulnerability":"魔法易傷", "thrice_come_ruin":"Thrice-come Ruin", "hp_penalty":"HP Penalty"}
+		var effects: PackedStringArray = []
+		for key in state.statuses[player]:
+			var effect: Dictionary = state.statuses[player][key]
+			var remaining := float(effect.expires) - float(state.get("sim_time",0.0))
+			var title: String = names.get(key,str(key).trim_prefix("smell_").capitalize()+" Code Smell")
+			if effect.has("stacks"): title += " ×%d" % int(effect.stacks)
+			if remaining < 1.0e20: title += " %.1fs" % maxf(remaining,0.0)
+			effects.append(title)
+		text_value += "\n當前效果：" + ("／".join(effects) if not effects.is_empty() else "無")
 	party.text = text_value
 func report() -> Dictionary:
-	return {"format": "top-practice-report/1", "version": "0.2.0", "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "samples": samples, "failures": all_errors, "fidelity": "interactive tethers / schematic uncalibrated geometry", "checkpoint_assisted": checkpoint_assisted, "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/2", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func write_report() -> void:
 	report_text = JSON.stringify(report(), "  ")
 	var file = FileAccess.open("user://last_run.json", FileAccess.WRITE)

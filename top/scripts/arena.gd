@@ -104,6 +104,7 @@ func set_encounter(id: String) -> void:
 		var boss = Visuals.boss(form); add_child(boss); bosses.append(boss)
 		if forms.size() == 2:
 			boss.position.x = -11 if form == "male" else 11
+			boss.rotation_degrees.y = 90 if form == "male" else -90
 			var label = Label3D.new(); label.name = "Cue"
 			label.text = "OMEGA " + ("M" if form == "male" else "F")
 			label.position.y = 4.8; label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -260,11 +261,20 @@ func update_clone_cues() -> void:
 		var active = ""
 		for option in options:
 			var shown = title.contains(option)
-			boss.get_node(option).visible = shown
+			if boss.has_node(option): boss.get_node(option).visible = shown
 			if shown: active = option
+		if current.has("clone_pattern"):
+			active = ("SWORD" if current.clone_pattern.sword else "SHIELD") if i == 0 else ("LEGS" if current.clone_pattern.legs else "STAFF")
+		Visuals.Official.set_stance(boss,active)
 		boss.get_node("Cue").text = ("M" if i == 0 else "F") + (" / " + active if not active.is_empty() else "")
 		# P5's combined sector drill does not supply genuine clone spawn locations.
 		# Keep its display pair on the north rim so these do not imply AoE origins.
 		if encounter_id.begins_with("p5_"):
-			boss.position = Vector3(-5 if i == 0 else 5, 0, -15)
+			if current.has("clone_pattern"):
+				var pattern: Dictionary = current.clone_pattern
+				var rotation := float(pattern.orientation) + (90.0 if pattern.second else 0.0)
+				var source := Vector2(-8 if i == 0 else 8,0).rotated(deg_to_rad(rotation))
+				boss.position = Vector3(source.x,0,source.y)
+				boss.rotation_degrees.y = (90 if i == 0 else -90)-rotation
+			else: boss.position = Vector3(-5 if i == 0 else 5,0,-15)
 			boss.visible = not active.is_empty()

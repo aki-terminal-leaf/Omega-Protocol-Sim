@@ -1,22 +1,29 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
 ## Runtime contacts, not a solution-position validator. Pickup radius is configurable.
+const Statuses = preload("res://scripts/statuses.gd")
 const PICKUP_RADIUS := 0.65
 const NAV_CLEARANCE := 1.0
 
 static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
+	state.loop_refuges = {}
+	Statuses.begin(beat, state)
+	Statuses.sync(beat, state)
+	sync_followups(beat,state)
 	if not beat.has("transfers"): return
 	var config: Dictionary = beat.transfers
 	if state.get("tether_group", "") != config.group:
 		state.tether_group = config.group
 		state.tether_holders = config.initial.duplicate()
 		state.tether_contacts = [[], []]
-		state.tether_events = []
+		state.tether_events = state.get("tether_events", [])
 		state.tether_routes = {}
 	sync(beat, state)
 	# A new wave does not assign a new owner: previous owners keep their lines.
 
 static func sync(beat: Dictionary, state: Dictionary) -> void:
+	Statuses.sync(beat, state)
+	sync_followups(beat,state)
 	if not beat.has("transfers"): return
 	beat.transfers.holders = state.tether_holders.duplicate()
 	if beat.transfers.group == "limitless":
@@ -35,19 +42,30 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	for k in state.tether_holders.size():
 		beat.tethers.append({"a": state.tether_holders[k], "b": -1, "source": beat.transfers.sources[k]})
 
+static func sync_followups(beat: Dictionary,state: Dictionary) -> void:
+	if not beat.get("defense_followup",false):return
+	for actor in beat.positions.size():
+		beat.positions[actor]=Vector2(-12,-10) if actor in state.get("defense_victims",[]) else Vector2(-9,3)+Vector2(actor*0.1,0)
+
 static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictionary, dt: float) -> void:
 	state.sim_time = float(state.get("sim_time", 0.0)) + dt
+	Statuses.tick(actors, previous, state, dt)
+	Statuses.sync(beat, state)
+	sync_followups(beat,state)
 	if not beat.has("transfers"): return
 	if not state.has("tether_holders"): begin(beat, actors, state)
-	for k in state.tether_holders.size():
-		var holder: int = state.tether_holders[k]
+	var old_holders: Array = state.tether_holders.duplicate()
+	var policy: String = beat.transfers.get("ownership_policy", Statuses.parameter("double_line_policy"))
+	var pickup_radius := float(beat.transfers.get("pickup_radius", Statuses.parameter("pickup_radius")))
+	for k in old_holders.size():
+		var holder: int = old_holders[k]
 		var source: Vector2 = beat.transfers.sources[k]
 		var old_holder: Vector2 = previous[holder].pos
 		var new_holder: Vector2 = actors[holder].pos
 		var winner := -1
 		var first := INF
 		for i in actors.size():
-			if i == holder or i in state.tether_holders: continue
+			if i == holder or (policy == "unverified_exclusive" and i in state.tether_holders): continue
 			var old_pos: Vector2 = previous[i].pos
 			var new_pos: Vector2 = actors[i].pos
 			# Swept moving-point / moving-segment contacts: fast crossings cannot tunnel.
@@ -57,19 +75,20 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 				var t := float(sample) / steps
 				var p := old_pos.lerp(new_pos, t)
 				var q := old_holder.lerp(new_holder, t)
-				var inside := p.distance_to(Geometry2D.get_closest_point_to_segment(p, source, q)) <= PICKUP_RADIUS
+				var inside := p.distance_to(Geometry2D.get_closest_point_to_segment(p, source, q)) <= pickup_radius
 				if inside and not was_inside and t < first:
 					winner = i; first = t; break
 				was_inside = inside
 		if winner >= 0:
 			state.tether_holders[k] = winner
 			state.tether_events.append({"kind": "tether_pickup", "line": k, "from": holder, "to": winner, "time": snappedf(float(state.sim_time) - dt + first * dt, 0.001)})
+			Statuses.event(state,"tether_pickup",state.tether_events[-1])
 			state.tether_routes.clear()
 		var endpoint: Vector2 = actors[int(state.tether_holders[k])].pos
 		state.tether_contacts[k] = []
 		for i in actors.size():
 			var p: Vector2 = actors[i].pos
-			if p.distance_to(Geometry2D.get_closest_point_to_segment(p, source, endpoint)) <= PICKUP_RADIUS:
+			if p.distance_to(Geometry2D.get_closest_point_to_segment(p, source, endpoint)) <= pickup_radius:
 				state.tether_contacts[k].append(i)
 	sync(beat, state)
 
@@ -78,6 +97,11 @@ static func desired_holders(beat: Dictionary) -> Array:
 
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
 	var final: Vector2 = beat.positions[actor]
+	# Bots wait out the same raidwide vulnerability that judges player breaks.
+	if state.has("statuses") and state.statuses[actor].has("magic_vulnerability"):
+		for tether in state.paired_tethers:
+			if not tether.broken and actor in [tether.a,tether.b] and float(state.sim_time) >= float(tether.active_at): return actors[actor].pos
+
 	if not beat.has("transfers"): return final
 	var holders: Array = state.tether_holders
 	var wanted: Array = beat.transfers.wanted
@@ -119,6 +143,25 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 					if (pos - Geometry2D.get_closest_point_to_segment(pos,source,end)).dot(normal) < 0: normal = -normal
 					return pos + normal * 1.5
 			return pos
+	# Unassigned Loop players may use ANY safe refuge. Choose a nearby valid refuge,
+	# rather than crossing the arena for a particular guide endpoint after releasing a line.
+	if ready and beat.has("program_loop") and actor not in wanted and int(beat.program_loop.numbers[actor]) != int(beat.program_loop.round):
+		if not state.loop_refuges.has(actor):
+			var nearest := INF; var refuge := final
+			for x in range(-18,19):
+				for y in range(-18,19):
+					var candidate := Vector2(x,y)
+					if candidate.length() >= 19: continue
+					var safe := true
+					for h in wanted:
+						if candidate.distance_to(beat.positions[h]) < 15.8: safe = false
+						if candidate.distance_to(Geometry2D.get_closest_point_to_segment(candidate,Vector2.ZERO,beat.positions[h])) < 1.5: safe = false
+					for shape in beat.shapes:
+						if shape.get("kind","") == "tower" and candidate.distance_to(shape.pos) < 3.5: safe = false
+					if safe and pos.distance_squared_to(candidate) < nearest:
+						nearest = pos.distance_squared_to(candidate); refuge = candidate
+			state.loop_refuges[actor] = refuge
+		final = state.loop_refuges[actor]
 	# Navigate around lines not owned by this bot. Contact has the same effect for bots and YOU.
 	var obstacles: Array = []
 	for k in holders.size():
