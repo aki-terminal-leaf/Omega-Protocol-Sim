@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
 ## Runtime contacts, not a solution-position validator. Pickup radius is configurable.
+const Rules = preload("res://scripts/rules.gd")
 const Statuses = preload("res://scripts/statuses.gd")
 const PICKUP_RADIUS := 0.65
 const NAV_CLEARANCE := 1.0
@@ -18,6 +19,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 		state.tether_contacts = [[], []]
 		state.tether_events = state.get("tether_events", [])
 		state.tether_routes = {}
+		state.tether_active_at = float(state.get("sim_time",0))+float(config.get("activation_delay",0))
 	sync(beat, state)
 	# A new wave does not assign a new owner: previous owners keep their lines.
 
@@ -33,12 +35,24 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 				var source: Vector2 = beat.transfers.sources[k]
 				beat.positions[carrier] = Vector2(-16 if source.x < 0 else 16, -5)
 	if beat.has("program_loop"): beat.program_loop.holders = state.tether_holders.duplicate()
+	# Hide future transfer-target previews as well as lines. Restore the exact
+	# complete shapes at activation; no radius or active damage rule is altered.
+	if beat.transfers.has("activation_delay"):
+		if not beat.transfers.has("activation_shapes"):
+			beat.transfers.activation_shapes=beat.get("shapes",[]).filter(func(s):return s.has("tether_index")).duplicate(true)
+		beat.shapes=beat.get("shapes",[]).filter(func(s):return not s.has("tether_index"))
+		if float(state.get("sim_time",0))>=float(state.get("tether_active_at",0)):
+			beat.shapes.append_array(beat.transfers.activation_shapes.duplicate(true))
 	for shape in beat.get("shapes", []):
 		if shape.has("tether_index"):
 			var holder: int = state.tether_holders[int(shape.tether_index)]
 			if shape.get("kind", "circle") == "cone": shape.target = holder
 			else: shape.actor = holder
 	beat.tethers = []
+	beat.transfers.active = float(state.get("sim_time",0))>=float(state.get("tether_active_at",0))
+	if not beat.transfers.active:
+		if beat.has("program_loop"): beat.program_loop.holders=[]
+		return
 	for k in state.tether_holders.size():
 		beat.tethers.append({"a": state.tether_holders[k], "b": -1, "source": beat.transfers.sources[k]})
 
@@ -54,6 +68,9 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 	sync_followups(beat,state)
 	if not beat.has("transfers"): return
 	if not state.has("tether_holders"): begin(beat, actors, state)
+	if float(state.sim_time)<float(state.get("tether_active_at",0)):
+		sync(beat,state)
+		return
 	var old_holders: Array = state.tether_holders.duplicate()
 	var policy: String = beat.transfers.get("ownership_policy", Statuses.parameter("double_line_policy"))
 	var pickup_radius := float(beat.transfers.get("pickup_radius", Statuses.parameter("pickup_radius")))
@@ -73,6 +90,7 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 			var was_inside: bool = i in state.tether_contacts[k]
 			for sample in range(steps + 1):
 				var t := float(sample) / steps
+				if float(state.sim_time)-dt+t*dt<float(state.get("tether_active_at",0)): continue
 				var p := old_pos.lerp(new_pos, t)
 				var q := old_holder.lerp(new_holder, t)
 				var inside := p.distance_to(Geometry2D.get_closest_point_to_segment(p, source, q)) <= pickup_radius
@@ -96,6 +114,7 @@ static func desired_holders(beat: Dictionary) -> Array:
 	return beat.get("transfers", {}).get("wanted", [])
 
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
+	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	var final: Vector2 = beat.positions[actor]
 	# Bots wait out the same raidwide vulnerability that judges player breaks.
 	if state.has("statuses") and state.statuses[actor].has("magic_vulnerability"):
@@ -103,6 +122,8 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 			if not tether.broken and actor in [tether.a,tether.b] and float(state.sim_time) >= float(tether.active_at): return actors[actor].pos
 
 	if not beat.has("transfers"): return final
+	if float(state.get("sim_time",0))<float(state.get("tether_active_at",0)):
+		return beat.transfers.get("preposition",beat.positions)[actor]
 	var holders: Array = state.tether_holders
 	var wanted: Array = beat.transfers.wanted
 	var pos: Vector2 = actors[actor].pos
@@ -114,8 +135,28 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 		var target := pos
 		var best := INF
 		var radius := float(beat.transfers.get("pickup_radius",Statuses.parameter("pickup_radius")))
+		var available_lines:Array=[]
+		for k in holders.size():
+			if holders[k] not in wanted or holders.count(holders[k])>1:available_lines.append(k)
+		var preferred_line:int=-1
+		if beat.has("program_loop") and available_lines.size()==2 and wanted.size()==2 and wanted.all(func(i):return i not in holders):
+			# Choose a physical pickup, not an owner assignment. Match the old ray
+			# to the outgoing cardinal so two new carriers do not sweep90degrees
+			# across the just-released tower player while exchanging directions.
+			var costs:Array=[]
+			for permutation in [[0,1],[1,0]]:
+				var cost:=0.0
+				for j in 2:
+					var source:Vector2=beat.transfers.sources[permutation[j]]
+					cost+=1.0-(Rules.v(actors[int(holders[permutation[j]])].pos)-source).normalized().dot((Rules.v(beat.positions[int(wanted[j])])-source).normalized())
+				costs.append(cost)
+			preferred_line=([0,1] if costs[0]<=costs[1] else [1,0])[wanted.find(actor)]
+		if preferred_line>=0:
+			for k in holders.size():
+				if k!=preferred_line and holders[k] not in wanted:reserved.append([beat.transfers.sources[k],actors[int(holders[k])].pos])
 		for k in holders.size():
 			if holders[k] in wanted and holders.count(holders[k]) == 1: continue
+			if preferred_line>=0 and k!=preferred_line:continue
 			var source: Vector2 = beat.transfers.sources[k]
 			var endpoint: Vector2 = actors[int(holders[k])].pos
 			var normal := (endpoint-source).normalized().orthogonal()
@@ -127,11 +168,15 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 				if pos.distance_squared_to(exit_point)<best:best=pos.distance_squared_to(exit_point);target=exit_point
 				continue
 			var projection: float = clampf((pos-source).dot(endpoint-source)/maxf(0.01,source.distance_squared_to(endpoint)),0.2,0.95)
-			for t in [projection,0.3,0.5,0.7,0.9,0.95]:
+			var samples:Array=[projection,0.3,0.5,0.7,0.9,0.95]
+			if beat.has("program_loop"):samples=[minf(0.95,2.5/maxf(0.1,source.distance_to(endpoint)))]
+			for t in samples:
 				for side in [-1,1]:
 					# Touch the near EDGE, not necessarily the center of a reserved-line corridor.
 					# Two close initial rays can have no centerline route with 1y clearance.
-					var pickup: Vector2=source.lerp(endpoint,t)+normal*side*radius*0.75
+					var contact_offset:float=radius*0.75
+					if beat.has("program_loop") and source.distance_to(endpoint)>4.0:contact_offset=radius+1.0
+					var pickup: Vector2=source.lerp(endpoint,t)+normal*side*contact_offset
 					if reserved.any(func(line):return pickup.distance_to(Geometry2D.get_closest_point_to_segment(pickup,line[0],line[1]))<NAV_CLEARANCE):continue
 					var score:=pos.distance_squared_to(pickup)
 					if score<best:best=score;target=pickup
@@ -142,6 +187,16 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 		if h not in holders: ready = false
 	# Leave room for collectors to grab and separate before the rest crosses the room.
 	if actor not in wanted:
+		if beat.has("program_loop") and not ready and actor in holders:
+			# Retiring carriers walk IN along their own ray for a short handoff.
+			# Waiting at the old17y endpoint forces collectors and tower players
+			# to circle the arena; shortening a ray cannot sweep it across anyone.
+			var source:Vector2=beat.transfers.sources[holders.find(actor)]
+			var toward:Vector2=source+(pos-source).normalized()*3.0
+			var other_lines:Array=[]
+			for k in holders.size():
+				if int(holders[k])!=actor:other_lines.append([beat.transfers.sources[k],actors[int(holders[k])].pos])
+			return toward if clear_path(pos,toward,other_lines) else navigate_goal(actor,pos,toward,other_lines,state)
 		if not ready:
 			for k in holders.size():
 				if int(holders[k]) == actor: continue

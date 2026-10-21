@@ -68,8 +68,14 @@ static func chain(start: int, far: bool, actors: Array) -> Array:
 	return path
 
 static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Array:
+	# Godot JSON restores numbers as floats, while Array membership is type-sensitive.
+	# Normalize discrete state at the judgment boundary, never times/positions.
+	for key in ["dynamis","dead","spent","defense_victims","blaster_victims","tether_holders"]:
+		if state.has(key):state[key]=state[key].map(func(value):return int(value))
 	var failures: Array = []
-	if beat.has("program_loop"): ensure_loop_state(beat, state)
+	if beat.has("program_loop"):
+		ensure_loop_state(beat, state)
+		tick_loop_state(state)
 	for i in actors.size():
 		if v(actors[i].pos).length() >= 20.0: failures.append("%s: death wall" % actors[i].role)
 	for shape in beat.get("shapes", []):
@@ -87,10 +93,12 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 						load("res://scripts/statuses.gd").give(state, actor, "latent_" + shape.rot_colour, float(load("res://scripts/statuses.gd").parameter("latent_duration")))
 				if shape.get("looper_tower", false) and caught.size() == 1:
 					var actor: int = caught[0]
-					if bool(state.loop_cleansed[actor]): failures.append("Storage Violation Obliteration: %s has no Looper" % actors[actor].role)
+					if bool(state.loop_cleansed[actor]) or float(state.get("sim_time",0))>=float(state.loop_deadlines[actor]): failures.append("Storage Violation Obliteration: %s has no Looper" % actors[actor].role)
 					else:
 						state.loop_cleansed[actor] = true
-						if float(state.loop_hp_penalty[actor]) > float(state.get("sim_time", 0.0)): failures.append("%s: tower damage while HP Penalty active" % actors[actor].role)
+						if state.has("statuses"): state.statuses[actor].erase("looper")
+						loop_event(state,"status_remove",{"actor":actor,"status":"looper","cause":"Storage Violation"})
+						if loop_hp_active(actor,state): failures.append("%s: tower damage while HP Penalty active" % actors[actor].role)
 						apply_loop_ruin(actor, state, actors, failures, "Storage Violation")
 			"tankbuster":
 				for actor in caught:
@@ -115,7 +123,7 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 			"blaster":
 				for actor in caught:
 					apply_loop_ruin(actor, state, actors, failures, "Blaster")
-					state.loop_hp_penalty[actor] = float(state.get("sim_time", 0.0)) + float(load("res://scripts/statuses.gd").parameter("hp_penalty_duration"))
+					queue_loop_hp(actor,state)
 	for check in beat.get("checks", []):
 		var name: String = check.get("name", check.kind)
 		match check.kind:
@@ -205,20 +213,70 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 				var delta = wrapf(float(actors[int(check.actor)].face) - float(check.angle), -180, 180)
 				if absf(delta) > float(check.get("tolerance", 15)): failures.append("%s: wrong facing" % name)
 	if beat.has("program_loop"):
-		for actor in actors.size():
-			if int(beat.program_loop.numbers[actor]) <= int(beat.program_loop.round) and not bool(state.loop_cleansed[actor]):
-				failures.append("%s: Looper expired → Memory Loss / death wall" % actors[actor].role)
+		tick_loop_state(state)
+		for actor in state.get("loop_memory_loss",[]): failures.append("%s: Looper expired → Memory Loss" % actors[int(actor)].role)
+	if beat.has("sigma_config"):failures.append_array(load("res://scripts/p5_sigma_runtime.gd").snapshot(beat,actors,state))
 	return failures
 
 static func ensure_loop_state(beat: Dictionary, state: Dictionary) -> void:
 	if state.has("loop_cleansed"): return
 	state.loop_cleansed = []; state.loop_ruin_expires = []; state.loop_hp_penalty = []
+	state.loop_started=float(state.get("sim_time",0)); state.loop_deadlines=[]; state.loop_memory_loss=[]
+	state.loop_hp_starts=[]; state.loop_hp_pending=[]; state.loop_max_hp=[]
 	for _i in 8:
 		state.loop_cleansed.append(false); state.loop_ruin_expires.append(0.0); state.loop_hp_penalty.append(0.0)
+		state.loop_hp_starts.append(0.0); state.loop_max_hp.append(1.0)
+		var deadline: float=state.loop_started+[16.0,25.0,34.0,43.0][int(beat.program_loop.numbers[_i])-1]
+		state.loop_deadlines.append(deadline)
+		if state.has("statuses"): state.statuses[_i].looper={"expires":deadline}
+		loop_event(state,"status_gain",{"actor":_i,"status":"looper","expires":deadline})
+static func loop_event(state: Dictionary, kind: String, details: Dictionary) -> void:
+	if not state.has("timeline"): state.timeline=[]
+	var entry:=details.duplicate(true); entry.kind=kind; entry.time=details.get("time",float(state.get("sim_time",0)))
+	state.timeline.append(entry)
+static func loop_hp_active(actor: int,state: Dictionary) -> bool:
+	var now:=float(state.get("sim_time",0))
+	return now>=float(state.loop_hp_starts[actor]) and now<float(state.loop_hp_penalty[actor])
+static func queue_loop_hp(actor: int,state: Dictionary) -> void:
+	var at:=float(state.get("sim_time",0))+0.65
+	state.loop_hp_starts[actor]=at; state.loop_hp_penalty[actor]=at+9.0
+	state.loop_hp_pending.append({"actor":actor,"at":at,"expires":at+9.0})
+static func tick_loop_state(state: Dictionary) -> void:
+	if not state.has("loop_cleansed"): return
+	var now:=float(state.get("sim_time",0))
+	if not state.has("dead"): state.dead=[]
+	if not state.has("runtime_failures"): state.runtime_failures=[]
+	state.loop_memory_loss=state.loop_memory_loss.map(func(i):return int(i))
+	state.dead=state.dead.map(func(i):return int(i))
+	for raw in state.loop_hp_pending.duplicate():
+		if float(raw.at)>now: continue
+		var actor:=int(raw.actor)
+		state.loop_max_hp[actor]=0.01
+		if state.has("statuses"): state.statuses[actor].p1_hp_penalty={"expires":raw.expires}
+		loop_event(state,"status_gain",{"actor":actor,"status":"p1_hp_penalty","time":raw.at,"expires":raw.expires,"max_hp_fraction":0.01})
+		state.loop_hp_pending.erase(raw)
+	for actor in 8:
+		if not bool(state.loop_cleansed[actor]) and now>=float(state.loop_deadlines[actor]) and not state.loop_memory_loss.has(actor):
+			state.loop_memory_loss.append(actor)
+			if actor not in state.dead: state.dead.append(actor)
+			state.runtime_failures.append("Actor %d: Looper expired → Memory Loss" % actor)
+			if state.has("statuses"): state.statuses[actor].erase("looper")
+			loop_event(state,"status_expire",{"actor":actor,"status":"looper","time":state.loop_deadlines[actor]})
+			loop_event(state,"memory_loss",{"actor":actor,"time":state.loop_deadlines[actor]})
+		if float(state.loop_max_hp[actor])<1.0 and now>=float(state.loop_hp_penalty[actor]):
+			state.loop_max_hp[actor]=1.0
+			if state.has("statuses"): state.statuses[actor].erase("p1_hp_penalty")
+			loop_event(state,"status_expire",{"actor":actor,"status":"p1_hp_penalty","time":state.loop_hp_penalty[actor]})
 static func apply_loop_ruin(actor: int, state: Dictionary, actors: Array, failures: Array, cause: String) -> void:
 	var now := float(state.get("sim_time", 0.0))
-	if float(state.loop_ruin_expires[actor]) > now: failures.append("%s: Twice-come Ruin ×2 → Doom (%s)" % [actors[actor].role, cause])
-	state.loop_ruin_expires[actor] = now + float(load("res://scripts/statuses.gd").parameter("ruin_duration"))
+	if float(state.loop_ruin_expires[actor]) > now:
+		failures.append("%s: Twice-come Ruin ×2 → Doom (%s)" % [actors[actor].role, cause])
+		if not state.has("dead"): state.dead=[]
+		if actor not in state.dead: state.dead.append(actor)
+		loop_event(state,"doom",{"actor":actor,"cause":cause})
+	state.loop_ruin_expires[actor] = now + 11.0
+	if state.has("statuses"): state.statuses[actor].p1_ruin={"expires":now+11.0}
+	loop_event(state,"status_gain",{"actor":actor,"status":"p1_ruin","expires":now+11.0,"cause":cause})
 
 
 static func monitor_targets(candidates: Array, source: Dictionary, count: int, state: Dictionary) -> Array:
@@ -271,6 +329,9 @@ static func resolve_world_pulse(check: Dictionary, actors: Array, state: Diction
 			if float(state.statuses[actor].get("world_vulnerability",{}).get("expires",0))>now:
 				failures.append("Hello World: double-hit / bounce back during vulnerability")
 				state.dead.append(actor)
+			if float(state.statuses[actor].get("magic_vulnerability",{}).get("expires",0))>now:
+				failures.append("Hello World: hit during prior Magic Vulnerability")
+				if actor not in state.dead:state.dead.append(actor)
 			if float(state.statuses[actor].get("hp_penalty",{}).get("expires",0))>now:
 				failures.append("World hit live Blaster holder while HP Penalty active")
 				if actor not in state.dead:state.dead.append(actor)

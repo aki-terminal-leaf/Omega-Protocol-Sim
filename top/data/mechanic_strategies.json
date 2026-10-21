@@ -29,25 +29,82 @@
   "p1_panto": [
     {
       "profile": "elemental",
-      "name": "HTDH · Elemental NW/SE",
-      "description": "NW/SE 起始軸、HTDH 優先序；飛彈前出，另三人分攤。火與水圈節奏仍為訓練近似。"
+      "name": "Elemental · NW/SE 起始安全區",
+      "description": "NW/SE為優先安全區，依初始火焰調整；飛彈1/2/3/4，分攤3/4/1/2，持續十四輪火與十次誘導水圈。"
     },
     {
       "profile": "aether",
-      "name": "TMR 補位 · Aether NE/SW",
-      "description": "NE/SW 起始軸、兩小隊 TMR 補位，治療不補位；飛彈前出，另三人分攤。火與水圈節奏仍為訓練近似。"
+      "name": "Aether · G1南／G2北，滿覆蓋順時針",
+      "description": "依21步Toolbox，G1南、G2北；A/C完全覆蓋改西／東，TMR補位，治療不補位。"
     },
     {
       "profile": "lpdu",
-      "name": "TMR 補位 · LPDU N/S",
-      "description": "N/S 起始軸、兩小隊 TMR 補位，治療不補位；飛彈前出，另三人分攤。火與水圈節奏仍為訓練近似。"
+      "name": "LPDU · G1北／G2南，滿覆蓋順時針",
+      "description": "N/S優先安全區；A/C完全覆蓋改東／西，TMR補位。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 內出外回",
+      "description": "高優先北、低優先南；完全覆蓋改高西低東；飛彈從內側前出、外側回隊。",
+      "overrides": {
+        "p1_panto_variant": "inner_out_outer_return"
+      }
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 外出內回",
+      "description": "同高北低南／滿覆蓋高西低東，飛彈改外側前出、內側回隊。",
+      "overrides": {
+        "p1_panto_variant": "outer_out_inner_return"
+      }
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 六種初始火焰安全區",
+      "description": "依H1 T1 T2 D1 D2 D3 D4 H2排序；按六種初始火焰選H1側安全區，滿覆蓋時H1組西。"
     }
   ],
   "p1_cannons": [
     {
       "profile": "elemental",
-      "name": "雙坦北側引導／非坦散開",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "Elemental · 固定散開／雙坦北",
+      "description": "五次最遠雙坦扇形，每次重新選人；兩輪各三人的炮標按固定站位散開。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · 動態炮標出口",
+      "description": "無標南側集合，炮標依H1 M1 R1 R2 M2 H2排序到西／南／東；第二輪重新分配。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 固定散開／雙坦北",
+      "description": "固定六人散開與五次雙坦引導。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 遠程西東、治療西南東南",
+      "description": "D3西D4東，H1西南H2東南，近戰更靠南，雙坦北。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 遠程西東、近戰西南東南",
+      "description": "D3西D4東，D1西南D2東南，治療更靠南，雙坦北。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · 固定散開備選",
+      "description": "原攻略同列的固定散開備選，不依炮標換出口。",
+      "overrides": {
+        "p1_cannon_variant": "static"
+      }
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 分坦減傷站位",
+      "description": "LPDU第8張的雙坦分開備選；目前驗證走位與命中幾何，未還原職業減傷／血量。",
+      "overrides": {
+        "p1_tank_variant": "split_mitigated"
+      }
     }
   ],
   "p2_synergy": [
@@ -117,7 +174,7 @@
     {
       "profile": "cn_moogle",
       "name": "莫古力 · 固定左側",
-      "description": "全局HTDH排序；檢知2/3固定左側，1與無點名124依Boss安全半場調整。",
+      "description": "全局HTDH排序；檢知2/3固定左側、無點名2/3固定右側，1與無點名1/4/5依Boss安全半場調整。",
       "overrides": {
         "monitor_layout": "cn_fixed"
       }
@@ -153,8 +210,28 @@
   "p5_sigma": [
     {
       "profile": "elemental",
-      "name": "Waymark 塔位／近遠世界（示意）",
-      "description": "Waymark 塔位與近遠世界；旋轉雷射為十四發獨立判定，寬 12、間隔 0.6 秒、每發轉 9°。其他區服路線未冒稱相同。"
+      "name": "Elemental · Waymark 塔／F側分工",
+      "description": "圖形OX△□，場地標點對應五／六塔；一層且無World者分配F側三人。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · Saus Waymark towers",
+      "description": "BPOG圖形列，記住實際場地標點；解F姿態後分工等待／追雷射。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · Waymark 塔／三人小列隊",
+      "description": "BPOG圖形列與場地標點宏；F側優先MT，一層無World者處理手臂與遠跳。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 目視雙人塔優先／手標World",
+      "description": "OX△□；轉22.5°後忽略正後塔，相鄰標點旁有雙去雙；近世界留F對面、遠世界到旋轉側。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · O△□X／綁1–3",
+      "description": "依實際場地標點宏踩塔；遠世界在F側，近世界隨旋轉方向轉90°。"
     }
   ],
   "p5_omega": [

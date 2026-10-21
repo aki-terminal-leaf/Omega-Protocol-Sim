@@ -86,6 +86,7 @@ func _initialize() -> void:
 		var previous_points: Array = []
 		var authentic_slots = true
 		for item in loop.beats:
+			if not item.has("program_loop"):continue # status-recovery beats contain no tower snapshot
 			var points: Array = []
 			for shape in item.shapes:
 				if shape.kind == "tower":

@@ -53,7 +53,7 @@ func _initialize() -> void:
 	var profiles=JSON.parse_string(FileAccess.get_file_as_string("res://data/strategies.json"))
 	var encounter=Encounter.new().build("p1_loop",43,profiles[0]);beat=encounter.beats[0].duplicate(true);actors=[]
 	for i in 8: actors.append({"pos":beat.positions[i],"role":Encounter.ROLES[i],"face":0})
-	state=initial_state();state.sim_time=16.0;Contact.begin(beat,actors,state);state.tether_holders=beat.transfers.wanted.duplicate();Contact.sync(beat,state)
+	state=initial_state();Contact.begin(beat,actors,state);state.sim_time=13.4;state.tether_holders=beat.transfers.wanted.duplicate();Contact.sync(beat,state)
 	var tower_members: Array=[]
 	for i in 8:
 		if int(beat.program_loop.numbers[i])==1: tower_members.append(i)
@@ -70,14 +70,14 @@ func _initialize() -> void:
 		if not Rules.evaluate(beat,actors,state).is_empty(): detected=true
 	check(detected,"perfect final positions alone do not bypass actual tether ownership")
 	# Tower+Blaster overlap and missing Looper cleanses are actual failure causes.
-	beat=encounter.beats[0].duplicate(true);actors=[];state=initial_state();state.sim_time=16.0
+	beat=encounter.beats[0].duplicate(true);actors=[];state=initial_state()
 	for i in 8: actors.append({"pos":beat.positions[i],"role":Encounter.ROLES[i],"face":0})
-	Contact.begin(beat,actors,state);state.tether_holders=[tower_members[0],tower_members[1]];Contact.sync(beat,state)
+	Contact.begin(beat,actors,state);state.sim_time=13.4;state.tether_holders=[tower_members[0],tower_members[1]];Contact.sync(beat,state)
 	errors=Rules.evaluate(beat,actors,state)
 	check(str(errors).contains("Doom"),"taking tower and holding a Blaster line causes Ruin x2")
-	beat=encounter.beats[0].duplicate(true);state=initial_state();state.sim_time=16.0
+	beat=encounter.beats[0].duplicate(true);state=initial_state()
 	for member in tower_members: actors[member].pos=Vector2(5,0)
-	Contact.begin(beat,actors,state);state.tether_holders=beat.transfers.wanted.duplicate();Contact.sync(beat,state)
+	Contact.begin(beat,actors,state);state.sim_time=16.0;state.tether_holders=beat.transfers.wanted.duplicate();Contact.sync(beat,state)
 	errors=Rules.evaluate(beat,actors,state)
 	check(str(errors).contains("Memory Loss"),"uncleansed expired Looper causes Memory Loss")
 	# Distance-selected attacks follow the real target, not an MT/D4 name in a plan.

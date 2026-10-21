@@ -21,6 +21,15 @@ MODELS = {
     'female': {'npc':15713,'model_chara':3773,'model':514,'base':1,'variant':1,'scale':3.0},
     'final': {'npc':15717,'model_chara':3775,'model':515,'base':1,'variant':1,'scale':1.4},
     'alpha': {'npc':15725,'model_chara':3524,'model':771,'base':1,'variant':1,'scale':0.8},
+    'fist_b5': {'npc':15709,'model_chara':2374,'model':114,'base':5,'variant':1,'animation_variant':2,'scale':1.5},
+    'fist_b6': {'npc':15710,'model_chara':2375,'model':114,'base':6,'variant':1,'animation_variant':2,'scale':1.5},
+    'arm_left': {'npc':15718,'model_chara':2379,'model':524,'base':2,'variant':1,'scale':1.4},
+    'arm_right': {'npc':15719,'model_chara':2378,'model':524,'base':1,'variant':1,'scale':1.4},
+    'male_p5': {'npc':15720,'model_chara':3802,'model':513,'base':2,'variant':1,'scale':3.0},
+    'female_p5': {'npc':15722,'model_chara':3803,'model':514,'base':2,'variant':1,'scale':3.0},
+    'rear_unit': {'npc':15723,'model_chara':2380,'model':525,'base':1,'variant':1,'scale':1.4},
+    'meteor': {'npc':15726,'model_chara':3417,'model':213,'base':1,'variant':1,'scale':1.0},
+    'comet': {'npc':15727,'model_chara':819,'model':213,'base':1,'variant':2,'scale':1.0},
 }
 
 class GLB:
@@ -154,12 +163,32 @@ def export_model(realm,args,form,meta):
     raw=realm.GetFile[FileResource](path)
     if raw is None:raise RuntimeError('Missing local game asset: '+path)
     model=Mdl.GetTTModel(raw.Data,path).GetAwaiter().GetResult()
+    # ModelChara.Variant is an IMC variant, not necessarily material vNNNN.
+    # Monster IMC has one6-byte entry per variant after its4-byte header.
+    imc_path=f'chara/monster/m{mid:04d}/obj/body/b{bid:04d}/b{bid:04d}.imc'
+    imc=realm.GetFile[FileResource](imc_path)
+    material_variant=meta['variant']; variant_details={}
+    if imc is not None:
+        data=bytes(imc.Data);count,parts=struct.unpack_from('<HH',data)
+        if parts!=1:raise RuntimeError('Unexpected multipart monster IMC: '+imc_path)
+        if not 0<=meta['variant']<=count:raise RuntimeError('Missing IMC variant: '+imc_path)
+        offset=4+6*meta['variant'];material_variant=data[offset]
+        variant_details={'source_path':imc_path,'variant':meta['variant'],'material':material_variant,'attribute_mask':struct.unpack_from('<H',data,offset+2)[0]&0x3ff,'vfx':data[offset+4],'material_animation':data[offset+5]&15}
+        if material_variant==0:
+            # IMC intentionally hides this body. Export its original default
+            # geometry only as an inspection/attachment anchor, never label it
+            # a reconstruction of the variant's VFX appearance.
+            variant_details['body_hidden']=True
+            material_variant=data[4]
+            variant_details['inspection_material']=material_variant
+
+
     glb=GLB();tex_cache={};mat_cache={};mesh_info=[]
     rig_path=args.rig_dir/(form+'.json') if args.rig_dir else None
     rig=json.loads(rig_path.read_text()) if rig_path and rig_path.exists() else None
     bone_map=install_rig(glb,rig) if rig else {}
     for gi,group in enumerate(model.MeshGroups):
-        mpath=Material.ResolveRelativeMaterialPath(group.Material,meta['variant'])
+        mpath=Material.ResolveRelativeMaterialPath(group.Material,material_variant)
         if mpath not in mat_cache:
             mraw=realm.GetFile[FileResource](mpath)
             mat=Mtrl.GetXivMtrl(mraw.Data,mpath)
@@ -220,7 +249,7 @@ def export_model(realm,args,form,meta):
             mesh_info.append({'name':name,'vertices':len(vertices),'triangles':len(indices)//3,'attributes':attrs})
     glb.doc['asset']['extras']={'source_game_path':path,'source_sha256':hashlib.sha256(bytes(raw.Data)).hexdigest(),'pose':'original sampled resident animations' if rig else 'unanimated bind pose','copyright':'SQUARE ENIX','source_ids':meta}
     target=args.output/(form+'.glb');glb.save(target)
-    return dict(meta,form=form,file=target.name,bytes=target.stat().st_size,sha256=hashlib.sha256(target.read_bytes()).hexdigest(),source_path=path,source_sha256=hashlib.sha256(bytes(raw.Data)).hexdigest(),parts=mesh_info,animations=[a['name'] for a in glb.doc.get('animations',[])],bones=len(rig['bones']) if rig else 0,limitations=([] if rig else ['Static bind pose; no official skeleton animation'])+['PBR shader approximates original legacy shader; no colorset/VFX reconstruction','Part/stance mapping requires visual calibration'])
+    return dict(meta,imc=variant_details,form=form,file=target.name,bytes=target.stat().st_size,sha256=hashlib.sha256(target.read_bytes()).hexdigest(),source_path=path,source_sha256=hashlib.sha256(bytes(raw.Data)).hexdigest(),parts=mesh_info,animations=[a['name'] for a in glb.doc.get('animations',[])],bones=len(rig['bones']) if rig else 0,limitations=([] if rig else ['Static bind pose; no official skeleton animation'])+['PBR shader approximates original legacy shader; no colorset/VFX reconstruction','Part/stance mapping requires visual calibration'])
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
@@ -233,8 +262,8 @@ def main():
     if args.extract_rigs_only:
         from Lumina.Data import FileResource
         for form in args.forms:
-            mid=MODELS[form]['model']
-            for ext,source in [('sklb',f'chara/monster/m{mid:04d}/skeleton/base/b0001/skl_m{mid:04d}b0001.sklb'),('pap',f'chara/monster/m{mid:04d}/animation/a0001/bt_common/resident/monster.pap')]:
+            mid=MODELS[form]['model']; animation_variant=MODELS[form].get('animation_variant',1)
+            for ext,source in [('sklb',f'chara/monster/m{mid:04d}/skeleton/base/b0001/skl_m{mid:04d}b0001.sklb'),('pap',f'chara/monster/m{mid:04d}/animation/a{animation_variant:04d}/bt_common/resident/monster.pap')]:
                 raw=realm.GetFile[FileResource](source)
                 if raw is None:raise RuntimeError('Missing original rig asset: '+source)
                 (args.output/(form+'.'+ext)).write_bytes(bytes(raw.Data))

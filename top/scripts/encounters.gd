@@ -7,6 +7,8 @@ const Rules = preload("res://scripts/rules.gd")
 const Clones = preload("res://scripts/clone_patterns.gd")
 const Routes = preload("res://scripts/strategy_routes.gd")
 const P6Courses = preload("res://scripts/p6_courses.gd")
+const P1Courses = preload("res://scripts/p1_courses.gd")
+const SigmaCourses = preload("res://scripts/p5_sigma_courses.gd")
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"]
 var rng = RandomNumberGenerator.new()
 var order: Array = []
@@ -37,9 +39,9 @@ func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot 
 		positions.append(Rules.direction(i * 45) * 5)
 	angle = float(rng.randi_range(0, 7) * 45)
 	match id:
-		"p1_loop": program_loop()
-		"p1_panto": pantokrator()
-		"p1_cannons": p1_cannons()
+		"p1_loop": P1Courses.append_loop(self)
+		"p1_panto": P1Courses.append_panto(self)
+		"p1_cannons": P1Courses.append_cannons(self)
 		"p2_synergy": party_synergy()
 		"p2_limitless": limitless()
 		"p3_transition": transition()
@@ -47,10 +49,10 @@ func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot 
 		"p3_monitors": monitors()
 		"p4_wave": p4_wave()
 		"p5_delta": delta()
-		"p5_sigma": sigma()
+		"p5_sigma": SigmaCourses.append_sigma(self)
 		"p5_omega": omega()
 		"p5_dynamis": dynamis_course()
-		"p5_full": solar_ray(); delta(); solar_ray(); sigma(); solar_ray(); omega(intended_stacks()); solar_ray()
+		"p5_full": solar_ray(); delta(); solar_ray(); SigmaCourses.append_sigma(self); solar_ray(); omega(intended_stacks()); solar_ray()
 		"p5_solar": solar_ray()
 		"p6_memory": memory()
 		"p6_arrow_dive": P6Courses.append_arrow(self,false)
@@ -63,6 +65,8 @@ func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot 
 
 func initial_stacks(id: String) -> Array:
 	var result: Array = []; result.resize(8); result.fill(0)
+	if id=="p5_sigma":
+		for i in 8:result[at(i)]=1 if i<6 else 0
 	if id == "p5_omega":
 		for i in 8: result[at(i)] = 2 if i < 4 else 1
 	if id.begins_with("p6_"): result.fill(3)
@@ -133,7 +137,7 @@ func program_loop() -> void:
 		var tether_group = (turn + 2) % 4
 		var tethers = group_pair([at(tether_group * 2), at(tether_group * 2 + 1)])
 		var free: Array = []
-		for i in 8:
+		for i in [0,2,4,6]:
 			if polar(i * 45, 17).distance_to(targets[0]) > 15.5 and polar(i * 45, 17).distance_to(targets[1]) > 15.5: free.append(polar(i * 45, 17))
 		var best_a: Vector2 = free[0]; var best_b: Vector2 = free[-1]; var largest = 0.0
 		for a in free:

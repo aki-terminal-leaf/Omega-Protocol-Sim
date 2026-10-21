@@ -261,7 +261,7 @@ func oracle_state_before(target: int) -> Dictionary:
 			var dt := minf(0.05, float(b.duration) - clock)
 			var previous := simulated.duplicate(true)
 			for i in 8:
-				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * (6.0 if b.has("p6_route") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(result,i) else simulated[i].pos
+				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * (6.0 if b.has("p6_route") or b.has("sigma_config") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(result,i) else simulated[i].pos
 				simulated[i].face = b.facing.get(i, 0.0)
 			Interactions.tick(b, simulated, previous, result, dt)
 			clock += dt
@@ -357,15 +357,22 @@ func _process(delta: float) -> void:
 	if current.is_empty(): return
 	var speed: float = [0.5, 0.75, 1.0, 1.25, 1.5][speed_select.selected]
 	if running and not paused:
-		if pending_advance:
-			advance_beat()
-		else:
-			var dt = minf(delta * speed, maxf(0.0, float(current.duration) - elapsed))
+		var budget:=delta*speed
+		while budget>0.000001 and running and not paused:
+			if pending_advance:
+				advance_beat()
+				continue
+			var remaining:=maxf(0.0,float(current.duration)-elapsed)
+			if remaining<=0.000001:
+				resolve_beat()
+				continue
+			var dt:=minf(budget,minf(0.05,remaining))
+			budget-=dt
 			elapsed += dt
 			var previous = actors.duplicate(true)
 			for i in 8:
 				if i == player and not demo: continue
-				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * (6.0 if current.has("p6_route") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(state,i) else actors[i].pos
+				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * (6.0 if current.has("p6_route") or current.has("sigma_config") or current.has("p1_route") else 11.0)) if not load("res://scripts/p6_runtime.gd").is_locked(state,i) else actors[i].pos
 				actors[i].face = current.facing.get(i, 0.0)
 			state.motion_allowances=[]
 			for i in 8:state.motion_allowances.append(6.0*dt)

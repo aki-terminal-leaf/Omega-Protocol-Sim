@@ -77,5 +77,26 @@
     "kr_09stop": {
       "p6_stack_angle": 180.0
     }
+  },
+  "p5_sigma": {
+    "cn_moogle": {
+      "shapes": [
+        "O",
+        "X",
+        "Triangle",
+        "Square"
+      ],
+      "sigma_tower_rule": "visual_adjacent",
+      "_route_source": "CN full poster panels08-11: physical-waymark neighbour/double-priority towers; distinct Near/Far geometry"
+    },
+    "kr_09stop": {
+      "shapes": [
+        "O",
+        "Triangle",
+        "Square",
+        "X"
+      ],
+      "_route_source": "09STOP Sigma workbook: shape order and bind1-3 / attack1-3 final allocation"
+    }
   }
 }

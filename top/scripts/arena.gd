@@ -286,20 +286,25 @@ func update_clone_cues() -> void:
 			boss.visible = not active.is_empty()
 
 func update_stage_entities() -> void:
-	var entities: Array=current.get("stage_entities",[])
-	var signature:=str(entities)
+	var entities:Array=current.get("stage_entities",[])
+	var keys:Array=[]
+	for i in entities.size():keys.append([str(entities[i].get("id",i)),str(entities[i].form)])
+	var signature:=JSON.stringify(keys)
 	if signature!=stage_signature:
 		for node in stage_nodes:remove_child(node);node.queue_free()
 		stage_nodes=[];stage_signature=signature
 		for entity in entities:
 			var node:Node3D=Visuals.boss(entity.form);add_child(node);stage_nodes.append(node)
-			var p:Vector2=entity.pos;node.position=Vector3(p.x,0,p.y)
-			node.rotation_degrees.y=180.0-float(entity.get("facing",0))
-			var stance:String=entity.get("stance","")
-			Visuals.Official.set_stance(node,stance)
+			var label:=Label3D.new();label.name="EntityLabel";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
+	for i in stage_nodes.size():
+		var node:Node3D=stage_nodes[i];var entity:Dictionary=entities[i]
+		var p:Vector2=Rules.v(entity.pos);node.position=Vector3(p.x,float(entity.get("height",0)),p.y)
+		node.rotation_degrees.y=180.0-float(entity.get("facing",0))
+		var stance:String=entity.get("stance","")
+		if node.get_meta("last_stance","__unset__")!=stance:
+			Visuals.Official.set_stance(node,stance);node.set_meta("last_stance",stance)
 			for option in ["SWORD","SHIELD","LEGS","STAFF"]:
 				if node.has_node(option):node.get_node(option).visible=option==stance
-			var label:=Label3D.new();label.text=entity.form.to_upper()+(" / "+stance if not stance.is_empty() else "")
-			label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
+			node.get_node("EntityLabel").text=str(entity.get("label",entity.form.to_upper()))+(" / "+stance if not stance.is_empty() else "")
+		node.visible=actors.size()==8 and bool(entity.get("visible",true)) and beat_elapsed>=float(entity.get("spawn_delay",0))
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
-	for i in stage_nodes.size():stage_nodes[i].visible=actors.size()==8 and beat_elapsed>=float(entities[i].get("spawn_delay",0))
