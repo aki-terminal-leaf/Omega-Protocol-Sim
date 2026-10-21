@@ -63,6 +63,8 @@ func run()->void:
 	app.current.checks=[{"kind":"aggro","actor":1,"name":"Test failed aggro"}];app.current.shapes=[];app.current.erase("program_loop");app.current.erase("knockback");app.state.aggro=0
 	app.resolve_beat();app.update_hud()
 	check(not app.journal[-1].failures.is_empty() and app.failed_review() and app.answers_visible(),"actual failed snapshot enables review")
+	check(not app.hud_feedback_panel.visible,"failure does not automatically cover the game with training text")
+	app.training_overlay=true;app.sync_practice_hud()
 	check(app.hud_feedback.text.contains("SECRET ROUTE") and app.hud_feedback.text.contains("SECRET EXPLANATION") and app.hud_feedback_panel.visible,"failed review includes reference and reason")
 	app.retry_beat();app.update_hud();check(not app.answers_visible() and not app.hud_feedback_panel.visible and not app.cue.text.contains("SECRET"),"retry closes old review and restores independent practice")
 	app.demo=true;check(app.answers_visible(),"explicit non-scored demo may teach")

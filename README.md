@@ -80,3 +80,11 @@ python3 tools/package.py --godot godot
 ## 授權
 
 保留上游 [LICENSE](LICENSE) 及各檔聲明；原 README 見 [README.upstream.md](README.upstream.md)。上游部分程式有 GPL 標頭，未移除或重新授權。新增 TOP 程式為 MIT；字型為 SIL OFL。程序式 fallback 為自行製作；可選本機遊戲素材不屬於 MIT 程式碼授權。未將整個 DSR PCK 或攻略圖／影片包進發行物，source ZIP 排除遊戲素材。FFXIV 名稱屬各權利人；此為非官方工具。
+
+### Pure practice view
+
+Practice opens with only the game scene and eight-member Buff/Debuff list
+(plus necessary P6 LB target controls). **Tab** opens/closes training tools;
+**Esc** opens paused settings. Starting/retrying/resuming restores the clean view.
+Reference solutions are available only after actual failure and an explicit
+training-tools toggle; ordinary play/pause does not expose them.

@@ -232,3 +232,14 @@ regional timelines. Original VFX execution, unmeasured geometry/timing/damage
 and other [FIDELITY](research/FIDELITY.md) limits remain active. AVFX topology
 inventory is source-reviewed tooling, not original particle playback. No Actions
 CI pass is claimed. Neither the older0.3.0 tag nor its assets were altered.
+
+## 2026-10-22 immersive practice HUD
+
+Headless Godot 4.7.2: presentation 27, input routing 19, party status 107,
+camera 60 assertions; zero failures/script errors. Start/retry defaults to
+world + eight-member live status HUD, with only necessary P6 LB controls.
+Training title/countdown/hotbar/menu/review do not cover ordinary practice.
+Tab explicitly toggles tools; Escape opens paused setup. Resuming returns to
+the clean view and preserves prior user pause ownership and all runtime data.
+Actual ranged/caster requests still use the same authoritative target bindings.
+Exported pixel/platform checks belong to the later artifact gate, not these tests.

@@ -107,6 +107,11 @@ var hud_ground_x: SpinBox
 var hud_ground_y: SpinBox
 var hud_lb_status: Label
 var hud_target_signature := ""
+var training_overlay := false
+var training_widgets: Array[Control] = []
+var hud_gameplay_info: Control
+var hud_hotbar: Control
+var hud_menu: Button
 
 func _ready() -> void:
 	catalog = JSON.parse_string(FileAccess.get_file_as_string("res://data/catalog.json"))
@@ -196,6 +201,7 @@ func build_ui() -> void:
 	hints = CheckBox.new(); hints.text = "示範模式：顯示教學提示"; hints.button_pressed = false; left.add_child(hints)
 	stop_failure = CheckBox.new(); stop_failure.text = "失誤後暫停檢討"; stop_failure.button_pressed = true; left.add_child(stop_failure)
 	var start = button("▶  只練習選定機制", func(): demo = false; start_run()); left.add_child(start); launch_buttons.append(start)
+	left.add_child(label("Esc 設定 · Tab 練習工具",12))
 	left.add_child(button("←  返回機制選擇", return_to_selection))
 	var reroll = HBoxContainer.new(); left.add_child(reroll); var same = button("同種子重來  R", func(): demo = false; start_run()); reroll.add_child(same); launch_buttons.append(same)
 	var fresh = button("新點名", func(): seed_edit.text = str(randi_range(1, 999999)); demo = false; start_run()); reroll.add_child(fresh); launch_buttons.append(fresh)
@@ -525,8 +531,11 @@ func _input(event: InputEvent) -> void:
 		if arena.has_method("orbit"): arena.orbit(event.relative)
 		if camera_buttons & 2 and actors.size() == 8 and arena.get("camera_yaw") != null:
 			actors[player].face = -rad_to_deg(float(arena.camera_yaw))
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_TAB and practice_view and not (get_viewport().gui_get_focus_owner() is LineEdit):
+		training_overlay = not training_overlay; sync_practice_hud(); get_viewport().set_input_as_handled()
 	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE:
 		camera_buttons = 0; Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if practice_view: open_practice_settings()
 func _unhandled_key_input(event: InputEvent) -> void:
 	if get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit: return
 	if not event is InputEventKey or not event.pressed or event.echo: return
@@ -739,14 +748,16 @@ func build_practice_presentation() -> void:
 	add_child(practice_root); practice_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	practice_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var top := hud_panel(practice_root,Control.PRESET_CENTER_TOP,Rect2(-320,10,640,88))
+	training_widgets.append(top)
 	var titles := VBoxContainer.new(); titles.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(titles)
 	hud_title = label("",16,Color("edf4ff")); hud_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; titles.add_child(hud_title)
 	hud_cue = label("",14,Color("ffd58f")); hud_cue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; hud_cue.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; titles.add_child(hud_cue)
 	hud_progress = ProgressBar.new(); hud_progress.custom_minimum_size.y = 4; hud_progress.show_percentage = false; hud_progress.mouse_filter = Control.MOUSE_FILTER_IGNORE; titles.add_child(hud_progress)
 	var menu := button("練習設定", open_practice_settings)
+	hud_menu = menu; training_widgets.append(menu)
 	practice_root.add_child(menu); menu.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	menu.offset_left = -116; menu.offset_right = -12; menu.offset_top = 12; menu.offset_bottom = 50
-	var roster := hud_panel(practice_root,Control.PRESET_TOP_LEFT,Rect2(12,106,342,404))
+	var roster := hud_panel(practice_root,Control.PRESET_TOP_LEFT,Rect2(12,16,310,390))
 	hud_party = VBoxContainer.new(); hud_party.mouse_filter=Control.MOUSE_FILTER_IGNORE; roster.add_child(hud_party)
 	hud_party.add_theme_constant_override("separation",3)
 	hud_party.add_child(label("PARTY / 狀態",13,Color("c5d8ee")))
@@ -760,10 +771,10 @@ func build_practice_presentation() -> void:
 	hud_bottom_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_WIDE,Rect2(12,-104,-24,94))
 	var bottom := hud_bottom_panel
 	var bars := VBoxContainer.new(); bars.add_theme_constant_override("separation",4); bottom.add_child(bars)
-	var info := HBoxContainer.new(); bars.add_child(info)
-	hud_player = label("",14,Color("8ce3d1")); hud_player.size_flags_horizontal = Control.SIZE_EXPAND_FILL; info.add_child(hud_player)
+	var info := HBoxContainer.new(); bars.add_child(info); hud_gameplay_info = info
+	hud_player = label("",14,Color("8ce3d1")); hud_player.size_flags_horizontal = Control.SIZE_EXPAND_FILL; info.add_child(hud_player); training_widgets.append(hud_player)
 	hud_lb_status = label("",12,Color("ffd58f")); info.add_child(hud_lb_status)
-	var hotbar := HBoxContainer.new(); hotbar.add_theme_constant_override("separation",4); bars.add_child(hotbar)
+	var hotbar := HBoxContainer.new(); hud_hotbar = hotbar; training_widgets.append(hotbar); hotbar.add_theme_constant_override("separation",4); bars.add_child(hotbar)
 	for action in [["1 疾跑",use_sprint],["2 防擊退",use_arms],["3 突進",use_dash],["Space 跳躍",jump_player],["F LB3",use_lb],["V 換坦",provoke]]:
 		var ability := button(str(action[0]),action[1]); ability.custom_minimum_size.y = 30; hotbar.add_child(ability)
 	var gap := Control.new(); gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL; gap.mouse_filter = Control.MOUSE_FILTER_IGNORE; hotbar.add_child(gap)
@@ -785,6 +796,7 @@ func set_practice_view(enabled: bool) -> void:
 	if not is_instance_valid(practice_root): return
 	practice_view = enabled
 	if enabled:
+		training_overlay = false
 		var focused := get_viewport().gui_get_focus_owner()
 		if focused: focused.release_focus()
 		if view_container.get_parent() != practice_root:
@@ -824,11 +836,14 @@ func sync_practice_hud() -> void:
 	hud_progress.value = progress.value; hud_player.text = player_info.text
 	hud_pause.text = "P 繼續" if paused else "P 暫停"
 	hud_feedback.text = feedback.text
-	hud_feedback_panel.visible = configured and (failed_review() or (not running and not all_errors.is_empty()))
+	hud_feedback_panel.visible = training_overlay and configured and (failed_review() or (not running and not all_errors.is_empty()))
+	for widget in training_widgets: widget.visible = training_overlay
 	sync_party_status_hud()
 	hud_lb_row.visible = configured and lb_panel.visible and state.has("p6_lb")
 	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""
-	hud_bottom_panel.offset_top = -144 if hud_lb_row.visible else -104
+	hud_bottom_panel.visible = training_overlay or hud_lb_row.visible
+	hud_gameplay_info.visible = training_overlay or hud_lb_row.visible
+	hud_bottom_panel.offset_top = (-144 if hud_lb_row.visible else -104) if training_overlay else -82
 	hud_feedback_panel.offset_top = -282 if hud_lb_row.visible else -242
 	hud_feedback_panel.offset_bottom = -154 if hud_lb_row.visible else -114
 	if not hud_lb_row.visible: return
