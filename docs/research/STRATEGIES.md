@@ -1,84 +1,50 @@
-# TOP 戰術研究與來源邊界
+# TOP 戰術研究與目前實作範圍
 
-查核日期：2026-10-21（Asia/Taipei）。原始來源、具體可支持的結論和讀取限制見 [sources.json](../../top/data/sources.json)。
+2026-10-21，v0.3.0-preview 已發佈。這是目前狀態；較早的
+[100格研究底稿](REGIONAL_ROUTE_AUDIT.md) 以55bbc64為基礎，不是目前選單或實作狀態。
+實際可選內容以 [mechanic_strategies.json](../../top/data/mechanic_strategies.json)
+為準：**20個獨立機制、86個現有選項**。內部P5連續5組不計入選單。
+測試通過表示該模型中的路線可執行，不代表全區服／所有原始出現族群已驗證。
 
-## 方法
+## 已實作的區別，不再沿用舊版單一路線敘述
 
-先確認既有方案：XIVsim 已有 TOP 部分階段練習；Aether 攻略直接列出 P2/P3/P5/P6 與單人 Bot。使用者明確要求 fork Dragonsong-Sim，所以採用獨立 Godot 離線專案，沒有拷貝 XIVsim 程式或美術。
+| 機制 | 選項數 | 目前可支持的內容／來源 |
+| --- | ---: | --- |
+| Program Loop | 5 | Elemental NW/CW、Aether小隊TMR補位、LPDU優先序、KR正北CW、CN正北A/CW；[P1](P1_FIDELITY.md) |
+| Pantokrator | 6 | 五社群起始安全區／補位，CN內出外回與外出內回分列；[P1](P1_FIDELITY.md) |
+| P1 Cannons | 7 | 固定散開、Aether動態炮標與備選、LPDU分坦備選、CN/KR遠程側分工；不含完整職業減傷 |
+| Party Synergy | 5 | 圖形次序、Remote全交叉與外側交換、南／北端補位分開；只涵蓋明示clone族群 |
+| Limitless | 5 | 各自誘導方向、接線分側、南北箭分支；[逐項查核](P2_LIMITLESS_FIDELITY.md) |
+| P3轉場 | 5 | 各自主來源分配、八次波動、六手臂與狙擊；[來源／時序](P3_TRANSITION_FIDELITY.md) |
+| Hello World | 5 | 四輪實際感染／Debugger、原毒處理與最後內外分流；[HW](HW_FIDELITY.md) |
+| P3 Monitors | 6 | Astoh、Aether第三檢知南、LPDU第一檢知北、CN固定左／鏡像、KR排序；不是全部共用Astoh |
+| Blue Screen | 5 | 各自主來源TRHM調整，實際方向快照／回波與三輪連續事件；[P4](P4_WAVE_FIDELITY.md) |
+| Delta | 5 | 內／外換拳、Defense與World分工、實際成對線；[Delta](DELTA_FIDELITY.md) |
+| Sigma | 5 | 圖形、塔宏／CN目視雙塔、旋轉雷射與World分工；[Sigma](SIGMA_FIDELITY.md) |
+| Omega | 5 | 兩次克隆判定、各自World幾何與檢知選人、三層實際接線；[Omega](OMEGA_FIDELITY.md) |
+| Solar Ray | 1 | 共用雙坦換仇恨，不掛名五套完整減傷方案 |
+| Cosmo Memory | 5 | 實際坦LB／Brilliant與明示獨立前置；[P6 LB](P6_LB_FIDELITY.md) |
+| Arrow→Dive | 1 | 共用練習，未完整區服化 |
+| Exaflare→Wave | 2 | 東／南集合；地火仍為訓練生成族群 |
+| Arrow→Wave | 2 | 東／南集合，不等於所有原始重疊分支 |
+| Exaflare→Dive | 1 | 共用地火訓練族群與最近雙坦／最遠六人 |
+| Meteors | 5 | 各自初始配置、實際LB／HP與期限；[精度界線](P6_PRECISION.md) |
+| Magic Number | 5 | 兩輪實際坦／補LB、Doom與動作鎖；[P6](P6_FIDELITY.md) |
 
-搜尋使用既有 searxng，英文／中日文多次零結果。**零結果不代表沒有攻略**；後續直接閱讀攻略網站、GitHub guide source、Inven，以及 Bilibili 的公開來源索引。遇到 403／412 不繞過驗證、不使用登入憑證。QQ 宏的文字抽取失敗，但正常公開瀏覽器可畫出內容；Google Sheets 則使用公開 CSV view 核對文字。
+## 已取得的原始來源與不能外推的部分
 
-## 已核對差異
+- Elemental：Tuufless全階段與日英宏；不推定JP所有DC相同。
+- Aether：thepfstrat與其連結Toolbox；Dylan、Saus的具體分支已反映於上述模組，不是換標籤共用原版幾何。不能據此宣稱Primal／Crystal／Dynamis統一。
+- LPDU：原始markdown、Toolbox、P6 raidplan；分配與部分路徑具體可支持，不推定Chaos全部團隊相同。
+- CN莫古力：原版一圖流**全15個重疊區塊已讀完**，World圖示亦由本機原版效果ID核對；[逐圖紀錄](CN_POSTER_AUDIT.md)。Limitless原影片第2段14:30–22:30已查核；這不是上下兩部影片全部分支已逐幀看完的宣告。其他CN攻略組不自動套用莫古力。
+- KR09STOP：公開workbook、Inven與實際選取圖例；P1/P2、部分P3/P5/P6分工有獨立來源。不把Mana-origin或一份宏當作KR／JP全服標準；尚未逐一核對每個動畫frame。
 
-| 約定 | NA Aether | EU LPDU | JP Elemental |
-| --- | --- | --- | --- |
-| P1 Loop | light parties；TMR flex；G1 NW/CCW、G2 N/CW | CW M1 M2 MT OT R1 R2 H1 H2 | NW 起 CW H1 MT ST D1 D2 D3 D4 H2 |
-| P1 Panto | 飛彈前出；三人後方分攤 | north/south，TMRH | NW/SE，HTDH，飛彈前出 |
-| P2 圖形 | BPOG；Remote 右側 GPOB | BPOG full cross | O X triangle square；Remote 只對調 O/square |
-| P2 同側雙分攤 | north-most shape + partner 調整 | 已核對 full-cross，完整調整版本依團隊確認 | furthest-from-eye + partner 調整 |
-| P3 檢知 | Dylan / conga | RMTHHTMR | Astoh / H1 H2 MT ST D1 D2 D3 D4 |
-| P4 | TRHM；最低分攤與對側 melee 調整 | TRHM / melee adjust | TRHM / melee adjust |
-| P5 Delta | Saus / blues to beetle | source links separate toolbox | Kinda Awk；另有 GMT 變體 |
-| P5 Sigma | 頁面未完整覆蓋 | waymark tower macros | waymark-based towers；HTDH 選 utility |
-| P6 | 原頁 WIP，不能據此推定統一配置 | 有 WC1/WC2/meteor raidplan 與南集合 | clock spread、east stack |
+一般搜尋使用既有searxng；搜尋零結果不代表來源不存在。查核透過公開原始網站、GitHub guide source、正常公開瀏覽器與已取得圖例；未繞過403／412、登入／CAPTCHA。原圖與影片不收入公開原始碼。
 
-**本原型實作的是表格中的部分約定 + 共用示意幾何。** 例如所有 P3 檢知練習目前都採 Astoh 形狀，不是完整 Dylan／LPDU 陣型；P5 不是三套社群戰術切換器。
+## 保留的精確度缺口
 
-## 區服／社群覆蓋
+完整區服時間路徑、未見過的原始spawn、接線／感染接觸門檻與同時事件政策、NPC邊緣／射程寬限、完整核爆傷害／減傷曲線及大隕石原版期限仍未全數校準。
+P6遠敏LB的**全寬8／半寬4已修正並有來源解讀支持**，不是仍不知道寬度；NPC邊緣與射程寬限是另兩項未驗證問題，見 [幾何來源](P6_RANGED_GEOMETRY.md)。
 
-伺服器（world）、資料中心（DC）、PF 社群與攻略語言並不是同一個分類。無法從某一個 DC 的公開攻略推論每個 world／固定團都用同一套。
-
-| 區域／社群 | 查核結果 | 可用狀態 |
-| --- | --- | --- |
-| NA Aether PF | 直接讀取 thepfstrat TOP | 部分約定預設 |
-| NA Primal / Crystal / Dynamis | 沒有足以證明統一慣例的直接來源 | 未核對；自訂設定 |
-| EU Light / LPDU | 直接讀取 LPDU guide source | 部分約定預設 |
-| EU Chaos / 其他社群 | 不能單靠 LPDU 推論全部 PF | 未核對；自訂設定 |
-| JP Elemental | Tuufless 全階段與日英宏 | 部分約定預設 |
-| JP Mana | Inven 的 09STOP／kiwi 明確說明 Mana-origin；有 Nukemaru clip reference | 來源確認，不等於 Mana 全服標準 |
-| JP Gaia / Meteor | 未取得完整可核對區域宏 | 未核對 |
-| OCE Materia | 未取得完整可核對區域宏 | 未核對 |
-| CN 莫古力攻略組 | Bilibili 上下篇及正常瀏覽器的三頁公開宏；全程 HTDH 優先序、P4 近戰調整、P5 選人可讀 | 優先序預設；完整陣型未實作 |
-| CN 莫靈喵 | 明確標示獨立 Delta 打法 | 來源層；未觀看／轉錄全文 |
-| CN MM+W／鈺子燒 | 明確標示完整攻略系列 | 來源層；全文未核對 |
-| KR 09STOP／Rominny | Inven + 公開 workbook CSV 的 P1/P2/P3/Omega、手動標記／Sigma 宏；P1 H1 T1 T2 D1 D2 D3 D4 H2、P3 HH TT DPS | 優先序預設；不冒稱完整戰術 |
-| KR 手動 Omega 標記 | 公開文字給出二層與世界順序選人規則 | 規則已用於 Omega monitor allocator |
-| TW／繁體中文社群 | Elemental 官方作者有繁體 quick-reference 連結 | 語言資源；不推定獨立台服慣例 |
-
-## 高滅團風險優先項目
-
-- P1：塔踏錯次序、Blaster 重疊、飛彈炸隊友、三人分攤缺人、坦克未取最遠。
-- P2：M/F 姿態判斷、Glitch 長度、同側雙分攤沒調整、擊退進 clone；Beyond Defense 吃到 Pile Pitch。
-- P3：紫／白轉場分配；四輪塔／腐毒交接、藍綠同時斷線；檢知朝向與重複命中。
-- P4：未離開回波、雙分攤同側、近戰未調整、Wave Repeater 進出時機。
-- P5：同色拳、過早斷綠線、檢知與 Pile Pitch；Sigma 六標記分組和擊退塔；Omega 兩組安全點；近遠跳回原主；Dynamis 未湊三層。
-- P6：Tank LB 漏按、交叉天箭、地火與六次引導；坦克不在最近／前排；遠敏 LB 動不了時三核爆調整；Magic Number 未在六秒內補 LB。
-
-## 仍需補核對
-
-CN 一圖流／莫靈喵／MM+W 的完整陣型、KR 每一張站位圖、更多 NA/EU/JP/OCE 的團隊約定，以及各變體與遊戲實測尺寸／時序的逐項對照。這些不是「已支援」功能；原型有自訂約定入口，但入口本身不代表已實作所有戰術。
-
-## 新增 CN/KR 優先序預設的邊界
-
-莫古力與 09STOP 的可讀文字均支持 HTDH 優先序，但這不表示其 P2 圖形、P5 全陣型、P6 集合方向與 Elemental 相同。設定中的 `verified_fields` / `training_only_fields` 分開列出，介面選擇時亦顯示「其他欄位為訓練預設」。KR 的 Loop 依原文從北開始順時針；P3 依原文 HH TT DPS 排序。
-
-
-## Stateful implementation audit (2026-10-21)
-
-Mechanic selection still precedes independent strategy selection. Only `mechanic_strategies.json` entries appear for the selected mechanic; the global profile is not an assertion that every mechanic has that regional route.
-
-- Loop: Elemental NW/CW HTDH; Aether light-party TMR flex with its tower-order search; LPDU priority; KR north/CW priority. These remain distinct implemented conventions. CN priority alone does not create a separate complete route.
-- Panto: missile-ahead / three-player beam descriptions replace the incorrect Loop tower descriptions. Elemental uses a NW/SE reference; LPDU uses N/S. Aether retains its light-party flex. The precise flame/puddle sequence is still a training approximation, including reference-sector adjustment.
-- P3: only the Elemental-family training route is exposed for Hello World. Actual infections, blasts and Debugger state are independent of its labels. Other regional routes have not been added merely by renaming this geometry.
-- P5: one explicit Elemental-family training implementation; continuous P5 is a hidden test fixture, not a selectable course; Delta pair-break order and Sigma waymark concepts are supported by readable pages. Omega clone spawn arrangements remain a training family. No claim of complete Aether, LPDU, CN or KR P5 routes.
-- P6: moving exaflare entries now say training family, not a regional route. The four-cardinal starts and two-point training movement are unverified. Existing P6 stack-direction conventions remain limited to their documented scope.
-
-Previously recorded CN/KR macro priorities are retained with their existing `verified_fields`/`training_only_fields` distinction. This pass did not obtain additional readable CN/KR full-route macros. Missing regional implementations remain missing; no clone labels were added to imply otherwise.
-
-## 父層獨立複核
-
-- [BossMod TOP issue 350](https://github.com/awgil/ffxiv_bossmod/pull/350) 提供 Aether 與 LPDU 的具體差異：Panto NE/SW、Remote GPOB、北端補位與第三檢知南側。配合可讀主攻略，不能把這些差異簡化成同一條路線換標籤。
-- [P3OversampledWaveCannon](https://github.com/awgil/ffxiv_bossmod/blob/master/BossMod.Ultimate/Endwalker/Ultimate/TOP/P3OversampledWaveCannon.cs) 的實際陣型資料支持 Aether 第三檢知南側、LPDU 第一檢知北側；本專案使用原創 GDScript，分別驗證左右鏡像與四個監視器的覆蓋。
-- 新增測試明確檢查該陣型與相反朝向的失敗，而非只檢查 profile 名稱。
-
-這些仍不構成其他未核對社群的完整路線；保留 CN/KR 可核對優先序，不將它們冒稱所有機制的完整陣型。
+目前只在有具體來源與實作時列選項；不以補滿100格或複製社群名稱冒稱完整。
+完整狀態以 [FIDELITY](FIDELITY.md)、各機制專題與 [VALIDATION](../VALIDATION.md) 為準；引擎／匯出驗收與戰鬥來源不互相替代。

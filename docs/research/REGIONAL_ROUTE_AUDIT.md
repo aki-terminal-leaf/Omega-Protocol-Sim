@@ -1,6 +1,14 @@
-# Regional route audit — research only
+# Regional route audit — historical research snapshot
 
 Audit date: 2026-10-21. Catalog base: `55bbc64`.
+
+**Historical snapshot, not current implementation status.** Later parent work
+read the full CN poster (all15panels), audited additional original P2 sources,
+and implemented the source-scoped P1/P3/P4/HW/P5 variants now offered. See
+[the current strategy audit](STRATEGIES.md), [CN poster follow-up](CN_POSTER_AUDIT.md)
+and per-mechanic fidelity files. “Not obtained”/“not implemented” below describes
+this snapshot's bounded pass only; it does not undo later evidence. The100-cell
+JSON remains research-only and is not runtime input or exhaustive completion.
 
 **100 cells are recorded (20 mechanics × 5 communities), but the requested exhaustive route audit is not complete.** The JSON contains verified rules, concrete relative goals and branch decisions where obtained, alongside explicit unknowns. No route is marked implemented or exhaustively verified. Unknown fields must never fall back silently to another community.
 
