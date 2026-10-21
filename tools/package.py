@@ -45,7 +45,7 @@ def main():
     if lock.exists() and json.loads(lock.read_text())['version']!=engine:
         raise SystemExit('Executable does not match the project engine lock')
     manifests={}
-    for name in ['manifest.json','players.json']:
+    for name in ['manifest.json','players.json','arena/manifest.json']:
         path=ROOT/'top/assets/official'/name
         if path.exists():manifests[name]=json.loads(path.read_text())
     local_models=bool(manifests)

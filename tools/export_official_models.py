@@ -200,16 +200,16 @@ def export_model(realm,args,form,meta):
     from xivModdingFramework.Models.FileTypes import Mdl
     from xivModdingFramework.Materials.FileTypes import Mtrl
     from PIL import Image,ImageOps
-    mid,bid=meta['model'],meta['base']
-    path=f'chara/monster/m{mid:04d}/obj/body/b{bid:04d}/model/m{mid:04d}b{bid:04d}.mdl'
+    mid,bid=meta.get('model',0),meta.get('base',0)
+    path=meta.get('source_path') or f'chara/monster/m{mid:04d}/obj/body/b{bid:04d}/model/m{mid:04d}b{bid:04d}.mdl'
     raw=realm.GetFile[FileResource](path)
     if raw is None:raise RuntimeError('Missing local game asset: '+path)
     model=Mdl.GetTTModel(raw.Data,path).GetAwaiter().GetResult()
     # ModelChara.Variant is an IMC variant, not necessarily material vNNNN.
     # Monster IMC has one6-byte entry per variant after its4-byte header.
     imc_path=f'chara/monster/m{mid:04d}/obj/body/b{bid:04d}/b{bid:04d}.imc'
-    imc=realm.GetFile[FileResource](imc_path)
-    material_variant=meta['variant']; variant_details={}
+    imc=realm.GetFile[FileResource](imc_path) if not meta.get('source_path') else None
+    material_variant=meta.get('variant',1); variant_details={}
     if imc is not None:
         data=bytes(imc.Data);count,parts=struct.unpack_from('<HH',data)
         if parts!=1:raise RuntimeError('Unexpected multipart monster IMC: '+imc_path)
@@ -230,7 +230,7 @@ def export_model(realm,args,form,meta):
     rig=json.loads(rig_path.read_text()) if rig_path and rig_path.exists() else None
     bone_map=install_rig(glb,rig) if rig else {}
     for gi,group in enumerate(model.MeshGroups):
-        mpath=Material.ResolveRelativeMaterialPath(group.Material,material_variant)
+        mpath=str(group.Material) if str(group.Material).startswith('bg/') else Material.ResolveRelativeMaterialPath(group.Material,material_variant)
         if mpath not in mat_cache:
             mraw=realm.GetFile[FileResource](mpath)
             mat=Mtrl.GetXivMtrl(mraw.Data,mpath)
@@ -238,7 +238,7 @@ def export_model(realm,args,form,meta):
             gmat={'name':group.Material,'pbrMetallicRoughness':pbr,'doubleSided':True,
                   'extras':{'original_material':mpath,'original_shader':mat.ShaderPackRaw,'shader_fidelity':'PBR approximation, not the game shader'}}
             for tex in mat.Textures:
-                usage={0x115306BE:'Diffuse',0x0C5EC1F1:'Normal'}.get(int(tex.Sampler.SamplerIdRaw),'Other')
+                usage={0x115306BE:'Diffuse',0x0C5EC1F1:'Normal',510652316:'Diffuse',2863978985:'Normal'}.get(int(tex.Sampler.SamplerIdRaw),'Other')
                 if usage not in ['Diffuse','Normal']:continue
                 tp=str(tex.Dx11Path)
                 key=tp+':'+usage
@@ -250,6 +250,8 @@ def export_model(realm,args,form,meta):
                     # Character texture alpha contains shader information, not general opacity.
                     # Preserve opaque game surfaces rather than turning the whole mesh invisible.
                     if usage=='Diffuse':im.putalpha(255)
+                    elif meta.get('source_path'):
+                        r,g,b,a=im.split();im=Image.merge('RGBA',(r,ImageOps.invert(g),b,a))
                     else:
                         r,g,_b,a=im.split();g=ImageOps.invert(g)
                         # Legacy monster normal B stores opacity, not normal Z.

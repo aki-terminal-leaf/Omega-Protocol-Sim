@@ -243,3 +243,18 @@ Tab explicitly toggles tools; Escape opens paused setup. Resuming returns to
 the clean view and preserves prior user pause ownership and all runtime data.
 Actual ranged/caster requests still use the same authoritative target bindings.
 Exported pixel/platform checks belong to the later artifact gate, not these tests.
+
+## 2026-10-22 original arena source gate
+
+All 34 BG exports succeeded. Inspection caught missing BG-specific diffuse/normal
+sampler IDs; corrected and re-exported before acceptance. Parent verified every
+converted hash, 34 models/103 placements. Godot 4.7.2 imports and six-phase checks:
+3880 assertions, zero failures; shared presentation 27 and camera 60 still pass.
+Four existing package-evidence tests pass; no official-export-specific unit tests
+exist (zero tests was not counted as a pass). Game assets stay ignored.
+Local headless Chromium's driver closed while loading the 210MB candidate PCK;
+no local pixel gate passed. Windows headless GPU acceptance is tracked separately.
+
+The reusable public exporter was separately run against the local SqPack; every
+one of the 34 GLB SHA256 values and all 103 placement records exactly reproduced
+the inspected pack. Evidence: main/artifacts/top-immersive-20261022.

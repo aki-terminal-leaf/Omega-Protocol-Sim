@@ -61,7 +61,7 @@ func _ready() -> void:
 	environment.environment = env; add_child(environment)
 	var light = DirectionalLight3D.new(); light.rotation_degrees = Vector3(-60, -25, 0); light.light_energy = 1.1; add_child(light)
 	camera = Camera3D.new(); camera.projection = Camera3D.PROJECTION_PERSPECTIVE
-	camera.fov = 75; camera.near = 0.022; camera.far = 250; camera.current = true
+	camera.fov = 75; camera.near = 0.022; camera.far = 5000; camera.current = true
 	twist_pivot = Node3D.new(); twist_pivot.name = "TwistPivot"; add_child(twist_pivot)
 	pitch_pivot = Node3D.new(); pitch_pivot.name = "PitchPivot"; twist_pivot.add_child(pitch_pivot)
 	spring_arm = SpringArm3D.new(); spring_arm.name = "SpringArm3D"; pitch_pivot.add_child(spring_arm)
@@ -197,7 +197,7 @@ func set_encounter(id: String) -> void:
 	bosses.clear()
 	last_clone_cue = ""
 	if is_instance_valid(floor_node): remove_child(floor_node); floor_node.queue_free()
-	floor_node = Visuals.floor_model(6 if id.begins_with("p6_") else 1); add_child(floor_node)
+	floor_node = Visuals.floor_model(int(id.substr(1,1))); add_child(floor_node)
 	var forms: Array = ["beetle"]
 	if id.begins_with("p2_") or id.begins_with("p5_"): forms = ["male", "female"]
 	elif id.begins_with("p3_") or id.begins_with("p4_"): forms = ["final"]

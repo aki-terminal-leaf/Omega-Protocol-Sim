@@ -85,6 +85,8 @@ static func animate(root: Node3D, time: float, speed: float) -> void:
 		limbs[i].rotation.x = sin(time * 10 + (PI if i == 1 or i == 2 else 0)) * moving * 0.65 + sin(time * 2) * 0.025
 
 static func floor_model(phase := 1) -> Node3D:
+	var original := preload("res://scripts/official_arena.gd").instantiate(phase)
+	if original != null: return original
 	var root = Node3D.new()
 	var m = CylinderMesh.new(); m.top_radius = 20; m.bottom_radius = 20.4; m.height = 0.8; m.radial_segments = 128
 	part(root, m, Vector3(0, -0.45, 0), Color("433722") if phase == 6 else Color("172635"))

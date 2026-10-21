@@ -63,3 +63,19 @@ Discharger knockback is excluded from walking-speed measurement. Actor goals,
 attack sizes, cast/snapshot timings and legal knockback were not relaxed.
 These routes remain the documented source families, not an assertion that every
 original spawn or every regional temporal variant has been verified.
+
+## Local original arena pack (2026-10-22)
+
+`tools/export_official_arena.py` reuses Lumina/TexTools read-only parsing of
+`bg/ex2/05_zon_z3/ome/z3oz/level/bg.lgb` and original BG MDL/MTRL/TEX data.
+Runtime uses the original phase-layer placements centered from (100,0,100)
+without changing source units or gameplay/collision geometry. TOP P6 maps to
+the scene's final `p7_boss` / `p7_enkei`; the `p6` asset is a P5 transition.
+Models and manifests remain local-only; source exports keep procedural fallback.
+The pack has 34 original BG meshes, original diffuse/normal textures and 103
+non-cutscene placements, with source and converted SHA256 provenance.
+
+This is original geometry/texture provenance, not an exact renderer recreation:
+static phase-layer selection, BG shaders, alpha/blending, lighting, fog,
+transitions and multi-axis placement conventions still need visual calibration.
+No original encounter timings, radii or character collision rules changed.
