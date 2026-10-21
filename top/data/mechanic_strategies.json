@@ -164,8 +164,28 @@
   "p3_transition": [
     {
       "profile": "elemental",
-      "name": "紫散開／白雙人分攤",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "Elemental · 八次波動／六手臂／狙擊",
+      "description": "H1→MT→ST→D1→D2→D3→D4→H2；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · 八次波動／六手臂／狙擊",
+      "description": "H1→D3→D1→MT→ST→D2→D4→H2；紫西北、白南；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 八次波動／六手臂／狙擊",
+      "description": "D3→D1→MT→H1→H2→ST→D2→D4；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 八次波動／六手臂／狙擊",
+      "description": "H1→MT→ST→D1→D2→D3→D4→H2；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 八次波動／六手臂／狙擊",
+      "description": "H1→MT→ST→D1→D2→D3→D4→H2；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。"
     }
   ],
   "p3_hello": [

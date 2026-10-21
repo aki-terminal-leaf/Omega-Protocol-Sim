@@ -16,4 +16,4 @@ static func begin(beat:Dictionary,state:Dictionary,exclude_actor:=-1) -> void:
 		load("res://scripts/statuses.gd").event(state,"coaching_sprint",{"actor":actor,"expires":now+10.0,"ready":now+60.0})
 static func speed(beat:Dictionary,state:Dictionary,actor:int) -> float:
 	if state.has("bot_sprint_until") and float(state.bot_sprint_until[actor])>float(state.get("sim_time",0)):return 7.5
-	return 6.0 if beat.has("p1_route") or beat.has("p6_route") or beat.has("hw_route") or beat.has("limitless_route") or beat.has("sigma_config") or beat.has("omega_config") or beat.get("delta_guide",false) or beat.get("p5_solar",false) else 11.0
+	return 6.0 if beat.has("p3_transition_route") or beat.has("p1_route") or beat.has("p6_route") or beat.has("hw_route") or beat.has("limitless_route") or beat.has("sigma_config") or beat.has("omega_config") or beat.get("delta_guide",false) or beat.get("p5_solar",false) else 11.0

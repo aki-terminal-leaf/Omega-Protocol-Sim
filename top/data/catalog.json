@@ -43,9 +43,9 @@
     "id": "p3_transition",
     "phase": 3,
     "name": "Reconfiguration / コロッサスブロー",
-    "focus": "紫散開、白雙人、波動與手臂",
-    "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "focus": "八次同時序波動、六手臂、紫單人／白雙人",
+    "fidelity": "stateful; measured event samples, approximate void window; HP/shields unmodeled",
+    "timing": "four observed encounter samples; exact void lifetime and cue timing remain approximate"
   },
   {
     "id": "p3_hello",

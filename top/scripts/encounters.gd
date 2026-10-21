@@ -306,21 +306,7 @@ func limitless() -> void:
 	LimitlessCourses.append_limitless(self)
 
 func transition() -> void:
-	for i in 4: label(i, "PURPLE · spread")
-	for i in [4, 5]: label(i, "WHITE · pair stack")
-	for i in [6, 7]: label(i, "NONE · join white")
-	for step in 3:
-		var radius: float = [12.0, 6.0, 12.0][step]
-		for i in 4: pos(i, polar(-90 + i * 60, radius))
-		pos(4, polar(150, radius)); pos(6, positions[at(4)] + Vector2(0.5, 0))
-		pos(5, polar(210, radius)); pos(7, positions[at(5)] + Vector2(-0.5, 0))
-		var b = beat("Reconfiguration · Wave Repeater %d/3" % (step + 1), 5.0, "Purple spread; white pair with no-debuff. Move through the resolved ring.")
-		b.shapes.append({"kind": "donut", "inner": 0 if step == 0 else (9 if step == 1 else 15), "radius": 9 if step == 0 else (15 if step == 1 else 22), "name": "Wave Repeater"})
-		# Colossal Blow is represented by six arm circles alternating between waves.
-		for deg in [0, 120, 240]: b.shapes.append(circle(polar(deg + (60 if step % 2 == 0 else 0), 26), 8.0, "Colossal Blow"))
-		if step == 2:
-			spread(b, [at(0), at(1), at(2), at(3)], 3.5)
-			b.shapes.append(targeted(at(4), 3, 2, "High-powered Sniper Cannon")); b.shapes.append(targeted(at(5), 3, 2, "High-powered Sniper Cannon"))
+	preload("res://scripts/p3_transition_courses.gd").append_transition(self)
 
 func hello_world() -> void:
 	HWCourses.append_hw(self)

@@ -52,6 +52,7 @@ static func give(state: Dictionary, actor: int, name: String, duration: float, s
 
 static func begin(beat: Dictionary, state: Dictionary) -> void:
 	ensure(state)
+	preload("res://scripts/p3_transition_runtime.gd").begin(beat,state)
 	preload("res://scripts/p6_runtime.gd").begin(beat,state)
 	preload("res://scripts/p5_delta_runtime.gd").begin(beat,state)
 	preload("res://scripts/p5_sigma_runtime.gd").begin(beat,state)
@@ -104,6 +105,7 @@ static func contacts(actors: Array, previous: Array, state: Dictionary) -> void:
 
 static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -> void:
 	ensure(state, actors.size())
+	preload("res://scripts/p3_transition_runtime.gd").tick(actors,previous,state,dt)
 	preload("res://scripts/p6_runtime.gd").tick(actors,previous,state,dt)
 	preload("res://scripts/p5_delta_runtime.gd").tick(actors,previous,state,dt)
 	preload("res://scripts/p5_sigma_runtime.gd").tick(actors,previous,state,dt)
@@ -190,6 +192,7 @@ static func streams(actors: Array, state: Dictionary) -> void:
 			stream.remaining -= 1
 
 static func sync(beat: Dictionary, state: Dictionary) -> void:
+	preload("res://scripts/p3_transition_runtime.gd").sync(beat,state)
 	preload("res://scripts/p6_runtime.gd").sync(beat,state)
 	preload("res://scripts/p5_delta_runtime.gd").sync(beat,state)
 	preload("res://scripts/p1_runtime.gd").sync(beat,state)

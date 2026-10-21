@@ -1,0 +1,818 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-21",
+  "routes": {
+    "elemental": {
+      "id": "elemental",
+      "priority": [
+        2,
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        3
+      ],
+      "purple_angles": [
+        270,
+        225,
+        135,
+        90
+      ],
+      "white_angles": [
+        315,
+        45
+      ],
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+          "location": "Transition steps 1–10 and homepage transition macro",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "audit_date": "2026-10-21",
+      "coordinates": "Numerical legal realization, not official guide coordinates",
+      "coverage": "independently audited assignment and sector; numerical movement constructed"
+    },
+    "aether": {
+      "id": "aether",
+      "priority": [
+        2,
+        6,
+        4,
+        0,
+        1,
+        5,
+        7,
+        3
+      ],
+      "purple_angles": [
+        270,
+        315,
+        45,
+        90
+      ],
+      "white_angles": [
+        225,
+        135
+      ],
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P3 Transition lines178–183",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "audit_date": "2026-10-21",
+      "coordinates": "Numerical legal realization, not official guide coordinates",
+      "coverage": "independently audited assignment and sector; numerical movement constructed",
+      "additional_source": "https://ff14.toolboxgaming.space/?id=243183080764761&preview=1 steps0-9; cached full semantic raw"
+    },
+    "lpdu": {
+      "id": "lpdu",
+      "priority": [
+        6,
+        4,
+        0,
+        2,
+        3,
+        1,
+        5,
+        7
+      ],
+      "purple_angles": [
+        270,
+        225,
+        135,
+        90
+      ],
+      "white_angles": [
+        315,
+        45
+      ],
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase3 transition; overview",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "audit_date": "2026-10-21",
+      "coordinates": "Numerical legal realization, not official guide coordinates",
+      "coverage": "independently audited assignment and sector; numerical movement constructed",
+      "additional_source": "https://raidplan.io/plan/46r495ZATq3kCqz1 steps1,3 visually read live; RMTHHTMR separately confirmed in primary markdown"
+    },
+    "cn_moogle": {
+      "id": "cn_moogle",
+      "priority": [
+        2,
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        3
+      ],
+      "purple_angles": [
+        270,
+        225,
+        135,
+        90
+      ],
+      "white_angles": [
+        315,
+        45
+      ],
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P2.5 转场 diagram",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "audit_date": "2026-10-21",
+      "coordinates": "Numerical legal realization, not official guide coordinates",
+      "coverage": "independently audited assignment and sector; numerical movement constructed",
+      "additional_source": "CN_POSTER_AUDIT.md panel04 primary poster; global priority panel00. Bilibili video timing not independently measured in this task."
+    },
+    "kr_09stop": {
+      "id": "kr_09stop",
+      "priority": [
+        2,
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        3
+      ],
+      "purple_angles": [
+        270,
+        225,
+        135,
+        90
+      ],
+      "white_angles": [
+        315,
+        45
+      ],
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+          "location": "#Phase.3 rows 9–114",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "audit_date": "2026-10-21",
+      "coordinates": "Numerical legal realization, not official guide coordinates",
+      "coverage": "independently audited assignment and sector; numerical movement constructed",
+      "additional_source": "Phase.3 gid1826471436 rows9-114 and images at row18: live read; H1 T1 T2 D1 D2 D3 D4 H2 and purple W/SW/SE/E white NW/NE"
+    }
+  },
+  "samples": [
+    {
+      "id": "1bX86aKrVRwLWfTC/19",
+      "url": "https://www.fflogs.com/reports/1bX86aKrVRwLWfTC?fight=19",
+      "retrieved_utc": "2026-10-21T02:31:49.024960+00:00",
+      "origin_ms": 14223681,
+      "rings": [
+        4.97,
+        7.076,
+        9.136,
+        11.196,
+        13.122,
+        15.227,
+        17.287,
+        19.346
+      ],
+      "arms": [
+        {
+          "at": 16.974,
+          "pos": [
+            0.0,
+            -14.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 63,
+          "instance": 1,
+          "cast_at": 15.003
+        },
+        {
+          "at": 16.974,
+          "pos": [
+            -12.12,
+            7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 1,
+          "cast_at": 15.003
+        },
+        {
+          "at": 16.974,
+          "pos": [
+            12.12,
+            7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 2,
+          "cast_at": 15.003
+        },
+        {
+          "at": 19.481,
+          "pos": [
+            0.0,
+            14.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 63,
+          "instance": 2,
+          "cast_at": 17.512
+        },
+        {
+          "at": 19.481,
+          "pos": [
+            -12.12,
+            -7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 63,
+          "instance": 3,
+          "cast_at": 17.512
+        },
+        {
+          "at": 19.481,
+          "pos": [
+            12.12,
+            -7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 3,
+          "cast_at": 17.512
+        }
+      ],
+      "sniper": 19.034,
+      "debuff_gain": -0.089,
+      "hashes": [
+        {
+          "file": "metadata.json.gz",
+          "sha256": "ce3fd3160c50ea57b862edc262a42f3877520bdd79d7d7b5d91f4ce37d965c2a",
+          "uncompressed_bytes": 9717
+        },
+        {
+          "file": "enemy-casts.json.gz",
+          "sha256": "267d3f63cf8721cb681ea764f5e08799b779bf646c08e1aacbbd61a0d649b013",
+          "uncompressed_bytes": 1093841
+        },
+        {
+          "file": "replay-13951737-14191736.json.gz",
+          "sha256": "4f6017e500ba8953bea0e3b27110e34f91de755cef4b46ada9a907132ef3316d",
+          "uncompressed_bytes": 5725495,
+          "start": 13951737,
+          "end": 14191736,
+          "url": "/reports/replaysegment/1bX86aKrVRwLWfTC/1077/13951737/14191736",
+          "events": 9305
+        },
+        {
+          "file": "replay-14191737-14431736.json.gz",
+          "sha256": "187250b4b82b13fdcf13b604c76765e9d9be16cd12bc7f292791c03350e40553",
+          "uncompressed_bytes": 5947103,
+          "start": 14191737,
+          "end": 14431736,
+          "url": "/reports/replaysegment/1bX86aKrVRwLWfTC/1077/14191737/14431736",
+          "events": 9787
+        },
+        {
+          "file": "replay-14431737-14671736.json.gz",
+          "sha256": "21e7c1fa158ae29ff1c22b77dea3e0d517ea32e155dc4694e200a269a282bb37",
+          "uncompressed_bytes": 4627803,
+          "start": 14431737,
+          "end": 14671736,
+          "url": "/reports/replaysegment/1bX86aKrVRwLWfTC/1077/14431737/14671736",
+          "events": 7817
+        },
+        {
+          "file": "replay-14671737-14911736.json.gz",
+          "sha256": "cc98a3c3e336d2e932bbd10021db8de7b4baad83b7b7750c88c183e8c1c0e4a1",
+          "uncompressed_bytes": 4649804,
+          "start": 14671737,
+          "end": 14911736,
+          "url": "/reports/replaysegment/1bX86aKrVRwLWfTC/1077/14671737/14911736",
+          "events": 7356
+        },
+        {
+          "file": "replay-14911737-15079746.json.gz",
+          "sha256": "52b7a012ecd84c930ac1de38733e54b2ebef3340080e46479d140b1723a915ad",
+          "uncompressed_bytes": 4456868,
+          "start": 14911737,
+          "end": 15079746,
+          "url": "/reports/replaysegment/1bX86aKrVRwLWfTC/1077/14911737/15079746",
+          "events": 7080
+        }
+      ],
+      "ring_starts": [
+        0.0,
+        8.151
+      ]
+    },
+    {
+      "id": "3GW2hjTNk91FZwcK/9",
+      "url": "https://www.fflogs.com/reports/3GW2hjTNk91FZwcK?fight=9",
+      "retrieved_utc": "2026-10-21T02:31:48.922016+00:00",
+      "origin_ms": 5533809,
+      "rings": [
+        4.97,
+        7.1,
+        9.151,
+        11.199,
+        13.154,
+        15.244,
+        17.29,
+        19.38
+      ],
+      "arms": [
+        {
+          "at": 16.978,
+          "pos": [
+            12.12,
+            -7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 1,
+          "cast_at": 15.022
+        },
+        {
+          "at": 16.978,
+          "pos": [
+            -12.12,
+            -7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 30,
+          "instance": 1,
+          "cast_at": 15.022
+        },
+        {
+          "at": 16.978,
+          "pos": [
+            0.0,
+            14.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 2,
+          "cast_at": 15.022
+        },
+        {
+          "at": 19.512,
+          "pos": [
+            0.0,
+            -14.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 30,
+          "instance": 2,
+          "cast_at": 17.555
+        },
+        {
+          "at": 19.512,
+          "pos": [
+            12.12,
+            7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 30,
+          "instance": 3,
+          "cast_at": 17.555
+        },
+        {
+          "at": 19.512,
+          "pos": [
+            -12.12,
+            7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 3,
+          "cast_at": 17.555
+        }
+      ],
+      "sniper": 19.024,
+      "debuff_gain": -0.089,
+      "hashes": [
+        {
+          "file": "metadata.json.gz",
+          "sha256": "e94954c76c07fe5fe66c99f4f6cbd6ac029a13aeb87096c7534e9886dc02b9dd",
+          "uncompressed_bytes": 18001
+        },
+        {
+          "file": "enemy-casts.json.gz",
+          "sha256": "be4498924e00cc72c8b870264f5026ad2199e292a10f1886a1b554ea10044d5d",
+          "uncompressed_bytes": 1095755
+        },
+        {
+          "file": "replay-5268255-5508254.json.gz",
+          "sha256": "fa709dd0b62d02d52c7539d112bd68ea3e7825a42a4621360c8a8b51f6d18f89",
+          "uncompressed_bytes": 6303103,
+          "start": 5268255,
+          "end": 5508254,
+          "url": "/reports/replaysegment/3GW2hjTNk91FZwcK/1077/5268255/5508254",
+          "events": 10039
+        },
+        {
+          "file": "replay-5508255-5748254.json.gz",
+          "sha256": "d2f7d4f91e501dda0f1c06a59bfeff168fe60ee2d080055d1e0070374f94e5c9",
+          "uncompressed_bytes": 6594000,
+          "start": 5508255,
+          "end": 5748254,
+          "url": "/reports/replaysegment/3GW2hjTNk91FZwcK/1077/5508255/5748254",
+          "events": 10639
+        },
+        {
+          "file": "replay-5748255-5988254.json.gz",
+          "sha256": "c3675ddccc97c34b7eee5983041f17e1d9618e450182d0c1365b144d32ba65fa",
+          "uncompressed_bytes": 4772327,
+          "start": 5748255,
+          "end": 5988254,
+          "url": "/reports/replaysegment/3GW2hjTNk91FZwcK/1077/5748255/5988254",
+          "events": 7988
+        },
+        {
+          "file": "replay-5988255-6228254.json.gz",
+          "sha256": "5c8f3c0eed49a6976dc7cb4685bd4601a548ee365ba93d3553c0c45743de6263",
+          "uncompressed_bytes": 4687559,
+          "start": 5988255,
+          "end": 6228254,
+          "url": "/reports/replaysegment/3GW2hjTNk91FZwcK/1077/5988255/6228254",
+          "events": 7557
+        },
+        {
+          "file": "replay-6228255-6381991.json.gz",
+          "sha256": "e8d26dbf07b0d65a315c3f7bf4f6626202fbbdd2b350fd53e40ccb9ea4f7651c",
+          "uncompressed_bytes": 4472937,
+          "start": 6228255,
+          "end": 6381991,
+          "url": "/reports/replaysegment/3GW2hjTNk91FZwcK/1077/6228255/6381991",
+          "events": 6909
+        }
+      ],
+      "ring_starts": [
+        0.0,
+        8.17
+      ]
+    },
+    {
+      "id": "LKMGRJTzgY9HFynk/2",
+      "url": "https://www.fflogs.com/reports/LKMGRJTzgY9HFynk?fight=2",
+      "retrieved_utc": "2026-10-21T02:30:35.436115+00:00",
+      "origin_ms": 440934,
+      "rings": [
+        4.992,
+        7.086,
+        9.138,
+        11.191,
+        13.152,
+        15.25,
+        17.298,
+        19.35
+      ],
+      "arms": [
+        {
+          "at": 17.031,
+          "pos": [
+            12.12,
+            -7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 27,
+          "instance": 1,
+          "cast_at": 15.071
+        },
+        {
+          "at": 17.031,
+          "pos": [
+            0.0,
+            14.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 1,
+          "cast_at": 15.071
+        },
+        {
+          "at": 17.031,
+          "pos": [
+            -12.12,
+            -7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 2,
+          "cast_at": 15.071
+        },
+        {
+          "at": 19.529,
+          "pos": [
+            0.0,
+            -14.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 27,
+          "instance": 2,
+          "cast_at": 17.566
+        },
+        {
+          "at": 19.529,
+          "pos": [
+            12.12,
+            7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 27,
+          "instance": 3,
+          "cast_at": 17.566
+        },
+        {
+          "at": 19.529,
+          "pos": [
+            -12.12,
+            7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 3,
+          "cast_at": 17.566
+        }
+      ],
+      "sniper": 19.039,
+      "debuff_gain": -0.088,
+      "hashes": [
+        {
+          "file": "metadata.json.gz",
+          "sha256": "8bdf9ed314eeeadcfb5212cc085402ec15dcc3fd5f439402dedc991b8f17048c",
+          "uncompressed_bytes": 22195
+        },
+        {
+          "file": "enemy-casts.json.gz",
+          "sha256": "e0d25a80edf32fecf2418f91ae9aadbcb12697430229e22d3ebe683b8d15c977",
+          "uncompressed_bytes": 1075429
+        },
+        {
+          "file": "replay-180882-420881.json.gz",
+          "sha256": "2d693866ddaa5781554d350b1e5f97a57d6f2f69457a7349e0f754e04e0ce1d5",
+          "uncompressed_bytes": 7560641,
+          "start": 180882,
+          "end": 420881,
+          "url": "/reports/replaysegment/LKMGRJTzgY9HFynk/1077/180882/420881",
+          "events": 10992
+        },
+        {
+          "file": "replay-420882-660881.json.gz",
+          "sha256": "53bd801fd11c9927f486c4c17a46a83f075c3d155844e2e17acb44d46bf2fc5c",
+          "uncompressed_bytes": 7709310,
+          "start": 420882,
+          "end": 660881,
+          "url": "/reports/replaysegment/LKMGRJTzgY9HFynk/1077/420882/660881",
+          "events": 11435
+        },
+        {
+          "file": "replay-660882-900881.json.gz",
+          "sha256": "63ed5b803a64f7bd34ebaa96fc66c56b9a4665e7d667ffbb1d285971b9a5dcd9",
+          "uncompressed_bytes": 5669318,
+          "start": 660882,
+          "end": 900881,
+          "url": "/reports/replaysegment/LKMGRJTzgY9HFynk/1077/660882/900881",
+          "events": 8660
+        },
+        {
+          "file": "replay-900882-1140881.json.gz",
+          "sha256": "ee2c16af467ab9cdd916a2b58dab14c75867298d466354e71dab51f1e9c51ec6",
+          "uncompressed_bytes": 5655722,
+          "start": 900882,
+          "end": 1140881,
+          "url": "/reports/replaysegment/LKMGRJTzgY9HFynk/1077/900882/1140881",
+          "events": 8367
+        },
+        {
+          "file": "replay-1140882-1290286.json.gz",
+          "sha256": "8e14636b0e979af081e26b5df1d5ce26e8f0248bb51d61afa32990446a0bcc97",
+          "uncompressed_bytes": 5113623,
+          "start": 1140882,
+          "end": 1290286,
+          "url": "/reports/replaysegment/LKMGRJTzgY9HFynk/1077/1140882/1290286",
+          "events": 7417
+        }
+      ],
+      "ring_starts": [
+        0.0,
+        8.156
+      ]
+    },
+    {
+      "id": "Vyq4AcJKZjkFQBpG/32",
+      "url": "https://www.fflogs.com/reports/Vyq4AcJKZjkFQBpG?fight=32",
+      "retrieved_utc": "2026-10-21T02:31:49.176920+00:00",
+      "origin_ms": 26150628,
+      "rings": [
+        4.987,
+        7.077,
+        9.126,
+        11.182,
+        13.144,
+        15.24,
+        17.297,
+        19.351
+      ],
+      "arms": [
+        {
+          "at": 17.029,
+          "pos": [
+            -12.12,
+            -7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 727,
+          "instance": 1,
+          "cast_at": 15.062
+        },
+        {
+          "at": 17.029,
+          "pos": [
+            12.12,
+            -7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 1,
+          "cast_at": 15.062
+        },
+        {
+          "at": 17.029,
+          "pos": [
+            0.0,
+            14.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 2,
+          "cast_at": 15.062
+        },
+        {
+          "at": 19.529,
+          "pos": [
+            0.0,
+            -14.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 727,
+          "instance": 2,
+          "cast_at": 17.565
+        },
+        {
+          "at": 19.529,
+          "pos": [
+            -12.12,
+            7.0
+          ],
+          "form": "arm_right",
+          "form_confidence": "named live cast source",
+          "source_id": 727,
+          "instance": 3,
+          "cast_at": 17.565
+        },
+        {
+          "at": 19.529,
+          "pos": [
+            12.12,
+            7.0
+          ],
+          "form": "arm_left",
+          "form_confidence": "inferred left: anonymous source; named sources are right units",
+          "source_id": null,
+          "instance": 3,
+          "cast_at": 17.565
+        }
+      ],
+      "sniper": 19.039,
+      "debuff_gain": -0.089,
+      "hashes": [
+        {
+          "file": "metadata.json.gz",
+          "sha256": "5378fdcbae241f22d642d062d16b556cb3746d827cfb8e2761f9d03be227250f",
+          "uncompressed_bytes": 113157
+        },
+        {
+          "file": "enemy-casts.json.gz",
+          "sha256": "62741ef1605d75bf703bc7a431e54bd7995eff50eea3f2b5707e984c8cb20069",
+          "uncompressed_bytes": 1369466
+        },
+        {
+          "file": "replay-25886995-26126994.json.gz",
+          "sha256": "4b39d40165b8cd779080d8cd20c15dd4353088280f737759e917b54dce8fb598",
+          "uncompressed_bytes": 6232071,
+          "start": 25886995,
+          "end": 26126994,
+          "url": "/reports/replaysegment/Vyq4AcJKZjkFQBpG/1077/25886995/26126994",
+          "events": 10360
+        },
+        {
+          "file": "replay-26126995-26366994.json.gz",
+          "sha256": "c163bbe6ec6da21a30fc23424c53a12c642ae65b18755d0d3d000d3eed169228",
+          "uncompressed_bytes": 6674349,
+          "start": 26126995,
+          "end": 26366994,
+          "url": "/reports/replaysegment/Vyq4AcJKZjkFQBpG/1077/26126995/26366994",
+          "events": 10907
+        },
+        {
+          "file": "replay-26366995-26606994.json.gz",
+          "sha256": "32336ec43ef895cb791c124f4f066020aa1f4cc0a4d7f1e98442e00c7b9a44b1",
+          "uncompressed_bytes": 4990590,
+          "start": 26366995,
+          "end": 26606994,
+          "url": "/reports/replaysegment/Vyq4AcJKZjkFQBpG/1077/26366995/26606994",
+          "events": 8375
+        },
+        {
+          "file": "replay-26606995-26846994.json.gz",
+          "sha256": "f35d5c6c4428575f580412ead82fc0ce5a9886a3df5a29d3ec0d2b2bb115de10",
+          "uncompressed_bytes": 4847343,
+          "start": 26606995,
+          "end": 26846994,
+          "url": "/reports/replaysegment/Vyq4AcJKZjkFQBpG/1077/26606995/26846994",
+          "events": 8041
+        },
+        {
+          "file": "replay-26846995-26989995.json.gz",
+          "sha256": "d51c03153863d60f261cb1bd17641d5c2e65f661708dc6bc6e6ca6c08167bef2",
+          "uncompressed_bytes": 4094386,
+          "start": 26846995,
+          "end": 26989995,
+          "url": "/reports/replaysegment/Vyq4AcJKZjkFQBpG/1077/26846995/26989995",
+          "events": 6822
+        }
+      ],
+      "ring_starts": [
+        0.0,
+        8.146
+      ]
+    }
+  ],
+  "geometry": {
+    "ring_radii": [
+      6,
+      12,
+      18,
+      24
+    ],
+    "arm_radius": 11,
+    "sniper_radius": 6,
+    "arm_source_radius": 14,
+    "void_radius": 6,
+    "void_start": 6.1,
+    "void_end": 21.4,
+    "void_confidence": "approximate reference window: appears ~1s after first ring, disappears ~1.6s before targetable (~23s); not measured in FFLogs environmental events",
+    "vulnerability_duration": 1.96,
+    "wall_radius": 20
+  },
+  "unknowns": [
+    "Exact environmental voidzone spawn/despawn timestamps unmeasured; 6.1..21.4 is explicitly approximate.",
+    "Arm timeline1E43/1E44 cue times inferred as hit minus13.5s; actual timeline packets not in FFLogs.",
+    "Anonymous arm handedness inferred from complementary source family.",
+    "Pre-resolution death retarget randomness is not reconstructable; attempt fails explicitly, no successful fallback.",
+    "HP/shield/mitigation amounts not modeled; legal geometry does not certify survival without mitigation."
+  ]
+}

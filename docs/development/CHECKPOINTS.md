@@ -1,7 +1,8 @@
 # Incremental checkpoints — 2026-10-21
 
 User steering: commit validated segments; do not wait for the entire 20-mechanic
-project. These are local development commits, not published releases.
+project. Validated development commits are pushed directly to the remote development
+branch as authorized by the user; they are not published releases.
 
 ## 899051f — Original materials, models and real status cues
 
@@ -35,8 +36,8 @@ segment; the production baseline remains 4.4.1 until its gates pass.
 
 ## Still pending
 
-- Collect/review existing P3 transition and P4 Wave Cannon worker results; merge
-  only their new modules and manual Status hooks, preserving current parent work.
+- P4 Wave Cannon: terminal worker evidence collected; parent integration pending.
+  Preserve existing shared Status hooks while integrating its new modules.
 - Wire P6 LB request/selection/cast controls and actual post-cast locks; audit
   ranged full-width/half-width before declaring correct.
 - Original particle/VFX reconstruction, remaining route/source uncertainties,
@@ -44,3 +45,11 @@ segment; the production baseline remains 4.4.1 until its gates pass.
 
 All assertion counts are test evidence, not certification of unmeasured server
 values, all five complete source audits, HP/mitigation or a completed release.
+
+## P3 transition — integrated and independently gated
+
+Production dispatch, five method selectors, normal6/s movement, eight concurrent
+ring events, six original-form arms and current-debuff sniper judgments. Parent
+quick2268/0; full23418/0 across4243 physical runs; actual Main15/0; shared211/0.
+Void lifetime, arm cue/handedness inference, HP/shields and CN video limits remain
+explicit in `docs/research/P3_TRANSITION_FIDELITY.md`. No release/export claimed.
