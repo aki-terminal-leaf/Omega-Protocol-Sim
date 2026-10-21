@@ -91,3 +91,15 @@ files all passed migration hash/dimension checks; original source bytes were
 verified unchanged. The validated canonical copy became the active local pack
 by same-filesystem rename, with the complete legacy directory retained locally.
 No extracted files, private paths or original artwork were added to Git.
+
+## Curve decoding / bounded editor math
+
+The subsequent [curve layer](AVFX_CURVES.md) decodes299 direct-path curves with
+456 keys from the three preserved files, retaining native time/angle units,
+random/connection/Life metadata and all opaque bytes. Supported scalar math is
+checked against the pinned reference-editor graph equation, including bounded
+inversion of asymmetric spline x(u), not incorrectly substituting normalized
+time for the spline parameter. Unsupported/random/pre/post cases fail explicitly.
+This does not add a Godot particle player: all actual private scalar curves
+have random metadata and remain unsampleable by this conservative layer until
+its playback semantics are established. No original effect playback claim.
