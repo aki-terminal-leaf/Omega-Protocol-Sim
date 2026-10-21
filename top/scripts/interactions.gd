@@ -8,6 +8,9 @@ const NAV_CLEARANCE := 1.0
 
 static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	state.loop_refuges = {}
+	state.loop_released = false
+	state.loop_departure_order=[]
+	state.loop_deadline=float(state.get("sim_time",0))+float(beat.get("duration",0))
 	Statuses.begin(beat, state)
 	Statuses.sync(beat, state)
 	sync_followups(beat,state)
@@ -133,6 +136,41 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 	var wanted: Array = beat.transfers.wanted
 	var obey_other_lines:bool=actor not in holders or str(beat.transfers.get("ownership_policy",Statuses.parameter("double_line_policy")))!="unverified_exclusive"
 	var pos: Vector2 = actors[actor].pos
+	# Loop has three physical phases: collect short rays, let everyone else
+	# clear their future corridors, then stagger the outgoing carriers.
+	# This reads visible current owners only, after the activation guard above.
+	if beat.has("program_loop") and actor in wanted and actor in holders and not state.get("loop_released",false):
+		var clear_egress: bool = wanted.all(func(i):return i in holders)
+		var future_lines: Array=[]
+		for h in wanted: future_lines.append([Vector2.ZERO,beat.positions[h]])
+		for i in actors.size():
+			if i in wanted:continue
+			var destination: Vector2=loop_destination(i,beat,actors,state)
+			if Rules.v(actors[i].pos).length()<4.5 or not clear_path(actors[i].pos,destination,future_lines):clear_egress=false
+		if clear_egress:
+			state.loop_released=true
+			state.loop_departure_order=wanted.duplicate()
+			state.loop_departure_order.sort_custom(func(a,b):return Rules.v(actors[a].pos).distance_to(beat.positions[a])<Rules.v(actors[b].pos).distance_to(beat.positions[b]))
+		else:
+			# Hold short physical rays while the retiring carriers and tower
+			# players walk around their ends. No owner or position is assigned.
+			var hold:=pos.normalized()*minf(pos.length(),3.0)
+			# Separate clustered initial rays so the remaining collector has an
+			# exposed capsule edge. Keeping both frozen can deadlock the handoff.
+			for k in holders.size():
+				if holders[k]==actor:continue
+				var other:Vector2=actors[int(holders[k])].pos
+				if hold.distance_to(Geometry2D.get_closest_point_to_segment(hold,Vector2.ZERO,other))<1.8:
+					var normal:=other.normalized().orthogonal()
+					if pos.dot(normal)<0:normal=-normal
+					hold=(hold+normal*2.0).normalized()*3.0
+			return hold
+	if beat.has("program_loop") and state.get("loop_released",false) and actor in holders and actor in wanted:
+		# A moving endpoint is not a stable visibility-graph obstacle. Let the
+		# leading carrier align first instead of chasing each other's endpoints.
+		var first:int=state.loop_departure_order[0]
+		var lead:Vector2=actors[first].pos
+		if actor!=first and (lead.length()<4.5 or lead.normalized().dot(Rules.v(beat.positions[first]).normalized())<0.995):return pos
 	if actor in wanted and actor not in holders:
 		var reserved: Array = []
 		for k in holders.size():
@@ -224,26 +262,11 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 	# Unassigned Loop players may use ANY safe refuge. Choose a nearby valid refuge,
 	# rather than crossing the arena for a particular guide endpoint after releasing a line.
 	if ready and beat.has("program_loop") and actor not in wanted and int(beat.program_loop.numbers[actor]) != int(beat.program_loop.round):
-		if not state.loop_refuges.has(actor):
-			var nearest := INF; var refuge := final
-			for x in range(-18,19):
-				for y in range(-18,19):
-					var candidate := Vector2(x,y)
-					if candidate.length() >= 19: continue
-					var safe := true
-					for h in wanted:
-						if candidate.distance_to(beat.positions[h]) < 15.8: safe = false
-						if candidate.distance_to(Geometry2D.get_closest_point_to_segment(candidate,Vector2.ZERO,beat.positions[h])) < 1.5: safe = false
-					for shape in beat.shapes:
-						if shape.get("kind","") == "tower" and candidate.distance_to(shape.pos) < 3.5: safe = false
-					if safe and pos.distance_squared_to(candidate) < nearest:
-						nearest = pos.distance_squared_to(candidate); refuge = candidate
-			state.loop_refuges[actor] = refuge
-		final = state.loop_refuges[actor]
+		final = loop_destination(actor,beat,actors,state)
 	# Yield proactively when standing in a carrier's intended sweep corridor.
 	# Otherwise a short live line and the waiting carrier can mutually block a
 	# retiring player's route; moving to the goal-side of the ray is a legal walk.
-	if ready and actor not in holders:
+	if ready and actor not in holders and not beat.has("program_loop"):
 		for k in holders.size():
 			var source: Vector2=beat.transfers.sources[k]
 			var end: Vector2=beat.positions[int(holders[k])]
@@ -269,14 +292,48 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 	if clear_path(pos, final, obstacles): return final
 	return navigate_goal(actor,pos,final,obstacles,state)
 
+static func loop_destination(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
+	var final:Vector2=beat.positions[actor]
+	var wanted:Array=beat.transfers.wanted
+	var pos:Vector2=actors[actor].pos
+	if actor not in wanted and int(beat.program_loop.numbers[actor]) != int(beat.program_loop.round):
+		# Close to the snapshot, safe means clear of the ACTUAL Blaster centers.
+		# Earlier evacuation from still-short rays would obstruct their departure.
+		var live_refuge:bool=float(state.loop_deadline)-float(state.get("sim_time",0))<0.75
+		if live_refuge and state.loop_refuges.has(str(actor)):
+			var cached:Vector2=Rules.v(state.loop_refuges[str(actor)])
+			for h in state.tether_holders:
+				if cached.distance_to(actors[int(h)].pos)<15.5:state.loop_refuges.erase(str(actor));break
+		if not state.loop_refuges.has(str(actor)):
+			var nearest := INF; var refuge := final
+			for x in range(-18,19):
+				for y in range(-18,19):
+					var candidate := Vector2(x,y)
+					if candidate.length() >= 19 or candidate.length()<5.5: continue
+					var safe := true
+					for h in wanted:
+						if candidate.distance_to(beat.positions[h]) < 15.8: safe = false
+						if candidate.distance_to(Geometry2D.get_closest_point_to_segment(candidate,Vector2.ZERO,beat.positions[h])) < 1.5: safe = false
+					if live_refuge:
+						for h in state.tether_holders:
+							if candidate.distance_to(actors[int(h)].pos)<15.8:safe=false
+					for shape in beat.shapes:
+						if shape.get("kind","") == "tower" and candidate.distance_to(shape.pos) < 3.5: safe = false
+					if safe and pos.distance_squared_to(candidate) < nearest:
+						nearest = pos.distance_squared_to(candidate); refuge = candidate
+			state.loop_refuges[str(actor)] = [refuge.x,refuge.y]
+		final = Rules.v(state.loop_refuges[str(actor)])
+	return final
+
 static func navigate_goal(actor: int, start: Vector2, goal: Vector2, obstacles: Array, state: Dictionary) -> Vector2:
-	var cached: Dictionary = state.tether_routes.get(actor, {})
-	if not cached.is_empty() and (cached.goal as Vector2).distance_to(goal) < 1.5:
-		while not cached.points.is_empty() and start.distance_to(cached.points[0]) < 0.2: cached.points.pop_front()
-		if not cached.points.is_empty() and clear_path(start,cached.points[0],obstacles): return cached.points[0]
+	# Cache coordinates are JSON-native; no Vector2 stringification on restore.
+	var cached: Dictionary = state.tether_routes.get(str(actor), {})
+	if not cached.is_empty() and Rules.v(cached.goal).distance_to(goal) < 1.5:
+		while not cached.points.is_empty() and start.distance_to(Rules.v(cached.points[0])) < 0.2: cached.points.pop_front()
+		if not cached.points.is_empty() and clear_path(start,Rules.v(cached.points[0]),obstacles): return Rules.v(cached.points[0])
 	var path := navigation_route(start,goal,obstacles)
 	if path.size() > 1:
-		state.tether_routes[actor] = {"goal":goal,"points":path.slice(1)}
+		state.tether_routes[str(actor)] = {"goal":[goal.x,goal.y],"points":path.slice(1).map(func(p):return [p.x,p.y])}
 		return path[1]
 	return start
 

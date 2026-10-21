@@ -29,11 +29,23 @@ func simulate(beats: Array,restore:=false) -> Dictionary:
 		var b: Dictionary=raw.duplicate(true)
 		Contact.begin(b,actors,state)
 		var elapsed:=0.0
+		var restored_loop:=false
 		while elapsed<float(b.duration)-0.000001:
 			var dt:=minf(0.025,float(b.duration)-elapsed);var previous:=actors.duplicate(true)
+			var goals:Array=[]
 			# Match Main's ordered bot update, while retaining actual pre-frame positions for swept contacts.
-			for i in 8: actors[i].pos=Rules.v(actors[i].pos).move_toward(Contact.bot_goal(i,b,actors,state),6.0*dt)
+			for i in 8:
+				var goal:Vector2=Contact.bot_goal(i,b,actors,state)
+				goals.append(P.xy(goal))
+				actors[i].pos=Rules.v(actors[i].pos).move_toward(goal,6.0*dt)
 			Contact.tick(b,actors,previous,state,dt);elapsed+=dt
+			if "--loop-trace" in OS.get_cmdline_user_args() and b.has("program_loop") and int(elapsed*2)!=int((elapsed-dt)*2):
+				print("LOOP TRACE ",JSON.stringify({"time":state.sim_time,"holders":state.tether_holders,"released":state.loop_released,"actors":actors.map(func(a):return P.xy(a.pos)),"goals":goals}))
+			if "--loop-restore" in OS.get_cmdline_user_args() and b.has("program_loop") and not restored_loop and elapsed>=float(b.duration)*0.5:
+				# Exercise planner persistence independently of authoritative status serialization.
+				for key in ["loop_refuges","loop_released","loop_departure_order","loop_deadline","tether_routes"]:
+					state[key]=JSON.parse_string(JSON.stringify(state[key]))
+				restored_loop=true
 		var endpoint:=Rules.evaluate(b,actors,state)
 		state.runtime_failures.append_array(endpoint)
 		if b.has("program_loop") and not endpoint.is_empty() and "--loop-probe" in OS.get_cmdline_user_args():
@@ -46,6 +58,7 @@ func event_beat(events: Array,duration:=40.0) -> Dictionary:
 func advance(b: Dictionary,actors: Array,state: Dictionary,dt: float) -> void:
 	Contact.tick(b,actors,actors.duplicate(true),state,dt)
 func negative_and_boundaries() -> void:
+	loop_navigation_negatives()
 	var actors:=actors_at(C.repeated(Vector2.ZERO));var state:=fresh()
 	var b:=event_beat([{"kind":"bait","at":1.0,"bait":0,"delay":3.0,"radius":5.0}])
 	Contact.begin(b,actors,state)
@@ -132,6 +145,34 @@ func negative_and_boundaries() -> void:
 			last_key=key
 	check(samples.size()==12,"Loop generator reaches both offset families, six unordered pairs each")
 	check(repetition,"identical consecutive tower pairs remain executable")
+func loop_navigation_negatives() -> void:
+	# Every ordered initial-owner pair must produce the SAME preactivation
+	# movement; knowing the future initial array cannot inform the planner.
+	var points:Array=[]
+	for i in 8:points.append(Vector2(-3.5+i,6))
+	for a in 8:
+		for b in 8:
+			if a==b:continue
+			var actors:=actors_at(points);var state:=fresh()
+			var beat:Dictionary={"duration":13.4,"positions":points.duplicate(),"shapes":[],"program_loop":{"round":1,"numbers":[1,1,2,2,3,3,4,4]},"transfers":{"group":"loop","initial":[a,b],"wanted":[4,5],"sources":[Vector2.ZERO,Vector2.ZERO],"activation_delay":5.3,"preposition":points.duplicate()}}
+			Contact.begin(beat,actors,state)
+			check(range(8).all(func(i):return Contact.bot_goal(i,beat,actors,state)==points[i]),"hidden owners cannot affect preactivation navigation %d/%d"%[a,b])
+	var actors:=actors_at([Vector2(3,0),Vector2(0,-3),Vector2(3,1),Vector2(-8,-8),Vector2(-8,-8),Vector2(-8,-8),Vector2(-8,-8),Vector2(-8,-8)])
+	var state:=fresh()
+	var goals:Array=C.repeated(Vector2(-8,-8));goals[0]=Vector2(17,0);goals[1]=Vector2(0,-17);goals[2]=Vector2(-12,3)
+	var beat:Dictionary={"duration":9.0,"positions":goals,"shapes":[],"program_loop":{"round":1,"numbers":[3,3,1,1,2,2,4,4]},"transfers":{"group":"loop","initial":[0,1],"wanted":[0,1],"sources":[Vector2.ZERO,Vector2.ZERO]}}
+	Contact.begin(beat,actors,state)
+	var before:=actors.duplicate(true)
+	var goal:=Contact.bot_goal(0,beat,actors,state)
+	check(not state.loop_released and goal.length()<=3.01,"outgoing carrier cannot grow its ray before retiring tower player clears center")
+	check(actors==before and state.tether_holders==[0,1],"planning never assigns positions or transfers ownership")
+	for policy in ["unverified_exclusive","allow_multiple"]:
+		actors=actors_at(C.repeated(Vector2(-10,10)));actors[0].pos=Vector2(12,0);actors[1].pos=Vector2(0,-12);actors[2].pos=Vector2(6,1.5);actors[3].pos=Vector2(1.5,-6)
+		state=fresh();beat.transfers.ownership_policy=policy;Contact.begin(beat,actors,state)
+		before=actors.duplicate(true);actors[2].pos=Vector2(6,-1.5);actors[3].pos=Vector2(-1.5,-6)
+		Contact.tick(beat,actors,before,state,0.5)
+		check(state.tether_holders==[2,3] and state.tether_events.size()==2,"human-speed crossings steal both actual lines under "+policy)
+		check(Contact.desired_holders(beat)==[0,1],"human deviation remains an incorrect owner outcome under "+policy)
 func run() -> void:
 	var args:=OS.get_cmdline_user_args()
 	if "--loop-probe" in args:
@@ -146,6 +187,7 @@ func run() -> void:
 	if "--events-only" not in args:
 		for profile in profiles:
 			for seed_value in range(1,49):
+				if "--loop-regressions" in args and seed_value not in [3,4,8,16,20,21,46,47]:continue
 				var ctx=context(profile,seed_value);C.append_loop(ctx);var state:=simulate(ctx.beats)
 				check(state.runtime_failures.is_empty(),"Loop 6/s %s seed %d: %s" % [profile.id,seed_value,str(state.runtime_failures.slice(0,5))])
 				check(state.loop_hp_pending.is_empty() and state.loop_max_hp.all(func(hp):return hp==1.0),"full independent Loop course reaches final delayed HP expiry")
