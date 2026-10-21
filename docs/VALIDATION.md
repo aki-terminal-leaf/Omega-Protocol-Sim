@@ -270,3 +270,20 @@ party statuses 107, camera 60, P6 controls 20 assertions; zero failures/errors/s
 All 34 final converted hashes and 77 original diffuse-tint material bindings were
 verified. Three original shader-only fog meshes are deferred, not drawn opaque.
 Version 0.3.2-preview exports must pass their own final artifact checks.
+
+## Published v0.3.2-preview (headless only, 2026-10-22)
+
+Source 020e8b4858b4476843122d1f946753656128be18; all three platforms share
+PCK SHA256 0ba6429b9897a25ecbf5f77d90e5a1013f232192da0c4b62be46ce6e1b1c441e.
+Exact exported Windows and Linux headless P6 demos finish at simulation 30.5s
+with no failures. Final headless Chrome six phases (Loop/Synergy/Hello World/
+Wave/Delta/Meteors) pass real R/P/Tab and JSON download, 1440x900 player view,
+no hints and zero browser/script errors. All six final canvas captures reviewed:
+original floors/props and eight-member status HUD visible; opaque white fog
+sheets absent. P1-P5 backgrounds remain dark: original fog/emissive/lighting
+shaders are not reconstructed. This is not full original-renderer fidelity.
+All five release asset sizes and GitHub SHA256 digests match; previous releases
+are unchanged. No desktop operations or native-window manual acceptance.
+After publication, removed only ignored/regenerable exports and verified matching
+ZIP staging; local game pack, SDKs/templates/version caches, source ZIP/checksums,
+build metadata, reference archive, QA evidence and all user backups remain.

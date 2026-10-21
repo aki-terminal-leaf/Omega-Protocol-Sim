@@ -1,6 +1,8 @@
 # Omega Protocol — Practice Lab
 
-## v0.3.2-preview 候選版
+## v0.3.2-preview（已發佈）
+
+[v0.3.2-preview 下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.2-preview)：Windows／Linux／Web、原始碼與校驗碼；固定來源 `020e8b4`。
 
 - 練習預設只有遊戲場景、八人 Buff／Debuff 與必要的 LB 控制。
 - **Tab** 顯示／隱藏練習工具；**Esc** 暫停並返回設定。重開／返回練習會收起工具。
