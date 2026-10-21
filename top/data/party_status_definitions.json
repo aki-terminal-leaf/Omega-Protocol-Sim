@@ -1,0 +1,291 @@
+{
+  "schema": 1,
+  "source": "Status.csv identity/icon fields from read-only local game data; effects are driven by live simulation, not these definitions. Status variants without confirmed IDs retain textual fallback.",
+  "effects": {
+    "red": {
+      "status_id": 3526,
+      "name": "Critical Underflow Bug",
+      "icon": 215917
+    },
+    "blue": {
+      "status_id": 3429,
+      "name": "Critical Performance Bug",
+      "icon": 215131
+    },
+    "overflow": {
+      "status_id": 3525,
+      "name": "Critical Overflow Bug",
+      "icon": 215916
+    },
+    "sync": {
+      "status_id": 3524,
+      "name": "Critical Synchronization Bug",
+      "icon": 215915
+    },
+    "latent_red": {
+      "status_id": 3528,
+      "name": "Cascading Latent Defect",
+      "icon": 215922
+    },
+    "latent_blue": {
+      "status_id": 3435,
+      "name": "Latent Performance Defect",
+      "icon": 215134
+    },
+    "latent_sync": {
+      "status_id": 3434,
+      "name": "Latent Synchronization Bug",
+      "icon": 215133
+    },
+    "latent_overflow": {
+      "status_id": 3527,
+      "name": "Latent Defect",
+      "icon": 215921
+    },
+    "red_debugger": {
+      "status_id": 3432,
+      "name": "Underflow Debugger",
+      "icon": 215920
+    },
+    "blue_debugger": {
+      "status_id": 3433,
+      "name": "Performance Debugger",
+      "icon": 215132
+    },
+    "overflow_debugger": {
+      "status_id": 3431,
+      "name": "Overflow Debugger",
+      "icon": 215919
+    },
+    "sync_debugger": {
+      "status_id": 3430,
+      "name": "Synchronization Debugger",
+      "icon": 215918
+    },
+    "smell_red": {
+      "status_id": 3438,
+      "name": "Underflow Code Smell",
+      "icon": 215137
+    },
+    "smell_blue": {
+      "status_id": 3439,
+      "name": "Performance Code Smell",
+      "icon": 215138
+    },
+    "smell_overflow": {
+      "status_id": 3437,
+      "name": "Overflow Code Smell",
+      "icon": 215136
+    },
+    "smell_sync": {
+      "status_id": 3436,
+      "name": "Synchronization Code Smell",
+      "icon": 215135
+    },
+    "local_code_smell": {
+      "status_id": 3503,
+      "name": "Local Code Smell",
+      "icon": 215139
+    },
+    "remote_code_smell": {
+      "status_id": 3441,
+      "name": "Remote Code Smell",
+      "icon": 215140
+    },
+    "local": {
+      "status_id": 3529,
+      "name": "Local Regression",
+      "icon": 215923
+    },
+    "remote": {
+      "status_id": 3530,
+      "name": "Remote Regression",
+      "icon": 215924
+    },
+    "near_world": {
+      "status_id": 3442,
+      "name": "Hello, Near World",
+      "icon": 215141
+    },
+    "distant_world": {
+      "status_id": 3443,
+      "name": "Hello, Distant World",
+      "icon": 215142
+    },
+    "mid_glitch": {
+      "status_id": 3427,
+      "name": "Mid Glitch",
+      "icon": 215129
+    },
+    "remote_glitch": {
+      "status_id": 3428,
+      "name": "Remote Glitch",
+      "icon": 215130
+    },
+    "sniper_cannon_fodder": {
+      "status_id": 3425,
+      "name": "Sniper Cannon Fodder",
+      "icon": 215127
+    },
+    "high_powered_sniper_cannon_fodder": {
+      "status_id": 3426,
+      "name": "High-powered Sniper Cannon Fodder",
+      "icon": 215128
+    },
+    "dynamis": {
+      "status_id": 3444,
+      "name": "Quickening Dynamis",
+      "icon": 219657
+    },
+    "brilliant_dynamis": {
+      "status_id": 3446,
+      "name": "Brilliant Dynamis",
+      "icon": 215143
+    },
+    "magic_number": {
+      "status_id": 3532,
+      "name": "Magic Number",
+      "icon": 215171
+    },
+    "monitor_right": {
+      "status_id": 3452,
+      "name": "Oversampled Wave Cannon Loading (Right)",
+      "icon": 215146
+    },
+    "monitor_left": {
+      "status_id": 3453,
+      "name": "Oversampled Wave Cannon Loading (Left)",
+      "icon": 215146
+    },
+    "first_in_line": {
+      "status_id": 3004,
+      "name": "First in Line",
+      "icon": 215401
+    },
+    "second_in_line": {
+      "status_id": 3005,
+      "name": "Second in Line",
+      "icon": 215402
+    },
+    "third_in_line": {
+      "status_id": 3006,
+      "name": "Third in Line",
+      "icon": 215403
+    },
+    "fourth_in_line": {
+      "status_id": 3451,
+      "name": "Fourth in Line",
+      "icon": 215118
+    },
+    "looper": {
+      "status_id": 3456,
+      "name": "Looper",
+      "icon": 215892
+    },
+    "sprint": {
+      "status_id": 50,
+      "name": "Sprint",
+      "icon": 210101
+    },
+    "arms_length": {
+      "status_id": 1209,
+      "name": "Arm's Length",
+      "icon": 213915
+    },
+    "tank_lb": {
+      "status_id": 196,
+      "name": "Last Bastion",
+      "icon": 216306
+    },
+    "delta_near_world": {
+      "status_id": 3442,
+      "name": "Hello, Near World",
+      "icon": 215141
+    },
+    "delta_distant_world": {
+      "status_id": 3443,
+      "name": "Hello, Distant World",
+      "icon": 215142
+    },
+    "delta_local": {
+      "status_id": 3529,
+      "name": "Local Regression",
+      "icon": 215923
+    },
+    "delta_remote": {
+      "status_id": 3530,
+      "name": "Remote Regression",
+      "icon": 215924
+    },
+    "delta_local_smell": {
+      "status_id": 3503,
+      "name": "Local Code Smell",
+      "icon": 215139
+    },
+    "delta_remote_smell": {
+      "status_id": 3441,
+      "name": "Remote Code Smell",
+      "icon": 215140
+    },
+    "omega_near_world": {
+      "status_id": 3442,
+      "name": "Hello, Near World",
+      "icon": 215141
+    },
+    "omega_distant_world": {
+      "status_id": 3443,
+      "name": "Hello, Distant World",
+      "icon": 215142
+    },
+    "omega_local": {
+      "status_id": 3529,
+      "name": "Local Regression",
+      "icon": 215923
+    },
+    "omega_remote": {
+      "status_id": 3530,
+      "name": "Remote Regression",
+      "icon": 215924
+    },
+    "omega_local_smell": {
+      "status_id": 3503,
+      "name": "Local Code Smell",
+      "icon": 215139
+    },
+    "omega_remote_smell": {
+      "status_id": 3441,
+      "name": "Remote Code Smell",
+      "icon": 215140
+    },
+    "tank_lb_pld": {
+      "status_id": 196,
+      "icon": 216306,
+      "name": "Last Bastion"
+    },
+    "tank_lb_war": {
+      "status_id": 863,
+      "icon": 216306,
+      "name": "Land Waker"
+    },
+    "tank_lb_drk": {
+      "status_id": 864,
+      "icon": 216306,
+      "name": "Dark Force"
+    },
+    "tank_lb_gnb": {
+      "status_id": 1931,
+      "icon": 216306,
+      "name": "Gunmetal Soul"
+    },
+    "guided_missile_kyrios": {
+      "status_id": 0,
+      "name": "Guided Missile Kyrios Incoming",
+      "icon": 215126
+    },
+    "condensed_wave_cannon_kyrios": {
+      "status_id": 0,
+      "name": "Condensed Wave Cannon Kyrios",
+      "icon": 215026
+    }
+  }
+}

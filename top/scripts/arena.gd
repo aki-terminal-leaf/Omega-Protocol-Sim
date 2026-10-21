@@ -241,7 +241,7 @@ func _process(delta: float) -> void:
 		Visuals.animate(actor_models[i], animation_time + i * 0.5, velocity.length())
 		actor_models[i].rotation.y = lerp_angle(actor_models[i].rotation.y, -deg_to_rad(float(actors[i].face)), 1.0 - exp(-delta * 15))
 		actor_arrows[i].rotation_degrees.y = -float(actors[i].face)
-		actor_labels[i].text = ("YOU / " if i == selected_player else "") + actors[i].role + "\n" + str(current.get("labels", ["", "", "", "", "", "", "", ""])[i])
+		actor_labels[i].text = ("YOU / " if i == selected_player else "") + actors[i].role + (("\n" + str(current.get("labels", ["", "", "", "", "", "", "", ""])[i])) if guide else "")
 		actor_labels[i].modulate = Color("fff3b2") if i == selected_player else Color("c5d8ee")
 		var cue:=observed_cue(i)
 		status_labels[i].text=cue.text;status_labels[i].modulate=cue.colour;status_labels[i].position.y=3.1+float(actors[i].get("height",0.0))
@@ -458,6 +458,8 @@ func observed_cue(actor:int)->Dictionary:
 		elif actor==int(current.world.far):result.icon=215142
 	if observed_state.has("limitless") and observed_state.limitless.flare_marked and now<float(observed_state.limitless.start)+27.45 and actor in observed_state.limitless.config.flare_targets:titles.append("Flare")
 	if int(result.icon)!=0 and not world_textures.has(int(result.icon)):titles.append("近世界" if result.icon==215141 else "遠世界")
+	for item in current.get("party_statuses",[]):
+		if int(item.actor)==actor and item.get("marker",false): titles.append(str(item.name))
 	result.text="  ".join(titles)
 	return result
 

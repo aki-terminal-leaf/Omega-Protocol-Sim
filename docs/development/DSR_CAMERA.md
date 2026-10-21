@@ -72,7 +72,8 @@ and World icons stack at 2.8, 3.3, and 3.9 plus jump height. Debuff widths
 are one world unit times the factor; World widths are two, normalized by
 texture width. Debuff spacing scales by the same factor.
 Overview restores original label sizes and vertical stacking with normalized
-icon widths. Required cues and guide hints are not hidden.
+icon widths. Required status cues are retained. The subsequent party-status increment
+hides answer/guide hints during normal practice; see PARTY_STATUSES.md.
 Floor waymarks, AoE geometry, tethers, actor facing, mechanics, speed, Sprint,
 and jump simulation are unchanged.
 

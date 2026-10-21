@@ -278,6 +278,13 @@ func party_synergy() -> void:
 	for clone in clones:stacks_beat.shapes.append(circle(clone.pos,10.0,"Efficient Bladework"))
 	for i in 4:stacks_beat.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch at Spotlight"))
 	stacks_beat.stage_entities=clones;stacks_beat.hide_main_boss=true
+	# Actual assigned markers/status, independent of left/right route labels.
+	var party_effects:Array=[]
+	for pair_index in 4:
+		for member in [at(pair_index*2),at(pair_index*2+1)]:
+			party_effects.append({"actor":member,"key":"remote_glitch" if remote else "mid_glitch","remaining":-1})
+			party_effects.append({"actor":member,"key":"synergy_marker","name":str(symbols[pair_index]),"status_id":0,"icon":0,"remaining":-1,"marker":true})
+	for active_beat in [eye,optical,knock,stacks_beat]: active_beat.party_statuses=party_effects.duplicate(true)
 
 func clone_shapes(sword: bool,legs: bool,m_angle:=270.0) -> Array:
 	return Clones.pair_shapes(m_angle,sword,legs)
@@ -344,6 +351,9 @@ func monitors() -> void:
 		sources.append({"kind": "half", "actor": at(i), "face_actor": at(i), "offset": offset, "radius": 45, "exclude": [at(i)], "name": "Player monitor"})
 	b.checks.append({"kind": "monitors", "sources": sources, "splash_radius":7.0,"name": "Oversampled Wave Cannon"})
 	b.monitors = sources
+	b.party_statuses=[]
+	for source in sources:
+		if source.has("actor"): b.party_statuses.append({"actor":int(source.actor),"key":"monitor_right" if float(source.offset)>0 else "monitor_left","remaining":-1})
 	order = saved_order
 
 func p4_wave() -> void:
