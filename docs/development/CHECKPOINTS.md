@@ -67,3 +67,15 @@ F/button now calls the actual job/ground/target API. Public-reference post-cast
 locks, explicit standalone entry, no human auto-cast after checkpoints. Main
 controls20/0, calibrated-lock LB602/0 (280 physical branches), full visible
 catalog86 offered methods/0 at seed17391. Exported-platform QA still pending.
+
+## Web font / bounded platform evidence follow-up
+
+Font increments48ef77f anddd08409 are pushed; full CJK source-character
+coverage638/0 missing and actual exported selection pixels inspected. P6 input
+reports prove tank/caster F actions and locks, but final Playwright screenshot
+driver disconnected: full Web acceptance remains incomplete, no zero-console or
+Windows claim. Exact build/hash and stopping reason are in docs/VALIDATION.md.
+
+Direct push after each reviewed commit is now persistent project authorization;
+all original eight commits and the reviewed P3/P4/P6/font increments are on the
+remote development branch. Baseline still4.4.1;4.7.2 migration not performed.

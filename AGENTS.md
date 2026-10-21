@@ -7,7 +7,10 @@ coherent, reviewable increments.
 - Commit one validated mechanic, shared dependency layer, visual pipeline or
   tooling stage at a time. Do not wait for all five strategies/all 20 mechanics.
   Stage only task-owned source/docs; never extracted game media, raw logs or
-  private build artifacts. Do not publish merely because a local stage passed.
+  private build artifacts. After each reviewed commit, push the current project
+  development branch directly (user authorization2026-10-21); no repeat approval
+  is needed. Never force-push or alter upstream. A development push is not a
+  released build; release/export claims still require their actual platform gates.
 - One stage is at most **25 minutes**. Require new source/result evidence at
   least every **15 minutes**; text output, repeated status polls and unchanged
   evidence do not renew progress. One command is at most **10 minutes**.

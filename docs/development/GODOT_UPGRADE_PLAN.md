@@ -73,7 +73,11 @@ alternative or create a separately reviewed future upgrade stage.
 
 ## Parallel product backlog (not silently marked done)
 
-P3 transition and P4 Wave Cannon worker results still require collection/review;
-P6 LB production controls, post-cast animation locks and ranged geometry remain
-pending; original VFX reconstruction, remaining route/source gaps, complete
-20-mechanic integration and release Windows/Web validation are not complete.
+P3 transition and P4 Wave Cannon are collected/reviewed and production-wired
+(commits4e160e6/e9a6b9a). P6 actual request/target controls and public-reference
+post-cast locks are wired(e731cc6); ranged edge geometry remains unverified.
+Original VFX reconstruction, remaining route/source gaps, full five-profile
+coverage for the remaining legacy entries, complete Windows/Web release QA and
+this isolated engine migration are not complete. The target release API was
+rechecked successfully during this follow-up; no4.7.2 download/import/export or
+baseline switch has been performed.

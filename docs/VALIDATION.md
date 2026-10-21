@@ -65,3 +65,31 @@ full Noto Sans CJK TC font, with its SIL-OFL license and package/export inclusio
 Combined required CJK/①②③Ω coverage:638 distinct characters, zero missing.
 The original font-fix commit remains preserved; the fallback is a separate
 reviewable correction, not a rewritten remote commit.
+
+## Bounded Web P6 evidence — 2026-10-21
+
+Exported from clean source `dd08409eb2626d96bf4bcef5d151082cbd8959fa`, Godot4.4.1,
+private local-asset PCK SHA-256 `5cdadd5bd08108b2ba8b467966caf779242f706a4fa5a7dc3702b0a40e902bc9`. No release uploaded.
+Chromium/WebGL2 software-rendered selection pixels were actually inspected:
+missing label/flow glyphs are fixed. Task-local copies of the exported HTML used
+engine args `-- --scenario=... --player=... --seed=17391`; shipped scripts/PCK
+were unchanged. This is focused input QA, not mouse-menu coverage.
+
+Actual keyboard F and downloaded reports independently establish tank/caster
+begin+finish, no legacy success flag, blocked D/sprint/jump during lock, caster
+ground[0,0], nominal4.5s cast and continuing8.1s post-cast lock. Browser wall
+waits were not treated as simulation time: retained caster reports advanced
+2.681→3.336→4.001→4.934s using a bounded four-observation gate.
+
+**Overall Web acceptance remains incomplete.** The final caster screenshot
+failed with `Page.screenshot: Connection closed while reading from the driver`
+after the input assertions. The exit cause is unproven; no OOM or product crash
+claim is inferred. Final console-clean status and ranged mouse target selection
+are not proved. Retained actual JSON and failure logs are local; no blind rerun.
+Native Windows input/visual QA, release packaging and engine migration are pending.
+
+Harness lessons: prefix the existing with_server HTTP command with `exec` so
+cleanup owns the actual server, not only a shell; the one stale task-owned child
+was identified by exact PID/command and stopped. Web user arguments require the
+`--` separator. Software-rendered wall time can advance less simulation time;
+assert action deadlines against exported simulation timestamps.
