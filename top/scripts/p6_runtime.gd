@@ -78,6 +78,8 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			if state.has("p6_lb"): LB.spawn_meteors(state)
 			else: failure(state,"P6 LB state must be initialized explicitly")
 		"meteor_deadline":
+			record.deadline_basis=event.get("deadline_basis","practice checkpoint; original NPC enrage unmeasured")
+			record.server_deadline_verified=false
 			var alive: Array=[]
 			var count := 0
 			for npc in state.get("p6_lb",{}).get("targets",[]):
@@ -147,7 +149,8 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			record.falloff="unmodeled"; record.distances=[]
 			if state.has("p6_lb"):
 				record.damage_packets=preload("res://scripts/p6_damage.gd").flares(actors,targets,state)
-				record.falloff="empirical bounds; interior unresolved"
+				record.falloff="observations only; universal damage bounds and HP survival unresolved"
+				record.hp_survival_verified=false
 			for target in targets:
 				var distances: Array=[]
 				for actor in actors: distances.append(Rules.v(actor.pos).distance_to(Rules.v(actors[target].pos)))

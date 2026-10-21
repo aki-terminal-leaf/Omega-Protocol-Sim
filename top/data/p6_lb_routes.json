@@ -1,14 +1,132 @@
 {
   "schema": 1,
-  "enemy_cast_events": {"capture_1":1215,"capture_2":1216,"capture_3":1221,"capture_4":1223,"total":4875},
-  "lb_packet_intervals_ms": {"34867":[3966,3978],"4246":[3994,3994],"4244":[3984,3984],"4245":[3968,3979],"17106":[3994,3994],"208":[1467,1469],"4247":[1477,1478],"4248":[1476,1476],"24859":[1467,1473]},
-  "geometry_audit": {"caster_radius":15,"caster_range":25,"ranged_range":30,"ranged_effect_range":30,"ranged_x_axis_modifier":8,"runtime_ranged_half_width":8,"ranged_width_interpretation_verified":false,"melee_range":8},
+  "enemy_cast_events": {
+    "capture_1": 1215,
+    "capture_2": 1216,
+    "capture_3": 1221,
+    "capture_4": 1223,
+    "total": 4875
+  },
+  "lb_packet_intervals_ms": {
+    "34867": [
+      3966,
+      3978
+    ],
+    "4246": [
+      3994,
+      3994
+    ],
+    "4244": [
+      3984,
+      3984
+    ],
+    "4245": [
+      3968,
+      3979
+    ],
+    "17106": [
+      3994,
+      3994
+    ],
+    "208": [
+      1467,
+      1469
+    ],
+    "4247": [
+      1477,
+      1478
+    ],
+    "4248": [
+      1476,
+      1476
+    ],
+    "24859": [
+      1467,
+      1473
+    ]
+  },
+  "geometry_audit": {
+    "caster_radius": 15,
+    "caster_range": 25,
+    "ranged_range": 30,
+    "ranged_effect_range": 30,
+    "ranged_x_axis_modifier": 8,
+    "runtime_ranged_half_width": 8,
+    "ranged_width_interpretation_verified": false,
+    "melee_range": 8
+  },
   "route_audit": {
-    "elemental":{"source":"https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/","verified":["First Arrow figures: party SW, MT NW, ST SE; final tanks N/E","Meteor figures: MT NW, ST S, H1 W, H2 E, D1 SW, D2 SE, D3 N, D4 NE","Wave E; exaflare 1.5 markers"],"remaining":["Numeric Arrow lanes are training realizations","Equal-distance flare E/W tie unspecified"]},
-    "aether":{"source":"https://ff14.toolboxgaming.space/?id=548481027977761&preview=1","verified":["All 111 step notes/texts read","Source jobs: dps1 MCH, dps2 DRG, dps3 SAM, dps4 SMN","Clocks: MT N, ST S, WHM E, SGE W, SAM SW, DRG SE, MCH NE, SMN NW","First Arrow all SW; TH peel S; final MT NE/ST NW","One marker exaflare offset; Wave S; meteor MT/physical ranged swap N/NE"],"remaining":["Generic healer/melee role mapping needs party convention","Flare E/W is intelligent adjustment, not fixed role priority","Numeric lanes are training realizations"]},
-    "lpdu":{"source":"https://raidplan.io/plan/mh3bX4KJ9d8rT9nk","verified":["Prior primary three-slide audit retained","First Arrow party SE","Meteor BOTH MT/R1 and H2/ST swaps","Arrow2 pairs NW MT/R1, NE ST/R2, SW H1/M1, SE H2/M2; lateral role split"],"remaining":["Exaflare exact exit offset","Full Arrow temporal video audit","Late flare routes absent from three-slide source"]},
-    "cn_moogle":{"source":"docs/research/CN_POSTER_AUDIT.md","verified":["Parent full 15-panel original poster audit","Wave SOUTH; first Arrow party SW/MT front","Second Arrow TH cardinal/DPS diagonal","Meteor ONLY MT/D3 swap; H2 may center","Dive MT left/ST right facing boss"],"remaining":["Exaflare exact exit offset","Late flare route and LB timings absent from poster","Numeric footwork is training geometry"]},
-    "kr_09stop":{"source":"https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449","verified":["Full P6 workbook text read through public htmlview iframe","Row115 permits one marker exit and recommends extra half marker","Row313 nearest B/C/D or B/D with D3 fixed north","Tank/melee max-melee vs healer/ranged wall","Dive actual closest2/furthest supersedes contradictory closest3 prose"],"remaining":["Animated Arrow pair geometry not frame audited","Equal-cost flare assignment tie unspecified","Numeric16/18 radii are training values"]}
+    "elemental": {
+      "source": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+      "verified": [
+        "First Arrow figures: party SW, MT NW, ST SE; final tanks N/E",
+        "Meteor figures: MT NW, ST S, H1 W, H2 E, D1 SW, D2 SE, D3 N, D4 NE",
+        "Wave E; exaflare 1.5 markers"
+      ],
+      "remaining": [
+        "Numeric Arrow lanes are training realizations",
+        "Equal-distance flare E/W tie unspecified"
+      ]
+    },
+    "aether": {
+      "source": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+      "verified": [
+        "All 111 step notes/texts read",
+        "Source jobs: dps1 MCH, dps2 DRG, dps3 SAM, dps4 SMN",
+        "Clocks: MT N, ST S, WHM E, SGE W, SAM SW, DRG SE, MCH NE, SMN NW",
+        "First Arrow all SW; TH peel S; final MT NE/ST NW",
+        "One marker exaflare offset; Wave S; meteor MT/physical ranged swap N/NE"
+      ],
+      "remaining": [
+        "Generic healer/melee role mapping needs party convention",
+        "Flare E/W is intelligent adjustment, not fixed role priority",
+        "Numeric lanes are training realizations"
+      ]
+    },
+    "lpdu": {
+      "source": "https://raidplan.io/plan/mh3bX4KJ9d8rT9nk",
+      "verified": [
+        "Prior primary three-slide audit retained",
+        "First Arrow party SE",
+        "Meteor BOTH MT/R1 and H2/ST swaps",
+        "Arrow2 pairs NW MT/R1, NE ST/R2, SW H1/M1, SE H2/M2; lateral role split"
+      ],
+      "remaining": [
+        "Exaflare exact exit offset",
+        "Full Arrow temporal video audit",
+        "Late flare routes absent from three-slide source"
+      ]
+    },
+    "cn_moogle": {
+      "source": "docs/research/CN_POSTER_AUDIT.md",
+      "verified": [
+        "Parent full 15-panel original poster audit",
+        "Wave SOUTH; first Arrow party SW/MT front",
+        "Second Arrow TH cardinal/DPS diagonal",
+        "Meteor ONLY MT/D3 swap; H2 may center",
+        "Dive MT left/ST right facing boss"
+      ],
+      "remaining": [
+        "Exaflare exact exit offset",
+        "Late flare route and LB timings absent from poster",
+        "Numeric footwork is training geometry"
+      ]
+    },
+    "kr_09stop": {
+      "source": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449",
+      "verified": [
+        "Full P6 workbook text read through public htmlview iframe",
+        "Row115 permits one marker exit and recommends extra half marker",
+        "Row313 nearest B/C/D or B/D with D3 fixed north",
+        "Tank/melee max-melee vs healer/ranged wall",
+        "Dive actual closest2/furthest supersedes contradictory closest3 prose"
+      ],
+      "remaining": [
+        "Animated Arrow pair geometry not frame audited",
+        "Equal-cost flare assignment tie unspecified",
+        "Numeric16/18 radii are training values"
+      ]
+    }
   },
   "source": "Four complete public FFLogs replays; anonymous derived observations only",
   "events": {
@@ -1609,5 +1727,169 @@
     }
   ],
   "action_csv": "https://raw.githubusercontent.com/xivapi/ffxiv-datamining/master/csv/en/Action.csv",
-  "flare_curve_identifiable": false
+  "flare_curve_identifiable": false,
+  "meteor_landmark_audit": {
+    "records": [
+      {
+        "capture": "Vyq4AcJKZjkFQBpG/32",
+        "zero_event": "begincast 31664",
+        "zero_timestamp_ms": 26910172,
+        "npc_source_casts": 0,
+        "npcs": {
+          "15727": {
+            "first_presence_evidence_ms": 11534,
+            "last_damage_packet_ms": 17077,
+            "event_counts": {
+              "calculateddamage": 8,
+              "damage": 8
+            }
+          },
+          "15726": {
+            "first_presence_evidence_ms": 11534,
+            "last_damage_packet_ms": 24361,
+            "event_counts": {
+              "calculateddamage": 7,
+              "damage": 7
+            }
+          }
+        }
+      },
+      {
+        "capture": "LKMGRJTzgY9HFynk/2",
+        "zero_event": "begincast 31664",
+        "zero_timestamp_ms": 1207039,
+        "npc_source_casts": 0,
+        "npcs": {
+          "15727": {
+            "first_presence_evidence_ms": 12055,
+            "last_damage_packet_ms": 17588,
+            "event_counts": {
+              "calculateddamage": 6,
+              "damage": 6
+            }
+          },
+          "15726": {
+            "first_presence_evidence_ms": 10182,
+            "last_damage_packet_ms": 26439,
+            "event_counts": {
+              "calculateddamage": 9,
+              "damage": 9
+            }
+          }
+        }
+      },
+      {
+        "capture": "3GW2hjTNk91FZwcK/9",
+        "zero_event": "begincast 31664",
+        "zero_timestamp_ms": 6290986,
+        "npc_source_casts": 0,
+        "npcs": {
+          "15727": {
+            "first_presence_evidence_ms": 12130,
+            "last_damage_packet_ms": 17728,
+            "event_counts": {
+              "calculateddamage": 16,
+              "damage": 16
+            }
+          },
+          "15726": {
+            "first_presence_evidence_ms": 12130,
+            "last_damage_packet_ms": 25808,
+            "event_counts": {
+              "calculateddamage": 9,
+              "damage": 9
+            }
+          }
+        }
+      },
+      {
+        "capture": "1bX86aKrVRwLWfTC/19",
+        "zero_event": "begincast 31664",
+        "zero_timestamp_ms": 14988012,
+        "npc_source_casts": 0,
+        "npcs": {
+          "15727": {
+            "first_presence_evidence_ms": 9799,
+            "last_damage_packet_ms": 18527,
+            "event_counts": {
+              "begincast": 1,
+              "cast": 1,
+              "calculateddamage": 8,
+              "damage": 8
+            }
+          },
+          "15726": {
+            "first_presence_evidence_ms": 12963,
+            "last_damage_packet_ms": 28871,
+            "event_counts": {
+              "calculateddamage": 8,
+              "damage": 8,
+              "applydebuff": 1,
+              "begincast": 1,
+              "cast": 1,
+              "removedebuff": 1
+            }
+          }
+        }
+      }
+    ],
+    "spawn_verified": false,
+    "enrage_verified": false,
+    "note": "First interaction bounds presence, not spawn. Successful damage does not identify an enrage. No NPC-origin casts in these full captures."
+  },
+  "parent_action_data_audit": {
+    "action": 4244,
+    "source": "https://v2.xivapi.com/api/sheet/Action/4244?fields=Name,Range,EffectRange,XAxisModifier,CastType,TargetArea",
+    "retrieved": "2026-10-21",
+    "client_data_version": "0874aee069e1e7c4",
+    "fields": {
+      "Name": "Sagittarius Arrow",
+      "CastType": 4,
+      "Range": 30,
+      "EffectRange": 30,
+      "XAxisModifier": 8,
+      "TargetArea": false
+    },
+    "server_edge_verified": false,
+    "note": "Independently read client row, not proof that XAxisModifier is full or half width; source conflict remains."
+  },
+  "small_comet_failure_observation": {
+    "capture": "1bX86aKrVRwLWfTC/17",
+    "complete_replay_events": 39115,
+    "landmark_action": 31664,
+    "landmark_type": "begincast",
+    "zero_timestamp_ms": 13136968,
+    "small_comet_npc_id": 15727,
+    "enrage_action": 31669,
+    "enrage_casts": [
+      20.488
+    ],
+    "enrage_packets": {
+      "cast": {
+        "events": 6,
+        "times": [
+          20.488
+        ]
+      },
+      "calculateddamage": {
+        "events": 42,
+        "times": [
+          20.488
+        ]
+      },
+      "damage": {
+        "events": 7,
+        "times": [
+          20.802,
+          20.845
+        ]
+      }
+    },
+    "untargetable_times": [
+      20.396
+    ],
+    "nominal_small_comet_deadline": 20.5,
+    "status": "failed_capture_observed_nominal_not_server_tick",
+    "large_meteor_deadline_observed": false
+  }
 }

@@ -115,7 +115,7 @@ static func append_meteor_combination(ctx, flares: Array) -> void:
 	# gauge or lock unless the actual request passes eligibility and finishes.
 	events.append({"at":9.0,"kind":"lb_request","actor":7,"ability_kind":"caster","target":[0,0]})
 	events.append({"at":19.0,"kind":"lb_request","actor":6,"ability_kind":"ranged","target":"meteor_1"})
-	events.append({"at":20.5,"kind":"meteor_deadline","npc_id":15727})
+	events.append({"at":20.5,"kind":"meteor_deadline","npc_id":15727,"deadline_basis":"fflogs_observed_nominal: 1bX86aKrVRwLWfTC/17, AID31669 cast T20.488; nominal20.5, not an exact server frame"})
 	# Large meteor deadline is a practice checkpoint, not a measured enrage.
 	events.append({"at":30.5,"kind":"meteor_deadline","npc_id":15726})
 	for i in 4:

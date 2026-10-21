@@ -170,3 +170,22 @@ Exported Windows/Web input/visual QA is not established by these headless gates.
 HP/healing/resurrection, passive/combat gauge, full flare falloff, ranged edge
 width, original large-meteor deadline and unresolved regional source fields
 remain pending. Five offered P6 methods explicitly retain partial-source labels.
+
+
+## Reviewed remaining-precision follow-up
+
+See [P6_PRECISION.md](P6_PRECISION.md). Empirical flare extrema are observations,
+not universal damage bounds; timeline records explicitly keep HP survival and
+original meteor enrage unverified. Parent rejected the proposed extra range
+interruption because no server grace/edge evidence supports it. Pinned4.7.2
+edge/snapshot/deadline validation follows separately; these changes do not
+complete all original P6 or all five source timelines.
+
+Parent follow-up passed on4.7.2: new precision52/0, LB602/0 with production
+locks, movement1614/0, Main controls20/0. A newly collected complete failed pull
+(`1bX86aKrVRwLWfTC/17`,39,115 replay events) directly shows all six small comets'
+AID31669 enrage at T20.488 after31664 begincast, supporting nominal20.5s. The
+large-meteor deadline remains unmeasured; this earlier small-comet wipe cannot
+calibrate it. Exact server-frame confidence is not inferred from a rounded
+nominal schedule. Current source reports observation fields and rejects
+non-finite damage/mitigation without corrupting HP or shields.
