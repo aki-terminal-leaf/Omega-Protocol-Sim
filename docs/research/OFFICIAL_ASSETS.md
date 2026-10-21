@@ -60,3 +60,7 @@ DSR model-only presets 的 MeshInstance3D 保留 Skin / vertex weights，但 ske
 `tests/models.gd -- --require-official` 驗證五形態原版 rig 的實際骨骼變動與形變範圍，以及七種配裝角色的真實走跑、停止回待機、直立方向、外觀動畫不改寫遊戲 actor 原點。每次仍須看實際畫面，不把匯出 exit 0 或動畫名稱視為造型正確的證明。
 
 二進位 local-game-models 包可包含本機素材；source ZIP 明確排除 `top/assets/official/`。打包工具不執行任何 GitHub 上傳。未安裝素材的原始碼版本會使用訓練外觀，不能以本機畫面冒稱公開 source 內含官方模型。
+
+## 原版 AVFX 後續開發
+
+已完成內嵌網格解碼與 Godot4.7.2 匯入驗證；這不是完整粒子播放。來源、可重現指令與尚缺層級見 [VFX 管線](VFX_PIPELINE.md)。公開原始碼仍不含遊戲素材。
