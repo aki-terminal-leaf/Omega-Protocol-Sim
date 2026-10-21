@@ -21,7 +21,7 @@ with sync_playwright() as p:
  page.keyboard.press('r');page.wait_for_timeout(350)
  page.keyboard.down('d');page.wait_for_timeout(600);page.keyboard.up('d');page.keyboard.press('p');page.wait_for_timeout(300)
  def download(name):
-  with page.expect_download(timeout=10000) as event:page.mouse.click(1280,716)
+  with page.expect_download(timeout=10000) as event:page.mouse.click(1393,849)
   dest=out/name;event.value.save_as(dest);return json.loads(dest.read_text(encoding='utf-8'))
  moving=download('movement.json')
  assert moving['scenario']=='p1_loop' and moving['mode']=='practice',{'scenario':moving['scenario'],'mode':moving['mode']}
@@ -42,8 +42,11 @@ with sync_playwright() as p:
  assert restarted['seed']==moving['seed'],'R changed seed'
  assert restarted['samples'][0]['player_pos']==moving['samples'][0]['player_pos'],'R did not restore spawn'
  page.screenshot(path=str(out/'03-verified.png'))
+ page.mouse.click(1376,31);page.wait_for_timeout(350)
  page.mouse.click(110,219);page.wait_for_timeout(300);page.keyboard.press('r');page.wait_for_timeout(350)
- unconfigured=download('needs-strategy.json')
+ with page.expect_download(timeout=10000) as event:page.mouse.click(1291,717.5)
+ event.value.save_as(str(out/'needs-strategy.json'))
+ unconfigured=json.loads((out/'needs-strategy.json').read_text(encoding='utf-8'))
  assert unconfigured['scenario']=='','Changing mechanism must require choosing a strategy again'
  assert not unconfigured['samples'],'Changing mechanism must clear old practice samples'
  assert not errors,errors

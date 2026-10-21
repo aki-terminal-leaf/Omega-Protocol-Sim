@@ -431,6 +431,10 @@ func retry_beat() -> void:
 	Interactions.sync(current, state)
 	status.text = "重練段落 %d" % (index+1)
 func _process(delta: float) -> void:
+	# Web pointer lock may complete after a quick press/release has already ended.
+	# Reconcile that late capture even while paused or back in setup.
+	if camera_buttons == 0 and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if current.is_empty(): return
 	var speed: float = [0.5, 0.75, 1.0, 1.25, 1.5][speed_select.selected]
 	if running and not paused:
@@ -521,7 +525,7 @@ func _input(event: InputEvent) -> void:
 		if arena.has_method("orbit"): arena.orbit(event.relative)
 		if camera_buttons & 2 and actors.size() == 8 and arena.get("camera_yaw") != null:
 			actors[player].face = -rad_to_deg(float(arena.camera_yaw))
-	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE and camera_buttons:
+	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE:
 		camera_buttons = 0; Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 func _unhandled_key_input(event: InputEvent) -> void:
 	if get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit: return
