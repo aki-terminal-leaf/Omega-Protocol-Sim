@@ -129,6 +129,7 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 		for tether in state.paired_tethers:
 			if not tether.broken and actor in [tether.a,tether.b] and float(state.sim_time) >= float(tether.active_at): return actors[actor].pos
 
+	if beat.has("hw_path"):return load("res://scripts/hw_courses.gd").coaching_goal(actor,beat,state)
 	if not beat.has("transfers"): return final
 	if float(state.get("sim_time",0))<float(state.get("tether_active_at",0)):
 		return beat.transfers.get("preposition",beat.positions)[actor]

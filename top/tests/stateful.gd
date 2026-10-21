@@ -145,9 +145,9 @@ func run() -> void:
 		while app.running and ticks<3000:app._process(0.1);ticks+=1
 		check(not app.running and app.all_errors.is_empty(),"P3 live course completes without suppressing errors")
 		var report: Dictionary=app.report()
-		check(report.has("timeline") and report.has("statuses") and report.timeline.any(func(e):return e.kind=="bug_explosion"),"report includes actual status/blast history")
+		check(report.has("timeline") and report.has("statuses") and report.timeline.any(func(e):return e.kind=="hw_blast"),"report includes actual status/blast history")
 		check(report.timeline.any(func(e):return e.kind=="debugger_block" and e.status=="overflow"),"Critical Error is blocked by earned Overflow Debugger")
-		var final_breaks: Array=report.timeline.filter(func(e):return e.kind=="paired_tether_break" and e.id.ends_with("_3"))
+		var final_breaks: Array=report.timeline.filter(func(e):return e.kind=="hw_patch" and e.id.ends_with("_3"))
 		check(final_breaks.size()==2 and final_breaks[0].id=="hw_local_3","fourth iteration actually breaks Local before Remote")
 		app.demo=true;app.start_run(2)
 		check(app.checkpoint_assisted and app.state.timeline.any(func(e):return e.kind=="status_gain" and e.source>=0),"checkpoint replays actual infections")

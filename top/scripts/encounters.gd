@@ -11,6 +11,7 @@ const P1Courses = preload("res://scripts/p1_courses.gd")
 const DeltaCourses = preload("res://scripts/p5_delta_courses.gd")
 const OmegaCourses = preload("res://scripts/p5_omega_courses.gd")
 const SigmaCourses = preload("res://scripts/p5_sigma_courses.gd")
+const HWCourses = preload("res://scripts/hw_courses.gd")
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"]
 var rng = RandomNumberGenerator.new()
 var order: Array = []
@@ -349,71 +350,7 @@ func transition() -> void:
 			b.shapes.append(targeted(at(4), 3, 2, "High-powered Sniper Cannon")); b.shapes.append(targeted(at(5), 3, 2, "High-powered Sniper Cannon"))
 
 func hello_world() -> void:
-	var red_defam := bool(rng.randi_range(0, 1))
-	var defam_colour := "red" if red_defam else "blue"
-	var stack_colour := "blue" if red_defam else "red"
-	for turn in 4:
-		var defam := posmod(-turn * 2, 8); var blue := posmod(2 - turn * 2, 8)
-		var stacker := posmod(4 - turn * 2, 8); var green := posmod(6 - turn * 2, 8)
-		for side in 2:
-			var sign_x := -1 if side == 0 else 1
-			pos(defam + side, Vector2(sign_x * 11, -12)); label(defam + side, "Overflow route")
-			pos(stacker + side, Vector2(sign_x * 11, 10)); label(stacker + side, "Synchronization route")
-			pos(blue + side, Vector2(sign_x * 7, 10)); label(blue + side, "Remote route")
-			pos(green + side, Vector2(sign_x * 17, -8)); label(green + side, "Local route")
-			if turn == 3: pos(green + side, Vector2(sign_x * 7, 12))
-		var tower_window := float(Params.parameter("hw_first_tower_from_smells" if turn==0 else "hw_tower_approach"))
-		var b := beat("Hello World %d/4 · towers and bugs" % (turn + 1), tower_window, "初始氣味3秒後轉21/27秒狀態；各輪塔間隔21秒。感染與爆炸讀實際位置，路線文字不決定受擊者。")
-		b.hello_world = true
-		if turn == 0:
-			b.status_grants = []
-			for side in 2:
-				b.status_grants.append({"actor":at(defam+side),"name":"smell_"+defam_colour,"duration":float(Params.parameter("hw_smell_duration"))})
-				b.status_grants.append({"actor":at(stacker+side),"name":"smell_"+stack_colour,"duration":float(Params.parameter("hw_smell_duration"))})
-				b.status_grants.append({"actor":at(defam+side),"name":"smell_overflow","duration":float(Params.parameter("hw_smell_duration"))})
-				b.status_grants.append({"actor":at(stacker+side),"name":"smell_sync","duration":float(Params.parameter("hw_smell_duration"))})
-				b.status_grants.append({"actor":at(green+side),"name":"latent_overflow","duration":float(Params.parameter("hw_initial_latent_defect_duration"))})
-			for actor in 8:b.status_grants.append({"actor":actor,"name":"latent_sync","duration":float(Params.parameter("hw_latent_sync_duration"))})
-		b.paired_tethers = [
-			{"id":"hw_remote_%d" % turn,"kind":"remote","a":at(blue),"b":at(blue+1),"delay":tower_window-float(Params.parameter("hw_regression_activation_lead")),"duration":float(Params.parameter("hw_regression_live_duration"))},
-			{"id":"hw_local_%d" % turn,"kind":"local","a":at(green),"b":at(green+1),"delay":tower_window-float(Params.parameter("hw_regression_activation_lead")),"duration":float(Params.parameter("hw_regression_live_duration"))}]
-		for side in 2:
-			var t := tower(positions[at(defam+side)], 6, [], "Rot tower " + defam_colour)
-			t.erase("required"); t.count = 1; t.rot_colour = defam_colour; b.shapes.append(t)
-			t = tower(Vector2(-16 if side == 0 else 16,10), 6, [], "Rot tower " + stack_colour)
-			t.erase("required"); t.count = 1; t.rot_colour = stack_colour; b.shapes.append(t)
-		if turn < 3:
-			for side in 2:
-				pos(blue+side, positions[at(stacker+side)] + Vector2(0,0.5))
-				pos(green+side, positions[at(defam+side)] + Vector2(0,0.5))
-			b = beat("Hello World %d/4 · free contact" % (turn+1),float(Params.parameter("hw_collect_window")),"Touch a source and leave; infection does not require ending at a guide point.")
-			b.hello_world = true
-			# Both collectors leave before old rot expires. Local stays separated until Remote resolves.
-			for side in 2: pos(green+side, Vector2(-17 if side == 0 else 17,-4))
-			preview_blue_break(blue, stacker, turn)
-			preview_green_break(green, defam, turn)
-		else:
-			preview_green_break(green, defam, turn)
-			preview_blue_break(blue, stacker, turn)
-	# Critical Error grants are blocked by accumulated Overflow Debuggers, not by route labels.
-	var b := beat("Critical Error · Debugger check", 8.0)
-	b.hello_world = true; b.status_grants = []
-	for i in 8: b.status_grants.append({"actor":i,"name":"overflow","duration":float(Params.parameter("critical_error_bug_duration"))})
-	b.checks.append({"kind":"regressions_resolved","prefix":"hw_"})
-
-func preview_blue_break(blue: int, stacker: int, turn: int) -> void:
-	for side in 2:
-		pos(blue+side, Vector2(-17 if side == 0 else 17,7))
-		pos(stacker+side, Vector2(-10 if side == 0 else 10,14))
-	var b := beat("Hello World %d/4 · Remote %s" % [turn+1,"LAST" if turn == 3 else "first"],float(Params.parameter("hw_remote_window")))
-	b.hello_world = true
-
-func preview_green_break(green: int, defam: int, turn: int) -> void:
-	for side in 2:
-		pos(green+side, Vector2(-1 if side == 0 else 1,-4))
-		pos(defam+side, Vector2(-12 if side == 0 else 12,-12))
-	var b := beat("Hello World %d/4 · Local %s" % [turn+1,"FIRST" if turn == 3 else "after vulnerability"],float(Params.parameter("hw_local_window")))
-	b.hello_world = true
+	HWCourses.append_hw(self)
 
 func monitors() -> void:
 	var saved_order: Array = order.duplicate()

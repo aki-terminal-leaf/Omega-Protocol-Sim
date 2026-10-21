@@ -57,6 +57,7 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 	preload("res://scripts/p5_sigma_runtime.gd").begin(beat,state)
 	preload("res://scripts/p1_runtime.gd").begin(beat,state)
 	preload("res://scripts/p5_omega_runtime.gd").begin(beat,state)
+	preload("res://scripts/hw_runtime.gd").begin(beat,state)
 	state.beat_started = float(state.get("sim_time", 0))
 	for grant in beat.get("status_grants", []): give(state, grant.actor, grant.name, grant.duration)
 	for raw in beat.get("paired_tethers", []):
@@ -107,6 +108,7 @@ static func tick(actors: Array, previous: Array, state: Dictionary, dt: float) -
 	preload("res://scripts/p5_sigma_runtime.gd").tick(actors,previous,state,dt)
 	preload("res://scripts/p1_runtime.gd").tick(actors,previous,state,dt)
 	preload("res://scripts/p5_omega_runtime.gd").tick(actors,previous,state,dt)
+	if preload("res://scripts/hw_runtime.gd").tick(actors,previous,state,dt): return
 	if state.paired_tethers.is_empty() and state.streams.is_empty() and state.statuses.all(func(s): return s.is_empty()): return
 	# Subdivide movement and time together so expiry cannot be bypassed by a large frame.
 	var finish := float(state.get("sim_time", 0))
@@ -191,6 +193,7 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	preload("res://scripts/p5_delta_runtime.gd").sync(beat,state)
 	preload("res://scripts/p1_runtime.gd").sync(beat,state)
 	preload("res://scripts/p5_omega_runtime.gd").sync(beat,state)
+	preload("res://scripts/hw_runtime.gd").sync(beat,state)
 	if not state.has("statuses"): return
 	if beat.has("shapes"):
 		beat.shapes = beat.shapes.filter(func(s): return not s.get("runtime_stream",false))
@@ -199,4 +202,4 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if not state.paired_tethers.is_empty():
 		beat.tethers = []
 		for tether in state.paired_tethers:
-			if not tether.broken: beat.tethers.append({"a":tether.a,"b":tether.b})
+			if not tether.broken: beat.tethers.append({"a":tether.a,"b":tether.b,"kind":tether.kind})

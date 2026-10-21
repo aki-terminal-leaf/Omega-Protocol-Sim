@@ -151,8 +151,28 @@
   "p3_hello": [
     {
       "profile": "elemental",
-      "name": "Hello World 四輪循環（示意）",
-      "description": "Free rot contacts, actual bug blast recipients, Debugger and latent expiry; live paired regression breaks. Fourth iteration Local before Remote. Contact radii and training schedule are not server-calibrated."
+      "name": "Elemental · 四輪 Hello World",
+      "description": "前三輪藍先綠後；第四綠先藍後，不再傳毒。第四輪藍回內側、分攤留原位。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · Dylan 四輪循環",
+      "description": "前三輪傳毒後離開舊毒；第四綠先藍後，藍與分攤各向外散開。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 綠先藍後第四輪",
+      "description": "前三輪藍先綠後；第四輪 GREEN FIRST、BLUE LAST，不再傳毒，向外避開最後毒爆。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 原毒停留／藍向外",
+      "description": "原毒留標點與內塔側；新藍穿過分攤向外，第四輪綠先藍後、不再傳毒。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 原毒停留／藍回內",
+      "description": "前三輪藍接毒後回首領內側；第四綠先藍後，藍向內分開、分攤向外。"
     }
   ],
   "p3_monitors": [

@@ -1,0 +1,2585 @@
+{
+  "schema": 1,
+  "coordinate_policy": "Numeric positions are training realizations, not official coordinates.",
+  "source_registry": {
+    "e": "https://ffxiv.tuufless.com/elemental/top/",
+    "a": "https://www.thepfstrat.com/u/top",
+    "l": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+    "cn": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+    "cnref": "https://www.bilibili.com/opus/800287973844189204",
+    "cnupper": "https://www.bilibili.com/video/av740517066",
+    "cnlower": "https://www.bilibili.com/video/BV1vz4y1B7xP",
+    "kr": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+    "krworld": "https://www.inven.co.kr/board/ff14/4338/6982",
+    "a6": "https://ff14.toolboxgaming.space/?id=548481027977761&preview=1",
+    "ad": "https://ff14.toolboxgaming.space/?id=732288275415761&preview=1",
+    "as": "https://ff14.toolboxgaming.space/?id=107380954136761&preview=1",
+    "ao": "https://ff14.toolboxgaming.space/?id=078384491946761&preview=1",
+    "l5": "https://ff14.toolboxgaming.space/?id=955389449416761&preview=1",
+    "l6": "https://raidplan.io/plan/mh3bX4KJ9d8rT9nk",
+    "e0": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+    "e1": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+    "e2": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+    "e3": "https://ffxiv.tuufless.com/elemental/top/04_blue_screen/",
+    "e4": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+    "e5": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_sigma/",
+    "e6": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_omega/",
+    "e7": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+    "k0": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=2089732780",
+    "k1": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1552381437",
+    "k2": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+    "k3": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=776696341",
+    "k4": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=895996912",
+    "k5": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=791137168",
+    "k6": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=577861208",
+    "k7": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=473115449"
+  },
+  "routes": {
+    "elemental": {
+      "id": "elemental",
+      "complete": true,
+      "formation": "radial_outer_overflow_inner_sync",
+      "initial_stand": "rot outside hitbox first; tethers wait inside",
+      "ordinary_order": [
+        "remote",
+        "local"
+      ],
+      "fourth_order": [
+        "local",
+        "remote"
+      ],
+      "fourth_transfer": false,
+      "partner_policy": "Current initial debuff pair, not fixed job assignment. Either equivalent same-colour tower is legal; choose shorter outside travel with a stable tie-break.",
+      "unknown": "No official numeric coordinates. Contact radius and exact Local/Remote server thresholds remain provisional; repeated same-colour timer refresh and simultaneous opposite-carrier order unresolved. HP/mitigation not simulated.",
+      "remote_after_handoff": "spread_clear_of_old_rot",
+      "fourth_remote_exit": "inside",
+      "fourth_sync_exit": "hold",
+      "fourth_local_exit": "inside",
+      "source_audit": "Full prose and diagrams hello_world_0_2,0_3,1_1,1_3,1_4,4_1,4_3,4_4 visually read. Ordinary Remote goes past Sync; fourth Remote/Local move inward while original Sync holds. Equivalent partners not job-tied.",
+      "sources": [
+        {
+          "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+          "location": "Hello World setup, first/second/third iterations, fourth iteration",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "source_route_audited": true,
+      "audit_scope": "All four debuff responsibilities, initial traffic, ordinary handoff, fourth order/no-handoff, and Critical Error. Numeric paths independently constructed and mechanically tested."
+    },
+    "aether": {
+      "id": "aether",
+      "complete": true,
+      "formation": "radial_outer_overflow_inner_sync",
+      "initial_stand": "rot outside hitbox first; tethers wait inside",
+      "ordinary_order": [
+        "remote",
+        "local"
+      ],
+      "fourth_order": [
+        "local",
+        "remote"
+      ],
+      "fourth_transfer": false,
+      "partner_policy": "Current initial debuff pair, not fixed job assignment. Either equivalent same-colour tower is legal; choose shorter outside travel with a stable tie-break.",
+      "unknown": "No official numeric coordinates. Contact radius and exact Local/Remote server thresholds remain provisional; repeated same-colour timer refresh and simultaneous opposite-carrier order unresolved. HP/mitigation not simulated.",
+      "toolbox": {
+        "id": "243183080764761",
+        "steps": [
+          11,
+          28
+        ],
+        "audit": "All HW step notes and semantic body positions read; fourth green-first/blue-last explicit. Source numeric canvas is schematic.",
+        "raw_body_labels": {
+          "tank1": "GNB",
+          "tank2": "DRK",
+          "healer1": "SGE",
+          "healer2": "MCH",
+          "dps1": "SMN",
+          "dps2": "DRG",
+          "dps3": "WHM",
+          "dps4": "SAM"
+        },
+        "coordinate_decode": "(top_left + body_size/2 -7.5)*40/15; schematic only, not server coordinates; role keys not mapped to app D1-D4."
+      },
+      "remote_after_handoff": "spread_clear_of_old_rot",
+      "fourth_remote_exit": "separate_from_partner",
+      "fourth_sync_exit": "outer",
+      "fourth_local_exit": "clear_of_rot",
+      "sources": [
+        {
+          "url": "https://www.thepfstrat.com/u/top",
+          "location": "P3 Hello World lines185–193",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        },
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=243183080764761",
+          "location": "[11, 28]",
+          "evidence_kind": "full_semantic_raw_JSON_notes_body_positions_markers",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "source_route_audited": true,
+      "audit_scope": "All four debuff responsibilities, initial traffic, ordinary handoff, fourth order/no-handoff, and Critical Error. Numeric paths independently constructed and mechanically tested."
+    },
+    "lpdu": {
+      "id": "lpdu",
+      "complete": true,
+      "formation": "radial_outer_overflow_inner_sync",
+      "initial_stand": "rot outside hitbox first; tethers wait inside",
+      "ordinary_order": [
+        "remote",
+        "local"
+      ],
+      "fourth_order": [
+        "local",
+        "remote"
+      ],
+      "fourth_transfer": false,
+      "partner_policy": "Current initial debuff pair, not fixed job assignment. Either equivalent same-colour tower is legal; choose shorter outside travel with a stable tie-break.",
+      "unknown": "No official numeric coordinates. Contact radius and exact Local/Remote server thresholds remain provisional; repeated same-colour timer refresh and simultaneous opposite-carrier order unresolved. HP/mitigation not simulated.",
+      "toolbox": {
+        "id": "702399575985961",
+        "steps": [
+          1,
+          19
+        ],
+        "audit": "All HW step notes and semantic body positions read; fourth green-first/blue-last explicit. Source numeric canvas is schematic.",
+        "raw_body_labels": {
+          "tank1": "GNB",
+          "tank2": "DRK",
+          "healer1": "SGE",
+          "healer2": "MCH",
+          "dps1": "SMN",
+          "dps2": "DRG",
+          "dps3": "WHM",
+          "dps4": "SAM"
+        },
+        "coordinate_decode": "(top_left + body_size/2 -7.5)*40/15; schematic only, not server coordinates; role keys not mapped to app D1-D4."
+      },
+      "remote_after_handoff": "spread_clear_of_old_rot",
+      "fourth_remote_exit": "separate_from_partner",
+      "fourth_sync_exit": "outer",
+      "fourth_local_exit": "clear_of_rot",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/cliaux/lpdu.github.io/main/top/top_discord_strats.md",
+          "location": "Phase3 Hello World link",
+          "evidence_kind": "text",
+          "accessed_at": "2026-10-21"
+        },
+        {
+          "url": "https://ff14.toolboxgaming.space/?id=702399575985961",
+          "location": "[1, 19]",
+          "evidence_kind": "full_semantic_raw_JSON_notes_body_positions_markers",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "source_route_audited": true,
+      "audit_scope": "All four debuff responsibilities, initial traffic, ordinary handoff, fourth order/no-handoff, and Critical Error. Numeric paths independently constructed and mechanically tested."
+    },
+    "cn_moogle": {
+      "id": "cn_moogle",
+      "complete": true,
+      "formation": "radial_outer_overflow_inner_sync",
+      "initial_stand": "rot outside hitbox first; tethers wait inside",
+      "ordinary_order": [
+        "remote",
+        "local"
+      ],
+      "fourth_order": [
+        "local",
+        "remote"
+      ],
+      "fourth_transfer": false,
+      "partner_policy": "Current initial debuff pair, not fixed job assignment. Either equivalent same-colour tower is legal; choose shorter outside travel with a stable tie-break.",
+      "unknown": "No official numeric coordinates. Contact radius and exact Local/Remote server thresholds remain provisional; repeated same-colour timer refresh and simultaneous opposite-carrier order unresolved. HP/mitigation not simulated.",
+      "poster_audit": "Original HW section visually inspected 2026-10-21: explicitly Universal, tether traffic inside, Sync on ring, Overflow outside. Poster supplies no four-round diagrams or fourth-order instructions. Do not infer those as independently CN-verified.",
+      "remote_after_handoff": "pass_through_stack_outward",
+      "old_rot_after_handoff": "hold_at_marker_and_inner_tower_until_expiry",
+      "health_advice": "Fourth Remote waits for healing above30k HP; HP/mitigation not modeled by this movement simulator.",
+      "video_source": "https://www.bilibili.com/video/av740517066/?p=3",
+      "source_audit": "Primary video P3 part3 frames450,480,500,520,535,550,560,570,580,595,600,610,630,645 seconds visually read in owned public tab. Distinct ordinary old-rot hold; Remote passes through Sync outward after vulnerability. Fourth green auto-break on stack side, blue after stack/healing, no Nisi transfer; Overflow immunity consumed by receiving another Overflow.",
+      "fourth_remote_exit": "separate_from_partner",
+      "fourth_sync_exit": "hold",
+      "fourth_local_exit": "inside",
+      "sources": [
+        {
+          "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+          "location": "Page1 P3HW 提示+移动规则",
+          "evidence_kind": "canvas_macro_visually_read",
+          "accessed_at": "2026-10-21"
+        },
+        {
+          "url": "https://www.bilibili.com/video/av740517066/?p=3",
+          "location": "P3 frames450-610s: all four debuff paths and fourth-round exception; 630s role cycle",
+          "evidence_kind": "primary_video_visually_read",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "source_route_audited": true,
+      "audit_scope": "All four debuff responsibilities, initial traffic, ordinary handoff, fourth order/no-handoff, and Critical Error. Numeric paths independently constructed and mechanically tested."
+    },
+    "kr_09stop": {
+      "id": "kr_09stop",
+      "complete": true,
+      "formation": "radial_outer_overflow_inner_sync",
+      "initial_stand": "rot outside hitbox first; tethers wait inside",
+      "ordinary_order": [
+        "remote",
+        "local"
+      ],
+      "fourth_order": [
+        "local",
+        "remote"
+      ],
+      "fourth_transfer": false,
+      "partner_policy": "Current initial debuff pair, not fixed job assignment. Either equivalent same-colour tower is legal; choose shorter outside travel with a stable tie-break.",
+      "unknown": "No official numeric coordinates. Contact radius and exact Local/Remote server thresholds remain provisional; repeated same-colour timer refresh and simultaneous opposite-carrier order unresolved. HP/mitigation not simulated.",
+      "remote_after_handoff": "inside_boss",
+      "old_rot_after_handoff": "hold_at_marker_and_inner_tower_until_expiry",
+      "fourth_remote": "move_inward_and_separate_after_stack",
+      "fourth_sync": "move_further_out_for_final_rot",
+      "source_audit": "Public phase3 sheet read rows118-304; diagrams rows198,224,277 visually inspected via owned CDP tab 2026-10-21. Row298 confirms green first; blue moves inward and separates after sharing. No fixed job priority for HW.",
+      "fourth_remote_exit": "inside",
+      "fourth_sync_exit": "outer",
+      "fourth_local_exit": "inside",
+      "sources": [
+        {
+          "url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1826471436",
+          "location": "#Phase.3 rows 118–303",
+          "evidence_kind": "primary_source",
+          "accessed_at": "2026-10-21"
+        }
+      ],
+      "source_route_audited": true,
+      "audit_scope": "All four debuff responsibilities, initial traffic, ordinary handoff, fourth order/no-handoff, and Critical Error. Numeric paths independently constructed and mechanically tested."
+    }
+  },
+  "geometry": {
+    "tower_radius": {
+      "value": 6,
+      "source": "P3HelloWorld tower construction and TOPEnums 31583/31584 range6"
+    },
+    "origin_radius": {
+      "value": 14,
+      "source": "Four FFLogs casts: cardinal offsets1400/diagonal990 in centiyalms; validated family, helper positions not universally trusted"
+    },
+    "orientation_count": 8
+  },
+  "policies": {
+    "same_colour": "preserve_timer_unverified",
+    "simultaneous_opposite": "reject_ambiguous",
+    "contact_radius": 1,
+    "local_break_distance": 10,
+    "remote_break_distance": 7,
+    "break_distances_status": "Provisional inference from actual paired player interpolation at32 regression removals; old3/30 contradicted. Server boundary not exact due sparse sampling/packet timing."
+  },
+  "capture_manifests": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "sha256": "622656039bd21815a6e144cc0704ece52dfb253d187dd921aca965e06736aace"
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "sha256": "fb50140d950c327c1f86e7a8800a7f3363675f0f2079c4708af4dc3d3e9dcc6a"
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "sha256": "8bfb4d06f41587b3e85847e3cdb5c7a5e07a521e1459291a720f2c7b03fe3347"
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "sha256": "a5e57ad8e5ff4288ae7b1ed882496ee65a5b7fa1e1706cca16ca0731418b5313"
+    }
+  ],
+  "timing": {
+    "smells": 3,
+    "rot": 27,
+    "bug": 21,
+    "latent_sync": 69,
+    "initial_latent_overflow": 27,
+    "tower_latent": 10,
+    "tower_waves": [
+      24,
+      45,
+      66,
+      87
+    ],
+    "regression_activation": [
+      23,
+      44,
+      65,
+      86
+    ],
+    "regression_lifetime": 10,
+    "critical_error": 108.2,
+    "critical_overflow_duration": 21,
+    "patch_ruin_stacks_per_pair": 2,
+    "patch_ruin_duration": 1,
+    "patch_magic_vulnerability": 1,
+    "provenance": "Four manifest-bound captures; nominal seconds normalized from initial Smell. Not exact packet timestamps. Patch1002530 stack2 and3516 duration960ms directly inspected.",
+    "bug_magic_vulnerability": 1,
+    "bug_magic_vulnerability_source": "Four captures;1002941 applications to all8 after31574/31575. LKM first497293..497294 duration960..1000ms; Patch3516 also960ms."
+  },
+  "capture_geometry": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "manifest_files_verified": 7,
+      "manifest_files": 7,
+      "tower_waves": [
+        {
+          "round": 1,
+          "from_first_tower": 0.0,
+          "players": [
+            [
+              0.39,
+              -18.01
+            ],
+            [
+              11.68001,
+              6.85996
+            ],
+            [
+              -10.63,
+              6.0
+            ],
+            [
+              15.95,
+              0.05
+            ],
+            [
+              -7.61,
+              -13.04
+            ],
+            [
+              -11.97,
+              3.81
+            ],
+            [
+              -6.05,
+              10.34
+            ],
+            [
+              -4.04,
+              11.38
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                0.0,
+                14.0
+              ],
+              "recipient": 7,
+              "recipient_distance": 4.81518,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                14.0,
+                0.0
+              ],
+              "recipient": 3,
+              "recipient_distance": 1.95064,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                -14.0,
+                0.0
+              ],
+              "recipient": 5,
+              "recipient_distance": 4.31706,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                0.0,
+                -14.0
+              ],
+              "recipient": 0,
+              "recipient_distance": 4.02892,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "from_first_tower": 21.069,
+          "players": [
+            [
+              -2.86,
+              11.72
+            ],
+            [
+              10.89,
+              -10.54
+            ],
+            [
+              -5.35,
+              11.47
+            ],
+            [
+              3.11,
+              11.5
+            ],
+            [
+              -12.09,
+              -12.86
+            ],
+            [
+              -15.66,
+              -4.4
+            ],
+            [
+              5.33,
+              11.41
+            ],
+            [
+              15.19,
+              -3.94
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 6,
+              "recipient_distance": 4.813,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 1,
+              "recipient_distance": 1.17886,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 2,
+              "recipient_distance": 4.81325,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 4,
+              "recipient_distance": 3.68208,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "from_first_tower": 42.138,
+          "players": [
+            [
+              -6.39,
+              -11.37
+            ],
+            [
+              2.8,
+              -11.04
+            ],
+            [
+              -15.45,
+              3.65
+            ],
+            [
+              5.94,
+              -12.25
+            ],
+            [
+              -3.36,
+              -11.67
+            ],
+            [
+              -12.76,
+              10.12
+            ],
+            [
+              16.09,
+              3.86
+            ],
+            [
+              11.86,
+              12.54
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 0,
+              "recipient_distance": 3.80539,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 5,
+              "recipient_distance": 2.86845,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 3,
+              "recipient_distance": 4.60479,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 7,
+              "recipient_distance": 3.28804,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "from_first_tower": 63.223,
+          "players": [
+            [
+              6.11,
+              10.47
+            ],
+            [
+              12.35,
+              4.23
+            ],
+            [
+              -17.53,
+              -0.43
+            ],
+            [
+              10.31,
+              6.03
+            ],
+            [
+              3.93,
+              12.26
+            ],
+            [
+              5.94,
+              10.0
+            ],
+            [
+              2.4,
+              -17.56
+            ],
+            [
+              10.43,
+              6.37
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                14.0,
+                0.0
+              ],
+              "recipient": 1,
+              "recipient_distance": 4.54042,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                0.0,
+                -14.0
+              ],
+              "recipient": 6,
+              "recipient_distance": 4.29344,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                0.0,
+                14.0
+              ],
+              "recipient": 4,
+              "recipient_distance": 4.29796,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -14.0,
+                0.0
+              ],
+              "recipient": 2,
+              "recipient_distance": 3.55609,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        }
+      ],
+      "regression_removals": [
+        {
+          "round": 1,
+          "status_id": 3529,
+          "tower_relative_seconds": 3.621,
+          "positions": [
+            [
+              2.22993,
+              -10.57648
+            ],
+            [
+              9.88,
+              -3.69
+            ]
+          ],
+          "distance": 10.29306,
+          "sample_gaps_ms": [
+            [
+              179,
+              91
+            ],
+            [
+              0,
+              91
+            ]
+          ]
+        },
+        {
+          "round": 1,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.519,
+          "positions": [
+            [
+              -11.03,
+              5.20007
+            ],
+            [
+              -5.50148,
+              10.53536
+            ]
+          ],
+          "distance": 7.68309,
+          "sample_gaps_ms": [
+            [
+              45,
+              89
+            ],
+            [
+              269,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3529,
+          "tower_relative_seconds": 3.713,
+          "positions": [
+            [
+              4.49371,
+              -8.43109
+            ],
+            [
+              -4.85484,
+              -10.54807
+            ]
+          ],
+          "distance": 9.58525,
+          "sample_gaps_ms": [
+            [
+              718,
+              89
+            ],
+            [
+              134,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.432,
+          "positions": [
+            [
+              -5.36899,
+              11.54257
+            ],
+            [
+              3.57413,
+              11.43263
+            ]
+          ],
+          "distance": 8.9438,
+          "sample_gaps_ms": [
+            [
+              268,
+              90
+            ],
+            [
+              268,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3529,
+          "tower_relative_seconds": 3.666,
+          "positions": [
+            [
+              -5.81688,
+              10.08999
+            ],
+            [
+              3.94,
+              9.99
+            ]
+          ],
+          "distance": 9.75739,
+          "sample_gaps_ms": [
+            [
+              1297,
+              44
+            ],
+            [
+              0,
+              44
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.385,
+          "positions": [
+            [
+              -4.6,
+              -11.685
+            ],
+            [
+              3.3025,
+              -11.06711
+            ]
+          ],
+          "distance": 7.92662,
+          "sample_gaps_ms": [
+            [
+              90,
+              90
+            ],
+            [
+              670,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3529,
+          "tower_relative_seconds": -1.2,
+          "positions": [
+            [
+              6.11,
+              10.47
+            ],
+            [
+              10.31,
+              6.03
+            ]
+          ],
+          "distance": 6.11176,
+          "sample_gaps_ms": [
+            [
+              266,
+              89
+            ],
+            [
+              45,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3530,
+          "tower_relative_seconds": 3.287,
+          "positions": [
+            [
+              4.29639,
+              4.65665
+            ],
+            [
+              11.33263,
+              12.15586
+            ]
+          ],
+          "distance": 10.28333,
+          "sample_gaps_ms": [
+            [
+              1468,
+              89
+            ],
+            [
+              44,
+              89
+            ]
+          ]
+        }
+      ],
+      "hash_scope": "decompressed JSON bytes"
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "manifest_files_verified": 7,
+      "manifest_files": 7,
+      "tower_waves": [
+        {
+          "round": 1,
+          "from_first_tower": 0.0,
+          "players": [
+            [
+              5.06,
+              -11.98
+            ],
+            [
+              -12.0,
+              3.17
+            ],
+            [
+              -3.36,
+              -11.02
+            ],
+            [
+              -5.84,
+              -10.63
+            ],
+            [
+              16.99,
+              3.44
+            ],
+            [
+              10.8,
+              11.07
+            ],
+            [
+              -12.49,
+              12.44
+            ],
+            [
+              2.8,
+              -12.06
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 0,
+              "recipient_distance": 5.26802,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 3,
+              "recipient_distance": 4.12511,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 6,
+              "recipient_distance": 3.62763,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 5,
+              "recipient_distance": 1.47611,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "from_first_tower": 21.018,
+          "players": [
+            [
+              6.3,
+              10.93
+            ],
+            [
+              -14.94,
+              0.94
+            ],
+            [
+              4.39,
+              -11.94
+            ],
+            [
+              -14.26,
+              -7.15
+            ],
+            [
+              -0.04,
+              19.28
+            ],
+            [
+              11.83,
+              -6.66
+            ],
+            [
+              6.13,
+              -11.02
+            ],
+            [
+              13.12,
+              -5.01
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                14.0,
+                0.0
+              ],
+              "recipient": 7,
+              "recipient_distance": 5.0867,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                0.0,
+                -14.0
+              ],
+              "recipient": 2,
+              "recipient_distance": 4.8493,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -14.0,
+                0.0
+              ],
+              "recipient": 1,
+              "recipient_distance": 1.32936,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                0.0,
+                14.0
+              ],
+              "recipient": 4,
+              "recipient_distance": 5.28015,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "from_first_tower": 42.041,
+          "players": [
+            [
+              16.08,
+              -0.49
+            ],
+            [
+              -6.02,
+              -10.69
+            ],
+            [
+              10.30343,
+              -5.83672
+            ],
+            [
+              -1.01,
+              15.76
+            ],
+            [
+              -9.86,
+              -5.53
+            ],
+            [
+              -4.31,
+              -12.83
+            ],
+            [
+              -11.63,
+              -4.41
+            ],
+            [
+              -7.62125,
+              13.925
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                0.0,
+                -14.0
+              ],
+              "recipient": 5,
+              "recipient_distance": 4.46598,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                -14.0,
+                0.0
+              ],
+              "recipient": 6,
+              "recipient_distance": 5.0065,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                0.0,
+                14.0
+              ],
+              "recipient": 3,
+              "recipient_distance": 2.02921,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                14.0,
+                0.0
+              ],
+              "recipient": 0,
+              "recipient_distance": 2.13694,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "from_first_tower": 63.097,
+          "players": [
+            [
+              2.73,
+              -12.42
+            ],
+            [
+              5.24,
+              -12.31
+            ],
+            [
+              11.35,
+              11.16
+            ],
+            [
+              -3.24,
+              -12.21
+            ],
+            [
+              -5.23,
+              -11.88
+            ],
+            [
+              3.01,
+              -12.34
+            ],
+            [
+              -0.62,
+              -12.25
+            ],
+            [
+              -11.45,
+              10.77
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 1,
+              "recipient_distance": 5.2463,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 4,
+              "recipient_distance": 5.07241,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 7,
+              "recipient_distance": 1.77747,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 2,
+              "recipient_distance": 1.92096,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        }
+      ],
+      "regression_removals": [
+        {
+          "round": 1,
+          "status_id": 3529,
+          "tower_relative_seconds": 4.858,
+          "positions": [
+            [
+              5.70392,
+              11.09559
+            ],
+            [
+              -3.27,
+              9.74
+            ]
+          ],
+          "distance": 9.07573,
+          "sample_gaps_ms": [
+            [
+              312,
+              89
+            ],
+            [
+              0,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 1,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.561,
+          "positions": [
+            [
+              4.12295,
+              -11.97386
+            ],
+            [
+              -3.96107,
+              -10.90111
+            ]
+          ],
+          "distance": 8.15489,
+          "sample_gaps_ms": [
+            [
+              87,
+              45
+            ],
+            [
+              179,
+              92
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3529,
+          "tower_relative_seconds": 4.27,
+          "positions": [
+            [
+              -13.09367,
+              2.31045
+            ],
+            [
+              -5.52388,
+              7.53657
+            ]
+          ],
+          "distance": 9.19859,
+          "sample_gaps_ms": [
+            [
+              311,
+              90
+            ],
+            [
+              44,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.156,
+          "positions": [
+            [
+              6.13,
+              -11.02
+            ],
+            [
+              12.00305,
+              -6.38383
+            ]
+          ],
+          "distance": 7.48243,
+          "sample_gaps_ms": [
+            [
+              357,
+              89
+            ],
+            [
+              177,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3529,
+          "tower_relative_seconds": 4.408,
+          "positions": [
+            [
+              4.10699,
+              11.07079
+            ],
+            [
+              10.3441,
+              4.95433
+            ]
+          ],
+          "distance": 8.73571,
+          "sample_gaps_ms": [
+            [
+              311,
+              44
+            ],
+            [
+              266,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3530,
+          "tower_relative_seconds": 2.227,
+          "positions": [
+            [
+              -11.20132,
+              -4.57783
+            ],
+            [
+              -5.94219,
+              -10.73668
+            ]
+          ],
+          "distance": 8.09876,
+          "sample_gaps_ms": [
+            [
+              848,
+              89
+            ],
+            [
+              312,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3529,
+          "tower_relative_seconds": -1.113,
+          "positions": [
+            [
+              -0.62,
+              -12.25
+            ],
+            [
+              3.01,
+              -12.34
+            ]
+          ],
+          "distance": 3.63112,
+          "sample_gaps_ms": [
+            [
+              266,
+              90
+            ],
+            [
+              222,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.961,
+          "positions": [
+            [
+              -5.36,
+              -11.62
+            ],
+            [
+              5.90463,
+              -11.68354
+            ]
+          ],
+          "distance": 11.26481,
+          "sample_gaps_ms": [
+            [
+              0,
+              90
+            ],
+            [
+              402,
+              90
+            ]
+          ]
+        }
+      ],
+      "hash_scope": "decompressed JSON bytes"
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "manifest_files_verified": 7,
+      "manifest_files": 7,
+      "tower_waves": [
+        {
+          "round": 1,
+          "from_first_tower": 0.0,
+          "players": [
+            [
+              -3.03058,
+              -11.26929
+            ],
+            [
+              5.88,
+              -11.42
+            ],
+            [
+              11.74,
+              11.68
+            ],
+            [
+              14.7,
+              4.63264
+            ],
+            [
+              -12.43,
+              12.69
+            ],
+            [
+              -4.65,
+              -11.71
+            ],
+            [
+              2.89443,
+              -11.49909
+            ],
+            [
+              -14.14,
+              4.14
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 4,
+              "recipient_distance": 3.7663,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 2,
+              "recipient_distance": 2.56008,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 1,
+              "recipient_distance": 4.29777,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 5,
+              "recipient_distance": 5.55325,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "from_first_tower": 21.041,
+          "players": [
+            [
+              -5.77,
+              -11.11
+            ],
+            [
+              14.95,
+              3.84
+            ],
+            [
+              2.83,
+              -11.09
+            ],
+            [
+              11.13,
+              10.0
+            ],
+            [
+              -3.43,
+              -11.7
+            ],
+            [
+              -14.47,
+              3.59
+            ],
+            [
+              5.21,
+              -10.96
+            ],
+            [
+              -10.72,
+              10.89
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 7,
+              "recipient_distance": 1.2855,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 3,
+              "recipient_distance": 1.23406,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 6,
+              "recipient_distance": 4.80829,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 0,
+              "recipient_distance": 4.3036,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "from_first_tower": 42.078,
+          "players": [
+            [
+              -8.42,
+              13.02
+            ],
+            [
+              16.28,
+              -0.29
+            ],
+            [
+              -4.43,
+              -11.57
+            ],
+            [
+              -6.05,
+              -9.56
+            ],
+            [
+              -12.18,
+              -4.4
+            ],
+            [
+              -0.16,
+              16.11
+            ],
+            [
+              15.37,
+              -7.52
+            ],
+            [
+              -10.29,
+              -6.36
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                0.0,
+                14.0
+              ],
+              "recipient": 5,
+              "recipient_distance": 2.11606,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                14.0,
+                0.0
+              ],
+              "recipient": 1,
+              "recipient_distance": 2.29837,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                0.0,
+                -14.0
+              ],
+              "recipient": 2,
+              "recipient_distance": 5.0527,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -14.0,
+                0.0
+              ],
+              "recipient": 4,
+              "recipient_distance": 4.76155,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "from_first_tower": 63.122,
+          "players": [
+            [
+              -11.24,
+              11.28
+            ],
+            [
+              -2.6,
+              -11.67
+            ],
+            [
+              2.59,
+              -11.45
+            ],
+            [
+              4.91,
+              -10.35
+            ],
+            [
+              -2.72,
+              -12.34
+            ],
+            [
+              2.68,
+              -12.12
+            ],
+            [
+              11.71,
+              12.47
+            ],
+            [
+              -5.65,
+              -11.79
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 0,
+              "recipient_distance": 1.92354,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 6,
+              "recipient_distance": 3.14341,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 3,
+              "recipient_distance": 5.01025,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 7,
+              "recipient_distance": 4.6513,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        }
+      ],
+      "regression_removals": [
+        {
+          "round": 1,
+          "status_id": 3529,
+          "tower_relative_seconds": 4.459,
+          "positions": [
+            [
+              -6.06506,
+              7.62368
+            ],
+            [
+              3.80731,
+              10.12075
+            ]
+          ],
+          "distance": 10.18327,
+          "sample_gaps_ms": [
+            [
+              179,
+              90
+            ],
+            [
+              580,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 1,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.471,
+          "positions": [
+            [
+              -5.065,
+              -11.125
+            ],
+            [
+              3.15672,
+              -11.78
+            ]
+          ],
+          "distance": 8.24777,
+          "sample_gaps_ms": [
+            [
+              267,
+              89
+            ],
+            [
+              45,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3529,
+          "tower_relative_seconds": 5.172,
+          "positions": [
+            [
+              5.89228,
+              9.75251
+            ],
+            [
+              -4.49203,
+              8.57077
+            ]
+          ],
+          "distance": 10.45134,
+          "sample_gaps_ms": [
+            [
+              980,
+              89
+            ],
+            [
+              980,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.871,
+          "positions": [
+            [
+              -3.96667,
+              -11.45
+            ],
+            [
+              4.94,
+              -10.97575
+            ]
+          ],
+          "distance": 8.91929,
+          "sample_gaps_ms": [
+            [
+              45,
+              90
+            ],
+            [
+              223,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3529,
+          "tower_relative_seconds": 4.412,
+          "positions": [
+            [
+              6.31347,
+              11.57672
+            ],
+            [
+              11.03305,
+              5.20249
+            ]
+          ],
+          "distance": 7.93128,
+          "sample_gaps_ms": [
+            [
+              489,
+              88
+            ],
+            [
+              266,
+              88
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.517,
+          "positions": [
+            [
+              -11.20428,
+              -4.96332
+            ],
+            [
+              -5.16959,
+              -10.4582
+            ]
+          ],
+          "distance": 8.16157,
+          "sample_gaps_ms": [
+            [
+              315,
+              89
+            ],
+            [
+              715,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3529,
+          "tower_relative_seconds": -1.115,
+          "positions": [
+            [
+              -2.72,
+              -12.34
+            ],
+            [
+              2.59,
+              -11.45
+            ]
+          ],
+          "distance": 5.38407,
+          "sample_gaps_ms": [
+            [
+              1161,
+              90
+            ],
+            [
+              402,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3530,
+          "tower_relative_seconds": 3.567,
+          "positions": [
+            [
+              -5.36,
+              -6.15
+            ],
+            [
+              2.37522,
+              -7.10448
+            ]
+          ],
+          "distance": 7.79389,
+          "sample_gaps_ms": [
+            [
+              0,
+              90
+            ],
+            [
+              44,
+              90
+            ]
+          ]
+        }
+      ],
+      "hash_scope": "decompressed JSON bytes"
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "manifest_files_verified": 7,
+      "manifest_files": 7,
+      "tower_waves": [
+        {
+          "round": 1,
+          "from_first_tower": 0.0,
+          "players": [
+            [
+              2.8,
+              -11.57
+            ],
+            [
+              -4.95,
+              -10.56
+            ],
+            [
+              11.1,
+              10.95
+            ],
+            [
+              -13.07,
+              3.29
+            ],
+            [
+              -10.96,
+              11.01
+            ],
+            [
+              13.18,
+              3.01
+            ],
+            [
+              4.69,
+              -10.6
+            ],
+            [
+              -3.27,
+              -12.18
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 4,
+              "recipient_distance": 1.53483,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 2,
+              "recipient_distance": 1.59452,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 6,
+              "recipient_distance": 5.25681,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 1,
+              "recipient_distance": 4.99381,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "from_first_tower": 21.057,
+          "players": [
+            [
+              5.33,
+              -12.4
+            ],
+            [
+              -13.41331,
+              2.25564
+            ],
+            [
+              2.74,
+              -11.3
+            ],
+            [
+              -11.7,
+              11.5
+            ],
+            [
+              -2.57,
+              -11.79
+            ],
+            [
+              12.54,
+              12.32
+            ],
+            [
+              13.76,
+              4.11
+            ],
+            [
+              -5.35,
+              -11.06
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 3,
+              "recipient_distance": 2.40832,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 5,
+              "recipient_distance": 3.58134,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 0,
+              "recipient_distance": 5.20912,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 7,
+              "recipient_distance": 4.69554,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "from_first_tower": 42.069,
+          "players": [
+            [
+              11.31,
+              7.19
+            ],
+            [
+              16.08,
+              0.31
+            ],
+            [
+              -3.94,
+              11.47
+            ],
+            [
+              -9.5,
+              5.76
+            ],
+            [
+              -11.33,
+              3.75
+            ],
+            [
+              -6.11,
+              10.43
+            ],
+            [
+              -0.3,
+              -15.99
+            ],
+            [
+              -6.81,
+              -16.85
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                14.0,
+                0.0
+              ],
+              "recipient": 1,
+              "recipient_distance": 2.10297,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                0.0,
+                -14.0
+              ],
+              "recipient": 6,
+              "recipient_distance": 2.01249,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -14.0,
+                0.0
+              ],
+              "recipient": 4,
+              "recipient_distance": 4.60341,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                0.0,
+                14.0
+              ],
+              "recipient": 2,
+              "recipient_distance": 4.68236,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "from_first_tower": 63.122,
+          "players": [
+            [
+              11.31,
+              10.95
+            ],
+            [
+              2.5,
+              -11.25
+            ],
+            [
+              -2.72,
+              -10.99
+            ],
+            [
+              -5.53,
+              -10.87
+            ],
+            [
+              2.62,
+              -11.97
+            ],
+            [
+              5.36,
+              -11.3
+            ],
+            [
+              -3.3,
+              -11.15
+            ],
+            [
+              -12.55,
+              13.24
+            ]
+          ],
+          "towers": [
+            {
+              "action": 31584,
+              "helper_center": [
+                -9.9,
+                9.9
+              ],
+              "recipient": 7,
+              "recipient_distance": 4.26358,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31584,
+              "helper_center": [
+                9.9,
+                9.9
+              ],
+              "recipient": 0,
+              "recipient_distance": 1.75801,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                9.9,
+                -9.9
+              ],
+              "recipient": 5,
+              "recipient_distance": 4.75096,
+              "validated": true,
+              "warning": ""
+            },
+            {
+              "action": 31583,
+              "helper_center": [
+                -9.9,
+                -9.9
+              ],
+              "recipient": 3,
+              "recipient_distance": 4.47636,
+              "validated": true,
+              "warning": ""
+            }
+          ]
+        }
+      ],
+      "regression_removals": [
+        {
+          "round": 1,
+          "status_id": 3529,
+          "tower_relative_seconds": 3.662,
+          "positions": [
+            [
+              5.2342,
+              9.95924
+            ],
+            [
+              -4.52429,
+              10.44282
+            ]
+          ],
+          "distance": 9.77046,
+          "sample_gaps_ms": [
+            [
+              267,
+              90
+            ],
+            [
+              491,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 1,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.877,
+          "positions": [
+            [
+              3.0309,
+              -11.53152
+            ],
+            [
+              -5.09049,
+              -10.57424
+            ]
+          ],
+          "distance": 8.17761,
+          "sample_gaps_ms": [
+            [
+              1117,
+              44
+            ],
+            [
+              1251,
+              89
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3529,
+          "tower_relative_seconds": 3.911,
+          "positions": [
+            [
+              -3.45,
+              6.78
+            ],
+            [
+              5.56083,
+              9.17787
+            ]
+          ],
+          "distance": 9.32442,
+          "sample_gaps_ms": [
+            [
+              0,
+              90
+            ],
+            [
+              355,
+              44
+            ]
+          ]
+        },
+        {
+          "round": 2,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.823,
+          "positions": [
+            [
+              -2.63534,
+              -11.77367
+            ],
+            [
+              5.13061,
+              -11.96976
+            ]
+          ],
+          "distance": 7.76843,
+          "sample_gaps_ms": [
+            [
+              401,
+              90
+            ],
+            [
+              668,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3529,
+          "tower_relative_seconds": 4.337,
+          "positions": [
+            [
+              12.44258,
+              -3.86323
+            ],
+            [
+              4.7934,
+              -8.62843
+            ]
+          ],
+          "distance": 9.01205,
+          "sample_gaps_ms": [
+            [
+              1118,
+              91
+            ],
+            [
+              760,
+              91
+            ]
+          ]
+        },
+        {
+          "round": 3,
+          "status_id": 3530,
+          "tower_relative_seconds": 1.698,
+          "positions": [
+            [
+              -5.94691,
+              10.5232
+            ],
+            [
+              -10.77458,
+              4.36547
+            ]
+          ],
+          "distance": 7.82458,
+          "sample_gaps_ms": [
+            [
+              179,
+              90
+            ],
+            [
+              89,
+              90
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3529,
+          "tower_relative_seconds": -1.162,
+          "positions": [
+            [
+              2.62,
+              -11.97
+            ],
+            [
+              -2.72,
+              -10.99
+            ]
+          ],
+          "distance": 5.42918,
+          "sample_gaps_ms": [
+            [
+              179,
+              90
+            ],
+            [
+              45,
+              45
+            ]
+          ]
+        },
+        {
+          "round": 4,
+          "status_id": 3530,
+          "tower_relative_seconds": 2.905,
+          "positions": [
+            [
+              4.25,
+              -6.08
+            ],
+            [
+              -3.59087,
+              -3.5865
+            ]
+          ],
+          "distance": 8.22781,
+          "sample_gaps_ms": [
+            [
+              894,
+              45
+            ],
+            [
+              268,
+              89
+            ]
+          ]
+        }
+      ],
+      "hash_scope": "decompressed JSON bytes"
+    }
+  ],
+  "status_registry": {
+    "smell_sync": 3436,
+    "smell_overflow": 3437,
+    "smell_red": 3438,
+    "smell_blue": 3439,
+    "local_code_smell": 3503,
+    "remote_code_smell": 3441,
+    "sync": 3524,
+    "overflow": 3525,
+    "red": 3526,
+    "blue": 3429,
+    "local_regression": 3529,
+    "remote_regression": 3530,
+    "latent_overflow": 3527,
+    "latent_sync": 3434,
+    "latent_red": 3528,
+    "latent_blue": 3435,
+    "sync_debugger": 3430,
+    "overflow_debugger": 3431,
+    "red_debugger": 3432,
+    "blue_debugger": 3433,
+    "bug_magic_vulnerability": 2941,
+    "patch_magic_vulnerability": 3516,
+    "thrice_come_ruin": 2530
+  },
+  "not_p3": {
+    "delta_regressions": [
+      1672,
+      1673
+    ],
+    "looper": 2534,
+    "note": "Not granted by HW; source registry and captured P3 status IDs distinguish these."
+  }
+}

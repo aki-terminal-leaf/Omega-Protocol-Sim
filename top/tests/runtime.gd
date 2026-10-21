@@ -33,6 +33,7 @@ func run() -> void:
 				while app.running and ticks < 10000:
 					app._process(0.1); ticks += 1
 				courses += 1
+				if "--progress" in OS.get_cmdline_user_args(): print("RUNTIME COURSE ",courses," ",app.encounter.id," method",method," seed",seed_value," failures",app.all_errors.size())
 				if not app.all_errors.is_empty() or app.running:
 					print("RUNTIME FAIL ", app.encounter.id," / ",method," seed ",seed_value, ": ",app.all_errors); errors += 1
 				if "--diagnose" in OS.get_cmdline_user_args() and not app.all_errors.is_empty():
