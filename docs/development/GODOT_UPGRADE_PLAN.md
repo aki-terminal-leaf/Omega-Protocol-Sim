@@ -112,3 +112,21 @@ The initial P1 `--quick` attempt did not narrow that suite and exceeded its
 150-second per-test budget; it was stopped, retained as incomplete, and replaced
 with the supported `--events-only` gate. Existing passing gates were not repeated.
 Full Main/Loop/Windows/Web acceptance is still pending at this checkpoint.
+
+## Platform checkpoint (before final version lock)
+
+Clean sourcefb7fab6 exported using the matching official4.7.2 templates. Web
+requires **web_nothreads_debug.zip and web_nothreads_release.zip** for the
+existing thread_support=false preset; web_release.zip alone is insufficient.
+Native Windows (RX7900XT/OpenGL3.3) physical-key movement, relative mouse, zoom,
+jump and same-seed retry passed. This used supported CLI preselection, not a
+claimed native manual-menu pass. Actual tank/caster F begin+finish and blocked
+D/sprint/Space during real post-cast locks also passed; owned windows were closed.
+All20/86 Main methods passed on4.7.2; original-model tests12+7 passed and actual
+Windows/Web font/model pixels were inspected. Linux exported startup passed.
+Web's actual menu/start/move/pause/orbit/zoom/jump/retry/JSON/new-selection
+assertions passed, but its final console check found one /favicon.ico404.
+An explicit empty data-URL favicon removes that unrelated request; the portable
+smoke script also fixes the inspected menu-row coordinate and Windows UTF-8
+report decoding. Final console-clean Web acceptance follows this correction.
+Native ranged-target UI and a new published release are not claimed.
