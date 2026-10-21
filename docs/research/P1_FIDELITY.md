@@ -1,6 +1,12 @@
 # P1 fidelity implementation and integration handoff
 
-2026-10-21. **Not complete: the exhaustive 6 units/s Loop navigation run still has genuine failures.** Panto and Cannons execute complete schedules and pass their walking matrices. Parent integration now wires all three P1 courses into `Encounters.build` and uses6 units/s. Panto retains its validated0.1s coaching cadence but exposes four meaningful checkpoints. No new release or deployment has occurred. Historical child results below are retained as evidence, not the latest navigation outcome.
+2026-10-21 current parent status: P1 production wiring and6-unit movement are
+integrated; all240 Loop navigation cases were subsequently repaired and passed
+(1102 assertions/0), see [LOOP_NAVIGATION.md](LOOP_NAVIGATION.md). The red Loop
+results below are historical worker checkpoints, not current navigation status.
+Panto/Cannons execute full continuous schedules;4.7.2 P1-event1266/0 and all
+offered Main methods pass. Server contact radius/ownership uncertainty and
+combat-model limits remain; no all-server completeness is asserted.
 
 ## Integration boundary
 
@@ -92,7 +98,7 @@ Run with Godot 4.4.1 console (use a writable explicit log file; default user-log
 ```powershell
 & 'D:/Dev/OpenClawCodexBridge/tools/godot-4.4.1/Godot_v4.4.1-stable_win64_console.exe' --headless --log-file "$env:TEMP/p1-events.log" --path top --script tests/p1_fidelity.gd -- --events-only
 & 'D:/Dev/OpenClawCodexBridge/tools/godot-4.4.1/Godot_v4.4.1-stable_win64_console.exe' --headless --log-file "$env:TEMP/p1-loop.log" --path top --script tests/p1_fidelity.gd -- --loop-only
-# No filter runs both matrices and exits nonzero while Loop failures remain.
+# No filter runs both matrices. Historical failures below were later repaired; see LOOP_NAVIGATION.md.
 # Reproduce a failing course, including actual holder and position snapshots:
 & 'D:/Dev/OpenClawCodexBridge/tools/godot-4.4.1/Godot_v4.4.1-stable_win64_console.exe' --headless --log-file "$env:TEMP/p1-probe.log" --path top --script tests/p1_fidelity.gd -- --loop-probe elemental 8
 ```
@@ -107,7 +113,7 @@ Final unfiltered run after all changes: **1684 assertions, 42 failures**, exit s
 
 Remaining fidelity limits: unresolved pickup radius/line identity and both ownership policies remain explicit; guides do not provide official numeric route coordinates; the Elemental historical immediate-exit variant is not validated; no job-combat HP/invulnerability/healing model; production Main/Encounters wiring and desktop/Web QA are outstanding by design.
 
-## Parent integration checkpoint
+## Historical parent integration checkpoint (before navigation repair)
 
 - All five route menus are exposed for Panto/Cannons, plus CN two lane variants, Aether static/dynamic Cannon and LPDU optional mitigated split tanks. Labels follow the primary sources above.
 - Panto was repacked from323 navigation checkpoints to4 UI stages; dynamic coaching retains the exact validated0.1-second goal cadence. The full1204-event assertion suite still passes.

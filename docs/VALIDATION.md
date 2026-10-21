@@ -124,3 +124,16 @@ Gameplay PCK for nativefb7fab6 and Web1e0a3cb6 is identical:
 `c685ce1dcab84d1d2618e8f742c753c6c7df9caf1555b4a9532109a164b35806`.
 Project baseline now pins4.7.2; remaining fidelity/source gaps are separate
 publication blockers. No original media or raw private logs were staged.
+
+## Ordinary walking consistency —2026-10-21
+
+Removed the last11-unit fallback from `Movement.speed`; ordinary bots across
+all drills now use6 like the human. Explicit logged Sprint still uses7.5.
+Actual Main affected-route matrix338/0:320 Party Synergy courses (all32 clone
+families ×five methods ×two allocations),18 monitors (six methods ×three
+allocations). Maximum measured ordinary speed6.0000169, elapsed51.981s under
+Godot4.7.2. The explicit instant Discharger knockback is not a walking step.
+No geometry, source pattern, snapshot duration, hit check or player movement
+was changed to make this pass. Native/Web acceptance before this increment
+retains its exact earlier source/PCK scope; it is not silently a release test
+of later commits.
