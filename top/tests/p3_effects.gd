@@ -36,4 +36,6 @@ func run()->void:
  app.arena._process(1.0);check(app.arena.p3_pulses.is_empty(),"impact visual has bounded lifetime")
  app.retry_beat();app.arena.update_state(app.actors,app.current,app.player,false,0,app.state);app.arena._process(0.01)
  check(not app.arena.p3_resolved and app.arena.p3_pulses.is_empty() and app.arena.p3_loading.size()==4,"retry restores loading, not stale explosions")
+ app.arena.update_state([],{},app.player,false,0,{})
+ check(app.arena.p3_loading.is_empty() and app.arena.p3_pulses.is_empty(),"returning to selection clears transient P3 effects even without actors")
  app.queue_free();await process_frame;print("P3_EFFECTS checks=",checks," failures=",failures);quit(1 if failures else 0)

@@ -49,3 +49,13 @@ P6遠敏LB的**全寬8／半寬4已修正並有來源解讀支持**，不是仍�
 
 目前只在有具體來源與實作時列選項；不以補滿100格或複製社群名稱冒稱完整。
 完整狀態以 [FIDELITY](FIDELITY.md)、各機制專題與 [VALIDATION](../VALIDATION.md) 為準；引擎／匯出驗收與戰鬥來源不互相替代。
+
+## v0.3.3 regression checkpoint
+
+All100 currently offered methods were audited through actual UI status rows at
+seed17391. All300 Main courses at seeds17391/7/43 pass after fixing the physical
+Aether Omega43 coincident-ray handoff. This expands executed model coverage;
+it does not turn the explicitly partial regional source/temporal evidence above
+into exhaustive original-strategy certification. Actual attack/status packet
+calibration and remaining status scope are listed in
+[MECHANIC_STATUSES](MECHANIC_STATUSES.md).

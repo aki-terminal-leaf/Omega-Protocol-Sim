@@ -287,3 +287,40 @@ are unchanged. No desktop operations or native-window manual acceptance.
 After publication, removed only ignored/regenerable exports and verified matching
 ZIP staging; local game pack, SDKs/templates/version caches, source ZIP/checksums,
 build metadata, reference archive, QA evidence and all user backups remain.
+
+## v0.3.3-preview — exact source and original-media gates (2026-10-22)
+
+- Godot/GDScript/templates4.7.2-stable. All tracked runtime source/data/font-import
+  inputs match the committed tree; the font importer settings were explicitly
+  restored before the final export, rather than reusing default regenerated inputs.
+- All100 offered independent methods: actual live-party status audit260837 checks,
+  zero failures. All300 actual Main courses (three fixed seeds per method), zero
+  failures after the physical coincident-ray handoff repair. This is not100 full
+  regional temporal routes or exhaustive original/server RNG verification.
+- P1 fidelity1746/0; actual status lifecycle13061/0 including packet-duration
+  regressions; party projection110/0; marker71/0; facing ring19/0; actual GUI input
+  routing19/0; source P3 hit-effect17/0. The original-pack P3 gate additionally
+  verifies that both left/right loading nodes use imported game geometry.
+- Final exported WebGL on headless Windows Chrome/D3D11: P1 Ctrl+4 self mark,
+  actual clear, marker popup/Escape, R restart/QE-facing input, unchanged numeric
+  debuffs, game-only view; P3 loading/fire/impact capture/video; P6 Magic Number
+  state/report. Three scenarios, zero console/page errors.
+- Exact final Windows exported executable: headless P6 Meteors30.5 simulation
+  seconds, zero failures, report version0.3.3-preview. Exact Linux exported executable also passed30.5 simulation seconds/0 failures;
+  all three platforms share the independently SHA-verified PCK. Upload integrity
+  is verified during publication; no native desktop/window
+  pixel acceptance is claimed from headless proof.
+- A preliminary visual pass exposed near-camera waymark occlusion. Its images
+  were rejected for the README; the final pass uses smaller/fading glyphs, the
+  more readable wall/monitor patterns, and the exact repository font inputs.
+- Earlier full local300-course process exhausted memory; not counted as a pass.
+  Test scene frees are now serviced between courses; final matrices ran in an
+  isolated Windows source project. Broad ray-separation prototypes regressed
+  larger Omega matrices and were rejected; only latched actual-collapse recovery
+  passes both the original reproducer and the complete854-check Omega gate.
+
+The README GIF is a transcode of the final exported-game recording, not a guide
+movie or hand-authored animation. P3 uses original meshes/textures with a
+reconstructed attachment/material/envelope, not a full direct AVFX runtime.
+Full HP/jobs/deaths, all spawn families, some collision/timing policies and some
+regional temporal routes retain the limitations in FIDELITY.md.

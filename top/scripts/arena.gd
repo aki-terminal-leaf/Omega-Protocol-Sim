@@ -250,6 +250,7 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 	for sign in target_signs:sign.visible=false
 	if actors.size() != 8:
 		aoe.clear_surfaces(); signs.clear_surfaces(); positions_initialized = false
+		clear_p3_effects()
 	update_stage_entities()
 	update_clone_cues()
 	update_camera()
