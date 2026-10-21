@@ -51,3 +51,10 @@ packet identity. Its timer is shown under a neutral name/text fallback, not
 falsely labeled Arms Length on a caster. Empty route labels are not printed as
 blank failure advice. This pre-acceptance review produced a new candidate;
 previous candidate launch evidence is not final platform acceptance.
+
+## v0.3.3 全機制查核
+
+[逐機制狀態表](../research/MECHANIC_STATUSES.md) 列出開始訊號、正確解法
+仍會取得的Debuff，以及真正消除／轉換的效果。原版封包查核與100方法
+模擬覆蓋分開記錄；後者不拿來證明前者。JSON恢復後的浮點actor ID、
+實際Bot疾跑、Brilliant→Spark、機制訊號清除也有驗收。

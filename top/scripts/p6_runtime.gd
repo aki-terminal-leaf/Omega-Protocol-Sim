@@ -129,8 +129,10 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			if not (nearest[0] in [0,1] and nearest[1] in [0,1]): failure(state,"P6 Dive closest two are not tanks",nearest.slice(0,2))
 			for target in nearest.slice(0,2):
 				var caught := Rules.hits({"actor":target,"radius":8.0},actors)
+				for actor in caught:load("res://scripts/statuses.gd").give(state,actor,"magic_vulnerability",2.0)
 				if caught != [target]: failure(state,"P6 Dive radius-8 overlap",caught)
 			var stack := Rules.hits({"actor":nearest[-1],"radius":6.0},actors)
+			for actor in stack:load("res://scripts/statuses.gd").give(state,actor,"magic_vulnerability",2.0)
 			if stack.size()!=6 or 0 in stack or 1 in stack: failure(state,"P6 Dive radius-6 party stack",stack)
 		"spread":
 			for target in targets:

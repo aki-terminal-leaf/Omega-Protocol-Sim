@@ -288,6 +288,7 @@ func party_synergy() -> void:
 			party_effects.append({"actor":member,"key":"remote_glitch" if remote else "mid_glitch","remaining":-1})
 			party_effects.append({"actor":member,"key":"synergy_marker","name":str(symbols[pair_index]),"status_id":0,"icon":0,"remaining":-1,"marker":true})
 	for active_beat in [eye,optical,knock,stacks_beat]: active_beat.party_statuses=party_effects.duplicate(true)
+	stacks_beat.consume_party_signals=party_effects.map(func(raw):return {"actor":raw.actor,"key":raw.key})
 
 func clone_shapes(sword: bool,legs: bool,m_angle:=270.0) -> Array:
 	return Clones.pair_shapes(m_angle,sword,legs)
@@ -657,7 +658,7 @@ func solar_ray() -> void:
 		for i in range(2, 8): positions[i] = Vector2(0, 8)
 		var b = beat("Solar Ray · hit %d/2 · %s" % [turn + 1, ROLES[turn]], 6.0, "Two hits with Magic Vulnerability: swap with V between hits (invuln/HP model not simulated).")
 		b.p5_solar=true
-		b.shapes.append(targeted(turn, 4, 1, "Solar Ray"))
+		var ray:=targeted(turn,4,1,"Solar Ray");ray.hit_status="magic_vulnerability";ray.hit_status_duration=4.0;b.shapes.append(ray)
 		b.checks.append({"kind": "aggro", "actor": turn, "name": "Solar Ray swap"})
 
 func lb_check(item: Dictionary, type: String, actor: int, name: String) -> void:

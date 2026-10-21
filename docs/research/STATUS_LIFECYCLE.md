@@ -14,8 +14,8 @@ inferred by the HUD from a suggested destination.
 - Panto: actual In Line consumed on the actor's missile; each numbered duration
   maps to observed distinct missile and shared-beam packet IDs. Missile / beam
   actual recipients gain short Magic Vulnerability; Cannons gain it as well.
-- Limitless: actual Prey targets; successful Defense recipient gains Physical
-  Vulnerability and Ruin; actual Pitch recipients gain Ruin.
+- Limitless: actual Prey targets; successful Bladedance recipients gain Physical Vulnerability; actual Defense
+  and Pitch recipients gain Ruin.
 - P3 transition: actual sniper statuses and hit-recipient Magic Vulnerability.
 - Hello World: all smells, active bugs, latent conditions, regression effects,
   debugger rewards, short Ruin and magic-vulnerability aliases have identities.
@@ -58,3 +58,23 @@ focused reproducer and the broader geometry/physical matrix. Local monolithic
 300-course process was terminated under memory pressure, not counted as a pass;
 Windows source gates ran in an isolated project. No exported-build acceptance
 or all-region/server-fidelity completion is claimed by this checkpoint.
+
+## Original hit-packet calibration (2026-10-22)
+
+The four complete preserved replays were rejoined by actual recipient and
+calculated-damage/status timestamps. Exact0–2ms neighbors are retained in
+[the anonymous observations](STATUS_ATTACK_OBSERVATIONS.json); wider timing
+neighbors were excluded instead of being treated as causality. This corrected
+P1 Cannon durations: Diffuse31504 grants2s nominal Magic Vulnerability, while
+Wave31505 grants10s, not the reverse. Bladedance32629, not Beyond Defense,
+grants2s Physical Vulnerability. Sigma's reused Storage Violation grants11s
+Ruin. Solar Ray33196/33197 grants4s Magic Vulnerability; P6 Dive31655/31656
+grants2s to actual tank/stack recipients. Omega Blaster32373 grants11s Ruin,
+5s Magic Vulnerability and3s HP Penalty. P6 Flash Gale autoattack packets are
+identified but remain outside the independently-started combo courses.
+
+The later accepted ray repair latches a physical outgoing sidestep only after
+two real short endpoints coincide. It passes the original failing Aether43
+case, all854 Omega assertions/256 clone families and all300 Main courses.
+The100-method actual-status audit passes258705 checks before this final
+packet-duration correction; final exported/source gates are recorded separately.

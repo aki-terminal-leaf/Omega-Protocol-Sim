@@ -60,6 +60,7 @@ static func resolve(event:Dictionary,actors:Array,state:Dictionary)->void:
 			if item.holders.size()!=2:fail(state,"missing actual live tethers")
 			for k in item.holders.size():
 				var holder:=int(item.holders[k]);var caught:=R.hits(P.cone(R.v(c.sources[k]),holder),actors);item.hits.append(caught)
+				for actor in caught:status().give(state,actor,"physical_vulnerability",2.0)
 				if holder>=2:fail(state,"actual tether holder is not a tank",[holder])
 				for actor in caught:
 					if actor>=2:fail(state,"Bladedance clipped non-tank",[actor])
@@ -77,7 +78,6 @@ static func resolve(event:Dictionary,actors:Array,state:Dictionary)->void:
 				item.jumped_source=state.limitless.shield_current.duplicate()
 				if caught!=[target]:fail(state,"Beyond Defense collateral/knockback",caught.filter(func(a):return a!=target))
 				ruin(state,caught)
-				for actor in caught:status().give(state,actor,"physical_vulnerability",2.0)
 		"flares":
 			item.origins=[];item.distances=[];item.hits=[]
 			for target in c.flare_targets:

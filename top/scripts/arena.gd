@@ -2,11 +2,24 @@
 extends Node3D
 const Visuals = preload("res://scripts/visuals.gd")
 const Rules = preload("res://scripts/rules.gd")
+const Markers=preload("res://scripts/markers.gd")
+const DeathWall=preload("res://scripts/death_wall.gd")
+const FacingRing=preload("res://scripts/facing_ring.gd")
+const P3Effects=preload("res://scripts/p3_effects.gd")
+var p3_fx_root:Node3D
+var p3_loading:Array=[]
+var p3_pulses:Array=[]
+var p3_clock:=0.0
+var p3_event_cursor:=0
+var p3_last_time:=-1.0
+var p3_signature:=""
+var p3_resolved:=false
 var camera: Camera3D
 var actor_nodes: Array = []
 var actor_labels: Array = []
 var actor_arrows: Array = []
 var aoe = ImmediateMesh.new()
+var aoe_vertex_count:=0
 var aoe_node = MeshInstance3D.new()
 var signs = ImmediateMesh.new()
 var signs_node = MeshInstance3D.new()
@@ -49,6 +62,10 @@ var status_labels:Array=[]
 var world_icons:Array=[]
 var world_textures:Dictionary={}
 var debuff_icons:Array=[]
+var waymarks:Node3D
+var waymark_signature:=""
+var target_signs:Array=[]
+var death_wall:Node3D
 
 func _ready() -> void:
 	var environment = WorldEnvironment.new()
@@ -76,10 +93,8 @@ func _ready() -> void:
 	camera_floor.add_child(floor_shape); add_child(camera_floor)
 	camera.position.z = camera_size
 	update_camera()
-	for i in 8:
-		var p = Rules.direction(i * 45) * 13
-		Visuals.ring(self, Vector3(p.x, 0.04, p.y), 0.8, 0.035, Color("6f99ac"))
-		var text = Label3D.new(); text.text = ["A", "1", "B", "2", "C", "3", "D", "4"][i]; text.font_size = 80; text.pixel_size = 0.025; text.modulate = [Color("ff6e9b"),Color("ffd480"),Color("ffd480"),Color("8cf0bc"),Color("8cf0bc"),Color("a8adff"),Color("a8adff"),Color("ff6e9b")][i]; text.position = Vector3(p.x, 0.08, p.y); text.rotation_degrees.x = -90; add_child(text)
+	waymarks=Node3D.new();waymarks.name="Waymarks";add_child(waymarks)
+	set_waymarks(Markers.default_layout())
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--scenario="): encounter_id = arg.trim_prefix("--scenario=")
 	set_encounter(encounter_id)
@@ -92,20 +107,27 @@ func _ready() -> void:
 		var icon_id:int=int(source_row.fields.Icon.id)
 		var texture:=original_icon(icon_id)
 		if texture!=null:world_textures[icon_id]=texture
+	for id in Markers.ICONS:
+		var texture:=original_icon(int(id))
+		if texture!=null:world_textures[int(id)]=texture
 	for i in 8:
 		var root = Node3D.new(); add_child(root)
 		var body = Visuals.humanoid(i); root.add_child(body); actor_models.append(body)
 		var label = Label3D.new(); label.billboard = BaseMaterial3D.BILLBOARD_ENABLED; label.font_size = 34; label.pixel_size = 0.028; label.outline_size = 8; label.position.y = 2.3; label.no_depth_test = true; root.add_child(label)
 		var arrow = Node3D.new(); root.add_child(arrow)
-		var cone = PrismMesh.new(); cone.size = Vector3(0.5, 0.05, 0.8)
-		var facing = MeshInstance3D.new(); facing.mesh = cone; facing.position = Vector3(0, 0.12, -0.85); facing.rotation_degrees.x = 180; facing.material_override = mat(Color("fff3b2")); arrow.add_child(facing)
+		arrow.add_child(FacingRing.create(0.8,Color("8fb6d7")))
 		var effects:=Label3D.new();effects.billboard=BaseMaterial3D.BILLBOARD_ENABLED;effects.font_size=29;effects.pixel_size=0.026;effects.outline_size=8;effects.position.y=3.1;effects.no_depth_test=true;root.add_child(effects);status_labels.append(effects)
 		var icon:=Sprite3D.new();icon.billboard=BaseMaterial3D.BILLBOARD_ENABLED;icon.no_depth_test=true;icon.pixel_size=0.034;icon.position.y=4.5;icon.visible=false;root.add_child(icon);world_icons.append(icon)
 		var badges:Array=[]
 		for slot in 3:
 			var badge:=Sprite3D.new();badge.billboard=BaseMaterial3D.BILLBOARD_ENABLED;badge.no_depth_test=true;badge.position=Vector3((slot-1)*1.15,4.0,0);badge.visible=false;root.add_child(badge);badges.append(badge)
 		debuff_icons.append(badges)
+		var sign:=Sprite3D.new();sign.name="ManualTargetSign";sign.billboard=BaseMaterial3D.BILLBOARD_ENABLED;sign.no_depth_test=true;sign.visible=false;sign.position.y=5.0;root.add_child(sign)
+		var fallback:=Label3D.new();fallback.name="Fallback";fallback.billboard=BaseMaterial3D.BILLBOARD_ENABLED;fallback.font_size=42;fallback.pixel_size=0.02;fallback.outline_size=8;sign.add_child(fallback)
+		target_signs.append(sign)
 		actor_nodes.append(root); actor_labels.append(label); actor_arrows.append(arrow)
+
+	p3_fx_root=Node3D.new();p3_fx_root.name="P3ObservedEffects";add_child(p3_fx_root)
 
 func mat(colour: Color) -> StandardMaterial3D:
 	var material = StandardMaterial3D.new(); material.albedo_color = colour; material.roughness = 0.75; return material
@@ -196,6 +218,8 @@ func set_encounter(id: String) -> void:
 		remove_child(boss); boss.queue_free()
 	bosses.clear()
 	last_clone_cue = ""
+	if is_instance_valid(death_wall):remove_child(death_wall);death_wall.queue_free()
+	death_wall=DeathWall.create(int(id.substr(1,1)));add_child(death_wall)
 	if is_instance_valid(floor_node): remove_child(floor_node); floor_node.queue_free()
 	floor_node = Visuals.floor_model(int(id.substr(1,1))); add_child(floor_node)
 	var forms: Array = ["beetle"]
@@ -219,9 +243,11 @@ func screen_to_world(screen: Vector2) -> Vector2:
 	return Vector2(point.x, point.z)
 func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints: bool, elapsed := 0.0, runtime:Dictionary={}) -> void:
 	observed_state=runtime
+	if runtime.has("waymark_layout"):set_waymarks(runtime.waymark_layout)
 	beat_elapsed = elapsed
 	actors = new_actors; current = beat_value; selected_player = player; guide = hints
 	for node in actor_nodes: node.visible = actors.size() == 8
+	for sign in target_signs:sign.visible=false
 	if actors.size() != 8:
 		aoe.clear_surfaces(); signs.clear_surfaces(); positions_initialized = false
 	update_stage_entities()
@@ -239,10 +265,17 @@ func _process(delta: float) -> void:
 		actor_models[i].position.y = float(actors[i].get("height", 0.0))
 		actor_labels[i].position.y = 2.3 + float(actors[i].get("height", 0.0))
 		Visuals.animate(actor_models[i], animation_time + i * 0.5, velocity.length())
-		actor_models[i].rotation.y = lerp_angle(actor_models[i].rotation.y, -deg_to_rad(float(actors[i].face)), 1.0 - exp(-delta * 15))
+		actor_models[i].rotation.y = -deg_to_rad(float(actors[i].face))
 		actor_arrows[i].rotation_degrees.y = -float(actors[i].face)
+		FacingRing.tint(actor_arrows[i].get_child(0),Color("fff3b2") if i==selected_player else Color("8fb6d7"))
 		actor_labels[i].text = ("YOU / " if i == selected_player else "") + actors[i].role + (("\n" + str(current.get("labels", ["", "", "", "", "", "", "", ""])[i])) if guide else "")
 		actor_labels[i].modulate = Color("fff3b2") if i == selected_player else Color("c5d8ee")
+		var marker:=Markers.marker_for(observed_state,i)
+		var target_sign:Sprite3D=target_signs[i];var target_icon:=Markers.icon_id(marker)
+		target_sign.visible=marker!="";target_sign.texture=world_textures.get(target_icon)
+		var fallback:Label3D=target_sign.get_node("Fallback");fallback.text=Markers.title(marker) if target_sign.texture==null else ""
+		target_sign.position.y=(6.7 if overhead else 4.8)+float(actors[i].get("height",0.0))
+		if target_sign.texture!=null:target_sign.pixel_size=(1.45*cue_scale(actor_nodes[i]))/float(target_sign.texture.get_width())
 		var cue:=observed_cue(i)
 		status_labels[i].text=cue.text;status_labels[i].modulate=cue.colour;status_labels[i].position.y=3.1+float(actors[i].get("height",0.0))
 		var icon_id:=int(cue.icon)
@@ -256,6 +289,8 @@ func _process(delta: float) -> void:
 			if badge.visible:
 				badge.texture=world_textures[effect_id];badge.pixel_size=1.0/float(badge.texture.get_width())
 			badge.position=Vector3((slot-(cue.badges.size()-1)*0.5)*1.15,4.0+float(actors[i].get("height",0.0)),0)
+	update_waymark_presentation()
+	update_p3_effects(delta)
 	update_cue_presentation()
 	positions_initialized = true
 	redraw_elapsed += delta
@@ -263,6 +298,8 @@ func _process(delta: float) -> void:
 	redraw_elapsed = 0
 	draw_indicators()
 func vertex(p: Vector2, colour: Color, height := 0.08) -> void:
+	if aoe_vertex_count==0:aoe.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	aoe_vertex_count+=1
 	aoe.surface_set_color(colour); aoe.surface_add_vertex(Vector3(p.x, height, p.y))
 func tri(a: Vector2, b: Vector2, c: Vector2, colour: Color) -> void:
 	vertex(a, colour); vertex(b, colour); vertex(c, colour)
@@ -291,9 +328,10 @@ func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 			var axis = Rules.aim(shape, actors); var degrees = rad_to_deg(atan2(axis.x, -axis.y)); var span = 180.0 if shape.kind == "half" else float(shape.get("width", 90))
 			disk(p, 0, float(shape.get("radius", 40)), colour, degrees - span / 2, span)
 func draw_indicators() -> void:
-	aoe.clear_surfaces(); aoe.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	aoe.clear_surfaces(); aoe_vertex_count=0
 	for shape in current.get("shapes", []): draw_shape(shape)
-	for source in current.get("monitors", []): draw_shape(source, Color(0.25, 0.55, 1, 0.13))
+	if guide:
+		for source in current.get("monitors", []): draw_shape(source, Color(0.25, 0.55, 1, 0.13))
 	var tethers: Array = current.get("tethers", [])
 	if current.get("program_loop", {}) is Dictionary and current.get("program_loop", {}).has("holders"):
 		tethers = [] # Live ownership supersedes the legacy preset list for Program Loop.
@@ -315,9 +353,7 @@ func draw_indicators() -> void:
 	if guide and current.has("positions"):
 		var goal = Rules.v(current.positions[selected_player])
 		disk(goal, 0, 0.8, Color(0.25, 1, 0.72, 0.8)); disk(goal, 1.05, 1.2, Color(0.25, 1, 0.72, 0.8))
-	var player_pos = Rules.v(actors[selected_player].pos)
-	disk(player_pos, 0.65, 0.8, Color(1, 0.92, 0.55, 0.9))
-	aoe.surface_end()
+	if aoe_vertex_count>0:aoe.surface_end()
 	draw_signs(tethers)
 
 # Thin world-space lines avoid transparent cylinder overdraw in Compatibility.
@@ -466,3 +502,72 @@ func observed_cue(actor:int)->Dictionary:
 func add_status_badge(result:Dictionary,buffs:Dictionary,key:String,icon_id:int,title:String,now:float)->void:
 	if result.badges.size()>=3 or not buffs.has(key) or float(buffs[key].expires)<=now:return
 	result.badges.append({"icon":icon_id,"label":title,"remaining":float(buffs[key].expires)-now})
+
+func set_waymarks(layout:Dictionary)->void:
+	var signature:=JSON.stringify(layout)
+	if signature==waymark_signature or not is_instance_valid(waymarks):return
+	var checked:=Markers.validate_layout(layout)
+	if not checked.ok:return
+	waymark_signature=signature
+	for node in waymarks.get_children():waymarks.remove_child(node);node.queue_free()
+	for mark in checked.layout.marks:
+		if not mark.enabled:continue
+		var index:=Markers.WAYMARK_IDS.find(str(mark.id));var colour:=Color(Markers.COLOURS[index])
+		var anchor:=Node3D.new();anchor.name="Waymark"+str(mark.id);anchor.position=Vector3(float(mark.pos[0]),0.06,float(mark.pos[1]));waymarks.add_child(anchor)
+		Visuals.ring(anchor,Vector3.ZERO,0.8,0.035,colour)
+		var path:="res://assets/official/markers/"+str(Markers.GLYPHS[index])+".png"
+		var texture:Texture2D
+		if ResourceLoader.exists(path):texture=load(path) as Texture2D
+		elif FileAccess.file_exists(path):texture=ImageTexture.create_from_image(Image.load_from_file(path))
+		if texture!=null:
+			var glyph:=Sprite3D.new();glyph.name="OriginalGlyph";glyph.texture=texture;glyph.billboard=BaseMaterial3D.BILLBOARD_ENABLED;glyph.pixel_size=0.008;glyph.position.y=1.02;anchor.add_child(glyph)
+		else:
+			var text:=Label3D.new();text.text=str(mark.id);text.font_size=80;text.pixel_size=0.025;text.modulate=colour;text.position.y=0.03;text.rotation_degrees.x=-90;anchor.add_child(text)
+
+func clear_p3_effects()->void:
+	if is_instance_valid(p3_fx_root):
+		for child in p3_fx_root.get_children():p3_fx_root.remove_child(child);child.queue_free()
+	p3_loading=[];p3_pulses=[];p3_signature="";p3_event_cursor=0;p3_last_time=-1.0;p3_resolved=false
+func update_p3_effects(delta:float)->void:
+	if not is_instance_valid(p3_fx_root):return
+	p3_clock+=delta
+	if encounter_id!="p3_monitors" or actors.size()!=8:
+		if p3_loading.size()+p3_pulses.size()>0:clear_p3_effects()
+		return
+	var now:=float(observed_state.get("sim_time",0))
+	if now<p3_last_time-0.001:clear_p3_effects()
+	p3_last_time=now
+	var timeline:Array=observed_state.get("timeline",[])
+	if p3_event_cursor>timeline.size():clear_p3_effects()
+	for entry in timeline.slice(p3_event_cursor):
+		if str(entry.get("kind",""))!="monitor_resolution":continue
+		p3_resolved=true
+		for source in entry.get("sources",[]):
+			for j in source.get("target_positions",[]).size():
+				var effect:=P3Effects.pulse(Rules.v(source.origin),Rules.v(source.target_positions[j]),int(source.source_actor))
+				effect.set_meta("born",p3_clock);p3_fx_root.add_child(effect);p3_pulses.append(effect)
+	p3_event_cursor=timeline.size()
+	var sources:Array=current.get("monitors",[])
+	var signature:=JSON.stringify(sources.map(func(source):return [source.get("actor",-1),source.get("offset",source.get("angle",0))]))
+	if signature!=p3_signature:
+		for node in p3_loading:p3_fx_root.remove_child(node);node.queue_free()
+		p3_loading=[];p3_signature=signature
+		for source in sources:
+			var angle:float=float(source.get("offset",wrapf(float(source.get("angle",0)),-180,180)))
+			var node:=P3Effects.loading(-1 if angle<0 else 1);p3_fx_root.add_child(node);p3_loading.append(node)
+	for i in sources.size():
+		var source:Dictionary=sources[i];var point:=Rules.point(source,actors);var axis:=Rules.aim(source,actors);var actor:=int(source.get("actor",-1))
+		var node:Node3D=p3_loading[i];node.visible=not p3_resolved and actor not in observed_state.get("dead",[])
+		node.position=Vector3(point.x,3.0 if actor<0 else 1.4+float(actors[actor].get("height",0)),point.y)+Vector3(axis.x,0,axis.y)*0.35
+		node.rotation_degrees.y=-rad_to_deg(atan2(axis.x,-axis.y));node.scale=Vector3.ONE*(1.2 if actor<0 else 0.65)
+	for node in p3_pulses.duplicate():
+		if not P3Effects.envelope(node,p3_clock-float(node.get_meta("born"))):
+			p3_pulses.erase(node);p3_fx_root.remove_child(node);node.queue_free()
+
+func update_waymark_presentation()->void:
+	if not is_instance_valid(waymarks) or not is_instance_valid(camera):return
+	for anchor in waymarks.get_children():
+		for glyph in anchor.get_children():
+			if glyph is Sprite3D:
+				var distance:float=camera.global_position.distance_to(glyph.global_position)
+				glyph.modulate=Color(1,1,1,clampf((distance-2.7)/2.0,0,1)*0.85)

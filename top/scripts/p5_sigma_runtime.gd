@@ -42,6 +42,8 @@ static func begin(beat: Dictionary,state: Dictionary) -> void:
 	if state.get("sigma",{}).get("id","")!=str(c.id):
 		state.sigma={"id":str(c.id),"origin":float(state.get("sim_time",0)),"given":false,"expired":false,"cleansed":[false,false,false,false,false,false,false,false],"roles":[],"history":[]}
 		for actor in 8:status().give(state,actor,"remote_glitch" if c.remote else "mid_glitch",32.0)
+		status().give(state,int(c.near),"near_world",56.0)
+		status().give(state,int(c.far),"distant_world",56.0)
 	if beat.has("sigma_path_index"):
 		if state.sigma.roles.is_empty():
 			state.sigma.roles=allocation(c,state.dynamis)
@@ -77,7 +79,7 @@ static func snapshot(beat: Dictionary,actors: Array,state: Dictionary) -> Array:
 				else:state.sigma.cleansed[actor]=true;state.statuses[actor].erase("looper")
 				var old:Dictionary=state.statuses[actor].get("twice_come_ruin",{})
 				var stacks:=int(old.get("stacks",0))+1 if float(old.get("expires",0))>now else 1
-				state.statuses[actor].twice_come_ruin={"expires":now+7.0,"stacks":stacks}
+				state.statuses[actor].twice_come_ruin={"expires":now+11.0,"stacks":stacks}
 				if stacks>=2:errors.append("Sigma Twice-come Ruin x2 -> Doom")
 		status().event(state,"sigma_towers",{"cleansed":state.sigma.cleansed.duplicate()})
 	if beat.get("sigma_magic_hits",false):

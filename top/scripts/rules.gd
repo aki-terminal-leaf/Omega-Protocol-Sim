@@ -126,7 +126,11 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 					if actor not in state.blaster_victims: state.blaster_victims.append(actor)
 				if caught.size() != 1: failures.append("Omega Blaster clipped another player")
 				if state.has("statuses"):
-					for actor in caught: load("res://scripts/statuses.gd").give(state,actor,"hp_penalty",float(load("res://scripts/statuses.gd").parameter("omega_hp_penalty_duration")))
+					for actor in caught:
+						var status=load("res://scripts/statuses.gd")
+						status.give(state,actor,"hp_penalty",float(status.parameter("omega_hp_penalty_duration")))
+						status.give(state,actor,"magic_vulnerability",5.0)
+						status.give(state,actor,"twice_come_ruin",11.0)
 			"blaster":
 				for actor in caught:
 					apply_loop_ruin(actor, state, actors, failures, "Blaster")
@@ -148,7 +152,7 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 					for target in targets:
 						for actor in hits({"actor":target,"radius":float(check.get("splash_radius",7.0))},actors):
 							if actor not in state.dead:coverage[actor]+=1
-					resolutions.append({"source_actor":source.get("actor",-1),"candidates":candidates,"targets":targets})
+					resolutions.append({"source_actor":source.get("actor",-1),"origin":[point(source,actors).x,point(source,actors).y],"candidates":candidates,"targets":targets,"target_positions":targets.map(func(target):return [v(actors[int(target)].pos).x,v(actors[int(target)].pos).y])})
 				for i in actors.size():
 					if i not in state.dead and coverage[i]!=1:failures.append("%s: %s hit %d times (targeting + radius7 splash)"%[name,actors[i].role,coverage[i]])
 				for i in actors.size():
@@ -230,6 +234,11 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 		for actor in state.get("loop_memory_loss",[]): failures.append("%s: Looper expired → Memory Loss" % actors[int(actor)].role)
 	if beat.has("sigma_config"):failures.append_array(load("res://scripts/p5_sigma_runtime.gd").snapshot(beat,actors,state))
 	if beat.has("omega_config"):failures.append_array(load("res://scripts/p5_omega_runtime.gd").snapshot(beat,actors,state))
+	for raw in beat.get("consume_party_signals",[]):
+		if not state.has("consumed_party_signals"):state.consumed_party_signals={}
+		var actor:=str(int(raw.actor))
+		if not state.consumed_party_signals.has(actor):state.consumed_party_signals[actor]=[]
+		if str(raw.key) not in state.consumed_party_signals[actor]:state.consumed_party_signals[actor].append(str(raw.key))
 	return failures
 
 static func ensure_loop_state(beat: Dictionary, state: Dictionary) -> void:

@@ -83,7 +83,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			for raw in event.targets:
 				var target:=int(raw); var caught:=Rules.hits(Patterns.beam(target),actors)
 				record.hits.append(caught)
-				for actor in caught: status.give(state,actor,"magic_vulnerability",2.0)
+				for actor in caught: status.give(state,actor,"magic_vulnerability",10.0)
 				if caught!=[target]: fail(state,"P1 Wave Cannon %d clips %s" % [target,str(caught)],caught)
 		"cleaves":
 			var ranked:=range(actors.size())
@@ -93,7 +93,7 @@ static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void
 			for target in record.targets:
 				var shape: Dictionary={"kind":"cone","pos":[0,0],"target":target,"width":120.0,"radius":60.0}
 				var caught:=Rules.hits(shape,actors); record.hits.append(caught); record.aims.append(Patterns.xy(Rules.aim(shape,actors)))
-				for actor in caught: status.give(state,actor,"magic_vulnerability",10.0)
+				for actor in caught: status.give(state,actor,"magic_vulnerability",2.0)
 				for actor in caught:
 					if actor>=2: fail(state,"P1 tank cleave hit non-tank %d" % actor,[actor])
 			record.damage_model="role and geometry only; invulnerability/mitigation HP unmodeled"

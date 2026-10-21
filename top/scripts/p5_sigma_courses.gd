@@ -125,6 +125,12 @@ static func append_sigma(ctx) -> void:
 		if pulse==2:b.sigma_finish=true
 	for i in range(start,ctx.beats.size()):
 		var item:Dictionary=ctx.beats[i]
+		if i<start+3:
+			item.party_statuses=[]
+			for p in pair_actors.size():
+				for actor in pair_actors[p]:item.party_statuses.append({"actor":int(actor),"key":"sigma_pair_marker","name":str(ctx.profile.shapes[p]),"icon":0,"status_id":0,"marker":true,"remaining":-1})
+			if i==start+1:
+				for actor in marked:item.party_statuses.append({"actor":int(actor),"key":"sigma_cannon_marker","name":"炮標","icon":0,"status_id":0,"marker":true,"remaining":-1})
 		if not item.has("stage_entities"):
 			item.stage_entities=[{"form":"male_p5","pos":R.direction(m_angle)*20,"facing":m_angle+180}];item.hide_main_boss=true
 static func shot_index(time: float) -> int:

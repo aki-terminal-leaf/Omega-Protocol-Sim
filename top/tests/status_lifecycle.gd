@@ -52,6 +52,23 @@ func run()->void:
 		choose(app,scenario);app.demo=true;app.start_run()
 		var rows:=Party.rows(app.actors,app.state,app.current)
 		for actor in 8:check(item(rows,actor,"brilliant_dynamis").icon==215143 and item(rows,actor,"dynamis").is_empty(),"post-Memory standalone combo starts with actual Brilliant snapshot")
+	choose(app,"p1_cannons");app.demo=true;app.start_run();app.stop_failure.button_pressed=false;app._process(6.0001)
+	var cannon_rows:=Party.rows(app.actors,app.state,app.current);var long_cannons:=0
+	for actor in 8:
+		var effect:=item(cannon_rows,actor,"magic_vulnerability")
+		if actor<2:check(not effect.is_empty() and absf(float(effect.remaining)-2.0)<0.01,"Diffuse31504 actual tank vulnerability2s")
+		elif not effect.is_empty():long_cannons+=1;check(absf(float(effect.remaining)-10.0)<0.01,"Wave31505 marked non-tank vulnerability10s")
+	check(long_cannons==3,"only three actual cannon recipients have long vulnerability")
+	choose(app,"p5_solar");app.demo=true;app.start_run();app.stop_failure.button_pressed=false;app._process(6.0001)
+	var solar_rows:=Party.rows(app.actors,app.state,app.current)
+	check(not item(solar_rows,0,"magic_vulnerability").is_empty() and absf(float(item(solar_rows,0,"magic_vulnerability").remaining)-4.0)<0.01 and item(solar_rows,1,"magic_vulnerability").is_empty(),"Solar Ray actual first tank receives4s vulnerability")
+	choose(app,"p5_sigma");app.demo=true;app.start_run();app.stop_failure.button_pressed=false;app._process(31.8001)
+	var sigma_rows:=Party.rows(app.actors,app.state,app.current)
+	for actor in 8:check(not item(sigma_rows,actor,"twice_come_ruin").is_empty() and absf(float(item(sigma_rows,actor,"twice_come_ruin").remaining)-11.0)<0.01,"Sigma tower actual Ruin11s")
+	choose(app,"p6_arrow_dive");app.demo=true;app.start_run();app.stop_failure.button_pressed=false
+	while app.running:app._process(0.1)
+	var dive_rows:=Party.rows(app.actors,app.state,app.current)
+	for actor in 8:check(not item(dive_rows,actor,"magic_vulnerability").is_empty() and float(item(dive_rows,actor,"magic_vulnerability").remaining)<=2.0,"Cosmo Dive actual tank + stack recipients gain vulnerability")
 	# Projection survives JSON restore and permanent debugger rewards have no fake countdown.
 	var copy:Dictionary=JSON.parse_string(JSON.stringify(app.state))
 	copy.statuses[0].blue_debugger={"expires":9999.0};copy.sim_time=1.0

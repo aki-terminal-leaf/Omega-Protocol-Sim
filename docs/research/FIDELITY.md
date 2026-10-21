@@ -85,3 +85,16 @@ Those three shader-only meshes are now intentionally omitted rather than coverin
 the original scene with white sheets. Original BG diffuse tint constants are
 preserved in the PBR conversion; all source shader constants remain in GLB extras.
 This does not implement original fog, weather or dynamic shader effects.
+
+## v0.3.3 狀態與呈現增量
+
+逐攻擊成功Debuff已補入並以四份完整紀錄的同對象封包核對，見
+[逐機制狀態表](MECHANIC_STATUSES.md)。Program Loop實際數字狀態、
+P1各炮易傷、Solar Ray與Dive、Sigma塔Ruin、Omega Blaster及Spark均有
+實際運行／解除／消耗。300組Main流程、100個現有選項的實際UI狀態覆蓋
+已通過；不是補齊所有區服時序／原始spawn／完整HP職業系統的宣告。
+
+手動標記與場地配置獨立於戰鬥判定；death wall加入與半徑20對齊的可見
+物件，但不是完整原版邊界AVFX。身位環與模型朝向同步。P3檢知使用
+原版左右充能網格及相關貼圖重建，來源、事件綁定及完整AVFX播放器
+仍未完成的差異見[P3_EFFECTS](P3_EFFECTS.md)。

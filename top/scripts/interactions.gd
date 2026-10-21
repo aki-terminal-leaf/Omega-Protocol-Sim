@@ -22,6 +22,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 		state.tether_contacts = [[], []]
 		state.tether_events = state.get("tether_events", [])
 		state.tether_routes = {}
+		state.blaster_retire_goals = {}
 		state.tether_active_at = float(state.get("sim_time",0))+float(config.get("activation_delay",0))
 	sync(beat, state)
 	# A new wave does not assign a new owner: previous owners keep their lines.
@@ -256,6 +257,16 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 			# to circle the arena; shortening a ray cannot sweep it across anyone.
 			var source:Vector2=beat.transfers.sources[holders.find(actor)]
 			var toward:Vector2=source+(pos-source).limit_length(3.0)
+			if not beat.has("program_loop") and holders.size()==2:
+				var cache:Dictionary=state.get("blaster_retire_goals",{})
+				if not cache.has(str(actor)) and Rules.v(actors[int(holders[0])].pos).distance_to(Rules.v(actors[int(holders[1])].pos))<0.05 and pos.distance_to(source)<4.0:
+					# Latch an exposed side only for an actual collapsed endpoint.
+					# A one-frame sidestep would immediately chase the short ray back.
+					var slot:int=holders.find(actor)
+					var side:Vector2=(Rules.v(beat.positions[int(wanted[slot])])-source).normalized()
+					var point:=source+side*3.0
+					cache[str(actor)]=[point.x,point.y];state.blaster_retire_goals=cache
+				if cache.has(str(actor)):toward=Rules.v(cache[str(actor)])
 			var other_lines:Array=[]
 			for k in holders.size():
 				if obey_other_lines and int(holders[k])!=actor:other_lines.append([beat.transfers.sources[k],actors[int(holders[k])].pos])

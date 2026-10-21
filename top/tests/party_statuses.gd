@@ -49,6 +49,11 @@ func run()->void:
 	check(item(rows,4,"arms_length").status_id==0 and item(rows,4,"arms_length").name=="Knockback Resistance","generic immunity does not pretend a job-specific Arms Length/Surecast packet")
 	state.dead=[2];rows=Party.rows(actors,state);check(rows[2].dead and rows[2].effects.is_empty(),"KO member identified without pretending statuses persist")
 	state.sim_time=27.0;rows=Party.rows(actors,state);check(item(rows,7,"tank_lb_war").is_empty() and item(rows,3,"magic_number").is_empty(),"LB buff and Magic Number expiry")
+	state.sim_time=20.0;state.p6_lb.sparks=[1.0];state.p6_lb.doom=[{"targets":[4.0],"expires":25.0}];state.dead=[2.0];state.bot_sprint_until=[0,0,0,0,0,0,0,23.0]
+	var copy:Dictionary=JSON.parse_string(JSON.stringify(state));rows=Party.rows(actors,copy)
+	check(item(rows,1,"spark_dynamis").status_id==3448 and item(rows,4,"magic_number").remaining==5.0 and rows[2].dead,"JSON float IDs preserve actual Spark/Doom/KO projection")
+	check(item(rows,7,"sprint").remaining==3.0,"actual bot Sprint buff shown as well as player Sprint")
+	copy.statuses[0].blue_debugger={"expires":19.0};check(item(Party.rows(actors,copy),0,"blue_debugger").is_empty(),"expired permanent-status tombstone does not resurrect reward")
 	var app=Main.instantiate();root.add_child(app);await process_frame;app.set_process(false)
 	choose(app,"p1_loop");app.start_run();app.hints.button_pressed=true
 	app.current.labels=[]

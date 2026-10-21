@@ -25,6 +25,9 @@ func mouse(position: Vector2, pressed: bool, button_index := MOUSE_BUTTON_LEFT) 
 	await process_frame
 
 func click(control: Control) -> void:
+	# Container layout is deferred after visibility changes; click the painted
+	# position, not the previous hidden-row rectangle before the next frame.
+	await process_frame
 	var point := control.get_global_rect().get_center()
 	await mouse(point, true); await mouse(point, false)
 	await process_frame

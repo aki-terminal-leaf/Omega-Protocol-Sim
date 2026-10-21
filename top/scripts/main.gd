@@ -7,6 +7,14 @@ const Encounter = preload("res://scripts/encounters.gd")
 const Rules = preload("res://scripts/rules.gd")
 const Arena = preload("res://scripts/arena.gd")
 const Interactions = preload("res://scripts/interactions.gd")
+const Markers=preload("res://scripts/markers.gd")
+var waymark_layout:Dictionary=Markers.default_layout()
+var marker_popup:PopupPanel
+var marker_type:OptionButton
+var marker_target:OptionButton
+var marker_note:Label
+var waymark_dialog:ConfirmationDialog
+var waymark_text:TextEdit
 var catalog: Array = []
 var strategies: Array = []
 var filtered: Array = []
@@ -167,6 +175,7 @@ func build_ui() -> void:
 	header.add_child(label("Ω  OMEGA PROTOCOL", 26, Color("8ce3d1")))
 	var subtitle = label("PRACTICE LAB  /  v0.3 preview", 14, Color("8096b4")); subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
 	header.add_child(button("攻略來源", show_research))
+	header.add_child(button("場地標記",show_waymark_settings))
 	var return_view := button("回到練習", return_practice_view)
 	header.add_child(return_view); launch_buttons.append(return_view)
 	var body = HBoxContainer.new(); body.add_theme_constant_override("separation", 12); body.size_flags_vertical = Control.SIZE_EXPAND_FILL; root.add_child(body)
@@ -239,6 +248,7 @@ func build_ui() -> void:
 	custom_text = TextEdit.new(); custom_text.custom_minimum_size = Vector2(700, 420); custom_dialog.add_child(custom_text); custom_dialog.confirmed.connect(apply_custom)
 	save_dialog = FileDialog.new(); save_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE; save_dialog.access = FileDialog.ACCESS_FILESYSTEM; save_dialog.filters = PackedStringArray(["*.json ; Practice report"]); save_dialog.file_selected.connect(func(path): var f = FileAccess.open(path, FileAccess.WRITE); f.store_string(report_text); status.text = "已儲存：" + path); add_child(save_dialog)
 	build_practice_presentation()
+	build_marker_controls()
 
 func filter_catalog() -> void:
 	filtered = []; scenario_list.clear()
@@ -392,6 +402,7 @@ func begin_beat(reset_positions := false) -> void:
 			actors.append({"role": Encounter.ROLES[i], "pos": p, "face": 0.0})
 	P6Setup.initialize(state,actors,encounter.id,player if not demo else -1,selected_job(),player)
 	bind_snapshot_geometry(current,actors,state)
+	Markers.ensure(state);state.waymark_layout=waymark_layout.duplicate(true)
 	Interactions.begin(current, actors, state)
 	Movement.begin(current,state,player if not demo else -1)
 	if current.has("program_loop"): Rules.ensure_loop_state(current, state)
@@ -534,11 +545,17 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_TAB and practice_view and not (get_viewport().gui_get_focus_owner() is LineEdit):
 		training_overlay = not training_overlay; sync_practice_hud(); get_viewport().set_input_as_handled()
 	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE:
+		if is_instance_valid(marker_popup) and marker_popup.visible:
+			marker_popup.hide();get_viewport().set_input_as_handled();return
 		camera_buttons = 0; Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		if practice_view: open_practice_settings()
 func _unhandled_key_input(event: InputEvent) -> void:
 	if get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit: return
 	if not event is InputEventKey or not event.pressed or event.echo: return
+	if event.shift_pressed and event.physical_keycode==KEY_R:
+		demo=true;start_run();return
+	if event.ctrl_pressed and event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_8:
+		apply_target_marker(player,"attack%d"%(event.physical_keycode-KEY_1+1));return
 	match event.physical_keycode:
 		KEY_SPACE, KEY_L: jump_player()
 		KEY_P: toggle_pause()
@@ -548,6 +565,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_R: demo = false; start_run()
 		KEY_F: use_lb()
 		KEY_V: provoke()
+		KEY_B: show_target_markers()
+		KEY_M: apply_target_marker(player,str(Markers.IDS[marker_type.selected]))
+		KEY_N: next_self_marker()
+		KEY_BACKSPACE: apply_target_marker(player,"")
 func jump_player() -> void:
 	if can_act() and actors.size() == 8 and float(actors[player].get("height",0.0)) == 0: actors[player].vertical = 13.0
 func use_sprint() -> void:
@@ -656,7 +677,7 @@ func update_hud() -> void:
 	update_lb_controls()
 	sync_practice_hud()
 func report() -> Dictionary:
-	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func report_runtime_state() -> Dictionary:
 	var result:Dictionary=state.duplicate(true)
 	result.erase("timeline") #the authoritative top-level timeline is already exported
@@ -717,10 +738,16 @@ func save_settings() -> void:
 	var config = ConfigFile.new()
 	config.set_value("settings", "role", player); config.set_value("settings", "hints", hints.button_pressed); config.set_value("settings", "seed", seed_edit.text)
 	if strategies[-1].id == "custom": config.set_value("settings", "custom", strategies[-1])
+	config.set_value("settings","waymarks",waymark_layout)
+	if is_instance_valid(marker_type):config.set_value("settings","self_marker",marker_type.selected)
 	config.save("user://settings.cfg")
 func load_settings() -> void:
 	var config = ConfigFile.new()
 	if config.load("user://settings.cfg") != OK: return
+	var checked:=Markers.validate_layout(config.get_value("settings","waymarks",waymark_layout))
+	if checked.ok:waymark_layout=checked.layout
+	if is_instance_valid(arena):arena.set_waymarks(waymark_layout)
+	if is_instance_valid(marker_type):marker_type.select(clampi(int(config.get_value("settings","self_marker",0)),0,16))
 	if config.has_section_key("settings", "custom"):
 		var p: Dictionary = config.get_value("settings", "custom"); strategies.append(p)
 	role_select.select(clampi(int(config.get_value("settings", "role", 4)), 0, 7)); hints.button_pressed = bool(config.get_value("settings", "hints", false)); seed_edit.text = str(config.get_value("settings", "seed", "1"))
@@ -757,6 +784,8 @@ func build_practice_presentation() -> void:
 	hud_menu = menu; training_widgets.append(menu)
 	practice_root.add_child(menu); menu.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	menu.offset_left = -116; menu.offset_right = -12; menu.offset_top = 12; menu.offset_bottom = 50
+	var mark_button:=button("標記 B",show_target_markers);practice_root.add_child(mark_button);training_widgets.append(mark_button)
+	mark_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);mark_button.offset_left=-116;mark_button.offset_right=-12;mark_button.offset_top=56;mark_button.offset_bottom=94
 	var roster := hud_panel(practice_root,Control.PRESET_TOP_LEFT,Rect2(12,16,310,390))
 	hud_party = VBoxContainer.new(); hud_party.mouse_filter=Control.MOUSE_FILTER_IGNORE; roster.add_child(hud_party)
 	hud_party.add_theme_constant_override("separation",3)
@@ -764,8 +793,10 @@ func build_practice_presentation() -> void:
 	for i in 8:
 		var row := HBoxContainer.new(); row.custom_minimum_size.y=43; row.mouse_filter=Control.MOUSE_FILTER_IGNORE; hud_party.add_child(row)
 		var role := label("",13); role.custom_minimum_size.x=44; role.mouse_filter=Control.MOUSE_FILTER_IGNORE; row.add_child(role)
+		var sign:=TextureRect.new();sign.name="TargetSign";sign.custom_minimum_size=Vector2(24,26);sign.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;sign.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;row.add_child(sign)
+		var sign_fallback:=label("",10);sign_fallback.custom_minimum_size.x=0;row.add_child(sign_fallback)
 		var effects := HFlowContainer.new(); effects.size_flags_horizontal=Control.SIZE_EXPAND_FILL; effects.add_theme_constant_override("h_separation",3); effects.mouse_filter=Control.MOUSE_FILTER_IGNORE; row.add_child(effects)
-		hud_party_rows.append({"role":role,"effects":effects,"signature":"","slots":[]})
+		hud_party_rows.append({"role":role,"marker":sign,"marker_fallback":sign_fallback,"effects":effects,"signature":"","slots":[]})
 	hud_feedback_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_LEFT,Rect2(12,-242,350,128))
 	hud_feedback = RichTextLabel.new(); hud_feedback.bbcode_enabled = true; hud_feedback.custom_minimum_size = Vector2(330,104); hud_feedback.scroll_active = true; hud_feedback_panel.add_child(hud_feedback)
 	hud_bottom_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_WIDE,Rect2(12,-104,-24,94))
@@ -868,6 +899,9 @@ func sync_party_status_hud() -> void:
 	var rows := observed_party()
 	for i in rows.size():
 		var data:Dictionary=rows[i]; var widgets:Dictionary=hud_party_rows[i]
+		var marker:=Markers.marker_for(state,i);var marker_texture:=party_icon(Markers.icon_id(marker))
+		widgets.marker.texture=marker_texture;widgets.marker.visible=marker!="" and marker_texture!=null;widgets.marker.tooltip_text=Markers.title(marker)
+		widgets.marker_fallback.text=Markers.title(marker) if marker!="" and marker_texture==null else ""
 		widgets.role.text=("▶ " if i==player else "")+str(data.role)+( " KO" if data.dead else "")
 		widgets.role.modulate=Color("fff0a7") if i==player else Color("d2dded")
 		var signature:=JSON.stringify(data.effects.map(func(item):return [item.key,item.icon,item.name]))
@@ -888,3 +922,54 @@ func sync_party_status_hud() -> void:
 			var item:Dictionary=data.effects[j];var slot:Dictionary=widgets.slots[j]
 			slot.slot.tooltip_text=PartyStatuses.format_effect(item)
 			slot.timer.text=(str(int(ceil(float(item.remaining))))+"s" if float(item.remaining)>=0 else "")+(" x%d"%int(item.stacks) if int(item.stacks)>1 else "")
+
+func build_marker_controls()->void:
+	marker_popup=PopupPanel.new();marker_popup.name="TargetMarkers";add_child(marker_popup)
+	var box:=VBoxContainer.new();box.custom_minimum_size.x=300;marker_popup.add_child(box)
+	box.add_child(label("目標標記",17))
+	marker_target=option(Encounter.ROLES);box.add_child(marker_target)
+	marker_type=option(Markers.LABELS);box.add_child(marker_type)
+	marker_type.item_selected.connect(func(_i):save_settings())
+	box.add_child(button("對選定隊友上標",func():apply_target_marker(marker_target.selected,str(Markers.IDS[marker_type.selected]))))
+	box.add_child(button("對自己上標  M",func():apply_target_marker(player,str(Markers.IDS[marker_type.selected]))))
+	box.add_child(button("自己下一個空號  N",next_self_marker))
+	box.add_child(button("清除選定隊友標記",func():apply_target_marker(marker_target.selected,"")))
+	box.add_child(button("關閉",marker_popup.hide))
+	marker_note=label("M 自標 · N 下一空號 · Backspace 清自標
+Ctrl+1–8 對自己上攻擊編號",12);marker_note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;box.add_child(marker_note)
+	waymark_dialog=ConfirmationDialog.new();waymark_dialog.title="場地標記配置";waymark_dialog.size=Vector2i(720,590);add_child(waymark_dialog)
+	var content:=VBoxContainer.new();waymark_dialog.add_child(content)
+	var presets:=HBoxContainer.new();content.add_child(presets)
+	for preset in [["通用八標",13.0],["外圈八標",18.0]]:
+		var radius:=float(preset[1]);presets.add_child(button(str(preset[0]),func():waymark_text.text=JSON.stringify(Markers.default_layout(radius),"  ")))
+	presets.add_child(button("不顯示",func():waymark_text.text=JSON.stringify({"schema":1,"name":"不顯示","marks":[]},"  ")))
+	content.add_child(label("可修改各標記 X/Z；配置僅改標記，不改機制或攻略。",13))
+	waymark_text=TextEdit.new();waymark_text.custom_minimum_size=Vector2(680,440);content.add_child(waymark_text)
+	waymark_dialog.confirmed.connect(apply_waymark_settings)
+func show_target_markers()->void:
+	if not practice_view or actors.size()!=8:return
+	marker_target.select(player);marker_popup.popup_centered(Vector2i(320,450))
+func apply_target_marker(target:int,marker:String)->void:
+	if not running or paused or not practice_view or player in state.get("dead",[]):return
+	var result:=Markers.assign(state,target,marker,player)
+	if is_instance_valid(marker_note):marker_note.text="已清除" if result.ok and marker=="" else ("已上標："+Markers.title(marker) if result.ok else str(result.reason))
+	arena.update_state(actors,current,player,answers_visible(),elapsed,state);sync_party_status_hud()
+func next_self_marker()->void:
+	if not running or paused or not practice_view or player in state.get("dead",[]):return
+	var result:=Markers.next_attack(state,player)
+	if not result.ok:marker_note.text=str(result.reason)
+	arena.update_state(actors,current,player,answers_visible(),elapsed,state);sync_party_status_hud()
+func show_waymark_settings()->void:
+	if practice_view:open_practice_settings()
+	waymark_text.text=JSON.stringify(waymark_layout,"  ");waymark_dialog.popup_centered()
+func apply_waymark_settings()->void:
+	var checked:=Markers.validate_layout(JSON.parse_string(waymark_text.text))
+	if not checked.ok:status.text="場地配置未變更："+str(checked.reason);return
+	if running or not encounter.is_empty():
+		var archive:=FileAccess.open("user://before-waymark-change-%d.json"%Time.get_ticks_msec(),FileAccess.WRITE)
+		if archive:archive.store_string(JSON.stringify(json_safe(report()),"  "))
+	waymark_layout=checked.layout;save_settings()
+	if running or not encounter.is_empty():
+		demo=false;start_run();open_practice_settings()
+	arena.set_waymarks(waymark_layout)
+	status.text="場地標記已儲存"+"；已重開練習，請回到練習繼續。" if running else "場地標記已儲存"
