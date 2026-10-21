@@ -85,14 +85,32 @@ def main():
             state = assess(state, now)
             if state.get('status') == 'running':
                 raise SystemExit('An existing stage must finish or be explicitly blocked first')
-            if state.get('status') == 'blocked' and not args.reason.strip():
-                raise SystemExit('Blocked: record a changed approach with --reason before resuming')
+            resuming = state.get('status') == 'blocked'
+            if resuming:
+                if args.stage != state.get('stage'):
+                    raise SystemExit('Blocked: resume the same exact stage; renaming cannot clear its ledger')
+                if not args.reason.strip():
+                    raise SystemExit('Blocked: record a changed approach with --reason before resuming')
             if not 1 <= args.budget <= 1500 or not 1 <= args.stall <= 900:
                 raise SystemExit('Maximum stage 1500s; maximum no-evidence interval 900s')
-            return {'stage': args.stage, 'status': 'running', 'started': now,
-                    'deadline': now + args.budget, 'last_progress': now,
-                    'stall_seconds': args.stall, 'resume_reason': args.reason,
-                    'failure_counts': {}, 'proof_hashes': []}
+            if resuming:
+                # A new bounded attempt retains the stage's circuit breaker and
+                # evidence ledger. The reason records an approach, not proof.
+                history = state.get('recovery_history', [])[-9:]
+                history.append({'resumed': now,
+                                'blocked_reason': state.get('reason', '')[:1000],
+                                'prior_resume_reason': state.get('resume_reason', '')[:1000],
+                                'resume_reason': args.reason[:1000]})
+                state['recovery_history'] = history
+                state.pop('reason', None)
+                state.setdefault('failure_counts', {})
+                state.setdefault('proof_hashes', [])
+            else:
+                state = {'failure_counts': {}, 'proof_hashes': []}
+            state.update(stage=args.stage, status='running', started=now,
+                         deadline=now + args.budget, last_progress=now,
+                         stall_seconds=args.stall, resume_reason=args.reason)
+            return state
         emit(transact(begin)); return
     if args.action == 'check':
         emit(transact(lambda s: assess(s, now))); return

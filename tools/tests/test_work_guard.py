@@ -1,11 +1,15 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import time
 import unittest
+
+if os.name != 'posix':
+    raise unittest.SkipTest('POSIX-only work_guard tests require fcntl and process groups')
 
 GUARD = Path(__file__).resolve().parents[1] / 'work_guard.py'
 spec = importlib.util.spec_from_file_location('guard', GUARD)
@@ -38,12 +42,16 @@ class GuardTests(unittest.TestCase):
         self.assertEqual(json.loads(self.state.read_text())['reason'], 'same_failure_three_times')
         self.assertNotEqual(self.call('run', 'no-fourth', '--', sys.executable, '-c', 'print(1)').returncode, 0)
         self.assertNotEqual(self.call('begin', 'retry').returncode, 0)
-        self.assertEqual(self.call('begin', 'changed', '--reason', 'fixed source, reduced reproducer').returncode, 0)
+        self.assertNotEqual(self.call('begin', 'changed', '--reason', 'fixed source, reduced reproducer').returncode, 0)
+        self.assertEqual(self.call('begin', 'test-stage', '--reason', 'fixed source, reduced reproducer').returncode, 0)
 
     def test_godot_error_cannot_pass_on_exit_zero(self):
         self.begin()
-        self.assertNotEqual(self.call('run', 'parse', '--', sys.executable, '-c', 'print("SCRIPT ERROR: test")').returncode, 0)
-        self.assertFalse(json.loads(self.state.read_text())['last_command']['ok'])
+        for marker in ('SCRIPT ERROR', 'Parse Error', 'Compile Error'):
+            with self.subTest(marker=marker):
+                self.assertNotEqual(self.call('run', 'parse', '--', sys.executable,
+                                              '-c', 'print(' + repr(marker + ': test') + ')').returncode, 0)
+                self.assertFalse(json.loads(self.state.read_text())['last_command']['ok'])
 
     def test_new_proof_only_and_terminal_state(self):
         self.begin(); proof = Path(self.temp.name) / 'proof.log'; proof.write_text('verified result')
@@ -55,11 +63,23 @@ class GuardTests(unittest.TestCase):
 
     def test_timeout_terminates_owned_group_and_blocks(self):
         self.begin()
-        result = self.call('run', 'slow', '--timeout', '1', '--', sys.executable, '-c', 'import time; time.sleep(20)')
+        unrelated = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(20)'],
+                                     start_new_session=True)
+        def cleanup():
+            if unrelated.poll() is None:
+                unrelated.terminate()
+            unrelated.wait(timeout=4)
+        self.addCleanup(cleanup)
+        result = self.call('run', 'slow', '--timeout', '1', '--', sys.executable,
+                           '-c', 'import os,time; print(os.getpid(), flush=True); time.sleep(20)')
         self.assertNotEqual(result.returncode, 0)
         state = json.loads(self.state.read_text())
         self.assertEqual(state['reason'], 'command_timeout')
         self.assertTrue(state['last_command']['timeout'])
+        pid = int(Path(state['last_command']['log']).read_text().strip())
+        with self.assertRaises(ProcessLookupError):
+            os.kill(pid, 0)
+        self.assertIsNone(unrelated.poll(), 'Timeout must not terminate unrelated processes')
 
     def test_observer_persists_stall_and_does_not_restart(self):
         self.begin(); s = json.loads(self.state.read_text()); s['last_progress'] = time.time() - 1000

@@ -37,8 +37,24 @@ runner options from the command's own flags. In a blocked stage, first preserve
 its reproducer and select a changed approach, then for example:
 
 ```sh
-python3 tools/work_guard.py begin reduced-reproducer --reason 'Retained seed; narrowed to physical last-frame contact'
+python3 tools/work_guard.py begin p3-transition-review --reason 'Retained seed; narrowed to physical last-frame contact'
 ```
+
+Resume must use the **same exact stage name** and a nonblank `--reason` describing
+the changed approach. The reason is a review record, not permission or evidence;
+it does not call `progress` or restart work automatically. Renaming blocked work
+is rejected without replacing its ledger. Recovery refreshes only the bounded
+attempt clocks (up to 1500 seconds, with a 900-second evidence interval), retaining
+failure fingerprints/counts, proof digests, and existing command/evidence records.
+An unchanged proof still cannot renew progress, and a fourth identical failure
+after explicit recovery blocks again. Only a new stage after done/idle starts
+with a fresh ledger.
+
+The last ten recovery entries retain the previous block reason, previous approach
+reason, new approach reason, and recovery timestamp; history reason fields are
+limited to 1000 characters each. The active blocked reason is cleared on recovery
+so a later command timeout is reported accurately. Older state files without
+recovery history remain supported.
 
 Do not fabricate proof files or call `progress` solely to defer a stall. The
 execution ledger and command logs live in the worktree's Git administrative
@@ -59,10 +75,16 @@ scheduler. Other existing automations were inspected and left unchanged.
 
 ## Validation
 
-`python3 -m unittest discover -s tools/tests -p test_work_guard.py -v` covers
+`python3 -m unittest discover -s tools/tests -p 'test_work_guard*.py' -v` covers
 stage/stall bounds, changed-proof requirements, overlap, three-failure breaker,
 exit-zero script errors, process timeout, executable-launch failure and terminal
-state, and interrupted-wrapper child cleanup. `node tools/tests/test_top_supervisor.js` checks healthy silence, first
+state, and interrupted-wrapper child cleanup. The resume suite covers cross-attempt
+failure counts, proof replay, rejected recovery without ledger loss, bounded
+recovery history, and fresh stages after completion. All CLI tests pass an explicit
+temporary `--state`; they never use the default/live ledger. Both modules explicitly
+skip on Windows before importing the POSIX-only guard. Those skips and compilation
+checks are not semantic verification: acceptance requires running both suites on
+real Linux. `node tools/tests/test_top_supervisor.js` checks healthy silence, first
 alert, duplicate suppression and a genuinely new incident without sending real
 messages. A live native scheduler run completed successfully, persisting its
 observation while correctly sending no healthy-state notification.
