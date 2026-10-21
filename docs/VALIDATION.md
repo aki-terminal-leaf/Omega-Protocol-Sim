@@ -137,3 +137,34 @@ No geometry, source pattern, snapshot duration, hit check or player movement
 was changed to make this pass. Native/Web acceptance before this increment
 retains its exact earlier source/PCK scope; it is not silently a release test
 of later commits.
+
+
+## Published v0.3.0-preview —2026-10-21
+
+Latest user ordering is **publish the accepted preview first, then finish the
+remaining items**. Earlier conditional-publication wording above is historical,
+not a requirement to ask permission again. Published2026-10-21T10:37:09Z:
+https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.0-preview
+
+Immutable tag/source `0e7ef03224ddd390fc90d3c64ff83932ca50ede9`, prerelease=true,
+draft=false. Allfive uploaded asset SHA256 digests/sizes matched the already
+tested candidate before/after publication; no rebuild or reupload. Shared final
+PCK: `988d6c750aa692f8a032e5889d00cae19cfad6d0fa5e83d97697e6c513eb89b3`.
+
+Final Windows4.7.2 SDK gates: source599e77c Main20mechanics/86methods +hiddenP5
+5/0; final0e7ef03 precision55/LB602/controls20/Meteors5, all0failures. Final
+actual shipped Web/Chrome155 selection→strategy/start/move/pause/orbit/zoom/
+jump/retry/JSON and new-mechanism-needs-strategy:0errors. Final native physical
+movement/orbit/zoom/jump/retry pass. Real healer F after actual Doom:2-second
+cast then cleanse; real ranged dropdown selection of meteor_1, F before bot
+schedule,4.5-second finish and actual two large-NPC kills; movement/sprint/jump
+blocked through respective postlocks. Ranged used an assisted16.2s checkpoint,
+not unassisted full clear or original large-enrage measurement. Linux final
+package startup passed. Earlier native tank/caster gates retain their exact
+fb7fab6 source scope; do not silently relabel those as fresh0e7 input tests.
+
+Remaining contact/edge/timing/damage/source/region/original-VFX uncertainties are
+still disclosed in the released notes and FIDELITY.md. Publishing a preview is
+not full completion. Subsequent original-effect geometry/portability validation
+is documented in [VFX_PIPELINE](research/VFX_PIPELINE.md) and is **not** included
+in the published binaries. No Actions CI pass is claimed.

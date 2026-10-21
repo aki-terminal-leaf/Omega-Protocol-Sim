@@ -2,7 +2,7 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot 4 單人走位練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-## v0.3-preview（接續開發）
+## v0.3.0-preview（已發佈，後續持續開發）
 
 - **先選機制 → 再選此機制的攻略 → 單獨練習。** 保持 P1–P6 共 20 項，結束後不連播。完整 P5 僅是內部驗收 fixture。
 - Program Loop／Limitless／Omega 使用實際移動接線與當下 owner；Delta 的成對線在移動中斷開，不混成可轉移的 Boss 線。
@@ -15,7 +15,7 @@
 
 ## 下載
 
-[Releases](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases) 保留先前版本的 Windows、Linux、Web 與原始碼；本分支為 v0.3-preview。含本機遊戲素材的包標記為 `local-game-models`，不等同公開 source ZIP 內附素材。
+[v0.3.0-preview 下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.0-preview) 提供 Windows、Linux、Web、原始碼與 SHA256 校驗碼，固定來源 `0e7ef03`。本開發分支另有發佈後的增量，不會改寫既有版本。含本機遊戲素材的包標記為 `local-game-models`，不等同公開 source ZIP 內附素材。
 
 - Windows：完整解壓後開 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。
 - Linux：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
