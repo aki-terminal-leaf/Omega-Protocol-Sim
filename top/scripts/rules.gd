@@ -26,6 +26,7 @@ static func aim(shape: Dictionary, actors: Array) -> Vector2:
 	if shape.has("target"): return (v(actors[int(shape.target)].pos) - point(shape, actors)).normalized()
 	if shape.has("face_actor"):
 		return direction(float(actors[int(shape.face_actor)].face) + float(shape.get("offset", 0)))
+	if shape.has("direction"): return v(shape.direction).normalized()
 	return direction(float(shape.get("angle", 0)))
 
 static func contains(shape: Dictionary, pos: Vector2, actors: Array) -> bool:

@@ -1,0 +1,319 @@
+{
+  "schema": 1,
+  "routes": {
+    "elemental": {
+      "bait": [
+        0,
+        7
+      ],
+      "tank_order": "north_south",
+      "pull": "clockwise_tangent",
+      "party_dodge": "inner_if_clear_else_numbered_tether_lane",
+      "flare": "mitigated_center_stack",
+      "source": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+      "source_audit": "Full12steps+geometryFAQ read; MTnorth/STsouth, CWfive5degree ticks; reselectoneof2closest bothDefense/Pitch.",
+      "accessed_at": "2026-10-21",
+      "numeric_positions": "legal training realization, not official coordinates",
+      "complete": false,
+      "unknowns": [
+        "Exact flare falloff and HP/mitigation/shield survival model uncalibrated.",
+        "Twelve30degree source family is an explicit training superset; four captures do not prove exhaustive server RNG.",
+        "Exact server tether pickup radius/dual-line ownership remain unverified.",
+        "Pitch primary selection has conflicting prose: closest reference default, explicit one-of-two stress mode, not region-specific server rules."
+      ],
+      "source_route_audited": true
+    },
+    "aether": {
+      "bait": [
+        -3,
+        7
+      ],
+      "tank_order": "north_south_training_tie",
+      "pull": "clockwise_tangent",
+      "party_dodge": "perpendicular_lane",
+      "flare": "mitigated_center_stack",
+      "source": "https://ff14.toolboxgaming.space/?id=043186470764761",
+      "source_audit": "AllLimitlesssteps18-25 notesandbodypositions; sixcenter/2tankshieldbait thenvictimopposite7stack. Numeric north/south tie not independently specified.",
+      "accessed_at": "2026-10-21",
+      "numeric_positions": "legal training realization, not official coordinates",
+      "complete": false,
+      "unknowns": [
+        "Exact flare falloff and HP/mitigation/shield survival model uncalibrated.",
+        "Twelve30degree source family is an explicit training superset; four captures do not prove exhaustive server RNG.",
+        "Exact server tether pickup radius/dual-line ownership remain unverified.",
+        "Pitch primary selection has conflicting prose: closest reference default, explicit one-of-two stress mode, not region-specific server rules."
+      ],
+      "source_route_audited": true
+    },
+    "lpdu": {
+      "bait": [
+        -5,
+        5
+      ],
+      "tank_order": "north_south_training_tie",
+      "pull": "clockwise_tangent",
+      "party_dodge": "inner_if_clear_else_numbered_tether_lane",
+      "flare": "mitigated_center_stack",
+      "source": "https://ff14.toolboxgaming.space/?id=502396712985961",
+      "source_audit": "AllLimitlesssteps15-23 notesandbodypositions; arrowlocksstart, prebaitmaxmeleeSW, clockwiseoutward, centerall3flares~40percentmit.",
+      "accessed_at": "2026-10-21",
+      "numeric_positions": "legal training realization, not official coordinates",
+      "complete": false,
+      "unknowns": [
+        "Exact flare falloff and HP/mitigation/shield survival model uncalibrated.",
+        "Twelve30degree source family is an explicit training superset; four captures do not prove exhaustive server RNG.",
+        "Exact server tether pickup radius/dual-line ownership remain unverified.",
+        "Pitch primary selection has conflicting prose: closest reference default, explicit one-of-two stress mode, not region-specific server rules."
+      ],
+      "source_route_audited": true
+    },
+    "cn_moogle": {
+      "bait": [
+        0,
+        -7
+      ],
+      "tank_order": "north_south",
+      "pull": "fixed_north_south",
+      "party_dodge": "inner_if_clear_else_numbered_tether_lane",
+      "flare": "mitigated_center_stack",
+      "source": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "source_audit": "Complete original video public frames14:30/14:45 A/Cfixed tank pulls,15:00/15:30 lockedArrowandN/Sbossleft-rightdodge,16:00 Shield,16:30 nearest-twoDefense/collateralKB,16:40 unhitTankreturnsstack/nearest-onePitch,16:50/17:00 ignorethreeFlaremarkersandmitigatecenter,17:30untargetableOpticalMemory. Allvisuallyread2026-10-21; not borrowedKRwest/east.",
+      "accessed_at": "2026-10-21",
+      "numeric_positions": "legal training realization, not official coordinates",
+      "complete": false,
+      "unknowns": [
+        "Exact flare falloff and HP/mitigation/shield survival model uncalibrated.",
+        "Twelve30degree source family is an explicit training superset; four captures do not prove exhaustive server RNG.",
+        "Exact server tether pickup radius/dual-line ownership remain unverified.",
+        "Pitch primary selection has conflicting prose: closest reference default, explicit one-of-two stress mode, not region-specific server rules."
+      ],
+      "source_route_audited": true,
+      "source_video": "https://www.bilibili.com/video/av740517066/?p=2",
+      "pole_arrow_dodge": "boss_left_right"
+    },
+    "kr_09stop": {
+      "bait": [
+        0,
+        7
+      ],
+      "tank_order": "west_east",
+      "pull": "clockwise_tangent",
+      "party_dodge": "inner_if_clear_else_numbered_tether_lane",
+      "flare": "mitigated_center_stack",
+      "source": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit#gid=1552381437",
+      "source_audit": "FullPhase2rows290-461; MTwest/STeast, CWoutward,N/Sarrowrequiresnumberedclonewaymark,otherarrowsinner, actualvictimleaves andotherTankjoins; partyallmit.",
+      "accessed_at": "2026-10-21",
+      "numeric_positions": "legal training realization, not official coordinates",
+      "complete": false,
+      "unknowns": [
+        "Exact flare falloff and HP/mitigation/shield survival model uncalibrated.",
+        "Twelve30degree source family is an explicit training superset; four captures do not prove exhaustive server RNG.",
+        "Exact server tether pickup radius/dual-line ownership remain unverified.",
+        "Pitch primary selection has conflicting prose: closest reference default, explicit one-of-two stress mode, not region-specific server rules."
+      ],
+      "source_route_audited": true,
+      "pole_arrow_dodge": "tether_number"
+    }
+  },
+  "geometry": {
+    "source_radius": 22.0,
+    "tether_cone_full_angle": 90.0,
+    "tether_range": 100.0,
+    "arrow_full_width": 10.0,
+    "arrow_length": 100.0,
+    "defense_radius": 5.0,
+    "pitch_radius": 6.0,
+    "pitch_min_count": 3,
+    "post_jump_stopping_offset": {
+      "value": 5.5,
+      "status": "four_capture_player/source_prediction_residual_below0.04; not independentlydatamined"
+    },
+    "flare_radius": 100.0
+  },
+  "observations": [
+    {
+      "report": "1bX86aKrVRwLWfTC",
+      "fight": 19,
+      "manifest_sha256": "622656039bd21815a6e144cc0704ece52dfb253d187dd921aca965e06736aace",
+      "verified_capture_files": 7,
+      "timings": {
+        "tether_start": 5.363,
+        "arrow_lock": 5.452,
+        "arrow": 13.442,
+        "tether_hit": 13.488,
+        "flare_markers": 19.285,
+        "defense": 24.61,
+        "flares": 27.423,
+        "pitch": 27.734
+      },
+      "arrow_source": [
+        -0.01,
+        22.0
+      ],
+      "shield_source": [
+        11.0,
+        -19.05
+      ],
+      "defense_recipient_position": [
+        0.3,
+        -7.58
+      ],
+      "post_jump_source": [
+        4.05,
+        -11.6
+      ],
+      "jump_offset_candidate": 5.5,
+      "jump_prediction": [
+        4.051750838002638,
+        -11.601736645971053
+      ],
+      "jump_prediction_residual": 0.0024660439858728437,
+      "marker_count": 3,
+      "warning": "Other helper sources demonstrably stale. No flare falloff/HP formula inferred from zero-amount fully absorbed packets."
+    },
+    {
+      "report": "3GW2hjTNk91FZwcK",
+      "fight": 9,
+      "manifest_sha256": "fb50140d950c327c1f86e7a8800a7f3363675f0f2079c4708af4dc3d3e9dcc6a",
+      "verified_capture_files": 7,
+      "timings": {
+        "tether_start": 5.359,
+        "arrow_lock": 5.448,
+        "arrow": 13.432,
+        "tether_hit": 13.521,
+        "flare_markers": 19.283,
+        "defense": 24.637,
+        "flares": 27.45,
+        "pitch": 27.76
+      },
+      "arrow_source": [
+        -11.02,
+        -19.08
+      ],
+      "shield_source": [
+        22.0,
+        0.0
+      ],
+      "defense_recipient_position": [
+        7.04,
+        3.96
+      ],
+      "post_jump_source": [
+        12.38,
+        2.53
+      ],
+      "jump_offset_candidate": 5.5,
+      "jump_prediction": [
+        12.356878753238316,
+        2.552590918260446
+      ],
+      "jump_prediction_residual": 0.03232555706658221,
+      "marker_count": 3,
+      "warning": "Other helper sources demonstrably stale. No flare falloff/HP formula inferred from zero-amount fully absorbed packets."
+    },
+    {
+      "report": "LKMGRJTzgY9HFynk",
+      "fight": 2,
+      "manifest_sha256": "8bfb4d06f41587b3e85847e3cdb5c7a5e07a521e1459291a720f2c7b03fe3347",
+      "verified_capture_files": 7,
+      "timings": {
+        "tether_start": 5.303,
+        "arrow_lock": 5.392,
+        "arrow": 13.371,
+        "tether_hit": 13.459,
+        "flare_markers": 19.25,
+        "defense": 24.599,
+        "flares": 27.41,
+        "pitch": 27.766
+      },
+      "arrow_source": [
+        -19.08,
+        10.98
+      ],
+      "shield_source": [
+        22.0,
+        0.0
+      ],
+      "defense_recipient_position": [
+        6.22,
+        4.69
+      ],
+      "post_jump_source": [
+        11.5,
+        3.11
+      ],
+      "jump_offset_candidate": 5.5,
+      "jump_prediction": [
+        11.49207326813968,
+        3.1230783505972686
+      ],
+      "jump_prediction_residual": 0.015293015802335394,
+      "marker_count": 3,
+      "warning": "Other helper sources demonstrably stale. No flare falloff/HP formula inferred from zero-amount fully absorbed packets."
+    },
+    {
+      "report": "Vyq4AcJKZjkFQBpG",
+      "fight": 32,
+      "manifest_sha256": "a5e57ad8e5ff4288ae7b1ed882496ee65a5b7fa1e1706cca16ca0731418b5313",
+      "verified_capture_files": 7,
+      "timings": {
+        "tether_start": 5.343,
+        "arrow_lock": 5.432,
+        "arrow": 13.413,
+        "tether_hit": 13.502,
+        "flare_markers": 19.297,
+        "defense": 24.641,
+        "flares": 27.445,
+        "pitch": 27.757
+      },
+      "arrow_source": [
+        -19.08,
+        -11.02
+      ],
+      "shield_source": [
+        22.0,
+        0.0
+      ],
+      "defense_recipient_position": [
+        6.61,
+        4.91
+      ],
+      "post_jump_source": [
+        11.86,
+        3.23
+      ],
+      "jump_offset_candidate": 5.5,
+      "jump_prediction": [
+        11.849793491055907,
+        3.238305000579305
+      ],
+      "jump_prediction_residual": 0.013158490013983165,
+      "marker_count": 3,
+      "warning": "Other helper sources demonstrably stale. No flare falloff/HP formula inferred from zero-amount fully absorbed packets."
+    }
+  ],
+  "schedule": {
+    "tethers_activate": 5.3,
+    "arrow_lock": 5.45,
+    "arrow_hit": 13.45,
+    "tether_hit": 13.55,
+    "flare_markers": 19.3,
+    "defense": 24.65,
+    "flares": 27.45,
+    "pitch": 27.8,
+    "raidwide": 38.0
+  },
+  "uncertainty": "Four-capture nominal timing, not exact packet/permanent server ticks. Geometric training cannot claim full HP simulation.",
+  "pitch_selection": {
+    "default": "closest_reference",
+    "confidence": "provisional: conflicting primary prose, four clears cannot distinguish two closely stacked candidates",
+    "source_support": [
+      "BossMod P2BeyondDefense uses Closest after the jump",
+      "Original CN video av740517066 p2 at16:40 explicitly nearest one"
+    ],
+    "conflicting_prose": [
+      "Elemental step12 and KR row449 describe one of two closest"
+    ],
+    "stress_policy": "closest_two_stress_unverified; not a different mechanic by community"
+  }
+}

@@ -69,11 +69,18 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 	Statuses.tick(actors, previous, state, dt)
 	Statuses.sync(beat, state)
 	sync_followups(beat,state)
-	if not beat.has("transfers"): return
+	if beat.has("transfers"): tick_transfers(beat,actors,previous,state,dt)
+	# Resolve Limitless only after the same physical contact pass used by YOU.
+	preload("res://scripts/p2_limitless_runtime.gd").tick(actors,previous,state,dt)
+	preload("res://scripts/p2_limitless_runtime.gd").sync(beat,state)
+
+static func tick_transfers(beat: Dictionary, actors: Array, previous: Array, state: Dictionary, dt: float) -> void:
 	if not state.has("tether_holders"): begin(beat, actors, state)
 	if float(state.sim_time)<float(state.get("tether_active_at",0)):
 		sync(beat,state)
 		return
+	state.tether_holders=state.tether_holders.map(func(i):return int(i))
+	state.tether_contacts=state.tether_contacts.map(func(ids):return ids.map(func(i):return int(i)))
 	var old_holders: Array = state.tether_holders.duplicate()
 	var policy: String = beat.transfers.get("ownership_policy", Statuses.parameter("double_line_policy"))
 	var pickup_radius := float(beat.transfers.get("pickup_radius", Statuses.parameter("pickup_radius")))
@@ -196,6 +203,9 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 					cost+=1.0-(Rules.v(actors[int(holders[permutation[j]])].pos)-source).normalized().dot((Rules.v(beat.positions[int(wanted[j])])-source).normalized())
 				costs.append(cost)
 			preferred_line=([0,1] if costs[0]<=costs[1] else [1,0])[wanted.find(actor)]
+		if preferred_line<0 and beat.transfers.has("coaching_assignment"):
+			var requested:int=int(beat.transfers.coaching_assignment[wanted.find(actor)])
+			if requested in available_lines:preferred_line=requested
 		if preferred_line>=0:
 			for k in holders.size():
 				if k!=preferred_line and holders[k] not in wanted:reserved.append([beat.transfers.sources[k],actors[int(holders[k])].pos])

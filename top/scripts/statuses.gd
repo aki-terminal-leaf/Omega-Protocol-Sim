@@ -58,6 +58,7 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 	preload("res://scripts/p1_runtime.gd").begin(beat,state)
 	preload("res://scripts/p5_omega_runtime.gd").begin(beat,state)
 	preload("res://scripts/hw_runtime.gd").begin(beat,state)
+	preload("res://scripts/p2_limitless_runtime.gd").begin(beat,state)
 	state.beat_started = float(state.get("sim_time", 0))
 	for grant in beat.get("status_grants", []): give(state, grant.actor, grant.name, grant.duration)
 	for raw in beat.get("paired_tethers", []):
@@ -194,6 +195,7 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	preload("res://scripts/p1_runtime.gd").sync(beat,state)
 	preload("res://scripts/p5_omega_runtime.gd").sync(beat,state)
 	preload("res://scripts/hw_runtime.gd").sync(beat,state)
+	preload("res://scripts/p2_limitless_runtime.gd").sync(beat,state)
 	if not state.has("statuses"): return
 	if beat.has("shapes"):
 		beat.shapes = beat.shapes.filter(func(s): return not s.get("runtime_stream",false))

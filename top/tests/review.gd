@@ -55,7 +55,7 @@ func _initialize() -> void:
 	I.begin(follow,actors,runtime)
 	check(follow.positions[4]==Vector2(-12,-10) and follow.positions[0]!=Vector2(-12,-10),"follow-up guide follows actual victim")
 	var limitless: Dictionary=E.new().build("p2_limitless",17,profiles[0]).beats[0]
-	check(limitless.shapes[0].width==90.0,"Bladedance cone is ninety degrees")
+	check(preload("res://scripts/p2_limitless_patterns.gd").cone(R.v(limitless.limitless_config.sources[0]),0).width==90.0,"live Bladedance cone is ninety degrees")
 	var delta:Dictionary=E.new().build("p5_delta",17,profiles[0])
 	var pulses:Array=delta.beats[0].delta_events.filter(func(e):return e.kind=="arms_fire")
 	check(pulses.size()==6,"six actual HyperPulse event snapshots")

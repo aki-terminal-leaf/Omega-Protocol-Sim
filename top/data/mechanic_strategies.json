@@ -137,8 +137,28 @@
   "p2_limitless": [
     {
       "profile": "elemental",
-      "name": "雙坦實際接線 → 隕石／防禦判讀",
-      "description": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。"
+      "name": "Elemental · 南誘導／MT北線",
+      "description": "南側圈外誘導箭；MT接北線、ST接南線，順時針拉向外。盾衝受擊坦離隊，其餘集中處理分攤與 Flare。Flare 的HP／減傷尚不計分。"
+    },
+    {
+      "profile": "aether",
+      "name": "Aether · 6-1-1／南偏西誘導",
+      "description": "南偏西誘導箭，依箭向選垂直安全通道；雙坦在盾側誘導，其餘六人中央，未中盾衝的坦回隊。接線同職業自由分工採穩定北／南配置。"
+    },
+    {
+      "profile": "lpdu",
+      "name": "LPDU · 西南誘導／集中 Flare",
+      "description": "西南近戰距離誘導，箭施法開始鎖定後進首領圈；雙坦順時針外拉，再到盾側分開誘導。三顆 Flare 集中減傷。"
+    },
+    {
+      "profile": "cn_moogle",
+      "name": "莫古力 · 北誘導／A-C 接線",
+      "description": "北側圈外誘導，MT接上半、ST接下半並在A/C側外拉；南北向箭改往首領正左右。未中盾衝的坦回隊，三顆 Flare 集中減傷。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 南誘導／MT西線",
+      "description": "C側誘導，MT接西線、ST接東線，順時針向外拉；南北向箭往接線分身的數字標安全側。盾衝坦離隊，另一坦回隊集中處理。"
     }
   ],
   "p3_transition": [

@@ -12,6 +12,7 @@ const DeltaCourses = preload("res://scripts/p5_delta_courses.gd")
 const OmegaCourses = preload("res://scripts/p5_omega_courses.gd")
 const SigmaCourses = preload("res://scripts/p5_sigma_courses.gd")
 const HWCourses = preload("res://scripts/hw_courses.gd")
+const LimitlessCourses = preload("res://scripts/p2_limitless_courses.gd")
 const ROLES = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"]
 var rng = RandomNumberGenerator.new()
 var order: Array = []
@@ -302,35 +303,7 @@ func rotate_beat(item: Dictionary, degrees: float) -> Dictionary:
 	return item
 
 func limitless() -> void:
-	positions[0] = Vector2(-16, -5); positions[1] = Vector2(16, -5)
-	for i in range(2, 8): positions[i] = Vector2(0, 5 + (i - 2) * 0.15)
-	var b = beat("Limitless Synergy · tanks intercept tethers", 7.0, "Tanks take Bladedance away from the baited arrow and the party.")
-	b.transfers = {"group": "limitless", "sources": [Vector2(-12, -16), Vector2(12, -16)], "initial": [at(2), at(3)], "wanted": [0, 1], "holders": []}
-	b.spawn = []
-	for i in 8: b.spawn.append(Vector2(-8 if i == 0 else 8, 0) if i < 2 else Vector2(-1.25 + (i - 2) * 0.5, 9))
-	for i in 2: b.shapes.append({"kind": "cone", "pos": b.transfers.sources[i], "target": b.transfers.initial[i], "tether_index": i, "width": 90, "radius": 100, "rule": "count", "count": 1, "name": "Optimized Bladedance"})
-	b.checks.append({"kind": "tether_tanks", "name": "Optimized Bladedance holders"})
-	b.tethers = [{"a": 0, "b": -1}, {"a": 1, "b": -1}]
-	var flare_actors = [at(2), at(3), at(4)]
-	for i in 8: positions[i] = Vector2(0, -7)
-	for i in 3: positions[flare_actors[i]] = polar(90 + i * 90, 18)
-	b = beat("Optimized Meteor · separate flares", 7.0, "Training variation: spread flares to the wall; no mitigation cheese is assumed.")
-	for i in flare_actors: b.shapes.append(targeted(i, 11, 1, "Optimized Meteor"))
-	var defense = rng.randi_range(0, 1)
-	positions[0] = Vector2(-10, -4); positions[1] = Vector2(-10, 4)
-	for i in range(2, 8): positions[i] = Vector2(5, 3)
-	b = beat("Beyond Defense · tanks bait closest two", 6.0)
-	var defense_hit := targeted(defense,5,1,"Beyond Defense")
-	defense_hit.rule="beyond_defense";defense_hit.dynamic_actor={"selector":"closest","ordinal":defense,"pos":Vector2(-16,0)}
-	b.shapes.append(defense_hit)
-	positions[defense] = Vector2(-12, -10)
-	for i in 8:
-		if i != defense: positions[i] = Vector2(-9, 3) + Vector2(0.1 * i, 0)
-	b = beat("Pile Pitch · exclude Beyond Defense victim", 6.0)
-	b.defense_followup=true
-	var pitch := targeted(1-defense,6,3,"Pile Pitch")
-	pitch.rule="pile_pitch";pitch.min_count=3;pitch.dynamic_actor={"selector":"closest","pos":Vector2(-16,0)}
-	b.shapes.append(pitch)
+	LimitlessCourses.append_limitless(self)
 
 func transition() -> void:
 	for i in 4: label(i, "PURPLE · spread")
