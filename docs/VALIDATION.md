@@ -347,3 +347,6 @@ v0.3.3 assets are unchanged. See [interface design](development/INTERFACE_REDESI
 - Presentation27/0, input20/0, marker-library36/0, marker-input9/0. Total687 passing checks this iteration; not additional encounter fidelity certification.
 - Initial presentation regression asserted the former fixed bottom offset; new footer intentionally raises controls. Replaced that test with actual window enclosure, usable height and non-overlap with instructions, then reran all four targeted regressions successfully. Failing log retained.
 - Actual native-render screenshots are labeled as such in README. Web is a user-test deployment, not browser-play acceptance; previous VPS900MiB browser cap prevented completion. Fixed-domain HTTPS/transport proofs are separate from gameplay gates.
+
+- Deployment follow-up:fixed https://top.servicing.cc survived named connector restart; root and all7complete resource SHA256s/MIME/gzip/isolation headers match the60d0bfed6fa4 snapshot. Cloudflare browser-integrity check rejects Python urllib1010; unchanged security settings, curlHTTP2/gzip passed.
+- Exact Linux archive PCK matched both real native-window setup and seed42demo capture. Published Linux/source only as top-v0.3.5-preview, source60d0bfed6fa45ceb7e30acb3338332233256534a. Browser gameplay remains user-test pending; no Windows/Web released-platform acceptance claim.
