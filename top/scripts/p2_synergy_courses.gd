@@ -25,7 +25,14 @@ static func append_synergy(ctx) -> void:
 	# Real symbols are remembered BEFORE the genuine/decoy pair is read.
 	for i in 8:ctx.pos(i,Vector2(-3.0 if i%2==0 else 3.0,-5.0+float(i/2)*3.0))
 	var cast:Dictionary=ctx.beat("Party Synergy · cast",3.0,"準備排隊，稍後記住頭上的圖案與左右組。")
-	cast.stage_entities=mains.duplicate(true);cast.hide_main_boss=true;cast.spawn=cast.positions.duplicate()
+	cast.stage_entities=mains.duplicate(true);cast.hide_main_boss=true
+	# Before the icons exist, role lineup cannot encode future random pairings.
+	var lineup_priority:Array=ctx.profile.get("p2_lineup_priority",[2,3,0,1,4,5,6,7])
+	for side in 2:
+		var members:Array=[0,2,4,6] if side==0 else [1,3,5,7]
+		members.sort_custom(func(a,b):return lineup_priority.find(a)<lineup_priority.find(b))
+		for rank in 4:cast.positions[int(members[rank])]=Vector2(-3.0 if side==0 else 3.0,-5.0+rank*3.0)
+	cast.spawn=cast.positions.duplicate()
 	var mark:Dictionary=ctx.beat("Party Synergy · remember symbols",3.1,"記住自己的圖案與組別；圖案會消失，之後不能再靠文字讀答案。")
 	mark.stage_entities=mains.duplicate(true)+[eye.duplicate(true)];mark.hide_main_boss=true;mark.party_statuses=markers.duplicate(true)
 	var appear:Dictionary=ctx.beat("Party Synergy · two M / two F",2.2,"兩男兩女出場；找外側男與其正對面的女，不能用中心那組判斷安全區。")
@@ -39,7 +46,7 @@ static func append_synergy(ctx) -> void:
 	var dodge:Dictionary=ctx.beat("Party Synergy · double AOEs",5.1,"只讀真正一組的武器姿態；此時不要求搭檔距離。")
 	dodge.shapes=shapes;dodge.stage_entities=all_clones.duplicate(true)+[eye.duplicate(true)];dodge.hide_main_boss=true;dodge.party_statuses=glitch.duplicate(true)
 	# Subject Simulation (~T12.6) only prepares transformation. Actual visual
-	# disappear/swap/reappear events are ~T14.6/18.8/22.8; do not swap early.
+	# disappear/swap/reappear events are ~T14.6/18.8/22.9; do not swap early.
 	var late:Array=[{"id":"main_m","form":"female","pos":Vector2.ZERO,"facing":180.0,"stance":""},{"id":"main_f","form":"male","pos":ctx.polar(north,13),"facing":north+180,"stance":"SWORD"}]
 	for k in 4:late.append({"id":"late_%d"%k,"form":"male","pos":ctx.polar(north+45+k*90,13),"facing":north+225+k*90,"stance":"SWORD","spawn_delay":0.8})
 	# Fire III and Laser are distinct snapshots; eye remains visible without hints.
@@ -75,10 +82,10 @@ static func append_synergy(ctx) -> void:
 		else:left.append(chosen);right.append(partner)
 	ctx.group_goals(left,ctx.polar(270,4.8),0.06);ctx.group_goals(right,ctx.polar(90 if remote else 180,4.8),0.06)
 	var knock:Dictionary=ctx.beat("Discharger · two safe gaps",6.9,"以外圈新男分身（三男正中間）為北。女分身在中心擊退13；左組西、右組近南／遠東。")
-	knock.knockback=13.0;ctx.rotate_beat(knock,north)
+	knock.knockback=13.0;knock.synergy_north_reveal=2.7;ctx.rotate_beat(knock,north)
 	knock.stage_entities=settled(late)+[eye.duplicate(true)];knock.hide_main_boss=true;knock.party_statuses=glitch.duplicate(true)
 	for entity in knock.stage_entities:
-		if str(entity.get("id","")).begins_with("main_"):entity.spawn_delay=2.6
+		if str(entity.get("id","")).begins_with("main_"):entity.spawn_delay=2.7
 	for target in targets:knock.party_statuses.append({"actor":target,"key":"spotlight_marker","name":"Spotlight","remaining":-1,"marker":true,"visible_from":0.6,"symbol":"stack"})
 	for i in 8:ctx.positions[i]=knock.positions[i]+knock.positions[i].normalized()*13.0
 	var stack:Dictionary=ctx.beat("Spotlight · two four-player stacks",4.3,"擊退後可調整；兩個分攤先結算，緊接五男的劍擊。")

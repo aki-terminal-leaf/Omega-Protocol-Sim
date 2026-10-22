@@ -53,7 +53,9 @@ waypoints or fixture endpoint positions.
   community timeline and sixteen observed cast pairs. Vulnerability remains4s;
   a tank swap is still required. No damage or walking budget is relaxed.
 - P3 monitor visual cast is10s; damage follows it. The independent snapshot is
-  now10.1s (four observed damage packets10.053–10.073 from cast start).
+  now10.1s (four observed damage packets10.053–10.073 from cast start). Actors
+  start together near center instead of spawning directly on precomputed answers;
+  all six layouts must now be reached by real6/s walking.
 - Initial Flame Thrower and initial P3/P4 ring cues now use their actual4s/5s
   cast windows instead of a shared2s preview. The unsourced P3 sniper-radius
   answer overlay is teaching-only; real debuffs and ring/arm cues remain visible.
@@ -103,3 +105,27 @@ certified. A screenshot proves rendered wiring, not every game animation frame.
 - Web remains the established test deployment. Its old900MiB software-browser
   failure is not repeated or turned into a browser acceptance claim. A native
   engine loading a Web PCK is a pack-content/render check, not browser gameplay.
+
+## Final source matrix for0.3.8-preview
+
+All20 drills /all100 offered methods ×seeds17391,7,43: **300 complete moving
+Main courses,0 gameplay failures,2397 independent source-timing checks/0**.
+PT and monitor rows were rerun after the final observation-gating/neutral-start
+changes; unchanged courses were not relabeled or needlessly repeated.
+
+**320 PT physical courses** (32 clone families ×five methods ×two fixed
+allocations) plus **18 genuinely moving monitor courses**:0 failures, maximum
+ordinary speed6.000019/s. Only the explicit13-unit Discharger is excluded from
+walking measurement. No damage radius or snapshot deadline was relaxed.
+The old210s combined walking timeout remains retained, not counted as a pass.
+
+Source PT family/lifecycle:16663 assertions/0; enemy rings340/0; graphical marker
+lifecycle33/0; shared Rules/party/presentation/input/status/review13737/0;
+continuous P5 after the Solar interval change15 courses/0. Logic matrices use
+an exact-source fallback project with separate imports/user paths; native
+PT/model/ring integration uses the local original asset pack. Independent
+initial positions and observed-reference steering are explicitly tested.
+
+These are source gates. Final exported-pack native captures, Web content/hash
+checks and publication are separate records; they do not certify a browser or
+complete original VFX playback by implication.

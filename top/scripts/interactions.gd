@@ -130,6 +130,10 @@ static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Diction
 	return raw_bot_goal(actor,beat,actors,state).limit_length(19.8)
 
 static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
+	if beat.has("synergy_north_reveal") and float(state.get("sim_time",0))+0.000001<float(state.get("beat_started",0))+float(beat.synergy_north_reveal):
+		# Return after the eye. Neither stack swaps nor the new north may steer
+		# the bots into their final knockback groups before that source appears.
+		return Vector2.ZERO
 	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	var final: Vector2 = beat.positions[actor]
 	# Bots wait out the same raidwide vulnerability that judges player breaks.

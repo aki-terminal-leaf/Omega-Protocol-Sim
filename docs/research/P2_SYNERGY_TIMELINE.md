@@ -21,7 +21,7 @@ are included in source.
 | 12.6 observed | Subject Simulation prepares transformation; **not** an immediate visible gender swap |
 | 13.4 | Genuine combined AoEs; no partner-distance requirement |
 | 14.2 | Four late male helpers appear (community PATE delay0.8) |
-| 14.6 /18.8 /22.8 | Main actors disappear /swap while hidden /reappear; approximate nominal AnimationDisappear/Swap/Reappear sequence, not frame-certified |
+| 14.6 /18.8 /22.9 | Main actors disappear /swap while hidden /reappear; approximate nominal AnimationDisappear/Swap/Reappear sequence, not frame-certified |
 | 19.8 | Fire III spreads and Glitch; observed19.827–19.877 |
 | 20.2 | Eye laser; observed20.182–20.214; independent snapshot |
 | 20.8 | Two Spotlight markers (community Laser+0.6, icon frame unmeasured) |
@@ -47,7 +47,7 @@ or raw English marker names are needed. Manual target signs remain independent.
 ## Verification scope
 
 - 320 source families (five profiles ×near/far ×four weapon pairs ×eight angles):
-  16,659 checks, zero failures. Includes actual Main renderer data, timed marker
+  16,663 checks, zero failures. Includes actual Main renderer data, timed marker
   lifecycle, original-model clone identities, pause and checkpoint/full retry.
 - Actual Main all five offered PT methods ×three seeds:15 complete courses/0.
 - Shared Rules196, party projection222, presentation27 checks:0 failures.
@@ -64,3 +64,13 @@ or raw English marker names are needed. Manual target signs remain independent.
 
 Full exported-platform and all-stage acceptance is recorded separately; a source
 increment or transport checksum is not proof of browser gameplay.
+
+Bot-observation follow-up: pre-icon positions are fixed by roles rather than
+future random pairs. After the eye, bots return toward center and wait until
+the new male actually reappears at nominalT22.9 before choosing final knockback
+groups. The13-unit knockback, geometry and actual attack times are unchanged.
+
+Final source follow-up:320 physical PT courses (five methods ×32 clone families ×
+two fixed allocations),0 failures, max ordinary speed6.000019/s. These replace
+the partial walking attempt, not its retained failure ledger. Source captures
+above are diagnostic; final exported-pack images are tracked separately.

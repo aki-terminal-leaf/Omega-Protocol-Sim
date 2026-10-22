@@ -480,7 +480,7 @@ func update_stage_entities() -> void:
 				if node.has_node(option):node.get_node(option).visible=option==stance
 		var display_names:Dictionary={"beetle":"Omega","male":"Omega M","female":"Omega F","male_p5":"Omega M","female_p5":"Omega F","final":"Omega Reconfigured","alpha":"Alpha Omega","fist_b5":"拳 A","fist_b6":"拳 B","arm_left":"","arm_right":"","rear_unit":"Rear Power Unit","optical_unit":"Optical Unit"}
 		node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))+(" / "+stance if guide and stance in ["SWORD","SHIELD","LEGS","STAFF"] else "")
-		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed>=float(entity.get("spawn_delay",0))
+		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed+0.000001>=float(entity.get("spawn_delay",0))
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
 	if bosses.size() == 1:
 		var face := float(current.get("boss_facing", current.get("p1_route", {}).get("boss_facing", 0.0)))

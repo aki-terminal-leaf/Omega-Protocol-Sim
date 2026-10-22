@@ -33,6 +33,8 @@ func run()->void:
  await process_frame
  choose(app,"p5_sigma");advance(app,1.0);check(visible(app)==8,"Sigma eight paired graphical signs");advance(app,10.3);check(visible(app)==8 and app.arena.secondary_mechanic_signs.filter(func(s):return s.visible and s.texture!=null).size()==6,"Sigma pair symbols and six cannon marks simultaneously, not mutually overwriting");advance(app,19.4);check(visible(app)==0 and app.arena.secondary_mechanic_signs.all(func(s):return not s.visible),"Sigma both sets disappear before towers")
  await process_frame
+ choose(app,"p3_monitors");check(range(8).all(func(i):return app.actors[i].pos.distance_to(app.current.positions[i])>0.1),"monitor practice does not spawn actors on precomputed answer positions");advance(app,9.9);check(app.all_errors.is_empty() and range(8).all(func(i):return app.actors[i].pos.distance_to(app.current.positions[i])<0.001),"all monitor roles reach source layouts by ordinary walking before snapshot")
+ await process_frame
  choose(app,"p5_solar");check(is_equal_approx(float(app.encounter.beats[0].duration),5.0) and is_equal_approx(float(app.encounter.beats[1].duration),3.2),"Solar actual5s cast +3.2s second hit");check(app.encounter.beats.all(func(b):return b.shapes[0].radius==5),"Solar actual radius5, not4")
  await process_frame
  choose(app,"p6_meteors");advance(app,20.3);check(visible(app)==3,"P6 actual three Flare heads at recorded marker time");advance(app,28.4);check(visible(app)==0,"P6 Flare heads removed on actual resolution")

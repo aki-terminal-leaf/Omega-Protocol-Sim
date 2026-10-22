@@ -277,6 +277,9 @@ func monitors() -> void:
 		label(i, "MONITOR %d" % (i + 1) if i < 3 else "No monitor %d" % (i - 2))
 	var layout_name: String={"astoh":"Astoh","aether":"Aether · 第三檢知南側","lpdu":"LPDU · 第一檢知北側","cn_fixed":"莫古力 · 固定左側","cn_mirror":"莫古力 · 鏡像換邊","kr_astoh":"09STOP"}.get(layout,layout)
 	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout_name,"EAST" if (sign_x == 1) == (layout not in ["aether","lpdu"]) else "WEST"],10.1,"每個檢知隨機命中其半場兩人，不足時補選其他人；還要避開半徑7的受擊小圓。Q/E 或右鍵調整朝向。")
+	# Start the independent drill at the visible cast, not already on its answers.
+	b.spawn=[]
+	for actor in 8:b.spawn.append(Vector2((actor-3.5)*0.35,6.0))
 	b.monitor_layout = layout
 	var sources: Array = [{"kind": "half", "angle": (270 if layout in ["aether","lpdu"] else 90) * sign_x, "radius": 45, "name": "Boss monitor"}]
 	var goals = [270.0 * sign_x, 0.0, 180.0]

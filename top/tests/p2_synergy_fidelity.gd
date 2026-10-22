@@ -3,6 +3,7 @@ const Encounter=preload("res://scripts/encounters.gd")
 const Rules=preload("res://scripts/rules.gd")
 const Signs=preload("res://scripts/synergy_signs.gd")
 const Party=preload("res://scripts/party_statuses.gd")
+const Interactions=preload("res://scripts/interactions.gd")
 const Main=preload("res://scenes/main.tscn")
 var checks:=0
 var failures:=0
@@ -40,16 +41,21 @@ func run()->void:
 							check(Signs.observed(actor,b[2],{"sim_time":7.0,"beat_started":6.1})=="","symbol disappears before genuine/decoy test")
 							check(Signs.observed(actor,b[3],{"sim_time":12.0})=="","no answer retained in combat")
 						total+=1
+	var a:Dictionary=Encounter.new().build("p2_synergy",42,profiles[0])
+	var z:Dictionary=Encounter.new().build("p2_synergy",7,profiles[0])
+	check(a.beats[0].spawn==z.beats[0].spawn,"pre-icon role lineup cannot encode future seeded assignments")
+	check(a.assignments!=z.assignments,"different seeds still produce genuinely different paired actors")
 	# Production Main, actual movement/beat transitions + the real render data path.
 	var app=Main.instantiate();root.add_child(app);await process_frame;app.set_process(false);app.arena.set_process(false)
 	var found:=-1
 	for i in app.filtered.size():
 		if app.filtered[i].id=="p2_synergy":found=i
 	app.choose_mechanic(found);app.strategy_select.select(1);app.choose_strategy(1);app.fresh_seed.set_pressed_no_signal(false);app.seed_edit.text="42";app.demo=true;app.start_run(0,false);app.stop_failure.button_pressed=false
-	var points:Array=[4.0,7.0,9.0,12.7,14.3,20.3,20.9,22.9,27.2,31.45,31.6,33.2,34.6]
+	var points:Array=[2.9,4.0,7.0,9.0,12.7,14.3,20.3,20.9,22.9,27.2,31.45,31.6,33.2,34.6]
 	for time in points:
 		while app.running and float(app.state.sim_time)<float(time)-0.00001:app._process(minf(0.05,float(time)-float(app.state.sim_time)))
 		app.arena._process(0.01)
+		if time==2.9:check(range(8).all(func(i):return app.actors[i].pos.distance_to(app.current.spawn[i])<0.001),"no anticipatory bot sorting before actual icons")
 		if time==4.0:check(app.arena.mechanic_signs.all(func(n):return n.visible and n.texture!=null),"real arena emits eight graphical marks without hints")
 		if time==7.0:check(app.arena.mechanic_signs.all(func(n):return not n.visible),"real arena clears all eight signs")
 		if time==9.0:check(app.arena.stage_nodes.filter(func(n):return n.get_meta("model_form","")=="male").size()==2,"actual original four-clone path")
@@ -58,6 +64,7 @@ func run()->void:
 		if time==22.9:check(app.arena.stage_nodes.filter(func(n):return n.get_meta("model_form","")=="male" and n.visible).size()==5,"new male reappears between helpers only after Laser")
 		if time==20.3:check(app.arena.mechanic_signs.all(func(n):return not n.visible),"no premature stack markers")
 		if time==20.9:check(app.arena.mechanic_signs.filter(func(n):return n.visible).size()==2,"actual two stack markers after Laser+0.6")
+		if time==20.9:check(range(8).all(func(i):return Interactions.bot_goal(i,app.current,app.actors,app.state)==Vector2.ZERO),"no final group/new-north steering before visual reappearance")
 		if time==31.6:check(app.arena.mechanic_signs.all(func(n):return not n.visible),"stack markers vanish after snapshot")
 		if time==33.2:check(app.observed_party().all(func(row):return row.effects.all(func(e):return e.key not in ["mid_glitch","remote_glitch","synergy_marker"])),"Glitch expires on original27s duration")
 		await process_frame

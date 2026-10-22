@@ -350,3 +350,15 @@ v0.3.3 assets are unchanged. See [interface design](development/INTERFACE_REDESI
 
 - Deployment follow-up:fixed https://top.servicing.cc survived named connector restart; root and all7complete resource SHA256s/MIME/gzip/isolation headers match the60d0bfed6fa4 snapshot. Cloudflare browser-integrity check rejects Python urllib1010; unchanged security settings, curlHTTP2/gzip passed.
 - Exact Linux archive PCK matched both real native-window setup and seed42demo capture. Published Linux/source only as top-v0.3.5-preview, source60d0bfed6fa45ceb7e30acb3338332233256534a. Browser gameplay remains user-test pending; no Windows/Web released-platform acceptance claim.
+
+##0.3.8-preview source chronology/cues —2026-10-22
+
+[All20 clocks, evidence, fixes and limits](research/PRACTICE_TIMELINES.md).
+Final unique Main matrix300 courses/0,2397 independent observed-timing checks/0;
+320 PT plus18 monitor physical courses/0, max ordinary speed6.000019/s.
+PT now waits for actual symbols/new-north visibility; monitor actors no longer
+spawn on their answers. PT16663, enemy rings340, markers33 and shared13737
+assertions all pass; continuous P5 after Solar5/3.2s15 courses/0.
+Source-only fallback logic, original native model wiring and final exported
+platform proof are deliberately separate. The earlier210s matrix timeout and
+harness failures remain retained; they are not converted into a pass.
