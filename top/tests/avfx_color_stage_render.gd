@@ -62,12 +62,23 @@ func run()->void:
   var got:Color=await pixels();var expected:Array=fixture.expected;var a:=clampf(expected[3],0,1)
   # The explicit pre-postprocess result over black, without game tone-map/MRT.
   var target:=Color(display_transfer(maxf(0,expected[0]))*a,display_transfer(maxf(0,expected[1]))*a,display_transfer(maxf(0,expected[2]))*a,1)
-  if a<1.0/255.0:target=Color.BLACK
+  if a<Stage.DISCARD_THRESHOLD:target=Color.BLACK
   var delta:=maxf(absf(got.r-target.r),maxf(absf(got.g-target.g),absf(got.b-target.b)))
   check(delta<0.015,"RGB pixel "+fixture.label+" got="+str(got)+" want="+str(target))
   material.set_shader_parameter("diagnostic_alpha",true)
   var alpha:Color=await pixels()
   check(maxf(absf(alpha.r-display_transfer(0.25+0.5*a)),maxf(absf(alpha.g-display_transfer(0.25+0.5*a)),absf(alpha.b-display_transfer(0.25+0.5*a))))<0.008,"alpha pixel "+fixture.label)
+  if fixture.get("signed_probe",false):
+   material.set_shader_parameter("diagnostic_alpha",false)
+   material.set_shader_parameter("diagnostic_signed_rgb",true)
+   var signed_pixel:Color=await pixels()
+   var signed_target:=Color(display_transfer(0.5+0.25*expected[0]),display_transfer(0.5+0.25*expected[1]),display_transfer(0.5+0.25*expected[2]),1)
+   check(maxf(absf(signed_pixel.r-signed_target.r),maxf(absf(signed_pixel.g-signed_target.g),absf(signed_pixel.b-signed_target.b)))<0.008,"encoded signed RGB "+fixture.label)
+   material.set_shader_parameter("diagnostic_signed_rgb",false)
+   material.set_shader_parameter("diagnostic_discard",true)
+   var discard_pixel:Color=await pixels()
+   var discard_target:=0.0 if fixture.expected_discard else display_transfer(1.0)
+   check(maxf(absf(discard_pixel.r-discard_target),maxf(absf(discard_pixel.g-discard_target),absf(discard_pixel.b-discard_target)))<0.008,"exact discard boundary "+fixture.label)
   snapshots.append({"label":fixture.label,"rgb":[got.r,got.g,got.b],"alpha":[alpha.r,alpha.g,alpha.b],"expected":expected,"max_rgb_error":delta,"package_sha256":fixture.plan.package_sha256,"pixel_sha256":fixture.plan.bytecode_sha256})
   quad.material_override=null;material=null;result.clear();context.clear();samples.clear()
  # Let render commands relinquish all task-owned material/image references.

@@ -7,6 +7,7 @@ import random
 import struct
 import sys
 import unittest
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from apricot_color_plan import compile_plan, evaluate, shade_before_postprocess, binding_signature, PlanError
 from avfx_shader_select import load_names
@@ -27,7 +28,7 @@ def synthetic():
     program={'bytecode':{'sha256':'a'*64},'bindings':bindings}
     node={'index':0,'keys':{'scene':values},'passes':[{'id':5,'vertex':0,'pixel':0}]}
     meta={'keys':{'scene':keys},'nodes':[node],'programs':{'pixel':[program]}}
-    book={'programs':[{'bytecode_sha256':'a'*64,'bindings_sha256':binding_signature(bindings),'equation_id':'shape1'}]}
+    book={'programs':[{'bytecode_sha256':'a'*64,'bindings_sha256':binding_signature(bindings),'equation_id':'shape1','nonnegative_clamp':'after_common','discard_threshold_bits':'0x3B808081'}]}
     return meta,book
 
 def reference(label,c,cc,ca):
@@ -70,7 +71,8 @@ class Synthetic(unittest.TestCase):
         with self.assertRaises(PlanError):evaluate(p,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1)
     def test_clamp_and_discard_follow_common_factors(self):
         meta,book=synthetic();p=compile_plan(meta,0,verified=book)
-        out=shade_before_postprocess(p,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1,common_factor=(-2,3,4,.002))
+        with patch('apricot_color_plan.load_verified',return_value=book):
+            out=shade_before_postprocess(p,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1,common_factor=(-2,3,4,.002))
         self.assertEqual(out['rgba'],(0,3,4,.002));self.assertTrue(out['discard'])
     def test_scene_equation_cannot_contradict_reviewed_bytecode(self):
         meta,book=synthetic()
@@ -92,6 +94,24 @@ class Synthetic(unittest.TestCase):
         meta['nodes'][0]['keys']['scene'].pop()
         self.assertEqual(compile_plan(meta,0,verified=book)['status'],'unsupported')
 
+    def test_signed_clamp_order_and_exact_discard_boundary(self):
+        meta,book=synthetic()
+        # Two trusted synthetic identities isolate identical color equations.
+        for label,order,want in [('shape1','after_common',(0.2,0,0.4)),('powder1','before_common',(0,-0.3,0.4))]:
+            book['programs'][0].update(equation_id=label,nonnegative_clamp=order)
+            plan=compile_plan(meta,0,verified=book)
+            with patch('apricot_color_plan.load_verified',return_value=book):
+                got=shade_before_postprocess(plan,[(-.2,.3,.4,1)]*4,calculate_color=1,calculate_alpha=1,common_factor=(-1,-1,1,1))
+                for a,b in zip(got['rgba'][:3],want):self.assertAlmostEqual(a,b)
+                threshold=struct.unpack('<f',struct.pack('<I',0x3b808081))[0]
+                below=struct.unpack('<f',struct.pack('<I',0x3b808080))[0]
+                for alpha,discard in [(below,True),(threshold,False),(-1,True),(2,False)]:
+                    got=shade_before_postprocess(plan,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1,common_factor=(1,1,1,alpha))
+                    self.assertEqual(got['discard'],discard)
+                for key,value in [('nonnegative_clamp','before_common' if order=='after_common' else 'after_common'),('bytecode_sha256','b'*64),('bindings_sha256','c'*64),('review_equation','shape2'),('discard_threshold_bits','0x3B808080')]:
+                    changed=copy.deepcopy(plan);changed[key]=value
+                    with self.assertRaises(PlanError):shade_before_postprocess(changed,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1,common_factor=(1,1,1,1))
+
 class OriginalOracle(unittest.TestCase):
     def test_every_selected_original_node_matches_independent_disassembly_equations(self):
         source=ROOT/'layer-programs/layer-programs.json'
@@ -112,3 +132,25 @@ class OriginalOracle(unittest.TestCase):
                     for x,y in zip(got,want):self.assertAlmostEqual(x,y,places=11,msg=str((family,record['layers'],original['index'],plan['layers'])))
                     cases+=1
         print('ORIGINAL_COLOR_ORACLE nodes',nodes,'cases',cases)
+
+    def test_original_signed_common_factor_boundaries(self):
+        source=ROOT/'layer-programs/layer-programs.json'
+        if not source.exists():self.skipTest('private original corpus is unavailable')
+        records=json.loads(source.read_text());packages={};cases=0
+        samples=[(-.2,.3,-.4,-.5),(.6,-.7,.8,-.4),(-.3,.2,.7,-.6),(.9,-.4,.5,.8)]
+        factors=[(-1,-1,1,-1),(1,1,-1,2),(.3,.4,.5,.002)]
+        for record in records:
+            family=record['kind']
+            if family not in packages:packages[family]=inspect((ROOT/f'shader-bundle/source/shader/sm5/shpk/apricot_{family}.shpk').read_bytes())
+            for original in record['nodes']:
+                plan=compile_plan(packages[family],original['index'])
+                for factor in factors:
+                    section=reference(family+str(record['layers']),samples,1,1)
+                    if family=='powder':section=tuple(max(0,x) for x in section)
+                    want=tuple(x*y for x,y in zip(section,factor))
+                    if family!='powder':want=tuple(max(0,x) for x in want)
+                    want=(*want[:3],max(0,min(1,want[3])))
+                    got=shade_before_postprocess(plan,samples,calculate_color=1,calculate_alpha=1,common_factor=factor)
+                    for a,b in zip(got['rgba'],want):self.assertAlmostEqual(a,b,places=11)
+                    self.assertEqual(got['discard'],want[3]<struct.unpack('<f',struct.pack('<I',0x3b808081))[0]);cases+=1
+        print('ORIGINAL_SIGNED_FACTOR_ORACLE cases',cases)

@@ -125,6 +125,16 @@ ShaderMaterial from a reviewed color plan and an explicit host context. It
 executes the reviewed 1–4-layer equations, including constant-only layers whose
 sampler was optimized away. Unsupported decode/sampler inputs fail closed.
 
+The compiler and bridge share `top/data/apricot_verified_color_programs.json`.
+Godot also recomputes the canonical executable layer-equation fingerprint; a
+syntactically valid but contradictory equation is rejected.
+Plans must carry the exact reviewed bytecode/layout pair, clamp order and discard
+constant; absent/stale or contradictory contracts fail closed. Powder's selected
+programs clamp the section to nonnegative **before** caller-combined factors;
+selected shape/model programs clamp **after** factors. Alpha saturates afterward.
+Discard uses the original float32 immediate `0x3B808081`, not a rounded decimal.
+This does not reproduce separate host multiply rounding or complete postprocess.
+
 Required context, with no inferred game defaults:
 
 - `calculate_color`, `calculate_alpha`: finite explicit host controls.
@@ -171,3 +181,21 @@ entry/output to a Node and JavaScriptBridge without changing the shader core or
 pixel assertions. Task browser processes, server, unique profile, Godot cache and
 app user data were closed/removed. This remains color-section-only acceptance,
 not complete TOP Web or original-game equivalence.
+
+### Signed-input correction (2026-10-22)
+
+The corrected source passed Linux Mesa/llvmpipe **135 fixtures / 1,263 checks**
+(including 14 new powder1/shape1 signed/boundary cases and the prior four-UV
+cases), plus **38** context-contract checks. Signed RGB is observed through
+`0.5+0.25*rgb`; alpha retains its earlier encoded probe. A separate opaque
+survival diagnostic distinguishes exact/below-threshold discard. These are
+internal numeric probes, not an HDR framebuffer or original render-graph proof.
+The same final frozen source also passed AnAn Windows and Chrome WebGL2, each
+**135 fixtures / 1,263 checks / 0 failures**; Windows contracts passed **38**
+checks. Web output includes all 135 pixel records and weak-reference release.
+Initial isolated Web attempts omitted the shared registry, then used a stale
+result-variable name; corrected packaging and result adapters passed without
+changing numeric assertions. Export logs verify the registry is packed. Final
+parent process/cache audits removed a leftover task PowerShell process and
+cache. Historical attempts remain evidence, not passes. No hardware-GPU or
+complete original-game acceptance claim is made.

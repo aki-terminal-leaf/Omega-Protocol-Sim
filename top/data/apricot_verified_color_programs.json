@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "scope": "reviewed texture-combiner sections only, not entire pixel shaders",
+  "scope": "reviewed texture-combiner sections and common-factor clamp/discard boundary, not entire pixel shaders",
   "client_version": "2026.10.16.0000.0000",
   "rendering_complete": false,
   "source": "private installed original DXBC disassembly plus independent equation review; hashes/layout signatures only",
@@ -11,7 +11,10 @@
       "equation_id": "powder1",
       "observed_in": [
         "apricot-powder-layers1-pixel1.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "before_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "65fed9f68757e14282d7dd06fba47954c6acd89b9480f6410d026913ff40ab5a"
     },
     {
       "bytecode_sha256": "6f371f4b36697057d24590c42dd1740c1f5ac2112625389686b357ce31b37bff",
@@ -19,7 +22,10 @@
       "equation_id": "shape1",
       "observed_in": [
         "apricot-shape-layers1-pixel8.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "65fed9f68757e14282d7dd06fba47954c6acd89b9480f6410d026913ff40ab5a"
     },
     {
       "bytecode_sha256": "9b2cf19352f48b37f34a74c81afc76b62a9612f5029cc5b8e57b5d244a84077d",
@@ -27,7 +33,10 @@
       "equation_id": "shape2",
       "observed_in": [
         "apricot-shape-layers2-pixel403.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "975d807fde22dea5e7c3d832896c342f5de8557eb26ce687491933126d240517"
     },
     {
       "bytecode_sha256": "4f96cd7c34e2dc852d22b9b3d5864c616aee9e81fc33acd7f6d3f3e2e46f73da",
@@ -35,7 +44,10 @@
       "equation_id": "shape3",
       "observed_in": [
         "apricot-shape-layers3-pixel995.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "95e2936f2254c5644ad76813723c3a5efc643eab99a0d8604c6163238f57a611"
     },
     {
       "bytecode_sha256": "cda574a8fbde375674725d307c43e1b5467a92dd89161d14becf9b0d81ed7756",
@@ -43,7 +55,10 @@
       "equation_id": "shape4",
       "observed_in": [
         "apricot-shape-layers4-pixel466.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "030bbbb91fb5c167ae1233746998049f25d3944b2ac11a613d63ed3a7d597e5a"
     },
     {
       "bytecode_sha256": "43a927d53530f942c0a463bfdd55e170ce138b8537800e40499e88657ff2166c",
@@ -51,7 +66,10 @@
       "equation_id": "model1",
       "observed_in": [
         "apricot-model-layers1-pixel1636.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "b959bb3f84ec3b7dbd01df481c9bb8d7681e3caaef962924acc2ac84530239c0"
     },
     {
       "bytecode_sha256": "c54665507e858ac052ddbbc81142c16d3bfaf05e094e72054345d0e6839e8ef9",
@@ -59,7 +77,10 @@
       "equation_id": "model2",
       "observed_in": [
         "apricot-model-layers2-pixel1616.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "975d807fde22dea5e7c3d832896c342f5de8557eb26ce687491933126d240517"
     },
     {
       "bytecode_sha256": "35ffe8a564f267296680f3022906606aebc5b4c6f6e3ac4d37ab3ad875df6664",
@@ -67,7 +88,10 @@
       "equation_id": "model3",
       "observed_in": [
         "apricot-model-layers3-pixel1783.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "b51be66818177c07d0f6bab22fef941e2ec7f18ce8d93f6851304e9b61f6817d"
     },
     {
       "bytecode_sha256": "a4e4a13e113480e0685d7974d55e9ccd35ae8f6b9d49b281f1b55301b95b2713",
@@ -75,7 +99,10 @@
       "equation_id": "model4",
       "observed_in": [
         "apricot-model-layers4-pixel1618.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "1a03557e226e05b5b9f8783257d3017fe8ec91b7ca6f984e48d4f7e2679251b1"
     },
     {
       "bytecode_sha256": "dad49cb03c029e921de4024e97b15913c2d5f2c7932ee10840fc152eaedaf8e0",
@@ -84,7 +111,10 @@
       "observed_in": [
         "apricot_lightmodel-pixel-0.dxbc",
         "apricot_model-pixel-0.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "e61b9f584dbe27741cef6e9ee440831d7d94470c0871b0871541f0308916efea"
     },
     {
       "bytecode_sha256": "2e3e5bf1210b10966349ee998ea2ba3fddd041de4cd3e2cdf36d9c1c4208d21c",
@@ -92,7 +122,10 @@
       "equation_id": "identity",
       "observed_in": [
         "apricot_powder-pixel-0.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "before_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "e61b9f584dbe27741cef6e9ee440831d7d94470c0871b0871541f0308916efea"
     },
     {
       "bytecode_sha256": "5ff54131e605a5dea698e17217dcb24ad893796af42aa2bdd486716157d6cd67",
@@ -100,7 +133,10 @@
       "equation_id": "identity",
       "observed_in": [
         "apricot_shape-pixel-0.dxbc"
-      ]
+      ],
+      "nonnegative_clamp": "after_common",
+      "discard_threshold_bits": "0x3B808081",
+      "equation_sha256": "e61b9f584dbe27741cef6e9ee440831d7d94470c0871b0871541f0308916efea"
     }
   ],
   "color_to_alpha_weights": [

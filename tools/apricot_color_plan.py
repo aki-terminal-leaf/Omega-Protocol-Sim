@@ -10,13 +10,16 @@ from functools import lru_cache
 import hashlib
 import json
 import math
+import struct
 from pathlib import Path
 try:
     from .avfx_shader_select import load_names
 except ImportError:
     from avfx_shader_select import load_names
 
-DATA = Path(__file__).with_name('data') / 'apricot_verified_color_programs.json'
+DATA = Path(__file__).resolve().parents[1] / 'top/data/apricot_verified_color_programs.json'
+DISCARD_THRESHOLD_BITS = '0x3B808081'
+DISCARD_THRESHOLD = struct.unpack('<f', struct.pack('<I', int(DISCARD_THRESHOLD_BITS, 16)))[0]
 GROUPS = ('constants', 'samplers', 'textures', 'uavs')
 
 class PlanError(ValueError):
@@ -138,6 +141,8 @@ def compile_plan(meta, node_index, *, pass_index=None, verified=None):
                 raise PlanError(f'unresolved color-stage semantic {key}: {value}')
             return values[value]
         layers = []
+        if review.get('nonnegative_clamp') not in ('before_common', 'after_common') or review.get('discard_threshold_bits') != DISCARD_THRESHOLD_BITS:
+            raise PlanError('unreviewed common-factor clamp/discard contract')
         identity = review['equation_id'] == 'identity'
         for number in range(1, 5):
             prefix = f'TextureColor{number}'
@@ -180,6 +185,8 @@ def compile_plan(meta, node_index, *, pass_index=None, verified=None):
                       pass_id=shader_pass['id'], vertex_shader=shader_pass['vertex'], pixel_shader=pixel_index,
                       bytecode_sha256=code_hash, bindings_sha256=layout_hash,
                       review_equation=review['equation_id'], unresolved_scene_keys=unknown,
+                      nonnegative_clamp=review['nonnegative_clamp'],
+                      discard_threshold_bits=review['discard_threshold_bits'],
                       color_to_alpha_weights=book.get('color_to_alpha_weights'),
                       requires_model_fresnel=any(row['name'] == 'g_PS_ModelSpecificParameters'
                                                 for row in program['bindings'].get('constants', [])),
@@ -244,12 +251,29 @@ def evaluate(plan, samples, *, calculate_color, calculate_alpha):
         raise PlanError('nonfinite combiner result')
     return result
 
+def factor_contract(plan):
+    """Bind clamp order to exact reviewed bytecode AND resource layout, not labels."""
+    review = next((row for row in load_verified()['programs']
+                   if row['bytecode_sha256'] == plan.get('bytecode_sha256')
+                   and row['bindings_sha256'] == plan.get('bindings_sha256')), None)
+    if (review is None or plan.get('review_equation') != review['equation_id']
+            or plan.get('color_equation_sha256') != reviewed_equation_signature(review['equation_id'])
+            or plan.get('nonnegative_clamp') != review['nonnegative_clamp']
+            or plan.get('discard_threshold_bits') != DISCARD_THRESHOLD_BITS
+            or review['discard_threshold_bits'] != DISCARD_THRESHOLD_BITS):
+        raise PlanError('common-factor contract does not match reviewed program identity')
+    return review['nonnegative_clamp']
+
 def shade_before_postprocess(plan, samples, *, calculate_color, calculate_alpha, common_factor):
-    """Explicit common factor includes vertex/document/Fresnel as appropriate."""
+    """Explicit combined factor, not original host multiply ordering or postprocess."""
+    clamp_order = factor_contract(plan)
     color = evaluate(plan, samples, calculate_color=calculate_color, calculate_alpha=calculate_alpha)
     factor = vector(common_factor)
+    if clamp_order == 'before_common':
+        color = tuple(max(0.0, value) for value in color)
     color = tuple(color[i] * factor[i] for i in range(4))
     if not all(math.isfinite(value) for value in color):
         raise PlanError('nonfinite common-factor result')
-    color = tuple(max(0.0, color[i]) if i < 3 else min(1.0, max(0.0, color[i])) for i in range(4))
-    return {'rgba': color, 'discard': color[3] < 1 / 255, 'rendering_complete': False}
+    color = tuple(max(0.0, color[i]) if i < 3 and clamp_order == 'after_common'
+                  else min(1.0, max(0.0, color[i])) if i == 3 else color[i] for i in range(4))
+    return {'rgba': color, 'discard': color[3] < DISCARD_THRESHOLD, 'rendering_complete': False}

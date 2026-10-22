@@ -144,7 +144,7 @@ Shape fixtures preserve RGB above 1.0. Because that made shape4's secondary
 alpha zero throughout its baseline, a separate four-corner low-exposure probe
 verified nonzero MRT1 alpha without replacing the HDR baseline.
 
-Total execution coverage is **9 selected programs / 94 recorded cases**,
+Total execution coverage is **9 selected programs / 94 initial recorded cases**,
 not all Apricot programs or permutations. Powder1 and shape1 still have the
 narrow three-case uniform-texture scope above. Independent reviews and final
 hash/process/artifact reconciliation were completed. All harness binaries,
@@ -152,10 +152,17 @@ objects, copied raw inputs and owned processes were removed; private sources
 and evidence remain. Original VS execution, host packing/defaults, dynamic
 Fresnel construction and the complete game render graph remain unproved.
 
-A newly identified signed-input discrepancy remains to be fixed in the portable
-section bridge: powder1 clamps nonnegative **before** common factors, whereas
-the selected shape/model programs clamp **after** them. Historical positive
-fixtures do not establish signed-input equivalence or complete postprocessing.
+A subsequent genuine powder1/shape1 signed-input probe passed **16 more cases**
+(eight each), validating both MRTs with maximum error below `6e-8` at tolerance
+`3e-6`. Signed inputs distinguish powder's nonnegative clamp **before** common
+factors from shape/model clamping **after** factors. Alpha saturation and the
+exact float32 discard boundary were exercised. Both targets were cleared to
+distinct sentinels before every draw; all five discarded cases retained both
+sentinels bit-exactly. Nonzero secondary alpha was also checked. These additional
+1×1 probes do not establish nonuniform powder1/shape1 UV routing or host defaults.
+The CPU/Godot section bridge now uses hash/layout-pinned clamp contracts, shared
+reviewed equation signatures and the exact discard immediate. Signed diagnostics
+encode internal values for LDR observation; complete postprocessing is unproved.
 
 ## Exact paired-program UV ABI (2026-10-22)
 

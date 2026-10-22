@@ -10,7 +10,7 @@ func check(ok:bool,label:String)->void:
 func plan()->Dictionary:
  var layers:Array=[]
  for i in 4:layers.append({"number":i+1,"enabled":i==0,"sample_required":true,"color_to_alpha":false,"decode_semantic":"TextureColor%d_Decode_Off"%(i+1),"uv_index":0,"color_op":"DynamicMul" if i==0 else "Mul","alpha_op":"DynamicMul" if i==0 else "Mul"})
- return {"status":"verified_color_stage","rendering_complete":false,"requires_model_fresnel":false,"layers":layers}
+ return {"status":"verified_color_stage","rendering_complete":false,"requires_model_fresnel":false,"layers":layers,"bytecode_sha256":"6f371f4b36697057d24590c42dd1740c1f5ac2112625389686b357ce31b37bff","bindings_sha256":"f15ec22f1d67793a81b52300adb762d7777dfcd5345b41afbc1f88643ceefe11","review_equation":"shape1","nonnegative_clamp":"after_common","discard_threshold_bits":"0x3B808081","color_equation_sha256":"65fed9f68757e14282d7dd06fba47954c6acd89b9480f6410d026913ff40ab5a"}
 func context()->Dictionary:
  var image:=Image.create(1,1,false,Image.FORMAT_RGBA8);image.fill(Color.WHITE)
  var texture:=ImageTexture.create_from_image(image)
@@ -38,7 +38,7 @@ func _initialize()->void:
  for key in ["texture","filter","wrap","uv_source","uv_row0","uv_row1","decoded_samples","source_uv_index"]:
   c=context();c.samples[0].erase(key);check(Stage.create(p,c).status=="unsupported","no guessed sample "+key)
  c=context();c.samples[0].uv_row0=Vector3(INF,0,0);check(Stage.create(p,c).status=="unsupported","reject nonfinite UVs")
- for edit in ["status","layers","number","decode","operation"]:
+ for edit in ["status","layers","number","decode","operation","hash","layout","clamp","equation","threshold","valid_equation_mutation","missing_signature"]:
   p=plan();c=context()
   match edit:
    "status":p.status="ambiguous"
@@ -46,6 +46,13 @@ func _initialize()->void:
    "number":p.layers[0].number=3
    "decode":p.layers[0].decode_semantic="unknown"
    "operation":p.layers[0].color_op="guess"
+   "hash":p.bytecode_sha256="unreviewed"
+   "layout":p.bindings_sha256="unreviewed"
+   "clamp":p.nonnegative_clamp="before_common"
+   "equation":p.review_equation="powder1"
+   "threshold":p.discard_threshold_bits="0x3B808080"
+   "valid_equation_mutation":p.layers[0].color_to_alpha=true
+   "missing_signature":p.erase("color_equation_sha256")
   check(Stage.create(p,c).status=="unsupported","reject invalid plan "+edit)
  p.clear();c.clear();result.clear()
  print("AVFX_COLOR_STAGE_CONTRACT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)
