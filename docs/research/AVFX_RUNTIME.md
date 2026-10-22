@@ -41,6 +41,16 @@ must not replace the accepted P3 reconstruction yet. No released build changes.
 All original inputs, compiled documents, textures and screenshots stay private.
 Public tests contain only original synthetic fixtures.
 
+## Reviewed color-section continuation (2026-10-22)
+
+The isolated [shader section bridge](AVFX_SHADER_SELECTION.md#executable-color-section-bridge)
+now executes reviewed 1–4-layer decoded color equations with explicit caller
+UVs/host controls. Linux, native Windows and WebGL2 pixel/lifecycle probes each passed
+113 fixtures / 1,017 checks. It is
+not connected to encounter playback and does not resolve the remaining host
+ABI, render-graph, attachment or scheduler semantics below. No full-player
+completion or new released build is claimed.
+
 ## Remaining hard requirements for complete playback
 
 | Area | Remaining requirement |

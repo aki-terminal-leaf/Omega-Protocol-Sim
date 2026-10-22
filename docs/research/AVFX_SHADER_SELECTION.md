@@ -117,3 +117,57 @@ WebGL2 export on Godot4.7.2, including nonblank actual-canvas capture. This is
 scoped material-path acceptance, not full TOP Web playback acceptance; the
 hardware renderer backend was not established. Its task browser, HTTP server
 and temporary profile were closed/removed and owned-PID cleanup verified.
+
+## Executable color-section bridge
+
+`top/scripts/avfx_color_stage.gd` now creates a Godot4.7.2 Compatibility
+ShaderMaterial from a reviewed color plan and an explicit host context. It
+executes the reviewed 1–4-layer equations, including constant-only layers whose
+sampler was optimized away. Unsupported decode/sampler inputs fail closed.
+
+Required context, with no inferred game defaults:
+
+- `calculate_color`, `calculate_alpha`: finite explicit host controls.
+- `common_factor`: caller-combined vertex/document/model RGBA factor.
+- `model_fresnel_included`: explicit provenance; required true for model shaders.
+- Four `samples` slots. Active samplers require a `Texture2D`, decoded-numeric
+  sample assertion, nearest/linear filtering, repeat/clamp wrapping, source UV
+  index matching the plan, mesh UV/UV2 input and two finite affine UV rows.
+
+The caller owns the returned material and its texture references. There are no
+static material/shader/texture caches; releasing the material and caller context
+releases the references. This is a section-execution bridge, **not wired into the
+practice player**. Its fixed unshaded/mix/no-depth-write probe states are not an
+implementation of the original render graph. It does not generate original UV
+transforms, derive host controls or calculate Fresnel/lighting/tone-map/MRT.
+
+Native Linux Mesa/llvmpipe and AnAn Windows each passed **113 fixtures / 1,017
+checks**: 111 original-instruction cases, two independent four-layer UV/UV2
+cases, and actual material/shader/texture weak-reference release. An additional
+25 headless context-contract checks reject missing factors, invalid UV inputs
+and unreviewed settings. Both use the same source and fixture hashes.
+
+Initial failed probes are retained: Godot Compatibility internally applies
+approximate sRGB conversion even when unshaded; a constant-output shader and
+pinned engine source (`ed1daf0bf`, `drivers/gles3/shaders/tonemap_inc.glsl`)
+explain its low-level error. Final probes independently account for this
+transfer, keep RGB within the LDR target, and encode alpha as `0.25+0.5*a`
+before that transfer. They do not alter the original color equations or claim
+full-frame/original-game color equivalence. All owned native processes exited;
+Windows task-created shader cache was removed.
+
+The CPU compiler now also compares a normalized symbolic equation against the
+manual reviewed instruction equation. Matching bytecode/layout hashes alone
+cannot make contradictory mutable scene metadata a verified executable plan.
+Structured UV-count records participate in the same cardinality validation as
+plain integers. The private 37-node / 111-case independent oracle still passes.
+
+The same frozen shader source and 113 fixtures also passed an isolated AnAn
+Chrome **WebGL2** no-threads export: **1,017 checks / 0 failures**, no console
+errors, page errors or failed requests. Actual canvas capture and source/fixture
+hashes were retained privately. Renderer identification was only `WebKit WebGL`
+/ `WebKit`; no hardware-backend claim is made. The Web runner adapts SceneTree
+entry/output to a Node and JavaScriptBridge without changing the shader core or
+pixel assertions. Task browser processes, server, unique profile, Godot cache and
+app user data were closed/removed. This remains color-section-only acceptance,
+not complete TOP Web or original-game equivalence.

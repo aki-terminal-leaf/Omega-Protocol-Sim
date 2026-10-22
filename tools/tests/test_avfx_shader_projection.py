@@ -35,6 +35,12 @@ class Tests(unittest.TestCase):
   self.assertFalse(any('CalculateColor' in x['key']['name'] for x in r['constraints']))
  def test_malformed_particle_is_invalid(self):
   self.assertEqual('invalid',project_particle(doc({'materials':[]}),0)['status'])
+ def test_record_count_and_malformed_uv_are_diagnosed(self):
+  p={'values':{'UvSN':{'value':2}},'uv_sets':[None],'materials':{}}
+  r=project_particle(doc(p),0)
+  self.assertTrue(any(x['reason']=='declared_uv_set_count_differs_from_records' for x in r['diagnostics']))
+  self.assertTrue(any(x['reason']=='invalid_uv_record' for x in r['diagnostics']))
+  self.assertEqual('invalid',project_particle({'groups':{'Ptcl':None}},0)['status'])
  def test_all_constraints_in_crc_map(self):
   p={'values':{'UVPT':0,'UvSN':4},'uv_sets':[{'CUvT':0}]*4,'materials':{'TC2':{'bEna':1,'bC2A':1,'UvSN':0,'TCCT':4,'TCAT':3},'TD':{'bEna':1,'UvSN':3},'TP':{'bEna':0}}}
   known=set(load_names()['keys'].values())

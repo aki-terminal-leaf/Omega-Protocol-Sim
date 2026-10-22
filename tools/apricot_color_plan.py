@@ -38,6 +38,56 @@ def binding_signature(bindings):
         normalized[group] = sorted(rows, key=lambda x: (x['slot'], x['id'], x['name']))
     return hashlib.sha256(json.dumps(normalized, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
+def _expression(op, *terms):
+    if op == 'None': return terms[0]
+    if op in ('Mul', 'Add'):
+        flat = []
+        identity = 1 if op == 'Mul' else 0
+        for term in terms:
+            if term == identity: continue
+            flat.extend(term[1:] if isinstance(term, list) and term[0] == op else [term])
+        if not flat: return identity
+        if len(flat) == 1: return flat[0]
+        return [op, *sorted(flat, key=lambda x: json.dumps(x, sort_keys=True))]
+    if op in ('Min', 'Max') and terms[0] == terms[1]: return terms[0]
+    return [op, *terms]
+
+def _first(sample, control):
+    return 1 if sample == 1 else ['LerpOne', sample, control]
+
+def equation_signature(layers):
+    rgb = alpha = 1
+    for layer in layers:
+        if not layer['enabled']: continue
+        n = layer['number']
+        color = 1 if layer['color_to_alpha'] else ['RGB', n]
+        a = ['Luma', n] if layer['color_to_alpha'] else ['Alpha', n]
+        if n == 1:
+            rgb, alpha = _first(color, 'CalculateColor'), _first(a, 'CalculateAlpha')
+        else:
+            rgb = _expression(layer['color_op'], rgb, color)
+            alpha = _expression(layer['alpha_op'], alpha, a)
+    return hashlib.sha256(json.dumps([rgb, alpha], separators=(',', ':')).encode()).hexdigest()
+
+def reviewed_equation_signature(label):
+    # Manual original-instruction equations. Independent of mutable scene metadata.
+    m = _first(['RGB', 1], 'CalculateColor')
+    ma = _first(['Alpha', 1], 'CalculateAlpha')
+    a = _first(['Luma', 1], 'CalculateAlpha')
+    mul = lambda *x: _expression('Mul', *x)
+    add = lambda *x: _expression('Add', *x)
+    equations = {
+        'identity': (1, 1), 'shape1': (m, ma), 'powder1': (m, ma),
+        'shape2': (['RGB', 2], a),
+        'shape3': (mul(m, ['RGB', 3]), mul(ma, ['Alpha', 2], ['Alpha', 3])),
+        'shape4': (add(mul(['RGB', 2], ['RGB', 3]), ['RGB', 4]), mul(a, ['Alpha', 2])),
+        'model1': (1, a), 'model2': (['RGB', 2], a),
+        'model3': (add(m, ['RGB', 2]), mul(ma, ['Luma', 3])),
+        'model4': (add(['RGB', 2], ['RGB', 3]), mul(a, ['Alpha', 2], ['Luma', 4])),
+    }
+    if label not in equations: raise PlanError('no reviewed color equation for program')
+    return hashlib.sha256(json.dumps(equations[label], separators=(',', ':')).encode()).hexdigest()
+
 def compile_plan(meta, node_index, *, pass_index=None, verified=None):
     result = {'schema': 1, 'status': 'unsupported', 'rendering_complete': False,
               'section': 'texture color combiner before common factors/postprocess',
@@ -59,7 +109,7 @@ def compile_plan(meta, node_index, *, pass_index=None, verified=None):
             raise PlanError('pass index outside node')
         shader_pass = passes[pass_index]
         pixel_index = shader_pass['pixel']
-        if pixel_index == 0xffffffff or pixel_index >= len(meta['programs']['pixel']):
+        if not isinstance(pixel_index,int) or isinstance(pixel_index,bool) or pixel_index < 0 or pixel_index >= len(meta['programs']['pixel']):
             raise PlanError('no executable pixel program for this pass')
         program = meta['programs']['pixel'][pixel_index]
         code_hash = program['bytecode']['sha256']
@@ -122,7 +172,11 @@ def compile_plan(meta, node_index, *, pass_index=None, verified=None):
                 if layer['sample_required'] and f'g_SamplerColor{number}' not in names:
                     raise PlanError('required color sampler is absent from reviewed layout')
             layers.append(layer)
+        signature = equation_signature(layers)
+        if signature != reviewed_equation_signature(review['equation_id']):
+            raise PlanError('scene-derived equation contradicts reviewed pixel instructions')
         result.update(status='verified_color_stage', layers=layers, pass_index=pass_index,
+                      color_equation_sha256=signature,
                       pass_id=shader_pass['id'], vertex_shader=shader_pass['vertex'], pixel_shader=pixel_index,
                       bytecode_sha256=code_hash, bindings_sha256=layout_hash,
                       review_equation=review['equation_id'], unresolved_scene_keys=unknown,
@@ -165,12 +219,19 @@ def evaluate(plan, samples, *, calculate_color, calculate_alpha):
         raise PlanError('provide four explicit decoded sample slots')
     if not isinstance(plan.get('layers'), list) or [layer.get('number') for layer in plan['layers']] != [1,2,3,4]:
         raise PlanError('color plan must contain exactly four ordered layers')
+    if equation_signature(plan['layers']) != plan.get('color_equation_sha256'):
+        raise PlanError('color layers changed after instruction-equation verification')
     controls = float(calculate_color), float(calculate_alpha)
     if not all(math.isfinite(value) for value in controls):
         raise PlanError('nonfinite dynamic color control')
     result = (1.0, 1.0, 1.0, 1.0)
     for layer in plan['layers']:
         if not layer['enabled']: continue
+        required = (layer['number'] == 1 or
+                    (not layer['color_to_alpha'] and layer['color_op'] != 'None') or
+                    layer['alpha_op'] != 'None')
+        if layer.get('sample_required') is not required:
+            raise PlanError('color sampling dependency changed after compilation')
         sample = vector(samples[layer['number'] - 1]) if layer.get('sample_required') else (1., 1., 1., 1.)
         if layer['color_to_alpha']:
             sample = (1.0, 1.0, 1.0, luminance(sample, plan.get('color_to_alpha_weights')) if layer.get('sample_required') else 1.)

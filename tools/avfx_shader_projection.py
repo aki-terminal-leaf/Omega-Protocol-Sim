@@ -52,6 +52,8 @@ def project_particle(document,particle_index):
     vals=p.get('values',{}); enum(vals,'UVPT',{k:'UvPrecisionType_'+v for k,v in UVP.items()},'UvPrecisionType_Table')
     enum(vals,'UvSN',{k:'UvSetCount_'+v for k,v in UVC.items()},'UvSetCount_Table')
     for i,uv in enumerate(p.get('uv_sets',[])):
+        if not isinstance(uv,dict):
+            ds.append({'path':f'uv_sets[{i}]','reason':'invalid_uv_record'});continue
         enum(uv,'CUvT',{k:'UvCompute_'+v for k,v in CUV.items()},f'UvCompute{i}_Table',f'uv_sets[{i}].CUvT')
     prefixes={'TC1':'TextureColor1','TC2':'TextureColor2','TC3':'TextureColor3','TC4':'TextureColor4',
               'TN':'TextureNormal','TR':'TextureReflection','TD':'TextureDistortion','TP':'TexturePalette'}
@@ -88,7 +90,7 @@ def project_particle(document,particle_index):
     if isinstance(first,dict):
         for tag in ('TCCT','TCAT'):
             if tag in first:ds.append({'path':'materials.TC1.'+tag,'reason':'requires_dynamic_color_alpha_control_mapping'})
-    uv_count=vals.get('UvSN')
+    uv_count=_lit(vals['UvSN'],'values.UvSN',[]) if 'UvSN' in vals else None
     if isinstance(uv_count,int) and not isinstance(uv_count,bool) and uv_count!=len(p.get('uv_sets',[])):
         ds.append({'path':'values.UvSN','reason':'declared_uv_set_count_differs_from_records','declared':uv_count,'records':len(p.get('uv_sets',[]))})
     return out

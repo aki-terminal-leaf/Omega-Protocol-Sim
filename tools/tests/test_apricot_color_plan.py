@@ -72,6 +72,20 @@ class Synthetic(unittest.TestCase):
         meta,book=synthetic();p=compile_plan(meta,0,verified=book)
         out=shade_before_postprocess(p,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1,common_factor=(-2,3,4,.002))
         self.assertEqual(out['rgba'],(0,3,4,.002));self.assertTrue(out['discard'])
+    def test_scene_equation_cannot_contradict_reviewed_bytecode(self):
+        meta,book=synthetic()
+        names={v:int(k,16) for k,v in load_names()['keys'].items()}
+        meta['nodes'][0]['keys']['scene'][0]=names['TextureColor1_Disable']
+        plan=compile_plan(meta,0,verified=book)
+        self.assertEqual(plan['status'],'unsupported')
+        self.assertIn('contradicts reviewed',plan['diagnostics'][0])
+    def test_negative_pixel_index_and_changed_executable_plan_fail(self):
+        meta,book=synthetic();meta['nodes'][0]['passes'][0]['pixel']=-1
+        self.assertEqual(compile_plan(meta,0,verified=book)['status'],'unsupported')
+        meta,book=synthetic();plan=compile_plan(meta,0,verified=book);plan['layers'][0]['enabled']=False
+        with self.assertRaises(PlanError):evaluate(plan,[(1,1,1,1)]*4,calculate_color=1,calculate_alpha=1)
+        plan=compile_plan(meta,0,verified=book);plan['layers'][0]['sample_required']=False
+        with self.assertRaises(PlanError):evaluate(plan,[(.2,.4,.6,.8)]*4,calculate_color=1,calculate_alpha=1)
     def test_unknown_node_and_schema_are_not_defaulted(self):
         meta,book=synthetic()
         self.assertEqual(compile_plan(meta,-1,verified=book)['status'],'unsupported')
