@@ -34,17 +34,18 @@ static func arrow_goals(route: Dictionary, center: bool, time: float, waves: boo
 	for actor in 8:
 		var angle := float(clocks[actor])
 		var cardinal := fposmod(angle,90.0)<0.01
-		var kr_pairs: bool=waves and route.id=="kr_09stop"
-		# Training pairing derived from KR's clocks makes four TH/DPS pairs;
-		# exact guide quadrant pairing remains unaudited. Aether's sourced TH
-		# clockwise prepositioning uses its own clock map.
-		var quadrant := angle+(-45.0 if kr_pairs else 45.0) if cardinal else angle
+		var counterclockwise_pairs: bool=waves and route.id in ["kr_09stop","cn_moogle"]
+		# CN pairs use numbered sectors 1 D4/ST,2 D2/H2,3 D1/H1,4 D3/MT.
+		# Keep time-dependent in/out footwork and counterclockwise cardinal
+		# transitions; a static radius at numbered marks is hit by Arrow.
+		# KR retains its previous constructed pairing; Aether stays clockwise.
+		var quadrant := angle+(-45.0 if counterclockwise_pairs else 45.0) if cardinal else angle
 		var p := Vector2.ZERO
 		if time<=12.0:
 			var coordinate := (6.0 if time==8.0 else 3.0) if center else (6.0 if time==8.0 else 11.0)
 			p=Vector2(coordinate,-coordinate).rotated(deg_to_rad(quadrant-45.0))
 		elif time<=16.0 and (center or time<16.0):
-			p=(Vector2(-5.5 if kr_pairs else 5.5,-10.0).rotated(deg_to_rad(angle)) if cardinal else (Vector2(6,-10) if kr_pairs else Vector2(10,-6)).rotated(deg_to_rad(angle-45.0))) if center else Vector2(7,-7).rotated(deg_to_rad(quadrant-45.0))
+			p=(Vector2(-5.5 if counterclockwise_pairs else 5.5,-10.0).rotated(deg_to_rad(angle)) if cardinal else (Vector2(6,-10) if counterclockwise_pairs else Vector2(10,-6)).rotated(deg_to_rad(angle-45.0))) if center else Vector2(7,-7).rotated(deg_to_rad(quadrant-45.0))
 		else:
 			var coordinate := (11.0 if time<20.0 else 8.0) if center else (12.0 if time<18.0 else 8.0)
 			p=Rules.direction(angle)*(12.0 if time< (20.0 if center else 18.0) else 8.0) if cardinal else Vector2(coordinate,-coordinate).rotated(deg_to_rad(angle-45.0))

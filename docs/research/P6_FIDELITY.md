@@ -76,7 +76,7 @@ Read the completed sibling research artifacts in `top-five-route-research-202610
 | CN Moogle | MT north/ST east/H2 south clocks; **only** MT/D3 meteor swap; left/right tank Dive | Arrow branches, escape offset, stack direction, meteor flare/LB plan; south stack is a labeled training choice |
 | KR09STOP | South stack; first Arrow party SW, tanks toward 11/1; 67.5-degree escape; melee/tank versus outer ranged/healer flares | Exact Arrow quadrant pairing/animations and E/W flare tie. Pairing is a training derivation from clocks. Numeric flare radii 16/18 express the relative distinction, not an audited survival threshold. |
 
-Unknown Aether/LPDU/CN escape offsets use an explicit 45-degree training variant, not a data-center inference. KR/Elemental use guide-supported 67.5 degrees. Shared geometry does not establish whole-route equality. The KR Dive wording conflict is resolved using encounter behavior, not modeled as a different regional mechanic.
+Aether retains its 45-degree exit; LPDU still has an unknown exit and an explicit 45-degree training variant. KR/Elemental use guide-supported 67.5 degrees. The user follow-up specifies CN departure at the relative gap between the first preceding and two-preceding waymarks (67.5 degrees behind the first telegraph in the propagation direction), now applied to both Exaflare followups. The initial T0–T10 center bait is unchanged: this corrects departure heading, not complete gap-start staging. Shared geometry does not establish whole-route equality. The KR Dive wording conflict is resolved using encounter behavior, not modeled as a different regional mechanic.
 
 Primary pointers from the audit:
 
@@ -133,3 +133,8 @@ In a similarly restricted environment, supply an authorized writable `--log-file
 The four Arrow/Exaflare combined courses are now production-wired. Live and checkpoint P6 actors use6units/s; legitimate player Sprint/dash receives an independently calculated movement budget instead of a blanket6/s failure. Actual LB-lock movement is blocked in input. Other legacy mechanics retain their prior bot navigation speed pending full movement review. Meteors are deliberately not switched to the movement-only helper yet: missing actual LB/comet/meteor judgments must not regress the existing role-action requirement.
 
 The parent subsequently visually read the entire CN1125x33824 poster through its normal public image viewer; see CN_POSTER_AUDIT.md. It confirms south/C charge stack, first Arrow partySW/MTfront, second ArrowTHcardinal/DPSdiagonal, and onlyMT/D3 meteor swap. Four independent clear captures each show six distinct comet15727 instances receiving casterLB damage, resolving the five-versus-six guide conflict in favor of six. These new facts still require route-code updates; a research note is not implementation.
+
+
+## User-feedback pair correction (2026-10-23)
+
+CN Arrow→Wave uses numbered sectors 1=[D4,ST], 2=[D2,H2], 3=[D1,H1], 4=[D3,MT]. Existing A=MT/B=ST/C=H2/D=H1 clock ownership is retained, not newly repaired. Pair sectors use the existing time-dependent in/out coordinates and counterclockwise cardinal transition, not a static radius-10 hold (which is hit by actual Arrow strips). Arrow→Dive, Meteor and non-CN paths retain their previous behavior. Exact numerical temporal footwork remains a training construction; complete-route flags stay false.

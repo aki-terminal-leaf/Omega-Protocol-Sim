@@ -56,7 +56,7 @@ static func beam(target: int) -> Dictionary:
 static func route(id: String) -> Dictionary:
 	# Missing source fields remain null. Numeric dodge lanes elsewhere are an
 	# explicit training construction, never claimed to be an audited diagram.
-	var r := {"id":id,"complete":false,"clocks":[],"meteor_clocks":[],"stack_angle":null,"exit_offset":null,"arrow_party_angle":null,"unknown":[]}
+	var r := {"id":id,"complete":false,"clocks":[],"meteor_clocks":[],"stack_angle":null,"exit_offset":null,"arrow_party_angle":null,"arrow_wave_pairs":[],"unknown":[]}
 	match id:
 		"elemental":
 			r.clocks=[315,180,270,90,225,135,0,45]; r.stack_angle=90.0; r.exit_offset=67.5
@@ -69,8 +69,11 @@ static func route(id: String) -> Dictionary:
 			r.clocks=[0,90,270,180,225,135,315,45]; r.meteor_clocks=[315,180,270,90,225,135,0,45]; r.stack_angle=180.0; r.arrow_party_angle=135.0
 			r.unknown=["exaflare exit offset", "full Arrow temporal footwork", "meteor flare/LB route"]
 		"cn_moogle":
-			r.clocks=[0,90,270,180,225,135,315,45]; r.meteor_clocks=[315,90,270,180,225,135,0,45]; r.stack_angle=180.0; r.arrow_party_angle=225.0
-			r.unknown=["exaflare exit offset", "Numeric Arrow temporal footwork", "late meteor flare/LB route absent from poster"]
+			# Actor order is MT,ST,H1,H2,D1,D2,D3,D4. Numbered Arrow pairs:
+			# 1 D4/ST, 2 D2/H2, 3 D1/H1, 4 D3/MT; then A MT/B ST/C H2/D H1.
+			r.clocks=[0,90,270,180,225,135,315,45]; r.arrow_wave_pairs=[[7,1],[5,3],[4,2],[6,0]]
+			r.meteor_clocks=[315,90,270,180,225,135,0,45]; r.stack_angle=180.0; r.exit_offset=67.5; r.arrow_party_angle=225.0
+			r.unknown=["Numeric Arrow temporal footwork between sourced pair and clock assignments", "late meteor flare/LB route absent from poster"]
 		"kr_09stop":
 			r.clocks=[315,180,270,90,225,135,0,45]; r.meteor_clocks=r.clocks.duplicate(); r.stack_angle=180.0; r.exit_offset=67.5; r.arrow_party_angle=225.0
 			r.unknown=["full Arrow animation and exact pair-to-quadrant mapping", "flare E/W tie", "Dive selection prose conflicts with encounter evidence"]

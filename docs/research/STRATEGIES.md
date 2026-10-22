@@ -26,7 +26,7 @@
 | Solar Ray | 1 | 共用雙坦換仇恨，不掛名五套完整減傷方案 |
 | Cosmo Memory | 5 | 實際坦LB／Brilliant與明示獨立前置；[P6 LB](P6_LB_FIDELITY.md) |
 | Arrow→Dive | 5 | 已有的西南／LPDU東南與坦克分流；數值天箭路線仍為練習解 |
-| Exaflare→Wave | 5 | 各自時鐘、東／南集合及已知離場角；LPDU/CN未知角度明示採45°練習路線 |
+| Exaflare→Wave | 5 | 各自時鐘、東／南集合及已知離場角；LPDU未知角度明示採45°練習路線；CN依使用者補充改相對67.5°離場方向，初始中心誘導仍未改成間隙起跑 |
 | Arrow→Wave | 5 | 各自時鐘／LPDU四象限配對、東／南集合；KR配對仍是明示推導，非完整原圖 |
 | Exaflare→Dive | 5 | 已存在的離場角與最近雙坦／最遠六人；未知區服離場角仍明示為練習值 |
 | Meteors | 5 | 各自初始配置、實際LB／HP與期限；[精度界線](P6_PRECISION.md) |

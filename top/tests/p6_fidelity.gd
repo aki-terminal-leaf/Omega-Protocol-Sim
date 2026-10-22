@@ -134,7 +134,7 @@ func run() -> void:
 		check(state.runtime_failures.is_empty() and state.p6.history[-1].falloff=="unmodeled","Meteor stack branches, no fabricated damage immunity")
 	check(P.route("elemental").stack_angle==90 and P.route("aether").stack_angle==180,"Verified E/S difference")
 	check(P.route("lpdu").meteor_clocks[1]==180 and P.route("cn_moogle").meteor_clocks[1]==90,"LPDU H2/ST swap is absent in CN")
-	check(P.route("cn_moogle").exit_offset==null and P.route("cn_moogle").stack_angle==180,"CN poster establishes south charge; exit remains unknown")
+	check(is_equal_approx(float(P.route("cn_moogle").exit_offset),67.5) and P.route("cn_moogle").stack_angle==180,"CN guide establishes south charge and 67.5-degree relative exaflare exit")
 	var kr_flares := P.flare_goals([0,2,6],"kr_09stop")
 	check(is_equal_approx(kr_flares[0].length(),16.0) and is_equal_approx(kr_flares[2].length(),18.0),"KR retains melee/outer flare distinction")
 	check(kr_flares[6]==Vector2(0,-18),"KR outer ranged position remains fixed through flare branch")

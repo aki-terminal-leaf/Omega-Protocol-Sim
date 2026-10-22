@@ -194,3 +194,6 @@ large-meteor deadline remains unmeasured; this earlier small-comet wipe cannot
 calibrate it. Exact server-frame confidence is not inferred from a rounded
 nominal schedule. Current source reports observation fields and rejects
 non-finite damage/mitigation without corrupting HP or shields.
+
+
+2026-10-23 user-feedback supplement: CN Arrow→Wave now has explicit numbered pairs 1 D4/ST, 2 D2/H2, 3 D1/H1, 4 D3/MT; A MT/B ST/C H2/D H1 clocks were already present and retained. The user also supplies the relative 67.5-degree Exaflare departure gap missing from the poster-only audit above. Initial center bait staging is still unchanged; this is not full source authentication of temporal footwork or a new LB/reference-game/platform acceptance.

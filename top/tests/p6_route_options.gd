@@ -47,8 +47,10 @@ func run() -> void:
 			if id == "p6_arrow_dive":
 				var party: Vector2 = Rules.v(last.positions[2])
 				check(party.y > 0 and (party.x > 0 if profile == "lpdu" else party.x < 0), "LPDU southeast versus other southwest party convention")
-			if id.begins_with("p6_exa") and profile in ["lpdu", "cn_moogle"]:
-				check(first.p6_route.exit_offset == null and str(first.p6_pattern.offset_source).contains("unknown"), "unknown original escape offset remains unknown, not promoted by menu")
+			if id.begins_with("p6_exa") and profile == "lpdu":
+				check(first.p6_route.exit_offset == null and str(first.p6_pattern.offset_source).contains("unknown"), "LPDU unknown original escape offset remains unknown, not promoted by menu")
+			if id.begins_with("p6_exa") and profile == "cn_moogle":
+				check(is_equal_approx(float(first.p6_route.exit_offset), 67.5) and first.p6_pattern.offset_source == "guide", "CN guide-qualified 67.5-degree relative escape offset reaches actual encounter")
 			if id == "p6_arrow_wave" and profile == "lpdu":
 				var healer: Vector2 = Rules.v(first.positions[2])
 				check(healer.x < 0 and healer.y > 0, "LPDU paired-quadrant route is active")
