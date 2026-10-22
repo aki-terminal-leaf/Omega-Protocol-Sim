@@ -92,3 +92,28 @@ unknown operation with None, or source enum numbers with dynamic
 `CalculateColor/CalculateAlpha` floats without evidence. Mask animation, matching
 vertex input generation, camera/render-graph textures, actor poses and original
 reference comparison remain separate from this completed selection component.
+
+## Declared fields and reviewed color-section execution (2026-10-22)
+
+`tools/avfx_shader_projection.py` projects only present AVFX fields into the
+pinned CRC map. Host fog/depth/final-color context and TC1 dynamic controls
+remain explicit diagnostics; partial projection is not exact shader selection.
+
+`tools/apricot_color_plan.py` gates texture-combiner execution on reviewed pixel
+bytecode **and resource-layout hashes**. The private original-instruction oracle
+currently covers 37 original nodes / 111 sample-control cases across nine
+1–4-layer shape/model/powder variants. CTA immediate float32 bits are
+`3E990AFE 3F162C23 3DEA7371`; evaluation compares real-valued equations, not
+bitwise GPU execution. Enabled CTA layers with alpha=None can have their sampler
+optimized away: their constant-white RGB operation must still execute.
+
+The registry contains hashes/manual equation metadata only, no original game
+bytecode. UV generation, decode, host CalculateColor/Alpha values, model Fresnel,
+lighting, tone-map and MRT remain outside this section. No complete renderer
+or encounter integration is claimed (`rendering_complete=false`).
+
+The separate 14-case base-material pixel probe also passed in an AnAn Chrome
+WebGL2 export on Godot4.7.2, including nonblank actual-canvas capture. This is
+scoped material-path acceptance, not full TOP Web playback acceptance; the
+hardware renderer backend was not established. Its task browser, HTTP server
+and temporary profile were closed/removed and owned-PID cleanup verified.
