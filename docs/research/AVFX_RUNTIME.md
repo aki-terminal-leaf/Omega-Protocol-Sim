@@ -193,6 +193,44 @@ world/projection/Fresnel semantics, and is not connected to practice playback.
 Original disassembly/bytecode remains private; only hash-pinned route summaries
 are included in the repository.
 
+## Offline original shader translation feasibility (2026-10-22)
+
+A private feasibility experiment uses existing packaged `vkd3d-compiler 1.2`,
+SPIRV-Tools 2025.1, SPIRV-Cross and glslang 15.1.0; no custom bytecode translator
+was built. All nine selected original pixel programs pass DXBC-to-SPIR-V,
+SPIR-V validation/reflection, ES 3.00 generation and GLSL validation (45 stages).
+A 64-byte truncated DXBC is rejected with an invalid-checksum diagnostic. The
+11 actual vertex programs from the exact original pairings also pass their
+55 corresponding stages, with package/payload hashes checked against the
+previously reviewed original metadata.
+
+The first shell reproduction recipe had a stale-output acceptance flaw. A
+fresh-directory replacement freezes all nine input hashes, requires the exact
+45 successful stage records and checks newly generated MRT reflection. Its
+fresh rerun passes; trying to reuse its output directory fails without altering
+the accepted report. The original first-run hashes and all stage results were
+independently checked. Tested package versions are not a claim of current
+upstream feature coverage or support for every original program.
+
+Naive cross-stage GLSL linking is insufficient: generated VS `oN` and PS `vN`
+identifiers differ, while D3D's stage-local constant buffers can collide or
+silently alias under GLSL's shared block namespace. The unmodified offline
+linker returned zero for 13 pairs and errors for three incompatible model
+blocks; those zero exits alone are **not** accepted as connected runtime pairs.
+
+A corrected, explicit identifier-only adapter namespaces **all** VS/PS uniform
+blocks separately and connects varyings using original DXBC semantic/index,
+register/mask/format and reflected location/type. All **16 adapted pairs** pass
+offline linking; all **54 live varying mappings**, constant-buffer register sizes
+and exact identifier-only source changes were independently checked. A first
+adapter's signature reader crossed into the next signature section; that attempt
+is preserved but rejected. The corrected bounded reader rejects wrong semantic
+and index cases. These are adapted static links, not original runtime draws.
+
+This experiment does not execute a GPU draw, establish pixel equivalence or
+actual host inputs, or integrate original shaders into Godot/practice playback.
+Raw bytecode and derived SPIR-V/GLSL stay private, outside the repository.
+
 ## Remaining hard requirements for complete playback
 
 | Area | Remaining requirement |
