@@ -110,15 +110,17 @@
       "id": "cn_moogle",
       "name": "CN Moogle original poster",
       "adjust": "outer",
-      "defense_pair": "inner_green",
-      "first_green": "inner",
+      "defense_pair": "inner_blue",
+      "first_green": "outer",
       "world_layout": "cn_poster",
       "blue_selection": "Not fully specified by audited poster",
       "source": "https://www.bilibili.com/opus/800287973844189204",
       "facts": [
         "Canonical beetle W, eye N, Final E",
         "Outer fists adjust",
-        "Poster panel 7: inner green baits shield toward center",
+        "Blue remote pairs stage by Final; green local pairs stage by Beetle",
+        "Blue inner pair remains nearest center and baits Beyond Defense",
+        "Blue outer baits Final NE/SE arms; green outer baits Beetle NW/SW arms; green inner baits N/S arms",
         "Unbroken long green: dangerous side goes beetle, safe side opposite",
         "Broken green: dangerous side crosses to edge, safe stays",
         "Idle two opposite-beetle number marker edge",
@@ -126,21 +128,24 @@
       ],
       "complete_route_verified": false,
       "unknown": [
-        "Initial blue selection unresolved",
-        "Green Defense victim needs a different monitor receiver: conditional same-side blue replacement is an original legal training realization, not an explicit poster instruction",
+        "Initial blue selection and H1/H2 inner priority are unresolved",
         "Numeric coordinates are legal constructions; source floor scale not official"
       ],
       "runtime_validation": {
-        "godot": "4.4.1",
+        "godot": "4.7.2-stable",
         "base_live_course": "pass",
-        "monitor_eye_safe_defense_hand_families": 256,
+        "focused_geometry_assertions": 293,
+        "base_assertions": 71,
+        "monitor_eye_safe_defense_hand_families": 32,
+        "monitor_scope": "eye0/safe+1; both monitor sides/hands/Defense choices and all4 blue monitor slots; rotations additionally exercised by64mixedassignments",
         "balanced_fist_families": 36,
         "independent_arm_direction_families": 64,
         "forced_actor_slot_mixed_families": 64,
         "failures": 0,
         "walk_speed": 6.0,
-        "checkpoint": "JSON state between beats; complete actor position/facing restore also checked by base suite",
-        "source_authentication_complete": false
+        "checkpoint": "base and mixed-assignment simulations preserveJSONactor/state checkpoints",
+        "source_authentication_complete": false,
+        "supersedes_previous_route_validation": true
       }
     },
     "kr_09stop": {

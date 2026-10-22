@@ -42,10 +42,18 @@ static func sides(c: Dictionary) -> Array:
 	return result
 
 static func arm_map(c: Dictionary) -> Dictionary:
-	# Arm index CCW from eye. Green inner N/S; outer Final NE/SE.
-	# CN's inner-green Defense means blue short takes N/S arms instead.
 	var map: Dictionary={}
 	var side:=sides(c)
+	# Runtime indices: N=0,NW=1,SW=2,S=3,SE=4,NE=5.
+	# CN blue-inner remains unassigned so physical Defense selects it.
+	if c.route.id=="cn_moogle":
+		map[2]=5 if int(side[2])<0 else 4
+		map[3]=5 if int(side[3])<0 else 4
+		map[4]=0 if int(side[4])<0 else 3
+		map[5]=0 if int(side[5])<0 else 3
+		map[6]=1 if int(side[6])<0 else 2
+		map[7]=1 if int(side[7])<0 else 2
+		return map
 	var defence: String=c.route.defense_pair
 	for slot in 8:
 		var n: bool=int(side[slot])<0
@@ -63,44 +71,41 @@ static func goals(c: Dictionary, t: float, state: Dictionary) -> Array:
 	var victim_slot: int=-1
 	for slot in 8:
 		if int(c.assignment.order[slot])==victim: victim_slot=slot
-	var replacement: int=-1
-	if c.route.id=="cn_moogle" and victim_slot in [4,5]:
-		# The poster puts inner greens on Defense. A green Defense victim
-		# cannot also receive a monitor (Twice-come Ruin). This conditional
-		# replacement is a legal training realization, not stated poster text.
-		for slot in 4:
-			if int(side[slot])==int(side[victim_slot]) and int(c.assignment.order[slot])!=int(c.monitor): replacement=slot; break
 	for slot in 8:
 		var s:=float(side[slot]); var original: float=-1.0 if slot%2==0 else 1.0
 		if t<7.244:
-			local[slot]=Vector2(-13,original*4) if slot<2 else (Vector2(-11,original*12) if slot<4 else Vector2(9 if slot<6 else 13,original*11))
+			if c.route.id=="cn_moogle": local[slot]=Vector2(13,original*4) if slot<2 else (Vector2(11,original*12) if slot<4 else Vector2(-9 if slot<6 else -13,original*11))
+			else: local[slot]=Vector2(-13,original*4) if slot<2 else (Vector2(-11,original*12) if slot<4 else Vector2(9 if slot<6 else 13,original*11))
 		elif t<17.976:
-			local[slot]=Vector2(-13,s*4) if slot<2 else (Vector2(-11,s*12) if slot<4 else Vector2(11,s*11))
+			if c.route.id=="cn_moogle": local[slot]=Vector2(13,s*4) if slot<2 else (Vector2(11,s*12) if slot<4 else Vector2(-11,s*11))
+			else: local[slot]=Vector2(-13,s*4) if slot<2 else (Vector2(-11,s*12) if slot<4 else Vector2(11,s*11))
 		elif t<20.120:
-			local[slot]=Vector2(-13,s*4) if slot<4 else Vector2(11,s*11)
+			if c.route.id=="cn_moogle": local[slot]=Vector2(13,s*4) if slot<4 else Vector2(-11,s*11)
+			else: local[slot]=Vector2(-13,s*4) if slot<4 else Vector2(11,s*11)
 		elif t<25.527:
 			if arms.has(slot):
 				var index:=int(arms[slot]); var spin:=float(c.arm_turns[index])
 				local[slot]=R.direction(-index*60.0-spin*0.15)*19.0
 			else: local[slot]=Vector2(0,s*6)
-		elif t<33.395:
+		elif t<33.395 or (c.route.id=="cn_moogle" and t<35.625):
 			if t<28.01:
 				local[slot]=R.direction(-int(arms[slot])*60.0)*9.0 if arms.has(slot) else Vector2(0,s*6)
 				continue
-			if slot>=4: local[slot]=Vector2(-7 if slot<6 else 7,s*13)
+			# CN greens return to their assigned arm lanes and remain separated
+			# until monitor magic vulnerability has expired (35.405).
+			if c.route.id=="cn_moogle" and slot>=4:
+				local[slot]=R.direction(-int(arms[slot])*60.0)*13.0
+			elif slot>=4: local[slot]=Vector2(-7 if slot<6 else 7,s*13)
 			else:
 				var actor:=int(c.assignment.order[slot])
 				var monitor: bool=actor==int(c.monitor)
 				local[slot]=Vector2(0,(5.0 if monitor else 2.5)*int(c.monitor_side))
-				if actor==victim: local[slot].x=10.0 if monitor else -10.0
+				# CN green receivers remain Beetle-side; retire Defense to Final
+				# so their unchanged 7y monitor splash cannot re-hit the victim.
+				if actor==victim: local[slot].x=10.0 if (monitor or c.route.id=="cn_moogle") else -10.0
 		else:
 			local=world_goals(c)
 			break
-	if c.route.id=="cn_moogle" and t>=28.01 and t<33.395 and replacement>=0:
-		local[replacement]=Vector2(-7,13*int(side[victim_slot]))
-		local[victim_slot]=Vector2(-10,2.5*int(c.monitor_side))
-	if c.route.id=="cn_moogle" and t>=33.395 and t<37.95 and victim_slot in [4,5]:
-		for slot in range(4,6): local[slot]=Vector2(-10,2.5*int(c.monitor_side)) if slot==victim_slot else Vector2(-7,13*int(side[slot]))
 	# Hold the unbroken green across Worlds; only begin convergence late enough
 	# that a normal 6/s approach cannot cut before the final 5s vulnerability.
 	if t>=49.5:
@@ -123,8 +128,12 @@ static func world_goals(c: Dictionary) -> Array:
 	if c.route.world_layout=="cn_poster":
 		# Original poster: broken green SAFE stays nearer the initial holder;
 		# dangerous-side partner crosses to the edge, reversing Saus ordering.
-		for slot in range(4,6):
+		# Outer green (6/7) is the already-broken receiver pair; inner
+		# green (4/5) remains the long, separated local-tether pair.
+		for slot in range(6,8):
 			result[slot]=Vector2(-9,8*safe) if int(side[slot])==safe else Vector2(-12,12*safe)
+		for slot in range(4,6):
+			result[slot]=Vector2(15,11*safe) if int(side[slot])==safe else Vector2(-18,2*safe)
 	if c.route.world_layout=="kr_338":
 		# Figure 338 has Far center and Near at beetle intercardinal. The two
 		# unmarked BLUES receive Near; outer green pair are the idle two.
