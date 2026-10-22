@@ -1,0 +1,2934 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "baseline_commit": "1500c2b9d59c1ef43e367f6c2e556c7a53b33cfd",
+  "purpose": "development backlog and coverage inventory, NOT a completed guide conformance certification",
+  "scope": {
+    "product_mechanics": 20,
+    "selectable_options": 100,
+    "community_profiles": 5,
+    "excluded_internal_p5_full_options": 5,
+    "complete_regional_cartesian_matrix": false
+  },
+  "status_policy": "All rows require independent per-option source/runtime/player proof; prior scoped fixes and model passes remain valid but do not certify a full row. Requirements at mechanic scope must be refined per option, not blindly inherited as regional rules.",
+  "source_snapshot_sha256": {
+    "top/data/catalog.json": "17e35b9f9aec59d8a029737cab527b5023d793f2ad918016bad8bb9c561d6110",
+    "top/data/mechanic_strategies.json": "98af2eb56dc5c652355d158e33b40193bee0d1f7fd62feadccc613e7e24998d4",
+    "top/data/strategies.json": "77936694099409c1b4e7447edba8070854a312ba776203778a978e6ef24630b8",
+    "top/data/strategy_overrides.json": "8e8327bdc2fb8bdcab5134d75c5a0f63c1741ac6e1c0359ad3b35ba4a4038a6f",
+    "docs/research/sources.json": "f8b3faacd473cc3f5f58e1a25945851f9e86e25c9db2826c664bc50f1d114a0b",
+    "docs/research/NPC_GUIDE_AUDIT.md": "cff2295ac0103bd44b5ec68e352cdb90c0e1cfbf3c1680941d50eee4f9b69982",
+    "docs/research/STRATEGIES.md": "a3ba5bea57913407995a44f78bc091d59299e5368243e6ab5126d2b5be13233f"
+  },
+  "source_registry": [
+    {
+      "id": "upstream",
+      "region": "upstream",
+      "url": "https://github.com/WCGH/Dragonsong-Sim",
+      "status": "read",
+      "supports": [
+        "AnimationPlayer timelines",
+        "party/controller separation",
+        "solo + seven bots",
+        "failure reporting"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "wiki",
+      "region": "global",
+      "url": "https://ffxiv.consolegameswiki.com/wiki/The_Omega_Protocol_(Ultimate)",
+      "status": "read",
+      "supports": [
+        "P1–P6 mechanic rules, target selection and fail conditions"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "aether",
+      "region": "NA / Aether",
+      "url": "https://www.thepfstrat.com/u/top",
+      "status": "read",
+      "supports": [
+        "P1 light party TMR flex, NW CCW / N CW",
+        "P2 BPOG/GPOB, north flex",
+        "P3 Dylan, P4 TRHM",
+        "P5 Saus/Delta"
+      ],
+      "limits": [
+        "Page is WIP; P6 section is empty. Not a source for a universal NA P6 strategy."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "lpdu",
+      "region": "EU / Light community",
+      "url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "status": "read",
+      "supports": [
+        "P1 M1 M2 MT OT R1 R2 H1 H2",
+        "P2 BPOG full cross",
+        "P3 RMTHHTMR",
+        "P4 TRHM",
+        "Sigma tower macros",
+        "P6 positions and post-7.0 tank composition changes"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/",
+      "status": "read",
+      "supports": [
+        "English and Japanese macros",
+        "P1 HTDH",
+        "P2 1234/4231",
+        "P3 Astoh",
+        "P4 TRHM",
+        "Delta Kinda Awk",
+        "Sigma waymark towers",
+        "P6 east stack"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-p1",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/01_omega/",
+      "status": "read",
+      "supports": [
+        "Program Loop / Pantokrator"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-p2",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/02_omega_mf/",
+      "status": "read",
+      "supports": [
+        "Party Synergy stances and glitch"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-p3",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/03_omega_reconfigured/",
+      "status": "read",
+      "supports": [
+        "Hello World / monitors"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-p4",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/04_blue_screen/",
+      "status": "read",
+      "supports": [
+        "Repeated spread / echo / stack"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-delta",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_delta/",
+      "status": "read",
+      "supports": [
+        "Tether / fist / world sequence"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-sigma",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_sigma/",
+      "status": "read",
+      "supports": [
+        "Marker pairs, towers, rotating laser, World"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-omega",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/05_run_dynamis_omega/",
+      "status": "read",
+      "supports": [
+        "Safe-cardinal decision tree; monitor allocation; final tethers"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-p6",
+      "region": "JP / Elemental",
+      "url": "https://ffxiv.tuufless.com/elemental/top/06_alpha_omega/",
+      "status": "read",
+      "supports": [
+        "Arrow, exaflare, tank target selection, meteors and LB order"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "elemental-zh",
+      "region": "Traditional-Chinese-language Elemental resource",
+      "url": "https://ffxiv.tuufless.com/top_cheatsheet_zhtw.jpg",
+      "status": "linked-by-primary-source",
+      "supports": [
+        "Existence of a Traditional Chinese reference"
+      ],
+      "limits": [
+        "Not evidence that a separate Taiwan world/DC has the same PF conventions."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "kr-09stop",
+      "region": "KR / 09STOP (Mana-origin)",
+      "url": "https://www.inven.co.kr/board/ff14/4338/7027",
+      "status": "workbook-tabs-read",
+      "supports": [
+        "Rominny guide and public 09STOP workbook, P1–P6 tabs",
+        "P1 H1 T1 T2 D1 D2 D3 D4 H2 priority; CW from north",
+        "P3 H1 H2 T1 T2 D1 D2 D3 D4 monitor priority",
+        "Manual marks and Sigma waymark tower macros",
+        "Omega two-stack + Second in Line must monitor before other two-stack players"
+      ],
+      "links": [
+        "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit"
+      ],
+      "limits": [
+        "Text cells of P1/P2/P3/Omega and macro tab read through public Google CSV view; not every diagram audited. Only explicit priorities shipped as preset."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "kr-world",
+      "region": "KR / JP method reference",
+      "url": "https://www.inven.co.kr/board/ff14/4338/6982",
+      "status": "read",
+      "supports": [
+        "Omega monitors: two-stack Second in Line before two-stack no-World; never First in Line",
+        "Manual marking rather than mandatory automarkers"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "kr-kiwi",
+      "region": "KR / Mana-origin",
+      "url": "https://www.inven.co.kr/board/ff14/4338/7004",
+      "status": "read",
+      "supports": [
+        "Independent Korean workbook based on static and Mana practices"
+      ],
+      "links": [
+        "https://docs.google.com/spreadsheets/d/1Hp9JdOPMhcAdCIwErMCsw6VH7ju_5oyobagtnT_TgKA/edit"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "cn-moogle-upper",
+      "region": "CN / 莫古力攻略組",
+      "url": "https://www.bilibili.com/video/av740517066",
+      "status": "metadata-read",
+      "supports": [
+        "Guide author, title, macro and quick-reference links"
+      ],
+      "limits": [
+        "Video contents not transcribed; does not prove exact movement priorities."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "cn-moogle-lower",
+      "region": "CN / 莫古力攻略組",
+      "url": "https://www.bilibili.com/video/BV1vz4y1B7xP",
+      "status": "metadata-read",
+      "supports": [
+        "Second half of guide series"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "cn-moogle-reference",
+      "region": "CN / 莫古力攻略組",
+      "url": "https://www.bilibili.com/opus/800287973844189204",
+      "status": "text-read-image-blocked",
+      "supports": [
+        "Author explicitly revised chase/fire order, monitors and Cosmo Arrow"
+      ],
+      "limits": [
+        "Full 33824-pixel diagram image request returned HTTP 412. No bypass attempted."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "cn-moogle-macro",
+      "region": "CN / 莫古力攻略組",
+      "url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "status": "browser-canvas-read",
+      "supports": [
+        "All-phase priority H1 MT ST D1 D2 D3 D4 H2",
+        "P4 D1/D2 flex",
+        "P5 two-stack second-in-line monitor priority",
+        "P6 meteor MT/D3 swap; second Arrow TH straight / DPS diagonal; Cosmo Dive MT left / ST right"
+      ],
+      "limits": [
+        "Simple text extraction fails; normal public browser rendering succeeded. Only the explicit priority is shipped as a preset; no claim of full regional fidelity."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "cn-molingmiao",
+      "region": "CN / 莫靈喵",
+      "url": "https://www.bilibili.com/video/BV16o4y1u74D",
+      "status": "metadata-read",
+      "supports": [
+        "Distinct Delta guide/strategy family exists"
+      ],
+      "limits": [
+        "Do not label its mechanics or exact positions verified from metadata alone."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "cn-mm-w",
+      "region": "CN / MM+W & 鈺子燒",
+      "url": "https://www.bilibili.com/video/av113000488960704",
+      "status": "metadata-read",
+      "supports": [
+        "Another published strategy family exists"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "xivsim",
+      "region": "existing solution",
+      "url": "https://xivsim.com/",
+      "status": "read",
+      "supports": [
+        "Existing raid simulator; Aether guide links TOP P2/P3/P5/P6 practice"
+      ],
+      "limits": [
+        "User explicitly asked for a Godot fork; no code/assets copied from XIVsim."
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "huiji",
+      "region": "CN",
+      "url": "https://ff14.huijiwiki.com/wiki/欧米茄绝境验证战",
+      "status": "blocked",
+      "limits": [
+        "HTTP 403"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    },
+    {
+      "id": "icyveins",
+      "region": "global",
+      "url": "https://www.icy-veins.com/ffxiv/the-omega-protocol-ultimate",
+      "status": "blocked",
+      "limits": [
+        "HTTP 403 challenge; not bypassed"
+      ],
+      "checked_at": "2026-10-20T16:37:10.669827+00:00"
+    }
+  ],
+  "additional_method_discovery": [
+    {
+      "source_id": "cn-molingmiao",
+      "status": "source_inventory_only_not_implemented_certified"
+    },
+    {
+      "source_id": "cn-mm-w",
+      "status": "source_inventory_only_not_implemented_certified"
+    },
+    {
+      "source_id": "kr-kiwi",
+      "status": "source_inventory_only_not_implemented_certified"
+    }
+  ],
+  "mechanic_requirements": {
+    "p1_loop": {
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md",
+        "docs/research/LOOP_NAVIGATION.md"
+      ],
+      "setup_or_in_mechanic_preparation": "確認攻略優先序、掃塔起點與順逆方向；依數字找自己的組別",
+      "required_player_actions": "觀察實際塔與線；主動踩塔、接走或交出真線、離開退線區",
+      "npc_response_contract": "按實際線所有權與玩家位置截線／讓路，不把預算持有人當現況",
+      "remaining_or_source_uncertainty": "長線實際截取已修；退線距離、紅圈／爆炸訊號與五攻略人類交接全分支仍須核對",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p1_panto": {
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "依攻略排優先序／分兩隊；選內出外回或外出內回",
+      "required_player_actions": "起始扇形可見後選安全側；按數字出飛彈、分攤、繞火與誘導水圈",
+      "npc_response_contract": "只在起始火焰揭示後分流；依實際玩家誘導落點協作，尊重社群補位責任",
+      "remaining_or_source_uncertainty": "T0預算安全區偷跑；兩種CN變體、Aether/LPDU南北與滿覆蓋分流、KR六族均需逐分支核對；分攤線視覺缺",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p1_cannons": {
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "確認固定散開、動態炮標出口或分坦備選；不可開場就擺正解",
+      "required_player_actions": "看自己是否被點名及排序後走出口；坦克每次保持合法最遠誘導",
+      "npc_response_contract": "依每輪實際點名分配，無標集合；玩家漏移不能由NPC接管修正",
+      "remaining_or_source_uncertainty": "七選項含動態／靜態／分坦差別；出生即答案、炮線可讀性與坦扇來源角度爭議；完整職業減傷不在現有模型",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p2_synergy": {
+      "research_docs": [
+        "docs/research/P2_SYNERGY_TIMELINE.md"
+      ],
+      "setup_or_in_mechanic_preparation": "按該攻略單排／小隊優先序預排，記圖形配對與水晶／場標參考",
+      "required_player_actions": "記圖形與眼睛；武器揭示後讀真假、選安全側；按Glitch交叉／換邊／補位",
+      "npc_response_contract": "遵守各攻略圖形序、Remote全交叉或外側交換、南北端flex；不讀未揭示武器",
+      "remaining_or_source_uncertainty": "CN單橫排及水晶兩格站位未完；五攻略各自隊列與配對距離異常狀態須核實；頭標/武器匯出可讀性另驗",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p2_limitless": {
+      "research_docs": [
+        "docs/research/P2_LIMITLESS_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "確認6-1-1／集中誘導、各攻略箭頭誘導起點與MT/ST接線分側",
+      "required_player_actions": "非坦實際誘導箭與Flare，坦克實際接線及引導扇形／盾擊",
+      "npc_response_contract": "依實際玩家鎖定點與線轉移反應，不用預排答案代替誘導",
+      "remaining_or_source_uncertainty": "坦引導wind-up可見性、四套已觀測聯合生成外的族群；CN原影片其餘分支與各攻略連線責任需補證",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p3_transition": {
+      "research_docs": [
+        "docs/research/P3_TRANSITION_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "確認八波動次序與Sniper分工；先處於可觀察而非解答口袋",
+      "required_player_actions": "讀手臂／炮標後移動到合法位置，處理八波與狙擊實際命中",
+      "npc_response_contract": "手臂揭示後才選安全口袋，按實際點名與優先序移動",
+      "remaining_or_source_uncertainty": "NPC首段過早預站；五來源狙擊角色映射、手炮／衝擊／消失時點與完整HP界線需核對",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p3_hello": {
+      "research_docs": [
+        "docs/research/HW_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "依攻略八方觀察初始Smell、塔色、配對預覽；不是直接出生在四輪解答",
+      "required_player_actions": "依塔色／毒／Debugger選側；主動感染、吃塔、拉線、等爆炸後回場",
+      "npc_response_contract": "合法等價側別由玩家先選時對側補位；依實際感染／線狀態重算，不偷改毒或Debugger",
+      "remaining_or_source_uncertainty": "初始八方、無傷配對預覽、紅藍塔、玩家對側補位缺；原毒等待／第四輪Local-Remote與各攻略差異逐時點驗；接觸／同時事件來源未知",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p3_monitors": {
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "setup_or_in_mechanic_preparation": "依有／無檢知及各攻略優先序排3～4列，再依Boss半場選分工",
+      "required_player_actions": "看自身左右檢知與Boss方向、實際轉面；在來源允許的等價位選位",
+      "npc_response_contract": "對合法人類選位補位；保持每人正確受擊數，不救回錯朝向／非法站位",
+      "remaining_or_source_uncertainty": "六選項Astoh/Dylan/LPDU/CN固定與鏡像/KR分開；缺列隊／重排，人類移位適配待重現；原回報圖1未提供",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p4_wave": {
+      "research_docs": [
+        "docs/research/P4_WAVE_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "按攻略TRHM預排；辨認哪兩個分攤與誰有換位責任",
+      "required_player_actions": "實際誘導八向炮，避開舊方向回波，依點名交叉／交換及三輪分攤",
+      "npc_response_contract": "跟實際點名及快照重分配，不把固定路線成功當全來源相同",
+      "remaining_or_source_uncertainty": "各攻略原圖／換位過程、方向快照幀、線分攤衝擊與CN完整影片待核；HP／減傷非完整",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p5_delta": {
+      "research_docs": [
+        "docs/research/DELTA_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "依實際線色找Boss側、分內外／換拳；確認攻略角色／H1H2讓位",
+      "required_player_actions": "實際換拳、斷外線／保留內線、盾擊與手炮避讓、World交接；不能自動替玩家選角色",
+      "npc_response_contract": "尊重實際線色所有權與玩家選位，按各攻略內外換拳/Defense分工；綠內等易傷結束才斷",
+      "remaining_or_source_uncertainty": "CN藍Final/綠Beetle、藍內Defense與六手炮/斷線時機已修；H1>H2讓位、綠外精確315/225數字標與現300/240差別、拳出生追蹤/鎖定來源衝突未結",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p5_sigma": {
+      "research_docs": [
+        "docs/research/SIGMA_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "各攻略圖形排隊、Glitch搭檔、記場標或目視雙人塔；依攻略實際手標",
+      "required_player_actions": "圖形／炮標揭示後排位；觀察塔容量並選塔；依層數/World手標、等腳刀／十字再回場",
+      "npc_response_contract": "依實際標記與可見塔／玩家選塔分工，不顯示錯標卻偷偷跑正確答案",
+      "remaining_or_source_uncertainty": "CN圖形橫排/同圖上下、第一次手炮後塔容量、手標123/禁止/attack5替代與World等候未完；西方宏、KR四塔側映射與綁1-3不可共用",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p5_omega": {
+      "research_docs": [
+        "docs/research/OMEGA_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "讀4×1/4×2入口層數與I/II；依各攻略選monitor、World接收者及手標",
+      "required_player_actions": "兩次讀武器/燈與安全方向；實際上標、必要時自己疾跑；按真實三層接線",
+      "npc_response_contract": "按當時attack/bind/ignore及真實Dynamis分配，II二層優先；保持手標語義與危險側數字位一致",
+      "remaining_or_source_uncertainty": "完整手標→分工、attack1/4避半場與ignore1/2危險側數字點缺；Far自由側/甲蟲為北等只按各自來源；第二次武器是否偷讀需證據，不能預設有bug",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p5_solar": {
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "setup_or_in_mechanic_preparation": "共用雙坦換仇恨；沒有需要玩家額外手標的來源證據",
+      "required_player_actions": "自己在正確時間V換坦，使兩次實際仇恨目標合法",
+      "npc_response_contract": "不搶回玩家正確換坦；失敗按真實目標判定",
+      "remaining_or_source_uncertainty": "只有一共用選項；職業減傷/無敵/HP與死亡仇恨未完整，不捏造五區攻略",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_memory": {
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "核對三層與明示獨立前置資源；確認坦職及LB生效窗",
+      "required_player_actions": "玩家坦克實際用LB，存活後才獲Brilliant；其他職業依來源配合",
+      "npc_response_contract": "按實際生效LB協作，不提前發獎勵或自動替玩家施放",
+      "remaining_or_source_uncertainty": "五選項來源精度仍部分；獨立快照不是自然LB量表／完整HP盾／自動攻擊前奏",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_arrow_dive": {
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "setup_or_in_mechanic_preparation": "確認首次天箭起始集合與坦克近／六人遠分工，區分Arrow→Wave配對",
+      "required_player_actions": "讀可見初始天箭而非未來條帶，按時進退並真實誘導最近兩坦／最遠六人",
+      "npc_response_contract": "按來源起點與分工；不能套用CN第二天箭四對",
+      "remaining_or_source_uncertainty": "數值步伐仍為訓練路線；西南/LPDU東南、雙坦分側及KR俯衝文字衝突需對影像",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_exa_wave": {
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "讀首地火與旋轉方向，決定相對場標間隙預站；確認各攻略八方與東／南分攤",
+      "required_player_actions": "真正預站／誘導首水圈、從合法間隙離場、八方散開後分攤",
+      "npc_response_contract": "只按已可見地火與實際玩家落點移動，保持合法初始誘導",
+      "remaining_or_source_uncertainty": "CN相對67.5°離場已修但T0–T10中心誘導仍未改間隙起跑；完整RNG與未知區服角度保留；八方/衝鋒線特效缺",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_arrow_wave": {
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "setup_or_in_mechanic_preparation": "按攻略四對/八方時鐘預排，CN 1=D4/ST、2=D2/H2、3=D1/H1、4=D3/MT",
+      "required_player_actions": "根據可見天箭分時進出／逆時針過渡，再八方散開及東／南分攤",
+      "npc_response_contract": "各攻略配對與LPDU象限獨立；尊重實際玩家節奏，不修改判定讓固定終點通過",
+      "remaining_or_source_uncertainty": "CN四對與既有A MT/B ST/C H2/D H1時鐘已確認；完整原版步伐未認證；KR配對仍推導，不能當已驗原圖",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_exa_dive": {
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "地火相對間隙預站、起跑責任與坦近/六遠分工",
+      "required_player_actions": "讀地火／誘導水圈後離場，雙坦實際成為最近、六人最遠",
+      "npc_response_contract": "依實際落點與已揭示起點配合，尊重各攻略離場角度來源",
+      "remaining_or_source_uncertainty": "CN相對67.5°離場已修，中心誘導／間隙起跑仍未完；未知角度明示練習值，不套用KR角度給所有區",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_meteors": {
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_PRECISION.md",
+        "docs/research/P6_RANGED_GEOMETRY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "依攻略初始隕石位與MT/D3或LPDU額外H2/ST互換；確認法系/遠敏LB責任",
+      "required_player_actions": "自己選目標與放置法系LB／遠敏直線LB，處理點名、讀條動作鎖及期限",
+      "npc_response_contract": "依實際被擊破物件、玩家目標與行動鎖協作，不按預算自動清場",
+      "remaining_or_source_uncertainty": "六彗星固定配置與遠敏全寬8已有證據；邊緣/射程、核爆減傷、大隕石期限與晚期路線未全校準；flare頭標可讀性待畫面驗",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    },
+    "p6_magic": {
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "setup_or_in_mechanic_preparation": "按攻略分配兩輪坦／補LB責任與次序，辨識獨立快照非自然量表",
+      "required_player_actions": "坦LB實際生效；補師實際讀完LB驅散6秒Doom，遵守讀條/動作鎖",
+      "npc_response_contract": "不自動替玩家補LB；依實際LB生效與Doom生命週期回應",
+      "remaining_or_source_uncertainty": "兩輪生命週期存在；自然量表、HP補量、死亡/復活、最終DPS流程與各攻略減傷／坦組合仍未完整",
+      "full_conformance": "not_certified",
+      "information_gate": "only_already_revealed_information",
+      "validation_required": [
+        "manual_player_each_role",
+        "legal_alternative_adaptation",
+        "wrong_missing_late_action",
+        "reveal_boundary",
+        "actual_collision_and_status",
+        "pause_retry_checkpoint",
+        "rendered_platform"
+      ]
+    }
+  },
+  "options": [
+    {
+      "option_key": "p1_loop/01/elemental",
+      "mechanic_id": "p1_loop",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "HTDH · Elemental NW起順時針",
+      "catalog_description_snapshot": "以 H1→MT→ST→D1→D2→D3→D4→H2 分配；Program Loop 從 NW 順時針。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md",
+        "docs/research/LOOP_NAVIGATION.md"
+      ],
+      "requirements_ref": "p1_loop",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_loop/02/aether",
+      "mechanic_id": "p1_loop",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "TMR · Aether 分組／補位",
+      "catalog_description_snapshot": "Aether light-party flex；塔由 NW 逆時針／N 順時針找。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md",
+        "docs/research/LOOP_NAVIGATION.md"
+      ],
+      "requirements_ref": "p1_loop",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_loop/03/lpdu",
+      "mechanic_id": "p1_loop",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "MTRH · LPDU 優先序",
+      "catalog_description_snapshot": "D1→D2→MT→ST→D3→D4→H1→H2。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md",
+        "docs/research/LOOP_NAVIGATION.md"
+      ],
+      "requirements_ref": "p1_loop",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_loop/04/kr_09stop",
+      "mechanic_id": "p1_loop",
+      "menu_index_1_based": 4,
+      "profile": "kr_09stop",
+      "name": "HTDH · 09STOP 北起順時針",
+      "catalog_description_snapshot": "同 HTDH 優先序，塔從正北順時針找。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md",
+        "docs/research/LOOP_NAVIGATION.md"
+      ],
+      "requirements_ref": "p1_loop",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_loop/05/cn_moogle",
+      "mechanic_id": "p1_loop",
+      "menu_index_1_based": 5,
+      "profile": "cn_moogle",
+      "name": "HTDH · 莫古力 A起順時針",
+      "catalog_description_snapshot": "從正北A起順時針，依全局HTDH優先序分配塔與空區接線。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md",
+        "docs/research/LOOP_NAVIGATION.md"
+      ],
+      "requirements_ref": "p1_loop",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_panto/01/elemental",
+      "mechanic_id": "p1_panto",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · NW/SE 起始安全區",
+      "catalog_description_snapshot": "NW/SE為優先安全區，依初始火焰調整；飛彈1/2/3/4，分攤3/4/1/2，持續十四輪火與十次誘導水圈。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_panto",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_panto/02/aether",
+      "mechanic_id": "p1_panto",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · G1南／G2北，滿覆蓋順時針",
+      "catalog_description_snapshot": "依21步Toolbox，G1南、G2北；A/C完全覆蓋改西／東，TMR補位，治療不補位。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_panto",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_panto/03/lpdu",
+      "mechanic_id": "p1_panto",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · G1北／G2南，滿覆蓋順時針",
+      "catalog_description_snapshot": "N/S優先安全區；A/C完全覆蓋改東／西，TMR補位。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_panto",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_panto/04/cn_moogle",
+      "mechanic_id": "p1_panto",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 內出外回",
+      "catalog_description_snapshot": "高優先北、低優先南；完全覆蓋改高西低東；飛彈從內側前出、外側回隊。",
+      "declared_option_overrides": {
+        "p1_panto_variant": "inner_out_outer_return"
+      },
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_panto",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_panto/05/cn_moogle",
+      "mechanic_id": "p1_panto",
+      "menu_index_1_based": 5,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 外出內回",
+      "catalog_description_snapshot": "同高北低南／滿覆蓋高西低東，飛彈改外側前出、內側回隊。",
+      "declared_option_overrides": {
+        "p1_panto_variant": "outer_out_inner_return"
+      },
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_panto",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_panto/06/kr_09stop",
+      "mechanic_id": "p1_panto",
+      "menu_index_1_based": 6,
+      "profile": "kr_09stop",
+      "name": "09STOP · 六種初始火焰安全區",
+      "catalog_description_snapshot": "依H1 T1 T2 D1 D2 D3 D4 H2排序；按六種初始火焰選H1側安全區，滿覆蓋時H1組西。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_panto",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/01/elemental",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 固定散開／雙坦北",
+      "catalog_description_snapshot": "五次最遠雙坦扇形，每次重新選人；兩輪各三人的炮標按固定站位散開。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/02/aether",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · 動態炮標出口",
+      "catalog_description_snapshot": "無標南側集合，炮標依H1 M1 R1 R2 M2 H2排序到西／南／東；第二輪重新分配。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/03/lpdu",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 固定散開／雙坦北",
+      "catalog_description_snapshot": "固定六人散開與五次雙坦引導。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/04/cn_moogle",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 遠程西東、治療西南東南",
+      "catalog_description_snapshot": "D3西D4東，H1西南H2東南，近戰更靠南，雙坦北。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/05/kr_09stop",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 遠程西東、近戰西南東南",
+      "catalog_description_snapshot": "D3西D4東，D1西南D2東南，治療更靠南，雙坦北。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/06/aether",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 6,
+      "profile": "aether",
+      "name": "Aether · 固定散開備選",
+      "catalog_description_snapshot": "原攻略同列的固定散開備選，不依炮標換出口。",
+      "declared_option_overrides": {
+        "p1_cannon_variant": "static"
+      },
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p1_cannons/07/lpdu",
+      "mechanic_id": "p1_cannons",
+      "menu_index_1_based": 7,
+      "profile": "lpdu",
+      "name": "LPDU · 分坦減傷站位",
+      "catalog_description_snapshot": "LPDU第8張的雙坦分開備選；目前驗證走位與命中幾何，未還原職業減傷／血量。",
+      "declared_option_overrides": {
+        "p1_tank_variant": "split_mitigated"
+      },
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P1_FIDELITY.md"
+      ],
+      "requirements_ref": "p1_cannons",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_synergy/01/elemental",
+      "mechanic_id": "p2_synergy",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "1234 / 4231 · Elemental",
+      "catalog_description_snapshot": "O→X→三角→方塊；Remote 中間不全交叉，南端優先 flex。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P2_SYNERGY_TIMELINE.md"
+      ],
+      "requirements_ref": "p2_synergy",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_synergy/02/aether",
+      "mechanic_id": "p2_synergy",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "BPOG / GPOB · Aether 北端補位",
+      "catalog_description_snapshot": "Remote 只交換最外側圖形，中間紫／橙不全交叉；依眼睛相對北端補位，不是 LPDU 全交叉。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P2_SYNERGY_TIMELINE.md"
+      ],
+      "requirements_ref": "p2_synergy",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_synergy/03/lpdu",
+      "mechanic_id": "p2_synergy",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "BPOG 全交叉 · LPDU 南端 flex",
+      "catalog_description_snapshot": "X→方塊→O→三角；Remote 全交叉；南端優先 flex。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P2_SYNERGY_TIMELINE.md"
+      ],
+      "requirements_ref": "p2_synergy",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_synergy/04/cn_moogle",
+      "mechanic_id": "p2_synergy",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · OX△□ 全交叉／南端補位",
+      "catalog_description_snapshot": "遠線右側□△XO；同側雙分攤由靠下者與同圖形搭檔換側。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P2_SYNERGY_TIMELINE.md"
+      ],
+      "requirements_ref": "p2_synergy",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_synergy/05/kr_09stop",
+      "mechanic_id": "p2_synergy",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · O△□X 全交叉／北端補位",
+      "catalog_description_snapshot": "遠線右側X□△O；同側雙分攤由靠近眼睛者與同圖形搭檔換側。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P2_SYNERGY_TIMELINE.md"
+      ],
+      "requirements_ref": "p2_synergy",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_limitless/01/elemental",
+      "mechanic_id": "p2_limitless",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 南誘導／MT北線",
+      "catalog_description_snapshot": "南側圈外誘導箭；MT接北線、ST接南線，順時針拉向外。盾衝受擊坦離隊，其餘集中處理分攤與 Flare。Flare 的HP／減傷尚不計分。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P2_LIMITLESS_FIDELITY.md"
+      ],
+      "requirements_ref": "p2_limitless",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_limitless/02/aether",
+      "mechanic_id": "p2_limitless",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · 6-1-1／南偏西誘導",
+      "catalog_description_snapshot": "南偏西誘導箭，依箭向選垂直安全通道；雙坦在盾側誘導，其餘六人中央，未中盾衝的坦回隊。接線同職業自由分工採穩定北／南配置。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P2_LIMITLESS_FIDELITY.md"
+      ],
+      "requirements_ref": "p2_limitless",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_limitless/03/lpdu",
+      "mechanic_id": "p2_limitless",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 西南誘導／集中 Flare",
+      "catalog_description_snapshot": "西南近戰距離誘導，箭施法開始鎖定後進首領圈；雙坦順時針外拉，再到盾側分開誘導。三顆 Flare 集中減傷。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P2_LIMITLESS_FIDELITY.md"
+      ],
+      "requirements_ref": "p2_limitless",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_limitless/04/cn_moogle",
+      "mechanic_id": "p2_limitless",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 北誘導／A-C 接線",
+      "catalog_description_snapshot": "北側圈外誘導，MT接上半、ST接下半並在A/C側外拉；南北向箭改往首領正左右。未中盾衝的坦回隊，三顆 Flare 集中減傷。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P2_LIMITLESS_FIDELITY.md"
+      ],
+      "requirements_ref": "p2_limitless",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p2_limitless/05/kr_09stop",
+      "mechanic_id": "p2_limitless",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 南誘導／MT西線",
+      "catalog_description_snapshot": "C側誘導，MT接西線、ST接東線，順時針向外拉；南北向箭往接線分身的數字標安全側。盾衝坦離隊，另一坦回隊集中處理。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P2_LIMITLESS_FIDELITY.md"
+      ],
+      "requirements_ref": "p2_limitless",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_transition/01/elemental",
+      "mechanic_id": "p3_transition",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 八次波動／六手臂／狙擊",
+      "catalog_description_snapshot": "H1→MT→ST→D1→D2→D3→D4→H2；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P3_TRANSITION_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_transition",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_transition/02/aether",
+      "mechanic_id": "p3_transition",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · 八次波動／六手臂／狙擊",
+      "catalog_description_snapshot": "H1→D3→D1→MT→ST→D2→D4→H2；紫西北、白南；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P3_TRANSITION_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_transition",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_transition/03/lpdu",
+      "mechanic_id": "p3_transition",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 八次波動／六手臂／狙擊",
+      "catalog_description_snapshot": "D3→D1→MT→H1→H2→ST→D2→D4；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P3_TRANSITION_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_transition",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_transition/04/cn_moogle",
+      "mechanic_id": "p3_transition",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 八次波動／六手臂／狙擊",
+      "catalog_description_snapshot": "H1→MT→ST→D1→D2→D3→D4→H2；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P3_TRANSITION_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_transition",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_transition/05/kr_09stop",
+      "mechanic_id": "p3_transition",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 八次波動／六手臂／狙擊",
+      "catalog_description_snapshot": "H1→MT→ST→D1→D2→D3→D4→H2；紫西南、白北；全程正常步行，紫單人／白雙人。數值路徑為合法練習解，中央地板時窗仍為近似值。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P3_TRANSITION_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_transition",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_hello/01/elemental",
+      "mechanic_id": "p3_hello",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 四輪 Hello World",
+      "catalog_description_snapshot": "前三輪藍先綠後；第四綠先藍後，不再傳毒。第四輪藍回內側、分攤留原位。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/HW_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_hello",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_hello/02/aether",
+      "mechanic_id": "p3_hello",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Dylan 四輪循環",
+      "catalog_description_snapshot": "前三輪傳毒後離開舊毒；第四綠先藍後，藍與分攤各向外散開。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/HW_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_hello",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_hello/03/lpdu",
+      "mechanic_id": "p3_hello",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 綠先藍後第四輪",
+      "catalog_description_snapshot": "前三輪藍先綠後；第四輪 GREEN FIRST、BLUE LAST，不再傳毒，向外避開最後毒爆。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/HW_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_hello",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_hello/04/cn_moogle",
+      "mechanic_id": "p3_hello",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 原毒停留／藍向外",
+      "catalog_description_snapshot": "原毒留標點與內塔側；新藍穿過分攤向外，第四輪綠先藍後、不再傳毒。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/HW_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_hello",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_hello/05/kr_09stop",
+      "mechanic_id": "p3_hello",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 原毒停留／藍回內",
+      "catalog_description_snapshot": "前三輪藍接毒後回首領內側；第四綠先藍後，藍向內分開、分攤向外。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/HW_FIDELITY.md"
+      ],
+      "requirements_ref": "p3_hello",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/01/elemental",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Astoh / HHTTDDDD",
+      "catalog_description_snapshot": "Astoh / HHTTDDDD 陣型；玩家左右檢知與 Boss 方向分開判定。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/02/aether",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Dylan · Aether 第三檢知南側",
+      "catalog_description_snapshot": "採用第三檢知在南側的實際陣型，不再共用 Astoh 站位；依點名優先序分配，左右鏡像與個人檢知方向分開判定。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/03/lpdu",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 第一檢知北側",
+      "catalog_description_snapshot": "第一檢知在北側的 LPDU 陣型；依 RMTHHTMR 優先序分配，並驗證每人只命中一次。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/04/cn_moogle",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 固定左側",
+      "catalog_description_snapshot": "全局HTDH排序；檢知2/3固定左側、無點名2/3固定右側，1與無點名1/4/5依Boss安全半場調整。",
+      "declared_option_overrides": {
+        "monitor_layout": "cn_fixed"
+      },
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/05/cn_moogle",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 5,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 鏡像換邊",
+      "catalog_description_snapshot": "全局HTDH排序；無點名2/3危險半場，其餘人安全半場。",
+      "declared_option_overrides": {
+        "monitor_layout": "cn_mirror"
+      },
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/06/kr_09stop",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 6,
+      "profile": "kr_09stop",
+      "name": "09STOP · HHTTDDDD 鏡像",
+      "catalog_description_snapshot": "檢知／無檢知各依H1 H2 T1 T2 D1 D2 D3 D4排序，依Boss方向鏡像。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p4_wave/01/elemental",
+      "mechanic_id": "p4_wave",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 三輪直線分攤／TRHM",
+      "catalog_description_snapshot": "同側雙標時下順位與對側近戰交換；三輪實際方向鎖定／回波、八次圓環與雙直線四人分攤。共用陣型有各自主來源；精確快照與 HP／減傷仍未完整驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P4_WAVE_FIDELITY.md"
+      ],
+      "requirements_ref": "p4_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p4_wave/02/aether",
+      "mechanic_id": "p4_wave",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Dylan · 三輪直線分攤／TRHM",
+      "catalog_description_snapshot": "同側雙標時下順位與對側近戰交換；三輪實際方向鎖定／回波、八次圓環與雙直線四人分攤。共用陣型有各自主來源；精確快照與 HP／減傷仍未完整驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P4_WAVE_FIDELITY.md"
+      ],
+      "requirements_ref": "p4_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p4_wave/03/lpdu",
+      "mechanic_id": "p4_wave",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 三輪直線分攤／TRHM",
+      "catalog_description_snapshot": "同側雙標時下順位與對側近戰交換；三輪實際方向鎖定／回波、八次圓環與雙直線四人分攤。共用陣型有各自主來源；精確快照與 HP／減傷仍未完整驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P4_WAVE_FIDELITY.md"
+      ],
+      "requirements_ref": "p4_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p4_wave/04/cn_moogle",
+      "mechanic_id": "p4_wave",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 三輪直線分攤／TRHM",
+      "catalog_description_snapshot": "同側雙標時下順位與對側近戰交換；三輪實際方向鎖定／回波、八次圓環與雙直線四人分攤。共用陣型有各自主來源；精確快照與 HP／減傷仍未完整驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P4_WAVE_FIDELITY.md"
+      ],
+      "requirements_ref": "p4_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p4_wave/05/kr_09stop",
+      "mechanic_id": "p4_wave",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 三輪直線分攤／TRHM",
+      "catalog_description_snapshot": "同側雙標時下順位與對側近戰交換；三輪實際方向鎖定／回波、八次圓環與雙直線四人分攤。共用陣型有各自主來源；精確快照與 HP／減傷仍未完整驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P4_WAVE_FIDELITY.md"
+      ],
+      "requirements_ref": "p4_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_delta/01/elemental",
+      "mechanic_id": "p5_delta",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · Kinda Awk 內側換拳",
+      "catalog_description_snapshot": "短藍接Defense、長藍誘導甲蟲側手臂；內綠接Near、外綠接Far，最後一條綠等World易傷消失。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/DELTA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_delta",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_delta/02/aether",
+      "mechanic_id": "p5_delta",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Saus 依Near/Far分內外",
+      "catalog_description_snapshot": "真正Near所在藍線組安排內側、Far組外側；內側換拳，六手臂先鎖角再內收。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/DELTA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_delta",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_delta/03/lpdu",
+      "mechanic_id": "p5_delta",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 先斷藍Defense／檢知疾跑",
+      "catalog_description_snapshot": "先斷的藍線組接Defense；藍色手臂誘導者若有檢知需疾跑1，不能用加速Bot替代。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/DELTA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_delta",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_delta/04/cn_moogle",
+      "mechanic_id": "p5_delta",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 外側換拳／綠側Defense",
+      "catalog_description_snapshot": "外側換拳、內綠誘導Defense；World按原圖危險／安全側分工；綠Defense受擊者的檢知替補仍屬合法訓練分工，未找到完整原攻略說明。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/DELTA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_delta",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": "選單名稱與敘述仍稱綠側Defense；1500c2b9已修實際藍內Defense。需修選單文案，不能按舊文字判runtime尚未修。"
+    },
+    {
+      "option_key": "p5_delta/05/kr_09stop",
+      "mechanic_id": "p5_delta",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 外側換拳／中央Far",
+      "catalog_description_snapshot": "先斷外藍Defense，外綠待機、內綠接Far；Near在甲蟲側斜角，Far靠中央安全分界。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/DELTA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_delta",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_sigma/01/elemental",
+      "mechanic_id": "p5_sigma",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · Waymark 塔／F側分工",
+      "catalog_description_snapshot": "圖形OX△□，場地標點對應五／六塔；一層且無World者分配F側三人。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/SIGMA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_sigma",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_sigma/02/aether",
+      "mechanic_id": "p5_sigma",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Saus Waymark towers",
+      "catalog_description_snapshot": "BPOG圖形列，記住實際場地標點；解F姿態後分工等待／追雷射。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/SIGMA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_sigma",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_sigma/03/lpdu",
+      "mechanic_id": "p5_sigma",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · Waymark 塔／三人小列隊",
+      "catalog_description_snapshot": "BPOG圖形列與場地標點宏；F側優先MT，一層無World者處理手臂與遠跳。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/SIGMA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_sigma",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_sigma/04/cn_moogle",
+      "mechanic_id": "p5_sigma",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 目視雙人塔優先／手標World",
+      "catalog_description_snapshot": "OX△□；轉22.5°後忽略正後塔，相鄰標點旁有雙去雙；近世界留F對面、遠世界到旋轉側。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/SIGMA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_sigma",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_sigma/05/kr_09stop",
+      "mechanic_id": "p5_sigma",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · O△□X／綁1–3",
+      "catalog_description_snapshot": "依實際場地標點宏踩塔；遠世界在F側，近世界隨旋轉方向轉90°。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/SIGMA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_sigma",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_omega/01/elemental",
+      "mechanic_id": "p5_omega",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 克隆雙連／層數優先",
+      "catalog_description_snapshot": "依男女姿態與燈找唯一正方向安全點；二層且II優先接檢知，第二輪讀實際三層者接線。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/OMEGA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_omega",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_omega/02/aether",
+      "mechanic_id": "p5_omega",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Saus 檢知／甲蟲為北",
+      "catalog_description_snapshot": "完整Saus雙連讀圖；World接收手標1/4遠、2/3近，實際層數決定功能分工。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/OMEGA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_omega",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_omega/03/lpdu",
+      "mechanic_id": "p5_omega",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · II二層優先檢知",
+      "catalog_description_snapshot": "二層II優先，再補未點名二層；第二輪甲蟲為北，遠世界可東／西自選。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/OMEGA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_omega",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_omega/04/cn_moogle",
+      "mechanic_id": "p5_omega",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 檢知優先序／西側遠世界",
+      "catalog_description_snapshot": "II二層優先檢知；Boss檢知為北時近世界南、遠世界西，第二輪同理改甲蟲為北。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/OMEGA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_omega",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_omega/05/kr_09stop",
+      "mechanic_id": "p5_omega",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 綁檢知／三層接線",
+      "catalog_description_snapshot": "綁標優先二層II、再二層無World；第一輪Far可真南北、第二輪可相對東西；Near在來源反側。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/OMEGA_FIDELITY.md"
+      ],
+      "requirements_ref": "p5_omega",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p5_solar/01/elemental",
+      "mechanic_id": "p5_solar",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "雙坦換仇恨",
+      "catalog_description_snapshot": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/FIDELITY.md",
+        "docs/research/MECHANIC_STATUSES.md"
+      ],
+      "requirements_ref": "p5_solar",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_memory/01/elemental",
+      "mechanic_id": "p6_memory",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · Cosmo Memory（部分來源）",
+      "catalog_description_snapshot": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；HP／減傷與自然量表尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_memory",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_memory/02/aether",
+      "mechanic_id": "p6_memory",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Cosmo Memory（部分來源）",
+      "catalog_description_snapshot": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；HP／減傷與自然量表尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_memory",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_memory/03/lpdu",
+      "mechanic_id": "p6_memory",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · Cosmo Memory（部分來源）",
+      "catalog_description_snapshot": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；HP／減傷與自然量表尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_memory",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_memory/04/cn_moogle",
+      "mechanic_id": "p6_memory",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · Cosmo Memory（部分來源）",
+      "catalog_description_snapshot": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；HP／減傷與自然量表尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_memory",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_memory/05/kr_09stop",
+      "mechanic_id": "p6_memory",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · Cosmo Memory（部分來源）",
+      "catalog_description_snapshot": "坦克 LB3 實際生效後判定；Brilliant 必須由存活取得。獨立前置快照提供三層 Dynamis／滿 LB3；HP／減傷與自然量表尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_memory",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_dive/01/elemental",
+      "mechanic_id": "p6_arrow_dive",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "天箭 → 雙坦近／六人遠分攤",
+      "catalog_description_snapshot": "目前提供此機制的共用練習解法，尚未冒稱完整復刻所有區服戰術。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_dive/02/aether",
+      "mechanic_id": "p6_arrow_dive",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · 天箭 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "T/H南側預備，坦克在最後天箭後向前分開；六人留西南。數值天箭走位仍為練習路線，並非完整原版逐幀路徑。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_dive/03/lpdu",
+      "mechanic_id": "p6_arrow_dive",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 天箭 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "六人以東南側解天箭，雙坦在前側分開接Dive。數值天箭走位仍為練習路線，完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_dive/04/cn_moogle",
+      "mechanic_id": "p6_arrow_dive",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 天箭 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "六人以西南側解天箭，雙坦向前分開接Dive。依原圖方向實作；數值走位為合法練習解，不當作完整原版逐幀路徑。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_dive/05/kr_09stop",
+      "mechanic_id": "p6_arrow_dive",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 天箭 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "六人西南、雙坦向11／1點側分開接Dive。方向依原攻略，數值天箭走位與完整動畫分支仍為部分來源。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_wave/01/elemental",
+      "mechanic_id": "p6_exa_wave",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "東側分攤 · 移動地火訓練族群",
+      "catalog_description_snapshot": "地火半徑8、每次推進8；首次推進約1.11秒，其後約1秒，共七次。相鄰45°起點族群有四場紀錄支持，完整原始生成範圍與區服路線尚未驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_wave/02/lpdu",
+      "mechanic_id": "p6_exa_wave",
+      "menu_index_1_based": 2,
+      "profile": "lpdu",
+      "name": "南側分攤 · 移動地火訓練族群",
+      "catalog_description_snapshot": "地火半徑8、每次推進8；首次推進約1.11秒，其後約1秒，共七次。相鄰45°起點族群有四場紀錄支持，完整原始生成範圍與區服路線尚未驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_wave/03/aether",
+      "mechanic_id": "p6_exa_wave",
+      "menu_index_1_based": 3,
+      "profile": "aether",
+      "name": "Aether · 南側分攤／地火（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。依本練習45°離場；按各自八方站位散開後南側分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_wave/04/cn_moogle",
+      "mechanic_id": "p6_exa_wave",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 南側分攤／地火（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。離場先採45°練習路線，原攻略角度未明；按各自八方站位散開後南側分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": "描述仍寫45°練習值；ce191885已修相對67.5°離場。初始中心誘導/間隙預站仍未修，須分開呈現。"
+    },
+    {
+      "option_key": "p6_exa_wave/05/kr_09stop",
+      "mechanic_id": "p6_exa_wave",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 南側分攤／地火（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。67.5°離場；按各自八方站位散開後南側分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_wave/01/elemental",
+      "mechanic_id": "p6_arrow_wave",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "東側分攤 · Elemental",
+      "catalog_description_snapshot": "共用天箭／地火練習；Wave Cannon 往東側分攤。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_wave/02/lpdu",
+      "mechanic_id": "p6_arrow_wave",
+      "menu_index_1_based": 2,
+      "profile": "lpdu",
+      "name": "南側分攤 · LPDU 約定",
+      "catalog_description_snapshot": "共用天箭／地火練習；Wave Cannon 往南側分攤。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_wave/03/aether",
+      "mechanic_id": "p6_arrow_wave",
+      "menu_index_1_based": 3,
+      "profile": "aether",
+      "name": "Aether · 天箭／南側分攤（部分來源）",
+      "catalog_description_snapshot": "依各自八方站位處理天箭與散開；最後南側分攤。數值天箭走位為合法練習路線，不代表完整區服逐幀路徑。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_wave/04/cn_moogle",
+      "mechanic_id": "p6_arrow_wave",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 天箭／南側分攤（部分來源）",
+      "catalog_description_snapshot": "依各自八方站位處理天箭與散開；最後南側分攤。數值天箭走位為合法練習路線，不代表完整區服逐幀路徑。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_arrow_wave/05/kr_09stop",
+      "mechanic_id": "p6_arrow_wave",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 天箭／南側分攤（部分來源）",
+      "catalog_description_snapshot": "T/H與DPS配對為依八方站位推導的練習分工，原圖完整配對未核對；最後南側分攤。數值天箭走位為合法練習路線，不代表完整區服逐幀路徑。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_FIDELITY.md",
+        "docs/research/P6_PRECISION.md"
+      ],
+      "requirements_ref": "p6_arrow_wave",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_dive/01/elemental",
+      "mechanic_id": "p6_exa_dive",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "移動地火 → 雙坦近／六人遠分攤",
+      "catalog_description_snapshot": "地火半徑8、每次推進8；首次推進約1.11秒，其後約1秒，共七次。相鄰45°起點族群有四場紀錄支持，完整原始生成範圍與區服路線尚未驗證。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_dive/02/aether",
+      "mechanic_id": "p6_exa_dive",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · 地火 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。依本練習45°離場；最後雙坦最近、六人最遠分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_dive/03/lpdu",
+      "mechanic_id": "p6_exa_dive",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 地火 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。45°離場為練習路線，原攻略角度未明；最後雙坦最近、六人最遠分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_exa_dive/04/cn_moogle",
+      "mechanic_id": "p6_exa_dive",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 地火 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。45°離場為練習路線，原攻略角度未明；最後雙坦最近、六人最遠分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": "描述仍寫45°練習值；ce191885已修相對67.5°離場。初始中心誘導/間隙預站仍未修，須分開呈現。"
+    },
+    {
+      "option_key": "p6_exa_dive/05/kr_09stop",
+      "mechanic_id": "p6_exa_dive",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 地火 → 雙坦近／六人遠（部分來源）",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。67.5°離場；最後雙坦最近、六人最遠分攤。完整區服時間路徑尚未核對。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_EXAFLARE_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_exa_dive",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_meteors/01/elemental",
+      "mechanic_id": "p6_meteors",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · 隕石／LB3（部分來源）",
+      "catalog_description_snapshot": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。遠敏全寬8；NPC邊緣／射程寬限、核爆傷害／減傷、大隕石期限與部分路線仍待校準。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_PRECISION.md",
+        "docs/research/P6_RANGED_GEOMETRY.md"
+      ],
+      "requirements_ref": "p6_meteors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_meteors/02/aether",
+      "mechanic_id": "p6_meteors",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · 隕石／LB3（部分來源）",
+      "catalog_description_snapshot": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。遠敏全寬8；NPC邊緣／射程寬限、核爆傷害／減傷、大隕石期限與部分路線仍待校準。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_PRECISION.md",
+        "docs/research/P6_RANGED_GEOMETRY.md"
+      ],
+      "requirements_ref": "p6_meteors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_meteors/03/lpdu",
+      "mechanic_id": "p6_meteors",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · 隕石／LB3（部分來源）",
+      "catalog_description_snapshot": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。遠敏全寬8；NPC邊緣／射程寬限、核爆傷害／減傷、大隕石期限與部分路線仍待校準。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_PRECISION.md",
+        "docs/research/P6_RANGED_GEOMETRY.md"
+      ],
+      "requirements_ref": "p6_meteors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_meteors/04/cn_moogle",
+      "mechanic_id": "p6_meteors",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · 隕石／LB3（部分來源）",
+      "catalog_description_snapshot": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。遠敏全寬8；NPC邊緣／射程寬限、核爆傷害／減傷、大隕石期限與部分路線仍待校準。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_PRECISION.md",
+        "docs/research/P6_RANGED_GEOMETRY.md"
+      ],
+      "requirements_ref": "p6_meteors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_meteors/05/kr_09stop",
+      "mechanic_id": "p6_meteors",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · 隕石／LB3（部分來源）",
+      "catalog_description_snapshot": "法系指定地點破彗星；遠敏選定目標擊破隕石；讀條與動畫鎖完整保留。遠敏全寬8；NPC邊緣／射程寬限、核爆傷害／減傷、大隕石期限與部分路線仍待校準。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_PRECISION.md",
+        "docs/research/P6_RANGED_GEOMETRY.md"
+      ],
+      "requirements_ref": "p6_meteors",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_magic/01/elemental",
+      "mechanic_id": "p6_magic",
+      "menu_index_1_based": 1,
+      "profile": "elemental",
+      "name": "Elemental · Magic Number（部分來源）",
+      "catalog_description_snapshot": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；自然量表、HP／補量與死亡後行為尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_magic",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_magic/02/aether",
+      "mechanic_id": "p6_magic",
+      "menu_index_1_based": 2,
+      "profile": "aether",
+      "name": "Aether · Magic Number（部分來源）",
+      "catalog_description_snapshot": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；自然量表、HP／補量與死亡後行為尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_magic",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_magic/03/lpdu",
+      "mechanic_id": "p6_magic",
+      "menu_index_1_based": 3,
+      "profile": "lpdu",
+      "name": "LPDU · Magic Number（部分來源）",
+      "catalog_description_snapshot": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；自然量表、HP／補量與死亡後行為尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_magic",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_magic/04/cn_moogle",
+      "mechanic_id": "p6_magic",
+      "menu_index_1_based": 4,
+      "profile": "cn_moogle",
+      "name": "莫古力 · Magic Number（部分來源）",
+      "catalog_description_snapshot": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；自然量表、HP／補量與死亡後行為尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_magic",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p6_magic/05/kr_09stop",
+      "mechanic_id": "p6_magic",
+      "menu_index_1_based": 5,
+      "profile": "kr_09stop",
+      "name": "09STOP · Magic Number（部分來源）",
+      "catalog_description_snapshot": "兩輪坦克生效與補師讀條驅散；超過六秒 Doom 仍會失敗。獨立前置快照提供三層 Dynamis／滿 LB3；自然量表、HP／補量與死亡後行為尚未完整模擬。",
+      "declared_option_overrides": {},
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/research/P6_LB_FIDELITY.md",
+        "docs/research/P6_FIDELITY.md"
+      ],
+      "requirements_ref": "p6_magic",
+      "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
+      "guide_reaudit_status": "pending_option_level_primary_source_and_runtime_reaudit",
+      "player_preparation_proof": "not_accepted_as_complete",
+      "runtime_conformance": "not_certified",
+      "rendered_platform_proof": "not_accepted_as_complete",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "catalog_runtime_drift": ""
+    }
+  ]
+}

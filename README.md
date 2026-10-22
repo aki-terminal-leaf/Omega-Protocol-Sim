@@ -190,6 +190,8 @@ Program Loop／Limitless／Omega 透過實際移動交接線，Delta成對線在
 
 ## 開發
 
+[全攻略互動 → 最佳化 → 完整AVFX開發路線圖](docs/development/TOP_DEVELOPMENT_ROADMAP.md) · [20機制／100選項玩家預處理與NPC驗收清冊](docs/research/STRATEGY_CONFORMANCE_MATRIX.md)。這是待開發／待驗證計畫，不是全攻略或AVFX已完成的聲明。
+
 ```sh
 godot --headless --path top --editor --import --quit
 godot --headless --path top --script tests/practice_preferences.gd
