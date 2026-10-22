@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "rendering_complete": false,
+  "scope": "nine hash-pinned explicit decoded-sample PS output equations, not host ABI/render graph",
+  "output_luma_weight_bits": [
+    "0x3E990ABB",
+    "0x3F162C13",
+    "0x3DEA747E"
+  ],
+  "fresnel_floor_bits": "0x3727C5AC",
+  "programs": [
+    {
+      "bytecode_sha256": "04a9ef9ce0939885fe11708f5969fc6a538b0cc08325d04ab5b4effeb78fe36f",
+      "bindings_sha256": "f15ec22f1d67793a81b52300adb762d7777dfcd5345b41afbc1f88643ceefe11",
+      "equation_id": "powder1",
+      "requires_fresnel": false,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "6f371f4b36697057d24590c42dd1740c1f5ac2112625389686b357ce31b37bff",
+      "bindings_sha256": "f15ec22f1d67793a81b52300adb762d7777dfcd5345b41afbc1f88643ceefe11",
+      "equation_id": "shape1",
+      "requires_fresnel": false,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "9b2cf19352f48b37f34a74c81afc76b62a9612f5029cc5b8e57b5d244a84077d",
+      "bindings_sha256": "3798a604df0c3c1c78b781b7e6134121742874725b7f971274f71076fddb5033",
+      "equation_id": "shape2",
+      "requires_fresnel": false,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "4f96cd7c34e2dc852d22b9b3d5864c616aee9e81fc33acd7f6d3f3e2e46f73da",
+      "bindings_sha256": "123fd9224278356bafab1ab9d251af1338c38edeccbc53f453900c4882104b3c",
+      "equation_id": "shape3",
+      "requires_fresnel": false,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "cda574a8fbde375674725d307c43e1b5467a92dd89161d14becf9b0d81ed7756",
+      "bindings_sha256": "765ee7d817b1285791884fd2bec414d94dc0dfe86588b9ff5b1ad22251151bee",
+      "equation_id": "shape4",
+      "requires_fresnel": false,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "43a927d53530f942c0a463bfdd55e170ce138b8537800e40499e88657ff2166c",
+      "bindings_sha256": "a1eb7faf78d1ba61eec5a27a27d4e5f34749d1c20fb4ebdac8ab8695c11e6fb2",
+      "equation_id": "model1",
+      "requires_fresnel": true,
+      "rgb_output": "saturate_then_alpha_white",
+      "mrt1_alpha": "upper_min"
+    },
+    {
+      "bytecode_sha256": "c54665507e858ac052ddbbc81142c16d3bfaf05e094e72054345d0e6839e8ef9",
+      "bindings_sha256": "24f7866276e887e33b7800a89259f16b383868f8c8ee7b8781dd764cca544759",
+      "equation_id": "model2",
+      "requires_fresnel": true,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "35ffe8a564f267296680f3022906606aebc5b4c6f6e3ac4d37ab3ad875df6664",
+      "bindings_sha256": "53cbda9f8727d5a21c5b119af441c2701df0ad212ea6e9d236f87ab8a4d64342",
+      "equation_id": "model3",
+      "requires_fresnel": true,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    },
+    {
+      "bytecode_sha256": "a4e4a13e113480e0685d7974d55e9ccd35ae8f6b9d49b281f1b55301b95b2713",
+      "bindings_sha256": "0a5603af7a271a23025ce58182148919892c15b009644e1e0b4fb9be8c6f7dc7",
+      "equation_id": "model4",
+      "requires_fresnel": true,
+      "rgb_output": "unclamped",
+      "mrt1_alpha": "saturate"
+    }
+  ]
+}

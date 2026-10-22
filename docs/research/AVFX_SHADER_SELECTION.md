@@ -199,3 +199,10 @@ changing numeric assertions. Export logs verify the registry is packed. Final
 parent process/cache audits removed a leftover task PowerShell process and
 cache. Historical attempts remain evidence, not passes. No hardware-GPU or
 complete original-game acceptance claim is made.
+
+
+## Explicit pixel-output reference
+
+See [AVFX_POSTPROCESS](AVFX_POSTPROCESS.md) for the separate hash-pinned CPU
+reference for explicit Fresnel, tone-map and both MRT outputs. It does not alter
+the section-only scope of the Godot probe or derive game-host input defaults.
