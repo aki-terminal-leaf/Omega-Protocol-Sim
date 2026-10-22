@@ -131,12 +131,31 @@ selected program's white-compositing output and DOF/secondary-alpha output;
 maximum error was zero. The parent independently recalculated all 12 cases.
 An initial harness omitted six owner COM releases; the corrected harness was
 rebuilt and all 12 cases rerun before accepting the complete release checklist.
-The original failed cleanup attempt is preserved separately. Total genuine
-pixel-program execution coverage is now **3 of 9**, with six unverified. The
-model program's varying/UV selection is covered, but original VS execution,
-host packing/defaults, dynamic Fresnel construction and the complete game
-render graph remain unproved. All harness binaries/objects/raw input copies
-and task-owned processes were removed; source and evidence remain private.
+The original failed cleanup attempt is preserved separately.
+
+The remaining selected shape2–4 and model2–4 pixel programs have also executed
+through WARP: 12 cases each (36 shape and 36 model), four distinct texture
+locations times the exact control pairs `(1,1)`, `(0,1)`, `(1,0)`. Both MRTs
+matched the recorded independent equations with zero harness error; parent
+recalculations also passed. Model fixtures use distinct RGBA textures and UV
+routes, a nonidentity UV0 transform, and an exact 48-byte VS constant buffer.
+Earlier degenerate/routing/buffer attempts are retained, not counted as passes.
+Shape fixtures preserve RGB above 1.0. Because that made shape4's secondary
+alpha zero throughout its baseline, a separate four-corner low-exposure probe
+verified nonzero MRT1 alpha without replacing the HDR baseline.
+
+Total execution coverage is **9 selected programs / 94 recorded cases**,
+not all Apricot programs or permutations. Powder1 and shape1 still have the
+narrow three-case uniform-texture scope above. Independent reviews and final
+hash/process/artifact reconciliation were completed. All harness binaries,
+objects, copied raw inputs and owned processes were removed; private sources
+and evidence remain. Original VS execution, host packing/defaults, dynamic
+Fresnel construction and the complete game render graph remain unproved.
+
+A newly identified signed-input discrepancy remains to be fixed in the portable
+section bridge: powder1 clamps nonnegative **before** common factors, whereas
+the selected shape/model programs clamp **after** them. Historical positive
+fixtures do not establish signed-input equivalence or complete postprocessing.
 
 ## Exact paired-program UV ABI (2026-10-22)
 
