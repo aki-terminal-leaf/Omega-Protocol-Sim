@@ -31,3 +31,9 @@ Physis 是資料讀寫庫；VFXEditor 的播放器依賴遊戲內環境，不能
 
 來源：原版 Status/Action/ActionTimeline/StatusLoopVFX/VFX 資料，
 [既有 AVFX 管線](VFX_PIPELINE.md)、[逐攻擊狀態紀錄](STATUS_ATTACK_OBSERVATIONS.json)。
+
+## 離線執行層增量（2026-10-22）
+
+已新增[可執行的離線 AVFX 預覽核心](AVFX_RUNTIME.md)，可在本機執行來源排程、
+曲線與部分粒子，八份原檔共40張實際渲染畫面無引擎錯誤。但原版視覺驗收
+未通過，仍未取代正式練習的重建顯示；**完整 AVFX 直接播放尚未完成**。
