@@ -117,17 +117,20 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	beat.stage_entities=beat.stage_entities.filter(func(s):return not s.get("p3_transition_entity",false))
 	if now>=float(r.until): return
 	beat.stage_entities.append({"id":"p3_transition_boss","form":"final","pos":[0,0],"name":"Omega Reconfigured","p3_transition_entity":true})
-	if now>=float(r.void.start) and now<float(r.void.end): beat.shapes.append({"kind":"circle","pos":Vector2.ZERO,"radius":6.0,"decorative":true,"p3_transition_preview":true,"name":"Central voidzone (window approximate)"})
+	if now>=float(r.void.start) and now<float(r.void.end): beat.shapes.append({"kind":"circle","pos":Vector2.ZERO,"radius":6.0,"cue_type":"persistent","decorative":true,"p3_transition_preview":true,"name":"Central voidzone (window approximate)"})
 	# Teaching overlays only. Parent must not present these as original game VFX.
 	for e in r.pending:
 		if e.kind=="ring" and float(e.at)-now<=(5.0 if int(e.ring)==0 else 2.1):
 			var shape: Dictionary=e.shape.duplicate(true)
-			shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p3_transition_preview=true
+			shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p3_transition_preview=true; shape.damage_at=float(e.at)
 			shape.name="Wave Repeater"; beat.shapes.append(shape)
+	var sniper_at:=INF
+	for event in r.pending:
+		if event.kind=="sniper":sniper_at=minf(sniper_at,float(event.at))
 	for a in state.statuses.size():
 		if state.statuses[a].has("sniper_cannon_fodder") or state.statuses[a].has("high_powered_sniper_cannon_fodder"):
-			beat.shapes.append({"kind":"circle","actor":a,"radius":6.0,"decorative":true,"p3_transition_preview":true,"name":"Sniper radius (instructional preview)","instructional":true})
+			beat.shapes.append({"kind":"circle","actor":a,"radius":6.0,"decorative":true,"p3_transition_preview":true,"damage_at":sniper_at,"name":"Sniper radius (instructional preview)","instructional":true})
 	for arm in r.arms.values():
 		if arm.resolved: continue
 		beat.stage_entities.append({"id":arm.id,"form":arm.form,"pos":arm.locked_pos.duplicate(),"p3_transition_entity":true,"cue":{"timeline_ids":["1E43","1E44"],"relative_time":float(arm.cue_at)-float(r.origin),"confidence":"hit minus 13.5s reference; timeline ID alternative not measured","rendering":"original model plus instructional cue, not authentic game VFX"},"form_confidence":arm.form_confidence})
-		if arm.casting: beat.shapes.append({"kind":"circle","pos":Rules.v(arm.locked_pos),"radius":11.0,"decorative":true,"p3_transition_preview":true,"name":"Colossal Blow"})
+		if arm.casting: beat.shapes.append({"kind":"circle","pos":Rules.v(arm.locked_pos),"radius":11.0,"decorative":true,"p3_transition_preview":true,"damage_at":float(arm.at),"name":"Colossal Blow"})

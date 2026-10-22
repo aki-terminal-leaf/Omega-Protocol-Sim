@@ -209,7 +209,7 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if beat.has("shapes"):
 		beat.shapes = beat.shapes.filter(func(s): return not s.get("runtime_stream",false))
 		for stream in state.streams:
-			if int(stream.remaining)>0: beat.shapes.append({"kind":"circle","pos":stream.pos,"radius":stream.radius,"decorative":true,"runtime_stream":true,"name":"Next moving exaflare"})
+			if int(stream.remaining)>0: beat.shapes.append({"kind":"circle","pos":stream.pos,"radius":stream.radius,"decorative":true,"runtime_stream":true,"damage_at":float(stream.next_at),"name":"Next moving exaflare"})
 	if not state.paired_tethers.is_empty():
 		beat.tethers = []
 		for tether in state.paired_tethers:

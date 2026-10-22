@@ -480,6 +480,7 @@ func start_run(checkpoint := 0, new_seed := true) -> void:
 	set_practice_view(true)
 func begin_beat(reset_positions := false) -> void:
 	current = encounter.beats[index].duplicate(true)
+	arena.upcoming_beats=encounter.beats.slice(index+1)
 	elapsed = 0; wall_recorded = false; pending_advance = false
 	state.lb = ""; state.lb_actor = -1
 	if reset_positions and state.get("checkpoint_actors", []).size() == 8:

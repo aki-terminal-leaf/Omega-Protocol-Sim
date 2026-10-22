@@ -101,11 +101,11 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if not beat.has("shapes"): beat.shapes=[]
 	beat.shapes=beat.shapes.filter(func(s):return not s.get("p4_wave_preview",false))
 	for target in state.p4_wave.markers:
-		beat.shapes.append({"kind":"circle","actor":int(target),"radius":1.0,"name":"Line stack marker","decorative":true,"p4_wave_preview":true})
+		beat.shapes.append({"kind":"circle","actor":int(target),"radius":1.0,"cue_type":"marker","name":"Line stack marker","decorative":true,"p4_wave_preview":true})
 	var now := float(state.get("sim_time",0))
 	for event in state.p4_wave.pending:
 		if event.kind not in ["repeat","ring"]: continue
 		if event.kind=="ring" and float(event.at)>now+(5.0 if int(event.pulse)==0 else 2.1): continue
 		var shape: Dictionary=event.shape.duplicate(true)
-		shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p4_wave_preview=true
+		shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p4_wave_preview=true; shape.damage_at=float(event.at)
 		beat.shapes.append(shape)

@@ -33,9 +33,12 @@ are included in source.
 
 The visible north reference after swapping is the new **male** at radius13,
 not a female at that location. Center female is not a sixth sword circle.
-No entity label identifies a fake clone. Weapon words and predicted floor AoEs
-are teaching-only; ordinary practice reads models/actual markers. Attack impacts
-flash only after the authoritative snapshot, with frozen actual actor positions.
+No entity label identifies a fake clone. Weapon words remain teaching-only; ordinary practice reads models/actual markers.
+At the user’s explicit request, damage footprints now appear only during the last
+0.5 simulation seconds before their actual snapshot (including across the short
+Fire/Laser and Spotlight/sword checkpoint boundaries). This is a training display
+policy, not a claim that the game has these telegraphs. Post-hit flashes retain
+frozen actual actor positions. Damage deadlines and geometry are unchanged.
 
 The Optical Unit proxy's ModelChara480 has no ordinary visible boss mesh;
 its game appearance is VFX-based. A clearly documented procedural eye cue is

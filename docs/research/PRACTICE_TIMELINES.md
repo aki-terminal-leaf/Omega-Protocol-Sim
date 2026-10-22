@@ -129,3 +129,18 @@ initial positions and observed-reference steering are explicitly tested.
 These are source gates. Final exported-pack native captures, Web content/hash
 checks and publication are separate records; they do not certify a browser or
 complete original VFX playback by implication.
+
+## User-requested late damage preview (0.5 simulation seconds)
+
+Damage footprints are filtered centrally by the actual absolute event deadline
+(or the authoritative beat snapshot when no runtime queue owns it). Teaching
+mode cannot reveal these areas early. Event previews carry inert `damage_at`
+metadata; the damage judge, pending-event timestamps, geometry and movement
+speed are unchanged. The final0.5s spans short UI checkpoints: Optical Laser
+and the five male circles do not lose part of their window at a beat change.
+
+Towers, actual head markers/tethers, selectable NPCs and already-active voidzones
+remain mechanic cues, not delayed attack previews. Pausing holds simulation
+time; checkpoint retry restores its original clock and clears late previews.
+This requested practice overlay is deliberately different from original game
+telegraph timing; it does not upgrade any unmeasured VFX claim.

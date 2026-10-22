@@ -362,3 +362,17 @@ assertions all pass; continuous P5 after Solar5/3.2s15 courses/0.
 Source-only fallback logic, original native model wiring and final exported
 platform proof are deliberately separate. The earlier210s matrix timeout and
 harness failures remain retained; they are not converted into a pass.
+
+
+### Late damage-preview follow-up (explicit user request0.5s)
+
+All20 actual moving Main courses,110 preview/deadline/renderer/non-mutation
+checks,155 independent source-time comparisons and33 marker lifecycle checks:
+zero failures. Includes exact0.5/0.5001 boundaries, teaching mode, pause/retry,
+and production-rendered PT cross-checkpoint Laser/five-male windows. All queued
+decorative damage previews identify their actual deadline; untagged cues are
+explicitly classified. No judge timestamp, geometry or speed change. Prior
+300-method and338 physical courses remain the unchanged logic evidence, not
+claimed as newly rerun. One test-harness parse/type failure is retained; it was
+corrected before the passing run. Original damage VFX and browser certification
+remain separately scoped.

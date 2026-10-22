@@ -264,8 +264,12 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	beat.tethers=[]
 	for tether in state.delta.tethers:
 		if not tether.broken: beat.tethers.append({"a":int(tether.a),"b":int(tether.b),"delta":true,"kind":tether.kind})
+	var fists_at:=INF;var swivel_at:=INF
+	for event in state.delta.pending:
+		if event.kind=="fists_resolve":fists_at=float(event.at)
+		if event.kind=="hazard" and event.shape.get("name","")=="Swivel Cannon":swivel_at=float(event.at)
 	for fist in state.delta.fists:
-		if fist.stance=="CAST": beat.shapes.append({"kind":"circle","pos":R.v(fist.lock_pos),"radius":3.0,"name":"Locked fist puddle","decorative":true,"delta_preview":true})
+		if fist.stance=="CAST": beat.shapes.append({"kind":"circle","pos":R.v(fist.lock_pos),"radius":3.0,"damage_at":fists_at,"name":"Locked fist puddle","decorative":true,"delta_preview":true})
 	if state.delta.get("swivel_active",false):
 		var shape: Dictionary=state.delta.config.swivel.duplicate(true)
-		shape.pos=R.v(shape.pos); shape.decorative=true; shape.delta_preview=true; beat.shapes.append(shape)
+		shape.pos=R.v(shape.pos); shape.decorative=true; shape.delta_preview=true; shape.damage_at=swivel_at; beat.shapes.append(shape)

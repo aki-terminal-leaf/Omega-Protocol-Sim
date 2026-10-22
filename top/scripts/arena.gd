@@ -8,6 +8,9 @@ const DeathWall=preload("res://scripts/death_wall.gd")
 const FacingRing=preload("res://scripts/facing_ring.gd")
 const EnemyRings=preload("res://scripts/enemy_rings.gd")
 const SynergySigns=preload("res://scripts/synergy_signs.gd")
+const LateDamagePreview=preload("res://scripts/late_damage_preview.gd")
+var upcoming_beats:Array=[]
+var visible_damage_shapes:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -345,13 +348,13 @@ func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 			disk(p, 0, float(shape.get("radius", 40)), colour, degrees - span / 2, span)
 func draw_indicators() -> void:
 	aoe.clear_surfaces(); aoe_vertex_count=0
-	for shape in current.get("shapes", []):
-		if guide or (not current.get("hide_predictive_aoes",false) and not shape.get("instructional",false)):draw_shape(shape)
+	visible_damage_shapes=LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors)
+	for shape in visible_damage_shapes:draw_shape(shape)
 	for impact in observed_state.get("visual_impacts",[]):
 		var age:=float(observed_state.get("sim_time",0))-float(impact.at)
 		if age>=0 and age<0.35:
 			for shape in impact.shapes:draw_shape(shape,Color(1.0,0.45,0.2,0.55*(1.0-age/0.35)))
-	if guide:
+	if guide and LateDamagePreview.in_window(float(current.get("duration",0))-beat_elapsed):
 		for source in current.get("monitors", []): draw_shape(source, Color(0.25, 0.55, 1, 0.13))
 	var tethers: Array = current.get("tethers", [])
 	if current.get("program_loop", {}) is Dictionary and current.get("program_loop", {}).has("holders"):
@@ -364,8 +367,9 @@ func draw_indicators() -> void:
 		var q = Rules.v(actors[int(tether.b)].pos) if int(tether.b) >= 0 else Rules.v(tether.get("source", Vector2.ZERO))
 		rectangle(p, (q - p).normalized(), 0, p.distance_to(q), 0.12, Color("79e49c") if tether.get("kind","")=="local" else Color("8edbff"))
 	if current.has("world"):
-		for key in ["near", "far"]:
-			var i = int(current.world[key]); disk(Rules.v(actors[i].pos), 4.85, 5.0, Color(0.75, 0.45, 1, 0.8))
+		if LateDamagePreview.in_window(float(current.get("duration",0))-beat_elapsed):
+			for key in ["near", "far"]:
+				var i = int(current.world[key]); disk(Rules.v(actors[i].pos), 4.85, 5.0, Color(0.75, 0.45, 1, 0.8))
 		if guide:
 			for path in [current.world.near_path, current.world.far_path]:
 				for j in 2:

@@ -176,7 +176,7 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	for npc in beat.p6_lb_targets:
 		if float(npc.hp)>0: beat.shapes.append({"kind":"circle","pos":Rules.v(npc.pos),"radius":3.0 if int(npc.npc_id)==15726 else 1.0,"decorative":true,"p6_preview":true,"target_id":npc.id,"selectable":true,"name":npc.id})
 	for target in state.p6.get("flare_targets",[]):
-		beat.shapes.append({"kind":"circle","actor":int(target),"radius":1.0,"decorative":true,"p6_preview":true,"name":"Flare MARKER only; damage falloff unresolved"})
+		beat.shapes.append({"kind":"circle","actor":int(target),"radius":1.0,"decorative":true,"p6_preview":true,"cue_type":"marker","name":"Flare MARKER only; damage falloff unresolved"})
 	var now := float(state.get("sim_time",0.0))
 	for event in state.p6.pending:
 		if event.kind!="hazard": continue
@@ -184,7 +184,7 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 			if float(event.telegraph_at)>now+0.000001: continue
 		elif float(event.at)>now+2.1: continue
 		var shape: Dictionary=event.shape.duplicate(true)
-		shape.pos=Rules.v(shape.get("pos",[0,0])); shape.decorative=true; shape.p6_preview=true
+		shape.pos=Rules.v(shape.get("pos",[0,0])); shape.decorative=true; shape.p6_preview=true; shape.damage_at=float(event.at)
 		beat.shapes.append(shape)
 
 static func is_locked(state: Dictionary,actor: int) -> bool:
