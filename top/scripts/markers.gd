@@ -14,7 +14,9 @@ static func default_layout(radius:=13.0)->Dictionary:
 		marks.append({"id":WAYMARK_IDS[i],"enabled":true,"pos":[sin(angle)*radius,-cos(angle)*radius]})
 	return {"schema":1,"name":"通用八標" if radius==13.0 else "外圈八標","source":"generic practice layout, not a verified regional preset","marks":marks}
 static func validate_layout(raw:Variant)->Dictionary:
-	if not raw is Dictionary or int(raw.get("schema",0))!=1 or not raw.get("marks") is Array:return {"ok":false,"reason":"需要 schema=1 與 marks 陣列"}
+	if not raw is Dictionary or not raw.get("marks") is Array:return {"ok":false,"reason":"需要 schema=1 與 marks 陣列"}
+	var schema:Variant=raw.get("schema")
+	if not (schema is int or schema is float) or not is_finite(float(schema)) or float(schema)!=1.0:return {"ok":false,"reason":"不支援的配置版本"}
 	if raw.marks.size()>8:return {"ok":false,"reason":"最多八個場地標記"}
 	var ids:Array=[];var normalized:Array=[]
 	for mark in raw.marks:

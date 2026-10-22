@@ -8,6 +8,19 @@ const Rules = preload("res://scripts/rules.gd")
 const Arena = preload("res://scripts/arena.gd")
 const Interactions = preload("res://scripts/interactions.gd")
 const Markers=preload("res://scripts/markers.gd")
+const MarkerSettings=preload("res://scripts/marker_settings.gd")
+const WaymarkEditor=preload("res://scripts/waymark_editor.gd")
+var marker_bindings:Dictionary=MarkerSettings.defaults()
+var marker_library:Dictionary={"schema":1,"layouts":[]}
+var marker_library_writable:=true
+var layout_list:OptionButton
+var layout_name:LineEdit
+var layout_note:Label
+var layout_editor:Control
+var layout_syncing:=false
+var key_dialog:ConfirmationDialog
+var key_selects:Array=[]
+var key_note:Label
 var waymark_layout:Dictionary=Markers.default_layout()
 var marker_popup:PopupPanel
 var marker_type:OptionButton
@@ -556,6 +569,15 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		demo=true;start_run();return
 	if event.ctrl_pressed and event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_8:
 		apply_target_marker(player,"attack%d"%(event.physical_keycode-KEY_1+1));return
+	if not event.ctrl_pressed and not event.alt_pressed and not event.meta_pressed and not event.shift_pressed:
+		for action in MarkerSettings.ACTIONS:
+			if event.physical_keycode!=int(marker_bindings[action]):continue
+			match action:
+				"panel":show_target_markers()
+				"self":apply_target_marker(player,str(Markers.IDS[marker_type.selected]))
+				"next":next_self_marker()
+				"clear":apply_target_marker(player,"")
+			get_viewport().set_input_as_handled();return
 	match event.physical_keycode:
 		KEY_SPACE, KEY_L: jump_player()
 		KEY_P: toggle_pause()
@@ -565,10 +587,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_R: demo = false; start_run()
 		KEY_F: use_lb()
 		KEY_V: provoke()
-		KEY_B: show_target_markers()
-		KEY_M: apply_target_marker(player,str(Markers.IDS[marker_type.selected]))
-		KEY_N: next_self_marker()
-		KEY_BACKSPACE: apply_target_marker(player,"")
 func jump_player() -> void:
 	if can_act() and actors.size() == 8 and float(actors[player].get("height",0.0)) == 0: actors[player].vertical = 13.0
 func use_sprint() -> void:
@@ -677,7 +695,7 @@ func update_hud() -> void:
 	update_lb_controls()
 	sync_practice_hud()
 func report() -> Dictionary:
-	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"marker_keys":marker_bindings.duplicate(),"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func report_runtime_state() -> Dictionary:
 	var result:Dictionary=state.duplicate(true)
 	result.erase("timeline") #the authoritative top-level timeline is already exported
@@ -736,14 +754,23 @@ func apply_custom() -> void:
 	strategy_select.select(strategy_select.item_count - 1); active_profile = p; configured = true; prepare()
 func save_settings() -> void:
 	var config = ConfigFile.new()
+	config.load("user://settings.cfg") # Preserve unrelated settings and future sections.
 	config.set_value("settings", "role", player); config.set_value("settings", "hints", hints.button_pressed); config.set_value("settings", "seed", seed_edit.text)
 	if strategies[-1].id == "custom": config.set_value("settings", "custom", strategies[-1])
 	config.set_value("settings","waymarks",waymark_layout)
+	config.set_value("settings","marker_keys",marker_bindings)
+	if marker_library_writable:config.set_value("settings","waymark_library",marker_library)
 	if is_instance_valid(marker_type):config.set_value("settings","self_marker",marker_type.selected)
 	config.save("user://settings.cfg")
 func load_settings() -> void:
 	var config = ConfigFile.new()
 	if config.load("user://settings.cfg") != OK: return
+	var keys_checked:=MarkerSettings.validate_keys(config.get_value("settings","marker_keys",marker_bindings))
+	if keys_checked.ok:marker_bindings=keys_checked.keys
+	var library_checked:=MarkerSettings.validate_library(config.get_value("settings","waymark_library",marker_library))
+	marker_library_writable=library_checked.ok
+	if library_checked.ok:marker_library=library_checked.library
+	refresh_layout_list();refresh_marker_hint()
 	var checked:=Markers.validate_layout(config.get_value("settings","waymarks",waymark_layout))
 	if checked.ok:waymark_layout=checked.layout
 	if is_instance_valid(arena):arena.set_waymarks(waymark_layout)
@@ -784,7 +811,7 @@ func build_practice_presentation() -> void:
 	hud_menu = menu; training_widgets.append(menu)
 	practice_root.add_child(menu); menu.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	menu.offset_left = -116; menu.offset_right = -12; menu.offset_top = 12; menu.offset_bottom = 50
-	var mark_button:=button("標記 B",show_target_markers);practice_root.add_child(mark_button);training_widgets.append(mark_button)
+	var mark_button:=button("標記",show_target_markers);practice_root.add_child(mark_button);training_widgets.append(mark_button)
 	mark_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);mark_button.offset_left=-116;mark_button.offset_right=-12;mark_button.offset_top=56;mark_button.offset_bottom=94
 	var roster := hud_panel(practice_root,Control.PRESET_TOP_LEFT,Rect2(12,16,310,390))
 	hud_party = VBoxContainer.new(); hud_party.mouse_filter=Control.MOUSE_FILTER_IGNORE; roster.add_child(hud_party)
@@ -931,21 +958,97 @@ func build_marker_controls()->void:
 	marker_type=option(Markers.LABELS);box.add_child(marker_type)
 	marker_type.item_selected.connect(func(_i):save_settings())
 	box.add_child(button("對選定隊友上標",func():apply_target_marker(marker_target.selected,str(Markers.IDS[marker_type.selected]))))
-	box.add_child(button("對自己上標  M",func():apply_target_marker(player,str(Markers.IDS[marker_type.selected]))))
-	box.add_child(button("自己下一個空號  N",next_self_marker))
+	box.add_child(button("對自己上標",func():apply_target_marker(player,str(Markers.IDS[marker_type.selected]))))
+	box.add_child(button("自己下一個空號",next_self_marker))
 	box.add_child(button("清除選定隊友標記",func():apply_target_marker(marker_target.selected,"")))
+	box.add_child(button("快捷鍵設定",show_marker_keys))
 	box.add_child(button("關閉",marker_popup.hide))
 	marker_note=label("M 自標 · N 下一空號 · Backspace 清自標
 Ctrl+1–8 對自己上攻擊編號",12);marker_note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;box.add_child(marker_note)
-	waymark_dialog=ConfirmationDialog.new();waymark_dialog.title="場地標記配置";waymark_dialog.size=Vector2i(720,590);add_child(waymark_dialog)
+	waymark_dialog=ConfirmationDialog.new();waymark_dialog.title="場地標記配置";waymark_dialog.size=Vector2i(860,610);add_child(waymark_dialog)
 	var content:=VBoxContainer.new();waymark_dialog.add_child(content)
+	var library_row:=HBoxContainer.new();content.add_child(library_row)
+	layout_list=OptionButton.new();layout_list.fit_to_longest_item=false;layout_list.custom_minimum_size.x=180;library_row.add_child(layout_list)
+	layout_list.item_selected.connect(load_library_draft)
+	layout_name=LineEdit.new();layout_name.placeholder_text="配置名稱";layout_name.size_flags_horizontal=Control.SIZE_EXPAND_FILL;library_row.add_child(layout_name)
+	library_row.add_child(button("儲存",func():save_library_draft(false)))
+	library_row.add_child(button("複製",func():save_library_draft(true)))
+	library_row.add_child(button("移除",remove_library_draft))
 	var presets:=HBoxContainer.new();content.add_child(presets)
 	for preset in [["通用八標",13.0],["外圈八標",18.0]]:
-		var radius:=float(preset[1]);presets.add_child(button(str(preset[0]),func():waymark_text.text=JSON.stringify(Markers.default_layout(radius),"  ")))
-	presets.add_child(button("不顯示",func():waymark_text.text=JSON.stringify({"schema":1,"name":"不顯示","marks":[]},"  ")))
-	content.add_child(label("可修改各標記 X/Z；配置僅改標記，不改機制或攻略。",13))
-	waymark_text=TextEdit.new();waymark_text.custom_minimum_size=Vector2(680,440);content.add_child(waymark_text)
+		var radius:=float(preset[1]);presets.add_child(button(str(preset[0]),func():set_layout_draft(Markers.default_layout(radius))))
+	presets.add_child(button("不顯示",func():set_layout_draft({"schema":1,"name":"不顯示","marks":[]})))
+	var rotation:=SpinBox.new();rotation.min_value=-360;rotation.max_value=360;rotation.step=5;rotation.value=45;presets.add_child(rotation)
+	presets.add_child(button("旋轉草稿",func():
+		var raw:Variant=JSON.parse_string(waymark_text.text)
+		var checked:Dictionary=MarkerSettings.rotated(raw,rotation.value) if raw is Dictionary else {"ok":false,"reason":"JSON 無效"}
+		if checked.ok:set_layout_draft(checked.layout)
+		else:layout_note.text=str(checked.reason)))
+	content.add_child(label("北方固定；拖曳圖上的標記。套用後會重開練習，儲存配置庫不會改動當前戰鬥。",13))
+	var editing:=HBoxContainer.new();content.add_child(editing)
+	waymark_text=TextEdit.new();waymark_text.custom_minimum_size=Vector2(470,350);waymark_text.size_flags_horizontal=Control.SIZE_EXPAND_FILL;editing.add_child(waymark_text)
+	layout_editor=WaymarkEditor.new();layout_editor.custom_minimum_size=Vector2(300,300);editing.add_child(layout_editor)
+	layout_note=label("",13);content.add_child(layout_note)
+	waymark_text.text_changed.connect(sync_layout_draft)
+	layout_editor.layout_changed.connect(func(layout:Dictionary):
+		layout_syncing=true;waymark_text.text=JSON.stringify(layout,"  ");layout_syncing=false)
 	waymark_dialog.confirmed.connect(apply_waymark_settings)
+	key_dialog=ConfirmationDialog.new();key_dialog.title="標記快捷鍵";key_dialog.size=Vector2i(400,340);add_child(key_dialog)
+	var keys_box:=VBoxContainer.new();key_dialog.add_child(keys_box)
+	for title in MarkerSettings.TITLES:
+		var row:=HBoxContainer.new();keys_box.add_child(row);row.add_child(label(title,14))
+		var select:=OptionButton.new();select.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		for key in MarkerSettings.KEYS:select.add_item(OS.get_keycode_string(key));select.set_item_metadata(select.item_count-1,key)
+		row.add_child(select);key_selects.append(select)
+	keys_box.add_child(label("使用單鍵；Ctrl+1–8 仍為直接自標攻擊編號。",12))
+	key_note=label("",12);keys_box.add_child(key_note)
+	key_dialog.confirmed.connect(apply_marker_keys)
+	refresh_layout_list()
+func refresh_marker_hint()->void:
+	if is_instance_valid(marker_note):marker_note.text="%s 自標 · %s 下一空號 · %s 清自標\nCtrl+1–8 對自己上攻擊編號"%[OS.get_keycode_string(marker_bindings.self),OS.get_keycode_string(marker_bindings.next),OS.get_keycode_string(marker_bindings.clear)]
+func show_marker_keys()->void:
+	marker_popup.hide()
+	for i in MarkerSettings.ACTIONS.size():key_selects[i].select(MarkerSettings.KEYS.find(int(marker_bindings[MarkerSettings.ACTIONS[i]])))
+	key_note.text="";key_dialog.popup_centered()
+func apply_marker_keys()->void:
+	var proposed:={}
+	for i in MarkerSettings.ACTIONS.size():proposed[MarkerSettings.ACTIONS[i]]=int(key_selects[i].get_item_metadata(key_selects[i].selected))
+	var checked:=MarkerSettings.validate_keys(proposed)
+	if not checked.ok:key_note.text=str(checked.reason);key_dialog.call_deferred("popup_centered");return
+	marker_bindings=checked.keys;save_settings();refresh_marker_hint()
+func refresh_layout_list()->void:
+	if not is_instance_valid(layout_list):return
+	layout_list.clear();layout_list.add_item("選擇已存配置…")
+	for item in marker_library.layouts:layout_list.add_item(str(item.name))
+func set_layout_draft(layout:Dictionary)->void:
+	var checked:=Markers.validate_layout(layout)
+	if not checked.ok:layout_note.text=str(checked.reason);return
+	layout_syncing=true;waymark_text.text=JSON.stringify(checked.layout,"  ");layout_syncing=false
+	layout_name.text=str(checked.layout.name);layout_editor.set_layout(checked.layout);layout_note.text="僅編輯草稿；按確定才套用至練習。"
+func sync_layout_draft()->void:
+	if layout_syncing:return
+	var checked:=Markers.validate_layout(JSON.parse_string(waymark_text.text))
+	if checked.ok:layout_editor.set_layout(checked.layout);layout_note.text="草稿有效；按確定才套用至練習。"
+	else:layout_note.text="尚未套用："+str(checked.reason)
+func load_library_draft(index_value:int)->void:
+	if index_value>0 and index_value<=marker_library.layouts.size():set_layout_draft(marker_library.layouts[index_value-1])
+func save_library_draft(copy:bool)->void:
+	var raw:Variant=JSON.parse_string(waymark_text.text)
+	if not raw is Dictionary:layout_note.text="JSON 無效，未更動配置庫";return
+	var checked:=MarkerSettings.store(marker_library,raw,layout_name.text,copy)
+	if not checked.ok:layout_note.text=str(checked.reason);return
+	marker_library=checked.library;marker_library_writable=true;save_settings();refresh_layout_list()
+	var selected:int=marker_library.layouts.size()-1
+	if not copy:
+		for i in marker_library.layouts.size():
+			if marker_library.layouts[i].name==layout_name.text.strip_edges():selected=i;break
+	if selected>=0:set_layout_draft(marker_library.layouts[selected]);layout_list.select(selected+1)
+	layout_note.text="已儲存配置庫；當前練習未改動。"
+func remove_library_draft()->void:
+	var selected:=layout_list.selected-1
+	if selected<0 or selected>=marker_library.layouts.size():return
+	marker_library.layouts.remove_at(selected);marker_library_writable=true;save_settings();refresh_layout_list()
+	layout_note.text="已從配置庫移除；當前場地配置未改動。"
 func show_target_markers()->void:
 	if not practice_view or actors.size()!=8:return
 	marker_target.select(player);marker_popup.popup_centered(Vector2i(320,450))
@@ -961,7 +1064,7 @@ func next_self_marker()->void:
 	arena.update_state(actors,current,player,answers_visible(),elapsed,state);sync_party_status_hud()
 func show_waymark_settings()->void:
 	if practice_view:open_practice_settings()
-	waymark_text.text=JSON.stringify(waymark_layout,"  ");waymark_dialog.popup_centered()
+	set_layout_draft(waymark_layout);waymark_dialog.popup_centered(Vector2i(860,610))
 func apply_waymark_settings()->void:
 	var checked:=Markers.validate_layout(JSON.parse_string(waymark_text.text))
 	if not checked.ok:status.text="場地配置未變更："+str(checked.reason);return
