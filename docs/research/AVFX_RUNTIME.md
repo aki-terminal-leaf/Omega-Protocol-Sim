@@ -265,6 +265,45 @@ neither all nine translated pixel programs, original paired-VS execution,
 actual host vertex packing/constants/sampler policy, attachment blending nor
 complete AVFX playback or a new released build.
 
+## Actual original VS + PS pair execution (2026-10-22)
+
+A further isolated gate executes the **genuine original powder VS1 + PS1 pair**
+on D3D11 WARP, then the reviewed identifier-only adapted translated pair on
+Chrome WebGL2. Neither accepted draw uses a synthetic vertex shader. All
+**12 explicit cases / both RGBA32F MRTs** match at maximum component error
+`6.001034547e-8`, within the unchanged `3e-6` tolerance. An independent CPU
+calculation from the actual input bytes matches the original D3D outputs within
+`6.675678e-8`.
+
+The input freeze predates execution and includes exact interleaved semantic
+bytes, signed int4 color attributes, three consumed VS buffers, four separate
+PS buffers and three RGBA32F textures. Cases distinguish integer color scaling,
+two distinct texture locations, nonneutral postprocessing and VS-derived depth
+lookup. They use deliberately selected inputs, **not inferred game host packing
+or defaults**. Source signatures, buffer sizes, raw bytes and hashes were
+independently reviewed. Actual remote pre-execution/pre-launch hashes reconcile
+with the frozen original DXBC and adapted GLSL; parent review also checks every
+case identity and all 96 measured components per platform.
+
+The first draws failed because clearing D3D state between cases removed the
+explicit raster/depth/blend configuration. The accepted harness restores all
+required state before every draw and uses the frozen distinct MRT clear colors.
+Four diagnostic attempts, an earlier incomplete input manifest, and the initial
+numerical pass lacking complete provenance checks remain private evidence, not
+accepted replacements. Review also required exact case-ID binding and source
+hash provenance; both were corrected before closing the gate. Shader math,
+frozen inputs and tolerances were not relaxed. Final GL, page, console, HTTP and
+request error lists are empty; preserved ANGLE link warnings concern `isnan`.
+
+COM/GL objects, task browser/server processes and staged copies were released.
+A fresh parent audit verifies task commands, recorded native PIDs and the remote
+staging root are absent. Necessary private source and numeric evidence remain
+outside Git. Only one original pair and one constant-varying covered 1×1 sample
+per case are established: **spatial interpolation, coordinate-convention
+coverage, all 16 pairs, physical-GPU certification, actual host rules, complete
+compositing and full AVFX playback remain unproved**. The practice renderer and
+released v0.3.10 are unchanged.
+
 ## Remaining hard requirements for complete playback
 
 | Area | Remaining requirement |
