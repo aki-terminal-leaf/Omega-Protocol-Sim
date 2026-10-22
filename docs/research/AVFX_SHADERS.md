@@ -105,3 +105,12 @@ The package-bound [semantic selector](AVFX_SHADER_SELECTION.md) now implements
 readable/hex constraint resolution, exact-vector matching and explicit ambiguity,
 with all23,931original nodes checked. It does not yet derive the full host state
 from an AVFX.
+
+## Reusable, explicitly reviewed pair adapter
+
+The [shader-pair ABI tool](AVFX_SHADER_PAIR_ABI.md) now makes the previously
+private identifier-only adaptation reusable. All six inputs are hash-pinned;
+UBO associations must be explicit and checked, never inferred from array order.
+The 16 private pairs pass fresh offline links and the reviewed byte oracle after
+normalizing shared-varying names. This adds no runtime draws, game-host binding
+proof or full-player/release claim.
