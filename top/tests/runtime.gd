@@ -28,11 +28,15 @@ func run() -> void:
 			if only_method >= 0 and method != only_method: continue
 			for seed_value in ([only_seed] if only_seed >= 0 else (range(1,49) if stress else [17391, 7, 43])):
 				app.choose_mechanic(i); app.strategy_select.select(method); app.choose_strategy(method)
-				app.seed_edit.text = str(seed_value); app.demo = true; app.start_run(); app.stop_failure.button_pressed = false
+				app.seed_edit.text = str(seed_value); app.demo = true; app.start_run(0,false); app.stop_failure.button_pressed = false
 				var ticks = 0
 				while app.running and ticks < 10000:
 					app._process(0.1); ticks += 1
 				courses += 1
+				if "--source-timeline" in OS.get_cmdline_user_args():
+					var proof:Dictionary=preload("res://tests/timeline_observations.gd").validate(app)
+					if not proof.failures.is_empty():print("SOURCE_TIMELINE FAIL ",proof.failures);errors+=1
+					else:print("SOURCE_TIMELINE PASS ",app.encounter.id," method",method," seed",seed_value," checks",proof.checks)
 				if "--progress" in OS.get_cmdline_user_args(): print("RUNTIME COURSE ",courses," ",app.encounter.id," method",method," seed",seed_value," failures",app.all_errors.size())
 				if not app.all_errors.is_empty() or app.running:
 					print("RUNTIME FAIL ", app.encounter.id," / ",method," seed ",seed_value, ": ",app.all_errors); errors += 1

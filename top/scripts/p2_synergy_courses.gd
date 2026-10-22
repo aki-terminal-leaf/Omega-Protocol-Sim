@@ -93,7 +93,7 @@ static func append_synergy(ctx) -> void:
 		if entity.form=="male":blades.shapes.append(ctx.circle(entity.pos,10.0,"Efficient Bladework"))
 	blades.stage_entities=settled(late)+[eye.duplicate(true)];blades.hide_main_boss=true;blades.party_statuses=glitch.duplicate(true)
 	var expiry:Dictionary=ctx.beat("Party Synergy · Glitch expires",1.6,"等待故障狀態自然解除。")
-	expiry.stage_entities=settled(late.slice(0,2))+[eye.duplicate(true)];expiry.hide_main_boss=true;expiry.party_statuses=glitch.duplicate(true)
+	expiry.stage_entities=settled(late)+[eye.duplicate(true)];expiry.hide_main_boss=true;expiry.party_statuses=glitch.duplicate(true)
 	expiry.consume_party_signals=glitch.map(func(raw):return {"actor":raw.actor,"key":raw.key})
 	var finish:Dictionary=ctx.beat("Party Synergy · M/F reappear",1.5,"男女交換後返回戰鬥；本練習到此結束，不自動接續LB。")
 	finish.stage_entities=settled(late.slice(0,2))+[eye.duplicate(true)];finish.hide_main_boss=true

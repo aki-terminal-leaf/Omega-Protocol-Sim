@@ -65,7 +65,7 @@ func build(id: String, seed_value: int, strategy: Dictionary, player := 4, slot 
 		"p6_exa_dive": P6Courses.append_exaflares(self,true)
 		"p6_meteors": meteors()
 		"p6_magic": magic_number()
-	return {"id": id, "seed": seed_value, "beats": beats, "assignments": order.duplicate(), "profile": strategy.id, "initial_dynamis": initial_stacks(id)}
+	return {"id": id, "seed": seed_value, "beats": beats, "assignments": order.duplicate(), "profile": strategy.id, "initial_dynamis": initial_stacks(id),"clock":preload("res://scripts/practice_timelines.gd").definition(id)}
 
 func initial_stacks(id: String) -> Array:
 	var result: Array = []; result.resize(8); result.fill(0)
@@ -276,7 +276,7 @@ func monitors() -> void:
 		pos(i,canonical[i] if layout=="cn_fixed" else Vector2(canonical[i].x*sign_x,canonical[i].y))
 		label(i, "MONITOR %d" % (i + 1) if i < 3 else "No monitor %d" % (i - 2))
 	var layout_name: String={"astoh":"Astoh","aether":"Aether · 第三檢知南側","lpdu":"LPDU · 第一檢知北側","cn_fixed":"莫古力 · 固定左側","cn_mirror":"莫古力 · 鏡像換邊","kr_astoh":"09STOP"}.get(layout,layout)
-	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout_name,"EAST" if (sign_x == 1) == (layout not in ["aether","lpdu"]) else "WEST"],10.0,"每個檢知隨機命中其半場兩人，不足時補選其他人；還要避開半徑7的受擊小圓。Q/E 或右鍵調整朝向。")
+	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout_name,"EAST" if (sign_x == 1) == (layout not in ["aether","lpdu"]) else "WEST"],10.1,"每個檢知隨機命中其半場兩人，不足時補選其他人；還要避開半徑7的受擊小圓。Q/E 或右鍵調整朝向。")
 	b.monitor_layout = layout
 	var sources: Array = [{"kind": "half", "angle": (270 if layout in ["aether","lpdu"] else 90) * sign_x, "radius": 45, "name": "Boss monitor"}]
 	var goals = [270.0 * sign_x, 0.0, 180.0]
@@ -590,9 +590,9 @@ func solar_ray() -> void:
 	for turn in 2:
 		positions[0] = Vector2(-6, -8); positions[1] = Vector2(6, -8)
 		for i in range(2, 8): positions[i] = Vector2(0, 8)
-		var b = beat("Solar Ray · hit %d/2 · %s" % [turn + 1, ROLES[turn]], 6.0, "Two hits with Magic Vulnerability: swap with V between hits (invuln/HP model not simulated).")
+		var b = beat("Solar Ray · hit %d/2 · %s" % [turn + 1, ROLES[turn]], 5.0 if turn==0 else 3.2, "Two hits with Magic Vulnerability: swap with V between hits (invuln/HP model not simulated).")
 		b.p5_solar=true
-		var ray:=targeted(turn,4,1,"Solar Ray");ray.hit_status="magic_vulnerability";ray.hit_status_duration=4.0;b.shapes.append(ray)
+		var ray:=targeted(turn,5,1,"Solar Ray");ray.hit_status="magic_vulnerability";ray.hit_status_duration=4.0;b.shapes.append(ray)
 		b.checks.append({"kind": "aggro", "actor": turn, "name": "Solar Ray swap"})
 
 func lb_check(item: Dictionary, type: String, actor: int, name: String) -> void:

@@ -16,7 +16,7 @@ func execute(app, scenario:String, method:int, seed_value:int, override:Dictiona
  if chosen<0:print("WALK FAIL missing scenario ",scenario);failures+=1;return false
  app.choose_mechanic(chosen);app.strategy_select.select(method);app.choose_strategy(method)
  for key in override:app.active_profile[key]=override[key]
- app.seed_edit.text=str(seed_value);app.speed_select.select(2);app.demo=true;app.start_run();app.stop_failure.button_pressed=false
+ app.seed_edit.text=str(seed_value);app.speed_select.select(2);app.demo=true;app.start_run(0,false);app.stop_failure.button_pressed=false
  if not app.running:print("WALK FAIL did not start ",scenario);failures+=1;return false
  var ticks:=0;var peak:=0.0
  while app.running and ticks<1000:

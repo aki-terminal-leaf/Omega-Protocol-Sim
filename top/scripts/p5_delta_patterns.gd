@@ -102,4 +102,4 @@ static func entities(c: Dictionary) -> Array:
 	return [
 		{"id":"delta_beetle","form":"beetle","pos":c.beetle,"facing":float(c.eye)+90,"stance":"SWIVEL","spawn_delay":0.0},
 		{"id":"delta_final","form":"final","pos":c.final,"facing":float(c.eye)+270,"stance":"MONITOR","spawn_delay":0.0},
-		{"id":"delta_eye","form":"optical_unit","pos":c.eye_pos,"facing":float(c.eye)+180,"stance":"LASER","spawn_delay":0.0,"asset_status":"optional model; procedural fallback is not official"}]
+		{"id":"delta_eye","form":"optical_unit","height":4.0,"label":"","pos":c.eye_pos,"facing":float(c.eye)+180,"stance":"LASER","spawn_delay":0.0,"asset_status":"optional model; procedural fallback is not official"}]

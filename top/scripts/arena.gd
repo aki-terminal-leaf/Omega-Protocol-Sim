@@ -69,6 +69,7 @@ var waymarks:Node3D
 var waymark_signature:=""
 var target_signs:Array=[]
 var mechanic_signs:Array=[]
+var secondary_mechanic_signs:Array=[]
 var death_wall:Node3D
 
 func _ready() -> void:
@@ -130,6 +131,7 @@ func _ready() -> void:
 		var fallback:=Label3D.new(); fallback.font = UI_FONT;fallback.name="Fallback";fallback.billboard=BaseMaterial3D.BILLBOARD_ENABLED;fallback.font_size=42;fallback.pixel_size=0.02;fallback.outline_size=8;sign.add_child(fallback)
 		target_signs.append(sign)
 		var mechanic:=Sprite3D.new();mechanic.name="MechanicSign";mechanic.billboard=BaseMaterial3D.BILLBOARD_ENABLED;mechanic.no_depth_test=true;mechanic.visible=false;mechanic.position.y=5.6;root.add_child(mechanic);mechanic_signs.append(mechanic)
+		var secondary:=Sprite3D.new();secondary.name="AdditionalMechanicSign";secondary.billboard=BaseMaterial3D.BILLBOARD_ENABLED;secondary.no_depth_test=true;secondary.visible=false;root.add_child(secondary);secondary_mechanic_signs.append(secondary)
 		actor_nodes.append(root); actor_labels.append(label); actor_arrows.append(arrow)
 
 	p3_fx_root=Node3D.new();p3_fx_root.name="P3ObservedEffects";add_child(p3_fx_root)
@@ -282,10 +284,14 @@ func _process(delta: float) -> void:
 		var fallback:Label3D=target_sign.get_node("Fallback");fallback.text=Markers.title(marker) if target_sign.texture==null else ""
 		target_sign.position.y=(6.7 if overhead else 4.8)+float(actors[i].get("height",0.0))
 		if target_sign.texture!=null:target_sign.pixel_size=(1.45*cue_scale(actor_nodes[i]))/float(target_sign.texture.get_width())
-		var symbol:=SynergySigns.observed(i,current,observed_state)
+		var observed_signs:=SynergySigns.observed_all(i,current,observed_state)
+		var symbol:=str(observed_signs[0]) if not observed_signs.is_empty() else ""
 		var mechanic:Sprite3D=mechanic_signs[i];mechanic.visible=not symbol.is_empty();mechanic.texture=SynergySigns.texture(symbol)
 		mechanic.position.y=(6.0 if overhead else 5.6)+float(actors[i].get("height",0.0))
 		if mechanic.texture!=null:mechanic.pixel_size=2.0*cue_scale(actor_nodes[i])/float(mechanic.texture.get_width())
+		var secondary:Sprite3D=secondary_mechanic_signs[i];secondary.visible=observed_signs.size()>1;secondary.texture=SynergySigns.texture(str(observed_signs[1])) if secondary.visible else null
+		secondary.position.y=mechanic.position.y+1.4*cue_scale(actor_nodes[i])
+		if secondary.texture!=null:secondary.pixel_size=1.7*cue_scale(actor_nodes[i])/float(secondary.texture.get_width())
 		var cue:=observed_cue(i)
 		status_labels[i].text=cue.text;status_labels[i].modulate=cue.colour;status_labels[i].position.y=3.1+float(actors[i].get("height",0.0))
 		var icon_id:=int(cue.icon)
@@ -340,7 +346,7 @@ func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 func draw_indicators() -> void:
 	aoe.clear_surfaces(); aoe_vertex_count=0
 	for shape in current.get("shapes", []):
-		if guide or not current.get("hide_predictive_aoes",false):draw_shape(shape)
+		if guide or (not current.get("hide_predictive_aoes",false) and not shape.get("instructional",false)):draw_shape(shape)
 	for impact in observed_state.get("visual_impacts",[]):
 		var age:=float(observed_state.get("sim_time",0))-float(impact.at)
 		if age>=0 and age<0.35:
@@ -515,7 +521,7 @@ func observed_cue(actor:int)->Dictionary:
 	if current.has("world"):
 		if actor==int(current.world.near):result.icon=215141
 		elif actor==int(current.world.far):result.icon=215142
-	if observed_state.has("limitless") and observed_state.limitless.flare_marked and now<float(observed_state.limitless.start)+27.45 and actor in observed_state.limitless.config.flare_targets:titles.append("Flare")
+
 	if int(result.icon)!=0 and not world_textures.has(int(result.icon)):titles.append("近世界" if result.icon==215141 else "遠世界")
 	for item in current.get("party_statuses",[]):
 		if int(item.actor)==actor and item.get("marker",false) and not item.has("symbol"): titles.append(str(item.name))

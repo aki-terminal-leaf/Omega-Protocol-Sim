@@ -59,7 +59,7 @@ func run()->void:
 		if actor<2:check(not effect.is_empty() and absf(float(effect.remaining)-2.0)<0.01,"Diffuse31504 actual tank vulnerability2s")
 		elif not effect.is_empty():long_cannons+=1;check(absf(float(effect.remaining)-10.0)<0.01,"Wave31505 marked non-tank vulnerability10s")
 	check(long_cannons==3,"only three actual cannon recipients have long vulnerability")
-	choose(app,"p5_solar");app.demo=true;app.start_run();app.stop_failure.button_pressed=false;app._process(6.0001)
+	choose(app,"p5_solar");app.demo=true;app.start_run();app.stop_failure.button_pressed=false;app._process(5.0001)
 	var solar_rows:=Party.rows(app.actors,app.state,app.current)
 	check(not item(solar_rows,0,"magic_vulnerability").is_empty() and absf(float(item(solar_rows,0,"magic_vulnerability").remaining)-4.0)<0.01 and item(solar_rows,1,"magic_vulnerability").is_empty(),"Solar Ray actual first tank receives4s vulnerability")
 	choose(app,"p5_sigma");app.demo=true;app.start_run();app.stop_failure.button_pressed=false;app._process(31.8001)

@@ -1,0 +1,3855 @@
+{
+  "schema": 1,
+  "scope": "finite four-clear observations, not exhaustive RNG/server-frame certification",
+  "clustering_seconds": 0.2,
+  "mechanics": {
+    "p1_loop": {
+      "phase": 1,
+      "anchor_type": "applydebuff",
+      "anchor_ids": [
+        1003004
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              13.422,
+              22.453,
+              31.437,
+              40.45
+            ],
+            "blaster": [
+              13.555,
+              22.542,
+              31.525,
+              40.495
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              13.396,
+              22.423,
+              31.454,
+              40.434
+            ],
+            "blaster": [
+              13.485,
+              22.467,
+              31.454,
+              40.434
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              13.412,
+              22.405,
+              31.45,
+              40.45
+            ],
+            "blaster": [
+              13.546,
+              22.493,
+              31.45,
+              40.405
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              13.406,
+              22.462,
+              31.42,
+              40.431
+            ],
+            "blaster": [
+              13.496,
+              22.462,
+              31.42,
+              40.387
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "towers": [
+          31492
+        ],
+        "blaster": [
+          31498
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "towers": [
+          {
+            "min": 13.396,
+            "max": 13.422
+          },
+          {
+            "min": 22.405,
+            "max": 22.462
+          },
+          {
+            "min": 31.42,
+            "max": 31.454
+          },
+          {
+            "min": 40.431,
+            "max": 40.45
+          }
+        ],
+        "blaster": [
+          {
+            "min": 13.485,
+            "max": 13.555
+          },
+          {
+            "min": 22.462,
+            "max": 22.542
+          },
+          {
+            "min": 31.42,
+            "max": 31.525
+          },
+          {
+            "min": 40.387,
+            "max": 40.495
+          }
+        ]
+      }
+    },
+    "p1_panto": {
+      "phase": 1,
+      "anchor_type": "cast",
+      "anchor_ids": [
+        31499
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "missiles": [
+              12.1,
+              18.103,
+              24.112,
+              30.128
+            ],
+            "beams": [
+              12.1,
+              18.103,
+              24.112,
+              30.128
+            ],
+            "flames": [
+              6.126,
+              8.137,
+              10.142,
+              12.144,
+              14.143,
+              16.189,
+              18.147,
+              20.149,
+              22.108,
+              24.112,
+              26.113,
+              28.116,
+              30.128,
+              32.133
+            ],
+            "puddles": [
+              12.633,
+              14.632,
+              16.635,
+              18.638,
+              20.641,
+              22.642,
+              24.647,
+              26.646,
+              28.653,
+              30.663
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "missiles": [
+              12.123,
+              18.098,
+              24.122,
+              30.1
+            ],
+            "beams": [
+              12.123,
+              18.098,
+              24.122,
+              30.1
+            ],
+            "flames": [
+              6.12,
+              8.119,
+              10.12,
+              12.123,
+              14.124,
+              16.134,
+              18.142,
+              20.15,
+              22.115,
+              24.122,
+              26.131,
+              28.139,
+              30.145,
+              32.147
+            ],
+            "puddles": [
+              12.655,
+              14.66,
+              16.67,
+              18.678,
+              20.686,
+              22.694,
+              24.701,
+              26.667,
+              28.674,
+              30.677
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "missiles": [
+              12.12,
+              18.09,
+              24.1,
+              30.114
+            ],
+            "beams": [
+              12.12,
+              18.09,
+              24.1,
+              30.114
+            ],
+            "flames": [
+              6.105,
+              8.11,
+              10.115,
+              12.12,
+              14.124,
+              16.131,
+              18.133,
+              20.139,
+              22.141,
+              24.102,
+              26.106,
+              28.11,
+              30.114,
+              32.12
+            ],
+            "puddles": [
+              12.656,
+              14.659,
+              16.665,
+              18.67,
+              20.675,
+              22.675,
+              24.68,
+              26.684,
+              28.689,
+              30.692
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "missiles": [
+              12.111,
+              18.126,
+              24.095,
+              30.111
+            ],
+            "beams": [
+              12.111,
+              18.126,
+              24.095,
+              30.111
+            ],
+            "flames": [
+              6.145,
+              8.103,
+              10.105,
+              12.111,
+              14.114,
+              16.12,
+              18.126,
+              20.126,
+              22.131,
+              24.139,
+              26.144,
+              28.105,
+              30.111,
+              32.118
+            ],
+            "puddles": [
+              12.645,
+              14.648,
+              16.654,
+              18.658,
+              20.661,
+              22.666,
+              24.672,
+              26.678,
+              28.686,
+              30.69
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "missiles": [
+          31502
+        ],
+        "beams": [
+          31503
+        ],
+        "flames": [
+          31501,
+          32368
+        ],
+        "puddles": [
+          31500
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "missiles": [
+          {
+            "min": 12.1,
+            "max": 12.123
+          },
+          {
+            "min": 18.09,
+            "max": 18.126
+          },
+          {
+            "min": 24.095,
+            "max": 24.122
+          },
+          {
+            "min": 30.1,
+            "max": 30.128
+          }
+        ],
+        "beams": [
+          {
+            "min": 12.1,
+            "max": 12.123
+          },
+          {
+            "min": 18.09,
+            "max": 18.126
+          },
+          {
+            "min": 24.095,
+            "max": 24.122
+          },
+          {
+            "min": 30.1,
+            "max": 30.128
+          }
+        ],
+        "flames": [
+          {
+            "min": 6.105,
+            "max": 6.145
+          },
+          {
+            "min": 8.103,
+            "max": 8.137
+          },
+          {
+            "min": 10.105,
+            "max": 10.142
+          },
+          {
+            "min": 12.111,
+            "max": 12.144
+          },
+          {
+            "min": 14.114,
+            "max": 14.143
+          },
+          {
+            "min": 16.12,
+            "max": 16.189
+          },
+          {
+            "min": 18.126,
+            "max": 18.147
+          },
+          {
+            "min": 20.126,
+            "max": 20.15
+          },
+          {
+            "min": 22.108,
+            "max": 22.141
+          },
+          {
+            "min": 24.102,
+            "max": 24.139
+          },
+          {
+            "min": 26.106,
+            "max": 26.144
+          },
+          {
+            "min": 28.105,
+            "max": 28.139
+          },
+          {
+            "min": 30.111,
+            "max": 30.145
+          },
+          {
+            "min": 32.118,
+            "max": 32.147
+          }
+        ],
+        "puddles": [
+          {
+            "min": 12.633,
+            "max": 12.656
+          },
+          {
+            "min": 14.632,
+            "max": 14.66
+          },
+          {
+            "min": 16.635,
+            "max": 16.67
+          },
+          {
+            "min": 18.638,
+            "max": 18.678
+          },
+          {
+            "min": 20.641,
+            "max": 20.686
+          },
+          {
+            "min": 22.642,
+            "max": 22.694
+          },
+          {
+            "min": 24.647,
+            "max": 24.701
+          },
+          {
+            "min": 26.646,
+            "max": 26.684
+          },
+          {
+            "min": 28.653,
+            "max": 28.689
+          },
+          {
+            "min": 30.663,
+            "max": 30.692
+          }
+        ]
+      }
+    },
+    "p1_cannons": {
+      "phase": 1,
+      "anchor_type": "cast",
+      "anchor_ids": [
+        31504
+      ],
+      "origin_shift": -6,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "cleaves": [
+              6.0,
+              8.059,
+              10.162,
+              12.219,
+              14.321
+            ],
+            "spreads": [
+              6.0,
+              15.037
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "cleaves": [
+              6.0,
+              8.053,
+              10.15,
+              12.204,
+              14.303
+            ],
+            "spreads": [
+              6.0,
+              15.017
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "cleaves": [
+              6.0,
+              8.052,
+              10.145,
+              12.195
+            ],
+            "spreads": [
+              5.999
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "cleaves": [
+              6.0,
+              8.049,
+              10.146,
+              12.197
+            ],
+            "spreads": [
+              6.0
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": false,
+      "event_ids": {
+        "cleaves": [
+          31504
+        ],
+        "spreads": [
+          31505
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "cleaves": [
+          {
+            "min": 6.0,
+            "max": 6.0
+          },
+          {
+            "min": 8.049,
+            "max": 8.059
+          },
+          {
+            "min": 10.145,
+            "max": 10.162
+          },
+          {
+            "min": 12.195,
+            "max": 12.219
+          },
+          {
+            "min": 14.303,
+            "max": 14.321
+          }
+        ],
+        "spreads": [
+          {
+            "min": 5.999,
+            "max": 6.0
+          },
+          {
+            "min": 15.017,
+            "max": 15.037
+          }
+        ]
+      }
+    },
+    "p2_synergy": {
+      "phase": 2,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31550
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "double_aoes": [
+              13.428,
+              31.415
+            ],
+            "fire": [
+              19.877
+            ],
+            "laser": [
+              20.19
+            ],
+            "discharger": [
+              27.089
+            ],
+            "spotlight": [
+              31.372
+            ],
+            "prepare_swap": [
+              12.622
+            ],
+            "disappear": [
+              14.727
+            ],
+            "visual_swap": [
+              18.848
+            ],
+            "reappear": [
+              22.966
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "double_aoes": [
+              13.397,
+              31.38
+            ],
+            "fire": [
+              19.857
+            ],
+            "laser": [
+              20.214
+            ],
+            "discharger": [
+              27.022
+            ],
+            "spotlight": [
+              31.336
+            ],
+            "prepare_swap": [
+              12.594
+            ],
+            "disappear": [
+              14.692
+            ],
+            "visual_swap": [
+              18.786
+            ],
+            "reappear": [
+              22.884
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "double_aoes": [
+              13.413,
+              31.368
+            ],
+            "fire": [
+              19.827
+            ],
+            "laser": [
+              20.182
+            ],
+            "discharger": [
+              26.993
+            ],
+            "spotlight": [
+              31.325
+            ],
+            "prepare_swap": [
+              12.61
+            ],
+            "disappear": [
+              14.704
+            ],
+            "visual_swap": [
+              18.801
+            ],
+            "reappear": [
+              22.895
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "double_aoes": [
+              13.361,
+              31.339
+            ],
+            "fire": [
+              19.828
+            ],
+            "laser": [
+              20.185
+            ],
+            "discharger": [
+              27.008
+            ],
+            "spotlight": [
+              31.295
+            ],
+            "prepare_swap": [
+              12.56
+            ],
+            "disappear": [
+              14.653
+            ],
+            "visual_swap": [
+              18.758
+            ],
+            "reappear": [
+              22.86
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "double_aoes": [
+          31525,
+          31526,
+          31530,
+          31533
+        ],
+        "fire": [
+          31535
+        ],
+        "laser": [
+          31521
+        ],
+        "discharger": [
+          31534
+        ],
+        "spotlight": [
+          31536
+        ],
+        "prepare_swap": [
+          31515,
+          31516
+        ],
+        "disappear": [
+          31510,
+          31511
+        ],
+        "visual_swap": [
+          31517,
+          31518
+        ],
+        "reappear": [
+          31519,
+          31520
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "double_aoes": [
+          {
+            "min": 13.361,
+            "max": 13.428
+          },
+          {
+            "min": 31.339,
+            "max": 31.415
+          }
+        ],
+        "fire": [
+          {
+            "min": 19.827,
+            "max": 19.877
+          }
+        ],
+        "laser": [
+          {
+            "min": 20.182,
+            "max": 20.214
+          }
+        ],
+        "discharger": [
+          {
+            "min": 26.993,
+            "max": 27.089
+          }
+        ],
+        "spotlight": [
+          {
+            "min": 31.295,
+            "max": 31.372
+          }
+        ],
+        "prepare_swap": [
+          {
+            "min": 12.56,
+            "max": 12.622
+          }
+        ],
+        "disappear": [
+          {
+            "min": 14.653,
+            "max": 14.727
+          }
+        ],
+        "visual_swap": [
+          {
+            "min": 18.758,
+            "max": 18.848
+          }
+        ],
+        "reappear": [
+          {
+            "min": 22.86,
+            "max": 22.966
+          }
+        ]
+      }
+    },
+    "p2_limitless": {
+      "phase": 2,
+      "anchor_type": "cast",
+      "anchor_ids": [
+        31544
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "arrow": [
+              13.442
+            ],
+            "bladedance": [
+              13.488
+            ],
+            "defense": [
+              24.61
+            ],
+            "flares": [
+              27.423
+            ],
+            "pitch": [
+              27.734
+            ],
+            "raidwide": [
+              37.971
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "arrow": [
+              13.432
+            ],
+            "bladedance": [
+              13.521
+            ],
+            "defense": [
+              24.637
+            ],
+            "flares": [
+              27.45
+            ],
+            "pitch": [
+              27.76
+            ],
+            "raidwide": [
+              37.947
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "arrow": [
+              13.371
+            ],
+            "bladedance": [
+              13.459
+            ],
+            "defense": [
+              24.599
+            ],
+            "flares": [
+              27.41
+            ],
+            "pitch": [
+              27.766
+            ],
+            "raidwide": [
+              37.936
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "arrow": [
+              13.413
+            ],
+            "bladedance": [
+              13.502
+            ],
+            "defense": [
+              24.641
+            ],
+            "flares": [
+              27.445
+            ],
+            "pitch": [
+              27.757
+            ],
+            "raidwide": [
+              37.922
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "arrow": [
+          31539
+        ],
+        "bladedance": [
+          32629
+        ],
+        "defense": [
+          31528
+        ],
+        "flares": [
+          31538
+        ],
+        "pitch": [
+          31529
+        ],
+        "raidwide": [
+          31524
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "arrow": [
+          {
+            "min": 13.371,
+            "max": 13.442
+          }
+        ],
+        "bladedance": [
+          {
+            "min": 13.459,
+            "max": 13.521
+          }
+        ],
+        "defense": [
+          {
+            "min": 24.599,
+            "max": 24.641
+          }
+        ],
+        "flares": [
+          {
+            "min": 27.41,
+            "max": 27.45
+          }
+        ],
+        "pitch": [
+          {
+            "min": 27.734,
+            "max": 27.766
+          }
+        ],
+        "raidwide": [
+          {
+            "min": 37.922,
+            "max": 37.971
+          }
+        ]
+      }
+    },
+    "p3_transition": {
+      "phase": 3,
+      "anchor_type": "applydebuff",
+      "anchor_ids": [
+        1003425
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "rings": [
+              5.059,
+              7.165,
+              9.225,
+              11.285,
+              13.211,
+              15.316,
+              17.376,
+              19.435
+            ],
+            "arms": [
+              17.063,
+              19.57
+            ],
+            "sniper": [
+              19.123
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "rings": [
+              5.059,
+              7.189,
+              9.24,
+              11.288,
+              13.243,
+              15.333,
+              17.379,
+              19.469
+            ],
+            "arms": [
+              17.067,
+              19.601
+            ],
+            "sniper": [
+              19.113
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "rings": [
+              5.08,
+              7.174,
+              9.226,
+              11.279,
+              13.24,
+              15.338,
+              17.386,
+              19.438
+            ],
+            "arms": [
+              17.119,
+              19.617
+            ],
+            "sniper": [
+              19.127
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "rings": [
+              5.076,
+              7.166,
+              9.215,
+              11.271,
+              13.233,
+              15.329,
+              17.386,
+              19.44
+            ],
+            "arms": [
+              17.118,
+              19.618
+            ],
+            "sniper": [
+              19.128
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "rings": [
+          31567,
+          31568,
+          31569,
+          31570
+        ],
+        "arms": [
+          31566
+        ],
+        "sniper": [
+          31571,
+          31572
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "rings": [
+          {
+            "min": 5.059,
+            "max": 5.08
+          },
+          {
+            "min": 7.165,
+            "max": 7.189
+          },
+          {
+            "min": 9.215,
+            "max": 9.24
+          },
+          {
+            "min": 11.271,
+            "max": 11.288
+          },
+          {
+            "min": 13.211,
+            "max": 13.243
+          },
+          {
+            "min": 15.316,
+            "max": 15.338
+          },
+          {
+            "min": 17.376,
+            "max": 17.386
+          },
+          {
+            "min": 19.435,
+            "max": 19.469
+          }
+        ],
+        "arms": [
+          {
+            "min": 17.063,
+            "max": 17.119
+          },
+          {
+            "min": 19.57,
+            "max": 19.618
+          }
+        ],
+        "sniper": [
+          {
+            "min": 19.113,
+            "max": 19.128
+          }
+        ]
+      }
+    },
+    "p3_hello": {
+      "phase": 3,
+      "anchor_type": "applydebuff",
+      "anchor_ids": [
+        1003434
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              24.151,
+              45.22,
+              66.289,
+              87.374
+            ],
+            "critical_error": [
+              108.512
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              24.166,
+              45.184,
+              66.207,
+              87.263
+            ],
+            "critical_error": [
+              108.39
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              24.165,
+              45.206,
+              66.243,
+              87.287
+            ],
+            "critical_error": [
+              108.419
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "towers": [
+              24.181,
+              45.238,
+              66.25,
+              87.303
+            ],
+            "critical_error": [
+              108.484
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "towers": [
+          31583,
+          31584
+        ],
+        "critical_error": [
+          31588
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "towers": [
+          {
+            "min": 24.151,
+            "max": 24.181
+          },
+          {
+            "min": 45.184,
+            "max": 45.238
+          },
+          {
+            "min": 66.207,
+            "max": 66.289
+          },
+          {
+            "min": 87.263,
+            "max": 87.374
+          }
+        ],
+        "critical_error": [
+          {
+            "min": 108.39,
+            "max": 108.512
+          }
+        ]
+      }
+    },
+    "p3_monitors": {
+      "phase": 3,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31595,
+        31596
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "monitors": [
+              10.07
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "monitors": [
+              10.053
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "monitors": [
+              10.073
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "monitors": [
+              10.061
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "monitors": [
+          31597
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "monitors": [
+          {
+            "min": 10.053,
+            "max": 10.073
+          }
+        ]
+      }
+    },
+    "p4_wave": {
+      "phase": 4,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31617
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "proteans": [
+              5.604,
+              15.771,
+              25.984
+            ],
+            "repeats": [
+              10.354,
+              20.524,
+              30.729
+            ],
+            "stacks": [
+              10.576,
+              20.702,
+              30.907
+            ],
+            "rings": [
+              12.973,
+              15.104,
+              17.15,
+              19.237,
+              30.417,
+              32.507,
+              34.593,
+              36.638
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "proteans": [
+              5.596,
+              15.771,
+              25.985
+            ],
+            "repeats": [
+              10.349,
+              20.519,
+              30.744
+            ],
+            "stacks": [
+              10.572,
+              20.697,
+              30.879
+            ],
+            "rings": [
+              13.018,
+              15.149,
+              17.234,
+              19.32,
+              30.432,
+              32.527,
+              34.574,
+              36.625
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "proteans": [
+              5.621,
+              15.8,
+              26.027
+            ],
+            "repeats": [
+              10.357,
+              20.533,
+              30.762
+            ],
+            "stacks": [
+              10.581,
+              20.711,
+              30.94
+            ],
+            "rings": [
+              13.029,
+              15.129,
+              17.183,
+              19.238,
+              30.45,
+              32.544,
+              34.599,
+              36.654
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "proteans": [
+              5.583,
+              15.732,
+              25.931
+            ],
+            "repeats": [
+              10.32,
+              20.472,
+              30.671
+            ],
+            "stacks": [
+              10.544,
+              20.606,
+              30.804
+            ],
+            "rings": [
+              13.001,
+              15.106,
+              17.162,
+              19.219,
+              30.357,
+              32.456,
+              34.515,
+              36.571
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "proteans": [
+          31614
+        ],
+        "repeats": [
+          31616
+        ],
+        "stacks": [
+          31615
+        ],
+        "rings": [
+          31567,
+          31568,
+          31569,
+          31570
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "proteans": [
+          {
+            "min": 5.583,
+            "max": 5.621
+          },
+          {
+            "min": 15.732,
+            "max": 15.8
+          },
+          {
+            "min": 25.931,
+            "max": 26.027
+          }
+        ],
+        "repeats": [
+          {
+            "min": 10.32,
+            "max": 10.357
+          },
+          {
+            "min": 20.472,
+            "max": 20.533
+          },
+          {
+            "min": 30.671,
+            "max": 30.762
+          }
+        ],
+        "stacks": [
+          {
+            "min": 10.544,
+            "max": 10.581
+          },
+          {
+            "min": 20.606,
+            "max": 20.711
+          },
+          {
+            "min": 30.804,
+            "max": 30.94
+          }
+        ],
+        "rings": [
+          {
+            "min": 12.973,
+            "max": 13.029
+          },
+          {
+            "min": 15.104,
+            "max": 15.149
+          },
+          {
+            "min": 17.15,
+            "max": 17.234
+          },
+          {
+            "min": 19.219,
+            "max": 19.32
+          },
+          {
+            "min": 30.357,
+            "max": 30.45
+          },
+          {
+            "min": 32.456,
+            "max": 32.544
+          },
+          {
+            "min": 34.515,
+            "max": 34.599
+          },
+          {
+            "min": 36.571,
+            "max": 36.654
+          }
+        ]
+      }
+    },
+    "p5_delta": {
+      "phase": 5,
+      "anchor_type": "applydebuff",
+      "anchor_ids": [
+        1003442
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "laser": [
+              20.125
+            ],
+            "fists": [
+              23.109
+            ],
+            "arms": [
+              28.015,
+              28.64,
+              29.22,
+              29.798,
+              30.376,
+              30.954
+            ],
+            "defense": [
+              25.651
+            ],
+            "pitch": [
+              30.954
+            ],
+            "monitors": [
+              30.466
+            ],
+            "swivel": [
+              43.382
+            ],
+            "world": [
+              44.051
+            ],
+            "jumps": [
+              45.077,
+              46.055
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "laser": [
+              20.13
+            ],
+            "fists": [
+              23.151
+            ],
+            "arms": [
+              27.994,
+              28.614,
+              29.191,
+              29.768,
+              30.346,
+              30.922
+            ],
+            "defense": [
+              25.685
+            ],
+            "pitch": [
+              30.834
+            ],
+            "monitors": [
+              30.48
+            ],
+            "swivel": [
+              43.395
+            ],
+            "world": [
+              44.061
+            ],
+            "jumps": [
+              45.082,
+              46.101
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "laser": [
+              20.12
+            ],
+            "fists": [
+              23.114
+            ],
+            "arms": [
+              27.988,
+              28.613,
+              29.196,
+              29.775,
+              30.355,
+              30.935
+            ],
+            "defense": [
+              25.617
+            ],
+            "pitch": [
+              30.98
+            ],
+            "monitors": [
+              30.445
+            ],
+            "swivel": [
+              43.366
+            ],
+            "world": [
+              44.08
+            ],
+            "jumps": [
+              45.107,
+              46.092
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "laser": [
+              20.146
+            ],
+            "fists": [
+              23.097
+            ],
+            "arms": [
+              28.01,
+              28.636,
+              29.217,
+              29.797,
+              30.379,
+              30.959
+            ],
+            "defense": [
+              25.643
+            ],
+            "pitch": [
+              30.959
+            ],
+            "monitors": [
+              30.467
+            ],
+            "swivel": [
+              43.335
+            ],
+            "world": [
+              44.05
+            ],
+            "jumps": [
+              45.075,
+              46.058
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "laser": [
+          31521
+        ],
+        "fists": [
+          31482
+        ],
+        "arms": [
+          31600,
+          31601
+        ],
+        "defense": [
+          31528
+        ],
+        "pitch": [
+          31529
+        ],
+        "monitors": [
+          31597
+        ],
+        "swivel": [
+          31636,
+          31637
+        ],
+        "world": [
+          31625,
+          33040
+        ],
+        "jumps": [
+          31626,
+          33041
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "laser": [
+          {
+            "min": 20.12,
+            "max": 20.146
+          }
+        ],
+        "fists": [
+          {
+            "min": 23.097,
+            "max": 23.151
+          }
+        ],
+        "arms": [
+          {
+            "min": 27.988,
+            "max": 28.015
+          },
+          {
+            "min": 28.613,
+            "max": 28.64
+          },
+          {
+            "min": 29.191,
+            "max": 29.22
+          },
+          {
+            "min": 29.768,
+            "max": 29.798
+          },
+          {
+            "min": 30.346,
+            "max": 30.379
+          },
+          {
+            "min": 30.922,
+            "max": 30.959
+          }
+        ],
+        "defense": [
+          {
+            "min": 25.617,
+            "max": 25.685
+          }
+        ],
+        "pitch": [
+          {
+            "min": 30.834,
+            "max": 30.98
+          }
+        ],
+        "monitors": [
+          {
+            "min": 30.445,
+            "max": 30.48
+          }
+        ],
+        "swivel": [
+          {
+            "min": 43.335,
+            "max": 43.395
+          }
+        ],
+        "world": [
+          {
+            "min": 44.05,
+            "max": 44.08
+          }
+        ],
+        "jumps": [
+          {
+            "min": 45.075,
+            "max": 45.107
+          },
+          {
+            "min": 46.055,
+            "max": 46.101
+          }
+        ]
+      }
+    },
+    "p5_sigma": {
+      "phase": 5,
+      "anchor_type": "applydebuff",
+      "anchor_ids": [
+        1003427,
+        1003428
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "arms": [
+              19.12,
+              56.096
+            ],
+            "cannons": [
+              19.299
+            ],
+            "discharger": [
+              27.803
+            ],
+            "towers": [
+              31.812
+            ],
+            "lasers": [
+              46.107,
+              46.729,
+              47.31,
+              47.89,
+              48.469,
+              49.051,
+              49.63,
+              50.209,
+              50.789,
+              51.369,
+              51.949,
+              52.529,
+              53.109,
+              53.688
+            ],
+            "female_aoe": [
+              49.185
+            ],
+            "world": [
+              56.051
+            ],
+            "jumps": [
+              57.077,
+              58.058
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "arms": [
+              19.103,
+              56.236
+            ],
+            "cannons": [
+              19.281
+            ],
+            "discharger": [
+              27.934
+            ],
+            "towers": [
+              31.842
+            ],
+            "lasers": [
+              46.238,
+              46.858,
+              47.438,
+              48.015,
+              48.592,
+              49.171,
+              49.748,
+              50.326,
+              50.904,
+              51.482,
+              52.059,
+              52.636,
+              53.213,
+              53.791
+            ],
+            "female_aoe": [
+              49.304
+            ],
+            "world": [
+              56.058
+            ],
+            "jumps": [
+              57.08,
+              58.101
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "arms": [
+              19.096,
+              56.165
+            ],
+            "cannons": [
+              19.318
+            ],
+            "discharger": [
+              27.858
+            ],
+            "towers": [
+              31.789
+            ],
+            "lasers": [
+              46.185,
+              46.811,
+              47.393,
+              47.975,
+              48.558,
+              49.141,
+              49.721,
+              50.303,
+              50.885,
+              51.467,
+              52.048,
+              52.631,
+              53.212,
+              53.795
+            ],
+            "female_aoe": [
+              49.275
+            ],
+            "world": [
+              56.076
+            ],
+            "jumps": [
+              57.102,
+              58.086
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "arms": [
+              19.114,
+              56.209
+            ],
+            "cannons": [
+              19.294
+            ],
+            "discharger": [
+              27.873
+            ],
+            "towers": [
+              31.85
+            ],
+            "lasers": [
+              46.199,
+              46.824,
+              47.405,
+              47.985,
+              48.566,
+              49.147,
+              49.728,
+              50.31,
+              50.891,
+              51.471,
+              52.053,
+              52.634,
+              53.215,
+              53.796
+            ],
+            "female_aoe": [
+              49.282
+            ],
+            "world": [
+              56.076
+            ],
+            "jumps": [
+              57.103,
+              58.085
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "arms": [
+          31602
+        ],
+        "cannons": [
+          31604
+        ],
+        "discharger": [
+          31534
+        ],
+        "towers": [
+          31492,
+          31493
+        ],
+        "lasers": [
+          31631,
+          31632
+        ],
+        "female_aoe": [
+          31530,
+          31533
+        ],
+        "world": [
+          31625,
+          33040
+        ],
+        "jumps": [
+          31626,
+          33041
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "arms": [
+          {
+            "min": 19.096,
+            "max": 19.12
+          },
+          {
+            "min": 56.096,
+            "max": 56.236
+          }
+        ],
+        "cannons": [
+          {
+            "min": 19.281,
+            "max": 19.318
+          }
+        ],
+        "discharger": [
+          {
+            "min": 27.803,
+            "max": 27.934
+          }
+        ],
+        "towers": [
+          {
+            "min": 31.789,
+            "max": 31.85
+          }
+        ],
+        "lasers": [
+          {
+            "min": 46.107,
+            "max": 46.238
+          },
+          {
+            "min": 46.729,
+            "max": 46.858
+          },
+          {
+            "min": 47.31,
+            "max": 47.438
+          },
+          {
+            "min": 47.89,
+            "max": 48.015
+          },
+          {
+            "min": 48.469,
+            "max": 48.592
+          },
+          {
+            "min": 49.051,
+            "max": 49.171
+          },
+          {
+            "min": 49.63,
+            "max": 49.748
+          },
+          {
+            "min": 50.209,
+            "max": 50.326
+          },
+          {
+            "min": 50.789,
+            "max": 50.904
+          },
+          {
+            "min": 51.369,
+            "max": 51.482
+          },
+          {
+            "min": 51.949,
+            "max": 52.059
+          },
+          {
+            "min": 52.529,
+            "max": 52.636
+          },
+          {
+            "min": 53.109,
+            "max": 53.215
+          },
+          {
+            "min": 53.688,
+            "max": 53.796
+          }
+        ],
+        "female_aoe": [
+          {
+            "min": 49.185,
+            "max": 49.304
+          }
+        ],
+        "world": [
+          {
+            "min": 56.051,
+            "max": 56.076
+          }
+        ],
+        "jumps": [
+          {
+            "min": 57.077,
+            "max": 57.103
+          },
+          {
+            "min": 58.058,
+            "max": 58.101
+          }
+        ]
+      }
+    },
+    "p5_omega": {
+      "phase": 5,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        32789
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "clone_aoes": [
+              13.2,
+              17.214
+            ],
+            "diffuse": [
+              13.289,
+              17.348
+            ],
+            "world": [
+              30.041,
+              48.012
+            ],
+            "jumps": [
+              31.066,
+              32.047,
+              49.034,
+              50.011
+            ],
+            "monitors": [
+              30.488
+            ],
+            "blaster": [
+              46.364
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "clone_aoes": [
+              13.2,
+              17.242
+            ],
+            "diffuse": [
+              13.377,
+              17.464
+            ],
+            "world": [
+              30.081,
+              48.079
+            ],
+            "jumps": [
+              31.101,
+              32.081,
+              49.104,
+              50.083
+            ],
+            "monitors": [
+              30.613
+            ],
+            "blaster": [
+              46.389
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "clone_aoes": [
+              13.2,
+              17.259
+            ],
+            "diffuse": [
+              13.333,
+              17.392
+            ],
+            "world": [
+              30.03,
+              48.028
+            ],
+            "jumps": [
+              31.057,
+              32.04,
+              49.056,
+              50.039
+            ],
+            "monitors": [
+              30.522
+            ],
+            "blaster": [
+              46.372
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "clone_aoes": [
+              13.2,
+              17.228
+            ],
+            "diffuse": [
+              13.289,
+              17.362
+            ],
+            "world": [
+              30.024,
+              47.997
+            ],
+            "jumps": [
+              31.052,
+              32.035,
+              49.025,
+              50.009
+            ],
+            "monitors": [
+              30.515
+            ],
+            "blaster": [
+              46.39
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": false,
+      "event_ids": {
+        "clone_aoes": [
+          31525,
+          31526,
+          31530,
+          31533
+        ],
+        "diffuse": [
+          31609
+        ],
+        "world": [
+          31625,
+          33040
+        ],
+        "jumps": [
+          31626,
+          33041
+        ],
+        "monitors": [
+          31597
+        ],
+        "blaster": [
+          32373
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "clone_aoes": [
+          {
+            "min": 13.2,
+            "max": 13.2
+          },
+          {
+            "min": 17.214,
+            "max": 17.259
+          }
+        ],
+        "diffuse": [
+          {
+            "min": 13.289,
+            "max": 13.377
+          },
+          {
+            "min": 17.348,
+            "max": 17.464
+          }
+        ],
+        "world": [
+          {
+            "min": 30.024,
+            "max": 30.081
+          },
+          {
+            "min": 47.997,
+            "max": 48.079
+          }
+        ],
+        "jumps": [
+          {
+            "min": 31.052,
+            "max": 31.101
+          },
+          {
+            "min": 32.035,
+            "max": 32.081
+          },
+          {
+            "min": 49.025,
+            "max": 49.104
+          },
+          {
+            "min": 50.009,
+            "max": 50.083
+          }
+        ],
+        "monitors": [
+          {
+            "min": 30.488,
+            "max": 30.613
+          }
+        ],
+        "blaster": [
+          {
+            "min": 46.364,
+            "max": 46.39
+          }
+        ]
+      }
+    },
+    "p5_solar": {
+      "phase": 5,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        33196,
+        33197
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "first": [
+              4.977
+            ],
+            "second": [
+              8.137
+            ]
+          }
+        },
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 1,
+          "events": {
+            "first": [
+              4.993
+            ],
+            "second": [
+              8.16
+            ]
+          }
+        },
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 2,
+          "events": {
+            "first": [
+              4.989
+            ],
+            "second": [
+              8.196
+            ]
+          }
+        },
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 3,
+          "events": {
+            "first": [
+              4.986
+            ],
+            "second": [
+              8.142
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "first": [
+              4.982
+            ],
+            "second": [
+              8.186
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 1,
+          "events": {
+            "first": [
+              4.981
+            ],
+            "second": [
+              8.147
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 2,
+          "events": {
+            "first": [
+              4.979
+            ],
+            "second": [
+              8.134
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 3,
+          "events": {
+            "first": [
+              4.976
+            ],
+            "second": [
+              8.177
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "first": [
+              4.957
+            ],
+            "second": [
+              8.127
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 1,
+          "events": {
+            "first": [
+              4.999
+            ],
+            "second": [
+              8.254
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 2,
+          "events": {
+            "first": [
+              4.958
+            ],
+            "second": [
+              8.132
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 3,
+          "events": {
+            "first": [
+              4.965
+            ],
+            "second": [
+              8.181
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "first": [
+              4.961
+            ],
+            "second": [
+              8.224
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 1,
+          "events": {
+            "first": [
+              4.962
+            ],
+            "second": [
+              8.137
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 2,
+          "events": {
+            "first": [
+              4.963
+            ],
+            "second": [
+              8.137
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 3,
+          "events": {
+            "first": [
+              4.967
+            ],
+            "second": [
+              8.188
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "first": [
+          33196,
+          33197
+        ],
+        "second": [
+          31489,
+          31490
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "first": [
+          {
+            "min": 4.957,
+            "max": 4.999
+          }
+        ],
+        "second": [
+          {
+            "min": 8.127,
+            "max": 8.254
+          }
+        ]
+      }
+    },
+    "p6_memory": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31649
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "memory": [
+              5.964
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "memory": [
+              5.975
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "memory": [
+              5.988
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "memory": [
+              5.992
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "memory": [
+          31649
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "memory": [
+          {
+            "min": 5.964,
+            "max": 5.992
+          }
+        ]
+      }
+    },
+    "p6_arrow_dive": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31650
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.969,
+              9.973,
+              12.065,
+              14.068,
+              16.078,
+              18.082,
+              20.086,
+              22.094
+            ],
+            "dive": [
+              23.167
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.961,
+              10.002,
+              12.088,
+              14.091,
+              16.089,
+              18.088,
+              20.085
+            ],
+            "dive": [
+              23.196
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.999,
+              9.967,
+              12.068,
+              14.076,
+              16.086,
+              18.098,
+              20.109
+            ],
+            "dive": [
+              23.193
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.957,
+              9.969,
+              12.07,
+              14.079,
+              16.09,
+              18.102,
+              20.073,
+              22.086
+            ],
+            "dive": [
+              23.159
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "arrows": [
+          31651,
+          31652
+        ],
+        "dive": [
+          31655,
+          31656
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "arrows": [
+          {
+            "min": 7.957,
+            "max": 7.999
+          },
+          {
+            "min": 9.967,
+            "max": 10.002
+          },
+          {
+            "min": 12.065,
+            "max": 12.088
+          },
+          {
+            "min": 14.068,
+            "max": 14.091
+          },
+          {
+            "min": 16.078,
+            "max": 16.09
+          },
+          {
+            "min": 18.082,
+            "max": 18.102
+          },
+          {
+            "min": 20.073,
+            "max": 20.109
+          },
+          {
+            "min": 22.086,
+            "max": 22.094
+          }
+        ],
+        "dive": [
+          {
+            "min": 23.159,
+            "max": 23.196
+          }
+        ]
+      }
+    },
+    "p6_arrow_wave": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31650
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.975,
+              9.977,
+              12.07,
+              14.076,
+              16.081,
+              18.083,
+              20.089
+            ],
+            "proteans": [
+              17.148,
+              19.152
+            ],
+            "charge": [
+              25.346
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.998,
+              9.997,
+              12.13,
+              14.087,
+              16.093,
+              18.097,
+              20.098,
+              22.097
+            ],
+            "proteans": [
+              17.205,
+              19.209
+            ],
+            "charge": [
+              25.526
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.956,
+              9.973,
+              12.072,
+              14.075,
+              16.082,
+              18.087,
+              20.052
+            ],
+            "proteans": [
+              17.199,
+              19.204
+            ],
+            "charge": [
+              25.549
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "arrows": [
+              7.967,
+              9.978,
+              12.079,
+              14.091,
+              16.057,
+              18.072,
+              20.085
+            ],
+            "proteans": [
+              17.177,
+              19.146
+            ],
+            "charge": [
+              25.494
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "arrows": [
+          31651,
+          31652
+        ],
+        "proteans": [
+          31659
+        ],
+        "charge": [
+          31658
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "arrows": [
+          {
+            "min": 7.956,
+            "max": 7.998
+          },
+          {
+            "min": 9.973,
+            "max": 9.997
+          },
+          {
+            "min": 12.07,
+            "max": 12.13
+          },
+          {
+            "min": 14.075,
+            "max": 14.091
+          },
+          {
+            "min": 16.057,
+            "max": 16.093
+          },
+          {
+            "min": 18.072,
+            "max": 18.097
+          },
+          {
+            "min": 20.052,
+            "max": 20.098
+          },
+          {
+            "min": 22.097,
+            "max": 22.097
+          }
+        ],
+        "proteans": [
+          {
+            "min": 17.148,
+            "max": 17.205
+          },
+          {
+            "min": 19.146,
+            "max": 19.209
+          }
+        ],
+        "charge": [
+          {
+            "min": 25.346,
+            "max": 25.549
+          }
+        ]
+      }
+    },
+    "p6_exa_wave": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31660
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.989,
+              13.012,
+              13.993,
+              15.017
+            ],
+            "exas": [
+              13.101,
+              14.083,
+              15.106,
+              16.084,
+              17.107,
+              18.086,
+              19.108,
+              20.09,
+              21.115
+            ],
+            "puddles": [
+              13.012,
+              15.017,
+              17.018,
+              19.021,
+              21.026,
+              23.031
+            ],
+            "proteans": [
+              26.197,
+              28.2
+            ],
+            "charge": [
+              34.482
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.997,
+              13.021,
+              14.042,
+              14.978
+            ],
+            "exas": [
+              13.11,
+              14.087,
+              15.111,
+              16.089,
+              17.111,
+              18.09,
+              19.111,
+              20.088,
+              21.109
+            ],
+            "puddles": [
+              13.021,
+              15.067,
+              17.067,
+              19.022,
+              21.021,
+              23.063
+            ],
+            "proteans": [
+              26.173,
+              28.172
+            ],
+            "charge": [
+              34.349
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.986,
+              13.013,
+              13.996,
+              15.024
+            ],
+            "exas": [
+              13.102,
+              14.085,
+              15.113,
+              16.094,
+              17.075,
+              18.105,
+              19.087,
+              20.112,
+              21.139
+            ],
+            "puddles": [
+              13.013,
+              15.024,
+              17.032,
+              19.043,
+              21.05,
+              23.016
+            ],
+            "proteans": [
+              26.184,
+              28.193
+            ],
+            "charge": [
+              34.401
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.986,
+              13.013,
+              13.998,
+              15.028
+            ],
+            "exas": [
+              13.101,
+              14.088,
+              15.116,
+              16.099,
+              17.081,
+              18.106,
+              19.089,
+              20.119,
+              21.146
+            ],
+            "puddles": [
+              13.013,
+              15.028,
+              17.037,
+              19.045,
+              21.057,
+              23.027
+            ],
+            "proteans": [
+              26.159,
+              28.13
+            ],
+            "charge": [
+              34.469
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "first_exas": [
+          31661
+        ],
+        "exas": [
+          31662
+        ],
+        "puddles": [
+          31663
+        ],
+        "proteans": [
+          31659
+        ],
+        "charge": [
+          31658
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "first_exas": [
+          {
+            "min": 11.986,
+            "max": 11.997
+          },
+          {
+            "min": 13.012,
+            "max": 13.021
+          },
+          {
+            "min": 13.993,
+            "max": 14.042
+          },
+          {
+            "min": 14.978,
+            "max": 15.028
+          }
+        ],
+        "exas": [
+          {
+            "min": 13.101,
+            "max": 13.11
+          },
+          {
+            "min": 14.083,
+            "max": 14.088
+          },
+          {
+            "min": 15.106,
+            "max": 15.116
+          },
+          {
+            "min": 16.084,
+            "max": 16.099
+          },
+          {
+            "min": 17.075,
+            "max": 17.111
+          },
+          {
+            "min": 18.086,
+            "max": 18.106
+          },
+          {
+            "min": 19.087,
+            "max": 19.111
+          },
+          {
+            "min": 20.088,
+            "max": 20.119
+          },
+          {
+            "min": 21.109,
+            "max": 21.146
+          }
+        ],
+        "puddles": [
+          {
+            "min": 13.012,
+            "max": 13.021
+          },
+          {
+            "min": 15.017,
+            "max": 15.067
+          },
+          {
+            "min": 17.018,
+            "max": 17.067
+          },
+          {
+            "min": 19.021,
+            "max": 19.045
+          },
+          {
+            "min": 21.021,
+            "max": 21.057
+          },
+          {
+            "min": 23.016,
+            "max": 23.063
+          }
+        ],
+        "proteans": [
+          {
+            "min": 26.159,
+            "max": 26.197
+          },
+          {
+            "min": 28.13,
+            "max": 28.2
+          }
+        ],
+        "charge": [
+          {
+            "min": 34.349,
+            "max": 34.482
+          }
+        ]
+      }
+    },
+    "p6_exa_dive": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31660
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.981,
+              13.008,
+              13.988,
+              15.013
+            ],
+            "exas": [
+              13.096,
+              14.077,
+              15.101,
+              16.079,
+              17.105,
+              18.086,
+              19.111,
+              20.09,
+              21.115
+            ],
+            "puddles": [
+              13.008,
+              15.013,
+              17.016,
+              19.021,
+              21.026,
+              23.029
+            ],
+            "dive": [
+              26.188
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.962,
+              12.984,
+              13.962,
+              14.988
+            ],
+            "exas": [
+              13.072,
+              14.051,
+              15.077,
+              16.055,
+              17.077,
+              18.055,
+              19.081,
+              20.059,
+              21.081
+            ],
+            "puddles": [
+              12.984,
+              14.988,
+              16.988,
+              18.992,
+              20.993,
+              22.991
+            ],
+            "dive": [
+              26.146
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.985,
+              13.014,
+              13.997,
+              15.021
+            ],
+            "exas": [
+              13.102,
+              14.087,
+              15.11,
+              16.088,
+              17.116,
+              18.096,
+              19.12,
+              20.1,
+              21.128
+            ],
+            "puddles": [
+              13.014,
+              15.021,
+              17.027,
+              19.031,
+              21.039,
+              23.047
+            ],
+            "dive": [
+              26.175
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "first_exas": [
+              11.993,
+              13.023,
+              14.004,
+              15.034
+            ],
+            "exas": [
+              13.111,
+              14.094,
+              15.123,
+              16.108,
+              17.091,
+              18.118,
+              19.103,
+              20.13,
+              21.16
+            ],
+            "puddles": [
+              13.023,
+              15.034,
+              17.047,
+              19.059,
+              21.027,
+              22.997
+            ],
+            "dive": [
+              26.13
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "first_exas": [
+          31661
+        ],
+        "exas": [
+          31662
+        ],
+        "puddles": [
+          31663
+        ],
+        "dive": [
+          31655,
+          31656
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "first_exas": [
+          {
+            "min": 11.962,
+            "max": 11.993
+          },
+          {
+            "min": 12.984,
+            "max": 13.023
+          },
+          {
+            "min": 13.962,
+            "max": 14.004
+          },
+          {
+            "min": 14.988,
+            "max": 15.034
+          }
+        ],
+        "exas": [
+          {
+            "min": 13.072,
+            "max": 13.111
+          },
+          {
+            "min": 14.051,
+            "max": 14.094
+          },
+          {
+            "min": 15.077,
+            "max": 15.123
+          },
+          {
+            "min": 16.055,
+            "max": 16.108
+          },
+          {
+            "min": 17.077,
+            "max": 17.116
+          },
+          {
+            "min": 18.055,
+            "max": 18.118
+          },
+          {
+            "min": 19.081,
+            "max": 19.12
+          },
+          {
+            "min": 20.059,
+            "max": 20.13
+          },
+          {
+            "min": 21.081,
+            "max": 21.16
+          }
+        ],
+        "puddles": [
+          {
+            "min": 12.984,
+            "max": 13.023
+          },
+          {
+            "min": 14.988,
+            "max": 15.034
+          },
+          {
+            "min": 16.988,
+            "max": 17.047
+          },
+          {
+            "min": 18.992,
+            "max": 19.059
+          },
+          {
+            "min": 20.993,
+            "max": 21.039
+          },
+          {
+            "min": 22.991,
+            "max": 23.047
+          }
+        ],
+        "dive": [
+          {
+            "min": 26.13,
+            "max": 26.188
+          }
+        ]
+      }
+    },
+    "p6_meteors": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31664
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "puddles": [
+              8.997
+            ],
+            "spreads": [
+              10.2,
+              11.225,
+              16.212,
+              17.237
+            ],
+            "flares": [
+              28.246
+            ],
+            "stack": [
+              28.247
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "puddles": [
+              8.979
+            ],
+            "spreads": [
+              10.177,
+              11.199,
+              16.216,
+              17.238
+            ],
+            "flares": [
+              28.291
+            ],
+            "stack": [
+              28.291
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "puddles": [
+              8.975
+            ],
+            "spreads": [
+              10.182,
+              11.208,
+              16.202,
+              17.231
+            ],
+            "flares": [
+              28.266
+            ],
+            "stack": [
+              28.266
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "puddles": [
+              8.987
+            ],
+            "spreads": [
+              10.191,
+              11.221,
+              16.228,
+              17.258
+            ],
+            "flares": [
+              28.295
+            ],
+            "stack": [
+              28.293
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "puddles": [
+          31666
+        ],
+        "spreads": [
+          32699
+        ],
+        "flares": [
+          31668
+        ],
+        "stack": [
+          31667
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "puddles": [
+          {
+            "min": 8.975,
+            "max": 8.997
+          }
+        ],
+        "spreads": [
+          {
+            "min": 10.177,
+            "max": 10.2
+          },
+          {
+            "min": 11.199,
+            "max": 11.225
+          },
+          {
+            "min": 16.202,
+            "max": 16.228
+          },
+          {
+            "min": 17.231,
+            "max": 17.258
+          }
+        ],
+        "flares": [
+          {
+            "min": 28.246,
+            "max": 28.295
+          }
+        ],
+        "stack": [
+          {
+            "min": 28.247,
+            "max": 28.293
+          }
+        ]
+      }
+    },
+    "p6_magic": {
+      "phase": 6,
+      "anchor_type": "begincast",
+      "anchor_ids": [
+        31670
+      ],
+      "origin_shift": 0,
+      "samples": [
+        {
+          "report": "1bX86aKrVRwLWfTC",
+          "fight": 19,
+          "occurrence": 0,
+          "events": {
+            "magic_number": [
+              4.993,
+              21.171
+            ]
+          }
+        },
+        {
+          "report": "3GW2hjTNk91FZwcK",
+          "fight": 9,
+          "occurrence": 0,
+          "events": {
+            "magic_number": [
+              4.974,
+              21.105
+            ]
+          }
+        },
+        {
+          "report": "LKMGRJTzgY9HFynk",
+          "fight": 2,
+          "occurrence": 0,
+          "events": {
+            "magic_number": [
+              4.964,
+              21.097
+            ]
+          }
+        },
+        {
+          "report": "Vyq4AcJKZjkFQBpG",
+          "fight": 32,
+          "occurrence": 0,
+          "events": {
+            "magic_number": [
+              4.968,
+              21.109
+            ]
+          }
+        }
+      ],
+      "original_anchor_measured": true,
+      "event_ids": {
+        "magic_number": [
+          31670
+        ]
+      },
+      "unavailable_events": [],
+      "ranges": {
+        "magic_number": [
+          {
+            "min": 4.964,
+            "max": 4.993
+          },
+          {
+            "min": 21.097,
+            "max": 21.171
+          }
+        ]
+      }
+    }
+  }
+}

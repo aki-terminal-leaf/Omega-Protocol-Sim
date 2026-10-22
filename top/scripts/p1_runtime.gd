@@ -108,7 +108,7 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	var now:=float(state.get("sim_time",0))
 	for event in state.p1.pending:
 		if event.kind!="hazard": continue
-		if not event.has("locked_at") and float(event.at)>now+2.0: continue
+		if not event.has("locked_at") and float(event.at)>now+(4.0 if int(event.get("ability_id",0)) in [31501,32368] else 2.0): continue
 		var shape: Dictionary=event.shape.duplicate(true)
 		shape.pos=Rules.v(shape.get("pos",[0,0])); shape.decorative=true; shape.p1_preview=true
 		beat.shapes.append(shape)

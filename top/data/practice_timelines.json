@@ -1,0 +1,506 @@
+{
+  "schema": 1,
+  "observations": "res://data/practice_timing_observations.json",
+  "mechanics": {
+    "p1_loop": {
+      "origin": "First In Line / Looper application",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "towers",
+          "kind": "snapshot",
+          "title": "· towers",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p1_panto": {
+      "origin": "Pantokrator cast finish",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "missiles",
+          "kind": "p1_missile_beam",
+          "title": "",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "flames",
+          "kind": "p1_hazard",
+          "title": "",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": "Flamethrower"
+        }
+      ]
+    },
+    "p1_cannons": {
+      "origin": "Explicit six-second practice lead-in before first impact; original icon frame unmeasured",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "cleaves",
+          "kind": "p1_cleaves",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "spreads",
+          "kind": "p1_proteans",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p2_synergy": {
+      "origin": "Party Synergy cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "double_aoes",
+          "kind": "snapshot",
+          "title": "double AOEs",
+          "tolerance": 0.15,
+          "limit": 1,
+          "shape": ""
+        },
+        {
+          "event": "fire",
+          "kind": "snapshot",
+          "title": "Optimized Fire III",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "laser",
+          "kind": "snapshot",
+          "title": "Optical Laser",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "discharger",
+          "kind": "snapshot",
+          "title": "Discharger",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "spotlight",
+          "kind": "snapshot",
+          "title": "Spotlight",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p2_limitless": {
+      "origin": "Limitless Synergy cast finish",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "arrow",
+          "kind": "limitless_arrow",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "bladedance",
+          "kind": "limitless_bladedance",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "defense",
+          "kind": "limitless_defense",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "flares",
+          "kind": "limitless_flares",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "pitch",
+          "kind": "limitless_pitch",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "raidwide",
+          "kind": "limitless_raidwide",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p3_transition": {
+      "origin": "Sniper debuff application",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "rings",
+          "kind": "p3_transition_ring",
+          "title": "",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "sniper",
+          "kind": "p3_transition_sniper",
+          "title": "",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p3_hello": {
+      "origin": "Initial Hello World Smells/Latent Sync application",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "towers",
+          "kind": "hw_tower",
+          "title": "",
+          "tolerance": 0.4,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "critical_error",
+          "kind": "hw_critical_error",
+          "title": "",
+          "tolerance": 0.4,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p3_monitors": {
+      "origin": "Oversampled Wave Cannon cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "monitors",
+          "kind": "snapshot",
+          "title": "Oversampled Wave Cannon",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p4_wave": {
+      "origin": "P4 Wave Cannon visual cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "proteans",
+          "kind": "p4_wave_protean",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "stacks",
+          "kind": "p4_wave_stack",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "rings",
+          "kind": "p4_wave_ring",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p5_delta": {
+      "origin": "Initial Delta Near World status3442 application",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "laser",
+          "kind": "delta_hazard",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": "Optical Laser"
+        },
+        {
+          "event": "swivel",
+          "kind": "delta_hazard",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": "Swivel Cannon"
+        },
+        {
+          "event": "world",
+          "kind": "delta_world",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 1,
+          "shape": ""
+        }
+      ]
+    },
+    "p5_sigma": {
+      "origin": "Sigma Glitch/status application",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "cannons",
+          "kind": "snapshot",
+          "title": "six 45-degree",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "discharger",
+          "kind": "snapshot",
+          "title": "Discharger to towers",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "towers",
+          "kind": "snapshot",
+          "title": "actual Looper/tower",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "lasers",
+          "kind": "snapshot",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": "Rear Power Unit"
+        }
+      ]
+    },
+    "p5_omega": {
+      "origin": "First clone stance tell;13.2s lead-in inferred, not independently measured",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "clone_aoes",
+          "kind": "snapshot",
+          "title": "Omega clones",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "blaster",
+          "kind": "snapshot",
+          "title": "physically collect Blaster",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p5_solar": {
+      "origin": "Solar Ray cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "first",
+          "kind": "snapshot",
+          "title": "hit 1/2",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "second",
+          "kind": "snapshot",
+          "title": "hit 2/2",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_memory": {
+      "origin": "Cosmo Memory cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "memory",
+          "kind": "p6_memory",
+          "title": "",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_arrow_dive": {
+      "origin": "Cosmo Arrow cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "dive",
+          "kind": "p6_dive",
+          "title": "",
+          "tolerance": 0.1,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_exa_wave": {
+      "origin": "Unlimited Wave Cannon cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "charge",
+          "kind": "p6_charge",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "proteans",
+          "kind": "p6_proteans",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_arrow_wave": {
+      "origin": "Cosmo Arrow cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "charge",
+          "kind": "p6_charge",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "proteans",
+          "kind": "p6_proteans",
+          "title": "",
+          "tolerance": 0.25,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_exa_dive": {
+      "origin": "Unlimited Wave Cannon cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "dive",
+          "kind": "p6_dive",
+          "title": "",
+          "tolerance": 0.2,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_meteors": {
+      "origin": "Cosmo Meteor cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "spreads",
+          "kind": "p6_spread",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        },
+        {
+          "event": "flares",
+          "kind": "p6_flares",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    },
+    "p6_magic": {
+      "origin": "First Magic Number cast start",
+      "clock": "normalized independent-drill seconds, at speed1.0",
+      "precision": "finite-source nominal; not exact server frames",
+      "checks": [
+        {
+          "event": "magic_number",
+          "kind": "p6_magic_number",
+          "title": "",
+          "tolerance": 0.15,
+          "limit": 0,
+          "shape": ""
+        }
+      ]
+    }
+  }
+}

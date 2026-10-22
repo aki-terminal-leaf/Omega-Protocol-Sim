@@ -102,3 +102,7 @@ P1各炮易傷、Solar Ray與Dive、Sigma塔Ruin、Omega Blaster及Spark均有
 ## 2026-10-22 Party Synergy correction
 
 See [chronological PT source and verification](P2_SYNERGY_TIMELINE.md). Genuine/decoy M/F, source-ordered graphical memory markers, radius45 Optical Unit reconstruction and actual animation-swap sequence are now wired. Core hits are independent snapshots. Remaining icon frames and original VFX are explicitly not certified.
+
+## All20 drill timing/cue audit —2026-10-22
+
+[Explicit per-drill origins, repaired cues, finite observations and verification scope](PRACTICE_TIMELINES.md). Source comparison tolerances do not add gameplay grace. Original AVFX/frames and remaining regional/server uncertainties above are not silently certified.

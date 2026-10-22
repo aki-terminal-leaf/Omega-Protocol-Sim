@@ -120,13 +120,13 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if now>=float(r.void.start) and now<float(r.void.end): beat.shapes.append({"kind":"circle","pos":Vector2.ZERO,"radius":6.0,"decorative":true,"p3_transition_preview":true,"name":"Central voidzone (window approximate)"})
 	# Teaching overlays only. Parent must not present these as original game VFX.
 	for e in r.pending:
-		if e.kind=="ring" and float(e.at)-now<=2.1:
+		if e.kind=="ring" and float(e.at)-now<=(5.0 if int(e.ring)==0 else 2.1):
 			var shape: Dictionary=e.shape.duplicate(true)
 			shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p3_transition_preview=true
-			shape.name="Next Wave Repeater (instructional preview)"; beat.shapes.append(shape)
+			shape.name="Wave Repeater"; beat.shapes.append(shape)
 	for a in state.statuses.size():
 		if state.statuses[a].has("sniper_cannon_fodder") or state.statuses[a].has("high_powered_sniper_cannon_fodder"):
-			beat.shapes.append({"kind":"circle","actor":a,"radius":6.0,"decorative":true,"p3_transition_preview":true,"name":"Sniper radius (instructional preview)"})
+			beat.shapes.append({"kind":"circle","actor":a,"radius":6.0,"decorative":true,"p3_transition_preview":true,"name":"Sniper radius (instructional preview)","instructional":true})
 	for arm in r.arms.values():
 		if arm.resolved: continue
 		beat.stage_entities.append({"id":arm.id,"form":arm.form,"pos":arm.locked_pos.duplicate(),"p3_transition_entity":true,"cue":{"timeline_ids":["1E43","1E44"],"relative_time":float(arm.cue_at)-float(r.origin),"confidence":"hit minus 13.5s reference; timeline ID alternative not measured","rendering":"original model plus instructional cue, not authentic game VFX"},"form_confidence":arm.form_confidence})
