@@ -88,6 +88,13 @@ var speed_select: OptionButton
 var scenario_list: ItemList
 var checkpoint_select: OptionButton
 var seed_edit: LineEdit
+var fresh_seed: CheckBox
+var language_select: OptionButton
+var mechanism_language := "zh_TW"
+const NAME_LOCALES := ["zh_TW", "en", "ja"]
+var setup_controls: Control
+var hud_controls: Control
+const CONTROL_TEXT := "移動 WASD／方向鍵　轉身 Q/E　鏡頭 左鍵拖曳／右鍵同步朝向　縮放 滾輪　前進 雙鍵\n疾跑 1　防擊退 2　突進 3　跳躍 Space　LB3 F　換坦 V　暫停 P　同點名重來 R　設定 Esc　練習工具 Tab"
 var hints: CheckBox
 var stop_failure: CheckBox
 var title_label: Label
@@ -157,7 +164,7 @@ func _ready() -> void:
 	for i in filtered.size():
 		if filtered[i].id == cli_scenario:
 			choose_mechanic(i); strategy_select.select(1); choose_strategy(1)
-	if cli_demo and configured: demo = true; start_run()
+	if cli_demo and configured: demo = true; start_run(0, false)
 	for capture_arg in OS.get_cmdline_user_args():
 		if capture_arg.begins_with("--capture="):
 			await get_tree().process_frame
@@ -193,6 +200,10 @@ func build_ui() -> void:
 	var header = HBoxContainer.new(); header.add_theme_constant_override("separation", 12); root.add_child(header)
 	header.add_child(label("Ω  PRACTICE LAB", 24, Color("8ce3d1")))
 	var subtitle = label("絕歐米茄 · 單人機制練習", 14, Color("8096b4")); subtitle.clip_text = true; subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
+	header.add_child(label("機制名稱", 12, Color("8096b4")))
+	language_select = option(["繁體中文", "English", "日本語"]); language_select.custom_minimum_size.x = 120
+	language_select.tooltip_text = "只切換機制名稱；不更動打法、點名或進度。"; header.add_child(language_select)
+	language_select.item_selected.connect(choose_language)
 	header.add_child(button("攻略來源", show_research))
 	header.add_child(button("場地標記", show_waymark_settings))
 	tools_button = button("進階設定／紀錄", show_setup_tools); header.add_child(tools_button)
@@ -236,12 +247,43 @@ func build_ui() -> void:
 	var show = button("觀看示範", func(): demo = true; start_run()); footer.add_child(show); launch_buttons.append(show)
 	start_button = button("開始練習  →", func(): demo = false; start_run()); start_button.custom_minimum_size = Vector2(200, 52)
 	start_button.add_theme_stylebox_override("normal", panel(Color("225b58"), 12)); start_button.add_theme_stylebox_override("hover", panel(Color("307971"), 12)); footer.add_child(start_button); launch_buttons.append(start_button)
+	setup_controls = control_instructions(root)
 	build_setup_tools()
 	custom_dialog = ConfirmationDialog.new(); custom_dialog.title = "自訂戰術設定（JSON）"; custom_dialog.size = Vector2i(740, 500); add_child(custom_dialog)
 	custom_text = TextEdit.new(); custom_text.custom_minimum_size = Vector2(700, 420); custom_dialog.add_child(custom_text); custom_dialog.confirmed.connect(apply_custom)
 	save_dialog = FileDialog.new(); save_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE; save_dialog.access = FileDialog.ACCESS_FILESYSTEM; save_dialog.filters = PackedStringArray(["*.json ; Practice report"]); save_dialog.file_selected.connect(func(path): var f = FileAccess.open(path, FileAccess.WRITE); f.store_string(report_text); status.text = "已儲存：" + path); add_child(save_dialog)
 	build_practice_presentation()
 	build_marker_controls()
+
+func control_instructions(parent: Node) -> Control:
+	var box := PanelContainer.new(); parent.add_child(box)
+	box.custom_minimum_size.y = 58; box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_theme_stylebox_override("panel", panel(Color(0.035, 0.055, 0.09, 0.86), 6))
+	var bounds := Control.new(); bounds.mouse_filter = Control.MOUSE_FILTER_IGNORE; bounds.clip_contents = true; box.add_child(bounds)
+	var text_label := label(CONTROL_TEXT, 12, Color("a4b8d1")); bounds.add_child(text_label)
+	text_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER; text_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return box
+
+func mechanic_name(item: Dictionary) -> String:
+	return str(item.get("names", {}).get(mechanism_language, str(item.name).split(" / ")[0]))
+
+func refresh_mechanic_names() -> void:
+	for i in filtered.size():
+		scenario_list.set_item_text(i, "P%d  %s" % [int(filtered[i].phase), mechanic_name(filtered[i])])
+	var item := selected_item()
+	if not item.is_empty(): title_label.text = "P%d · %s" % [int(item.phase), mechanic_name(item)]
+	sync_practice_hud()
+
+func choose_language(selection: int) -> void:
+	mechanism_language = NAME_LOCALES[clampi(selection, 0, NAME_LOCALES.size() - 1)]
+	refresh_mechanic_names(); save_settings()
+
+func renew_seed() -> void:
+	var previous := clampi(int(seed_edit.text), 1, 2147483647)
+	var candidate := randi_range(1, 2147483646)
+	if candidate >= previous: candidate += 1
+	seed_edit.text = str(candidate)
 
 func bounded_text(parent: Node, text_label: Label, height: float) -> void:
 	var bounds := Control.new(); bounds.custom_minimum_size.y = height; bounds.clip_contents = true; parent.add_child(bounds)
@@ -264,10 +306,12 @@ func build_setup_tools() -> void:
 	var settings := tools_page("練習設定")
 	settings.add_child(label("點名與重現", 17, Color("8ce3d1")))
 	slot_select = option(["隨機點名", "指定分配 1", "指定分配 2", "指定分配 3", "指定分配 4", "指定分配 5", "指定分配 6", "指定分配 7", "指定分配 8"]); settings.add_child(slot_select); slot_select.item_selected.connect(func(_i): prepare())
-	settings.add_child(label("隨機種子 · 相同數字可重現點名", 13))
+	fresh_seed = CheckBox.new(); fresh_seed.text = "每次開始練習都使用新種子"; fresh_seed.button_pressed = true; settings.add_child(fresh_seed)
+	fresh_seed.toggled.connect(func(value): seed_edit.editable = not value; save_settings())
+	settings.add_child(label("關閉上方選項可固定種子；R 永遠保留同一點名重來。", 13))
 	var seed_row := HBoxContainer.new(); settings.add_child(seed_row)
-	seed_edit = LineEdit.new(); seed_edit.text = str(randi_range(1, 999999)); seed_edit.placeholder_text = "1…2147483647"; seed_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL; seed_row.add_child(seed_edit); seed_edit.text_submitted.connect(func(_v): prepare())
-	seed_row.add_child(button("換一組", func(): seed_edit.text = str(randi_range(1, 999999)); prepare()))
+	seed_edit = LineEdit.new(); seed_edit.text = str(randi_range(1, 999999)); seed_edit.placeholder_text = "1…2147483647"; seed_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL; seed_edit.editable = false; seed_row.add_child(seed_edit); seed_edit.text_submitted.connect(func(_v): prepare())
+	seed_row.add_child(button("換一組", func(): renew_seed(); prepare()))
 	var speed_row := HBoxContainer.new(); settings.add_child(speed_row); speed_row.add_child(label("練習速度")); speed_select = option(["0.5×", "0.75×", "1×", "1.25×", "1.5×"]); speed_select.select(2); speed_select.custom_minimum_size.x = 110; speed_row.add_child(speed_select)
 	hints = CheckBox.new(); hints.text = "示範模式顯示教學提示"; settings.add_child(hints)
 	stop_failure = CheckBox.new(); stop_failure.text = "失誤後暫停檢討"; stop_failure.button_pressed = true; settings.add_child(stop_failure)
@@ -299,7 +343,7 @@ func filter_catalog() -> void:
 	filtered = []; scenario_list.clear()
 	for item in catalog:
 		if phase_select.selected == 0 or int(item.phase) == phase_select.selected:
-			filtered.append(item); scenario_list.add_item("P%d  %s" % [int(item.phase), item.name.split(" / ")[0]])
+			filtered.append(item); scenario_list.add_item("P%d  %s" % [int(item.phase), mechanic_name(item)])
 			scenario_list.set_item_tooltip(scenario_list.item_count - 1, item.name + "\n" + item.focus)
 	return_to_selection()
 func return_to_selection() -> void:
@@ -331,7 +375,7 @@ func choose_mechanic(selection: int) -> void:
 		strategy_select.add_item(method.name)
 		strategy_select.set_item_metadata(strategy_select.item_count - 1, method)
 	strategy_select.select(0); checkpoint_select.clear(); set_launch_enabled(false)
-	title_label.text = "P%d · %s" % [int(item.phase), item.name.split(" / ")[0]]
+	title_label.text = "P%d · %s" % [int(item.phase), mechanic_name(item)]
 	focus_label.text = item.focus; cue.text = "② 選擇此機制的攻略方式"; note.text = "選好攻略方式後才會建立此機制的練習。"
 	profile_note.text = "共 %d 種可用解法；只套用到本次選定機制。" % (strategy_select.item_count - 1)
 	party.text = ""; feedback.text = ""; player_info.text = ""; progress.value = 0; arena.update_state([], {}, role_select.selected, false)
@@ -366,7 +410,7 @@ func prepare() -> void:
 	encounter = Encounter.new().build(item.id, seed_value, active_profile, player, slot_select.selected - 1)
 	checkpoint_select.clear()
 	for beat_index in encounter.beats.size(): checkpoint_select.add_item("段落 %d" % (beat_index+1))
-	title_label.text = "P%d  ·  %s" % [int(item.phase), item.name.split(" / ")[0]]
+	title_label.text = "P%d  ·  %s" % [int(item.phase), mechanic_name(item)]
 	focus_label.text = item.focus
 	var method: Dictionary = strategy_select.get_item_metadata(strategy_select.selected)
 	profile_note.tooltip_text = active_profile.scope
@@ -419,10 +463,11 @@ func oracle_actors(b: Dictionary) -> Array:
 		if b.has("knockback"): p += p.normalized() * float(b.knockback)
 		simulated.append({"role": Encounter.ROLES[i], "pos": p, "face": b.facing.get(i, 0)})
 	return simulated
-func start_run(checkpoint := 0) -> void:
+func start_run(checkpoint := 0, new_seed := true) -> void:
 	tools_dialog.hide()
 	if not configured or selected_item().is_empty(): return
 	checkpoint_assisted = checkpoint > 0
+	if new_seed and fresh_seed.button_pressed: renew_seed()
 	var demonstrate = demo
 	prepare(); demo = demonstrate
 	index = clampi(checkpoint, 0, encounter.beats.size() - 1)
@@ -602,7 +647,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit: return
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	if event.shift_pressed and event.physical_keycode==KEY_R:
-		demo=true;start_run();return
+		demo=true;start_run(0, false);return
 	if event.ctrl_pressed and event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_8:
 		apply_target_marker(player,"attack%d"%(event.physical_keycode-KEY_1+1));return
 	if not event.ctrl_pressed and not event.alt_pressed and not event.meta_pressed and not event.shift_pressed:
@@ -620,7 +665,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_1: use_sprint()
 		KEY_2: use_arms()
 		KEY_3: use_dash()
-		KEY_R: demo = false; start_run()
+		KEY_R: demo = false; start_run(0, false)
 		KEY_F: use_lb()
 		KEY_V: provoke()
 func jump_player() -> void:
@@ -793,6 +838,8 @@ func save_settings() -> void:
 	config.load("user://settings.cfg") # Preserve unrelated settings and future sections.
 	config.set_value("settings", "role", player); config.set_value("settings", "hints", hints.button_pressed); config.set_value("settings", "seed", seed_edit.text)
 	if strategies[-1].id == "custom": config.set_value("settings", "custom", strategies[-1])
+	config.set_value("settings", "mechanism_language", mechanism_language)
+	config.set_value("settings", "fresh_seed", fresh_seed.button_pressed)
 	config.set_value("settings","waymarks",waymark_layout)
 	config.set_value("settings","marker_keys",marker_bindings)
 	if marker_library_writable:config.set_value("settings","waymark_library",marker_library)
@@ -801,6 +848,12 @@ func save_settings() -> void:
 func load_settings() -> void:
 	var config = ConfigFile.new()
 	if config.load("user://settings.cfg") != OK: return
+	var saved_language := str(config.get_value("settings", "mechanism_language", "zh_TW"))
+	mechanism_language = saved_language if saved_language in NAME_LOCALES else "zh_TW"
+	language_select.select(NAME_LOCALES.find(mechanism_language))
+	fresh_seed.set_pressed_no_signal(bool(config.get_value("settings", "fresh_seed", true)))
+	seed_edit.editable = not fresh_seed.button_pressed
+	refresh_mechanic_names()
 	var keys_checked:=MarkerSettings.validate_keys(config.get_value("settings","marker_keys",marker_bindings))
 	if keys_checked.ok:marker_bindings=keys_checked.keys
 	var library_checked:=MarkerSettings.validate_library(config.get_value("settings","waymark_library",marker_library))
@@ -860,9 +913,9 @@ func build_practice_presentation() -> void:
 		var sign_fallback:=label("",10);sign_fallback.custom_minimum_size.x=0;row.add_child(sign_fallback)
 		var effects := HFlowContainer.new(); effects.size_flags_horizontal=Control.SIZE_EXPAND_FILL; effects.add_theme_constant_override("h_separation",3); effects.mouse_filter=Control.MOUSE_FILTER_IGNORE; row.add_child(effects)
 		hud_party_rows.append({"role":role,"marker":sign,"marker_fallback":sign_fallback,"effects":effects,"signature":"","slots":[]})
-	hud_feedback_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_LEFT,Rect2(12,-242,350,128))
+	hud_feedback_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_LEFT,Rect2(12,-308,350,128))
 	hud_feedback = RichTextLabel.new(); hud_feedback.bbcode_enabled = true; hud_feedback.custom_minimum_size = Vector2(330,104); hud_feedback.scroll_active = true; hud_feedback_panel.add_child(hud_feedback)
-	hud_bottom_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_WIDE,Rect2(12,-104,-24,94))
+	hud_bottom_panel = hud_panel(practice_root,Control.PRESET_BOTTOM_WIDE,Rect2(12,-170,-24,94))
 	var bottom := hud_bottom_panel
 	var bars := VBoxContainer.new(); bars.add_theme_constant_override("separation",4); bottom.add_child(bars)
 	var info := HBoxContainer.new(); bars.add_child(info); hud_gameplay_info = info
@@ -873,7 +926,7 @@ func build_practice_presentation() -> void:
 		var ability := button(str(action[0]),action[1]); ability.custom_minimum_size.y = 30; hotbar.add_child(ability)
 	var gap := Control.new(); gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL; gap.mouse_filter = Control.MOUSE_FILTER_IGNORE; hotbar.add_child(gap)
 	hud_pause = button("P 暫停",toggle_pause); hud_pause.custom_minimum_size.y = 30; hotbar.add_child(hud_pause)
-	for action in [["R 重來",func():demo=false;start_run()],["俯視",toggle_overview],["鏡頭",reset_camera],["JSON",export_report]]:
+	for action in [["R 重來",func():demo=false;start_run(0, false)],["俯視",toggle_overview],["鏡頭",reset_camera],["JSON",export_report]]:
 		var item := button(str(action[0]),action[1]); item.custom_minimum_size.y = 30; hotbar.add_child(item)
 	hud_lb_row = HBoxContainer.new(); hud_lb_row.add_theme_constant_override("separation",6); bars.add_child(hud_lb_row)
 	hud_lb_target = option([]); hud_lb_target.custom_minimum_size = Vector2(200,28); hud_lb_row.add_child(hud_lb_target)
@@ -884,6 +937,9 @@ func build_practice_presentation() -> void:
 		coordinate.min_value = -25; coordinate.max_value = 25; coordinate.step = 0.5; coordinate.custom_minimum_size = Vector2(76,28); hud_ground_row.add_child(coordinate)
 	hud_ground_x.value_changed.connect(func(value):lb_ground_x.value=value)
 	hud_ground_y.value_changed.connect(func(value):lb_ground_y.value=value)
+	hud_controls = control_instructions(practice_root)
+	hud_controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	hud_controls.offset_left = 12; hud_controls.offset_right = -12; hud_controls.offset_top = -68; hud_controls.offset_bottom = -10
 	practice_root.hide()
 
 func set_practice_view(enabled: bool) -> void:
@@ -941,9 +997,10 @@ func sync_practice_hud() -> void:
 	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""
 	hud_bottom_panel.visible = training_overlay or hud_lb_row.visible
 	hud_gameplay_info.visible = training_overlay or hud_lb_row.visible
-	hud_bottom_panel.offset_top = (-144 if hud_lb_row.visible else -104) if training_overlay else -82
-	hud_feedback_panel.offset_top = -282 if hud_lb_row.visible else -242
-	hud_feedback_panel.offset_bottom = -154 if hud_lb_row.visible else -114
+	hud_bottom_panel.offset_top = ((-144 if hud_lb_row.visible else -104) if training_overlay else -82) - 66
+	hud_bottom_panel.offset_bottom = -76
+	hud_feedback_panel.offset_top = (-282 if hud_lb_row.visible else -242) - 66
+	hud_feedback_panel.offset_bottom = (-154 if hud_lb_row.visible else -114) - 66
 	if not hud_lb_row.visible: return
 	var items: Array = []
 	for i in lb_target.item_count: items.append([lb_target.get_item_text(i),lb_target.get_item_metadata(i)])
@@ -1113,6 +1170,6 @@ func apply_waymark_settings()->void:
 		if archive:archive.store_string(JSON.stringify(json_safe(report()),"  "))
 	waymark_layout=checked.layout;save_settings()
 	if running or not encounter.is_empty():
-		demo=false;start_run();open_practice_settings()
+		demo=false;start_run(0, false);open_practice_settings()
 	arena.set_waymarks(waymark_layout)
 	status.text="場地標記已儲存"+"；已重開練習，請回到練習繼續。" if running else "場地標記已儲存"

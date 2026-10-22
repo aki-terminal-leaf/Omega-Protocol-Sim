@@ -4,9 +4,27 @@
 
 **[介面新版 v0.3.4-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.4-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-先選機制，再選這個機制的攻略方式；每次獨立練習，不自動接續其他機制。預設只有遊戲場景、八人狀態及必要的 P6 LB 控制。
+先選機制，再選這個機制的攻略方式；每次獨立練習，不自動接續其他機制。預設顯示遊戲場景、八人狀態、必要的 P6 LB 控制及底部操作說明。
 
 ## 實際畫面與展示
+
+### v0.3.5：機制名稱語系、新種子與底部操作說明
+
+**[固定網址 Web 測試站](https://top.servicing.cc)**（實驗性 Web 版；首次下載約204 MiB，尚未完成桌面瀏覽器遊玩驗收）。
+
+![v0.3.5 實際 Godot 原生渲染設定畫面](docs/images/top-v035-setup.webp)
+
+右上角「機制名稱」可切換繁體中文／English／日本語並記住選擇；清單、預覽標題與練習HUD同步更新。
+此開關只改顯示名稱，不切換打法、不重新抽點名，也不重置進度；中文採社群易讀慣稱，不宣稱官方繁中譯名。
+
+- 每次按「開始練習」預設產生不同的新種子；進階設定可關閉此選項並輸入固定種子。
+- R／Shift+R與重練目前段落保留既有種子；暫停後「繼續練習」保留原狀態。
+- 操作說明固定顯示在設定與練習畫面下方；P6 LB與Tab工具列位於說明上方，不互相遮擋。
+- 這是機制名稱語系，不是整套介面／攻略教學的完整翻譯。
+
+![v0.3.5 實際 Godot 原生渲染練習畫面（明確開啟Tab工具）](docs/images/top-v035-practice.webp)
+
+[本輪驗證與部署範圍](docs/development/PRACTICE_PREFERENCES.md)
 
 ### v0.3.4：簡化選擇流程與固定場地預覽
 
@@ -14,7 +32,7 @@
 
 主畫面只需「選機制 → 選打法／角色 → 開始練習」；右側保留大幅場地預覽。
 階段、機制、長打法名稱與 P6 額外控制不再改變預覽尺寸；手動調整的鏡頭也不會因換機制而重設。
-種子、點名、速度、分段起點、隊伍／紀錄與操作說明收進右上角「進階設定／紀錄」。
+種子、點名、速度、分段起點與隊伍／紀錄收進右上角「進階設定／紀錄」；0.3.5起操作說明直接放在底部。
 練習後按 Esc 回到設定，再按「繼續練習」保留原狀態；要換機制直接點左側。
 
 此版只提供已驗證的 Linux／source；AnAn 未連線，Windows 未作新版實機驗收。
@@ -108,6 +126,7 @@ Program Loop／Limitless／Omega 透過實際移動交接線，Delta成對線在
 
 ```sh
 godot --headless --path top --editor --import --quit
+godot --headless --path top --script tests/practice_preferences.gd
 godot --headless --path top --script tests/runtime.gd
 godot --headless --path top --script tests/status_lifecycle.gd
 godot --headless --path top --script tests/status_coverage.gd

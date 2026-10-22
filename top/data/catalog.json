@@ -5,7 +5,12 @@
     "name": "Program Loop / サークルプログラム",
     "focus": "塔順序、3412 線、Blaster 避讓",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "循環程序",
+      "en": "Program Loop",
+      "ja": "サークルプログラム"
+    }
   },
   {
     "id": "p1_panto",
@@ -13,7 +18,12 @@
     "name": "Pantokrator / パントクラトル",
     "focus": "旋轉火焰、飛彈出列、三人分攤",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "全能之主",
+      "en": "Pantokrator",
+      "ja": "パントクラトル"
+    }
   },
   {
     "id": "p1_cannons",
@@ -21,7 +31,12 @@
     "name": "Diffuse Wave Cannon Kyrios",
     "focus": "最遠坦克引導與兩輪扇形／直線散開",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "擴散波動炮・霸主",
+      "en": "Diffuse Wave Cannon Kyrios",
+      "ja": "拡散波動砲：キュリオス"
+    }
   },
   {
     "id": "p2_synergy",
@@ -29,7 +44,12 @@
     "name": "Party Synergy / 連携プログラムPT",
     "focus": "M/F 姿態、眼睛、Mid/Remote、擊退分攤",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "協同程序PT",
+      "en": "Party Synergy",
+      "ja": "連携プログラムPT"
+    }
   },
   {
     "id": "p2_limitless",
@@ -37,7 +57,12 @@
     "name": "Limitless Synergy",
     "focus": "坦克線、隕石、Beyond Defense → Pile Pitch",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "協同程序LB",
+      "en": "Limitless Synergy",
+      "ja": "連携プログラムLB"
+    }
   },
   {
     "id": "p3_transition",
@@ -45,7 +70,12 @@
     "name": "Reconfiguration / コロッサスブロー",
     "focus": "八次同時序波動、六手臂、紫單人／白雙人",
     "fidelity": "stateful; measured event samples, approximate void window; HP/shields unmodeled",
-    "timing": "four observed encounter samples; exact void lifetime and cue timing remain approximate"
+    "timing": "four observed encounter samples; exact void lifetime and cue timing remain approximate",
+    "names": {
+      "zh_TW": "轉場・巨像重擊",
+      "en": "Reconfiguration",
+      "ja": "コロッサスブロー"
+    }
   },
   {
     "id": "p3_hello",
@@ -53,7 +83,12 @@
     "name": "Hello World / ハローワールド",
     "focus": "四輪塔、腐毒交接、藍先綠後斷線",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "你好，世界",
+      "en": "Hello World",
+      "ja": "ハローワールド"
+    }
   },
   {
     "id": "p3_monitors",
@@ -61,7 +96,12 @@
     "name": "Oversampled Wave Cannon / 検知",
     "focus": "三人朝向與八人單次命中",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "超取樣波動炮（檢知）",
+      "en": "Oversampled Wave Cannon",
+      "ja": "検知式波動砲"
+    }
   },
   {
     "id": "p4_wave",
@@ -69,7 +109,12 @@
     "name": "Blue Screen / ブルースクリーン",
     "focus": "三輪八方向／舊方向回波、雙直線4+4與八次圓環",
     "fidelity": "stateful; observed timings; angular snapshot uncertainty; HP/DPS unmodeled",
-    "timing": "four observed encounter samples; exact sub-frame angular snapshot unresolved"
+    "timing": "four observed encounter samples; exact sub-frame angular snapshot unresolved",
+    "names": {
+      "zh_TW": "藍色畫面",
+      "en": "Blue Screen",
+      "ja": "ブルースクリーン"
+    }
   },
   {
     "id": "p5_delta",
@@ -77,7 +122,12 @@
     "name": "Run: Dynamis Delta",
     "focus": "拳色、線、旋轉手臂、檢知、近遠世界",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "潛能量・德爾塔（δ）",
+      "en": "Run: Dynamis Delta",
+      "ja": "コード：デュナミス【デルタ】"
+    }
   },
   {
     "id": "p5_sigma",
@@ -85,7 +135,12 @@
     "name": "Run: Dynamis Sigma",
     "focus": "六點名、五／六塔、旋轉雷射、世界",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "潛能量・西格瑪（σ）",
+      "en": "Run: Dynamis Sigma",
+      "ja": "コード：デュナミス【シグマ】"
+    }
   },
   {
     "id": "p5_omega",
@@ -93,7 +148,12 @@
     "name": "Run: Dynamis Omega",
     "focus": "雙組 M/F、二層檢知優先、三層線",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "潛能量・歐米茄（Ω）",
+      "en": "Run: Dynamis Omega",
+      "ja": "コード：デュナミス【オメガ】"
+    }
   },
   {
     "id": "p5_solar",
@@ -101,7 +161,12 @@
     "name": "Solar Ray / ソーラレイ",
     "focus": "雙擊死刑與換坦時機",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "太陽射線",
+      "en": "Solar Ray",
+      "ja": "ソーラレイ"
+    }
   },
   {
     "id": "p6_memory",
@@ -109,7 +174,12 @@
     "name": "Cosmo Memory",
     "focus": "三層檢查與坦克 LB3 時機",
     "fidelity": "stateful LB lifecycle; explicit independent training entry; partial source/HP model",
-    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint"
+    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint",
+    "names": {
+      "zh_TW": "宇宙記憶",
+      "en": "Cosmo Memory",
+      "ja": "コスモメモリー"
+    }
   },
   {
     "id": "p6_arrow_dive",
@@ -117,7 +187,12 @@
     "name": "Cosmo Arrow → Cosmo Dive",
     "focus": "內外先交錯十字、最近雙坦／最遠分攤",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "宇宙天箭 → 宇宙俯衝",
+      "en": "Cosmo Arrow → Cosmo Dive",
+      "ja": "コスモアロー → コスモダイブ"
+    }
   },
   {
     "id": "p6_exa_wave",
@@ -125,7 +200,12 @@
     "name": "Unlimited Wave Cannon → Wave",
     "focus": "六次引導、四條地火、散開與雙坦前排",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "無限波動炮 → 波動炮",
+      "en": "Unlimited Wave Cannon → Wave",
+      "ja": "アンリミテッド波動砲 → 波動砲"
+    }
   },
   {
     "id": "p6_arrow_wave",
@@ -133,7 +213,12 @@
     "name": "Cosmo Arrow → Wave Cannon",
     "focus": "十字移動、兩輪散開與八人分攤",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "宇宙天箭 → 波動炮",
+      "en": "Cosmo Arrow → Wave Cannon",
+      "ja": "コスモアロー → 波動砲"
+    }
   },
   {
     "id": "p6_exa_dive",
@@ -141,7 +226,12 @@
     "name": "Unlimited Wave Cannon → Dive",
     "focus": "地火接雙坦前壓／六人最遠分攤",
     "fidelity": "schematic",
-    "timing": "slowed training windows; not encounter timestamps"
+    "timing": "slowed training windows; not encounter timestamps",
+    "names": {
+      "zh_TW": "無限波動炮 → 宇宙俯衝",
+      "en": "Unlimited Wave Cannon → Dive",
+      "ja": "アンリミテッド波動砲 → コスモダイブ"
+    }
   },
   {
     "id": "p6_meteors",
@@ -149,7 +239,12 @@
     "name": "Cosmo Meteor",
     "focus": "法系／遠敏 LB、四輪傷害、三核爆調整",
     "fidelity": "stateful LB lifecycle; explicit independent training entry; partial source/HP model",
-    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint"
+    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint",
+    "names": {
+      "zh_TW": "宇宙流星",
+      "en": "Cosmo Meteor",
+      "ja": "コスモメテオ"
+    }
   },
   {
     "id": "p6_magic",
@@ -157,6 +252,11 @@
     "name": "Magic Number",
     "focus": "兩輪坦克 LB3 → 六秒內補師 LB3",
     "fidelity": "stateful LB lifecycle; explicit independent training entry; partial source/HP model",
-    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint"
+    "timing": "nominal LB casts plus public post-cast locks; encounter samples; meteor deadline remains a training checkpoint",
+    "names": {
+      "zh_TW": "魔法數字",
+      "en": "Magic Number",
+      "ja": "マジックナンバー"
+    }
   }
 ]

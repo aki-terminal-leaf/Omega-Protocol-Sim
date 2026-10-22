@@ -338,3 +338,12 @@ Windows native verification is unavailable (AnAn offline). Web export succeeded
 but browser driver connection closed during live-page/screenshot verification;
 not a pass. v0.3.4 release scope is Linux/source only; existing Windows/Web
 v0.3.3 assets are unchanged. See [interface design](development/INTERFACE_REDESIGN.md).
+
+
+## v0.3.5 practice preferences — 2026-10-22
+
+- Source setup/layout:498 checks,175 repeated method selections,0 failures.
+- Actual X11/Mesa-rendered new preferences gate:97 checks,0 failures; all20 names in3 locales, display-only switching during paused practice, exact preview bounds,3 successive new-seed starts, native R preserving encounter/spawn, fixed seed42, settings persistence/migration/unrelated-key preservation, bottom instructions unclipped and non-overlapping.
+- Presentation27/0, input20/0, marker-library36/0, marker-input9/0. Total687 passing checks this iteration; not additional encounter fidelity certification.
+- Initial presentation regression asserted the former fixed bottom offset; new footer intentionally raises controls. Replaced that test with actual window enclosure, usable height and non-overlap with instructions, then reran all four targeted regressions successfully. Failing log retained.
+- Actual native-render screenshots are labeled as such in README. Web is a user-test deployment, not browser-play acceptance; previous VPS900MiB browser cap prevented completion. Fixed-domain HTTPS/transport proofs are separate from gameplay gates.

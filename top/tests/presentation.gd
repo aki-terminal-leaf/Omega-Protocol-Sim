@@ -61,7 +61,9 @@ func run() -> void:
 	app.lb_ground_x.value = 3.0; app.sync_practice_hud()
 	check(app.hud_ground_x.value == 3.0,"legacy/setting ground choice is mirrored back")
 	app.use_lb(); check(app.state.p6_lb.casts.size() == 1 and int(app.state.p6_lb.casts[0].actor) == 7,"HUD caster target begins actual LB")
-	check(app.hud_bottom_panel.offset_top == -82 and not app.hud_hotbar.visible and app.hud_bottom_panel.offset_bottom <= 0,"P6 controls reserve visible window space")
+	await process_frame; await process_frame
+	var bottom: Rect2 = app.hud_bottom_panel.get_global_rect()
+	check(not app.hud_hotbar.visible and Rect2(Vector2.ZERO, app.size).encloses(bottom) and bottom.size.y >= 72 and bottom.end.y <= app.hud_controls.get_global_rect().position.y, "P6 controls remain on-screen above the instructions")
 	var report: Dictionary = app.report()
 	check(report.camera.practice_view and report.camera.viewport.size() == 2,"report retains presentation context")
 	app.return_to_selection(); app.queue_free(); await process_frame
