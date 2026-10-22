@@ -235,7 +235,7 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 					# Touch the near EDGE, not necessarily the center of a reserved-line corridor.
 					# Two close initial rays can have no centerline route with 1y clearance.
 					var contact_offset:float=radius*0.75
-					if beat.has("program_loop") and source.distance_to(endpoint)>4.0:contact_offset=radius+1.0
+					if beat.has("program_loop") and source.distance_to(endpoint)>4.0 and int(holders[k])!=int(state.get("human_actor",-1)):contact_offset=radius+1.0
 					var pickup: Vector2=source.lerp(endpoint,t)+normal*side*contact_offset
 					if pickup.length()>19.8:continue
 					if reserved.any(func(line):return pickup.distance_to(Geometry2D.get_closest_point_to_segment(pickup,line[0],line[1]))<NAV_CLEARANCE):continue

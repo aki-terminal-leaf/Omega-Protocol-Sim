@@ -123,6 +123,7 @@ var view_placeholder: Control
 var resume_after_settings := false
 var hud_title: Label
 var hud_cue: Label
+var hud_status_panel: PanelContainer
 var hud_progress: ProgressBar
 var hud_player: Label
 var hud_party: VBoxContainer
@@ -493,6 +494,7 @@ func begin_beat(reset_positions := false) -> void:
 			if index > 0 and initial.has("knockback"): p += p.normalized() * float(initial.knockback)
 			if index == 0 and current.has("spawn"): p = current.spawn[i]
 			actors.append({"role": Encounter.ROLES[i], "pos": p, "face": 0.0})
+	state.human_actor = player if not demo else -1
 	P6Setup.initialize(state,actors,encounter.id,player if not demo else -1,selected_job(),player)
 	bind_snapshot_geometry(current,actors,state)
 	Markers.ensure(state);state.waymark_layout=waymark_layout.duplicate(true)
@@ -901,6 +903,7 @@ func build_practice_presentation() -> void:
 	add_child(practice_root); practice_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	practice_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var top := hud_panel(practice_root,Control.PRESET_CENTER_TOP,Rect2(-320,10,640,88))
+	hud_status_panel = top
 	training_widgets.append(top)
 	var titles := VBoxContainer.new(); titles.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(titles)
 	hud_title = label("",16,Color("edf4ff")); hud_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; titles.add_child(hud_title)
@@ -1012,6 +1015,14 @@ func sync_practice_hud() -> void:
 	hud_feedback.text = feedback.text
 	hud_feedback_panel.visible = training_overlay and configured and (failed_review() or (not running and not all_errors.is_empty()))
 	for widget in training_widgets: widget.visible = training_overlay
+	# A verdict is gameplay feedback, not a solution/tool overlay. Keep the
+	# ordinary drill clean, but never leave an unexplained frozen formation.
+	var finished := configured and not running and not journal.is_empty()
+	var failed_pause := paused and failed_review()
+	hud_status_panel.visible = training_overlay or finished or failed_pause
+	if not training_overlay:
+		if finished: hud_cue.text = cue.text + " · %d 通過 / %d 失誤 · R 同點名重練" % [beat_passed, beat_failed]
+		elif failed_pause: hud_cue.text = "判定失敗 · Tab 檢討 / R 同點名重練"
 	sync_party_status_hud()
 	hud_lb_row.visible = configured and lb_panel.visible and state.has("p6_lb")
 	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""
