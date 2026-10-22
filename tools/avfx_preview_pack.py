@@ -13,6 +13,7 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+import math
 try:
     from . import avfx_meshes as mesh, avfx_graph as graph, avfx_curves as curves
 except ImportError:
@@ -23,6 +24,7 @@ AXES = {"Pos", "Rot", "Scl"}
 COLOR = curves.COLOR_FIELDS
 DATA_CURVES = {"Ang", "AngR", "WB", "WBR", "WE", "WER", "RB", "RBR", "RE", "RER", "HBI", "HBIR", "HEI", "HEIR", "HBO", "HBOR", "HEO", "HEOR", "FrC", "FrCR", "NoAn", "Moph", "AnX", "AnY", "AnZ", "AnXR", "AnYR", "AnZR", "IjS", "IjSR"}
 DATA_COLORS = {"CEI", "CEO", "ColB", "ColE"}
+FLOAT_FIELDS = {"Ptcl": {"NeSt", "NeEd", "FaSt", "FaEd", "DpOf"}, "Bind": {"bVSb"}}
 MATERIALS = {"TC1", "TC2", "TC3", "TC4", "TN", "TR", "TD", "TP"}
 
 def strip_raw(value):
@@ -48,7 +50,7 @@ def compile_pack(data):
     result={"schema":1,"source_sha256":hashlib.sha256(data).hexdigest(),
             "raw_avfx_base64":base64.b64encode(data).decode(),
             "format_reference":mesh.REFERENCE,"time_units":"native AVFX numeric units",
-            "rendering_complete":False,"gameplay_eligible":False,
+            "rendering_complete":False,"gameplay_eligible":False,"compiler_revision":2,
             "execution_policy":"experimental deterministic preview; not game equivalence",
             "groups":{},"models":geometry["models"],"textures":geometry["textures"],
             "unsupported":[]}
@@ -76,11 +78,17 @@ def compile_pack(data):
                            for i in source.get("items",[])],
                   "clips":source.get("clips",[]),"curves":{},"axes":{},"materials":{},"uv_sets":[],"data":{}}
             for tag,value in mesh.blocks(payload):
-                if tag in SCALARS.get(group,()):
+                if tag in FLOAT_FIELDS.get(group,()):
+                    if len(value)!=4: raise ValueError("Invalid float width: "+path+"/"+tag)
+                    number=struct.unpack("<f",value)[0]
+                    if not math.isfinite(number): raise ValueError("Nonfinite float: "+path+"/"+tag)
+                    node["values"][tag]=number
+                elif tag in SCALARS.get(group,()):
                     node["curves"][tag]=strip_raw(curves.decode_curve(value,"angle" if tag.startswith("IA") else "scalar"))
                 elif tag in AXES and group in SCALARS:
                     node["axes"][tag]=strip_raw(curves.decode_axes(value,"angle" if tag=="Rot" else "scalar"))
                 elif tag=="Col" and group in SCALARS:node["color"]=color(value)
+                elif tag=="Life" and group=="Bind":node["values"][tag]=literal(value)
                 elif tag=="Life" and group in SCALARS:node["life"]=strip_raw(curves.decode_life(value))
                 elif tag=="UvSt" and group=="Ptcl":
                     uv={}
@@ -105,6 +113,11 @@ def compile_pack(data):
                         elif t in DATA_COLORS:node["data"][t]=color(v)
                         elif t in {"MdNo","MNO"}:
                             node["data"][t]=list(v) if group=="Ptcl" and t=="MdNo" else literal(v)
+                        elif t=="PIFU" and node["values"].get("PrVT")==12:
+                            if len(v)!=4: raise ValueError("Invalid disc interval float")
+                            interval=struct.unpack("<f",v)[0]
+                            if not math.isfinite(interval): raise ValueError("Nonfinite disc interval")
+                            node["data"][t]=interval
                         elif len(v) in (1,2,4):node["data"][t]=literal(v)
                         else:issue(path+"/Data/"+t,"type_data")
                 elif len(value) in (1,2,4) and tag not in {"Life"}:

@@ -53,9 +53,9 @@ Public tests contain only original synthetic fixtures.
 | Proof | Reference-game temporal/pixel comparison and fresh Windows/Web export acceptance |
 
 The local preserved corpus contains selected AVFX/meshes/texture conversions,
-not the complete original game shader/runtime or all encounter assets. AnAn is
-currently offline; this is a concrete missing-data/reference gate, not a reason
-to claim that this preview is the requested complete player. The maintained MIT
+not the complete original game shader/runtime or all encounter assets. AnAn is available again as of2026-10-22. The [source-acquisition continuation](AVFX_RESOURCES.md)
+adds original EID/skeleton and Apricot shader packages; their presence is not
+an implemented original runtime or completed visual comparison. The maintained MIT
 VFXEditor format definitions were inspected at pinned revision
 `05f6eb0cce19a6a91ae275bce609299d573914b3`; that editor's in-game playback does
 not supply a standalone game shader/runtime. Its plugin was not embedded.

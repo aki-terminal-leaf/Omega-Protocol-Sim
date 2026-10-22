@@ -81,6 +81,25 @@ class GuardTests(unittest.TestCase):
             os.kill(pid, 0)
         self.assertIsNone(unrelated.poll(), 'Timeout must not terminate unrelated processes')
 
+    def test_exited_leader_cannot_leave_live_background_children(self):
+        for status in (0, 7):
+            with self.subTest(status=status):
+                self.begin()
+                marker = Path(self.temp.name) / ('orphan-%d.pid' % status)
+                code = ('import subprocess,sys,pathlib; '
+                        'p=subprocess.Popen([sys.executable,"-c","import time; time.sleep(30)"]); '
+                        'pathlib.Path(sys.argv[1]).write_text(str(p.pid)); '
+                        'raise SystemExit(int(sys.argv[2]))')
+                result = self.call('run', 'orphan', '--', sys.executable,
+                                   '-c', code, str(marker), str(status))
+                self.assertEqual(result.returncode, 0 if status == 0 else 1)
+                state = json.loads(self.state.read_text())
+                cleanup = state['last_command']['cleanup']
+                self.assertIn(int(marker.read_text()), cleanup['signalled_pids'])
+                self.assertEqual(cleanup['remaining_live_pids'], [])
+                self.assertEqual(guard.group_members(cleanup['group']), [])
+                self.assertEqual(self.call('finish').returncode, 0)
+
     def test_observer_persists_stall_and_does_not_restart(self):
         self.begin(); s = json.loads(self.state.read_text()); s['last_progress'] = time.time() - 1000
         self.state.write_text(json.dumps(s))

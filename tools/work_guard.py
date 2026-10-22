@@ -44,16 +44,47 @@ def emit(state):
     print(json.dumps(state, ensure_ascii=False), flush=True)
 
 
+def group_members(group):
+    """Return live members of our private POSIX session, ignoring exited zombies."""
+    members = []
+    for entry in Path('/proc').iterdir():
+        if not entry.name.isdigit():
+            continue
+        try:
+            # comm can contain spaces and parentheses; fields follow the LAST ).
+            fields = (entry / 'stat').read_text().rsplit(')', 1)[1].split()
+            if int(fields[2]) == group and fields[0] not in ('Z', 'X'):
+                members.append(int(entry.name))
+        except (OSError, ValueError, IndexError):
+            continue
+    return members
+
+
 def terminate(child):
-    # Only this wrapper's newly created process group; never name/pattern-kill.
-    if child.poll() is not None:
-        return
-    os.killpg(child.pid, signal.SIGTERM)
-    try:
+    # The session/group belongs to this command, including descendants whose
+    # leader has already exited successfully. Never kill by process name.
+    members = group_members(child.pid)
+    if members:
+        try:
+            os.killpg(child.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+        deadline = time.monotonic() + 3
+        while group_members(child.pid) and time.monotonic() < deadline:
+            child.poll()
+            time.sleep(.05)
+        if group_members(child.pid):
+            try:
+                os.killpg(child.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+    if child.poll() is None:
         child.wait(timeout=3)
-    except subprocess.TimeoutExpired:
-        os.killpg(child.pid, signal.SIGKILL)
-        child.wait(timeout=3)
+    deadline = time.monotonic() + .5
+    while group_members(child.pid) and time.monotonic() < deadline:
+        time.sleep(.02)
+    return {'group': child.pid, 'signalled_pids': members,
+            'remaining_live_pids': group_members(child.pid)}
 
 
 def main():
@@ -142,7 +173,7 @@ def main():
     log_dir = path.parent / 'top-work-guard-logs'; log_dir.mkdir(exist_ok=True)
     label = re.sub(r'[^a-zA-Z0-9_-]', '_', args.label)
     log = log_dir / (label + '-' + str(time.time_ns()) + '.log')
-    timed_out = False; child = None
+    timed_out = False; child = None; cleanup = {}
     def interrupted(_signum, _frame):
         raise KeyboardInterrupt
     signal.signal(signal.SIGTERM, interrupted)
@@ -168,14 +199,17 @@ def main():
         emit(transact(lambda s: dict(s, status='blocked', reason='wrapper_interrupted')))
         raise SystemExit(130)
     finally:
-        if child is not None and child.poll() is None:
-            terminate(child)
+        if child is not None:
+            cleanup = terminate(child)
+            transact(lambda s: dict(s, last_cleanup=cleanup))
     text = log.read_text(errors='replace')
     script_error = any(x in text for x in ['SCRIPT ERROR', 'Parse Error', 'Compile Error'])
-    success = child.returncode == 0 and not timed_out and not script_error
+    success = (child.returncode == 0 and not timed_out and not script_error
+               and not cleanup.get('remaining_live_pids'))
     def result(s):
         s['last_command'] = {'label': args.label, 'exit': child.returncode,
-                             'log': str(log), 'timeout': timed_out, 'ok': success}
+                             'log': str(log), 'timeout': timed_out, 'ok': success,
+                             'cleanup': cleanup}
         if timed_out:
             s.update(status='blocked', reason=s.get('reason', 'command_timeout'))
         elif not success:

@@ -107,13 +107,15 @@ def inspect(data: bytes):
     def issue(path, reason):
         unsupported.append({"path": path, "reason": reason})
 
-    def reference(owner, path, tag, value, target, role, limit=None, sentinel=-1, scope=None):
-        state = "missing" if value is None else "sentinel" if value == sentinel else "linked"
+    def reference(owner, path, tag, value, target, role, limit=None, sentinel=-1, scope=None, opaque_sentinels=()):
+        state = "missing" if value is None else "sentinel" if value == sentinel else "opaque_scope" if value in opaque_sentinels else "linked"
         ref = {"owner": owner, "path": path, "field": tag, "index": value,
                "target_group": target, "target_scope": scope, "role": role, "state": state}
         references.append(ref)
         if state == "missing":
             issue(path + "/" + tag, "missing_selector")
+        elif state == "opaque_scope":
+            issue(path + "/" + tag, "unresolved_negative_binder_scope")
         elif state == "linked":
             bound = counts[target] if limit is None else limit
             if value < 0 or value >= bound:
@@ -180,7 +182,10 @@ def inspect(data: bytes):
                 node["items"].append(item)
                 finish(item, item_path)
                 for tag, dest, ref_role in refs:
-                    reference(path, item_path, tag, item["values"][tag], dest, ref_role)
+                    reference(path, item_path, tag, item["values"][tag], dest, ref_role,
+                              opaque_sentinels=(-2,) if kind == "timeline" and tag == "BdNo"
+                              and item["values"].get("ClNo") is not None
+                              and item["values"]["ClNo"] >= 0 else ())
                 if kind == "timeline":
                     reference(path, item_path, "ClNo", item["values"]["ClNo"], "Clip", "clip",
                               limit=len(node["clips"]), scope=path)

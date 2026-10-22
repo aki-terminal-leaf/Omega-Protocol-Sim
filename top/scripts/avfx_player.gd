@@ -7,6 +7,14 @@ const MAX_FRAME=1800.0
 const MAX_WORK=16000
 const MAX_PARTICLES=2048
 const MAX_DEPTH=16
+const MAX_TIMELINE_CYCLES=256
+const CLIP_KILL=0x4B494C4C
+const CLIP_RESET=0x52455354
+const CLIP_END=0x454E4420
+const CLIP_FADE_IN=0x46414449
+const CLIP_UNLOCK_LOOP=0x554C4C50
+const CLIP_TRIGGER=0x54524720
+const CLIP_RANDOM_TRIGGER=0x52545247
 var document:Dictionary={}
 var seed_value:=1
 var preview_rate:=30.0
@@ -37,11 +45,15 @@ func trigger(slot:int,at_frame:float)->bool:
  triggers.append({"slot":slot,"frame":at_frame});return true
 func _process(delta:float)->void:
  if playing:
-  seek(minf(MAX_FRAME,frame+delta*preview_rate))
+  if not seek(minf(MAX_FRAME,frame+delta*preview_rate)):playing=false
   if frame>=MAX_FRAME:playing=false
 func seek(at_frame:float)->bool:
  var particles:=sample_at(at_frame)
- if diagnostics.has("budget_exceeded") or diagnostics.has("invalid_frame"):return false
+ if diagnostics.has("budget_exceeded") or diagnostics.has("invalid_frame"):
+  playing=false;last_particles.clear()
+  for node in draws.values():node.free()
+  draws.clear();mesh_cache.clear();texture_cache.clear()
+  return false
  frame=at_frame;last_particles=particles
  var visible_ids:={}
  for spec in particles:
@@ -82,19 +94,47 @@ func _schedule(values:Dictionary,start:float,now:float,key:String,result:Array)-
  for item in node.items:
   var v:Dictionary=item.values
   if not _enabled(v,"bEna"):continue
-  if int(v.get("ClNo",-1) if v.get("ClNo")!=null else -1)>=0:
-   diagnostics["timeline_clips"]=true;continue
+  var clip_index:=int(v.get("ClNo",-1) if v.get("ClNo")!=null else -1)
+  if clip_index>=0:
+   _clip(node,clip_index,birth+float(v.get("StTm",0)),now)
+   continue
   var emitter:int=int(v.get("EmNo",-1))
   if emitter<0:continue
-  var emitter_birth:=birth+float(v.get("StTm",0))
-  if now<emitter_birth:continue
-  var end:=float(v.get("EdTm",-1))
-  # End stops new emission; existing particles are allowed to finish.
-  _emit(emitter,emitter_birth,now,[],key+"/i%d"%item.source_index,result,0,birth+end if end>=0.0 else INF,{})
+  var item_start:=float(v.get("StTm",0));var item_end:=float(v.get("EdTm",-1))
+  _schedule_item(emitter,birth,item_start,item_end,now,key+"/i%d"%item.source_index,result)
+  var loop_start:=float(node.values.get("LpSt",0));var loop_end:=float(node.values.get("LpEd",0))
+  if loop_end<=loop_start or item_start<loop_start or item_start>=loop_end:continue
+  diagnostics["timeline_loop_preview_policy"]=true
+  var period:=loop_end-loop_start;var cycle:=1
+  while cycle<=MAX_TIMELINE_CYCLES:
+   var shifted_start:=item_start+period*cycle
+   if birth+shifted_start>now:break
+   if not _tick():return
+   _schedule_item(emitter,birth,shifted_start,item_end+period*cycle if item_end>=0.0 else -1.0,now,key+"/i%d/c%d"%[item.source_index,cycle],result)
+   cycle+=1
+  if cycle>MAX_TIMELINE_CYCLES and birth+item_start+period*cycle<=now:
+   diagnostics["timeline_cycle_limit"]=true;diagnostics["budget_exceeded"]=true;return
+func _schedule_item(emitter:int,timeline_birth:float,item_start:float,item_end:float,now:float,key:String,result:Array)->void:
+ var emitter_birth:=timeline_birth+item_start
+ if now<emitter_birth:return
+ var stop:=timeline_birth+item_end if item_end>=0.0 else INF
+ _emit(emitter,emitter_birth,now,[],key,result,0,stop,{})
+func _clip(timeline:Dictionary,index:int,at:float,now:float)->void:
+ var clips:Array=timeline.get("clips",[])
+ if index<0 or index>=clips.size():diagnostics["invalid_timeline_clip_reference"]=true;return
+ if now<at:return
+ var kind:=int(clips[index].get("type",0))
+ if kind in [CLIP_KILL,CLIP_END]:diagnostics["timeline_clip_stop_requires_runtime_state"]=true
+ elif kind==CLIP_RESET:diagnostics["timeline_clip_reset_requires_runtime_state"]=true
+ elif kind==CLIP_UNLOCK_LOOP:diagnostics["timeline_clip_unlock_requires_runtime_state"]=true
+ elif kind==CLIP_FADE_IN:diagnostics["timeline_clip_fade_requires_runtime_state"]=true
+ elif kind in [CLIP_TRIGGER,CLIP_RANDOM_TRIGGER]:diagnostics["timeline_clip_trigger_requires_runtime_state"]=true
+ else:diagnostics["timeline_clip_unknown/%d"%kind]=true
 func _enabled(values:Dictionary,field:String)->bool:
  var value:Variant=values.get(field)
- if value is Dictionary:return value.get("value")==true
- return value==true or value==1
+ if value is Dictionary:value=value.get("value")
+ if value is bool:return value
+ return value==1 if value is int or value is float else false
 func _node(group:String,index:int)->Dictionary:
  var nodes:Array=document.get("groups",{}).get(group,[])
  if index<0 or index>=nodes.size():diagnostics["invalid_reference/"+group]=true;return {}

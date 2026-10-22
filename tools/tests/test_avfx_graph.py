@@ -104,6 +104,19 @@ class TopologyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "outside Emit"):
             graph.inspect(document(("Emit", emitter(children=[emitter_item(1)])), ("Ptcl", b""), ("Ptcl", b"")))
 
+    def test_observed_clip_negative_binder_scope_is_opaque_not_array_index(self):
+        clip=block("Clip",struct.pack("<5i4f",0x4B494C4C,0,0,0,0,0,0,0,0)+bytes(128))
+        timeline=number("TICn",1)+number("CpCn",1)+clip+block("Item",timeline_item(-1,0,number("BdNo",-2)))
+        result=graph.inspect(document(("TmLn",timeline)))
+        ref=next(x for x in result["references"] if x["field"]=="BdNo")
+        self.assertEqual(ref["state"],"opaque_scope")
+        self.assertIn("unresolved_negative_binder_scope",{x["reason"] for x in result["unsupported"]})
+        self.assertEqual(result["nodes"][0]["clips"][0]["type"],0x4B494C4C)
+        # The exception must not loosen ordinary signed array references.
+        bad=number("TICn",1)+number("CpCn",0)+block("Item",timeline_item(-1,None,number("BdNo",-2)))
+        with self.assertRaisesRegex(ValueError,"outside Bind"):
+            graph.inspect(document(("TmLn",bad)))
+
     def test_model_byte_list_and_unsigned_sentinel(self):
         particle = number("PrVT", 5) + block("Data", block("MdNo", bytes([0, 255, 0, 255])))
         result = graph.inspect(document(("Ptcl", particle), ("Modl", b"opaque")))

@@ -45,6 +45,14 @@ class PreviewPackTests(unittest.TestCase):
         source=document(("Ptcl",particle(block("TC2",number("bEna",1)),kind=6)))
         reasons={x["reason"] for x in preview.compile_pack(source)["unsupported"]}
         self.assertIn("particle_type",reasons);self.assertIn("layered_material",reasons)
+    def test_source_float_parameters_are_not_integer_bit_patterns(self):
+        source=document(("Ptcl",particle(block("DpOf",struct.pack("<f",0.125))+block("NeEd",struct.pack("<f",1.0)))))
+        values=preview.compile_pack(source)["groups"]["Ptcl"][0]["values"]
+        self.assertEqual(values["DpOf"],0.125)
+        self.assertEqual(values["NeEd"],1.0)
+        with self.assertRaisesRegex(ValueError,"Nonfinite float"):
+            preview.compile_pack(document(("Ptcl",particle(block("DpOf",struct.pack("<f",float("inf")))))))
+
     def test_malformed_structure_rejected(self):
         for source in [b"",document()[:-1],document().replace(number("Ver",preview.mesh.VERSION),number("Ver",99))]:
             with self.subTest(source=source),self.assertRaises(ValueError):preview.compile_pack(source)
