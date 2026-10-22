@@ -3,6 +3,7 @@ extends Node3D
 ## Bounded source-graph preview. NOT an original-game renderer certification.
 ## Frames are native numeric units; the viewer chooses an explicit preview rate.
 const CurveRuntime=preload("res://scripts/avfx_animation.gd")
+const ColorStage=preload("res://scripts/avfx_color_stage.gd")
 const MeshStage=preload("res://scripts/avfx_mesh_stage.gd")
 const MAX_FRAME=1800.0
 const MAX_WORK=16000
@@ -29,7 +30,13 @@ var texture_cache:Dictionary={}
 var texture_paths:Dictionary={}
 var work:=0
 var last_particles:Array=[]
+var color_stage_bindings:Dictionary={}
+var color_stage_draws:Dictionary={}
+var _binding_busy:=false
+var _provider_reentered:=false
+var _bindings_rejected:=false
 func configure(data:Dictionary,paths:Dictionary={},random_seed:int=1)->bool:
+ if _binding_busy:_provider_reentered=true;return false
  reset()
  if int(data.get("schema",0))!=1 or not data.get("groups") is Dictionary:
   diagnostics["invalid_document"]=true;return false
@@ -38,36 +45,104 @@ func configure(data:Dictionary,paths:Dictionary={},random_seed:int=1)->bool:
  diagnostics["experimental_preview_not_game_equivalence"]=true
  return true
 func reset()->void:
+ if _binding_busy:_provider_reentered=true;return
+ _bindings_rejected=false
  playing=false;frame=0.0;triggers.clear();last_particles.clear();diagnostics.clear();document={};texture_paths.clear()
  for node in draws.values():node.free()
- draws.clear();mesh_cache.clear();texture_cache.clear()
+ draws.clear();color_stage_draws.clear();color_stage_bindings.clear();mesh_cache.clear();texture_cache.clear()
 func trigger(slot:int,at_frame:float)->bool:
+ if _binding_busy:_provider_reentered=true;return false
  if slot<0 or slot>=12 or not is_finite(at_frame) or at_frame<0 or at_frame>MAX_FRAME:return false
  triggers.append({"slot":slot,"frame":at_frame});return true
 func _process(delta:float)->void:
  if playing:
   if not seek(minf(MAX_FRAME,frame+delta*preview_rate)):playing=false
   if frame>=MAX_FRAME:playing=false
+func configure_color_stage_bindings(bindings:Dictionary)->bool:
+ if _binding_busy:_provider_reentered=true;return false
+ if not draws.is_empty() or document.is_empty():return false
+ _bindings_rejected=true
+ var accepted:Dictionary={}
+ var nodes:Array=document.get("groups",{}).get("Ptcl",[])
+ for index in bindings:
+  if not index is int or index<0 or index>=nodes.size():return _color_failure(-1,"invalid binding index")
+  var entry:Variant=bindings[index]
+  if not entry is Dictionary or not entry.get("plan") is Dictionary or not entry.get("context_provider") is Callable or not entry.context_provider.is_valid():return _color_failure(index,"invalid binding provider or plan")
+  if entry.plan.get("status")!="verified_color_stage":return _color_failure(index,"reviewed color section required")
+  accepted[index]={"plan":entry.plan.duplicate(true),"context_provider":entry.context_provider}
+ color_stage_bindings=accepted;_bindings_rejected=false
+ return true
+func _clear_draws()->void:
+ for node in draws.values():node.free()
+ draws.clear();color_stage_draws.clear();last_particles.clear();mesh_cache.clear();texture_cache.clear()
+func _color_failure(index:int,reason:String)->bool:
+ diagnostics["verified_color_stage/%d/%s"%[index,reason]]=true
+ playing=false;_clear_draws();return false
+func _color_context(spec:Dictionary,instance:MeshInstance3D)->Dictionary:
+ var entry:Dictionary=color_stage_bindings[int(spec.index)]
+ var provider:Callable=entry.context_provider
+ if not provider.is_valid():return ColorStage.failure("context provider unavailable")
+ _binding_busy=true;_provider_reentered=false
+ var value:Variant=provider.call({"particle_index":int(spec.index),"key":spec.key,"age":spec.age,"particle_color":spec.color,"source_node":_node("Ptcl",int(spec.index)).duplicate(true),"actual_mesh":instance.mesh})
+ _binding_busy=false
+ if _provider_reentered:return ColorStage.failure("reentrant provider mutation")
+ if not value is Dictionary:return ColorStage.failure("context provider must return a dictionary")
+ var context:Dictionary=value.duplicate(true)
+ if not context.get("factor_includes_particle_color") is bool or not context.factor_includes_particle_color or not context.get("factor_includes_mesh_color") is bool or not context.factor_includes_mesh_color:return ColorStage.failure("combined factor must explicitly include particle and mesh color")
+ context.source_mesh=instance.mesh
+ return {"status":"verified_color_stage","context":context}
+func _color_state(spec:Dictionary)->Dictionary:
+ var values:Dictionary=_node("Ptcl",int(spec.index)).values
+ var state:Dictionary={}
+ for field in ["RMT","CulT","DwPr"]:
+  var value:Variant=values.get(field,0)
+  if not (value is int or value is float) or not is_finite(float(value)) or value!=floor(float(value)):return {}
+  state[{"RMT":"blend","CulT":"cull","DwPr":"priority"}[field]]=int(value)
+ for field in ["DsDt","DsDw"]:
+  var value:Variant=values.get(field,field=="DsDt")
+  if value is Dictionary:value=value.get("value")
+  if value is bool:state["depth_test" if field=="DsDt" else "depth_write"]=value
+  elif (value is int or value is float) and value in [0,1]:state["depth_test" if field=="DsDt" else "depth_write"]=value==1
+  else:return {}
+ return state
 func seek(at_frame:float)->bool:
+ if _binding_busy:_provider_reentered=true;return false
+ if _bindings_rejected:return _color_failure(-1,"binding configuration rejected")
  var particles:=sample_at(at_frame)
  if diagnostics.has("budget_exceeded") or diagnostics.has("invalid_frame"):
-  playing=false;last_particles.clear()
-  for node in draws.values():node.free()
-  draws.clear();mesh_cache.clear();texture_cache.clear()
-  return false
+  playing=false;_clear_draws();return false
  frame=at_frame;last_particles=particles
  var visible_ids:={}
  for spec in particles:
   var key:String=spec.key;visible_ids[key]=true
-  if not draws.has(key):
-   var instance:=MeshInstance3D.new();instance.mesh=_mesh(spec);instance.material_override=_material(spec);add_child(instance);draws[key]=instance
+  var bound:=color_stage_bindings.has(int(spec.index))
+  if bound and int(spec.kind)==12:return _color_failure(int(spec.index),"dynamic disc mesh binding unsupported")
+  var fresh:=not draws.has(key)
+  if fresh:
+   var created:=MeshInstance3D.new();created.mesh=_mesh(spec);add_child(created);draws[key]=created
+   if not bound:created.material_override=_material(spec)
   var instance:MeshInstance3D=draws[key]
   if int(spec.kind)==12:instance.mesh=_disc(spec)
   instance.transform=spec.transform
-  _animate_material(instance.material_override,spec)
-  if instance.material_override is ShaderMaterial:instance.material_override.set_shader_parameter("particle_color",spec.color)
+  if bound:
+   if _enabled(_node("Ptcl",int(spec.index)).values,"DsSp"):return _color_failure(int(spec.index),"soft particle render graph unsupported")
+   var supplied:=_color_context(spec,instance)
+   if supplied.status!="verified_color_stage":return _color_failure(int(spec.index),supplied.diagnostics[0])
+   if fresh:
+    var binding:=ColorStage.compile(color_stage_bindings[int(spec.index)].plan,supplied.context,_color_state(spec),instance.mesh)
+    if binding.status!="verified_color_stage":return _color_failure(int(spec.index),binding.diagnostics[0])
+    binding.player_render_state=_color_state(spec)
+    color_stage_draws[key]=binding;instance.material_override=binding.material
+   else:
+    if not color_stage_draws.has(key) or instance.material_override!=color_stage_draws[key].material:return _color_failure(int(spec.index),"drawn material identity changed")
+    if _color_state(spec)!=color_stage_draws[key].player_render_state:return _color_failure(int(spec.index),"compiled render state changed")
+    var updated:=ColorStage.apply(color_stage_draws[key],supplied.context,instance.mesh)
+    if updated.status!="verified_color_stage":return _color_failure(int(spec.index),updated.diagnostics[0])
+  else:
+   _animate_material(instance.material_override,spec)
+   if instance.material_override is ShaderMaterial:instance.material_override.set_shader_parameter("particle_color",spec.color)
  for key in draws.keys():
-  if not visible_ids.has(key):draws[key].free();draws.erase(key)
+  if not visible_ids.has(key):draws[key].free();draws.erase(key);color_stage_draws.erase(key)
  return true
 func sample_at(at_frame:float)->Array:
  diagnostics.erase("invalid_frame");diagnostics.erase("budget_exceeded");work=0

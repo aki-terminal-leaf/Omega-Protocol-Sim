@@ -47,7 +47,7 @@ static func equation_signature(layers:Array)->String:
   if n==1:rgb=first(color,"CalculateColor");alpha=first(a,"CalculateAlpha")
   else:rgb=expression(layer.color_op,[rgb,color]);alpha=expression(layer.alpha_op,[alpha,a])
  return JSON.stringify([rgb,alpha]).sha256_text()
-static func create(plan:Dictionary,context:Dictionary)->Dictionary:
+static func _prepare(plan:Dictionary,context:Dictionary,emit:bool)->Dictionary:
  if plan.get("status")!="verified_color_stage" or plan.get("rendering_complete")!=false:return failure("reviewed color section required")
  # Hash/layout-gated semantics shared with the CPU compiler. A label alone is
  # insufficient: powder1 and shape1 have identical section equations.
@@ -95,32 +95,56 @@ static func create(plan:Dictionary,context:Dictionary)->Dictionary:
     uses_custom_uv=true
    if sample.get("filter") not in ["nearest","linear"] or sample.get("wrap") not in ["repeat","clamp"]:return failure("unreviewed sampler state")
    if not sample.get("decoded_samples") is bool or not sample.decoded_samples:return failure("explicit decoded numeric samples required")
-   declarations+="uniform sampler2D tex%d:filter_%s,%s;\nuniform vec3 uv%d_row0;\nuniform vec3 uv%d_row1;\n"%[i,sample.filter,"repeat_enable" if sample.wrap=="repeat" else "repeat_disable",i,i]
+   if emit:declarations+="uniform sampler2D tex%d:filter_%s,%s;\nuniform vec3 uv%d_row0;\nuniform vec3 uv%d_row1;\n"%[i,sample.filter,"repeat_enable" if sample.wrap=="repeat" else "repeat_disable",i,i]
    var uv:String=["UV","UV2","original_uv23.xy","original_uv23.zw"][int(source)]
-   body+="vec2 uv%d=vec2(dot(vec3(%s,1.0),uv%d_row0),dot(vec3(%s,1.0),uv%d_row1));vec4 %s=texture(tex%d,uv%d);\n"%[i,uv,i,uv,i,label,i,i]
+   if emit:body+="vec2 uv%d=vec2(dot(vec3(%s,1.0),uv%d_row0),dot(vec3(%s,1.0),uv%d_row1));vec4 %s=texture(tex%d,uv%d);\n"%[i,uv,i,uv,i,label,i,i]
   else:
    # Source optimizer can elide CTA RGB=white/alpha=None samplers.
    if not layer.color_to_alpha and (layer.color_op!="None" or layer.alpha_op!="None"):return failure("missing sampler would change color")
    if layer.alpha_op!="None":return failure("missing sampler would change alpha")
-   body+="vec4 %s=vec4(1.0);\n"%label
+   if emit:body+="vec4 %s=vec4(1.0);\n"%label
   if layer.color_to_alpha and layer.sample_required:
    var weights:Variant=plan.get("color_to_alpha_weights")
    if not weights is Array or weights.size()!=3:return failure("reviewed CTA immediate vector required")
    for j in 3:
     if not (weights[j] is float or weights[j] is int) or not is_finite(float(weights[j])) or absf(float(weights[j])-WEIGHTS[j])>1e-14:return failure("unreviewed CTA immediate vector")
-   body+="%s=vec4(1.0,1.0,1.0,dot(%s.rgb,vec3(0.298911988735199,0.5866109728813171,0.11447799950838089)));\n"%[label,label]
-  if i==0:body+="ink=mix(vec4(1.0),%s,vec4(calculate_color,calculate_color,calculate_color,calculate_alpha));\n"%label
-  else:body+="ink=vec4(%s,%s);\n"%[operation("ink.rgb",label+".rgb",layer.color_op),operation("ink.a",label+".a",layer.alpha_op)]
+   if emit:body+="%s=vec4(1.0,1.0,1.0,dot(%s.rgb,vec3(0.298911988735199,0.5866109728813171,0.11447799950838089)));\n"%[label,label]
+  if emit and i==0:body+="ink=mix(vec4(1.0),%s,vec4(calculate_color,calculate_color,calculate_color,calculate_alpha));\n"%label
+  elif emit:body+="ink=vec4(%s,%s);\n"%[operation("ink.rgb",label+".rgb",layer.color_op),operation("ink.a",label+".a",layer.alpha_op)]
  if plan.get("color_equation_sha256")!=reviewed.get("equation_sha256") or equation_signature(layers)!=reviewed.get("equation_sha256"):return failure("executable layers contradict reviewed program equation")
- if reviewed.nonnegative_clamp=="before_common":body+="ink=max(ink,vec4(0.0));\n"
- body+="ink*=common_factor;\n"
- if reviewed.nonnegative_clamp=="after_common":body+="ink.rgb=max(ink.rgb,vec3(0.0));\n"
- body+="ink.a=clamp(ink.a,0.0,1.0);\n"
+ if emit and reviewed.nonnegative_clamp=="before_common":body+="ink=max(ink,vec4(0.0));\n"
+ if emit:body+="ink*=common_factor;\n"
+ if emit and reviewed.nonnegative_clamp=="after_common":body+="ink.rgb=max(ink.rgb,vec3(0.0));\n"
+ if emit:body+="ink.a=clamp(ink.a,0.0,1.0);\n"
+ var values:={"calculate_color":float(cc),"calculate_alpha":float(ca),"common_factor":context.common_factor}
+ # Texture objects and finite controls/rows are runtime inputs. Only sampler
+ # modes and UV routing are compile-time invariants, not texture identity.
+ var contract:Array=[]
+ for i in 4:
+  if layers[i].enabled and layers[i].sample_required:
+   var sample:Dictionary=samples[i]
+   contract.append([i,sample.filter,sample.wrap,sample.uv_source,sample.source_uv_index])
+   for key in ["texture","uv_row0","uv_row1"]:
+    values["tex%d"%i if key=="texture" else "uv%d_%s"%[i,key.trim_prefix("uv_")]]=sample[key]
+ return {"status":"verified_color_stage","uniforms":values,"sample_contract":JSON.stringify(contract),"declarations":declarations+("varying vec4 original_uv23;\nvoid vertex(){original_uv23=CUSTOM0;}\n" if emit and uses_custom_uv else ""),"body":body}
+static func render_modes(state:Dictionary)->Dictionary:
+ if not state.get("blend") is int or state.blend not in [0,1,2,3]:return failure("unsupported blend state")
+ if not state.get("cull") is int or state.cull not in [0,1,2]:return failure("unsupported cull state")
+ if not state.get("depth_test") is bool or not state.get("depth_write") is bool or not state.get("priority") is int:return failure("explicit depth and priority state required")
+ var modes:Array[String]=["unshaded",["blend_mix","blend_mul","blend_add","blend_sub"][state.blend],["cull_disabled","cull_front","cull_back"][state.cull],"depth_draw_always" if state.depth_write else "depth_draw_never"]
+ if not state.depth_test:modes.append("depth_test_disabled")
+ return {"status":"verified_color_stage","modes":", ".join(modes),"priority":clampi(state.priority,Material.RENDER_PRIORITY_MIN,Material.RENDER_PRIORITY_MAX)}
+static func compile(plan:Dictionary,context:Dictionary,state:Dictionary,actual_mesh:Mesh)->Dictionary:
+ if actual_mesh==null or actual_mesh.get_surface_count()==0:return failure("nonempty actual drawn mesh required")
+ var checked:=context.duplicate(true);checked.source_mesh=actual_mesh
+ var prepared:=_prepare(plan,checked,true)
+ if prepared.status!="verified_color_stage":return prepared
+ var rendered:=render_modes(state)
+ if rendered.status!="verified_color_stage":return rendered
  var shader:=Shader.new()
- # Diagnostic output selects the same computed alpha for an opaque pixel probe;
- # it is never a substitute for validating the complete original render graph.
+ # Diagnostics probe the section output, not the original render graph.
  shader.code="""shader_type spatial;
-render_mode unshaded,cull_disabled,depth_draw_never,blend_mix;
+render_mode %s;
 uniform float calculate_color;
 uniform float calculate_alpha;
 uniform vec4 common_factor;
@@ -134,11 +158,25 @@ if(diagnostic_alpha){ALBEDO=vec3(0.25+0.5*ink.a);ALPHA=1.0;}
 else if(diagnostic_signed_rgb){ALBEDO=vec3(0.5)+0.25*ink.rgb;ALPHA=1.0;}
 else{if(ink.a<0.003921568859368563){discard;}if(diagnostic_discard){ALBEDO=vec3(1.0);ALPHA=1.0;}else{ALBEDO=ink.rgb;ALPHA=ink.a;}}
 }
-"""%[declarations+("varying vec4 original_uv23;\nvoid vertex(){original_uv23=CUSTOM0;}\n" if uses_custom_uv else ""),body]
- var material:=ShaderMaterial.new();material.shader=shader
- material.set_shader_parameter("calculate_color",float(cc));material.set_shader_parameter("calculate_alpha",float(ca));material.set_shader_parameter("common_factor",context.common_factor)
- for i in 4:
-  if layers[i].enabled and layers[i].sample_required:
-   for key in ["texture","uv_row0","uv_row1"]:
-    material.set_shader_parameter("tex%d"%i if key=="texture" else "uv%d_%s"%[i,key.trim_prefix("uv_")],samples[i][key])
- return {"status":"verified_color_stage","material":material,"rendering_complete":false,"scope":"reviewed decoded texture section; explicit host factors/UV only"}
+"""%[rendered.modes,prepared.declarations,prepared.body]
+ var material:=ShaderMaterial.new();material.shader=shader;material.render_priority=rendered.priority
+ for key in prepared.uniforms:material.set_shader_parameter(key,prepared.uniforms[key])
+ return {"status":"verified_color_stage","material":material,"plan":plan.duplicate(true),"plan_hash":JSON.stringify(plan).sha256_text(),"sample_contract":prepared.sample_contract,"mesh":weakref(actual_mesh),"shader":weakref(shader),"shader_hash":shader.code.sha256_text(),"render_priority":material.render_priority,"rendering_complete":false,"scope":"reviewed decoded texture section; explicit host factors/UV only"}
+static func apply(binding:Dictionary,context:Dictionary,actual_mesh:Mesh)->Dictionary:
+ if actual_mesh==null or actual_mesh.get_surface_count()==0:return failure("nonempty actual drawn mesh required")
+ if binding.get("status")!="verified_color_stage" or not binding.get("material") is ShaderMaterial or not binding.get("mesh") is WeakRef or binding.mesh.get_ref()!=actual_mesh:return failure("drawn mesh identity changed")
+ if not binding.get("plan") is Dictionary or JSON.stringify(binding.plan).sha256_text()!=binding.get("plan_hash"):return failure("compiled plan changed")
+ if not binding.get("shader") is WeakRef or binding.shader.get_ref()!=binding.material.shader or binding.material.shader.code.sha256_text()!=binding.get("shader_hash"):return failure("compiled shader changed")
+ if binding.material.render_priority!=binding.get("render_priority"):return failure("compiled render priority changed")
+ var checked:=context.duplicate(true);checked.source_mesh=actual_mesh
+ var prepared:=_prepare(binding.plan,checked,false)
+ if prepared.status!="verified_color_stage":return prepared
+ if prepared.sample_contract!=binding.get("sample_contract"):return failure("compile-time sample contract changed")
+ for key in prepared.uniforms:binding.material.set_shader_parameter(key,prepared.uniforms[key])
+ return {"status":"verified_color_stage","rendering_complete":false}
+static func create(plan:Dictionary,context:Dictionary)->Dictionary:
+ # Compatibility wrapper for standalone section probes. The player always uses
+ # compile/apply with its own exact drawn mesh and explicit source render state.
+ var mesh:Mesh=context.get("source_mesh")
+ if mesh==null:mesh=QuadMesh.new()
+ return compile(plan,context,{"blend":0,"cull":0,"depth_test":true,"depth_write":false,"priority":0},mesh)

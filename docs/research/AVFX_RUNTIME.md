@@ -88,10 +88,10 @@ hardware acceleration is not established by that string.
 The reviewed color bridge now accepts explicit sources 0–3 and passes `CUSTOM0`
 from vertex to fragment when required. Custom sources require the caller's actual
 nonempty `ArrayMesh`, with RGBA-float `CUSTOM0` on every surface, so an absent
-channel cannot silently supply zero at construction. This is a caller contract:
-the caller must draw that same mesh; material creation cannot enforce later
-mesh identity. The experimental player still uses its earlier UV0-only preview
-material and does not yet call this color bridge. Host-derived affine rows remain explicit;
+channel cannot silently supply zero at construction. Standalone `create` remains a caller contract: the caller must draw that same
+mesh. The opt-in player integration described below binds compilation and later
+updates to its exact drawn mesh and rejects replacement. Unbound particles retain
+the earlier preview material. Host-derived affine rows remain explicit;
 this does not infer the game's matrix construction or source-selection rules.
 Linux passed 121 independent color-section fixtures / 1,109 pixel and lifecycle
 checks, including eight distinct-texel identity/rotation probes through the source
@@ -303,6 +303,54 @@ per case are established: **spatial interpolation, coordinate-convention
 coverage, all 16 pairs, physical-GPU certification, actual host rules, complete
 compositing and full AVFX playback remain unproved**. The practice renderer and
 released v0.3.10 are unchanged.
+
+## Opt-in experimental player color-section integration (2026-10-23)
+
+`Player.configure_color_stage_bindings(bindings)` now connects reviewed color
+sections to the **actual experimental player draw path**. It does not select
+original permutations or change encounter/practice playback. Configure the
+player document first, then supply integer particle-definition indices before
+any draws exist. Each entry contains a hash/layout-reviewed `plan` and a
+`context_provider` callable. Invalid requested bindings fail closed; they never
+silently substitute the legacy material. Unbound particles preserve legacy
+preview behavior.
+
+The provider receives particle index/key/age, sampled particle color, a copy
+of the source particle node and the exact `actual_mesh`. It must supply explicit
+finite CalculateColor/Alpha, decoded texture samples and affine UV rows, a
+combined common factor, and boolean provenance flags
+`factor_includes_particle_color`, `factor_includes_mesh_color` and
+`model_fresnel_included`. The first two must be true; required model Fresnel
+must already be included. The player does not multiply particle/mesh color a
+second time or invent host defaults. A provider-supplied `source_mesh` cannot
+replace the actual drawn mesh.
+
+`ColorStage.compile(plan, context, state, actual_mesh)` creates each draw's
+material/shader once. `apply(binding, context, actual_mesh)` revalidates the
+contract and updates texture objects, controls, common factor and UV rows without
+regenerating shader source. Sampler modes/UV routing, reviewed plan, shader,
+material identity, mesh identity and render priority remain locked. The player
+preserves supported source mix/multiply/add/subtract, front/back/disabled cull,
+depth-test/write and clamped priority states. Unsupported render modes, soft
+particles and dynamic Disc meshes fail closed. Missing/invalid runtime context
+clears all draws and stops playback; provider reentry into configure/reset/
+seek/trigger is rejected. Expiry and reset release owned draw resources.
+
+Linux Godot 4.7.2 Compatibility/llvmpipe acceptance includes 363 player contract
+checks and **135 actual-player color fixtures / 2,461 checks**, covering measured
+RGB, encoded alpha/signed outputs, exact discard boundaries, all four original
+model UV channels, seek updates without shader/material replacement, no duplicate
+tint and resource release. The initial renderer attempt timed out because its
+synthetic RGB curve used an invalid data representation; that failed attempt
+is retained separately. The corrected fixture uses the existing runtime's
+three-float `rgb` schema; no shader equations or tolerances were relaxed.
+An additional 64 actual-player state/framebuffer checks pass: four blend
+equations, front/back culling, depth-test/write, discard-before-depth, shifted
+repeat/clamp sampling and animated factor/control/UV changes with stable
+material/shader identity. Historical section-only and legacy material regression
+gates also pass. This new player path has no new Windows/Web acceptance and does not implement the
+original postprocessing/MRT render graph, host mapping or full AVFX playback.
+The accepted P3 reconstruction and released v0.3.10 remain unchanged.
 
 ## Remaining hard requirements for complete playback
 
