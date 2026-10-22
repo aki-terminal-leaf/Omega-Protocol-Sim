@@ -206,3 +206,34 @@ complete original-game acceptance claim is made.
 See [AVFX_POSTPROCESS](AVFX_POSTPROCESS.md) for the separate hash-pinned CPU
 reference for explicit Fresnel, tone-map and both MRT outputs. It does not alter
 the section-only scope of the Godot probe or derive game-host input defaults.
+
+## Host-input source audit (2026-10-22)
+
+A bounded check of the pinned VFXEditor parser/enum/CRC sources did not find
+implementation evidence for game-host vertex packing, UV-matrix construction or
+TC1 CalculateColor/Alpha values. This is a limitation of the inspected sources,
+not proof that such an implementation exists nowhere. Shader input signatures
+and paired-VS routing do not establish host input-buffer layouts.
+
+The pinned [enum source](https://github.com/0ceal0t/Dalamud-VFXEditor/blob/05f6eb0cce19a6a91ae275bce609299d573914b3/VFXEditor/Formats/AvfxFormat/Base/Enums.cs#L188)
+explicitly labels color operation **5 as Unknown**, not None. The 18 original
+source documents contain nine enabled TC2/TC3 occurrences of this value; they
+remain unresolved. Alpha operation 3, by contrast, is explicitly None. TC2–4
+static selector mappings cannot by themselves establish TC1 dynamic controls.
+The parent independently downloaded and hash-verified the pinned enum and both
+texture-color parser sources against the investigator's provenance.
+
+All 18 compiled documents were reconciled with their retained raw source hashes:
+166 particles, 268 UV sets. Among all TC1 records, including disabled ones,
+51 have controls `(0,1)` and 115 `(1,1)`. There are 266 parameter UV sets and two
+pixel-position sets; 31 sets carry rotation and one a random rotation curve.
+Nonzero random scale/scroll curves are also present. No identity UV transform,
+constant control value or host rotation/scroll composition follows from these
+counts.
+
+A private model-package **hypothesis screen**, applying only declared static
+constraints and leaving family routing/host state unresolved, yields 157
+ambiguous, seven statically unique and two unmatched particle records, with
+426 distinct candidate pixel programs in aggregate. These are not 426 selected
+or newly verified shaders, and a unique static candidate is not complete host
+selection. The nine reviewed PS examples do not cover that candidate space.
