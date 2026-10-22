@@ -55,3 +55,10 @@ committed. The existing main/tag/release were not rewritten.
 No new release is published from this checkpoint. The previously shipped
 v0.3.3 remains unchanged. Passing source checks or exporting a binary does not
 remove any of the failed/missing gates above.
+
+## Next planning checkpoint —2026-10-22
+
+[Offline independence plan](OFFLINE_INDEPENDENCE_PLAN.md) separates material
+acquisition, portable toolchains, independent development and reference/platform
+validation. It records required sources, AnAn alternatives, phased acceptance and
+capacity estimates; it does not claim that the missing backup or runtime exists.
