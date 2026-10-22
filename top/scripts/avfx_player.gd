@@ -309,13 +309,25 @@ func _texture(index:int)->Texture2D:
  texture_cache[index]=texture;return texture
 func _material(spec:Dictionary)->ShaderMaterial:
  var node:=_node("Ptcl",int(spec.index));var first:Dictionary=node.materials.get("TC1",{})
- var mode:=int(node.values.get("RMT",0));var blend:="blend_add" if mode==2 else "blend_mul" if mode==1 else "blend_mix"
- if mode not in [0,1,2]:diagnostics["blend_mode/%d"%mode]=true
+ var mode:=int(node.values.get("RMT",0))
+ var blend:String={0:"blend_mix",1:"blend_mul",2:"blend_add",3:"blend_sub"}.get(mode,"blend_mix")
+ if mode not in [0,1,2,3]:diagnostics["blend_mode/%d"%mode]=true
+ var cull:=int(node.values.get("CulT",0))
+ var culling:String={0:"cull_disabled",1:"cull_front",2:"cull_back"}.get(cull,"cull_disabled")
+ if cull not in [0,1,2]:diagnostics["culling_mode/%d"%cull]=true
+ var states:Array[String]=["unshaded",blend,culling,"depth_draw_always" if _enabled(node.values,"DsDw") else "depth_draw_never"]
+ if node.values.has("DsDt") and not _enabled(node.values,"DsDt"):states.append("depth_test_disabled")
+ if _enabled(node.values,"DsSp"):diagnostics["soft_particle_requires_apricot_shader"]=true
+ var filtering:="filter_nearest" if int(first.get("TFT",1))==0 else "filter_linear"
+ if int(first.get("TFT",1)) not in [0,1]:diagnostics["anisotropic_sampler_unimplemented"]=true
+ var border_u:=int(first.get("TBUT",0));var border_v:=int(first.get("TBVT",0))
+ var wrapping:="repeat_disable" if border_u==1 and border_v==1 else "repeat_enable"
+ if border_u!=border_v or border_u not in [0,1]:diagnostics["sampler_border_requires_apricot_mapping"]=true
  var shader:=Shader.new()
  shader.code="""shader_type spatial;
-render_mode unshaded, %s, cull_disabled, depth_draw_never;
+render_mode %s;
 uniform vec4 particle_color:source_color=vec4(1.0);
-uniform sampler2D base_texture:source_color,repeat_enable;
+uniform sampler2D base_texture:source_color,%s,%s;
 uniform bool textured=false;
 uniform bool color_to_alpha=false;
 uniform vec2 uv_scale=vec2(1.0);
@@ -323,14 +335,20 @@ uniform vec2 uv_scroll=vec2(0.0);
 uniform float uv_rotation=0.0;
 varying vec4 vertex_color;
 void vertex(){vertex_color=COLOR;}
-void fragment(){vec2 p=(UV-vec2(0.5))*uv_scale;float c=cos(uv_rotation);float s=sin(uv_rotation);vec2 uv=mat2(vec2(c,s),vec2(-s,c))*p+vec2(0.5)+uv_scroll;vec4 ink=textured?texture(base_texture,uv):vec4(1.0);if(color_to_alpha){ink.a*=max(ink.r,max(ink.g,ink.b));}ALBEDO=particle_color.rgb*vertex_color.rgb*ink.rgb;ALPHA=clamp(particle_color.a*vertex_color.a*ink.a,0.0,1.0);}
-"""%blend
+void fragment(){vec2 p=(UV-vec2(0.5))*uv_scale;float c=cos(uv_rotation);float s=sin(uv_rotation);vec2 uv=mat2(vec2(c,s),vec2(-s,c))*p+vec2(0.5)+uv_scroll;vec4 ink=textured?texture(base_texture,uv):vec4(1.0);if(color_to_alpha){ink.a=dot(ink.rgb,vec3(0.298912,0.586611,0.114478));}ALBEDO=max(particle_color.rgb*vertex_color.rgb*ink.rgb,vec3(0.0));ALPHA=clamp(particle_color.a*vertex_color.a*ink.a,0.0,1.0);if(ALPHA<1.0/255.0){discard;}}
+"""%[", ".join(states),filtering,wrapping]
  var material:=ShaderMaterial.new();material.shader=shader
- var indices:Array=first.get("TLst",[]);var index:=int(first.get("TxNo",indices[0] if not indices.is_empty() else -1))
+ # TLst is a MASK list in the source, never a fallback base-texture index.
+ var indices:Array=first.get("TLst",[]);var index:=int(first.get("TxNo",-1))
+ if not indices.is_empty() or not first.get("TxN",{}).is_empty() or not first.get("TxNR",{}).is_empty():
+  diagnostics["tc1_mask_requires_apricot_shader"]=true
  if int(first.get("bEna",0))!=0:
   var texture:=_texture(index)
   if texture!=null:material.set_shader_parameter("base_texture",texture);material.set_shader_parameter("textured",true)
  material.set_shader_parameter("color_to_alpha",int(first.get("bC2A",0))!=0)
+ var priority:=int(node.values.get("DwPr",0))
+ if priority<Material.RENDER_PRIORITY_MIN or priority>Material.RENDER_PRIORITY_MAX:diagnostics["draw_priority_out_of_range"]=true
+ material.render_priority=clampi(priority,Material.RENDER_PRIORITY_MIN,Material.RENDER_PRIORITY_MAX)
  return material
 func _animate_material(material:ShaderMaterial,spec:Dictionary)->void:
  var node:=_node("Ptcl",int(spec.index));var first:Dictionary=node.materials.get("TC1",{})
