@@ -426,3 +426,31 @@ Normal Sigma tower orientation is M or opposite; normal LB preserves measured
 joint placements rather than independent fabricated angle combinations, and
 protected F is at north10. Full server RNG/weights/Delta colour-turn correlations
 are not certified. Runtime damage geometry/time/speed/.5s previews unchanged.
+
+
+### v0.3.9 final export, executable and deployment
+
+Functional/runtime source `050ce17a0438da19f93ce58da412523817c317d4`. All20 exact Web-PCK
+contract runs:3200 generated courses,40027 placement/font/version/.5s assertions,
+0failures. Native engine reading Web PCK is not browser execution. Linux/Web
+PCK SHA256 `5d59fad9e4f319fb6b2fb6558bdc3966bda0d563bdb5ddec56343391e31a6bc9`, identical to the PCK inside LinuxZIP.
+Two changed-drill final-PCK original-asset native captures pass; earlier20/27
+v0.3.8 images remain historical evidence, not falsely counted as new renders.
+Unmodified release executable via supported normal --demo entry completes
+LB38.2s/5snapshots and Sigma58.1s/26snapshots, both0failures.
+
+Fixed https://top.servicing.cc is0.3.9, all7complete public resource
+SHA256/gzip/MIME/isolation checks pass; only dedicated origin restarted,
+tunnel/DNS/apex/other services unchanged. Rollback preserves0.3.8.
+Published Linux/source/SHA as top-v0.3.9-preview; all3GitHub digests match and
+all older release asset inventories unchanged. README uses actual static
+final-PCK checkpoints, not a generated guide movie or original-pixel claim.
+
+The first staging check correctly rejected a generated untracked test UID;
+the UID was preserved/committed and exports rebuilt from the clean tree.
+An attempted --script injection into the release template is unsupported and
+its150s timeout is NOT accepted. Only that probe-owned process group was stopped;
+actual executable acceptance above uses documented --demo/--fixed-fps/--quit-after.
+Visual probes use the pinned editor with the exact final main-pack, not the
+unsupported release interface. Large-image preview transport was unavailable;
+scripted capture/placement checks do not imply manual original-pixel inspection.
