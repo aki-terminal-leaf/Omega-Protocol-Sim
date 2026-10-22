@@ -778,15 +778,19 @@ func update_hud() -> void:
 	if running:
 		cue.text = current.title if answers_visible() else ("示範模式 · 不計入成績" if demo else "練習中 · 請觀察場地與隊伍狀態")
 	note.text = str(current.get("note","")) if answers_visible() else ""
-	var text_value := "[b]PARTY / 狀態[/b]\n"
-	for row in observed_party():
-		text_value += "[color=%s]%s %s[/color]" % ["#fff0a7" if row.actor==player else "#d2dded","YOU" if row.actor==player else "",row.role]
-		var effects:PackedStringArray=[]
-		for item in row.effects: effects.append(PartyStatuses.format_effect(item))
-		text_value += "\n" + ("KO" if row.dead else ("／".join(effects) if not effects.is_empty() else "—")) + "\n"
-	party.text = text_value
+	var party_rows := observed_party()
+	# The setup roster is hidden during fullscreen practice. Do not rebuild
+	# its RichText layout in addition to the visible eight-player HUD.
+	if party.is_visible_in_tree():
+		var text_value := "[b]PARTY / 狀態[/b]\n"
+		for row in party_rows:
+			text_value += "[color=%s]%s %s[/color]" % ["#fff0a7" if row.actor==player else "#d2dded","YOU" if row.actor==player else "",row.role]
+			var effects:PackedStringArray=[]
+			for item in row.effects: effects.append(PartyStatuses.format_effect(item))
+			text_value += "\n" + ("KO" if row.dead else ("／".join(effects) if not effects.is_empty() else "—")) + "\n"
+		party.text = text_value
 	update_lb_controls()
-	sync_practice_hud()
+	sync_practice_hud(party_rows)
 func report() -> Dictionary:
 	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "practice_clock":encounter.get("clock",{}).duplicate(true), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"marker_keys":marker_bindings.duplicate(),"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func report_runtime_state() -> Dictionary:
@@ -977,7 +981,9 @@ func set_practice_view(enabled: bool) -> void:
 		# must not force the container back to its minimum-sized rectangle.
 		view_home.queue_sort()
 		view_placeholder.hide(); practice_root.hide(); setup_shell.show()
-	sync_practice_hud()
+	# Refresh the newly visible setup roster immediately on opening settings.
+	if not enabled and actors.size() == 8: update_hud()
+	else: sync_practice_hud()
 
 func open_practice_settings() -> void:
 	resume_after_settings = running and not paused
@@ -1006,7 +1012,7 @@ func layout_practice_footer() -> void:
 	hud_feedback_panel.offset_bottom = hud_bottom_panel.offset_top - 10
 	hud_feedback_panel.offset_top = hud_feedback_panel.offset_bottom - maxf(128.0, hud_feedback_panel.get_combined_minimum_size().y)
 
-func sync_practice_hud() -> void:
+func sync_practice_hud(party_rows: Array = []) -> void:
 	if not is_instance_valid(hud_title): return
 	resume_button.visible = running and not practice_view
 	hud_title.text = title_label.text; hud_cue.text = cue.text
@@ -1023,7 +1029,7 @@ func sync_practice_hud() -> void:
 	if not training_overlay:
 		if finished: hud_cue.text = cue.text + " · %d 通過 / %d 失誤 · R 同點名重練" % [beat_passed, beat_failed]
 		elif failed_pause: hud_cue.text = "判定失敗 · Tab 檢討 / R 同點名重練"
-	sync_party_status_hud()
+	sync_party_status_hud(party_rows)
 	hud_lb_row.visible = configured and lb_panel.visible and state.has("p6_lb")
 	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""
 	hud_bottom_panel.visible = training_overlay or hud_lb_row.visible
@@ -1047,8 +1053,8 @@ func party_icon(icon_id: int) -> Texture2D:
 	if icon_id<=0: return null
 	if not party_icon_cache.has(icon_id): party_icon_cache[icon_id]=arena.original_icon(icon_id)
 	return party_icon_cache[icon_id]
-func sync_party_status_hud() -> void:
-	var rows := observed_party()
+func sync_party_status_hud(rows: Array = []) -> void:
+	if rows.is_empty(): rows = observed_party()
 	for i in rows.size():
 		var data:Dictionary=rows[i]; var widgets:Dictionary=hud_party_rows[i]
 		var marker:=Markers.marker_for(state,i);var marker_texture:=party_icon(Markers.icon_id(marker))
