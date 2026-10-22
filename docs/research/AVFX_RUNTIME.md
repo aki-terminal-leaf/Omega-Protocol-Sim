@@ -105,17 +105,47 @@ They must not be silently mapped to a convenient shader default.
 
 ## Original D3D11 execution scope (2026-10-22)
 
-A separate private harness executed one genuine original powder pixel program
-(`ps_5_0`) through D3D11 WARP, not a replacement pixel shader. Three explicit
-input cases, independently varying CalculateColor and CalculateAlpha, matched
-SV_TARGET0 with zero maximum absolute error. The downstream tonemap was
+Separate private harnesses executed genuine original powder and shape pixel
+programs (`ps_5_0`) through D3D11 WARP, not replacement pixel shaders. Three
+explicit input cases per program, independently varying CalculateColor and
+CalculateAlpha, matched SV_TARGET0 with zero maximum absolute error. The downstream tonemap was
 explicitly neutralized; SV_TARGET1 was bound but not equation-validated.
-Coverage is **1 of 9 reviewed programs**, with the remaining eight unverified.
+Coverage is **2 of 9 reviewed programs**, with the remaining seven unverified.
 The Visual Studio developer environment was recovered after a PATH-only compiler
-check failed, but that follow-up did not execute another program. COM resources
+check failed; the later shape follow-up used the recovered compiler. These
+uniform-texture probes do not validate UV texel or multi-slot selection. COM resources
 and task-owned executable/object/bytecode copies were released/removed. These
 results do not establish real host defaults, original vertex-shader execution,
 full rendering equivalence or encounter playback.
+
+## Exact paired-program UV ABI (2026-10-22)
+
+`tools/apricot_uv_plan.py` provides an isolated CPU reference for the UV-only
+portion of 11 original vertex programs paired to the nine reviewed textured
+pixel programs: 37 original pass uses / 16 distinct hash pairs. Both shader
+bytecode and resource-layout signatures must match, and the pair must occur in
+that original package. There is no fallback to vertex program 0.
+
+The input is **explicit vertex INPUT semantics**, not inferred AVFX UvSN or
+Godot mesh-channel numbering. Reviewed shape variants convert signed int32 UVs
+and multiply by 0.001, 0.005 or 0.01; powder variants pass float UVs, while the
+reviewed model programs pass float4 UV varyings. Color samplers select pairs
+from those varyings per exact pixel program. The model programs which consume
+`g_PS_UvTransform` use two explicit float4 rows' **x/y/w**, not x/y/z. A missing
+attribute or required row is rejected; no identity transform is invented.
+
+Nine focused Python tests cover precision variants, four distinct pairs,
+negative coordinates, affine translation, ignored row-z values, no-default
+contracts and unreviewed-pair/layout/package or intervening-stage rejection. A
+separate private original package corpus gate checks every one of the 37 pass uses against independent
+numeric expectations and rejects mutated layouts (111 checks, zero failures).
+
+This is not original vertex-shader execution, rasterization/interpolation or
+bit-exact GPU dot-product proof. It does not establish the host input layout,
+AVFX curve-to-matrix construction, source-UV packing, time/random composition or
+world/projection/Fresnel semantics, and is not connected to practice playback.
+Original disassembly/bytecode remains private; only hash-pinned route summaries
+are included in the repository.
 
 ## Remaining hard requirements for complete playback
 
@@ -141,6 +171,7 @@ not supply a standalone game shader/runtime. Its plugin was not embedded.
 Use the pinned Godot4.7.2 binary as `GODOT` in the examples below.
 
 ```sh
+python3 -m unittest tools.tests.test_apricot_uv_plan -v
 python3 -m unittest discover -s tools/tests -p 'test_avfx*.py' -v
 python3 tools/avfx_preview_pack.py --input PRIVATE.avfx --output NEW.preview.json
 $GODOT --headless --path top --check-only --script tests/avfx_runtime.gd
