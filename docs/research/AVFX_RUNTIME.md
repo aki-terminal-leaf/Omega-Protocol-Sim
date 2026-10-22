@@ -78,8 +78,13 @@ proves channel transport, not the game's UV scale/rotation/scroll matrix rules.
 The same standalone frozen-source probe passed six checks on AnAn Windows,
 including resource release, with Godot 4.7.2 Compatibility on an AMD Radeon
 RX 7900 XT; all four pixels exactly matched. Its first launch stalled and was
-terminated. The bounded WebGL2 follow-up timed out and is **not a pass**;
-task-owned native/browser processes, server, profile and export were cleaned.
+terminated. The first bounded WebGL2 follow-up timed out and was **not a pass**. Its
+Node-based test adapter retained an invalid SceneTree `quit()` call. After
+fixing that adapter and the isolated Python-path/Playwright shutdown issues,
+AnAn Chrome WebGL2 passed the same six checks and all four exact pixels, with
+no script/page/request errors. Task-owned processes, server port, profile,
+export and caches were verified released. The browser reports WebKit WebGL;
+hardware acceleration is not established by that string.
 The reviewed color bridge now accepts explicit sources 0–3 and passes `CUSTOM0`
 from vertex to fragment when required. Custom sources require the caller's actual
 nonempty `ArrayMesh`, with RGBA-float `CUSTOM0` on every surface, so an absent
@@ -110,13 +115,28 @@ programs (`ps_5_0`) through D3D11 WARP, not replacement pixel shaders. Three
 explicit input cases per program, independently varying CalculateColor and
 CalculateAlpha, matched SV_TARGET0 with zero maximum absolute error. The downstream tonemap was
 explicitly neutralized; SV_TARGET1 was bound but not equation-validated.
-Coverage is **2 of 9 reviewed programs**, with the remaining seven unverified.
+These two uniform-texture probes do not validate UV texel or multi-slot selection.
 The Visual Studio developer environment was recovered after a PATH-only compiler
 check failed; the later shape follow-up used the recovered compiler. These
-uniform-texture probes do not validate UV texel or multi-slot selection. COM resources
+uniform-texture runs retain their original narrow scope. COM resources
 and task-owned executable/object/bytecode copies were released/removed. These
 results do not establish real host defaults, original vertex-shader execution,
 full rendering equivalence or encounter playback.
+
+A further genuine original model-layer-1 program passed 12 cases: four distinct
+2×2 RGBA32F texture locations times three explicit CalculateAlpha values.
+Nontrivial vertex, document and fixed Fresnel factors were supplied explicitly.
+Both SV_TARGET0 and SV_TARGET1 matched independent equations, including the
+selected program's white-compositing output and DOF/secondary-alpha output;
+maximum error was zero. The parent independently recalculated all 12 cases.
+An initial harness omitted six owner COM releases; the corrected harness was
+rebuilt and all 12 cases rerun before accepting the complete release checklist.
+The original failed cleanup attempt is preserved separately. Total genuine
+pixel-program execution coverage is now **3 of 9**, with six unverified. The
+model program's varying/UV selection is covered, but original VS execution,
+host packing/defaults, dynamic Fresnel construction and the complete game
+render graph remain unproved. All harness binaries/objects/raw input copies
+and task-owned processes were removed; source and evidence remain private.
 
 ## Exact paired-program UV ABI (2026-10-22)
 
