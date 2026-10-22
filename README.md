@@ -2,11 +2,20 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[新版 v0.3.8-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.8-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[新版 v0.3.9-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.9-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
 先選機制，再選這個機制的攻略方式；每次獨立練習，不自動接續其他機制。預設顯示遊戲場景、八人狀態、必要的 P6 LB 控制及底部操作說明。
 
 ## 實際畫面與展示
+
+### v0.3.9：逐機制物件生成條件
+
+[20項生成規則核對表](docs/research/SPAWN_RULE_AUDIT.md)：區分固定座標、限定候選槽、相對方向連動與實際玩家誘導，不把攻略站位當敵人出生位置。
+
+- Sigma塔陣僅朝M或M的正對面，不再與M獨立八方亂數。
+- LB受保護的女本體回到真北10；場外五分身按已驗證完整配置抽選，避免混出無來源聯合配置。這是四份觀測子集，不宣稱副本只有四種。
+- 20項×五攻略×32種子：3,200次生成、39,263條件檢查0失敗；LB20與Sigma40完整移動流程通過。完整伺服器RNG／權重仍未認證。
+- 傷害時間／尺寸、移速、0.5秒提示保持不變；仍不宣稱瀏覽器GPU遊玩已驗收。
 
 ### v0.3.8：PT 辨識提示與逐階段時間軸
 
@@ -24,7 +33,7 @@ PT 補齊兩男兩女、圖案記憶、場外 Optical Unit 與男女交換；火
 
 ### v0.3.7：敵人身位環尺寸與面向
 
-v0.3.7 當時測試站已驗證完整檔案與實際匯出PCK；目前站點已更新至上方v0.3.8。瀏覽器遊玩仍待GPU瀏覽器實測。
+v0.3.7 當時測試站已驗證完整檔案與實際匯出PCK；目前站點已更新至上方最新版本。瀏覽器遊玩仍待GPU瀏覽器實測。
 
 按敵人形態套用副本資料中的半徑；不再一律使用4／2.5。原版模型正面、前方箭頭、後方缺口與技能方向採同一座標，亦修正P4面向欄位未被讀取的問題。只校正顯示，不改傷害／碰撞判定。
 
@@ -45,7 +54,7 @@ P6底部控制列依字體實際高度向上伸展，不遮住操作說明。
 
 ### v0.3.5：機制名稱語系、新種子與底部操作說明
 
-**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.8實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
+**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.9實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
 
 ![v0.3.5 實際 Godot 原生渲染設定畫面](docs/images/top-v035-setup.webp)
 

@@ -80,6 +80,24 @@ func run()->void:
 		var ctx=build(args[1],int(args[2]),float(args[3]),float(args[4]),int(args[5]),int(args[6]))
 		var state:=simulate(ctx);print("LIMITLESS PROBE FAILURES ",state.runtime_failures);quit(1 if not state.runtime_failures.is_empty() else 0);return
 	negatives()
+	# Normal generation must exercise each preserved joint observed tuple through
+	# actual contacts, movement, lock/snapshot positions and checkpoint restore.
+	var profiles:Array=JSON.parse_string(FileAccess.get_file_as_string("res://data/strategies.json"))
+	var observed_courses:=0
+	for profile in profiles:
+		var captures:Array=[]
+		for seed_value in range(1,65):
+			var ctx=E.new();ctx.build("p2_limitless",seed_value,profile)
+			var c:Dictionary=ctx.beats[0].limitless_config
+			if c.spawn_capture in captures:continue
+			captures.append(c.spawn_capture)
+			var actual:=simulate(ctx,true)
+			check(actual.runtime_failures.is_empty(),"observed joint layout %s/%s: %s"%[profile.id,c.spawn_capture,str(actual.runtime_failures)])
+			check(actual.limitless.history.size()==8,"all observed-layout events resolve")
+			observed_courses+=1
+			if captures.size()==4:break
+		check(captures.size()==4,"all four measured joint layouts reached for "+str(profile.id))
+	print("LIMITLESS OBSERVED MOVING COURSES ",observed_courses)
 	var quick:bool="--quick" in args
 	for id in ["elemental","aether","lpdu","cn_moogle","kr_09stop"]:
 		for family in (range(1) if quick else range(4)):

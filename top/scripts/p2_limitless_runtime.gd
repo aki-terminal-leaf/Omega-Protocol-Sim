@@ -126,7 +126,7 @@ static func sync(beat:Dictionary,state:Dictionary)->void:
 		var shape:Dictionary=state.limitless.arrow.duplicate(true);shape.decorative=true;shape.limitless_preview=true;shape.damage_at=float(state.limitless.start)+13.45;beat.shapes.append(shape)
 	if state.limitless.flare_marked and now<float(state.limitless.start)+27.45:
 		for target in c.flare_targets:beat.shapes.append({"kind":"circle","actor":int(target),"radius":0.5,"cue_type":"marker","name":"Optimized Meteor","decorative":true,"limitless_preview":true})
-	beat.stage_entities=[{"id":"limitless_main_m","form":"male","pos":Vector2.ZERO,"facing":180.0,"stance":"SHIELD"},{"id":"limitless_main_f","form":"female","pos":Vector2(0,-22),"facing":180.0,"stance":"STAFF"}]
+	beat.stage_entities=[{"id":"limitless_main_m","form":"male","pos":Vector2.ZERO,"facing":180.0,"stance":"SHIELD"},{"id":"limitless_main_f","form":"female","pos":Vector2(0,-10),"facing":180.0,"stance":"STAFF"}]
 	beat.stage_entities.append({"id":"limitless_optical","form":"optical_unit","pos":Vector2(0,-45),"facing":180.0,"height":4.0,"label":""})
 	if now>=float(state.limitless.start)+5.3 and now<float(state.limitless.start)+13.6:
 		for k in 2:beat.stage_entities.append({"id":"limitless_tether_"+str(k),"form":"male" if k==0 else "female","pos":R.v(c.sources[k]),"facing":0.0,"stance":"SWORD"})

@@ -8,7 +8,9 @@ static func pair(ctx,values: Array) -> Array:
 static func append_sigma(ctx) -> void:
 	var remote:bool=ctx.profile.get("sigma_remote",bool(ctx.rng.randi_range(0,1)))
 	var m_angle:float=ctx.profile.get("sigma_m_angle",ctx.rng.randi_range(0,7)*45.0)
-	var tower_angle:float=ctx.profile.get("sigma_tower_angle",ctx.rng.randi_range(0,7)*45.0)
+	# The point/gap faces M or the opposite direction, never an independent roll.
+	# Forced profile rotations remain available to explicit geometry stress tests.
+	var tower_angle:float=ctx.profile.get("sigma_tower_angle",fposmod(m_angle+ctx.rng.randi_range(0,1)*180.0,360.0))
 	var f_angle:float=ctx.profile.get("sigma_f_angle",ctx.rng.randi_range(0,7)*45.0)
 	var sign_value:int=ctx.profile.get("sigma_direction",1 if ctx.rng.randi_range(0,1) else -1)
 	var legs:bool=ctx.profile.get("sigma_legs",bool(ctx.rng.randi_range(0,1)))
@@ -37,7 +39,7 @@ static func append_sigma(ctx) -> void:
 		var unmarked:int=pair_actors[p][no_mark];var target:int=pair_actors[p][1-no_mark];marked.append(target)
 		directions[unmarked]=m_angle+(-45 if j==0 else 45);directions[target]=m_angle+(135 if j==0 else 225)
 	var near_far:Array=ctx.profile.get("sigma_world_slots",ctx.shuffled(range(8)).slice(0,2))
-	var c:Dictionary={"id":"sigma_%d"%ctx.beats.size(),"profile":ctx.profile.id,"family":family,"remote":remote,"m_angle":m_angle,"tower_angle":tower_angle,"f_angle":f_angle,"sign":sign_value,"legs":legs,"pairs":pair_actors,"near":ctx.at(near_far[0]),"far":ctx.at(near_far[1]),"priority":ctx.priority.duplicate(),"path_key":"%s_%d_%d"%[family,sign_value,int(legs)]}
+	var c:Dictionary={"tower_orientation_scope":"forced_training" if ctx.profile.has("sigma_tower_angle") else "m_or_opposite","id":"sigma_%d"%ctx.beats.size(),"profile":ctx.profile.id,"family":family,"remote":remote,"m_angle":m_angle,"tower_angle":tower_angle,"f_angle":f_angle,"sign":sign_value,"legs":legs,"pairs":pair_actors,"near":ctx.at(near_far[0]),"far":ctx.at(near_far[1]),"priority":ctx.priority.duplicate(),"path_key":"%s_%d_%d"%[family,sign_value,int(legs)]}
 	var start:int=ctx.beats.size();ctx.positions=line_up;ctx.labels=labels
 	var b:Dictionary=ctx.beat("Sigma · shapes / wait for six markers",10.2,"先以M為北排圖形；炮標出現後，依雙點名／單點名分配八方。")
 	b.sigma_config=c;b.spawn=[]

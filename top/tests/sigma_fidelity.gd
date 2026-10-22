@@ -47,7 +47,7 @@ func run() -> void:
 					capacities.sort();check(capacities==([1,1,2,2,2] if remote else [1,1,1,1,2,2]),"independent5/6tower capacities")
 					# Geometry fixture only; actual timed statuses are exercised below.
 					b.erase("sigma_config")
-					check(R.evaluate(b,actors_at(b.positions),state(encounter.initial_dynamis)).is_empty(),"all source tower rotations and physical-waymark assignments")
+					check(R.evaluate(b,actors_at(b.positions),state(encounter.initial_dynamis)).is_empty(),"explicit stress tower rotations and physical-waymark assignments")
 					if remote and m==0 and north==0:
 						var actors:=actors_at(b.positions)
 						for actor in actors:actor.pos=R.v(actor.pos).normalized()*18

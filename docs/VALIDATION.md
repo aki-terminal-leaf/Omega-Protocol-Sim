@@ -406,3 +406,23 @@ and unused PackedScene caches, without changing source, assets, geometry or cloc
 1440x900/960x600 viewports; earlier kill and180s timeout failures remain in the private evidence.
 The eye close-up additionally proves radius45, inward axis and actual in-camera
 geometry using a declared test camera, not a changed default gameplay camera.
+
+
+### v0.3.9 source placement audit (2026-10-22)
+
+See [all20 placement contracts and uncertainty](research/SPAWN_RULE_AUDIT.md).
+All20/five profiles/32 seeds:3200 generated courses,39263 source-backed
+placement assertions,0failures. This is not3200 moving courses. Independently
+hash-verified28 files from four public clears; no player identities exported.
+LB20 captured-layout moving/checkpoint courses +10 retained forced stress
+courses:137 assertions/0. Sigma40 moving courses +640 explicit stress layouts:
+5221 assertions/0. Actual Main both changed mechanics/all five offered methods
+/three seeds:30 complete courses,495 source-time comparisons,0failures.
+Shipped761 current non-ASCII glyphs still pass normal-weight/no-host-fallback
+coverage. Initial report-directory SCRIPT ERROR is retained as failed evidence;
+test-only I/O repaired and rerun, never accepted by engine zero exit code.
+
+Normal Sigma tower orientation is M or opposite; normal LB preserves measured
+joint placements rather than independent fabricated angle combinations, and
+protected F is at north10. Full server RNG/weights/Delta colour-turn correlations
+are not certified. Runtime damage geometry/time/speed/.5s previews unchanged.

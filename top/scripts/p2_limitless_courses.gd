@@ -3,16 +3,21 @@ extends RefCounted
 const P=preload("res://scripts/p2_limitless_patterns.gd")
 const R=preload("res://scripts/rules.gd")
 static func append_limitless(ctx)->void:
-	var family:int=ctx.rng.randi_range(0,3)
-	var arrow_angle:int=ctx.rng.randi_range(0,11)*30
-	var shield_angle:int=ctx.rng.randi_range(0,11)*30
-	append_family(ctx,family,arrow_angle,shield_angle,ctx.rng.randi_range(0,1),0)
-static func append_family(ctx,family:int,arrow_angle:float,shield_angle:float,defense_rank:int,pitch_rank:int)->void:
+	# Preserve measured JOINT layouts; independent angle rolls invented unverified
+	# combinations and a fictitious shield+120-degree Flare relationship.
+	var observed:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/spawn_observations.json"))
+	var sample:Dictionary=observed.limitless[ctx.rng.randi_range(0,observed.limitless.size()-1)]
+	var family:int=posmod(int(round((float(sample.male_angle)-45.0)/90.0)),4)
+	var start:int=ctx.beats.size()
+	append_family(ctx,family,float(sample.arrow_angle),float(sample.shield_angle),ctx.rng.randi_range(0,1),0,float(sample.flare_angle))
+	ctx.beats[start].limitless_config.spawn_scope="verified_joint_capture_subset"
+	ctx.beats[start].limitless_config.spawn_capture=str(sample.report)+"/"+str(sample.fight)
+static func append_family(ctx,family:int,arrow_angle:float,shield_angle:float,defense_rank:int,pitch_rank:int,flare_angle:float=-999.0)->void:
 	var route:=P.route(str(ctx.profile.id))
 	var sources:Array=[P.xy(R.direction(45+family*90)*22.0),P.xy(R.direction(225+family*90)*22.0)]
 	var non_tanks:Array=ctx.order.filter(func(i):return int(i)>=2)
 	var flare_order:Array=ctx.order.slice(0,3)
-	var config:Dictionary={"id":"limitless","route":route,"sources":sources,"arrow_source":P.xy(R.direction(arrow_angle)*22.0),"shield_source":P.xy(R.direction(shield_angle)*22.0),"flare_source":P.xy(R.direction(shield_angle+120)*22.0),"arrow_target":int(non_tanks[ctx.rng.randi_range(0,non_tanks.size()-1)]),"pitch_policy":"closest_reference" if pitch_rank==0 else "closest_two_stress_unverified","defense_rank":defense_rank,"pitch_rank":pitch_rank,"flare_targets":flare_order}
+	var config:Dictionary={"id":"limitless","route":route,"sources":sources,"arrow_source":P.xy(R.direction(arrow_angle)*22.0),"shield_source":P.xy(R.direction(shield_angle)*22.0),"flare_source":P.xy(R.direction(shield_angle+120 if flare_angle==-999.0 else flare_angle)*22.0),"spawn_scope":"forced_training_superset","arrow_target":int(non_tanks[ctx.rng.randi_range(0,non_tanks.size()-1)]),"pitch_policy":"closest_reference" if pitch_rank==0 else "closest_two_stress_unverified","defense_rank":defense_rank,"pitch_rank":pitch_rank,"flare_targets":flare_order}
 	var start:int=ctx.beats.size()
 	for phase in [["bait",5.45,"Limitless: bait Sagittarius before cast lock"],["tethers",8.15,"Sagittarius and live tank tethers"],["shield",11.05,"Shield: tanks bait the closest two"],["followup",3.2,"Beyond Defense: actual victim leaves; seven share"],["raidwide",10.35,"Cosmo Memory: party mitigation"]]:
 		for actor in 8:ctx.positions[actor]=R.v(route.bait) if phase[0] in ["bait","tethers"] else Vector2.ZERO

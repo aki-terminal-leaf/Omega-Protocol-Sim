@@ -29,8 +29,7 @@ are recorded in `top/data/p2_limitless_routes.json`.
 The public closest-one Pitch reference conflicts with closest-two wording in
 some Elemental/KR text. Default mechanics use the observed closest-one family;
 forced rank-one variants are explicit stress fixtures, not regional rules.
-The twelve Arrow / thirty-degree source families form a training superset,
-not a claim that all server spawn RNG has been observed. Exact Flare falloff,
+Normal generation now preserves four verified JOINT five-clone layouts rather than independently mixing Arrow, shield and a fictitious shield+120-degree Flare. The old twelve Arrow / thirty-degree source API remains an explicitly forced training superset, not normal generation or a claim that all server spawn RNG has been observed. The protected female display is fixed at north10, corroborated by the real NPC15712 in all four captures. See SPAWN_RULE_AUDIT.md. Exact Flare falloff,
 party HP, mitigation and damage survival are not implemented or scored as solved.
 Source registry `complete: false` remains intentional.
 
