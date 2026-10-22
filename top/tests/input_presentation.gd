@@ -44,9 +44,12 @@ func run() -> void:
 		if app.filtered[i].id == "p6_meteors": app.choose_mechanic(i); break
 	app.strategy_select.select(1); app.choose_strategy(1)
 	app.seed_edit.text = "17391"
+	app.show_setup_tools(); await process_frame
 	app.seed_edit.grab_focus()
+	check(app.seed_edit.has_focus(), "seed editor is visible and actually focused")
 	await key(KEY_P)
 	check(not app.running, "typing P in setup does not launch a course")
+	app.tools_dialog.hide()
 	app.start_run()
 	for i in 3: await process_frame
 	check(app.practice_view and root.gui_get_focus_owner() == null, "entering player view releases seed editor focus")

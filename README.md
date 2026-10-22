@@ -2,11 +2,25 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[介面新版 v0.3.4-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.4-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
 先選機制，再選這個機制的攻略方式；每次獨立練習，不自動接續其他機制。預設只有遊戲場景、八人狀態及必要的 P6 LB 控制。
 
 ## 實際畫面與展示
+
+### v0.3.4：簡化選擇流程與固定場地預覽
+
+![v0.3.4 Linux 原生匯出包實際設定畫面](docs/images/top-v034-setup.webp)
+
+主畫面只需「選機制 → 選打法／角色 → 開始練習」；右側保留大幅場地預覽。
+階段、機制、長打法名稱與 P6 額外控制不再改變預覽尺寸；手動調整的鏡頭也不會因換機制而重設。
+種子、點名、速度、分段起點、隊伍／紀錄與操作說明收進右上角「進階設定／紀錄」。
+練習後按 Esc 回到設定，再按「繼續練習」保留原狀態；要換機制直接點左側。
+
+此版只提供已驗證的 Linux／source；AnAn 未連線，Windows 未作新版實機驗收。
+Web 候選成功匯出，但 VPS 瀏覽器擷取中斷，尚未通過，因此 Windows／Web 仍保留 v0.3.3，不冒稱已更新。
+[介面設計與驗證](docs/development/INTERFACE_REDESIGN.md)
+
 
 ### Program Loop：真正的數字狀態與獨立手動標記
 
@@ -34,7 +48,7 @@
 
 ## 下載與開始
 
-發布頁提供 Windows、Linux、Web、source ZIP 與 SHA256 校驗碼；含本機遊戲素材的包標記為 `local-game-models`。既有0.3.2／0.3.1／0.3.0下載保持不變。
+v0.3.4 介面預覽提供 Linux、source ZIP 與 SHA256 校驗碼；v0.3.3 發布頁另提供 Windows、Web。含本機遊戲素材的包標記為 `local-game-models`。既有0.3.2／0.3.1／0.3.0下載保持不變。
 
 - **Windows**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。
 - **Linux**：`chmod +x TOP-Practice-Lab.x86_64` 後執行。

@@ -35,6 +35,12 @@ var mechanic_methods: Dictionary = {}
 var configured := false
 var active_profile: Dictionary = {}
 var launch_buttons: Array = []
+var start_button: Button
+var resume_button: Button
+var tools_button: Button
+var tools_dialog: AcceptDialog
+var tools_tabs: TabContainer
+var preview_column: VBoxContainer
 var camera_buttons := 0
 var camera_anchor := Vector2.ZERO
 var checkpoint_assisted := false
@@ -92,7 +98,6 @@ var player_info: Label
 var party: RichTextLabel
 var feedback: RichTextLabel
 var progress: ProgressBar
-var pause_button: Button
 var focus_label: Label
 var profile_note: Label
 var custom_dialog: ConfirmationDialog
@@ -164,7 +169,8 @@ func label(text_value: String, size_value := 16, colour := Color("c6d4ea")) -> L
 func button(text_value: String, callback: Callable) -> Button:
 	var n = Button.new(); n.text = text_value; n.custom_minimum_size.y = 38; n.pressed.connect(callback); n.focus_mode = Control.FOCUS_NONE; return n
 func option(items: Array) -> OptionButton:
-	var n = OptionButton.new(); n.custom_minimum_size.y = 36; n.focus_mode = Control.FOCUS_NONE
+	var n = OptionButton.new(); n.custom_minimum_size.y = 38; n.focus_mode = Control.FOCUS_NONE
+	n.fit_to_longest_item = false; n.clip_text = true; n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	for item in items: n.add_item(str(item))
 	return n
 func panel(colour: Color, padding := 14) -> StyleBoxFlat:
@@ -181,93 +187,120 @@ func build_ui() -> void:
 	self.theme = theme_value
 	var background = ColorRect.new(); background.color = Color("0b1120"); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(background)
 	var margin = MarginContainer.new(); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left", "right", "top", "bottom"]: margin.add_theme_constant_override("margin_" + side, 14)
+	for side in ["left", "right", "top", "bottom"]: margin.add_theme_constant_override("margin_" + side, 20)
 	add_child(margin); setup_shell = margin
-	var root = VBoxContainer.new(); root.add_theme_constant_override("separation", 12); margin.add_child(root)
-	var header = HBoxContainer.new(); root.add_child(header)
-	header.add_child(label("Ω  OMEGA PROTOCOL", 26, Color("8ce3d1")))
-	var subtitle = label("PRACTICE LAB  /  v0.3 preview", 14, Color("8096b4")); subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
+	var root = VBoxContainer.new(); root.add_theme_constant_override("separation", 16); margin.add_child(root)
+	var header = HBoxContainer.new(); header.add_theme_constant_override("separation", 12); root.add_child(header)
+	header.add_child(label("Ω  PRACTICE LAB", 24, Color("8ce3d1")))
+	var subtitle = label("絕歐米茄 · 單人機制練習", 14, Color("8096b4")); subtitle.clip_text = true; subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL; header.add_child(subtitle)
 	header.add_child(button("攻略來源", show_research))
-	header.add_child(button("場地標記",show_waymark_settings))
-	var return_view := button("回到練習", return_practice_view)
-	header.add_child(return_view); launch_buttons.append(return_view)
-	var body = HBoxContainer.new(); body.add_theme_constant_override("separation", 12); body.size_flags_vertical = Control.SIZE_EXPAND_FILL; root.add_child(body)
-	var left_scroll = ScrollContainer.new(); left_scroll.custom_minimum_size.x = 290; left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; body.add_child(left_scroll)
-	var left = VBoxContainer.new(); left.custom_minimum_size.x = 280; left.add_theme_constant_override("separation", 8); left_scroll.add_child(left)
-	left.add_child(label("①  選擇機制", 17, Color("8ce3d1")))
+	header.add_child(button("場地標記", show_waymark_settings))
+	tools_button = button("進階設定／紀錄", show_setup_tools); header.add_child(tools_button)
+	# Plain Control isolates the two columns from their children's minimum sizes.
+	# Text, dropdown items and P6-only controls must never resize the preview.
+	var body = Control.new(); body.size_flags_vertical = Control.SIZE_EXPAND_FILL; root.add_child(body)
+	var sidebar = PanelContainer.new(); body.add_child(sidebar)
+	sidebar.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE); sidebar.offset_right = 336
+	sidebar.add_theme_stylebox_override("panel", panel(Color("101d30"), 16))
+	var left = VBoxContainer.new(); left.add_theme_constant_override("separation", 8); sidebar.add_child(left)
+	left.add_child(label("01  選擇機制", 17, Color("8ce3d1")))
 	phase_select = option(["全部階段", "P1 · Omega", "P2 · Omega M/F", "P3 · Final Omega", "P4 · Blue Screen", "P5 · Run: Dynamis", "P6 · Alpha Omega"]); left.add_child(phase_select); phase_select.item_selected.connect(func(_i): filter_catalog())
-	scenario_list = ItemList.new(); scenario_list.custom_minimum_size.y = 260; scenario_list.add_theme_font_size_override("font_size", 15); scenario_list.item_selected.connect(choose_mechanic); left.add_child(scenario_list)
-	focus_label = label(""); focus_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; left.add_child(focus_label)
-	left.add_child(label("②  選擇此機制的攻略方式", 15, Color("8ce3d1")))
-	strategy_select = option(["請先選擇機制"]); strategy_select.disabled = true
-	left.add_child(strategy_select); strategy_select.item_selected.connect(choose_strategy)
-	profile_note = label("共用訓練幾何；不是各區所有戰術的完整復刻。", 12, Color("8598b1")); profile_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; left.add_child(profile_note)
-	left.add_child(button("匯入／編輯自訂優先序", edit_custom))
-	var row = HBoxContainer.new(); left.add_child(row)
-	role_select = option(Encounter.ROLES); role_select.size_flags_horizontal = Control.SIZE_EXPAND_FILL; role_select.select(4); row.add_child(role_select); role_select.item_selected.connect(func(_i): refresh_jobs(); prepare())
-	slot_select = option(["隨機點名", "指定分配 1", "指定分配 2", "指定分配 3", "指定分配 4", "指定分配 5", "指定分配 6", "指定分配 7", "指定分配 8"]); row.add_child(slot_select); slot_select.item_selected.connect(func(_i): prepare())
-	lb_panel=VBoxContainer.new();left.add_child(lb_panel)
-	lb_panel.add_child(label("P6 職業／LB3 目標",13))
-	job_select=option([]);lb_panel.add_child(job_select);refresh_jobs()
-	job_select.item_selected.connect(func(_i):prepare())
-	lb_target=option(["選擇單體／直線目標"]);lb_target.set_item_metadata(0,"");lb_panel.add_child(lb_target)
-	var ground=HBoxContainer.new();lb_panel.add_child(ground);ground.add_child(label("法系落點 X/Z",12))
-	lb_ground_x=SpinBox.new();lb_ground_y=SpinBox.new()
-	for coordinate in [lb_ground_x,lb_ground_y]:
-		coordinate.min_value=-25;coordinate.max_value=25;coordinate.step=0.5;coordinate.custom_minimum_size.x=76;ground.add_child(coordinate)
-	lb_info=label("獨立練習以三層 Dynamis 與滿 LB3 起始；不模擬自然充能。",12);lb_info.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;lb_panel.add_child(lb_info)
-	lb_panel.visible=false
-	left.add_child(label("SEED  /  可重現的隨機種子", 13))
-	seed_edit = LineEdit.new(); seed_edit.text = str(randi_range(1, 999999)); seed_edit.placeholder_text = "1…2147483647"; left.add_child(seed_edit); seed_edit.text_submitted.connect(func(_v): prepare())
-	var speed_row = HBoxContainer.new(); left.add_child(speed_row); speed_row.add_child(label("速度")); speed_select = option(["0.5×", "0.75×", "1×", "1.25×", "1.5×"]); speed_select.select(2); speed_row.add_child(speed_select)
-	hints = CheckBox.new(); hints.text = "示範模式：顯示教學提示"; hints.button_pressed = false; left.add_child(hints)
-	stop_failure = CheckBox.new(); stop_failure.text = "失誤後暫停檢討"; stop_failure.button_pressed = true; left.add_child(stop_failure)
-	var start = button("▶  只練習選定機制", func(): demo = false; start_run()); left.add_child(start); launch_buttons.append(start)
-	left.add_child(label("Esc 設定 · Tab 練習工具",12))
-	left.add_child(button("←  返回機制選擇", return_to_selection))
-	var reroll = HBoxContainer.new(); left.add_child(reroll); var same = button("同種子重來  R", func(): demo = false; start_run()); reroll.add_child(same); launch_buttons.append(same)
-	var fresh = button("新點名", func(): seed_edit.text = str(randi_range(1, 999999)); demo = false; start_run()); reroll.add_child(fresh); launch_buttons.append(fresh)
-	left.add_child(label("分段起點", 13)); checkpoint_select = OptionButton.new(); left.add_child(checkpoint_select)
-	var segment = button("從選取段落開始", func(): demo = false; start_run(checkpoint_select.selected)); left.add_child(segment); launch_buttons.append(segment)
-	var center = VBoxContainer.new(); center.size_flags_horizontal = Control.SIZE_EXPAND_FILL; center.add_theme_constant_override("separation", 8); body.add_child(center)
-	title_label = label("", 21, Color("edf4ff")); center.add_child(title_label)
-	cue = label("", 17, Color("ffd58f")); cue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; cue.custom_minimum_size.y = 42; center.add_child(cue)
-	progress = ProgressBar.new(); progress.custom_minimum_size.y = 8; progress.show_percentage = false; center.add_child(progress)
-	view_container = SubViewportContainer.new(); view_container.stretch = true; view_container.size_flags_vertical = Control.SIZE_EXPAND_FILL; view_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL; view_container.custom_minimum_size = Vector2(350, 300); center.add_child(view_container)
+	scenario_list = ItemList.new(); scenario_list.custom_minimum_size.y = 140; scenario_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scenario_list.add_theme_font_size_override("font_size", 15); scenario_list.item_selected.connect(choose_mechanic); left.add_child(scenario_list)
+	focus_label = label("", 12, Color("90a3bd")); bounded_text(left, focus_label, 42)
+	left.add_child(HSeparator.new())
+	left.add_child(label("02  選擇打法", 17, Color("8ce3d1")))
+	strategy_select = option(["請先選擇機制"]); strategy_select.disabled = true; left.add_child(strategy_select); strategy_select.item_selected.connect(choose_strategy)
+	profile_note = label("每個機制只列出實際支援的解法。", 12, Color("90a3bd")); bounded_text(left, profile_note, 64)
+	var role_row = HBoxContainer.new(); left.add_child(role_row); role_row.add_child(label("你的角色", 14))
+	role_select = option(Encounter.ROLES); role_select.size_flags_horizontal = Control.SIZE_EXPAND_FILL; role_select.select(4); role_row.add_child(role_select); role_select.item_selected.connect(func(_i): refresh_jobs(); prepare())
+	left.add_child(label("點名、速度與分段起點在「進階設定」。", 12, Color("7087a4")))
+	preview_column = VBoxContainer.new(); body.add_child(preview_column)
+	preview_column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); preview_column.offset_left = 352
+	preview_column.add_theme_constant_override("separation", 8)
+	title_label = label("", 21, Color("edf4ff")); title_label.clip_text = true; title_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS; title_label.custom_minimum_size.y = 32; preview_column.add_child(title_label)
+	cue = label("", 14, Color("ffd58f")); cue.clip_text = true; cue.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS; cue.custom_minimum_size.y = 26; preview_column.add_child(cue)
+	progress = ProgressBar.new(); progress.custom_minimum_size.y = 4; progress.show_percentage = false; preview_column.add_child(progress)
+	view_container = SubViewportContainer.new(); view_container.stretch = true; view_container.size_flags_vertical = Control.SIZE_EXPAND_FILL; view_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL; view_container.custom_minimum_size = Vector2(350, 300); preview_column.add_child(view_container)
 	world = SubViewport.new(); world.size = Vector2i(800, 600); world.render_target_update_mode = SubViewport.UPDATE_ALWAYS; world.own_world_3d = true; view_container.add_child(world)
-	arena = Arena.new(); world.add_child(arena)
-	view_container.gui_input.connect(on_arena_input)
-	player_info = label("", 16, Color("8ce3d1")); center.add_child(player_info)
-	note = label("", 13); note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; note.custom_minimum_size.y = 65; center.add_child(note)
-	var transport = HBoxContainer.new(); center.add_child(transport)
-	pause_button = button("暫停  P", toggle_pause); transport.add_child(pause_button)
-	var retry = button("重練此段", retry_beat); transport.add_child(retry); launch_buttons.append(retry)
-	var show = button("示範", func(): demo = true; start_run()); transport.add_child(show); launch_buttons.append(show)
-	transport.add_child(button("俯視", toggle_overview))
-	transport.add_child(button("重設鏡頭", reset_camera))
-	follow_toggle = CheckBox.new(); follow_toggle.text = "跟隨"; follow_toggle.toggled.connect(func(value): if arena.has_method("set_follow"): arena.set_follow(value)); transport.add_child(follow_toggle); follow_toggle.set_pressed_no_signal(arena.follow_player)
-	transport.add_child(button("LB3  F", use_lb)); transport.add_child(button("換坦  V", provoke))
-	var actions = HBoxContainer.new(); center.add_child(actions)
-	actions.add_child(button("1  疾跑", use_sprint)); actions.add_child(button("2  防擊退", use_arms)); actions.add_child(button("3  突進", use_dash)); actions.add_child(button("Space  跳躍", jump_player))
-	var right = VBoxContainer.new(); right.custom_minimum_size.x = 270; right.add_theme_constant_override("separation", 10); body.add_child(right)
-	right.add_child(label("PARTY  /  任務與 Dynamis", 17, Color("8ce3d1")))
-	party = RichTextLabel.new(); party.bbcode_enabled = true; party.custom_minimum_size.y = 365; party.scroll_active = true; right.add_child(party)
-	right.add_child(label("SNAPSHOT  /  判定紀錄", 15, Color("8ce3d1")))
-	feedback = RichTextLabel.new(); feedback.bbcode_enabled = true; feedback.size_flags_vertical = Control.SIZE_EXPAND_FILL; feedback.custom_minimum_size.y = 180; right.add_child(feedback)
-	right.add_child(button("匯出練習紀錄 JSON", export_report))
-	right.add_child(label("WASD / 方向鍵：移動\n1：疾跑  ·  2：防擊退  ·  3：突進\nSpace：跳躍  ·  Q/E：轉身\n拖曳左右鍵：旋轉鏡頭  ·  滾輪：縮放\n右鍵：同步朝向  ·  雙鍵：前進\nP：暫停  ·  R：相同點名重來", 13, Color("90a3bd")))
-	status = label("訓練模型 · 放慢時間窗 · 非職業輸出模擬", 12, Color("7d91ad")); root.add_child(status)
+	arena = Arena.new(); world.add_child(arena); view_container.gui_input.connect(on_arena_input)
+	var camera_row = HBoxContainer.new(); camera_row.add_theme_constant_override("separation", 8); preview_column.add_child(camera_row)
+	var camera_hint = label("場地預覽 · 拖曳旋轉／滾輪縮放", 12, Color("8096b4")); camera_hint.clip_text = true; camera_hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL; camera_row.add_child(camera_hint)
+	camera_row.add_child(button("俯視", toggle_overview)); camera_row.add_child(button("重設鏡頭", reset_camera))
+	follow_toggle = CheckBox.new(); follow_toggle.text = "跟隨角色"; follow_toggle.toggled.connect(func(value): if arena.has_method("set_follow"): arena.set_follow(value)); camera_row.add_child(follow_toggle); follow_toggle.set_pressed_no_signal(arena.follow_player)
+	var footer = HBoxContainer.new(); footer.add_theme_constant_override("separation", 12); root.add_child(footer)
+	var summary = VBoxContainer.new(); summary.size_flags_horizontal = Control.SIZE_EXPAND_FILL; footer.add_child(summary)
+	player_info = label("", 14, Color("8ce3d1")); player_info.clip_text = true; summary.add_child(player_info)
+	status = label("一次只練一個機制 · 不自動連播", 12, Color("8096b4")); status.clip_text = true; summary.add_child(status)
+	resume_button = button("繼續練習", return_practice_view); footer.add_child(resume_button); resume_button.hide()
+	var show = button("觀看示範", func(): demo = true; start_run()); footer.add_child(show); launch_buttons.append(show)
+	start_button = button("開始練習  →", func(): demo = false; start_run()); start_button.custom_minimum_size = Vector2(200, 52)
+	start_button.add_theme_stylebox_override("normal", panel(Color("225b58"), 12)); start_button.add_theme_stylebox_override("hover", panel(Color("307971"), 12)); footer.add_child(start_button); launch_buttons.append(start_button)
+	build_setup_tools()
 	custom_dialog = ConfirmationDialog.new(); custom_dialog.title = "自訂戰術設定（JSON）"; custom_dialog.size = Vector2i(740, 500); add_child(custom_dialog)
 	custom_text = TextEdit.new(); custom_text.custom_minimum_size = Vector2(700, 420); custom_dialog.add_child(custom_text); custom_dialog.confirmed.connect(apply_custom)
 	save_dialog = FileDialog.new(); save_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE; save_dialog.access = FileDialog.ACCESS_FILESYSTEM; save_dialog.filters = PackedStringArray(["*.json ; Practice report"]); save_dialog.file_selected.connect(func(path): var f = FileAccess.open(path, FileAccess.WRITE); f.store_string(report_text); status.text = "已儲存：" + path); add_child(save_dialog)
 	build_practice_presentation()
 	build_marker_controls()
 
+func bounded_text(parent: Node, text_label: Label, height: float) -> void:
+	var bounds := Control.new(); bounds.custom_minimum_size.y = height; bounds.clip_contents = true; parent.add_child(bounds)
+	bounds.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bounds.add_child(text_label); text_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text_label.mouse_entered.connect(func(): text_label.tooltip_text = text_label.text)
+
+func tools_page(title: String) -> VBoxContainer:
+	var scroll := ScrollContainer.new(); scroll.name = title; scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; tools_tabs.add_child(scroll)
+	var content := VBoxContainer.new(); content.size_flags_horizontal = Control.SIZE_EXPAND_FILL; content.add_theme_constant_override("separation", 12); scroll.add_child(content)
+	return content
+
+func show_setup_tools() -> void:
+	tools_dialog.popup_centered(Vector2i(780, 650))
+
+func build_setup_tools() -> void:
+	tools_dialog = AcceptDialog.new(); tools_dialog.title = "進階設定與練習工具"; tools_dialog.ok_button_text = "完成"; add_child(tools_dialog)
+	tools_tabs = TabContainer.new(); tools_tabs.custom_minimum_size = Vector2(680, 520); tools_dialog.add_child(tools_tabs)
+	var settings := tools_page("練習設定")
+	settings.add_child(label("點名與重現", 17, Color("8ce3d1")))
+	slot_select = option(["隨機點名", "指定分配 1", "指定分配 2", "指定分配 3", "指定分配 4", "指定分配 5", "指定分配 6", "指定分配 7", "指定分配 8"]); settings.add_child(slot_select); slot_select.item_selected.connect(func(_i): prepare())
+	settings.add_child(label("隨機種子 · 相同數字可重現點名", 13))
+	var seed_row := HBoxContainer.new(); settings.add_child(seed_row)
+	seed_edit = LineEdit.new(); seed_edit.text = str(randi_range(1, 999999)); seed_edit.placeholder_text = "1…2147483647"; seed_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL; seed_row.add_child(seed_edit); seed_edit.text_submitted.connect(func(_v): prepare())
+	seed_row.add_child(button("換一組", func(): seed_edit.text = str(randi_range(1, 999999)); prepare()))
+	var speed_row := HBoxContainer.new(); settings.add_child(speed_row); speed_row.add_child(label("練習速度")); speed_select = option(["0.5×", "0.75×", "1×", "1.25×", "1.5×"]); speed_select.select(2); speed_select.custom_minimum_size.x = 110; speed_row.add_child(speed_select)
+	hints = CheckBox.new(); hints.text = "示範模式顯示教學提示"; settings.add_child(hints)
+	stop_failure = CheckBox.new(); stop_failure.text = "失誤後暫停檢討"; stop_failure.button_pressed = true; settings.add_child(stop_failure)
+	settings.add_child(HSeparator.new()); settings.add_child(label("分段練習", 17, Color("8ce3d1")))
+	checkpoint_select = option([]); settings.add_child(checkpoint_select)
+	var segment := button("從選取段落開始", func(): tools_dialog.hide(); demo = false; start_run(checkpoint_select.selected)); settings.add_child(segment); launch_buttons.append(segment)
+	var custom := button("匯入／編輯自訂優先序", func(): tools_dialog.hide(); edit_custom()); settings.add_child(custom); launch_buttons.append(custom)
+	lb_panel = VBoxContainer.new(); settings.add_child(lb_panel); lb_panel.add_child(label("P6 職業／LB3 目標", 17, Color("8ce3d1")))
+	job_select = option([]); lb_panel.add_child(job_select); refresh_jobs(); job_select.item_selected.connect(func(_i): prepare())
+	lb_target = option(["選擇單體／直線目標"]); lb_target.set_item_metadata(0, ""); lb_panel.add_child(lb_target)
+	var ground := HBoxContainer.new(); lb_panel.add_child(ground); ground.add_child(label("法系落點 X/Z", 12))
+	lb_ground_x = SpinBox.new(); lb_ground_y = SpinBox.new()
+	for coordinate in [lb_ground_x, lb_ground_y]:
+		coordinate.min_value = -25; coordinate.max_value = 25; coordinate.step = 0.5; coordinate.custom_minimum_size.x = 76; ground.add_child(coordinate)
+	lb_info = label("獨立練習以三層 Dynamis 與滿 LB3 起始；不模擬自然充能。", 12); lb_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; lb_panel.add_child(lb_info); lb_panel.hide()
+	var review := tools_page("隊伍與紀錄")
+	review.add_child(label("八人隊伍", 17, Color("8ce3d1")))
+	party = RichTextLabel.new(); party.bbcode_enabled = true; party.custom_minimum_size.y = 220; review.add_child(party)
+	review.add_child(label("判定與教學說明", 17, Color("8ce3d1")))
+	note = label("", 13); note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; review.add_child(note)
+	feedback = RichTextLabel.new(); feedback.bbcode_enabled = true; feedback.custom_minimum_size.y = 150; review.add_child(feedback)
+	review.add_child(button("匯出練習紀錄 JSON", export_report))
+	var controls := tools_page("操作說明")
+	controls.add_child(label("WASD／方向鍵：移動　Q／E：轉身\n左鍵拖曳：旋轉鏡頭　右鍵：同步朝向\n滾輪：縮放　雙鍵：前進\n1：疾跑　2：防擊退　3：突進　Space：跳躍\nF：LB3　V：換坦　P：暫停　R：同點名重來\nEsc：返回設定／繼續練習　Tab：遊戲內練習工具", 15))
+	var retry := button("重練目前段落", func(): tools_dialog.hide(); retry_beat(); set_practice_view(true))
+	controls.add_child(retry); launch_buttons.append(retry)
+
 func filter_catalog() -> void:
 	filtered = []; scenario_list.clear()
 	for item in catalog:
 		if phase_select.selected == 0 or int(item.phase) == phase_select.selected:
 			filtered.append(item); scenario_list.add_item("P%d  %s" % [int(item.phase), item.name.split(" / ")[0]])
+			scenario_list.set_item_tooltip(scenario_list.item_count - 1, item.name + "\n" + item.focus)
 	return_to_selection()
 func return_to_selection() -> void:
 	set_practice_view(false); resume_after_settings = false
@@ -275,13 +308,14 @@ func return_to_selection() -> void:
 	encounter = {}; current = {}; actors = []; active_profile = {}; state = {}; journal = []; retry_history = []; samples = []; all_errors = []; checkpoint_assisted = false
 	if is_instance_valid(lb_panel):lb_panel.visible=false
 	if is_instance_valid(arena): arena.update_state([], {}, role_select.selected, false)
-	scenario_list.deselect_all(); strategy_select.clear(); strategy_select.add_item("請先選擇機制"); strategy_select.disabled = true
-	checkpoint_select.clear(); title_label.text = "① 選擇機制 → ② 選攻略方式 → ③ 單獨練習"
-	cue.text = "不會自動接續其他機制"; note.text = "先在左側選擇想練習的機制。"; focus_label.text = ""; profile_note.text = "每個機制只列出實際支援的解法。"
+	scenario_list.deselect_all(); strategy_select.clear(); strategy_select.add_item("請先選擇機制"); strategy_select.disabled = true; strategy_select.tooltip_text = ""
+	checkpoint_select.clear(); title_label.text = "選一個想練習的機制"
+	cue.text = "左側選機制與打法，再按「開始練習」。"; note.text = "先在左側選擇想練習的機制。"; focus_label.text = ""; profile_note.text = "每個機制只列出實際支援的解法。"
 	party.text = ""; feedback.text = ""; player_info.text = ""; progress.value = 0
 	set_launch_enabled(false)
 func set_launch_enabled(enabled: bool) -> void:
 	for control in launch_buttons: control.disabled = not enabled
+	if is_instance_valid(resume_button): resume_button.visible = running
 func selected_item() -> Dictionary:
 	var selected = scenario_list.get_selected_items()
 	return filtered[selected[0]] if selected.size() and not filtered.is_empty() else {}
@@ -292,7 +326,7 @@ func choose_mechanic(selection: int) -> void:
 	var item = selected_item()
 	if item.is_empty(): return
 	lb_panel.visible=false
-	strategy_select.clear(); strategy_select.disabled = false; strategy_select.add_item("請選擇此機制的攻略方式")
+	strategy_select.clear(); strategy_select.tooltip_text = ""; strategy_select.disabled = false; strategy_select.add_item("請選擇此機制的攻略方式")
 	for method in mechanic_methods.get(item.id, []):
 		strategy_select.add_item(method.name)
 		strategy_select.set_item_metadata(strategy_select.item_count - 1, method)
@@ -300,13 +334,13 @@ func choose_mechanic(selection: int) -> void:
 	title_label.text = "P%d · %s" % [int(item.phase), item.name.split(" / ")[0]]
 	focus_label.text = item.focus; cue.text = "② 選擇此機制的攻略方式"; note.text = "選好攻略方式後才會建立此機制的練習。"
 	profile_note.text = "共 %d 種可用解法；只套用到本次選定機制。" % (strategy_select.item_count - 1)
-	party.text = ""; feedback.text = ""; arena.update_state([], {}, role_select.selected, false)
+	party.text = ""; feedback.text = ""; player_info.text = ""; progress.value = 0; arena.update_state([], {}, role_select.selected, false)
 	if arena.has_method("set_encounter"): arena.set_encounter(item.id)
-	reset_camera()
 func choose_strategy(selection: int) -> void:
 	if selection <= 0:
 		configured = false; running = false; current = {}; encounter = {}; set_launch_enabled(false); return
 	var method: Dictionary = strategy_select.get_item_metadata(selection)
+	strategy_select.tooltip_text = strategy_select.get_item_text(selection) + "\n" + str(method.get("description", ""))
 	for profile in strategies:
 		if profile.id == method.profile:
 			active_profile = load("res://scripts/strategy_routes.gd").apply(profile,selected_item().id,method.get("overrides",{})); configured = true; set_launch_enabled(true); prepare(); return
@@ -386,6 +420,7 @@ func oracle_actors(b: Dictionary) -> Array:
 		simulated.append({"role": Encounter.ROLES[i], "pos": p, "face": b.facing.get(i, 0)})
 	return simulated
 func start_run(checkpoint := 0) -> void:
+	tools_dialog.hide()
 	if not configured or selected_item().is_empty(): return
 	checkpoint_assisted = checkpoint > 0
 	var demonstrate = demo
@@ -395,7 +430,7 @@ func start_run(checkpoint := 0) -> void:
 	if index > 0: actors = state.checkpoint_actors.duplicate(true)
 	journal = []; retry_history = []; samples = []; all_errors = []; beat_passed = 0; beat_failed = 0
 	sprint_left = 0; knockback_resist_left = 0; dash_left = 0
-	running = true; paused = false; pending_advance = false; sample_elapsed = 0; pause_button.text = "暫停  P"
+	running = true; paused = false; pending_advance = false; sample_elapsed = 0
 	feedback.text = "[color=#8ce3d1]%s · seed %s[/color]\n" % ["示範模式（不計入成績）" if demo else "練習開始", seed_edit.text]
 	begin_beat(true)
 	set_practice_view(true)
@@ -449,7 +484,7 @@ func bind_snapshot_geometry(b: Dictionary, party_actors: Array, runtime: Diction
 			b.shapes[j].angle=angle+float(source.turn)
 func toggle_pause() -> void:
 	if not running: return
-	paused = not paused; pause_button.text = "繼續  P" if paused else "暫停  P"
+	paused = not paused
 	if paused: write_report()
 	sync_practice_hud()
 func retry_beat() -> void:
@@ -563,6 +598,7 @@ func _input(event: InputEvent) -> void:
 		camera_buttons = 0; Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		if practice_view: open_practice_settings()
 func _unhandled_key_input(event: InputEvent) -> void:
+	if is_instance_valid(tools_dialog) and tools_dialog.visible: return
 	if get_viewport().gui_get_focus_owner() is LineEdit or get_viewport().gui_get_focus_owner() is TextEdit: return
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	if event.shift_pressed and event.physical_keycode==KEY_R:
@@ -652,7 +688,7 @@ func resolve_beat() -> void:
 		beat_failed += 1; all_errors.append_array(errors)
 		for error in errors: log_feedback(error, false)
 		if stop_failure.button_pressed:
-			paused = true; pause_button.text = "繼續  P"
+			paused = true
 	pending_advance = true
 	if not errors.is_empty():
 		log_feedback("失敗檢討 · " + current.title, false)
@@ -865,8 +901,11 @@ func set_practice_view(enabled: bool) -> void:
 	else:
 		if view_container.get_parent() != view_home:
 			view_container.reparent(view_home,false); view_home.move_child(view_container,view_home_index)
-		view_container.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+			view_container.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
 		view_container.custom_minimum_size = Vector2(350,300)
+		# Reparenting from fullscreen needs a layout pass. Repeated setup calls
+		# must not force the container back to its minimum-sized rectangle.
+		view_home.queue_sort()
 		view_placeholder.hide(); practice_root.hide(); setup_shell.show()
 	sync_practice_hud()
 
@@ -890,6 +929,7 @@ func toggle_overview() -> void:
 
 func sync_practice_hud() -> void:
 	if not is_instance_valid(hud_title): return
+	resume_button.visible = running and not practice_view
 	hud_title.text = title_label.text; hud_cue.text = cue.text
 	hud_progress.value = progress.value; hud_player.text = player_info.text
 	hud_pause.text = "P 繼續" if paused else "P 暫停"

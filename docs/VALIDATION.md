@@ -324,3 +324,17 @@ movie or hand-authored animation. P3 uses original meshes/textures with a
 reconstructed attachment/material/envelope, not a full direct AVFX runtime.
 Full HP/jobs/deaths, all spawn families, some collision/timing policies and some
 regional temporal routes retain the limitations in FIDELITY.md.
+
+
+## v0.3.4-preview — stable setup UI (2026-10-22)
+
+Setup geometry498/0 (all100 unique methods;175 selections including resize cases),
+actual Linux rendered source smoke25/0, presentation27/0, input20/0, marker
+library36/0 and marker GUI9/0. Long labels, phase changes, conditional P6
+controls and fullscreen-return preserve the same1048x604 logical preview.
+The README setup image is from the actual Linux exported executable; its
+PCK SHA256 is `389eb42a8ea97d7e1836b702b038c08a3fd49fe129e471970c73aaef498aaaaf`. Final packaging must match that rendered PCK.
+Windows native verification is unavailable (AnAn offline). Web export succeeded
+but browser driver connection closed during live-page/screenshot verification;
+not a pass. v0.3.4 release scope is Linux/source only; existing Windows/Web
+v0.3.3 assets are unchanged. See [interface design](development/INTERFACE_REDESIGN.md).

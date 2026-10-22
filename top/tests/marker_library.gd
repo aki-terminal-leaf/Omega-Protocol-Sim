@@ -67,9 +67,11 @@ func run()->void:
  event.physical_keycode=KEY_H;app._unhandled_key_input(event)
  check(Markers.marker_for(app.state,app.player)=="attack1","new self key works in actual Main")
  event.physical_keycode=KEY_BACKSPACE;app._unhandled_key_input(event)
- app.seed_edit.grab_focus();event.physical_keycode=KEY_H;app._unhandled_key_input(event)
+ app.open_practice_settings();app.show_setup_tools();await process_frame
+ app.seed_edit.grab_focus();check(app.seed_edit.has_focus(),"seed editor is actually focused in settings")
+ event.physical_keycode=KEY_H;app._unhandled_key_input(event)
  check(Markers.marker_for(app.state,app.player)=="","text entry blocks marker hotkeys")
- app.seed_edit.release_focus()
+ app.seed_edit.release_focus();app.tools_dialog.hide();app.return_practice_view()
  var config:=ConfigFile.new();config.load("user://settings.cfg");config.set_value("future","preserved",123);config.save("user://settings.cfg")
  app.save_settings();config=ConfigFile.new();config.load("user://settings.cfg")
  check(config.get_value("future","preserved")==123,"save merges unrelated config sections")
