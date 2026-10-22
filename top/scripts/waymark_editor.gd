@@ -21,7 +21,7 @@ func _draw()->void:
   var span:=sqrt(400.0-x*x)
   draw_line(center()+Vector2(x,-span)*unit_scale(),center()+Vector2(x,span)*unit_scale(),Color(0.16,0.2,0.28),1,true)
   draw_line(center()+Vector2(-span,x)*unit_scale(),center()+Vector2(span,x)*unit_scale(),Color(0.16,0.2,0.28),1,true)
- var font:=ThemeDB.fallback_font
+ var font:=preload("res://fonts/ui.tres")
  draw_string(font,center()+Vector2(-5,-radius-5),"N",HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color.WHITE)
  for i in layout.marks.size():
   var mark:Dictionary=layout.marks[i]

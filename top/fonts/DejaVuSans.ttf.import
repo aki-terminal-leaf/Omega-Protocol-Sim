@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cuu5r7scg8ryu"
-path="res://.godot/imported/ui_fallback.otf-c7e5b58fe7cbc58dd523cab69c9f068d.fontdata"
+uid="uid://cvihy0hnlhyl1"
+path="res://.godot/imported/DejaVuSans.ttf-178e8f184caa85854adec7368964cca3.fontdata"
 
 [deps]
 
-source_file="res://fonts/ui_fallback.otf"
-dest_files=["res://.godot/imported/ui_fallback.otf-c7e5b58fe7cbc58dd523cab69c9f068d.fontdata"]
+source_file="res://fonts/DejaVuSans.ttf"
+dest_files=["res://.godot/imported/DejaVuSans.ttf-178e8f184caa85854adec7368964cca3.fontdata"]
 
 [params]
 
@@ -19,10 +19,10 @@ disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
-allow_system_fallback=true
+allow_system_fallback=false
 force_autohinter=false
 modulate_color_glyphs=false
-hinting=1
+hinting=3
 subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0

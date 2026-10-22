@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT
 extends Node3D
+const UI_FONT = preload("res://fonts/ui.tres")
 const Visuals = preload("res://scripts/visuals.gd")
 const Rules = preload("res://scripts/rules.gd")
 const Markers=preload("res://scripts/markers.gd")
@@ -113,17 +114,17 @@ func _ready() -> void:
 	for i in 8:
 		var root = Node3D.new(); add_child(root)
 		var body = Visuals.humanoid(i); root.add_child(body); actor_models.append(body)
-		var label = Label3D.new(); label.billboard = BaseMaterial3D.BILLBOARD_ENABLED; label.font_size = 34; label.pixel_size = 0.028; label.outline_size = 8; label.position.y = 2.3; label.no_depth_test = true; root.add_child(label)
+		var label = Label3D.new(); label.font = UI_FONT; label.billboard = BaseMaterial3D.BILLBOARD_ENABLED; label.font_size = 34; label.pixel_size = 0.028; label.outline_size = 8; label.position.y = 2.3; label.no_depth_test = true; root.add_child(label)
 		var arrow = Node3D.new(); root.add_child(arrow)
 		arrow.add_child(FacingRing.create(0.8,Color("8fb6d7")))
-		var effects:=Label3D.new();effects.billboard=BaseMaterial3D.BILLBOARD_ENABLED;effects.font_size=29;effects.pixel_size=0.026;effects.outline_size=8;effects.position.y=3.1;effects.no_depth_test=true;root.add_child(effects);status_labels.append(effects)
+		var effects:=Label3D.new(); effects.font = UI_FONT;effects.billboard=BaseMaterial3D.BILLBOARD_ENABLED;effects.font_size=29;effects.pixel_size=0.026;effects.outline_size=8;effects.position.y=3.1;effects.no_depth_test=true;root.add_child(effects);status_labels.append(effects)
 		var icon:=Sprite3D.new();icon.billboard=BaseMaterial3D.BILLBOARD_ENABLED;icon.no_depth_test=true;icon.pixel_size=0.034;icon.position.y=4.5;icon.visible=false;root.add_child(icon);world_icons.append(icon)
 		var badges:Array=[]
 		for slot in 3:
 			var badge:=Sprite3D.new();badge.billboard=BaseMaterial3D.BILLBOARD_ENABLED;badge.no_depth_test=true;badge.position=Vector3((slot-1)*1.15,4.0,0);badge.visible=false;root.add_child(badge);badges.append(badge)
 		debuff_icons.append(badges)
 		var sign:=Sprite3D.new();sign.name="ManualTargetSign";sign.billboard=BaseMaterial3D.BILLBOARD_ENABLED;sign.no_depth_test=true;sign.visible=false;sign.position.y=5.0;root.add_child(sign)
-		var fallback:=Label3D.new();fallback.name="Fallback";fallback.billboard=BaseMaterial3D.BILLBOARD_ENABLED;fallback.font_size=42;fallback.pixel_size=0.02;fallback.outline_size=8;sign.add_child(fallback)
+		var fallback:=Label3D.new(); fallback.font = UI_FONT;fallback.name="Fallback";fallback.billboard=BaseMaterial3D.BILLBOARD_ENABLED;fallback.font_size=42;fallback.pixel_size=0.02;fallback.outline_size=8;sign.add_child(fallback)
 		target_signs.append(sign)
 		actor_nodes.append(root); actor_labels.append(label); actor_arrows.append(arrow)
 
@@ -231,7 +232,7 @@ func set_encounter(id: String) -> void:
 		if forms.size() == 2:
 			boss.position.x = -11 if form == "male" else 11
 			boss.rotation_degrees.y = 90 if form == "male" else -90
-			var label = Label3D.new(); label.name = "Cue"
+			var label = Label3D.new(); label.font = UI_FONT; label.name = "Cue"
 			label.text = "OMEGA " + ("M" if form == "male" else "F")
 			label.position.y = 4.8; label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 			label.font_size = 28; label.pixel_size = 0.025; boss.add_child(label)
@@ -443,7 +444,7 @@ func update_stage_entities() -> void:
 		stage_nodes=[];stage_signature=signature
 		for entity in entities:
 			var node:Node3D=Visuals.boss(entity.form);add_child(node);stage_nodes.append(node)
-			var label:=Label3D.new();label.name="EntityLabel";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
+			var label:=Label3D.new(); label.font = UI_FONT;label.name="EntityLabel";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
 	for i in stage_nodes.size():
 		var node:Node3D=stage_nodes[i];var entity:Dictionary=entities[i]
 		var p:Vector2=Rules.v(entity.pos);node.position=Vector3(p.x,float(entity.get("height",0)),p.y)
@@ -523,7 +524,7 @@ func set_waymarks(layout:Dictionary)->void:
 		if texture!=null:
 			var glyph:=Sprite3D.new();glyph.name="OriginalGlyph";glyph.texture=texture;glyph.billboard=BaseMaterial3D.BILLBOARD_ENABLED;glyph.pixel_size=0.008;glyph.position.y=1.02;anchor.add_child(glyph)
 		else:
-			var text:=Label3D.new();text.text=str(mark.id);text.font_size=80;text.pixel_size=0.025;text.modulate=colour;text.position.y=0.03;text.rotation_degrees.x=-90;anchor.add_child(text)
+			var text:=Label3D.new(); text.font = UI_FONT;text.text=str(mark.id);text.font_size=80;text.pixel_size=0.025;text.modulate=colour;text.position.y=0.03;text.rotation_degrees.x=-90;anchor.add_child(text)
 
 func clear_p3_effects()->void:
 	if is_instance_valid(p3_fx_root):

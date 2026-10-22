@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cncgvcycgp2c8"
-path="res://.godot/imported/ui.ttf-c78f28470c391ccada7d3d00d90cd768.fontdata"
+uid="uid://cxs8d021xot8o"
+path="res://.godot/imported/NotoSansCJKtc-Regular.otf-2ba0753e49cfe84024b978251d5392b0.fontdata"
 
 [deps]
 
-source_file="res://fonts/ui.ttf"
-dest_files=["res://.godot/imported/ui.ttf-c78f28470c391ccada7d3d00d90cd768.fontdata"]
+source_file="res://fonts/NotoSansCJKtc-Regular.otf"
+dest_files=["res://.godot/imported/NotoSansCJKtc-Regular.otf-2ba0753e49cfe84024b978251d5392b0.fontdata"]
 
 [params]
 
@@ -19,10 +19,10 @@ disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
-allow_system_fallback=true
+allow_system_fallback=false
 force_autohinter=false
 modulate_color_glyphs=false
-hinting=1
+hinting=3
 subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0

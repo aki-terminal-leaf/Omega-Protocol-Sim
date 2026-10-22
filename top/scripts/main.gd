@@ -186,9 +186,8 @@ func panel(colour: Color, padding := 14) -> StyleBoxFlat:
 	return style
 func build_ui() -> void:
 	var theme_value = Theme.new(); theme_value.default_font_size = 15
-	var font = SystemFont.new(); font.font_names = PackedStringArray(["Noto Sans TC", "Microsoft JhengHei", "WenQuanYi Zen Hei", "Arial"]); theme_value.default_font = font
-	if ResourceLoader.exists("res://fonts/ui.ttf"): theme_value.default_font = load("res://fonts/ui.ttf")
-	if ResourceLoader.exists("res://fonts/ui_fallback.otf"):theme_value.default_font.fallbacks=[load("res://fonts/ui_fallback.otf")]
+	# Embed the complete static Regular face: identical coverage and weight on Web/native.
+	theme_value.default_font = preload("res://fonts/ui.tres")
 	theme_value.set_stylebox("normal", "Button", panel(Color("1d3047"), 8)); theme_value.set_stylebox("hover", "Button", panel(Color("294a60"), 8)); theme_value.set_stylebox("pressed", "Button", panel(Color("37605f"), 8))
 	theme_value.set_stylebox("normal", "LineEdit", panel(Color("172338"), 7)); theme_value.set_stylebox("panel", "PopupMenu", panel(Color("18283c"), 10))
 	self.theme = theme_value
@@ -940,6 +939,7 @@ func build_practice_presentation() -> void:
 	hud_controls = control_instructions(practice_root)
 	hud_controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	hud_controls.offset_left = 12; hud_controls.offset_right = -12; hud_controls.offset_top = -68; hud_controls.offset_bottom = -10
+	hud_bottom_panel.minimum_size_changed.connect(layout_practice_footer)
 	practice_root.hide()
 
 func set_practice_view(enabled: bool) -> void:
@@ -983,6 +983,15 @@ func toggle_overview() -> void:
 	else: arena.overhead=not arena.overhead; arena.update_camera()
 	follow_toggle.set_pressed_no_signal(arena.follow_player)
 
+func layout_practice_footer() -> void:
+	# Normal-weight CJK metrics and P6 rows can exceed the old fixed panel height.
+	# Grow upwards from the instructions, never down across their text.
+	if not is_instance_valid(hud_controls): return
+	hud_bottom_panel.offset_bottom = hud_controls.offset_top - 8
+	hud_bottom_panel.offset_top = hud_bottom_panel.offset_bottom - maxf(72.0, hud_bottom_panel.get_combined_minimum_size().y)
+	hud_feedback_panel.offset_bottom = hud_bottom_panel.offset_top - 10
+	hud_feedback_panel.offset_top = hud_feedback_panel.offset_bottom - maxf(128.0, hud_feedback_panel.get_combined_minimum_size().y)
+
 func sync_practice_hud() -> void:
 	if not is_instance_valid(hud_title): return
 	resume_button.visible = running and not practice_view
@@ -997,10 +1006,7 @@ func sync_practice_hud() -> void:
 	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""
 	hud_bottom_panel.visible = training_overlay or hud_lb_row.visible
 	hud_gameplay_info.visible = training_overlay or hud_lb_row.visible
-	hud_bottom_panel.offset_top = ((-144 if hud_lb_row.visible else -104) if training_overlay else -82) - 66
-	hud_bottom_panel.offset_bottom = -76
-	hud_feedback_panel.offset_top = (-282 if hud_lb_row.visible else -242) - 66
-	hud_feedback_panel.offset_bottom = (-154 if hud_lb_row.visible else -114) - 66
+	layout_practice_footer()
 	if not hud_lb_row.visible: return
 	var items: Array = []
 	for i in lb_target.item_count: items.append([lb_target.get_item_text(i),lb_target.get_item_metadata(i)])

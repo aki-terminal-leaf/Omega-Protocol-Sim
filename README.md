@@ -8,6 +8,17 @@
 
 ## 實際畫面與展示
 
+### v0.3.6 測試站：完整繁中字體與正常字重
+
+固定測試網址：[top.servicing.cc](https://top.servicing.cc)。新版 Web 候選改用完整的
+**Noto Sans CJK TC Regular 400**，取代只有約1,500字、預設Thin 100的可變字體子集。
+選單、HUD、場內3D文字共用內嵌字體；不依賴作業系統安裝字體。現有中日文、標點及旋轉符號皆有字形。
+P6底部控制列依字體實際高度向上伸展，不遮住操作說明。
+
+![v0.3.6 完整繁中字體，實際 Godot 原生渲染](docs/images/top-v036-font.webp)
+
+[字體來源、授權與驗證](docs/development/UI_TYPOGRAPHY.md)。此為測試站更新；上方既有下載版本不變。
+
 ### v0.3.5：機制名稱語系、新種子與底部操作說明
 
 **[固定網址 Web 測試站](https://top.servicing.cc)**（實驗性 Web 版；首次下載約204 MiB，尚未完成桌面瀏覽器遊玩驗收）。
@@ -140,6 +151,6 @@ python3 tools/package.py --godot godot
 
 ## 授權與歷史
 
-保留上游[LICENSE](LICENSE)及各檔聲明；舊README見[README.upstream.md](README.upstream.md)。上游部分程式有GPL標頭，未移除或重新授權；新增TOP程式為MIT，字型為SIL OFL。可選遊戲素材不屬於MIT程式碼授權；source ZIP排除遊戲素材，未把整個DSR PCK或攻略影片包入發布。FFXIV名稱屬各權利人；此為非官方工具。
+保留上游[LICENSE](LICENSE)及各檔聲明；舊README見[README.upstream.md](README.upstream.md)。上游部分程式有GPL標頭，未移除或重新授權；新增TOP程式為MIT；Noto字體為SIL OFL，DejaVu符號後備字體保留Bitstream Vera／DejaVu授權。可選遊戲素材不屬於MIT程式碼授權；source ZIP排除遊戲素材，未把整個DSR PCK或攻略影片包入發布。FFXIV名稱屬各權利人；此為非官方工具。
 
 歷史發布：[0.3.2](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.2-preview) · [0.3.1](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.1-preview) · [0.3.0](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.0-preview)

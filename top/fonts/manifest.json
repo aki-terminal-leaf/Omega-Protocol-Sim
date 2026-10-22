@@ -1,0 +1,23 @@
+{
+  "license": "Noto: SIL OFL 1.1; symbol fallback: Bitstream Vera / DejaVu license",
+  "subsetting": false,
+  "primary": {
+    "path": "NotoSansCJKtc-Regular.otf",
+    "family": "Noto Sans CJK TC",
+    "weight": 400,
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/TraditionalChinese/NotoSansCJKtc-Regular.otf",
+    "license_file": "CJK-OFL.txt",
+    "sha256": "dce08bd4fd91aa8aa76ed8fea4b694c2dfb8550f67871e326843212ddbeb88b4",
+    "bytes": 16435884,
+    "glyph_coverage": 44810
+  },
+  "symbols": {
+    "path": "DejaVuSans.ttf",
+    "url": "https://dejavu-fonts.github.io/",
+    "source": "Unmodified Ubuntu fonts-dejavu-core /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "license_file": "SYMBOLS-LICENSE.txt",
+    "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+    "bytes": 759720,
+    "glyph_coverage": 5918
+  }
+}

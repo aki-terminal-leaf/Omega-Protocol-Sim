@@ -77,12 +77,13 @@ def main():
         shutil.copytree(ROOT/'docs',target/'docs',dirs_exist_ok=True)
         (target/'FONT-OFL.txt').write_bytes((ROOT/'top/fonts/OFL.txt').read_bytes())
         (target/'CJK-FONT-OFL.txt').write_bytes((ROOT/'top/fonts/CJK-OFL.txt').read_bytes())
+        (target/'SYMBOLS-FONT-LICENSE.txt').write_bytes((ROOT/'top/fonts/SYMBOLS-LICENSE.txt').read_bytes())
         asset_info=target/'LOCAL_GAME_ASSETS.json'
         asset_info.write_text(json.dumps(manifests,indent=2)+'\n')
         suffix=platform+('-x86_64' if platform!='web' else '')+('-local-game-models' if local_models else '')
         archive=dist/f'TOP-Practice-Lab-v{version}-{suffix}.zip'
         with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as bundle:
-            roots=[path.name for path in outputs]+['BUILD_INFO.json','LICENSE','README.md','FONT-OFL.txt','CJK-FONT-OFL.txt','LOCAL_GAME_ASSETS.json']
+            roots=[path.name for path in outputs]+['BUILD_INFO.json','LICENSE','README.md','FONT-OFL.txt','CJK-FONT-OFL.txt','SYMBOLS-FONT-LICENSE.txt','LOCAL_GAME_ASSETS.json']
             for name in roots:bundle.write(target/name,name)
             for path in (target/'docs').rglob('*'):
                 if path.is_file():bundle.write(path,path.relative_to(target))
