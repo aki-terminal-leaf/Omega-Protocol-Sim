@@ -7,6 +7,7 @@ const Markers=preload("res://scripts/markers.gd")
 const DeathWall=preload("res://scripts/death_wall.gd")
 const FacingRing=preload("res://scripts/facing_ring.gd")
 const EnemyRings=preload("res://scripts/enemy_rings.gd")
+const SynergySigns=preload("res://scripts/synergy_signs.gd")
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -67,6 +68,7 @@ var debuff_icons:Array=[]
 var waymarks:Node3D
 var waymark_signature:=""
 var target_signs:Array=[]
+var mechanic_signs:Array=[]
 var death_wall:Node3D
 
 func _ready() -> void:
@@ -127,6 +129,7 @@ func _ready() -> void:
 		var sign:=Sprite3D.new();sign.name="ManualTargetSign";sign.billboard=BaseMaterial3D.BILLBOARD_ENABLED;sign.no_depth_test=true;sign.visible=false;sign.position.y=5.0;root.add_child(sign)
 		var fallback:=Label3D.new(); fallback.font = UI_FONT;fallback.name="Fallback";fallback.billboard=BaseMaterial3D.BILLBOARD_ENABLED;fallback.font_size=42;fallback.pixel_size=0.02;fallback.outline_size=8;sign.add_child(fallback)
 		target_signs.append(sign)
+		var mechanic:=Sprite3D.new();mechanic.name="MechanicSign";mechanic.billboard=BaseMaterial3D.BILLBOARD_ENABLED;mechanic.no_depth_test=true;mechanic.visible=false;mechanic.position.y=5.6;root.add_child(mechanic);mechanic_signs.append(mechanic)
 		actor_nodes.append(root); actor_labels.append(label); actor_arrows.append(arrow)
 
 	p3_fx_root=Node3D.new();p3_fx_root.name="P3ObservedEffects";add_child(p3_fx_root)
@@ -279,6 +282,10 @@ func _process(delta: float) -> void:
 		var fallback:Label3D=target_sign.get_node("Fallback");fallback.text=Markers.title(marker) if target_sign.texture==null else ""
 		target_sign.position.y=(6.7 if overhead else 4.8)+float(actors[i].get("height",0.0))
 		if target_sign.texture!=null:target_sign.pixel_size=(1.45*cue_scale(actor_nodes[i]))/float(target_sign.texture.get_width())
+		var symbol:=SynergySigns.observed(i,current,observed_state)
+		var mechanic:Sprite3D=mechanic_signs[i];mechanic.visible=not symbol.is_empty();mechanic.texture=SynergySigns.texture(symbol)
+		mechanic.position.y=(6.0 if overhead else 5.6)+float(actors[i].get("height",0.0))
+		if mechanic.texture!=null:mechanic.pixel_size=2.0*cue_scale(actor_nodes[i])/float(mechanic.texture.get_width())
 		var cue:=observed_cue(i)
 		status_labels[i].text=cue.text;status_labels[i].modulate=cue.colour;status_labels[i].position.y=3.1+float(actors[i].get("height",0.0))
 		var icon_id:=int(cue.icon)
@@ -332,7 +339,12 @@ func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 			disk(p, 0, float(shape.get("radius", 40)), colour, degrees - span / 2, span)
 func draw_indicators() -> void:
 	aoe.clear_surfaces(); aoe_vertex_count=0
-	for shape in current.get("shapes", []): draw_shape(shape)
+	for shape in current.get("shapes", []):
+		if guide or not current.get("hide_predictive_aoes",false):draw_shape(shape)
+	for impact in observed_state.get("visual_impacts",[]):
+		var age:=float(observed_state.get("sim_time",0))-float(impact.at)
+		if age>=0 and age<0.35:
+			for shape in impact.shapes:draw_shape(shape,Color(1.0,0.45,0.2,0.55*(1.0-age/0.35)))
 	if guide:
 		for source in current.get("monitors", []): draw_shape(source, Color(0.25, 0.55, 1, 0.13))
 	var tethers: Array = current.get("tethers", [])
@@ -380,6 +392,7 @@ func draw_signs(tethers: Array) -> void:
 		sign_ring(p + Vector3(0, 0.65, 0), 0.42, Color("ffcc76"))
 		sign_line(p + Vector3(0, 0.7, 0), p + Vector3(0, 1.25, 0), Color("ffcc76"))
 	for shape in current.get("shapes", []):
+		if current.get("hide_predictive_aoes",false) and not guide:continue
 		var p2 = Rules.point(shape, actors)
 		var p = Vector3(p2.x, 0, p2.y)
 		var kind = shape.get("kind", "")
@@ -436,7 +449,11 @@ func update_clone_cues() -> void:
 			boss.visible = not active.is_empty()
 
 func update_stage_entities() -> void:
-	var entities:Array=current.get("stage_entities",[])
+	var entities:Array=current.get("stage_entities",[]).duplicate(true)
+	for transition in current.get("entity_transitions",[]):
+		if beat_elapsed>=float(transition.at):
+			for entity in entities:
+				if str(entity.get("id",""))==str(transition.id):entity.merge(transition,true)
 	var keys:Array=[]
 	for i in entities.size():keys.append([str(entities[i].get("id",i)),str(entities[i].form)])
 	var signature:=JSON.stringify(keys)
@@ -455,8 +472,8 @@ func update_stage_entities() -> void:
 			Visuals.Official.set_stance(node,stance);node.set_meta("last_stance",stance)
 			for option in ["SWORD","SHIELD","LEGS","STAFF"]:
 				if node.has_node(option):node.get_node(option).visible=option==stance
-			var display_names:Dictionary={"beetle":"Omega","male":"Omega M","female":"Omega F","male_p5":"Omega M","female_p5":"Omega F","final":"Omega Reconfigured","alpha":"Alpha Omega","fist_b5":"拳 A","fist_b6":"拳 B","arm_left":"","arm_right":"","rear_unit":"Rear Power Unit","optical_unit":"Optical Unit"}
-			node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))+(" / "+stance if stance in ["SWORD","SHIELD","LEGS","STAFF"] else "")
+		var display_names:Dictionary={"beetle":"Omega","male":"Omega M","female":"Omega F","male_p5":"Omega M","female_p5":"Omega F","final":"Omega Reconfigured","alpha":"Alpha Omega","fist_b5":"拳 A","fist_b6":"拳 B","arm_left":"","arm_right":"","rear_unit":"Rear Power Unit","optical_unit":"Optical Unit"}
+		node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))+(" / "+stance if guide and stance in ["SWORD","SHIELD","LEGS","STAFF"] else "")
 		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed>=float(entity.get("spawn_delay",0))
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
 	if bosses.size() == 1:
@@ -501,7 +518,7 @@ func observed_cue(actor:int)->Dictionary:
 	if observed_state.has("limitless") and observed_state.limitless.flare_marked and now<float(observed_state.limitless.start)+27.45 and actor in observed_state.limitless.config.flare_targets:titles.append("Flare")
 	if int(result.icon)!=0 and not world_textures.has(int(result.icon)):titles.append("近世界" if result.icon==215141 else "遠世界")
 	for item in current.get("party_statuses",[]):
-		if int(item.actor)==actor and item.get("marker",false): titles.append(str(item.name))
+		if int(item.actor)==actor and item.get("marker",false) and not item.has("symbol"): titles.append(str(item.name))
 	result.text="  ".join(titles)
 	return result
 

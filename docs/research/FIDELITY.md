@@ -98,3 +98,7 @@ P1各炮易傷、Solar Ray與Dive、Sigma塔Ruin、Omega Blaster及Spark均有
 物件，但不是完整原版邊界AVFX。身位環與模型朝向同步。P3檢知使用
 原版左右充能網格及相關貼圖重建，來源、事件綁定及完整AVFX播放器
 仍未完成的差異見[P3_EFFECTS](P3_EFFECTS.md)。
+
+## 2026-10-22 Party Synergy correction
+
+See [chronological PT source and verification](P2_SYNERGY_TIMELINE.md). Genuine/decoy M/F, source-ordered graphical memory markers, radius45 Optical Unit reconstruction and actual animation-swap sequence are now wired. Core hits are independent snapshots. Remaining icon frames and original VFX are explicitly not certified.

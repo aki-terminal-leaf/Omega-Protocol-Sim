@@ -79,11 +79,14 @@ func run()->void:
 		check(item(rows,i,"guided_missile_kyrios").icon==215126 and item(rows,i,"condensed_wave_cannon_kyrios").icon==215026,"actual missile/wave countdowns visible without route instructions")
 	choose(app,"p2_synergy");app.start_run()
 	for beat in app.encounter.beats:
-		if beat.has("party_statuses"):
-			var observed:=Party.rows(app.actors,app.state,beat)
-			for i in 8:
-				check(not item(observed,i,"synergy_marker").is_empty(),"actual paired marker available independently of left/right labels")
-				check(not item(observed,i,"mid_glitch").is_empty() or not item(observed,i,"remote_glitch").is_empty(),"actual Glitch persists across optical/knockback beats")
+		var observed_state:Dictionary=app.state.duplicate(true)
+		observed_state.sim_time=float(beat.synergy_start)+0.1;observed_state.beat_started=float(beat.synergy_start)
+		var observed:=Party.rows(app.actors,observed_state,beat)
+		for i in 8:
+			var memory:bool=float(beat.synergy_start)>=3.0 and float(beat.synergy_start)<6.099
+			var glitch:bool=float(beat.synergy_start)>=6.099 and float(beat.synergy_start)<33.099
+			check(not item(observed,i,"synergy_marker").is_empty()==memory,"pair marker appears only during memory, not after it disappears")
+			check((not item(observed,i,"mid_glitch").is_empty() or not item(observed,i,"remote_glitch").is_empty())==glitch,"Glitch starts separately and persists to original27s expiry")
 	choose(app,"p3_monitors");app.start_run();rows=Party.rows(app.actors,app.state,app.current)
 	var monitor_count:=0
 	for row in rows:

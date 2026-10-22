@@ -715,6 +715,16 @@ func update_lb_controls() -> void:
 func provoke() -> void:
 	if player < 2 and running and not paused: state.aggro = player; status.text = "Provoke：" + Encounter.ROLES[player]
 func resolve_beat() -> void:
+	if current.get("hide_predictive_aoes",false) and not current.get("shapes",[]).is_empty():
+		var frozen:Array=[]
+		for source in current.shapes:
+			var shape:Dictionary=source.duplicate(true)
+			shape.pos=Rules.point(source,actors)
+			if source.kind=="line":shape.angle=rad_to_deg(atan2(Rules.aim(source,actors).x,-Rules.aim(source,actors).y))
+			for key in ["actor","target","dynamic_actor","dynamic_aim"]:shape.erase(key)
+			if shape.kind in ["spread","stack"]:shape.kind="circle"
+			frozen.append(shape)
+		state.visual_impacts=[{"at":float(state.get("sim_time",0)),"shapes":frozen}]
 	if current.has("knockback"):
 		for i in actors.size():
 			if i == player and not demo and knockback_resist_left > 0: continue

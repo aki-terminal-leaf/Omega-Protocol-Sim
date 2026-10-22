@@ -4,6 +4,8 @@ var cases:=0
 var failures:=0
 var maximum_speed:=0.0
 var started:=0
+var only_method:=-1
+var only_scenario:=""
 
 func _initialize() -> void: call_deferred("run")
 
@@ -45,7 +47,12 @@ func run() -> void:
  # Actual Main: all32 source clone families ×five offered Synergy methods
  # ×two deterministic allocations (320 courses), then all six monitor methods
  # ×three allocations (18). No route-goal teleport or boosted bot speed.
+ for argument in OS.get_cmdline_user_args():
+  if argument.begins_with("--only-method="):only_method=int(argument.trim_prefix("--only-method="))
+  if argument.begins_with("--only-scenario="):only_scenario=argument.trim_prefix("--only-scenario=")
  for method in range(1,6):
+  if only_method>=0 and method!=only_method:continue
+  if only_scenario!="" and only_scenario!="p2_synergy":continue
   for seed_value in [17391,7]:
    for sword in [false,true]:
     for legs in [false,true]:
@@ -53,8 +60,11 @@ func run() -> void:
       if not execute(app,"p2_synergy",method,seed_value,{"p2_sword":sword,"p2_legs":legs,"p2_clone_angle":22.5+45*orientation}):await end(app);return
       await process_frame
  for method in range(1,7):
+  if only_method>=0 and method!=only_method:continue
+  if only_scenario!="" and only_scenario!="p3_monitors":continue
   for seed_value in [17391,7,43]:
    if not execute(app,"p3_monitors",method,seed_value):await end(app);return
    await process_frame
- if cases!=338 or maximum_speed<5.99:failures+=1;print("WALK FAIL incomplete coverage or unexercised movement")
+ var expected:int=(64 if only_method in range(1,6) else (320 if only_method<0 else 0)) if only_scenario=="p2_synergy" else ((3 if only_method in range(1,7) else (18 if only_method<0 else 0)) if only_scenario=="p3_monitors" else (67 if only_method in range(1,6) else (338 if only_method<0 else 3)))
+ if cases!=expected or maximum_speed<5.99:failures+=1;print("WALK FAIL incomplete coverage or unexercised movement")
  await end(app)

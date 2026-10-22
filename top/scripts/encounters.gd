@@ -222,73 +222,7 @@ func p1_cannons() -> void:
 		item.checks.append({"kind": "furthest_tanks", "name": "Diffuse Wave Cannon"})
 
 func party_synergy() -> void:
-	var m_sword = bool(profile.get("p2_sword",rng.randi_range(0,1)));var f_legs = bool(profile.get("p2_legs",rng.randi_range(0,1)))
-	var clone_angle := float(profile.get("p2_clone_angle",22.5+rng.randi_range(0,7)*45.0))
-	var shapes = clone_shapes(m_sword, f_legs,clone_angle)
-	var safe = find_safe(shapes)
-	for i in 8: pos(i, safe)
-	var dodge = beat("Party Synergy · M %s / F %s" % ["SWORD" if m_sword else "SHIELD", "LEGS" if f_legs else "STAFF"], 5.1, "M/F 克隆在半徑10的22.5°斜角相對出現；先讀武器姿態，再看眼睛。")
-	dodge.shapes = shapes
-	dodge.stage_entities=Clones.pair_entities(clone_angle,m_sword,f_legs);dodge.hide_main_boss=true
-	dodge.spawn=[]
-	for i in 8:dodge.spawn.append(Vector2((i-3.5)*0.25,0))
-	var remote = bool(rng.randi_range(0, 1))
-	var symbols: Array = profile.shapes
-	for i in 4:
-		var z = -12.0 + i * 8.0
-		var x = sqrt(18.0 * 18.0 - z * z) if remote else 11.0
-		pos(i * 2, rotated(Vector2(-x, z), angle))
-		var other_z = -z if remote and profile.get("remote_full_cross", true) else z
-		if remote and not profile.get("remote_full_cross", true): other_z = -z if i in [0, 3] else z
-		pos(i * 2 + 1, rotated(Vector2(x, other_z), angle))
-		label(i * 2, "%s · L · %s" % [symbols[i], "REMOTE" if remote else "MID"])
-		label(i * 2 + 1, "%s · R · %s" % [symbols[i], "REMOTE" if remote else "MID"])
-	var eye = beat("Optimized Fire III · %s Glitch" % ("REMOTE" if remote else "MID"),6.4,"以眼睛為北，分散火圈與搭檔距離各自判定。")
-	eye.hide_main_boss=true
-	spread(eye,range(8),float(Params.parameter("p2_fire_radius")))
-	for shape in eye.shapes:shape.hit_status="magic_vulnerability";shape.hit_status_duration=2.0
-	for i in 4:eye.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch"))
-	var optical=beat("Optical Laser · after Fire III",0.35,"火圈先結算，接著眼睛雷射；不是同一個快照。")
-	optical.hide_main_boss=true
-	optical.shapes.append({"kind":"line","pos":polar(angle,45),"angle":angle+180,"width":float(Params.parameter("p2_optical_width")),"start":0.0,"length":100.0,"name":"Optical Laser"})
-	var left: Array = []; var right: Array = []
-	for i in 4: left.append(at(i * 2)); right.append(at(i * 2 + 1))
-	var stacks = [at(rng.randi_range(0, 7)), at(rng.randi_range(0, 7))]
-	while stacks[1] == stacks[0]: stacks[1] = at(rng.randi_range(0, 7))
-	if (stacks[0] in left) == (stacks[1] in left):
-		var candidates = stacks.duplicate()
-		candidates.sort_custom(func(a,b): return rotated(positions[a],-angle).y < rotated(positions[b],-angle).y)
-		var selected = candidates[0] if profile.stack_flex == "north" else candidates[-1]
-		var symbol_index = order.find(selected) / 2
-		var partner = at(symbol_index * 2 + (1 if selected in left else 0))
-		left.erase(selected); right.erase(selected); left.erase(partner); right.erase(partner)
-		if order.find(selected) % 2 == 0: right.append(selected); left.append(partner)
-		else: left.append(selected); right.append(partner)
-	var f_angle:=float(profile.get("p2_late_f_angle",rng.randi_range(0,7)*45.0))
-	var lp=polar(270,4.8);var rp=polar(90 if remote else 180,4.8)
-	group_goals(left,lp,0.06);group_goals(right,rp,0.06)
-	var knock=beat("Discharger · prepare two safe gaps",6.8,"以新F／三男中間為北，左組向西；右組近線向南、遠線向東。擊退後仍可移動。")
-	knock.knockback=13.0;knock=rotate_beat(knock,f_angle)
-	var clones:Array=[{"form":"female","pos":polar(f_angle,13),"facing":f_angle+180,"stance":"SWORD"}]
-	for k in 4:clones.append({"form":"male","pos":polar(f_angle+45+k*90,13),"facing":f_angle+225+k*90,"stance":"SWORD"})
-	knock.stage_entities=clones;knock.hide_main_boss=true
-	# Set guidance to the actual post-knockback locations, without teleporting actors.
-	for i in 8:positions[i]=knock.positions[i]+knock.positions[i].normalized()*13.0
-	var stacks_beat=beat("Spotlight + five clone circles · %s flex" % profile.stack_flex,4.3,"原始五個半徑10的克隆圓：F與另四個M，來源半徑13。距離與分攤在此時依實際位置結算。")
-	for i in stacks:
-		var share:=targeted(i,float(Params.parameter("p2_spotlight_radius")),4,"Spotlight")
-		share.hit_status="magic_vulnerability";share.hit_status_duration=2.0;stacks_beat.shapes.append(share)
-	for clone in clones:stacks_beat.shapes.append(circle(clone.pos,10.0,"Efficient Bladework"))
-	for i in 4:stacks_beat.checks.append(glitch_pair(at(i*2),at(i*2+1),remote,"Glitch at Spotlight"))
-	stacks_beat.stage_entities=clones;stacks_beat.hide_main_boss=true
-	# Actual assigned markers/status, independent of left/right route labels.
-	var party_effects:Array=[]
-	for pair_index in 4:
-		for member in [at(pair_index*2),at(pair_index*2+1)]:
-			party_effects.append({"actor":member,"key":"remote_glitch" if remote else "mid_glitch","remaining":-1})
-			party_effects.append({"actor":member,"key":"synergy_marker","name":str(symbols[pair_index]),"status_id":0,"icon":0,"remaining":-1,"marker":true})
-	for active_beat in [eye,optical,knock,stacks_beat]: active_beat.party_statuses=party_effects.duplicate(true)
-	stacks_beat.consume_party_signals=party_effects.map(func(raw):return {"actor":raw.actor,"key":raw.key})
+	preload("res://scripts/p2_synergy_courses.gd").append_synergy(self)
 
 func clone_shapes(sword: bool,legs: bool,m_angle:=270.0) -> Array:
 	return Clones.pair_shapes(m_angle,sword,legs)

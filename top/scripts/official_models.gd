@@ -81,7 +81,7 @@ static func set_parts(node: Node, form: String, active: String) -> void:
 	if node is MeshInstance3D:
 		var part := str(node.name)
 		if part.contains("atr_parts_a"): node.visible = active == ("SHIELD" if form.begins_with("male") else "LEGS")
-		elif part.contains("atr_parts_b"): node.visible = active != ("SHIELD" if form.begins_with("male") else "LEGS")
+		elif part.contains("atr_parts_b"): node.visible = active != "NEUTRAL" and active != ("SHIELD" if form.begins_with("male") else "LEGS")
 		elif form.begins_with("female") and part.contains("atr_bv_c"): node.visible = active != "LEGS"
 	for child in node.get_children(): set_parts(child,form,active)
 

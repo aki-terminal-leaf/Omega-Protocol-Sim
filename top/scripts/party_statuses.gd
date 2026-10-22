@@ -27,6 +27,9 @@ static func add(effects: Dictionary, key: String, raw: Dictionary, now: float) -
 	effects[key] = item
 static func contains_actor(values:Array,actor:int)->bool:
 	return values.any(func(value):return int(value)==actor)
+static func signal_visible(raw:Dictionary,state:Dictionary,beat:Dictionary) -> bool:
+	var elapsed:=float(state.get("sim_time",0))-float(state.get("beat_started",0))
+	return elapsed+0.000001>=float(raw.get("visible_from",0)) and elapsed<float(raw.get("visible_until",INF))
 static func rows(actors: Array,state: Dictionary,beat: Dictionary={},controls: Dictionary={}) -> Array:
 	var result: Array=[]
 	var now:=float(state.get("sim_time",0))
@@ -34,7 +37,7 @@ static func rows(actors: Array,state: Dictionary,beat: Dictionary={},controls: D
 	for i in actors.size():
 		var effects:Dictionary={}
 		for raw in beat.get("party_statuses",[]):
-			if int(raw.actor)==i and str(raw.key) not in state.get("consumed_party_signals",{}).get(str(i),[]): add(effects,str(raw.key),raw,now)
+			if int(raw.actor)==i and signal_visible(raw,state,beat) and str(raw.key) not in state.get("consumed_party_signals",{}).get(str(i),[]): add(effects,str(raw.key),raw,now)
 		var buffs:Dictionary=state.get("statuses",[])[i] if i<state.get("statuses",[]).size() else {}
 		for key in buffs:
 			effects.erase(str(key)) # Runtime expiry overrides any presentation metadata.

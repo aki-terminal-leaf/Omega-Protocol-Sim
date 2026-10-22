@@ -109,6 +109,15 @@ static func boss(form: String, prefer_official := true) -> Node3D:
 		preload("res://scripts/enemy_rings.gd").attach(imported,form)
 		return imported
 	var root = Node3D.new()
+	if form=="optical_unit":
+		root.name="OpticalUnit_Reconstructed"
+		root.set_meta("visual_fidelity","procedural Optical Unit cue; not original game mesh")
+		ball(root,Vector3.ZERO,Vector3(8,6,3),Color("3d4656"))
+		ball(root,Vector3(0,0,-1.4),Vector3(6.3,4.3,1.5),Color("c4d8da"))
+		ball(root,Vector3(0,0,-2.1),Vector3(3.3,3.3,0.65),Color("a94255"))
+		ball(root,Vector3(0,0,-2.5),Vector3(1.4,2.1,0.35),Color("261426"))
+		var rim:=ring(root,Vector3(0,0,-2.0),2.4,0.18,Color("c4a875"));rim.rotation_degrees.x=90
+		return root
 	if form not in ["beetle","male","female","final","alpha"]:
 		# Unknown/missing auxiliary assets must never become a fake Final Omega.
 		root.set_meta("missing_official_form",form)
