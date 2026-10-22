@@ -3,6 +3,7 @@ extends Node3D
 ## Bounded source-graph preview. NOT an original-game renderer certification.
 ## Frames are native numeric units; the viewer chooses an explicit preview rate.
 const CurveRuntime=preload("res://scripts/avfx_animation.gd")
+const MeshStage=preload("res://scripts/avfx_mesh_stage.gd")
 const MAX_FRAME=1800.0
 const MAX_WORK=16000
 const MAX_PARTICLES=2048
@@ -279,16 +280,10 @@ func _mesh(spec:Dictionary)->Mesh:
  if mesh_cache.has(key):return mesh_cache[key]
  var mesh:Mesh
  if model_index>=0 and model_index<document.get("models",[]).size():
-  var source:Dictionary=document.models[model_index];var arrays:Array=[];arrays.resize(Mesh.ARRAY_MAX)
-  var vertices:=PackedVector3Array();var uvs:=PackedVector2Array();var colors:=PackedColorArray();var indices:=PackedInt32Array()
-  for v in source.vertices:
-   vertices.append(Vector3(v.position[0],v.position[1],v.position[2]));uvs.append(Vector2(v.uv[0][0],v.uv[0][1]));colors.append(Color(v.color[0]/255.0,v.color[1]/255.0,v.color[2]/255.0,v.color[3]/255.0))
-  for face in source.triangles:
-   for vertex in face:indices.append(int(vertex))
-  var actual:=ArrayMesh.new()
-  if not vertices.is_empty() and not indices.is_empty():
-   arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_TEX_UV]=uvs;arrays[Mesh.ARRAY_COLOR]=colors;arrays[Mesh.ARRAY_INDEX]=indices;actual.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
-  mesh=actual
+  var result:=MeshStage.create(document.models[model_index])
+  if result.status!="source_geometry":
+   diagnostics["invalid_source_model"]=true;return ArrayMesh.new()
+  mesh=result.mesh
  elif kind in [1,2,8]:
   var quad:=QuadMesh.new();quad.size=Vector2.ONE;mesh=quad
  elif kind==12:return _disc(spec)

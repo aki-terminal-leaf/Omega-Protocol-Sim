@@ -30,6 +30,7 @@ static func create(plan:Dictionary,context:Dictionary)->Dictionary:
  if plan.get("requires_model_fresnel",false) and not context.model_fresnel_included:return failure("model Fresnel factor not supplied")
  var samples:Variant=context.get("samples")
  if not samples is Array or samples.size()!=4:return failure("four explicit sample contexts required")
+ var uses_custom_uv:=false
  var declarations:="";var body:="vec4 ink=vec4(1.0);\n"
  for i in 4:
   var layer:Variant=layers[i]
@@ -47,11 +48,18 @@ static func create(plan:Dictionary,context:Dictionary)->Dictionary:
    if not row(sample.get("uv_row0")) or not row(sample.get("uv_row1")):return failure("explicit finite UV transform rows required")
    if sample.get("source_uv_index")!=layer.get("uv_index"):return failure("source UV-set provenance does not match reviewed plan")
    var source:Variant=sample.get("uv_source")
-   if not (source is int or source is float) or (source!=0 and source!=1):return failure("only explicit mesh UV/UV2 inputs supported")
+   if not (source is int or source is float) or not is_finite(float(source)) or source!=floor(float(source)) or source<0 or source>3:return failure("explicit mesh UV source 0..3 required")
+   if source>=2:
+    var source_mesh:Variant=context.get("source_mesh")
+    if not source_mesh is ArrayMesh or source_mesh.get_surface_count()==0:return failure("custom UVs require the actual source ArrayMesh")
+    for surface in source_mesh.get_surface_count():
+     var format:int=source_mesh.surface_get_format(surface)
+     if not (format&Mesh.ARRAY_FORMAT_CUSTOM0) or ((format>>Mesh.ARRAY_FORMAT_CUSTOM0_SHIFT)&Mesh.ARRAY_FORMAT_CUSTOM_MASK)!=Mesh.ARRAY_CUSTOM_RGBA_FLOAT:return failure("custom UVs require RGBA_FLOAT CUSTOM0 on every surface")
+    uses_custom_uv=true
    if sample.get("filter") not in ["nearest","linear"] or sample.get("wrap") not in ["repeat","clamp"]:return failure("unreviewed sampler state")
    if not sample.get("decoded_samples") is bool or not sample.decoded_samples:return failure("explicit decoded numeric samples required")
    declarations+="uniform sampler2D tex%d:filter_%s,%s;\nuniform vec3 uv%d_row0;\nuniform vec3 uv%d_row1;\n"%[i,sample.filter,"repeat_enable" if sample.wrap=="repeat" else "repeat_disable",i,i]
-   var uv:="UV" if sample.uv_source==0 else "UV2"
+   var uv:String=["UV","UV2","original_uv23.xy","original_uv23.zw"][int(source)]
    body+="vec2 uv%d=vec2(dot(vec3(%s,1.0),uv%d_row0),dot(vec3(%s,1.0),uv%d_row1));vec4 %s=texture(tex%d,uv%d);\n"%[i,uv,i,uv,i,label,i,i]
   else:
    # Source optimizer can elide CTA RGB=white/alpha=None samplers.
@@ -83,7 +91,7 @@ ink.rgb=max(ink.rgb,vec3(0.0));ink.a=clamp(ink.a,0.0,1.0);
 if(diagnostic_alpha){ALBEDO=vec3(0.25+0.5*ink.a);ALPHA=1.0;}
 else{if(ink.a<1.0/255.0){discard;}ALBEDO=ink.rgb;ALPHA=ink.a;}
 }
-"""%[declarations,body]
+"""%[declarations+("varying vec4 original_uv23;\nvoid vertex(){original_uv23=CUSTOM0;}\n" if uses_custom_uv else ""),body]
  var material:=ShaderMaterial.new();material.shader=shader
  material.set_shader_parameter("calculate_color",float(cc));material.set_shader_parameter("calculate_alpha",float(ca));material.set_shader_parameter("common_factor",context.common_factor)
  for i in 4:

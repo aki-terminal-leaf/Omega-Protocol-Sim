@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: MIT
 extends SceneTree
 ## External fixtures carry independent ORIGINAL instruction equations and hashes.
+const MeshStage=preload("res://scripts/avfx_mesh_stage.gd")
 const Stage=preload("res://scripts/avfx_color_stage.gd")
 var checks:=0
 var failures:=0
 var snapshots:Array=[]
 var weak_resources:Array=[]
+var weak_meshes:Array=[]
 func check(ok:bool,label:String)->void:
  checks+=1
  if not ok:failures+=1;printerr("FAIL "+label)
@@ -34,12 +36,11 @@ func run()->void:
  for fixture in fixtures:
   var samples:Array=[]
   if fixture.has("uv_rows"):
-   var arrays:Array=[];arrays.resize(Mesh.ARRAY_MAX)
-   arrays[Mesh.ARRAY_VERTEX]=PackedVector3Array([Vector3(-1,1,0),Vector3(1,1,0),Vector3(1,-1,0),Vector3(-1,-1,0)])
-   arrays[Mesh.ARRAY_TEX_UV]=PackedVector2Array([Vector2(.25,.25),Vector2(.25,.25),Vector2(.25,.25),Vector2(.25,.25)])
-   arrays[Mesh.ARRAY_TEX_UV2]=PackedVector2Array([Vector2(.75,.75),Vector2(.75,.75),Vector2(.75,.75),Vector2(.75,.75)])
-   arrays[Mesh.ARRAY_INDEX]=PackedInt32Array([0,1,2,0,2,3])
-   var mesh:=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays);quad.mesh=mesh
+   var source:={"vertices":[],"triangles":[[0,1,2],[0,2,3]]}
+   for point in [Vector3(-1,1,0),Vector3(1,1,0),Vector3(1,-1,0),Vector3(-1,-1,0)]:
+    source.vertices.append({"position":[point.x,point.y,point.z,1.],"color":[255,255,255,255],"uv":[[.25,.25],[.75,.75],[.75,.25],[.25,.75]]})
+   var built:=MeshStage.create(source);check(built.status=="source_geometry","source four-UV mesh "+fixture.label)
+   quad.mesh=built.mesh;weak_meshes.append(weakref(quad.mesh));built.clear()
   for i in 4:
    var values:Array=fixture.samples[i]
    var image:=Image.create(1,1,false,Image.FORMAT_RGBAF);image.fill(Color(values[0],values[1],values[2],values[3]))
@@ -53,7 +54,7 @@ func run()->void:
     var rows:Array=fixture.uv_rows[i];samples[i].uv_row0=Vector3(rows[0][0],rows[0][1],rows[0][2]);samples[i].uv_row1=Vector3(rows[1][0],rows[1][1],rows[1][2]);samples[i].uv_source=fixture.uv_sources[i]
    texture_refs.append(weakref(texture));texture=null
   var f:Array=fixture.factor
-  var context:={"samples":samples,"calculate_color":fixture.cc,"calculate_alpha":fixture.ca,"common_factor":Color(f[0],f[1],f[2],f[3]),"model_fresnel_included":true}
+  var context:={"samples":samples,"calculate_color":fixture.cc,"calculate_alpha":fixture.ca,"common_factor":Color(f[0],f[1],f[2],f[3]),"model_fresnel_included":true,"source_mesh":quad.mesh}
   var result:Dictionary=Stage.create(fixture.plan,context)
   check(result.status=="verified_color_stage","build "+fixture.label)
   if result.status!="verified_color_stage":printerr(result);samples.clear();context.clear();continue
@@ -75,6 +76,9 @@ func run()->void:
  for ref in texture_refs:check(ref.get_ref()==null,"released sampled texture")
  var output:=args[1];DirAccess.make_dir_recursive_absolute(output)
  root.get_texture().get_image().save_png(output.path_join("last-color-stage.png"))
+ world.free()
+ for _i in 4:await process_frame
+ for ref in weak_meshes:check(ref.get_ref()==null,"released original four-UV source mesh")
  var file:=FileAccess.open(output.path_join("color-stage-pixels.json"),FileAccess.WRITE)
  file.store_string(JSON.stringify({"checks":checks,"failures":failures,"pixels":snapshots,"fixture_count":fixtures.size(),"rendering_complete":false,"engine":Engine.get_version_info().string,"display_transfer":"ed1daf0bf GLES3 tonemap_inc.glsl approximations; alpha encoded 0.25+0.5*a"},"  "));file.close()
- world.free();print("AVFX_COLOR_STAGE checks=%d failures=%d fixtures=%d"%[checks,failures,fixtures.size()]);quit(1 if failures else 0)
+ print("AVFX_COLOR_STAGE checks=%d failures=%d fixtures=%d"%[checks,failures,fixtures.size()]);quit(1 if failures else 0)

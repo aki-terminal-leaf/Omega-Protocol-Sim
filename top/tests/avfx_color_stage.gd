@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT
 extends SceneTree
+const MeshStage=preload("res://scripts/avfx_mesh_stage.gd")
 const Stage=preload("res://scripts/avfx_color_stage.gd")
 var checks:=0
 var failures:=0
@@ -24,6 +25,14 @@ func _initialize()->void:
   c=context();c.erase(key);check(Stage.create(p,c).status=="unsupported","no guessed context "+key)
  c=context();c.samples[0].uv_source=0.0;result=Stage.create(p,c);check(result.status=="verified_color_stage","JSON numeric UV source accepted");result.clear()
  c=context();c.samples[0].uv_source=0.5;check(Stage.create(p,c).status=="unsupported","fractional UV source rejected")
+ for source_uv in [2,3]:
+  c=context();c.samples[0].uv_source=source_uv
+  check(Stage.create(p,c).status=="unsupported","custom UV cannot silently sample missing channels")
+  c.source_mesh=ArrayMesh.new();check(Stage.create(p,c).status=="unsupported","empty source mesh cannot supply custom UV")
+  var source:={"vertices":[],"triangles":[[0,1,2]]}
+  for point in [Vector3(-1,-1,0),Vector3(1,-1,0),Vector3(0,1,0)]:source.vertices.append({"position":[point.x,point.y,point.z,1.],"color":[255,255,255,255],"uv":[[0.,0.],[.5,0.],[0.,.5],[.5,.5]]})
+  var built:=MeshStage.create(source);c.source_mesh=built.mesh;result=Stage.create(p,c)
+  check(result.status=="verified_color_stage","four-UV source mesh supplies custom channel "+str(source_uv));result.clear();built.clear()
  c=context();c.calculate_alpha=NAN;check(Stage.create(p,c).status=="unsupported","reject nonfinite controls")
  c=context();p.requires_model_fresnel=true;check(Stage.create(p,c).status=="unsupported","model Fresnel must be explicit");p.requires_model_fresnel=false
  for key in ["texture","filter","wrap","uv_source","uv_row0","uv_row1","decoded_samples","source_uv_index"]:

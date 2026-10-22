@@ -51,6 +51,72 @@ not connected to encounter playback and does not resolve the remaining host
 ABI, render-graph, attachment or scheduler semantics below. No full-player
 completion or new released build is claimed.
 
+## Four original model UV channels (2026-10-22)
+
+The source-model mesh path no longer discards UV sets 1–3. The dedicated
+`avfx_mesh_stage.gd` transports source UV0 through `UV`, UV1 through `UV2`, and
+UV2/UV3 through `CUSTOM0.xy`/`.zw` using the pinned engine's RGBA-float custom
+vertex format. The experimental player now uses this mesh builder. Source-local
+XYZ, triangle winding and vertex colors are retained. Position W and packed
+normal/tangent bytes remain in the source document; this is not an original
+vertex-shader implementation or a claim about their host-space interpretation.
+
+A private independent oracle decoded the original binary half-floats, checked
+that they match the compiled documents, and compared the actual Godot mesh
+arrays **bit-for-bit**: all 18 source effects, 56 nonempty models and 14,153
+vertices passed 523 checks. The first JSON-double comparison exposed decimal
+parser rounding on tiny values; the accepted oracle instead compares exact raw
+source float32 bytes, without relaxing UV error tolerance. Source validation
+rejects missing UV pairs, nonfinite values, fractional/out-of-range indices and
+invalid color bytes; weak references verify mesh release and player reset.
+Affected runtime/resource/timeline/material gates passed 580 checks separately.
+
+A standalone Linux Compatibility pixel probe independently samples four distinct
+texels through the four original UV channels, including `CUSTOM0` passed from
+vertex to fragment stage, and verifies all probe resources are released. This
+proves channel transport, not the game's UV scale/rotation/scroll matrix rules.
+The same standalone frozen-source probe passed six checks on AnAn Windows,
+including resource release, with Godot 4.7.2 Compatibility on an AMD Radeon
+RX 7900 XT; all four pixels exactly matched. Its first launch stalled and was
+terminated. The bounded WebGL2 follow-up timed out and is **not a pass**;
+task-owned native/browser processes, server, profile and export were cleaned.
+The reviewed color bridge now accepts explicit sources 0–3 and passes `CUSTOM0`
+from vertex to fragment when required. Custom sources require the caller's actual
+nonempty `ArrayMesh`, with RGBA-float `CUSTOM0` on every surface, so an absent
+channel cannot silently supply zero at construction. This is a caller contract:
+the caller must draw that same mesh; material creation cannot enforce later
+mesh identity. The experimental player still uses its earlier UV0-only preview
+material and does not yet call this color bridge. Host-derived affine rows remain explicit;
+this does not infer the game's matrix construction or source-selection rules.
+Linux passed 121 independent color-section fixtures / 1,109 pixel and lifecycle
+checks, including eight distinct-texel identity/rotation probes through the source
+mesh builder and weak-reference release of all created meshes. This extension's
+Windows/Web acceptance is separate from the historical three-platform color
+bridge results above and is not yet established. No encounter/release or complete
+original rendering is claimed.
+
+The current 18-effect source corpus also makes the remaining limits concrete:
+166 particle definitions include 44 uses of render-mode value 4, which the
+experimental material path still diagnoses as unsupported; 2 of 268 UV-set
+records request pixel-position UVs. TC1 color-control values 0 and 1 both occur,
+and all observed TC1 alpha-control values are 1. These are static occurrences,
+not evidence of the corresponding host constant values or production playback.
+They must not be silently mapped to a convenient shader default.
+
+## Original D3D11 execution scope (2026-10-22)
+
+A separate private harness executed one genuine original powder pixel program
+(`ps_5_0`) through D3D11 WARP, not a replacement pixel shader. Three explicit
+input cases, independently varying CalculateColor and CalculateAlpha, matched
+SV_TARGET0 with zero maximum absolute error. The downstream tonemap was
+explicitly neutralized; SV_TARGET1 was bound but not equation-validated.
+Coverage is **1 of 9 reviewed programs**, with the remaining eight unverified.
+The Visual Studio developer environment was recovered after a PATH-only compiler
+check failed, but that follow-up did not execute another program. COM resources
+and task-owned executable/object/bytecode copies were released/removed. These
+results do not establish real host defaults, original vertex-shader execution,
+full rendering equivalence or encounter playback.
+
 ## Remaining hard requirements for complete playback
 
 | Area | Remaining requirement |
