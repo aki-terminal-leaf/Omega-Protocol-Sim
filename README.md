@@ -16,11 +16,15 @@ PT 補齊兩男兩女、圖案記憶、場外 Optical Unit 與男女交換；火
 
 其他階段一併修正圖像點名與已確認的時間差；檢知改從中央讀點名走位，不直接出生在答案上。20項／100個打法×3固定種子：300完整流程、2397來源時間檢查皆0失敗；320PT＋18檢知實際走位也通過，普通速度仍是6。
 
-[逐項起算點、來源、精度及未驗證範圍](docs/research/PRACTICE_TIMELINES.md) · [PT事件順序](docs/research/P2_SYNERGY_TIMELINE.md)。Optical Unit及頭上圖案為明確標示的重建提示，不冒稱完整原版AVFX／逐幀一致；最終匯出／站點狀態依release紀錄及最新README。
+[逐項起算點、來源、精度及未驗證範圍](docs/research/PRACTICE_TIMELINES.md) · [PT事件順序](docs/research/P2_SYNERGY_TIMELINE.md)。Optical Unit及頭上圖案為明確標示的重建提示，不冒稱完整原版AVFX／逐幀一致；最終Linux包已完成20項／27個原生畫面檢查及完整PT可執行檔流程；Web測試站完整7資源雜湊與隔離標頭皆通過，不等同瀏覽器遊玩驗收。
+
+![v0.3.8 最終 Linux PCK 實際PT時點畫面（Bot、不計分、非影片／瀏覽器）](docs/images/top-v038-pt-stills.webp)
+
+[20項最終原生畫面總覽](docs/images/top-v038-stage-overview.webp)。PT六格時點與總覽均來自本次最終匯出PCK的實際畫面；這是靜態檢查點，不是示範影片或瀏覽器驗收。
 
 ### v0.3.7：敵人身位環尺寸與面向
 
-**[Web測試站](https://top.servicing.cc)** 已更新至本版；首次壓縮下載約217MiB。完整檔案與實際匯出PCK已驗證，瀏覽器遊玩仍待使用者GPU瀏覽器實測。
+v0.3.7 當時測試站已驗證完整檔案與實際匯出PCK；目前站點已更新至上方v0.3.8。瀏覽器遊玩仍待GPU瀏覽器實測。
 
 按敵人形態套用副本資料中的半徑；不再一律使用4／2.5。原版模型正面、前方箭頭、後方缺口與技能方向採同一座標，亦修正P4面向欄位未被讀取的問題。只校正顯示，不改傷害／碰撞判定。
 
@@ -41,7 +45,7 @@ P6底部控制列依字體實際高度向上伸展，不遮住操作說明。
 
 ### v0.3.5：機制名稱語系、新種子與底部操作說明
 
-**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.7實驗性Web版；首次下載約217 MiB，尚未完成桌面瀏覽器遊玩驗收）。
+**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.8實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
 
 ![v0.3.5 實際 Godot 原生渲染設定畫面](docs/images/top-v035-setup.webp)
 
@@ -97,7 +101,7 @@ Web 候選成功匯出，但 VPS 瀏覽器擷取中斷，尚未通過，因此 W
 
 ## 下載與開始
 
-v0.3.7 預覽提供已驗證的 Linux、source ZIP 與 SHA256 校驗碼；固定網址提供新版 Web 使用者測試，v0.3.3 發布頁仍保留已驗證的舊 Windows／Web 下載。含本機遊戲素材的包標記為 `local-game-models`。既有0.3.2／0.3.1／0.3.0下載保持不變。
+v0.3.8 預覽提供已驗證的 Linux、source ZIP 與 SHA256 校驗碼；固定網址提供新版 Web 使用者測試，v0.3.3 發布頁仍保留已驗證的舊 Windows／Web 下載。含本機遊戲素材的包標記為 `local-game-models`。既有0.3.2／0.3.1／0.3.0下載保持不變。
 
 - **Windows**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。
 - **Linux**：`chmod +x TOP-Practice-Lab.x86_64` 後執行。

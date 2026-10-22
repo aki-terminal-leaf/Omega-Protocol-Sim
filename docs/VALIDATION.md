@@ -376,3 +376,33 @@ explicitly classified. No judge timestamp, geometry or speed change. Prior
 claimed as newly rerun. One test-harness parse/type failure is retained; it was
 corrected before the passing run. Original damage VFX and browser certification
 remain separately scoped.
+
+
+### v0.3.8 final export/deployment/publication
+
+Functional source `a0ffaffb15dffa4628b70e94bad970bd021eb54b`. All20 drills /27 final Linux-PCK
+native rendered checkpoints pass, including no-early/late-window PT captures.
+Exact Linux executable completes PT34.6s /11 snapshots /0 failures. Linux ZIP
+PCK hash matches every rendered capture: `77e67ec732655bc804306553ab7c7001c892e5232ee92ac564c2f162c7c6ffb7`.
+Exact Web PCK verifies20 clocks,7 graphical signs,0.5s preview,761 current
+non-ASCII characters, five enemy forms ×four headings and the PT/Solar/monitor
+source facts. Its SHA256 is `77e67ec732655bc804306553ab7c7001c892e5232ee92ac564c2f162c7c6ffb7`.
+
+Fixed https://top.servicing.cc is0.3.8; root and all7 full public resources
+match export SHA256/MIME/gzip/isolation headers. Only dedicated origin was
+restarted; tunnel/DNS/apex/other endpoints unchanged. Published Linux/source/SHA
+as `top-v0.3.8-preview`; all uploaded GitHub digests match and all older release
+asset IDs/sizes/digests remain unchanged. No fresh Windows/browser acceptance.
+
+README still montages use actual final-PCK native screen checkpoints, scripted
+Bot entry and hints off; the overview contains all20 drills. These are not
+recordings, guide animations, physical-input exercises or original-AVFX
+certification. An optional continuous Mesa recording exceeded150s; it is
+retained as an unaccepted attempt and was not retried or made into a fake video.
+An initial P6 Meteors render was killed under low available memory; it is not
+a pass. The five completed P6 checkpoints were preserved; the remaining two
+use960x600, two Mesa threads and test-only release of the unselected boot scene
+and unused PackedScene caches, without changing source, assets, geometry or clocks. Final captures use mixed
+1440x900/960x600 viewports; earlier kill and180s timeout failures remain in the private evidence.
+The eye close-up additionally proves radius45, inward axis and actual in-camera
+geometry using a declared test camera, not a changed default gameplay camera.
