@@ -86,7 +86,7 @@ All owned Godot/Xvfb processes were checked after exit.
 ## Exact remaining requirements
 
 AVFX fields and shader bytecode do not by themselves establish the host's
-opaque57-scene-key selection, matching VS/PS pair, dynamically packed
+package-specific scene-key selection, matching VS/PS pair, dynamically packed
 `CalculateColor/CalculateAlpha`, UV matrices, mask animation or actor bind poses.
 These require a source-backed host mapping or a controlled reference trace.
 VFXEditor's field names and the existence of shader programs do not supply it.
@@ -100,3 +100,8 @@ currently implemented type subset. Actor attachments, stop/reset/unlock/fade/
 trigger semantics and original temporal/Windows/Web comparison remain open.
 Do not remove incomplete/experimental flags or replace the accepted practice
 renderer until these requirements are implemented and verified.
+
+The package-bound [semantic selector](AVFX_SHADER_SELECTION.md) now implements
+readable/hex constraint resolution, exact-vector matching and explicit ambiguity,
+with all23,931original nodes checked. It does not yet derive the full host state
+from an AVFX.

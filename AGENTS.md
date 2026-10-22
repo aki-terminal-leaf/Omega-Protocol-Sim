@@ -49,3 +49,13 @@ The user explicitly reauthorized desktop operations for this TOP task on
 it is not a global authorization for unrelated projects. Prefer deterministic
 headless regression gates alongside actual rendered verification. Independent
 workers must retain bounded isolated jobs and parent review.
+
+## AVFX / shader schema evidence
+
+- Treat every ShPk file's ordered key schema as local to that file. Apricot
+  packages can differ in both key count and order (the current originals have
+  2,55,56 or57 scene keys). Never zip another family's labels/defaults against
+  a node vector. Resolve by its owning package's IDs and validate cardinality.
+- Shader key/value CRC labels are explicit source mappings, not necessarily
+  CRC32 of their human-readable labels. Never invent unknown IDs by hashing
+  guessed names or claim a partial semantic match is an exact host selection.
