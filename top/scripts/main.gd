@@ -508,6 +508,7 @@ func begin_beat(reset_positions := false) -> void:
 	note.text = current.note
 	checkpoint_select.select(index)
 	update_hud()
+	arena.update_state(actors,current,player,answers_visible(),elapsed,state)
 func bind_snapshot_geometry(b: Dictionary, party_actors: Array, runtime: Dictionary) -> void:
 	for shape in b.get("shapes", []):
 		if shape.has("snapshot_position_actor"):
@@ -541,6 +542,7 @@ func retry_beat() -> void:
 	sprint_left = start_controls.get("sprint",0.0); knockback_resist_left = start_controls.get("resist",0.0); dash_left = start_controls.get("dash",0.0); dash_direction = start_controls.get("direction",Vector2.ZERO)
 	running = true; paused = false; elapsed = 0; pending_advance = false; wall_recorded = false
 	Interactions.sync(current, state)
+	arena.update_state(actors,current,player,answers_visible(),elapsed,state)
 	status.text = "重練段落 %d" % (index+1)
 func _process(delta: float) -> void:
 	# Web pointer lock may complete after a quick press/release has already ended.

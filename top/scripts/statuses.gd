@@ -197,6 +197,7 @@ static func streams(actors: Array, state: Dictionary) -> void:
 			stream.remaining -= 1
 
 static func sync(beat: Dictionary, state: Dictionary) -> void:
+	load("res://scripts/p5_sigma_runtime.gd").sync(beat,state)
 	preload("res://scripts/p3_transition_runtime.gd").sync(beat,state)
 	preload("res://scripts/p4_wave_runtime.gd").sync(beat,state)
 	preload("res://scripts/p6_runtime.gd").sync(beat,state)

@@ -94,4 +94,14 @@ static func snapshot(beat: Dictionary,actors: Array,state: Dictionary) -> Array:
 		var values:Array=state.dynamis.map(func(value):return int(value));values.sort()
 		if values!=[1,1,1,1,2,2,2,2]:errors.append("Sigma: actual Dynamis must finish four at1 / four at2")
 	return errors
-static func sync(_beat: Dictionary,_state: Dictionary) -> void:pass
+static func sync(beat: Dictionary,state: Dictionary) -> void:
+	if not state.has("sigma"):return
+	if not beat.get("sigma_tell",false):
+		# Preserve the learned pattern through resolution, then clear stale UI.
+		if not beat.get("sigma_towers",false):state.sigma.erase("visible_towers")
+		return
+	state.sigma.visible_towers=[]
+	for shape in beat.get("shapes",[]):
+		if shape.get("sigma_tell",false):
+			var pos:=R.v(shape.pos)
+			state.sigma.visible_towers.append({"pos":[float(pos.x),float(pos.y)],"radius":float(shape.radius),"capacity":int(shape.count),"label":str(shape.capacity_label)})

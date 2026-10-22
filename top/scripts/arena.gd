@@ -73,6 +73,7 @@ var waymark_signature:=""
 var target_signs:Array=[]
 var mechanic_signs:Array=[]
 var secondary_mechanic_signs:Array=[]
+var sigma_capacity_labels:Array=[]
 var death_wall:Node3D
 
 func _ready() -> void:
@@ -136,6 +137,10 @@ func _ready() -> void:
 		var mechanic:=Sprite3D.new();mechanic.name="MechanicSign";mechanic.billboard=BaseMaterial3D.BILLBOARD_ENABLED;mechanic.no_depth_test=true;mechanic.visible=false;mechanic.position.y=5.6;root.add_child(mechanic);mechanic_signs.append(mechanic)
 		var secondary:=Sprite3D.new();secondary.name="AdditionalMechanicSign";secondary.billboard=BaseMaterial3D.BILLBOARD_ENABLED;secondary.no_depth_test=true;secondary.visible=false;root.add_child(secondary);secondary_mechanic_signs.append(secondary)
 		actor_nodes.append(root); actor_labels.append(label); actor_arrows.append(arrow)
+
+	# Six pooled source-capacity numerals; these never display assignments.
+	for i in 6:
+		var capacity:=Label3D.new();capacity.name="SigmaTowerCapacity%d"%i;capacity.font=UI_FONT;capacity.billboard=BaseMaterial3D.BILLBOARD_ENABLED;capacity.font_size=56;capacity.pixel_size=0.028;capacity.outline_size=10;capacity.no_depth_test=true;capacity.visible=false;add_child(capacity);sigma_capacity_labels.append(capacity)
 
 	p3_fx_root=Node3D.new();p3_fx_root.name="P3ObservedEffects";add_child(p3_fx_root)
 
@@ -267,6 +272,16 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 	update_stage_entities()
 	update_clone_cues()
 	update_camera()
+	update_sigma_capacity_labels()
+func update_sigma_capacity_labels()->void:
+	for label in sigma_capacity_labels:label.visible=false
+	if actors.size()!=8:return
+	var slot:=0
+	for shape in current.get("shapes",[]):
+		if not shape.get("sigma_capacity",false) or not LateDamagePreview.visible(shape,current,observed_state,beat_elapsed,guide):continue
+		if slot>=sigma_capacity_labels.size():break
+		var capacity:Label3D=sigma_capacity_labels[slot];var point:=Rules.v(shape.pos)
+		capacity.text=str(int(shape.count));capacity.position=Vector3(point.x,3.6,point.y);capacity.modulate=Color("6be7e0") if int(shape.count)>1 else Color("ffcf70");capacity.visible=true;slot+=1
 func _process(delta: float) -> void:
 	animation_time += delta
 	update_camera()

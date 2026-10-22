@@ -2,15 +2,25 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[新版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+
+### v0.3.12 開發候選：Sigma 排隊與可讀塔容量
+
+固定站目前已部署 v0.3.11；本候選仍在驗收，不提前宣稱已上線。CN 同圖上下橫排，手炮後提前顯示實際塔容量；不改塔判定、擊退、傷害或時間。
+
+[本階段範圍](docs/development/SIGMA_PREPARATION_INCREMENT.md) · [實際部署紀錄](docs/development/STAGE_DEPLOYMENTS.md)
 
 ### v0.3.11：玩家預處理與 NPC 協作增量
 
-固定部署：[top.servicing.cc](https://top.servicing.cc)。本階段部署候選包含已覆核的 Delta／P6 修正、HUD 重複工作減少、HW 真實選側與接毒、檢知依攻略優先序排位，以及重試狀態清理。
+固定部署：[top.servicing.cc](https://top.servicing.cc)。已於2026-10-23部署（執行碼 c773d15），包含已覆核的 Delta／P6 修正、HUD 重複工作減少、HW 真實選側與接毒、檢知依攻略優先序排位，以及重試狀態清理。
 
 ![實際 Windows 原生畫面：檢知排序、HW 紅藍塔](docs/images/top-v0311-player-preparation.webp)
 
 HW 的玩家另一側選擇會讓配對 NPC 補對側並延續本輪接毒；檢知保留原判定時間，玩家仍須自己排位與轉面。這是限定增量，不是全部攻略或完整 AVFX 認證。上圖是 Windows 原生來源版畫面，不冒稱 Web 截圖。
+
+![v0.3.11 實際匯出包，Windows Chrome／AMD GPU 操作畫面](docs/images/top-v0311-web-input.webp)
+
+上圖為一般自標、移動、暫停與相機操作驗證；不表示 Sigma／Omega 攻略手標分工已實作。
 
 [本批範圍](docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md) · [完整開發清單](docs/development/TOP_DEVELOPMENT_ROADMAP.md)
 

@@ -5,6 +5,27 @@ const Runtime=preload("res://scripts/p5_sigma_runtime.gd")
 static func pair(ctx,values: Array) -> Array:
 	var priority:Array=ctx.profile.get("p3_priority",ctx.profile.priority) if ctx.profile.id=="aether" else ctx.profile.priority
 	var out:=values.duplicate();out.sort_custom(func(a,b):return priority.find(ctx.ROLES[a])<priority.find(ctx.ROLES[b]));return out
+static func shape_staging(c: Dictionary,pair_actors: Array) -> Array:
+	var result:Array=[]
+	for shape_index in 4:
+		for pair_side in 2:
+			var local:=Vector2(-6.0+shape_index*4.0,-1.0+pair_side*2.0)
+			result.append({"actor":int(pair_actors[shape_index][pair_side]),"pos":local.rotated(deg_to_rad(float(c.m_angle))),"shape_index":shape_index,"pair_side":"upper" if pair_side==0 else "lower"})
+	return result
+static func tower_pattern(remote: bool,tower_angle: float) -> Array:
+	var capacities:Dictionary={0.0:2,90.0:1,135.0:2,225.0:2,270.0:1} if remote else {337.5:1,22.5:1,112.5:2,157.5:1,202.5:1,247.5:2}
+	var result:Array=[]
+	for relative in capacities:result.append({"angle":fposmod(float(relative)+tower_angle,360.0),"capacity":int(capacities[relative])})
+	result.sort_custom(func(a,b):return float(a.angle)<float(b.angle))
+	return result
+static func tower_shapes(pattern: Array,resolving:=false) -> Array:
+	var result:Array=[]
+	for item in pattern:
+		var shape:Dictionary={"kind":"tower","pos":R.direction(float(item.angle))*17.0,"radius":3.0,"count":int(item.capacity),"capacity_label":"same%d"%int(item.capacity),"sigma_capacity":true,"name":"Storage Violation"}
+		if resolving:shape.rule="count"
+		else:shape.decorative=true;shape.cue_type="persistent";shape.sigma_tell=true
+		result.append(shape)
+	return result
 static func append_sigma(ctx) -> void:
 	var remote:bool=ctx.profile.get("sigma_remote",bool(ctx.rng.randi_range(0,1)))
 	var m_angle:float=ctx.profile.get("sigma_m_angle",ctx.rng.randi_range(0,7)*45.0)
@@ -28,6 +49,10 @@ static func append_sigma(ctx) -> void:
 			var actor:int=pair_actors[p][side]
 			line_up[actor]=Vector2(-1.0 if side==0 else 1.0,-13.0+p*2.0).rotated(deg_to_rad(m_angle))
 			labels[actor]="%s / %s"%[ctx.profile.shapes[p],"LEFT" if side==0 else "RIGHT"]
+	if family=="cn":
+		for staged in shape_staging({"m_angle":m_angle},pair_actors):
+			line_up[int(staged.actor)]=staged.pos
+			labels[int(staged.actor)]="%s / %s"%[ctx.profile.shapes[int(staged.shape_index)],str(staged.pair_side).to_upper()]
 	for p in doubles:
 		var j:=doubles.find(p)
 		for side in 2:
@@ -38,6 +63,12 @@ static func append_sigma(ctx) -> void:
 		if ctx.profile.has("sigma_single_unmarked"):no_mark=int(ctx.profile.sigma_single_unmarked[j])
 		var unmarked:int=pair_actors[p][no_mark];var target:int=pair_actors[p][1-no_mark];marked.append(target)
 		directions[unmarked]=m_angle+(-45 if j==0 else 45);directions[target]=m_angle+(135 if j==0 else 225)
+	if family=="cn":
+		var rightmost_double:=-1
+		for p in doubles:rightmost_double=maxi(rightmost_double,int(p))
+		if rightmost_double>=0:
+			directions[int(pair_actors[rightmost_double][0])]=m_angle-90.0
+			directions[int(pair_actors[rightmost_double][1])]=m_angle+90.0
 	var near_far:Array=ctx.profile.get("sigma_world_slots",ctx.shuffled(range(8)).slice(0,2))
 	var c:Dictionary={"tower_orientation_scope":"forced_training" if ctx.profile.has("sigma_tower_angle") else "m_or_opposite","id":"sigma_%d"%ctx.beats.size(),"profile":ctx.profile.id,"family":family,"remote":remote,"m_angle":m_angle,"tower_angle":tower_angle,"f_angle":f_angle,"sign":sign_value,"legs":legs,"pairs":pair_actors,"near":ctx.at(near_far[0]),"far":ctx.at(near_far[1]),"priority":ctx.priority.duplicate(),"path_key":"%s_%d_%d"%[family,sign_value,int(legs)]}
 	var start:int=ctx.beats.size();ctx.positions=line_up;ctx.labels=labels
@@ -64,11 +95,11 @@ static func append_sigma(ctx) -> void:
 		# Official guide macro faces the four-tower side north, i.e. GapNorth+180.
 		mapping={0:135.0,1:135.0,2:225.0,3:225.0,4:270.0,6:90.0,5:0.0,7:0.0} if remote else {0:157.5,2:202.5,4:247.5,3:247.5,6:112.5,1:112.5,5:22.5,7:337.5}
 	# Attack geometry/capacities are independent of the coaching assignment.
-	var capacities:Dictionary={0.0:2,90.0:1,135.0:2,225.0:2,270.0:1} if remote else {337.5:1,22.5:1,112.5:2,157.5:1,202.5:1,247.5:2}
+	var pattern:Array=tower_pattern(remote,tower_angle)
 	var towers:Dictionary={};var actual_caps:Dictionary={};var post:Array=[];post.resize(8)
-	for angle in capacities:
-		var absolute:float=fposmod(float(angle)+tower_angle,360.0)
-		towers[absolute]=[];actual_caps[absolute]=int(capacities[angle])
+	for item in pattern:
+		var absolute:float=float(item.angle)
+		towers[absolute]=[];actual_caps[absolute]=int(item.capacity)
 	for actor in directions:
 		var mark:int=posmod(int(round(float(directions[actor])/45.0)),8)
 		var angle:float=fposmod(float(mapping[mark])+tower_angle,360.0)
@@ -86,14 +117,15 @@ static func append_sigma(ctx) -> void:
 	for angle in towers:
 		var members:Array=towers[angle]
 		for i in members.size():post[members[i]]=R.direction(angle)*(19.5 if remote else 17.0)+R.direction(angle+90)*(float(i)-(members.size()-1)*0.5)*0.4
+	b.shapes=tower_shapes(pattern,false);b.sigma_tell=true
 	ctx.positions=[]
 	for p in post:ctx.positions.append(p.normalized()*(p.length()-13.0))
 	b=ctx.beat("Sigma · Discharger to towers",5.9,"近線踩中心、遠線踩外緣；擊退13後還有時間調整。")
-	b.sigma_config=c;b.knockback=13.0
+	b.sigma_config=c;b.knockback=13.0;b.shapes=tower_shapes(pattern,false);b.sigma_tell=true
 	ctx.positions=post
 	b=ctx.beat("Sigma · actual Looper/tower resolution",3.9,"只檢查實際塔內人數、Looper與搭檔距離，不限定攻略建議的踩塔者。")
 	b.sigma_config=c;b.sigma_towers=true
-	for angle in towers:b.shapes.append({"kind":"tower","pos":R.direction(angle)*17.0,"radius":3.0,"count":actual_caps[angle],"rule":"count","name":"Storage Violation"})
+	b.shapes=tower_shapes(pattern,true)
 	for p in pair_actors:b.checks.append(glitch(ctx,p,remote))
 	# Each coaching trajectory is physically feasible at6/s against all real shots.
 	var route:Dictionary=Runtime.paths()[c.path_key]
