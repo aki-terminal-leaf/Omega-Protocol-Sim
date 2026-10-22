@@ -252,6 +252,9 @@ func screen_to_world(screen: Vector2) -> Vector2:
 	var point = origin + direction * (-origin.y / direction.y)
 	return Vector2(point.x, point.z)
 func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints: bool, elapsed := 0.0, runtime:Dictionary={}) -> void:
+	# A restored/new run can have the same clock and timeline length. Reset
+	# visual-only state by dictionary identity, without mutating game state.
+	if not is_same(observed_state,runtime):clear_p3_effects()
 	observed_state=runtime
 	if runtime.has("waymark_layout"):set_waymarks(runtime.waymark_layout)
 	beat_elapsed = elapsed
@@ -410,7 +413,8 @@ func draw_signs(tethers: Array) -> void:
 		var kind = shape.get("kind", "")
 		if kind == "tower":
 			var radius = float(shape.get("radius", 3))
-			var c = Color("ffcf70")
+			# HW colour is a visible source cue, independent from damage previews.
+			var c = Color("ff6b78") if shape.get("colour", "")=="red" else (Color("68aaff") if shape.get("colour", "")=="blue" else Color("ffcf70"))
 			sign_ring(p + Vector3(0, 0.15, 0), radius, c)
 			sign_ring(p + Vector3(0, 2.8, 0), radius, c)
 			for i in 8:

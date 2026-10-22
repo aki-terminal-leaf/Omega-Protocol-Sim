@@ -1886,8 +1886,8 @@
       "mechanic_id": "p5_delta",
       "menu_index_1_based": 4,
       "profile": "cn_moogle",
-      "name": "莫古力 · 外側換拳／綠側Defense",
-      "catalog_description_snapshot": "外側換拳、內綠誘導Defense；World按原圖危險／安全側分工；綠Defense受擊者的檢知替補仍屬合法訓練分工，未找到完整原攻略說明。",
+      "name": "莫古力 · 外側換拳／藍內Defense",
+      "catalog_description_snapshot": "外側換拳、藍側內組接Defense；藍側Final、綠側甲蟲，World按危險／安全側分工。盾擊者退向Final側，避開7碼濺射；其餘讓位與精確標點仍待補證。",
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
@@ -1900,7 +1900,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": "選單名稱與敘述仍稱綠側Defense；1500c2b9已修實際藍內Defense。需修選單文案，不能按舊文字判runtime尚未修。"
+      "catalog_runtime_drift": "",
+      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md"
     },
     {
       "option_key": "p5_delta/05/kr_09stop",
@@ -2447,7 +2448,7 @@
       "menu_index_1_based": 4,
       "profile": "cn_moogle",
       "name": "莫古力 · 南側分攤／地火（部分來源）",
-      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。離場先採45°練習路線，原攻略角度未明；按各自八方站位散開後南側分攤。完整區服時間路徑尚未核對。",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。相對起始方向67.5°離場；依八方站位散開後南側分攤。初始間隙預站與首水圈誘導尚未完成，完整區服時間路徑仍待核對。",
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
@@ -2461,7 +2462,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": "描述仍寫45°練習值；ce191885已修相對67.5°離場。初始中心誘導/間隙預站仍未修，須分開呈現。"
+      "catalog_runtime_drift": "",
+      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md"
     },
     {
       "option_key": "p6_exa_wave/05/kr_09stop",
@@ -2667,7 +2669,7 @@
       "menu_index_1_based": 4,
       "profile": "cn_moogle",
       "name": "莫古力 · 地火 → 雙坦近／六人遠（部分來源）",
-      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。45°離場為練習路線，原攻略角度未明；最後雙坦最近、六人最遠分攤。完整區服時間路徑尚未核對。",
+      "catalog_description_snapshot": "地火採已驗證的有限起點族群，非完整原版RNG。相對起始方向67.5°離場；最後雙坦最近、六人最遠分攤。初始間隙預站與首水圈誘導尚未完成，完整區服時間路徑仍待核對。",
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
@@ -2681,7 +2683,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": "描述仍寫45°練習值；ce191885已修相對67.5°離場。初始中心誘導/間隙預站仍未修，須分開呈現。"
+      "catalog_runtime_drift": "",
+      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md"
     },
     {
       "option_key": "p6_exa_dive/05/kr_09stop",
@@ -2930,5 +2933,13 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": ""
     }
-  ]
+  ],
+  "catalog_incremental_update": {
+    "date": "2026-10-23",
+    "planning_baseline_retained": true,
+    "path": "top/data/mechanic_strategies.json",
+    "sha256": "54f1e1ce6bc4b3127f8c03aa9721a0f44550de33bd1e933d9e74f34633556dc8",
+    "evidence_doc": "docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md",
+    "scope": "three CN text drifts closed only; original source_snapshot_sha256 records historical planning baseline, not current runtime"
+  }
 }

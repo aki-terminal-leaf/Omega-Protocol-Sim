@@ -257,45 +257,7 @@ func hello_world() -> void:
 	HWCourses.append_hw(self)
 
 func monitors() -> void:
-	var saved_order: Array = order.duplicate()
-	var p3_roles: Array = profile.get("p3_priority", profile.priority)
-	var m_holders: Array = order.slice(0, 3)
-	var non_holders: Array = order.slice(3, 8)
-	m_holders.sort_custom(func(a, b): return p3_roles.find(ROLES[a]) < p3_roles.find(ROLES[b]))
-	non_holders.sort_custom(func(a, b): return p3_roles.find(ROLES[a]) < p3_roles.find(ROLES[b]))
-	order = m_holders + non_holders
-	var sign_x = 1 if rng.randi_range(0, 1) else -1
-	var canonical = [Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-16),Vector2(3,0),Vector2(15,0),Vector2(0,9),Vector2(0,18)]
-	var layout: String = profile.get("monitor_layout",profile.id if profile.id in ["aether","lpdu"] else "astoh")
-	if layout == "aether": canonical = [Vector2(-11,-9),Vector2(-11,9),Vector2(10,11),Vector2(1,-15),Vector2(10,-11),Vector2(15,-4),Vector2(15,4),Vector2(1,15)]
-	elif layout == "lpdu": canonical = [Vector2(10,-11),Vector2(-11,-9),Vector2(-11,9),Vector2(1,-15),Vector2(15,-4),Vector2(15,4),Vector2(10,11),Vector2(1,15)]
-	if layout=="cn_mirror":canonical=[Vector2(-7,-13),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-9),Vector2(3,0),Vector2(16,0),Vector2(0,9),Vector2(0,18)]
-	elif layout=="kr_astoh":canonical=[Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(-0.7,-16),Vector2(3,0),Vector2(15,0),Vector2(-0.7,9),Vector2(-0.7,18)]
-	elif layout=="cn_fixed":canonical=[Vector2(-8 if sign_x==1 else 8,-17),Vector2(-11,-5.5),Vector2(-11,5.5),Vector2(-sign_x,-8),Vector2(6,0),Vector2(18,0),Vector2(-sign_x,8),Vector2(-sign_x,18)]
-	for i in 8:
-		pos(i,canonical[i] if layout=="cn_fixed" else Vector2(canonical[i].x*sign_x,canonical[i].y))
-		label(i, "MONITOR %d" % (i + 1) if i < 3 else "No monitor %d" % (i - 2))
-	var layout_name: String={"astoh":"Astoh","aether":"Aether · 第三檢知南側","lpdu":"LPDU · 第一檢知北側","cn_fixed":"莫古力 · 固定左側","cn_mirror":"莫古力 · 鏡像換邊","kr_astoh":"09STOP"}.get(layout,layout)
-	var b = beat("Oversampled Wave Cannon · %s · %s" % [layout_name,"EAST" if (sign_x == 1) == (layout not in ["aether","lpdu"]) else "WEST"],10.1,"每個檢知隨機命中其半場兩人，不足時補選其他人；還要避開半徑7的受擊小圓。Q/E 或右鍵調整朝向。")
-	# Start the independent drill at the visible cast, not already on its answers.
-	b.spawn=[]
-	for actor in 8:b.spawn.append(Vector2((actor-3.5)*0.35,6.0))
-	b.monitor_layout = layout
-	var sources: Array = [{"kind": "half", "angle": (270 if layout in ["aether","lpdu"] else 90) * sign_x, "radius": 45, "name": "Boss monitor"}]
-	var goals = [270.0 * sign_x, 0.0, 180.0]
-	if layout=="cn_fixed":goals=[270.0 if sign_x==1 else 98.5,0.0,180.0]
-	if layout == "aether": goals = [0.0,180.0,90.0 * sign_x]
-	elif layout == "lpdu": goals = [90.0 * sign_x,0.0,180.0]
-	for i in 3:
-		var offset = 90.0 if rng.randi_range(0, 1) else -90.0
-		b.facing[at(i)] = goals[i] - offset
-		sources.append({"kind": "half", "actor": at(i), "face_actor": at(i), "offset": offset, "radius": 45, "exclude": [at(i)], "name": "Player monitor"})
-	b.checks.append({"kind": "monitors", "sources": sources, "splash_radius":7.0,"name": "Oversampled Wave Cannon"})
-	b.monitors = sources
-	b.party_statuses=[]
-	for source in sources:
-		if source.has("actor"): b.party_statuses.append({"actor":int(source.actor),"key":"monitor_right" if float(source.offset)>0 else "monitor_left","remaining":-1})
-	order = saved_order
+	preload("res://scripts/monitor_courses.gd").append_monitors(self)
 
 func p4_wave() -> void:
 	preload("res://scripts/p4_wave_courses.gd").append_wave(self)

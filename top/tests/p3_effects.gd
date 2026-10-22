@@ -34,6 +34,13 @@ func run()->void:
  for pulse in app.arena.p3_pulses:check(pulse.get_meta("target") in observed,"impact comes from actual recorded hit, not guide positions")
  app.arena._process(0.01);check(app.arena.p3_pulses.size()==8,"rendering another frame does not replay damage/duplicate effects")
  app.arena._process(1.0);check(app.arena.p3_pulses.is_empty(),"impact visual has bounded lifetime")
+ # Equal clocks/timeline lengths do not identify a run after snapshot restore.
+ var fresh_state:Dictionary=app.state.duplicate(true)
+ for entry in fresh_state.timeline:
+  if entry.get("kind","")=="monitor_resolution":entry.kind="new_run_placeholder"
+ check(not is_same(app.state,fresh_state),"pinned engine distinguishes equal-value dictionary identities")
+ app.arena.update_state(app.actors,app.current,app.player,false,app.elapsed,fresh_state);app.arena._process(0.01)
+ check(not app.arena.p3_resolved and app.arena.p3_pulses.is_empty() and app.arena.p3_loading.all(func(n):return n.visible),"new run with equal clock restores loading without stale pulses")
  app.retry_beat();app.arena.update_state(app.actors,app.current,app.player,false,0,app.state);app.arena._process(0.01)
  check(not app.arena.p3_resolved and app.arena.p3_pulses.is_empty() and app.arena.p3_loading.size()==4,"retry restores loading, not stale explosions")
  app.arena.update_state([],{},app.player,false,0,{})

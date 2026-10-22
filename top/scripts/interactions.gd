@@ -7,6 +7,7 @@ const PICKUP_RADIUS := 0.65
 const NAV_CLEARANCE := 1.0
 
 static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
+	state.erase("monitor_preparation_observed")
 	state.loop_refuges = {}
 	state.loop_released = false
 	state.loop_departure_order=[]
@@ -68,6 +69,7 @@ static func sync_followups(beat: Dictionary,state: Dictionary) -> void:
 static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictionary, dt: float) -> void:
 	state.sim_time = float(state.get("sim_time", 0.0)) + dt
 	Statuses.tick(actors, previous, state, dt)
+	preload("res://scripts/monitor_preparation.gd").observe(beat,actors,state)
 	Statuses.sync(beat, state)
 	sync_followups(beat,state)
 	if beat.has("transfers"): tick_transfers(beat,actors,previous,state,dt)
@@ -125,6 +127,7 @@ static func desired_holders(beat: Dictionary) -> Array:
 	return beat.get("transfers", {}).get("wanted", [])
 
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
+	if beat.has("monitor_preparation"):return preload("res://scripts/monitor_preparation.gd").goal(actor,beat,state).limit_length(19.8)
 	# Only AI steering is bounded. Human positions and all wall judgments stay
 	# untouched; sidesteps around edge-origin tethers must not steer bots out.
 	return raw_bot_goal(actor,beat,actors,state).limit_length(19.8)
@@ -141,7 +144,8 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 		for tether in state.paired_tethers:
 			if not tether.broken and actor in [tether.a,tether.b] and float(state.sim_time) >= float(tether.active_at): return actors[actor].pos
 
-	if beat.has("hw_path"):return load("res://scripts/hw_courses.gd").coaching_goal(actor,beat,state)
+	if beat.has("hw_tower_cooperation") or beat.has("hw_path"):
+		return load("res://scripts/hw_courses.gd").coaching_goal(actor,beat,actors,state)
 	if not beat.has("transfers"): return final
 	if float(state.get("sim_time",0))<float(state.get("tether_active_at",0)):
 		return beat.transfers.get("preposition",beat.positions)[actor]

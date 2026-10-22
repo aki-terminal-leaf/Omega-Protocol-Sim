@@ -16,6 +16,7 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 	var start: int=ctx.beats.size()
 	var last := 0.0
 	for round_index in 4:
+		var round_start: int=ctx.beats.size()
 		var at := 24.0+21.0*round_index
 		var angle := int(orientations[round_index])
 		var points := P.formation(round_index,angle,order)
@@ -57,10 +58,23 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 				if route.get("fourth_local_exit","")=="inside": put(points,order,round_index,6,side,Vector2(sign_x*1.1,3.0),angle)
 			add(ctx,points,9.0,"Fourth: Remote last; avoid final rot blasts",route)
 			last=at+10.2
+		var tower_goals:=P.formation(round_index,angle,order)
+		var tower_pairs:Array=[]
+		for role in [0,4]:
+			var tower_slot:=posmod(role-round_index*2,8)
+			var tower_pair:Array=[int(order[tower_slot]),int(order[tower_slot+1])]
+			tower_pairs.append({"round":round_index,"actors":tower_pair,"goals":[tower_goals[tower_pair[0]],tower_goals[tower_pair[1]]],"reveal_window":10.0})
+		for beat_index in range(round_start,ctx.beats.size()):
+			ctx.beats[beat_index].hw_tower_cooperations=tower_pairs.duplicate(true)
+			ctx.beats[beat_index].hw_tower_cooperation=tower_pairs[0].duplicate(true)
 	# Keep the runtime active through the genuine 21s bad Critical Error expiry.
 	add(ctx,ctx.positions,130.0-last,"Critical Error: real Overflow Debugger gate",route)
 	var first: Dictionary=ctx.beats[start]
 	first.hw_events=P.events(order,orientations,colour); first.hw_duration=130.0; first.hw_initial=[]
+	first.hw_pairing_preview=[]
+	for kind in ["remote","local"]:
+		var slot:=2 if kind=="remote" else 6
+		first.hw_pairing_preview.append({"kind":kind,"a":int(order[slot]),"b":int(order[slot+1])})
 	for actor in 8: first.hw_initial.append({"actor":actor,"name":"latent_sync","duration":69.0})
 	for side in 2:
 		for item in [[0,"smell_overflow",3.0],[0,"smell_"+colour,3.0],[4,"smell_sync",3.0],[4,"smell_"+("blue" if colour=="red" else "red"),3.0],[6,"latent_overflow",27.0]]:
@@ -139,8 +153,14 @@ static func transition(ctx, order: Array, round_index: int, angle: int, duration
 	add(ctx,moved,duration-3.0,"Reorient to tower wave %d: outside lanes / inside wait" % (round_index+1),route)
 	ctx.beats[-1].hw_path=path
 
-static func coaching_goal(actor:int,beat:Dictionary,state:Dictionary)->Vector2:
+static func coaching_goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vector2:
+	var replacement=load("res://scripts/hw_cooperation.gd").replacement_actor(actor,beat,actors,state)
+	if replacement is int:
+		return load("res://scripts/hw_cooperation.gd").walking_goal(actor,base_goal(int(replacement),beat,state),beat,actors,state)
+	return base_goal(actor,beat,state)
+
+static func base_goal(actor:int,beat:Dictionary,state:Dictionary)->Vector2:
 	var now:=float(state.get("sim_time",0))-float(state.get("beat_started",0))
-	for item in beat.hw_path:
+	for item in beat.get("hw_path",[]):
 		if now<float(item.at)-0.000001:return load("res://scripts/rules.gd").v(item.positions[actor])
 	return load("res://scripts/rules.gd").v(beat.positions[actor])

@@ -141,9 +141,14 @@ static func regressions(actors: Array, state: Dictionary) -> void:
 static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if not state.has("hw"): return
 	if not beat.has("shapes"): beat.shapes=[]
+	if not beat.has("tethers"): beat.tethers=[]
 	beat.shapes=beat.shapes.filter(func(s):return not s.get("hw_preview",false))
+	beat.tethers=beat.tethers.filter(func(t):return not t.get("hw_preview",false))
 	var now := float(state.get("sim_time",0.0))
+	if now-float(state.hw.start)<3.0:
+		for pair in beat.get("hw_pairing_preview",[]):
+			beat.tethers.append({"a":int(pair.a),"b":int(pair.b),"kind":str(pair.kind),"preview":true,"decorative":true,"instructional":true,"hw_preview":true})
 	for event in state.hw.pending:
 		if event.kind!="towers" or float(event.at)-now>10.0: continue
 		for tower in event.towers:
-			beat.shapes.append({"kind":"tower","pos":Rules.v(tower.pos),"radius":tower.radius,"name":"HW "+str(tower.colour),"decorative":true,"hw_preview":true})
+			beat.shapes.append({"kind":"tower","pos":Rules.v(tower.pos),"radius":tower.radius,"colour":str(tower.colour),"name":"HW "+str(tower.colour),"decorative":true,"hw_preview":true})
