@@ -18,6 +18,9 @@ static func instantiate(form: String) -> Node3D:
 	root.name = "Official_" + form
 	var model: Node3D = packed.instantiate()
 	model.name = "GameMesh"
+	# Original SqPack meshes face +Z (eye/jaw landmarks); scene/Rules forward is -Z.
+	# Correct only the mesh child once so ring, root heading and AoE axes agree.
+	model.rotation_degrees.y = 180.0
 	model.scale = Vector3.ONE * float(SCALES[form])
 	root.add_child(model)
 	root.set_meta("official_model", true)

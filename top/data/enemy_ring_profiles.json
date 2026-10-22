@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "units": "world yalms, not model-scaled radii",
+  "sources": {
+    "captured_actor_radii": {
+      "url": "https://raw.githubusercontent.com/awgil/ffxiv_bossmod/d409d336edb909b71b25fa8761f88667f5bdce1b/BossMod.Ultimate/Endwalker/Ultimate/TOP/TOPEnums.cs",
+      "commit": "d409d336edb909b71b25fa8761f88667f5bdce1b",
+      "sha256": "097066c4af289b2eca330890c8f020f5bd1e77c131f5edb513ad1524267dc1f1"
+    },
+    "client_flags": {
+      "url": "https://v2.xivapi.com/api/sheet/BNpcBase/{row}?fields=Scale,IsOmnidirectional",
+      "schema": "exdschema@2:rev:e773c41a90aed788cf4c1c48469fa85618ef01fb",
+      "version": "0874aee069e1e7c4"
+    }
+  },
+  "profiles": {
+    "beetle": {
+      "bnpcbase": 15708,
+      "radius": 12.006,
+      "omnidirectional": false,
+      "model_scale": 0.9
+    },
+    "male": {
+      "bnpcbase": 15712,
+      "radius": 5.01,
+      "omnidirectional": false,
+      "model_scale": 3,
+      "observed_radius_range": [
+        3.0,
+        5.01
+      ],
+      "selection": "5.010 active full-scale model; explicit entity hitbox_radius overrides for a smaller captured state"
+    },
+    "female": {
+      "bnpcbase": 15713,
+      "radius": 5.01,
+      "omnidirectional": false,
+      "model_scale": 3,
+      "observed_radius_range": [
+        3.0,
+        5.01
+      ],
+      "selection": "5.010 active full-scale model; explicit entity hitbox_radius overrides for a smaller captured state"
+    },
+    "final": {
+      "bnpcbase": 15717,
+      "radius": 12.502,
+      "omnidirectional": false,
+      "model_scale": 1.4
+    },
+    "alpha": {
+      "bnpcbase": 15725,
+      "radius": 13.0,
+      "omnidirectional": false,
+      "model_scale": 0.8
+    },
+    "male_p5": {
+      "bnpcbase": 15720,
+      "radius": 5.01,
+      "omnidirectional": false,
+      "model_scale": 3
+    },
+    "female_p5": {
+      "bnpcbase": 15722,
+      "radius": 5.01,
+      "omnidirectional": false,
+      "model_scale": 3
+    },
+    "fist_b5": {
+      "bnpcbase": 15709,
+      "radius": 1.5,
+      "omnidirectional": false,
+      "model_scale": 1.5
+    },
+    "fist_b6": {
+      "bnpcbase": 15710,
+      "radius": 1.5,
+      "omnidirectional": false,
+      "model_scale": 1.5
+    },
+    "arm_left": {
+      "bnpcbase": 15718,
+      "radius": 1.68,
+      "omnidirectional": false,
+      "model_scale": 1.4
+    },
+    "arm_right": {
+      "bnpcbase": 15719,
+      "radius": 1.68,
+      "omnidirectional": false,
+      "model_scale": 1.4
+    },
+    "rear_unit": {
+      "bnpcbase": 15723,
+      "radius": 6.72,
+      "omnidirectional": false,
+      "model_scale": 1.4
+    }
+  }
+}

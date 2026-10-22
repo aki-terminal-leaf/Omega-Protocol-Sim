@@ -6,6 +6,7 @@ const Rules = preload("res://scripts/rules.gd")
 const Markers=preload("res://scripts/markers.gd")
 const DeathWall=preload("res://scripts/death_wall.gd")
 const FacingRing=preload("res://scripts/facing_ring.gd")
+const EnemyRings=preload("res://scripts/enemy_rings.gd")
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -231,7 +232,7 @@ func set_encounter(id: String) -> void:
 		var boss = Visuals.boss(form); add_child(boss); bosses.append(boss)
 		if forms.size() == 2:
 			boss.position.x = -11 if form == "male" else 11
-			boss.rotation_degrees.y = 90 if form == "male" else -90
+			boss.rotation_degrees.y = -90 if form == "male" else 90
 			var label = Label3D.new(); label.font = UI_FONT; label.name = "Cue"
 			label.text = "OMEGA " + ("M" if form == "male" else "F")
 			label.position.y = 4.8; label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -430,7 +431,7 @@ func update_clone_cues() -> void:
 				var rotation := float(pattern.orientation) + (90.0 if pattern.second else 0.0)
 				var source := Vector2(-8 if i == 0 else 8,0).rotated(deg_to_rad(rotation))
 				boss.position = Vector3(source.x,0,source.y)
-				boss.rotation_degrees.y = (90 if i == 0 else -90)-rotation
+				boss.rotation_degrees.y = (-90 if i == 0 else 90)-rotation
 			else: boss.position = Vector3(-5 if i == 0 else 5,0,-15)
 			boss.visible = not active.is_empty()
 
@@ -448,7 +449,7 @@ func update_stage_entities() -> void:
 	for i in stage_nodes.size():
 		var node:Node3D=stage_nodes[i];var entity:Dictionary=entities[i]
 		var p:Vector2=Rules.v(entity.pos);node.position=Vector3(p.x,float(entity.get("height",0)),p.y)
-		node.rotation_degrees.y=180.0-float(entity.get("facing",0))
+		EnemyRings.configure(node, entity)
 		var stance:String=entity.get("stance","")
 		if node.get_meta("last_stance","__unset__")!=stance:
 			Visuals.Official.set_stance(node,stance);node.set_meta("last_stance",stance)
@@ -458,6 +459,9 @@ func update_stage_entities() -> void:
 			node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))+(" / "+stance if stance in ["SWORD","SHIELD","LEGS","STAFF"] else "")
 		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed>=float(entity.get("spawn_delay",0))
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
+	if bosses.size() == 1:
+		var face := float(current.get("boss_facing", current.get("p1_route", {}).get("boss_facing", 0.0)))
+		EnemyRings.configure(bosses[0], {"facing":face})
 
 func original_icon(id:int)->Texture2D:
 	var path:="res://assets/official/icons/%d.png"%id

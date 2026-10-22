@@ -103,10 +103,10 @@ static func floor_model(phase := 1) -> Node3D:
 	ring(root, Vector3(0, -0.5, 0), 20.25, 0.07, Color("53abbc"))
 	return root
 
-static func boss(form: String) -> Node3D:
-	var imported := Official.instantiate(form)
+static func boss(form: String, prefer_official := true) -> Node3D:
+	var imported := Official.instantiate(form) if prefer_official else null
 	if imported != null:
-		imported.add_child(preload("res://scripts/facing_ring.gd").create(4.0 if form=="beetle" else 2.5,Color("e59074")))
+		preload("res://scripts/enemy_rings.gd").attach(imported,form)
 		return imported
 	var root = Node3D.new()
 	if form not in ["beetle","male","female","final","alpha"]:
@@ -159,5 +159,5 @@ static func boss(form: String) -> Node3D:
 				for j in 3: box(root, Vector3(s * (1.4 + j * 0.35), 4.1 + j * 0.25, 0.5), Vector3(0.3, 1.7, 0.5), armor)
 		ball(root, Vector3(0, 3.2, -0.85), Vector3(0.6, 0.6, 0.3), glow)
 		ring(root, Vector3(0, 5.2, 0.4), 1.25, 0.06, glow).rotation_degrees.x = 70
-	root.add_child(preload("res://scripts/facing_ring.gd").create(4.0 if form=="beetle" else 2.5,Color("e59074")))
+	preload("res://scripts/enemy_rings.gd").attach(root,form)
 	return root
