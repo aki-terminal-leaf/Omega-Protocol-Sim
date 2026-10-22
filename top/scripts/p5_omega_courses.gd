@@ -13,6 +13,7 @@ static func append_omega(ctx) -> void:
 	for _i in 8:ctx.beats[start].spawn.append(Vector2.ZERO)
 	var first:Array=Runtime.choose(c,ctx.initial_stacks("p5_omega"),false)
 	var b:Dictionary=ctx.beat("Omega · F disappears / wait for actual monitor side",3.3,"檢知方向尚未出現，先等待；不預先按未公開的左右側走位。")
+	b.omega_wait_phase="first"
 	b.omega_config=c;b.stage_entities=[{"form":"final","pos":Vector2.ZERO,"facing":0.0}];b.hide_main_boss=true
 	b=stage(ctx,c,"first",first,"Omega · first World holders",9.6);world(b,c,false,0,first)
 	b=stage(ctx,c,"first",first,"Omega · actual monitor targets / radius7 splashes",0.5);b.omega_monitor=true
@@ -25,6 +26,7 @@ static func append_omega(ctx) -> void:
 	for slot in range(6):forecast[first[slot]]=mini(3,int(forecast[first[slot]])+1)
 	var second:Array=Runtime.choose(c,forecast,true)
 	b=ctx.beat("Omega · wait for beetle to appear",2.1,"甲蟲在隨機正方向出現前，不預先揭露方向或追未出現的線。")
+	b.omega_wait_phase="second"
 	b.omega_config=c;b.hide_main_boss=true;b.stage_entities=[]
 	b=stage(ctx,c,"second",second,"Omega · physically collect Blaster / explosion",12.2)
 	var source:Vector2=R.direction(beetle_angle)*20.0

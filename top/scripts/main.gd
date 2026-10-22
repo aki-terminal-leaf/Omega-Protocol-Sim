@@ -26,6 +26,10 @@ var marker_popup:PopupPanel
 var marker_type:OptionButton
 var marker_target:OptionButton
 var marker_note:Label
+var p5_marking_mode:String="manual"
+var omega_marking_box:VBoxContainer
+var omega_marking_select:OptionButton
+var omega_marking_note:Label
 var waymark_dialog:ConfirmationDialog
 var waymark_text:TextEdit
 var catalog: Array = []
@@ -420,7 +424,13 @@ func prepare() -> void:
 	cue.text = "準備完成 · %s · %d 個訓練判定" % [Encounter.ROLES[player], encounter.beats.size()]
 	feedback.text = "[color=#90a3bd]開始後控制黃色標示角色。\n請依隊伍狀態與場地判斷。[/color]"
 	save_settings()
-func new_state() -> Dictionary: return {"dynamis": encounter.initial_dynamis.duplicate(), "spent": [], "lb": "", "lb_actor": -1, "aggro": 0, "sim_time": 0.0,"seed":encounter.seed}
+func new_state() -> Dictionary:
+	var initial:Dictionary={"dynamis":encounter.initial_dynamis.duplicate(),"spent":[],"lb":"","lb_actor":-1,"aggro":0,"sim_time":0.0,"seed":encounter.seed,"human_actor":-1 if demo or checkpoint_assisted else player}
+	if omega_marking_supported():
+		initial.p5_marking_mode="assist" if demo or checkpoint_assisted else p5_marking_mode
+		initial.preparation_origin="demo" if demo else ("checkpoint_assisted" if checkpoint_assisted else "practice")
+		Markers.ensure(initial);initial.target_markers.mode=initial.p5_marking_mode
+	return initial
 func oracle_state_before(target: int) -> Dictionary:
 	var result = new_state()
 	var simulated: Array = []
@@ -761,6 +771,7 @@ func advance_beat() -> void:
 		running = false
 		cue.text = "示範結束" if demo else ("練習通過" if all_errors.is_empty() else "練習完成 · 請檢討失誤")
 		status.text = "本機制結束，不會接續其他機制 · %d 通過 / %d 失誤 · seed %s" % [beat_passed, beat_failed, seed_edit.text]
+		append_preparation_feedback()
 		write_report()
 		return
 	index += 1; begin_beat()
@@ -794,7 +805,7 @@ func update_hud() -> void:
 	update_lb_controls()
 	sync_practice_hud(party_rows)
 func report() -> Dictionary:
-	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "practice_clock":encounter.get("clock",{}).duplicate(true), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"marker_keys":marker_bindings.duplicate(),"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "practice_clock":encounter.get("clock",{}).duplicate(true), "p5_preparation":preparation_report(), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"marker_keys":marker_bindings.duplicate(),"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func report_runtime_state() -> Dictionary:
 	var result:Dictionary=state.duplicate(true)
 	result.erase("timeline") #the authoritative top-level timeline is already exported
@@ -860,12 +871,15 @@ func save_settings() -> void:
 	config.set_value("settings", "fresh_seed", fresh_seed.button_pressed)
 	config.set_value("settings","waymarks",waymark_layout)
 	config.set_value("settings","marker_keys",marker_bindings)
+	config.set_value("settings","p5_marking_mode",p5_marking_mode)
 	if marker_library_writable:config.set_value("settings","waymark_library",marker_library)
 	if is_instance_valid(marker_type):config.set_value("settings","self_marker",marker_type.selected)
 	config.save("user://settings.cfg")
 func load_settings() -> void:
 	var config = ConfigFile.new()
 	if config.load("user://settings.cfg") != OK: return
+	var saved_marking:=str(config.get_value("settings","p5_marking_mode","manual"))
+	p5_marking_mode=saved_marking if saved_marking in ["manual","assist"] else "manual"
 	var saved_language := str(config.get_value("settings", "mechanism_language", "zh_TW"))
 	mechanism_language = saved_language if saved_language in NAME_LOCALES else "zh_TW"
 	language_select.select(NAME_LOCALES.find(mechanism_language))
@@ -1085,7 +1099,8 @@ func sync_party_status_hud(rows: Array = []) -> void:
 
 func build_marker_controls()->void:
 	marker_popup=PopupPanel.new();marker_popup.name="TargetMarkers";add_child(marker_popup)
-	var box:=VBoxContainer.new();box.custom_minimum_size.x=300;marker_popup.add_child(box)
+	var marker_scroll:=ScrollContainer.new();marker_scroll.custom_minimum_size=Vector2(320,420);marker_popup.add_child(marker_scroll)
+	var box:=VBoxContainer.new();box.custom_minimum_size.x=300;box.size_flags_horizontal=Control.SIZE_EXPAND_FILL;marker_scroll.add_child(box)
 	box.add_child(label("目標標記",17))
 	marker_target=option(Encounter.ROLES);box.add_child(marker_target)
 	marker_type=option(Markers.LABELS);box.add_child(marker_type)
@@ -1095,6 +1110,11 @@ func build_marker_controls()->void:
 	box.add_child(button("自己下一個空號",next_self_marker))
 	box.add_child(button("清除選定隊友標記",func():apply_target_marker(marker_target.selected,"")))
 	box.add_child(button("快捷鍵設定",show_marker_keys))
+	omega_marking_box=VBoxContainer.new();box.add_child(omega_marking_box);omega_marking_box.hide()
+	omega_marking_box.add_child(label("練習上標方式",14))
+	omega_marking_select=option(["手動上標","輔助分配"]);omega_marking_box.add_child(omega_marking_select)
+	omega_marking_note=label("變更後會以同一點名重新開始。",12);omega_marking_note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;omega_marking_box.add_child(omega_marking_note)
+	omega_marking_box.add_child(button("套用並重新練習",apply_omega_marking_mode))
 	box.add_child(button("關閉",marker_popup.hide))
 	marker_note=label("M 自標 · N 下一空號 · Backspace 清自標
 Ctrl+1–8 對自己上攻擊編號",12);marker_note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;box.add_child(marker_note)
@@ -1184,7 +1204,13 @@ func remove_library_draft()->void:
 	layout_note.text="已從配置庫移除；當前場地配置未改動。"
 func show_target_markers()->void:
 	if not practice_view or actors.size()!=8:return
-	marker_target.select(player);marker_popup.popup_centered(Vector2i(320,450))
+	marker_target.select(player)
+	var supported:=omega_marking_supported();omega_marking_box.visible=supported
+	omega_marking_select.select(0 if p5_marking_mode=="manual" else 1)
+	if supported:
+		var actual:=str(state.get("omega",{}).get("cooperation",{}).get("mode",""))
+		omega_marking_note.text=("目前：示範／輔助分配。" if demo or actual=="assist" else "目前：手動上標。")+"變更後以同一點名重新開始。"
+	marker_popup.popup_centered(Vector2i(340,720) if supported else Vector2i(340,450))
 func apply_target_marker(target:int,marker:String)->void:
 	if not running or paused or not practice_view or player in state.get("dead",[]):return
 	var result:=Markers.assign(state,target,marker,player)
@@ -1209,3 +1235,47 @@ func apply_waymark_settings()->void:
 		demo=false;start_run(0, false);open_practice_settings()
 	arena.set_waymarks(waymark_layout)
 	status.text="場地標記已儲存"+"；已重開練習，請回到練習繼續。" if running else "場地標記已儲存"
+
+func omega_marking_supported()->bool:
+	return encounter.get("id","")=="p5_omega" and active_profile.get("id","")=="cn_moogle"
+func apply_omega_marking_mode()->void:
+	if not omega_marking_supported():return
+	var requested:String=["manual","assist"][omega_marking_select.selected]
+	if requested==p5_marking_mode and not demo and state.get("p5_marking_mode","")==requested and state.get("omega",{}).get("cooperation",{}).get("mode","")==requested:
+		marker_popup.hide();return
+	if not encounter.is_empty():
+		var archive:=FileAccess.open("user://before-marking-mode-%d.json"%Time.get_ticks_msec(),FileAccess.WRITE)
+		if archive==null:
+			marker_note.text="未重開：無法保存上一輪紀錄。";return
+		archive.store_string(JSON.stringify(json_safe(report()),"  "))
+	p5_marking_mode=requested;save_settings();marker_popup.hide();demo=false;start_run(0,false)
+func preparation_report()->Dictionary:
+	var co:Dictionary=state.get("omega",{}).get("cooperation",{})
+	var actual_mode:=str(co.get("mode","legacy_coaching"))
+	var assisted:=actual_mode in ["assist","legacy_coaching"] or demo or checkpoint_assisted
+	var human:int=-1;var raw_human:Variant=state.get("human_actor",-1)
+	if (raw_human is int or raw_human is float) and is_finite(float(raw_human)) and float(raw_human)==floorf(float(raw_human)) and float(raw_human)>=0 and float(raw_human)<8:human=int(raw_human)
+	var phases:Array=[];var ready:=actual_mode=="manual" and not assisted and human>=0
+	for phase in ["first","second"]:
+		var saved:Dictionary=co.get("phases",{}).get(phase,{})
+		var resolution:Dictionary=saved.get("resolution",{})
+		var classes:Array=resolution.get("classes",[])
+		var action_required:=true
+		if human>=0 and classes.size()==8:action_required=str(classes[human])!="unmarked"
+		var receipt:=bool(resolution.get("self_action",{}).get("current",false))
+		var phase_ready:bool=actual_mode=="manual" and not assisted and bool(saved.get("locked",false)) and bool(resolution.get("complete",false)) and resolution.get("errors",[]).is_empty() and (not action_required or receipt)
+		phases.append({"phase":phase,"judged":bool(saved.get("locked",false)),"allocation_complete":bool(resolution.get("complete",false)),"player_action_required":action_required,"actual_self_action":receipt,"manual_preparation_complete":phase_ready,"errors":resolution.get("errors",[]).duplicate(true),"lock_time":saved.get("lock_time",-1.0),"lock_sequence":saved.get("lock_sequence",-1)})
+		ready=ready and phase_ready
+	var latest:Dictionary=co.get("latest",{})
+	var at_world_pulses:bool=ready
+	if not latest.get("errors",[]).is_empty():ready=false
+	return {"mode":actual_mode,"requested_mode":state.get("p5_marking_mode","legacy_coaching"),"assisted":assisted,"checkpoint_assisted":checkpoint_assisted,"human_actor":human,"source_pending":bool(co.get("source_pending",not omega_marking_supported())),"manual_preparation_complete":ready,"manual_preparation_complete_at_world_pulses":at_world_pulses,"current_assignment_consistent":latest.get("errors",[]).is_empty(),"assessment_scope":"observed self-mark preparation at actual World pulses, not full guide certification","phases":phases,"latest_errors":latest.get("errors",[]).duplicate(true),"latest_unresolved":latest.get("unresolved",[]).duplicate(true)}
+func append_preparation_feedback()->void:
+	if not omega_marking_supported():return
+	var prep:=preparation_report();var line:String
+	if prep.assisted:line="輔助分配：本輪不列為手動上標通過。"
+	elif prep.manual_preparation_complete_at_world_pulses:line="兩輪判定前手標分工完成；戰鬥與判定後變更另見紀錄。"
+	else:
+		line="手標流程未完成；請檢查漏標、錯標、上標時機與自己實際操作。"
+		if all_errors.is_empty() and not demo:cue.text="機制判定通過 · 手標流程未完成"
+	feedback.append_text("\n[color=#90a3bd]"+line+"[/color]")

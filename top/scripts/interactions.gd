@@ -127,6 +127,7 @@ static func desired_holders(beat: Dictionary) -> Array:
 	return beat.get("transfers", {}).get("wanted", [])
 
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
+	if beat.has("omega_config") and preload("res://scripts/omega_cooperation.gd").holds(actor,beat,state):return Rules.v(actors[actor].pos)
 	if beat.has("monitor_preparation"):return preload("res://scripts/monitor_preparation.gd").goal(actor,beat,state).limit_length(19.8)
 	# Only AI steering is bounded. Human positions and all wall judgments stay
 	# untouched; sidesteps around edge-origin tethers must not steer bots out.

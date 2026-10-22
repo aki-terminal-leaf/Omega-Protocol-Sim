@@ -4,6 +4,12 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.13 開發候選：Omega 手標驅動協作
+
+固定站仍為v0.3.12；本候選待實際平台驗收。莫古力Omega的實際手標、手動／輔助分帳與來源loading，不替玩家操作或接線；其他攻略不套CN，也不是全部攻略完成。
+
+[責任、來源與剩餘範圍](docs/development/OMEGA_MANUAL_PREPARATION.md)
+
 ### v0.3.12 已部署：Sigma 排隊與可讀塔容量
 
 固定站已部署 v0.3.12（執行碼 783abe2）。Windows 原生與 Chrome／AMD GPU 的五／六塔、提前容量、重開清理及固定網址皆已實際核對。CN 同圖上下橫排，手炮後提前顯示實際塔容量；不改塔判定、擊退、傷害或時間。

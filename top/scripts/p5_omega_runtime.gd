@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
 const R=preload("res://scripts/rules.gd")
+const Cooperation=preload("res://scripts/omega_cooperation.gd")
 static func status():return load("res://scripts/statuses.gd")
 static func choose(c:Dictionary,dynamis:Array,second:bool) -> Array:
 	var holders:Array=c.second if second else c.first
@@ -47,6 +48,10 @@ static func begin(b:Dictionary,state:Dictionary) -> void:
 		if not c.get("standalone",true):
 			var counts:Array=state.dynamis.map(func(x):return int(x));counts.sort()
 			if counts!=[1,1,1,1,2,2,2,2]:status().fail(state,"Omega entry: actual Sigma must leave four at1/four at2")
+	if not state.omega.has("cooperation"):Cooperation.initialize(c,state)
+	if Cooperation.active(state):
+		Cooperation.sync(b,state)
+		return
 	if b.has("omega_phase"):
 		state.omega.active_phase=b.omega_phase
 		var second:bool=b.omega_phase=="second";var key:="second_roles" if second else "first_roles"
@@ -79,11 +84,13 @@ static func snapshot(b:Dictionary,actors:Array,state:Dictionary) -> Array:
 		for count in coverage:
 			if int(count)>1:failures.append("Omega monitor radius7 overlap / double hit")
 		status().event(state,"omega_monitor_resolution",{"candidates":candidates,"targets":targets,"coverage":coverage})
+		state.omega.monitor_resolved=true
 	if b.get("omega_first_finish",false):
 		var counts:Array=state.dynamis.map(func(x):return int(x));counts.sort()
 		if counts!=[2,2,2,2,2,2,3,3]:failures.append("Omega first World must actually leave six at2/two at3")
 		for actor in b.omega_config.second:
 			if int(state.dynamis[int(actor)])!=2:failures.append("Omega second World holder reached3 too early")
+	Cooperation.after_snapshot(b,state)
 	return failures
 static func tick(actors:Array,_previous:Array,state:Dictionary,_dt:float) -> void:
 	if state.has("omega") and float(state.get("sim_time",0))<=float(state.omega.until)+0.000001:
@@ -91,6 +98,9 @@ static func tick(actors:Array,_previous:Array,state:Dictionary,_dt:float) -> voi
 			var budget:float=state.get("motion_allowances",[])[actor] if state.get("motion_allowances",[]).size()==actors.size() else 6.0*_dt
 			if R.v(actors[actor].pos).distance_to(R.v(_previous[actor].pos))>budget+0.001:status().fail(state,"Omega unauthorized movement budget: actor%d"%actor)
 			if R.v(actors[actor].pos).length()>=20 and actor not in state.dead:state.dead.append(actor);status().fail(state,"Omega death wall: actor%d"%actor)
+	if Cooperation.active(state):
+		Cooperation.contacts(state)
+		return
 	if not state.has("omega") or state.omega.get("active_phase","")!="second" or state.omega.utility_fixed:return
 	var c:Dictionary=state.omega.config
 	if state.get("tether_group","")!=str(c.id)+"_blaster" or state.omega.second_roles.size()!=8:return
@@ -109,4 +119,8 @@ static func tick(actors:Array,_previous:Array,state:Dictionary,_dt:float) -> voi
 		var first:int=int(roles[6]);roles[6]=roles[7];roles[7]=first
 		status().event(state,"omega_free_side_assignment",{"roles":roles.duplicate(),"reason":"documented interchangeable3-stack utility sides; actual acquired rays remain unchanged"})
 static func sync(b:Dictionary,state:Dictionary) -> void:
+	if Cooperation.active(state):
+		Cooperation.contacts(state)
+		Cooperation.sync(b,state)
+		return
 	if b.get("omega_phase","")=="second" and state.get("omega",{}).get("utility_fixed",false) and state.omega.second_roles.size()==8:place(b,b.omega_config,state.omega.second_roles,true)

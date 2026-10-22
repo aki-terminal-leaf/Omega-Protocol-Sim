@@ -74,6 +74,7 @@ var target_signs:Array=[]
 var mechanic_signs:Array=[]
 var secondary_mechanic_signs:Array=[]
 var sigma_capacity_labels:Array=[]
+var omega_source_loading:Dictionary={}
 var death_wall:Node3D
 
 func _ready() -> void:
@@ -273,6 +274,7 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 	update_clone_cues()
 	update_camera()
 	update_sigma_capacity_labels()
+	update_omega_source_cue()
 func update_sigma_capacity_labels()->void:
 	for label in sigma_capacity_labels:label.visible=false
 	if actors.size()!=8:return
@@ -282,6 +284,18 @@ func update_sigma_capacity_labels()->void:
 		if slot>=sigma_capacity_labels.size():break
 		var capacity:Label3D=sigma_capacity_labels[slot];var point:=Rules.v(shape.pos)
 		capacity.text=str(int(shape.count));capacity.position=Vector3(point.x,3.6,point.y);capacity.modulate=Color("6be7e0") if int(shape.count)>1 else Color("ffcf70");capacity.visible=true;slot+=1
+func update_omega_source_cue()->void:
+	for node in omega_source_loading.values():node.visible=false
+	# The current source phase begins at its existing reveal, never from
+	# upcoming beats. This is a boss loading tell, not an early damage floor.
+	if actors.size()!=8 or current.get("omega_phase","")!="first" or not current.has("omega_config"):return
+	if observed_state.get("omega",{}).get("monitor_resolved",false):return
+	var angle:=wrapf(float(current.omega_config.monitor_angle),-180.0,180.0)
+	var side:=-1 if angle<0 else 1
+	if not omega_source_loading.has(side):
+		var loading:=P3Effects.loading(side);loading.name="OmegaObservedMonitorLoading";add_child(loading);omega_source_loading[side]=loading
+	var node:Node3D=omega_source_loading[side];var axis:=Rules.direction(angle)
+	node.position=Vector3(axis.x*0.35,3.0,axis.y*0.35);node.rotation_degrees.y=-angle;node.scale=Vector3.ONE*1.2;node.visible=true
 func _process(delta: float) -> void:
 	animation_time += delta
 	update_camera()
