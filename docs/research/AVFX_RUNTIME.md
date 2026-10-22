@@ -231,6 +231,40 @@ This experiment does not execute a GPU draw, establish pixel equivalence or
 actual host inputs, or integrate original shaders into Godot/practice playback.
 Raw bytecode and derived SPIR-V/GLSL stay private, outside the repository.
 
+## Translated pixel-program WebGL2 execution (2026-10-22)
+
+A separate AnAn Chrome WebGL2 experiment now executes the **unchanged translated
+fragment sources** for three original programs (powder1, shape1 and model1).
+A synthetic fullscreen vertex shader supplies explicit pixel-stage inputs; the
+original vertex programs are **not** executed by this gate. All **36 frozen cases**
+(12 per program) match the previously accepted genuine D3D11 WARP outputs in
+both RGBA32F MRTs. The maximum absolute component error is `1.233364868e-7`,
+within the unchanged `3e-6` tolerance. Fixtures include nonneutral tonemapping,
+depth lookup and model1 dynamic Fresnel inputs from the original D3D probes.
+
+The gate requires WebGL2, `EXT_color_buffer_float` and a complete two-attachment
+float framebuffer, and reads actual FLOAT pixels from both targets after each
+draw. Parent review independently reconciles every measured component, exact
+case identity, frozen expectations and original/translated/remote file hashes.
+There are no final GL, page, browser-console or request errors. ANGLE emits
+preserved shader-link warnings about `isnan`; the result is not warning-free.
+The reported renderer is ANGLE / AMD Radeon RX 7900 XT / D3D11; this remains a
+reported driver string, not independent physical-GPU certification.
+
+Three failed harness/diagnostic attempts remain separate from the accepted run;
+shader math, expected values and tolerances were not changed to accept them.
+All created GL resources/context and task browser/server processes were released.
+A fresh parent audit verifies the eight recorded browser PIDs, normalized task
+root, profile/cache/staged copied shaders and fixtures are absent on AnAn, with
+no VPS renderer or validator processes left. Necessary private sources and
+numeric evidence are retained outside Git. The small canvas screenshot is not
+used as the numerical oracle.
+
+This closes only the three-program explicit-input fragment gate. It establishes
+neither all nine translated pixel programs, original paired-VS execution,
+actual host vertex packing/constants/sampler policy, attachment blending nor
+complete AVFX playback or a new released build.
+
 ## Remaining hard requirements for complete playback
 
 | Area | Remaining requirement |
