@@ -51,12 +51,3 @@ func run() -> void:
 			check(not state.tether_events.any(func(event): return event.line == 0 and event.to == 3), "other-line collector does not steal human ray")
 	print("NPC HUMAN TETHERS checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures else 0)
-
-
-
-
-
-
-
-
-
