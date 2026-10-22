@@ -66,6 +66,7 @@ func run()->void:
 		app.arena.update_state(app.actors,shown,0,false,0.0,live)
 		check(visible_sources(app).size()==1,"actual source loading visible with hints off")
 		var source=visible_sources(app)[0]
+		check(Vector2(source.position.x,source.position.z).dot(preload("res://scripts/rules.gd").direction(angle))>float(preload("res://scripts/enemy_rings.gd").profile("final").radius) and source.position.y>=5.0,"both loading sides clear original caster display hull")
 		check(is_equal_approx(wrapf(float(source.rotation_degrees.y)+angle,-180,180),0),"source cue oriented to actual damage half")
 		live.omega.monitor_resolved=true;app.arena.update_state(app.actors,shown,0,false,0.0,live)
 		check(visible_sources(app).is_empty(),"real monitor judgment removes loading")

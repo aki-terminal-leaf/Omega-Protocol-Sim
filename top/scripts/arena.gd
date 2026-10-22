@@ -295,7 +295,10 @@ func update_omega_source_cue()->void:
 	if not omega_source_loading.has(side):
 		var loading:=P3Effects.loading(side);loading.name="OmegaObservedMonitorLoading";add_child(loading);omega_source_loading[side]=loading
 	var node:Node3D=omega_source_loading[side];var axis:=Rules.direction(angle)
-	node.position=Vector3(axis.x*0.35,3.0,axis.y*0.35);node.rotation_degrees.y=-angle;node.scale=Vector3.ONE*1.2;node.visible=true
+	# Reconstructed display attachment: keep the original loading geometry outside
+	# the large caster silhouette. This is not a recovered official bone/socket.
+	var display_offset:=float(EnemyRings.profile("final").get("radius",12.502))+0.75
+	node.position=Vector3(axis.x*display_offset,5.0,axis.y*display_offset);node.rotation_degrees.y=-angle;node.scale=Vector3.ONE*1.2;node.visible=true
 func _process(delta: float) -> void:
 	animation_time += delta
 	update_camera()
