@@ -4,6 +4,16 @@
 
 **[新版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.11：玩家預處理與 NPC 協作增量
+
+固定部署：[top.servicing.cc](https://top.servicing.cc)。本階段部署候選包含已覆核的 Delta／P6 修正、HUD 重複工作減少、HW 真實選側與接毒、檢知依攻略優先序排位，以及重試狀態清理。
+
+![實際 Windows 原生畫面：檢知排序、HW 紅藍塔](docs/images/top-v0311-player-preparation.webp)
+
+HW 的玩家另一側選擇會讓配對 NPC 補對側並延續本輪接毒；檢知保留原判定時間，玩家仍須自己排位與轉面。這是限定增量，不是全部攻略或完整 AVFX 認證。上圖是 Windows 原生來源版畫面，不冒稱 Web 截圖。
+
+[本批範圍](docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md) · [完整開發清單](docs/development/TOP_DEVELOPMENT_ROADMAP.md)
+
 先選機制，再選這個機制的攻略方式；每次獨立練習，不自動接續其他機制。預設顯示遊戲場景、八人狀態、必要的 P6 LB 控制及底部操作說明。
 
 ## 實際畫面與展示
@@ -74,7 +84,7 @@ P6底部控制列依字體實際高度向上伸展，不遮住操作說明。
 
 ### v0.3.5：機制名稱語系、新種子與底部操作說明
 
-**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.10實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
+**[固定網址 Web 測試站](https://top.servicing.cc)**（目前部署版本見頁首更新紀錄；實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
 
 ![v0.3.5 實際 Godot 原生渲染設定畫面](docs/images/top-v035-setup.webp)
 
