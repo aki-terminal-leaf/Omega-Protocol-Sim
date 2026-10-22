@@ -2,11 +2,19 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[新版 v0.3.9-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.9-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[新版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
 先選機制，再選這個機制的攻略方式；每次獨立練習，不自動接續其他機制。預設顯示遊戲場景、八人狀態、必要的 P6 LB 控制及底部操作說明。
 
 ## 實際畫面與展示
+
+### v0.3.10：先讀預兆、PT 看武器判斷
+
+宇宙天箭的兩組起始預兆恢復在 T0／T2 顯示；地火四個起點依序出現。Pantokrator 起始火焰、P3／P4 起始波動圓及已鎖定的誘導地板也保留各自預兆時窗，不再被共用的最後 **0.5 秒** 規則誤藏。一般傷害提示與尚未出現的後續推進仍維持最後 0.5 秒；傷害判定、移速及生成條件不變。
+
+PT 的劍／盾、腳刀／法杖由原版 M/F 武器網格供玩家觀察，場上不再附加文字答案；揭示前仍保持中立外觀。攻略說明須主動開啟。目前使用原版模型、resident idle 與武器部件切換，不冒稱完整副本專用動作／AVFX。[預兆分類、時窗及驗證範圍](docs/research/READABLE_CUES.md)。
+
+20 項 Main 完整移動流程與 155 項來源時間檢查通過；P6 有限族群 1,614 項判定／移動檢查通過。原生匯出另行驗證，不等同瀏覽器 GPU 遊玩驗收。
 
 ### v0.3.9：逐機制物件生成條件
 
@@ -58,7 +66,7 @@ P6底部控制列依字體實際高度向上伸展，不遮住操作說明。
 
 ### v0.3.5：機制名稱語系、新種子與底部操作說明
 
-**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.9實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
+**[固定網址 Web 測試站](https://top.servicing.cc)**（目前為v0.3.10實驗性Web版；首次下載約217.3 MiB，尚未完成桌面瀏覽器遊玩驗收）。
 
 ![v0.3.5 實際 Godot 原生渲染設定畫面](docs/images/top-v035-setup.webp)
 

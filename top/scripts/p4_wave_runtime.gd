@@ -108,4 +108,6 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 		if event.kind=="ring" and float(event.at)>now+(5.0 if int(event.pulse)==0 else 2.1): continue
 		var shape: Dictionary=event.shape.duplicate(true)
 		shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p4_wave_preview=true; shape.damage_at=float(event.at)
+		if event.kind=="ring" and int(event.pulse)==0:
+			shape.cue_type="telegraph"; shape.telegraph_at=float(event.at)-5.0
 		beat.shapes.append(shape)

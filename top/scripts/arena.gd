@@ -349,7 +349,9 @@ func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 func draw_indicators() -> void:
 	aoe.clear_surfaces(); aoe_vertex_count=0
 	visible_damage_shapes=LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors)
-	for shape in visible_damage_shapes:draw_shape(shape)
+	for shape in visible_damage_shapes:
+		var source_tell := LateDamagePreview.is_telegraph(shape) and not LateDamagePreview.in_window(float(shape.damage_at)-float(observed_state.get("sim_time",0)))
+		draw_shape(shape,Color(1.0,0.68,0.12,0.26) if source_tell else Color.TRANSPARENT)
 	for impact in observed_state.get("visual_impacts",[]):
 		var age:=float(observed_state.get("sim_time",0))-float(impact.at)
 		if age>=0 and age<0.35:
@@ -445,7 +447,7 @@ func update_clone_cues() -> void:
 		if current.has("clone_pattern"):
 			active = ("SWORD" if current.clone_pattern.sword else "SHIELD") if i == 0 else ("LEGS" if current.clone_pattern.legs else "STAFF")
 		Visuals.Official.set_stance(boss,active)
-		boss.get_node("Cue").text = ("M" if i == 0 else "F") + (" / " + active if not active.is_empty() else "")
+		boss.get_node("Cue").text = "Omega M" if i == 0 else "Omega F"
 		# P5's combined sector drill does not supply genuine clone spawn locations.
 		# Keep its display pair on the north rim so these do not imply AoE origins.
 		if encounter_id.begins_with("p5_"):
@@ -483,7 +485,7 @@ func update_stage_entities() -> void:
 			for option in ["SWORD","SHIELD","LEGS","STAFF"]:
 				if node.has_node(option):node.get_node(option).visible=option==stance
 		var display_names:Dictionary={"beetle":"Omega","male":"Omega M","female":"Omega F","male_p5":"Omega M","female_p5":"Omega F","final":"Omega Reconfigured","alpha":"Alpha Omega","fist_b5":"拳 A","fist_b6":"拳 B","arm_left":"","arm_right":"","rear_unit":"Rear Power Unit","optical_unit":"Optical Unit"}
-		node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))+(" / "+stance if guide and stance in ["SWORD","SHIELD","LEGS","STAFF"] else "")
+		node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))
 		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed+0.000001>=float(entity.get("spawn_delay",0))
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
 	if bosses.size() == 1:

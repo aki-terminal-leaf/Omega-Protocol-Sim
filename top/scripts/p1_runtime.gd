@@ -111,6 +111,12 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 		if not event.has("locked_at") and float(event.at)>now+(4.0 if int(event.get("ability_id",0)) in [31501,32368] else 2.0): continue
 		var shape: Dictionary=event.shape.duplicate(true)
 		shape.pos=Rules.v(shape.get("pos",[0,0])); shape.decorative=true; shape.p1_preview=true; shape.damage_at=float(event.at)
+		# The initial opposite cones are needed to read Pantokrator orientation.
+		# Preserve the existing modeled four-second onset, not future rotations.
+		if int(event.get("pulse",-1))==0 and int(event.get("ability_id",0))==31501:
+			shape.cue_type="telegraph"; shape.telegraph_at=float(event.at)-4.0
+		elif event.has("locked_at"):
+			shape.cue_type="telegraph"; shape.telegraph_at=float(event.locked_at)
 		beat.shapes.append(shape)
 
 static func coaching_goal(actor: int, beat: Dictionary, state: Dictionary) -> Vector2:

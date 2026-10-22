@@ -185,6 +185,10 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 		elif float(event.at)>now+2.1: continue
 		var shape: Dictionary=event.shape.duplicate(true)
 		shape.pos=Rules.v(shape.get("pos",[0,0])); shape.decorative=true; shape.p6_preview=true; shape.damage_at=float(event.at)
+		# Only explicitly modeled source tells bypass the late footprint window.
+		# Pulse>0 propagation has no telegraph_at and stays late-only.
+		if event.has("telegraph_at"):
+			shape.cue_type="telegraph"; shape.telegraph_at=float(event.telegraph_at)
 		beat.shapes.append(shape)
 
 static func is_locked(state: Dictionary,actor: int) -> bool:

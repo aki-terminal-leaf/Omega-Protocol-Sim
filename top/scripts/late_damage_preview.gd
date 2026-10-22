@@ -1,13 +1,22 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
-## User-requested presentation window, not a combat grace period or source VFX.
+## Separate timed encounter tells from the optional late damage footprint.
+## Presentation only: neither changes collision geometry or snapshot timing.
 const WINDOW_SECONDS := 0.5
 const EPSILON := 0.000001
+static func is_telegraph(shape: Dictionary) -> bool:
+	return shape.get("cue_type", "") == "telegraph"
 static func is_cue(shape: Dictionary) -> bool:
-	return shape.get("kind", "") == "tower" or shape.get("selectable", false) or shape.get("cue_type", "") in ["marker", "persistent"]
+	return is_telegraph(shape) or shape.get("kind", "") == "tower" or shape.get("selectable", false) or shape.get("cue_type", "") in ["marker", "persistent"]
 static func in_window(remaining: float) -> bool:
 	return remaining >= -EPSILON and remaining <= WINDOW_SECONDS + EPSILON
 static func visible(shape: Dictionary, beat: Dictionary, state: Dictionary, elapsed: float, guide := false) -> bool:
+	if is_telegraph(shape):
+		# An explicit source window is required: never reveal a future source or
+		# use a nearby UI checkpoint as its onset/expiry. JSON retries keep it.
+		if not shape.has("telegraph_at") or not shape.has("damage_at"): return false
+		var now := float(state.get("sim_time", 0))
+		return now + EPSILON >= float(shape.telegraph_at) and now <= float(shape.damage_at) + EPSILON
 	if is_cue(shape): return true
 	if shape.get("instructional", false) and not guide: return false
 	if shape.has("damage_at"): return in_window(float(shape.damage_at) - float(state.get("sim_time", 0)))

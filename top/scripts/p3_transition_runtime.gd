@@ -118,12 +118,16 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	if now>=float(r.until): return
 	beat.stage_entities.append({"id":"p3_transition_boss","form":"final","pos":[0,0],"name":"Omega Reconfigured","p3_transition_entity":true})
 	if now>=float(r.void.start) and now<float(r.void.end): beat.shapes.append({"kind":"circle","pos":Vector2.ZERO,"radius":6.0,"cue_type":"persistent","decorative":true,"p3_transition_preview":true,"name":"Central voidzone (window approximate)"})
-	# Teaching overlays only. Parent must not present these as original game VFX.
+	# Reconstructed ground geometry, not original AVFX. The initial circle
+	# carries the existing modeled cast cue; other rings remain damage overlays.
 	for e in r.pending:
 		if e.kind=="ring" and float(e.at)-now<=(5.0 if int(e.ring)==0 else 2.1):
 			var shape: Dictionary=e.shape.duplicate(true)
 			shape.pos=Rules.v(shape.pos); shape.decorative=true; shape.p3_transition_preview=true; shape.damage_at=float(e.at)
-			shape.name="Wave Repeater"; beat.shapes.append(shape)
+			shape.name="Wave Repeater"
+			if int(e.ring)==0:
+				shape.cue_type="telegraph"; shape.telegraph_at=float(e.at)-5.0
+			beat.shapes.append(shape)
 	var sniper_at:=INF
 	for event in r.pending:
 		if event.kind=="sniper":sniper_at=minf(sniper_at,float(event.at))
