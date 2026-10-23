@@ -4,9 +4,15 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.18 Web 優先候選：P3 公開資訊走位與玩家操作驗證
+
+P3 NPC 只依當下減益與已實際顯示的手臂分流，不提前讀取未來答案。全 420 分組 × 五打法 × 兩手臂順序共 4,200 條完整走位、21,685 項檢查通過；實際 Main 的 WASD 自動化輸入另有 40 正向、3 負向流程／508 項通過。這不是手動完整通關或原遊戲時序認證；正向玩家案例目前只涵蓋一種手臂順序。詳見 [P3 證據與限制](docs/development/P3_PUBLIC_OBSERVATION.md)。
+
+依使用者最新指示，本階段通過新 Web 包與無桌面瀏覽器驗證後先更新固定站；原生驗收保持待驗、禁止桌面操作。目前候選尚未部署，固定站仍為 v0.3.13。累積的 Omega／Sigma／Panto／Cannons 改善會隨新 Web 包發布，完整攻略、最佳化及完整 AVFX 仍在進行。
+
 ### v0.3.17 開發候選：Cannons 依實際炮標觀察分工
 
-沿用既有炮頭標；動態排序只讀已實際顯示的第一／第二輪三人，固定職責與坦克站位仍可預先採用公開規則。實際 Main 輸入重播 81 流程／468 項 0 失敗（含負向與明示輔助案例），修復後場景 299 項 0 失敗；140個有限物理流程／613項、必要共用與P1事件1266項回歸、獨立來源及輸入覆核亦已通過。這是來源限定驗收，尚未新匯出或平台驗收；固定站仍是 v0.3.13。
+沿用既有炮頭標；動態排序只讀已實際顯示的第一／第二輪三人，固定職責與坦克站位仍可預先採用公開規則。實際 Main 輸入重播 81 流程／468 項 0 失敗（含負向與明示輔助案例），修復後場景 299 項 0 失敗；140個有限物理流程／613項、必要共用與P1事件1266項回歸、獨立來源及輸入覆核亦已通過。v0.3.17 相同匯出包的 20 組檢查與限定 Web 操作已通過；原生 GUI 未通過且桌面操作已停用，因此該候選未發布。新 Web-first 授權由上方 v0.3.18 候選承接。
 
 [情報、分段輔助與未結門檻](docs/development/CANNONS_OBSERVATION.md)
 

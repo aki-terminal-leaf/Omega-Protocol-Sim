@@ -10,6 +10,7 @@ const O=preload("res://scripts/p3_transition_observation.gd")
 var checks:=0
 var failures:=0
 var courses:=0
+var partitions:=0
 var max_arrival_error:=0.0
 func check(ok:bool,label:String)->void:
  checks+=1
@@ -95,14 +96,19 @@ func twins()->void:
 func _initialize()->void:call_deferred("run")
 func run()->void:
  var started:=Time.get_ticks_msec();contract();twins()
- for id in P.data().routes:
-  for arm in 2:
-   for sample in 4:simulate(id,arm,sample,[7,2,5,0],[6,3])
- for frame in [.1,.3,.5]:
+ var selected_profile:=""
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--partition-profile="):selected_profile=arg.trim_prefix("--partition-profile=")
+ check(selected_profile.is_empty() or selected_profile in P.data().routes,"valid requested profile")
+ if selected_profile.is_empty():
   for id in P.data().routes:
-   for arm in 2:simulate(id,arm,2,[7,2,5,0],[6,3],frame)
- simulate("elemental",0,2,[7,2,5,0],[6,3],.05,true)
- if "--partitions" in OS.get_cmdline_user_args():
+   for arm in 2:
+    for sample in 4:simulate(id,arm,sample,[7,2,5,0],[6,3])
+  for frame in [.1,.3,.5]:
+   for id in P.data().routes:
+    for arm in 2:simulate(id,arm,2,[7,2,5,0],[6,3],frame)
+  simulate("elemental",0,2,[7,2,5,0],[6,3],.05,true)
+ if "--partitions" in OS.get_cmdline_user_args() or not selected_profile.is_empty():
   for mask in 256:
    var purple:Array=[];var rest:Array=[]
    for a in 8:
@@ -111,7 +117,12 @@ func run()->void:
    if purple.size()!=4:continue
    for i in 4:
     for j in range(i+1,4):
+     partitions+=1
      for id in P.data().routes:
+      if not selected_profile.is_empty() and id!=selected_profile:continue
       for arm in 2:simulate(id,arm,2,purple,[rest[i],rest[j]],.1)
- print("P3_PUBLIC_RESULT ",JSON.stringify({"checks":checks,"failures":failures,"courses":courses,"max_outside_arrival_error":max_arrival_error,"elapsed_ms":Time.get_ticks_msec()-started,"scope":"actual Interactions/Statuses walking and runtime judgments with explicit simulated presentation fixtures; not actual scene/pixels/native or fullguide"}))
+     if partitions%42==0:print("P3_PARTITION_PROGRESS ",selected_profile," ",partitions,"/420 courses=",courses," failures=",failures)
+  check(partitions==420,"all420 unique partitions enumerated")
+  check(courses==(840 if not selected_profile.is_empty() else 4271),"all requested profile/arm courses actually completed")
+ print("P3_PUBLIC_RESULT ",JSON.stringify({"checks":checks,"failures":failures,"courses":courses,"partitions":partitions,"sample_index":2,"profile_shard":selected_profile,"max_outside_arrival_error":max_arrival_error,"elapsed_ms":Time.get_ticks_msec()-started,"scope":"actual Interactions/Statuses walking and runtime judgments with explicit simulated presentation fixtures; not actual scene/pixels/native or fullguide"}))
  quit(1 if failures else 0)
