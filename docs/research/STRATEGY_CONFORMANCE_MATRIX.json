@@ -2941,5 +2941,16 @@
     "sha256": "54f1e1ce6bc4b3127f8c03aa9721a0f44550de33bd1e933d9e74f34633556dc8",
     "evidence_doc": "docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md",
     "scope": "three CN text drifts closed only; original source_snapshot_sha256 records historical planning baseline, not current runtime"
-  }
+  },
+  "validated_scoped_increments": [
+    {
+      "version": "0.3.13",
+      "runtime_commit": "0934b9f5cc38c8758f1a3026ce0ba2b38c509fd5",
+      "option_key": "p5_omega/04/cn_moogle",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/OMEGA_MANUAL_PREPARATION.md",
+      "scope": "actual manual marks, cooperation, phase receipts, loading cue, final Windows/Web export and public startup",
+      "remaining": "broader standalone I/II families, all human branches, other community rules; full 100-option certification unchanged"
+    }
+  ]
 }

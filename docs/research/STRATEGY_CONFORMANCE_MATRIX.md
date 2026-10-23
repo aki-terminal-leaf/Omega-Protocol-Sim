@@ -9,6 +9,8 @@
 - 所有選項已列入範圍；完整原攻略逐圖／逐影格與玩家實際互動仍待分批補證。
 - [2026-10-23 首批實作與限定證據](../development/PLAYER_NPC_PREPARATION_INCREMENT.md)：三項CN文案漂移已結清；不改全攻略未認證狀態。原source_snapshot保留規劃基準。
 
+- [v0.3.13 Omega 限定實作與實際平台證據](../development/OMEGA_MANUAL_PREPARATION.md)：真實手標／分帳／來源可讀性已部署；更多族群與全選項認證仍待完成。
+
 ## 20機制：玩家責任與NPC契約
 
 | 機制／選項數 | 玩家預處理與實際動作 | NPC須遵守 | 仍需開發／驗證 |

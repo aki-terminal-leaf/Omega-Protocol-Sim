@@ -4,9 +4,13 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.13 開發候選：Omega 手標驅動協作
+### v0.3.13 已部署：Omega 手標驅動協作
 
-固定站仍為v0.3.12；本候選待實際平台驗收。莫古力Omega的實際手標、手動／輔助分帳與來源loading，不替玩家操作或接線；其他攻略不套CN，也不是全部攻略完成。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已部署 v0.3.13（執行碼 0934b9f）。莫古力 Omega 依實際手標協作，手動／輔助分帳；玩家仍須自己移動、轉面、疾跑及接線。原生 Windows 與 Chrome／AMD GPU 已核對自標、模式套用、同點名重練及兩側檢知來源；固定 HTTPS 資源與全新啟動通過。
+
+![v0.3.13 最終匯出包的 Windows 原生與 Chrome Web 檢知來源實際畫面](docs/images/top-v0313-omega-loading.webp)
+
+上圖為最終匯出包的實際靜態畫面，分別為 270°／90° 來源；不是影片、手動全流程通關或完整 AVFX 認證。獨立入口的更多 I／II 層數族群、其他攻略分支與全部攻略驗收仍未完成。
 
 [責任、來源與剩餘範圍](docs/development/OMEGA_MANUAL_PREPARATION.md)
 
