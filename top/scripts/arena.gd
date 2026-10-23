@@ -17,6 +17,8 @@ var panto_displayed_cues:Array=[]
 var cannon_displayed_actors:Array=[]
 var synergy_displayed_glyphs:Array=[]
 var p3_displayed_arms:Array=[]
+## Rendered P2 clone weapon tells decoded from actual visible parts/geometry.
+var synergy_weapon_observations:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -573,6 +575,7 @@ func update_stage_entities() -> void:
 		stage_nodes=[];stage_signature=signature
 		for entity in entities:
 			var node:Node3D=Visuals.boss(entity.form);add_child(node);stage_nodes.append(node)
+			if not node.has_meta("fallback_form"):node.set_meta("fallback_form",str(entity.form))
 			var label:=Label3D.new(); label.font = UI_FONT;label.name="EntityLabel";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
 	for i in stage_nodes.size():
 		var node:Node3D=stage_nodes[i];var entity:Dictionary=entities[i]
@@ -592,6 +595,65 @@ func update_stage_entities() -> void:
 	if bosses.size() == 1:
 		var face := float(current.get("boss_facing", current.get("p1_route", {}).get("boss_facing", 0.0)))
 		EnemyRings.configure(bosses[0], {"facing":face})
+	synergy_weapon_observations=observe_weapon_nodes(stage_nodes) if current.has("synergy_weapon_public") else []
+
+## After visibility/transitions/stance parts are applied. Uses only rendered
+## tree visibility, node position and built body form; never last_stance/labels.
+func observe_weapon_nodes(nodes:Array)->Array:
+	var out:Array=[]
+	for node in nodes:
+		if not is_instance_valid(node) or not node.is_inside_tree() or not node.is_visible_in_tree():continue
+		var official:=bool(node.get_meta("official_model",false))
+		var form:=str(node.get_meta("model_form","")) if official else str(node.get_meta("fallback_form",""))
+		if not (form.begins_with("male") or form.begins_with("female")):continue
+		var weapon:=official_weapon(node,form) if official else fallback_weapon(node,form)
+		out.append({"form":form,"pos":[node.position.x,node.position.z],"weapon":weapon,"official":official,"invalid_tell":weapon_conflict(node,form,official)})
+	return out
+
+## Distinguish physical contradictory variants from a genuinely absent cue.
+## Derived solely from visible real parts/geometry, never planned entity stance.
+static func weapon_conflict(node:Node,form:String,official:bool)->bool:
+	if official:
+		var a:Array=[];var b:Array=[];collect_parts(node,a,b)
+		return (a.has(true) and b.has(true)) or (a.has(true) and a.has(false)) or (b.has(true) and b.has(false))
+	var shown:Array=[]
+	for option in ["SWORD","SHIELD","LEGS","STAFF"]:
+		if node.has_node(option) and visible_geometry(node.get_node(option)):shown.append(option)
+	var allowed:Array=["SWORD","SHIELD"] if form.begins_with("male") else ["LEGS","STAFF"]
+	return shown.size()>1 or (shown.size()==1 and not (shown[0] in allowed))
+
+static func collect_parts(node:Node,a:Array,b:Array)->void:
+	if node is MeshInstance3D:
+		var part:=str(node.name)
+		if part.contains("atr_parts_a"):a.append((node as MeshInstance3D).is_visible_in_tree())
+		elif part.contains("atr_parts_b"):b.append((node as MeshInstance3D).is_visible_in_tree())
+	for child in node.get_children():collect_parts(child,a,b)
+
+## Both A/B categories required and each internally coherent; exactly one shown.
+static func official_weapon(node:Node,form:String)->String:
+	var a:Array=[];var b:Array=[];collect_parts(node,a,b)
+	if a.is_empty() or b.is_empty():return ""
+	if a.has(true) and a.has(false):return ""
+	if b.has(true) and b.has(false):return ""
+	var male:=form.begins_with("male")
+	if bool(a[0]) and not bool(b[0]):return "SHIELD" if male else "LEGS"
+	if bool(b[0]) and not bool(a[0]):return "SWORD" if male else "STAFF"
+	return ""
+
+static func visible_geometry(node:Node)->bool:
+	if node is MeshInstance3D and (node as MeshInstance3D).mesh!=null and (node as MeshInstance3D).is_visible_in_tree():return true
+	for child in node.get_children():
+		if visible_geometry(child):return true
+	return false
+
+## Fallback gear: a named child counts only if it renders actual mesh geometry.
+static func fallback_weapon(node:Node,form:String)->String:
+	var options:Array=["SWORD","SHIELD"] if form.begins_with("male") else ["LEGS","STAFF"]
+	var shown:Array=[]
+	for option in ["SWORD","SHIELD","LEGS","STAFF"]:
+		if node.has_node(option) and visible_geometry(node.get_node(option)):shown.append(option)
+	if shown.size()!=1 or not (shown[0] in options):return ""
+	return str(shown[0])
 
 func original_icon(id:int)->Texture2D:
 	var path:="res://assets/official/icons/%d.png"%id

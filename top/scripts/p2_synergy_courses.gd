@@ -67,6 +67,8 @@ static func append_synergy(ctx) -> void:
 	for i in 8:ctx.pos(i,safe)
 	var dodge:Dictionary=ctx.beat("Party Synergy · double AOEs",5.1,"只讀真正一組的武器姿態；此時不要求搭檔距離。")
 	dodge.shapes=shapes;dodge.stage_entities=all_clones.duplicate(true)+[eye.duplicate(true)];dodge.hide_main_boss=true;dodge.party_statuses=glitch.duplicate(true)
+	# Harmless public marker only (version/profile); no weapons/angle/targets.
+	dodge.synergy_weapon_public=preload("res://scripts/synergy_weapons.gd").meta(str(ctx.profile.id))
 	# Subject Simulation (~T12.6) only prepares transformation. Actual visual
 	# disappear/swap/reappear events are ~T14.6/18.8/22.9; do not swap early.
 	var late:Array=[{"id":"main_m","form":"female","pos":Vector2.ZERO,"facing":180.0,"stance":""},{"id":"main_f","form":"male","pos":ctx.polar(north,13),"facing":north+180,"stance":"SWORD"}]

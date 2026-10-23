@@ -445,6 +445,8 @@ func oracle_state_before(target: int) -> Dictionary:
 		P6Setup.initialize(result,simulated,encounter.id,-1,selected_job(),player)
 		bind_snapshot_geometry(b,simulated,result)
 		result.synergy_presentation_required=b.has("synergy_public")
+		result.synergy_weapons_presentation_required=true
+		result.erase("synergy_weapons_checkpoint_assisted")
 		Interactions.begin(b, simulated, result)
 		if checkpoint_assisted and b.has("cannons_public") and b.has("p1_events") and bool(b.cannons_public.dynamic):
 			# Build a valid assisted PAST, never a fake displayed receipt. Ordinary
@@ -480,6 +482,9 @@ func oracle_state_before(target: int) -> Dictionary:
 			if checkpoint_assisted and b.has("synergy_public"):
 				result.synergy_checkpoint_assisted=true
 				preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed",simulated)
+			if checkpoint_assisted and b.has("synergy_weapon_public"):
+				# Synthetic assisted PAST with its own basis, never a displayed receipt.
+				preload("res://scripts/synergy_weapons.gd").publish_assisted(b,result)
 			clock += dt
 		for check in b.checks:
 			if check.kind == "lb": result.lb = check.type; result.lb_actor = check.eligible[0]
@@ -543,6 +548,9 @@ func begin_beat(reset_positions := false) -> void:
 	bind_snapshot_geometry(current,actors,state)
 	Markers.ensure(state);state.waymark_layout=waymark_layout.duplicate(true)
 	state.synergy_presentation_required=current.has("synergy_public")
+	# Actual Main always presents; headless weapon stances are never published here.
+	state.synergy_weapons_presentation_required=true
+	state.erase("synergy_weapons_checkpoint_assisted")
 	if current.has("p1_path"):state.panto_presentation_required=true
 	else:state.erase("panto_presentation_required")
 	if current.get("hello_world",false):state.hw_firstwave_presentation_required=true
@@ -645,6 +653,8 @@ func _process(delta: float) -> void:
 func publish_observed_cues()->void:
 	if current.has("synergy_public") and not synergy_frame_stepping:
 		preload("res://scripts/synergy_preparation.gd").publish(current,state,arena.synergy_displayed_glyphs,"displayed_textured_glyphs",actors)
+	if current.has("synergy_weapon_public") and not synergy_frame_stepping:
+		preload("res://scripts/synergy_weapons.gd").publish(current,state,arena.synergy_weapon_observations,"displayed_physical_parts")
 	if current.get("hello_world",false):
 		load("res://scripts/hw_firstwave_observation.gd").publish(current,state,arena.visible_damage_shapes)
 	if current.has("p1_path"):

@@ -14,6 +14,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	state.loop_deadline=float(state.get("sim_time",0))+float(beat.get("duration",0))
 	Statuses.begin(beat, state)
 	Statuses.sync(beat, state)
+	preload("res://scripts/synergy_weapons.gd").begin(beat,state)
 	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").begin(beat,state,actors)
 	load("res://scripts/hw_firstwave_observation.gd").begin(beat,actors,state)
 	sync_followups(beat,state)
@@ -76,6 +77,7 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 	Statuses.sync(beat, state)
 	# Aether-only headless receipt from this tick's actual clock/statuses/poses.
 	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").observe(beat,actors,state)
+	if beat.has("synergy_weapon_public"):preload("res://scripts/synergy_weapons.gd").observe_headless(beat,state)
 	sync_followups(beat,state)
 	if beat.has("transfers"): tick_transfers(beat,actors,previous,state,dt)
 	# Resolve Limitless only after the same physical contact pass used by YOU.
@@ -144,6 +146,8 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 		# Return after the eye. Neither stack swaps nor the new north may steer
 		# the bots into their final knockback groups before that source appears.
 		return Vector2.ZERO
+	# All five profiles (CN/KR have no Prep config): public weapon receipt only.
+	if beat.has("synergy_weapon_public"):return preload("res://scripts/synergy_weapons.gd").goal(actor,beat,actors,state)
 	if beat.has("synergy_public"):return preload("res://scripts/synergy_preparation.gd").goal(actor,beat,actors,state)
 	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	if beat.has("cannons_public"):return preload("res://scripts/cannons_observation.gd").goal(actor,beat,actors,state)

@@ -241,7 +241,7 @@ static func conga_goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary,c
  # Invalid/contradictory/cross-profile memory: hold actual pose, no builder route.
  if seen.is_empty():return held
  # Legacy weapon baseline is available only with a valid current public cache.
- if phase=="dodge":return R.v(beat.positions[actor])
+ if phase=="dodge":return preload("res://scripts/synergy_weapons.gd").goal(actor,beat,actors,state)
  if seen.glyphs.is_empty():
   return formation_goal(actor,actors,state,seen) if phase in ["cast","remember"] else held
  var assignment:Dictionary=assignment_of(seen.glyphs,seen,chosen.profile_id)
@@ -258,8 +258,8 @@ static func goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vecto
  if is_conga(chosen.profile_id):return conga_goal(actor,beat,actors,state,chosen)
  var phase:String=chosen.phase
  if phase=="cast":return queue_goal(actor,{},chosen.profile_id)
- # Existing clone/weapon path remains unchanged, not certified by this fix.
- if phase=="dodge":return R.v(beat.positions[actor])
+ # Dodge reads only the public physical-weapon receipt (no beat.positions).
+ if phase=="dodge":return preload("res://scripts/synergy_weapons.gd").goal(actor,beat,actors,state)
  var seen:Dictionary=memory(beat,state)
  var assignment:Dictionary=A.assign(seen.get("glyphs",[]),config(chosen.profile_id))
  if assignment.is_empty():return queue_goal(actor,{},chosen.profile_id)

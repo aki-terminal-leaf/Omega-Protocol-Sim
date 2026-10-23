@@ -203,3 +203,5 @@ Linux llvmpipe只作相容性／正確性參考，不能代表玩家實體GPU效
 ## v0.3.21 P2 Elemental Web-first 限定驗收
 
 Elemental初始HTMR列隊／下位重複換邊改由實際可見八人圖形驅動，保留機制亂數、玩家所有權、原判定與移速。來源／八組精確PCK／實際Web操作與提示／公開HTTPS及新啟動已驗；原生21待驗，不混用Windows20證據。其他四打法的實際排序、完整P2／新北／武器、其餘玩家義務、最佳化及完整AVFX繼續，詳見[P2限定範圍](P2_ELEMENTAL_PREPARATION.md)。
+
+[公開實體武器提示 v0.3.24 來源候選](P2_PUBLIC_WEAPONS.md)：五種P2選項不再從已解答位置躲武器；197純檢查／十五原版模型Main課程187項、240完整生成差分及必要回歸通過。固定站仍為v0.3.23；新PCK／Web／release和原生分別待驗。LPDU分組側、其餘攻略／全20與100、最佳化和完整AVFX仍繼續。
