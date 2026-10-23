@@ -27,10 +27,11 @@ static func append_synergy(ctx) -> void:
 	# Preserve random mechanic pairs/order; derive only the guide route separately.
 	var assignment:Dictionary={}
 	var route:Array=ctx.order.duplicate()
-	if str(ctx.profile.id)=="elemental":
+	var prep_config:Dictionary=Prep.config(str(ctx.profile.id))
+	if not prep_config.is_empty():
 		var public_glyphs:Array=[]
 		for raw in markers:public_glyphs.append({"actor":raw.actor,"symbol":raw.symbol})
-		assignment=Assign.assign(public_glyphs,Prep.config())
+		assignment=Assign.assign(public_glyphs,prep_config)
 		assert(not assignment.is_empty())
 		route=assignment.route_order.duplicate()
 	# Real symbols are remembered BEFORE the genuine/decoy pair is read.
@@ -43,6 +44,8 @@ static func append_synergy(ctx) -> void:
 		var members:Array=[0,2,4,6] if side==0 else [1,3,5,7]
 		members.sort_custom(func(a,b):return lineup_priority.find(a)<lineup_priority.find(b))
 		for rank in 4:cast.positions[int(members[rank])]=Vector2(-3.0 if side==0 else 3.0,-5.0+rank*3.0)
+	if not assignment.is_empty():
+		for actor in 8:cast.positions[actor]=Prep.queue_goal(actor,{},str(ctx.profile.id))
 	cast.spawn=cast.positions.duplicate()
 	if not assignment.is_empty():
 		for actor in 8:ctx.positions[actor]=Prep.queue_goal(actor,assignment)
@@ -121,7 +124,7 @@ static func append_synergy(ctx) -> void:
 	var phase_index:=0
 	for b in ctx.beats:
 		if not assignment.is_empty():
-			b.synergy_public=Prep.config()
+			b.synergy_public=prep_config.duplicate(true)
 			b.synergy_public.merge({"phase":Prep.PHASES[phase_index],"eye_angle":eye_angle,"remote":remote,"north":north})
 		phase_index+=1
 		b.synergy_start=clock;b.synergy_clock="cast_start";b.hide_predictive_aoes=true;clock+=float(b.duration)

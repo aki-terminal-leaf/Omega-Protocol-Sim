@@ -1,4 +1,4 @@
-# P2 Party Synergy light-party assignment (Elemental profile only).
+# P2 Party Synergy source-specific two-column light-party assignment.
 # Pure: reads only the caller-supplied published glyphs and public initial queues.
 # Source: ffxiv.tuufless.com/elemental/top/02_omega_mf/#party-synergy Step1/Step2/FAQ.
 # Same-side repeated symbol -> only the lower (later in initial queue) player crosses.
@@ -21,7 +21,7 @@ static func _queue(raw:Variant)->Array:
 	return result
 
 static func assign(observed:Array,config:Dictionary)->Dictionary:
-	if str(config.get("profile_id",""))!="elemental" or not config.get("profile_id") is String:return {}
+	if not config.get("profile_id") is String or config.profile_id not in ["elemental","lpdu"]:return {}
 	var left:=_queue(config.get("left"))
 	var right:=_queue(config.get("right"))
 	if left.is_empty() or right.is_empty():return {}
@@ -63,4 +63,4 @@ static func assign(observed:Array,config:Dictionary)->Dictionary:
 				pair[sides[actor]]=actor
 		if -1 in pair:return {}
 		route.append_array(pair)
-	return {"profile_id":"elemental","actor_sides":sides,"crossed":crossed,"route_order":route,"actor_symbols":symbols}
+	return {"profile_id":config.profile_id,"actor_sides":sides,"crossed":crossed,"route_order":route,"actor_symbols":symbols}

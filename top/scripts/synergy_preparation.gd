@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
-## Elemental initial role queues and public, remembered glyph assignment.
+## Source-specific initial queues and public, remembered glyph assignment.
+## LPDU THMR source: Toolbox502396712985961 steps3/4 (actual jobs, not object keys).
 ## Later weapon/new-North presentation is outside this correction's acceptance.
 const A=preload("res://scripts/synergy_assignment.gd")
 const R=preload("res://scripts/rules.gd")
@@ -9,26 +10,33 @@ const KEY="synergy_preparation"
 const LEFT=[2,0,4,6]
 const RIGHT=[3,1,5,7]
 const PHASES=["cast","remember","appear","dodge","fire","laser","knock","stack","blades","expiry","finish"]
-static func config()->Dictionary:
+static func config(profile_id:String="elemental")->Dictionary:
+ if profile_id=="lpdu":return {"profile_id":"lpdu","left":[0,2,4,6],"right":[1,3,5,7],"shape_order":["cross","square","circle","triangle"]}
+ if profile_id!="elemental":return {}
  return {"profile_id":"elemental","left":LEFT.duplicate(),"right":RIGHT.duplicate(),"shape_order":["circle","cross","triangle","square"]}
 static func selection(beat:Dictionary)->Dictionary:
  var raw:Variant=beat.get("synergy_public",null)
- if not raw is Dictionary or raw.get("profile_id","")!="elemental" or raw.get("phase","") not in PHASES:return {}
+ if not raw is Dictionary or not raw.get("profile_id",null) is String or raw.get("phase","") not in PHASES:return {}
+ var cfg:Dictionary=config(raw.profile_id)
+ if cfg.is_empty():return {}
  if not raw.get("remote",null) is bool or not number(raw.get("eye_angle",null)) or not number(raw.get("north",null)):return {}
- if raw.get("left",[])!=LEFT or raw.get("right",[])!=RIGHT or raw.get("shape_order",[])!=config().shape_order:return {}
+ if raw.get("left",[])!=cfg.left or raw.get("right",[])!=cfg.right or raw.get("shape_order",[])!=cfg.shape_order:return {}
  return raw
 static func number(value:Variant)->bool:
  return (value is int or value is float) and is_finite(float(value))
-static func queue_goal(actor:int,assignment:Dictionary={})->Vector2:
- var queue:Array=LEFT if actor in LEFT else RIGHT
- var side:int=0 if actor in LEFT else 1
+static func queue_goal(actor:int,assignment:Dictionary={},profile_id:String="elemental")->Vector2:
+ if not assignment.is_empty():profile_id=str(assignment.get("profile_id",profile_id))
+ var cfg:Dictionary=config(profile_id)
+ if cfg.is_empty():return Vector2.ZERO
+ var queue:Array=cfg.left if actor in cfg.left else cfg.right
+ var side:int=0 if actor in cfg.left else 1
  if not assignment.is_empty():side=int(assignment.actor_sides[actor])
  return Vector2(-3.0 if side==0 else 3.0,-5.0+queue.find(actor)*3.0)
 static func fire_goal(actor:int,assignment:Dictionary,remote:bool,eye:float)->Vector2:
  var slot:int=assignment.route_order.find(actor);var rank:int=slot/2
  var z:float=-12.0+rank*8.0
  var x:float=sqrt(18.0*18.0-z*z) if remote else 11.0
- if slot%2==1 and remote and rank in [0,3]:z=-z
+ if slot%2==1 and remote and (assignment.profile_id=="lpdu" or rank in [0,3]):z=-z
  return Vector2(-x if slot%2==0 else x,z).rotated(deg_to_rad(eye))
 static func knock_goals(assignment:Dictionary,targets:Array,remote:bool,eye:float,north:float,after:bool=false)->Array:
  var left:Array=[];var right:Array=[]
@@ -57,18 +65,19 @@ static func begin(beat:Dictionary,state:Dictionary)->void:
  if chosen.is_empty():return
  if chosen.phase=="cast":
   state.erase("synergy_checkpoint_assisted")
-  state[KEY]={"version":1,"origin":float(state.get("sim_time",0.0)),"glyphs":[],"at":null,"basis":"","stacks":[],"stacks_at":null,"stacks_basis":"","blocked":false,"invalid":[]}
+  state[KEY]={"version":1,"profile_id":chosen.profile_id,"origin":float(state.get("sim_time",0.0)),"glyphs":[],"at":null,"basis":"","stacks":[],"stacks_at":null,"stacks_basis":"","blocked":false,"invalid":[]}
  if not state.get("synergy_presentation_required",false):publish_statuses(beat,state)
 static func memory(beat:Dictionary,state:Dictionary)->Dictionary:
- if selection(beat).is_empty():return {}
+ var chosen:Dictionary=selection(beat)
+ if chosen.is_empty():return {}
  var raw:Variant=state.get(KEY,null)
- if not raw is Dictionary or raw.get("version",0)!=1 or raw.get("blocked",null)!=false or not raw.get("invalid",null) is Array or not raw.invalid.is_empty():return {}
+ if not raw is Dictionary or raw.get("version",0)!=1 or raw.get("profile_id","")!=chosen.profile_id or raw.get("blocked",null)!=false or not raw.get("invalid",null) is Array or not raw.invalid.is_empty():return {}
  if not number(raw.get("origin",null)) or not number(state.get("sim_time",null)) or float(state.sim_time)<float(raw.origin):return {}
  if not raw.get("glyphs",null) is Array or not raw.get("stacks",null) is Array:return {}
  if raw.glyphs.is_empty():
   if raw.get("at")!=null or raw.get("basis","")!="":return {}
  else:
-  if A.assign(raw.glyphs,config()).is_empty() or not number(raw.get("at",null)):return {}
+  if A.assign(raw.glyphs,config(chosen.profile_id)).is_empty() or not number(raw.get("at",null)):return {}
   var relative:float=float(raw.at)-float(raw.origin)
   if relative+0.000001<3.0 or relative>=6.1 or float(raw.at)>float(state.sim_time)+0.000001:return {}
   if not valid_basis(raw.get("basis",""),state):return {}
@@ -92,12 +101,12 @@ static func publish(beat:Dictionary,state:Dictionary,displayed:Array,basis:Strin
  if not valid_basis(basis,state):reject(state,"invalid_basis");return
  if displayed.is_empty():return
  if chosen.phase=="remember":
-  var assignment:Dictionary=A.assign(displayed,config())
+  var assignment:Dictionary=A.assign(displayed,config(chosen.profile_id))
   if assignment.is_empty():reject(state,"incomplete_or_invalid_glyphs");return
   # A current beat can remain at its exact closing snapshot for one frame.
   # Matching repeated sprites cannot revoke an already witnessed public past.
   if not seen.glyphs.is_empty():
-   if A.assign(seen.glyphs,config())!=assignment:reject(state,"contradictory_glyphs")
+   if A.assign(seen.glyphs,config(chosen.profile_id))!=assignment:reject(state,"contradictory_glyphs")
    return
   var now:float=float(state.sim_time);var relative:float=now-float(seen.origin)
   if relative+0.000001<3.0 or relative>=6.1:reject(state,"glyphs_outside_current_window");return
@@ -127,12 +136,12 @@ static func goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vecto
  var chosen:Dictionary=selection(beat)
  if chosen.is_empty():return R.v(actors[actor].pos)
  var phase:String=chosen.phase
- if phase=="cast":return queue_goal(actor)
+ if phase=="cast":return queue_goal(actor,{},chosen.profile_id)
  # Existing clone/weapon path remains unchanged, not certified by this fix.
  if phase=="dodge":return R.v(beat.positions[actor])
  var seen:Dictionary=memory(beat,state)
- var assignment:Dictionary=A.assign(seen.get("glyphs",[]),config())
- if assignment.is_empty():return queue_goal(actor)
+ var assignment:Dictionary=A.assign(seen.get("glyphs",[]),config(chosen.profile_id))
+ if assignment.is_empty():return queue_goal(actor,{},chosen.profile_id)
  if phase in ["remember","appear"]:return queue_goal(actor,assignment)
  if phase in ["fire","laser"]:return fire_goal(actor,assignment,bool(chosen.remote),float(chosen.eye_angle))
  if phase in ["knock","stack","blades","expiry","finish"]:

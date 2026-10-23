@@ -4,6 +4,12 @@
 
 **[v0.3.21 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.22 開發候選：LPDU 初始 THMR 與公開圖形分組
+
+LPDU 頭標前依 T/H/M/R 雙列，實際看見八人圖形後，同側同圖案僅南邊的人換側；真搭檔、點名、移速及判定不變，玩家仍須自行操作。Remote 右側依 BPOG/GOPB 完全反轉，與 Elemental／Aether 不混用。
+
+來源驗證通過：LPDU 2,520種／45,448項、Main306項、29條WASD／345項，Elemental既有85,814項及WASD345項、P2共用Main350項、240組生成差分、320組P2／16,663項與20機制Main回歸通過。固定站仍為下方 v0.3.21；尚未取得 v0.3.22 精確 PCK、實際 Web 或原生驗收。只修 LPDU 初始準備與一致的圖形記憶路由，不代表後段分攤原始列隊歧義、武器／新北、Aether 自由換序或全部 P2 已完成。[來源與限定範圍](docs/development/P2_LPDU_PREPARATION.md)。
+
 ### v0.3.21 已更新 Web：P2 Elemental 職能列隊與指定換邊
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.21（執行碼 50ae0d8）。頭標出現前保持 H/T/M/R 初始列隊；看見八人實際圖形後，同側重複僅下位者換邊，原點名與真搭檔不變。玩家自己操作；NPC 記住已見圖形，不替玩家移動或救場。
