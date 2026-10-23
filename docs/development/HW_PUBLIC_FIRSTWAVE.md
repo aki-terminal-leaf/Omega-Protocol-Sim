@@ -1,6 +1,6 @@
 # Hello World 首輪公開資訊、NPC 預處理及玩家配合（v0.3.20 Web-first 限定驗收）
 
-固定站 https://top.servicing.cc 已更新 v0.3.20。此增量只修首輪塔揭示與實際玩家選側的 NPC 行動；新包／實際Web／公開HTTPS已驗，原生另留實證，不等於全部攻略符合。
+固定站 https://top.servicing.cc 已更新 v0.3.20。此增量只修首輪塔揭示與實際玩家選側的 NPC 行動；新包／實際Web／公開HTTPS已驗，Windows原生限定驗證及離線包也已完成；不等於全部攻略符合。
 
 ## 行為與來源界線
 
@@ -32,7 +32,7 @@
 
 ## 平台與後續工作
 
-新PCK十項受影響回歸、實際Web操作／畫面、公開HTTPS十三種內容表現與全新啟動已通過；Windows原生及離線包另留實證。全部20機制／100選項、初始八方／全玩家預處理、最佳化及完整 AVFX 仍未完成。
+新PCK十項受影響回歸、實際Web操作／畫面、公開HTTPS十三種內容表現與全新啟動已通過；Windows原生限定實證及離線包亦已完成。全部20機制／100選項、初始八方／全玩家預處理、最佳化及完整 AVFX 仍未完成。
 
 
 ## Web-first 發布
@@ -40,3 +40,12 @@
 Runtime/source tag: d8bd203571ba5f97dff92f4aa9d3ab6ba9c4005c. PCK SHA-256: e4a4df2e7d8af7676789c9332aa036b8aeb6a0838146b3778c4dee6fe31c0278.
 實際Web經UI設定、D輸入與釋放、13秒前中立／15秒後已繪塔收據、R清除當段未來資訊；停在20秒前，並非完整手動通關。使用VPS Chromium/SwiftShader軟體WebGL2，不宣稱實體GPU。未改動的舊機制矩陣保留v19已驗基線，不假稱全部重跑。
 發布與可攜驗證：https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview 。文件收尾與runtimecommit分開，不重建已驗匯出。
+
+
+## Windows 離線增補
+
+同一已驗PCK搭配官方Godot4.7.2 Windows runtime，正常相鄰PCK自動載入（非另一份Windows重匯出）。AnAn正式執行檔完成130秒Elemental HW示範：16次踩塔、32次Bug／Rot爆發、實際八人Debugger；零真實失敗。實際自有1440×900視窗以Elemental／D1／seed17391普通練習，D輸入位移約2.70碼、釋放後不自動移動、13秒前NPC中立／15秒後公開塔收據與配合、R同點名新開流程通過；43份原始報告及7張client圖片重算雜湊，父代理看過實際提示前／後／R畫面，任務視窗已關閉。
+
+這是腳本原生操作與一個GUI族群，不是Windows全攻略真人通關。正式runtime不提供開發腳本CLI，因此Windows外部腳本Main367標為NOT_RUN，Linux同PCK367與Windows正常完整示範／實際視窗證據分開；兩次錯誤測試啟動方式與日誌保留，未改遊戲來製造通過。
+
+[Windows x64 ZIP／Windows校驗／限定驗證](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)已追加；原四個Web／來源資產與校驗位元組不變。遊戲完整解壓縮後執行EXE，保留相鄰PCK；本體不需要網路，攻略連結需網路。

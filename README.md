@@ -2,7 +2,7 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.20 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.20 Windows離線／Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
 ### v0.3.20 已更新 Web：HW 首輪 NPC 預處理與玩家配合
 
@@ -10,9 +10,11 @@
 
 來源42項、Main367（含80組初始資訊差分及五打法四輪）、67條操作／621項、100條NPC四輪／600項與必要回歸通過；新PCK十項受影響檢查、實際Web操作／塔揭示／重試、固定HTTPS與全新啟動通過。詳見 [HW首輪範圍](docs/development/HW_PUBLIC_FIRSTWAVE.md)及 [發布／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)。
 
-這只結清首輪限定修正，不是全部攻略或真人完整通關認證。後續輪次資訊隔離、初始八方玩家預處理、其他玩家分支、最佳化與完整AVFX繼續。Windows原生及離線包另留實證，無桌面SwiftShader WebGL2不等於實體GPU或原生驗收。
+這只結清首輪限定修正，不是全部攻略或真人完整通關認證。後續輪次資訊隔離、初始八方玩家預處理、其他玩家分支、最佳化與完整AVFX繼續。Windows x64離線包已在 [同一發布頁](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)追加。AnAn正式執行檔130秒HW示範，以及實際視窗D輸入／釋放／塔提示／R重練通過；這是限定腳本原生操作，不是玩家真人完整通關。完整解壓縮後執行EXE並保留相鄰PCK；Web與Windows使用相同已驗PCK。
 
 ![實際匯出Web的HW首輪塔提示（目前視角僅含部分場地）；非原生／真人通關證據](docs/images/top-v0320-hw-public-web.webp)
+
+![AnAn實際Windows自有視窗HW塔提示；僅含部分場地，非完整手動通關](docs/images/top-v0320-hw-native.webp)
 
 ### v0.3.19 已部署基線（歷史）：P3 提示狀態與異常回饋
 

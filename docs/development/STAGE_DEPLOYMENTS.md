@@ -6,7 +6,7 @@
 - PCK SHA-256 e4a4df2e7d8af7676789c9332aa036b8aeb6a0838146b3778c4dee6fe31c0278.
 - HW firstwave publictower-gated neutralspawn/prestage and actualhuman sidechoice, same unchanged physics/judgments. Source42+Main367/80initialprivacy/5generatedHW +67keycourses621 +100fourround600 andnecessaryregressions pass.
 - ExactnewPCK10affectedgates; actualHWWebselection/input/release, before/aftertowerdraw andRreset; public13canonical/decodedgzip +freshHTTPSstartup pass.
-- Controlled/syntheticfixture and actualdrawnsource scopes keptseparate; no manual/native/physicalGPU/allguide certification. Native/offlinepending separate, currentAnAnwindowauthorized.
+- Controlled/syntheticfixture and actualdrawnsource scopes keptseparate; no manual/native/physicalGPU/allguide certification. Windows offline supplementaccepted: actual officialreleaseauto-PCK130sHWdemo16tower/32blast/Debugger8 +ownednativeGUI D/release/source/R,43reports7screensparentchecked,windowclosed. Notfullmanual/allguide.
 - [Release/checksums/verification](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview). Unchangedv19geometrymatrices retained, no completeallmatrixrerun claim. Fullguide/preparation/performance/AVFX remainactive.
 
 
