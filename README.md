@@ -2,17 +2,21 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.20 Windows離線／Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.21 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.21 開發候選：P2 Elemental 職能列隊與指定換邊
+### v0.3.21 已更新 Web：P2 Elemental 職能列隊與指定換邊
 
-頭標出現前保持 H/T/M/R 初始列隊；看見八人實際圖形後，同側重複僅下位者換邊，保留原點名與真搭檔。玩家自己操作，NPC 記住已見圖形而不替錯站救場；後續仍由原 Fire／Glitch／分攤判定結算。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.21（執行碼 50ae0d8）。頭標出現前保持 H/T/M/R 初始列隊；看見八人實際圖形後，同側重複僅下位者換邊，原點名與真搭檔不變。玩家自己操作；NPC 記住已見圖形，不替玩家移動或救場。
 
-2,520 種純分組／85,814項、240組生成保留差分、Main350項及29條實際WASD／345項通過；必要共用回歸及匯出平台驗收逐步追蹤中。固定站仍是 v0.3.20，本候選未發布。只涵蓋 Elemental 限定修正，不代表其餘攻略、新北／武器全部來源、完整P2或真人全通關。[來源與邊界](docs/development/P2_ELEMENTAL_PREPARATION.md)。
+2,520 種純分組／85,814項、240組生成保留差分、Main350項、29條實際WASD／345項及必要回歸通過；同一新PCK八組檢查、實際Web頭標前後／輸入釋放／R重開、固定HTTPS十三種內容與全新啟動通過。[來源與限定範圍](docs/development/P2_ELEMENTAL_PREPARATION.md) · [發布／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview).
 
-### v0.3.20 已更新 Web：HW 首輪 NPC 預處理與玩家配合
+只結清 Elemental 初始準備；其他四打法、武器／新北、完整P2、全攻略、最佳化與完整AVFX繼續。無桌面 SwiftShader WebGL2 不是原生／實體GPU或真人通關；v0.3.21 原生仍待驗，既有 v0.3.20 Windows包保留其自身限定驗證。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.20（執行碼 d8bd203）。首輪塔尚未顯示前不依塔方向出生／預站；實際塔出現後才選外圈路徑。NPC 依玩家真正靠近或站定的同色側配合，結算前可回應玩家回側；玩家仍須自己操作，合法原地不強迫移動，漏做／錯做不會被救回。原移速、塔／感染／Bug／Debugger與傷害判定不變，分段重建清楚標為輔助。
+![實際匯出Web的P2八人圖形頭標；非原生、完整AVFX或真人通關證據](docs/images/top-v0321-p2-elemental-web.webp)
+
+### v0.3.20 已部署基線（歷史）：HW 首輪 NPC 預處理與玩家配合
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.20（執行碼 d8bd203）。首輪塔尚未顯示前不依塔方向出生／預站；實際塔出現後才選外圈路徑。NPC 依玩家真正靠近或站定的同色側配合，結算前可回應玩家回側；玩家仍須自己操作，合法原地不強迫移動，漏做／錯做不會被救回。原移速、塔／感染／Bug／Debugger與傷害判定不變，分段重建清楚標為輔助。
 
 來源42項、Main367（含80組初始資訊差分及五打法四輪）、67條操作／621項、100條NPC四輪／600項與必要回歸通過；新PCK十項受影響檢查、實際Web操作／塔揭示／重試、固定HTTPS與全新啟動通過。詳見 [HW首輪範圍](docs/development/HW_PUBLIC_FIRSTWAVE.md)及 [發布／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)。
 

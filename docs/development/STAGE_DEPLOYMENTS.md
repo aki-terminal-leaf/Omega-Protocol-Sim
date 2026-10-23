@@ -1,6 +1,16 @@
 # 固定部署階段紀錄
 
-## v0.3.20 Web-first — current fixed deployment
+## v0.3.21 Web-first — current fixed deployment
+
+- URL https://top.servicing.cc ; runtime 50ae0d8a3e03a22a28ed5b8cf438eaa714b2aaf8.
+- PCK SHA-256 209feb8fb19812fa9d8eb0f4e4d90886b75815b25a4aff3d2006d76e7e8a5dd2.
+- Elemental initial HTMR queue/lower duplicate swap, actual eight displayed glyphs and remembered public past; true glyph pair/RNG, human ownership, original movement/judgments unchanged.
+- Source2520assignments/85814checks,240preservation,Main350/15courses,physicalWASD29/345 plus shared20/P3151/HW367 regressions. ExactPCK8gates,actualWeb8checks,public13representations,freshHTTPSWebGL2 startup passed.
+- Scoped browser stopsbefore8.3s, sourcephysicalcourses throughFire only. SwiftShader not native/physicalGPU/manual/allguide proof; Windows21 pending, Windows20 separate.
+- [Release/checksums/verification](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview). Unchanged matrices retain acceptedv20baseline. Other4methods/fullP2/fullguide/performance/fullAVFX remainactive.
+
+
+## v0.3.20 Web-first — accepted baseline (historical)
 
 - URL https://top.servicing.cc ; runtime d8bd203571ba5f97dff92f4aa9d3ab6ba9c4005c.
 - PCK SHA-256 e4a4df2e7d8af7676789c9332aa036b8aeb6a0838146b3778c4dee6fe31c0278.
@@ -32,7 +42,7 @@
 - Documentation closure is separate from the runtime commit; all-guide / measured optimization / full AVFX remain active. Earlier deployment entries below are historical.
 
 
-固定網址：https://top.servicing.cc 。依使用者 2026-10-24 最新指示，來源、新 Web 包與無桌面 Web 驗證完成後先更新；原生另列待驗、桌面操作停用。早期 v0.3.11–v0.3.13 的 Windows／Web 驗收紀錄保留原來範圍；局部驗證不是全部攻略符合。
+固定網址：https://top.servicing.cc 。依使用者 2026-10-24 最新指示，來源、新 Web 包與實際 Web 驗證完成後先更新；原生另列實際證據，目前工作視窗已授權 AnAn 桌面驗證。早期 v0.3.11–v0.3.13 的 Windows／Web 驗收紀錄保留原來範圍；局部驗證不是全部攻略符合。
 
 - **2026-10-23 v0.3.11 已部署**：執行碼 c773d153572683468855883d3d7519526eff29c4。HW／檢知／Delta／P6等既有已覆核增量；實際Web匯出包20機制100選項、Windows五個完整示範、Windows Chrome155／AMD GPU13項操作及固定HTTPS啟動通過；13個identity/gzip資源表示皆核對。這不是手動全流程通關或全部攻略認證。
 - **2026-10-23 v0.3.12 已部署**：執行碼783abe2360185238f31b16da8c7a3278235f1257。Sigma CN橫排、提前真塔容量與重開即時清理；來源及匯出包限定檢查、Windows原生六塔／GPU Web五塔的1／2容量與重開畫面、固定HTTPS檔案／啟動均通過。手標驅動分工仍在下一階段。

@@ -1,6 +1,6 @@
-# P2 Elemental 初始列隊／分組修正（v0.3.21 開發候選）
+# P2 Elemental 初始列隊／分組修正（v0.3.21 Web-first 限定驗收）
 
-固定站目前仍為 v0.3.20；本候選未經新匯出 Web 驗收前不稱已發布。
+固定站 https://top.servicing.cc 已更新 v0.3.21。來源、同一新PCK、實際Web與公開HTTPS已通過；v0.3.21原生仍待驗，不與舊版Windows混算。
 
 ## 原攻略與玩家責任
 
@@ -26,7 +26,7 @@
 - 240 組新舊生成差分：48 組 Elemental 機制資料（排除預期變更的路線位置與新公開規格），以及其餘四打法192組完整資料均一致。
 - 實際 Main 場景350項／15個生成課程通過，包含八職責的人類所有權、真貼圖缺失／部分接收、跨幀、圖示消失、R／段落重試、精確收尾與明示輔助檢查點。
 - 真 WASD 29流程／345項通過：八職責近／遠故障16正向、5個實際 Fire／Glitch 負向、8個合法較晚補救。只驗到 Fire，武器躲避借用既有基線，不稱武器判讀或全P2通關。
-- 獨立來源／runtime覆核唯一MUST_FIX已重現並修正，收尾邊界與JSON保持記憶通過；必要共用回歸、新PCK／瀏覽器驗收仍由本批紀錄追蹤，未跑完不計通過。
+- 獨立來源／runtime覆核唯一MUST_FIX已重現並修正，收尾邊界與JSON保持記憶通過；必要共用20機制／P3 Main151／HW Main367、新PCK八組與實際瀏覽器八項檢查均通過。
 - 獨立覆核曾發現精確6.1秒收尾重複頭標會封鎖記憶；原失敗重現保留，修正後以同一精確邊界驗證，不刪失敗紀錄。
 
 ## 尚未結清
@@ -34,3 +34,11 @@
 本批只修 Elemental 已由原文確認的初始隊列／指定換邊；Aether／LPDU／莫古力／09STOP 保留舊路線，待各自完整原圖與合法分支核對，不複製 Elemental 規則。CN 單橫排、水晶參照、全攻略距離異常狀態、武器／新北逐幀資訊隔離及其餘玩家分支繼續保留。
 
 不是整個 P2、100選項、真人完整通關或完整 AVFX 認證。最佳化與完整 AVFX 依玩家／NPC 正確性之後的既定順序接續。
+
+
+## Web-first 發布
+
+Runtime/source tag: 50ae0d8a3e03a22a28ed5b8cf438eaa714b2aaf8. PCK SHA-256: 209feb8fb19812fa9d8eb0f4e4d90886b75815b25a4aff3d2006d76e7e8a5dd2.
+實際Web依UI設定P2／Elemental／D1／seed17391，核對八人頭標前無收據、可見後取得實際貼圖資訊、圖示消失後保留記憶、D輸入與釋放不自動救場、R整個機制重開清除未來。停在8.3秒之前；Fire負向及合法補救是來源Main實際WASD案例，不冒充Web全程通關。
+固定HTTPS十三種identity／decoded-gzip與全新WebGL2啟動通過。VPS Chromium/SwiftShader為軟體渲染，不是實體GPU。未改動矩陣沿用已驗v0.3.20基線，未重新執行全部舊矩陣。
+發布與可攜驗證：https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview 。文件提交與runtime分開，不重建已驗PCK。
