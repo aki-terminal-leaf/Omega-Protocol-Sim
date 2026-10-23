@@ -141,6 +141,7 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 		return Vector2.ZERO
 	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	if beat.has("cannons_public"):return preload("res://scripts/cannons_observation.gd").goal(actor,beat,actors,state)
+	if beat.has("p3_transition_public"):return preload("res://scripts/p3_transition_observation.gd").goal(actor,beat,actors,state)
 	var final: Vector2 = beat.positions[actor]
 	# Bots wait out the same raidwide vulnerability that judges player breaks.
 	if state.has("statuses") and state.statuses[actor].has("magic_vulnerability"):

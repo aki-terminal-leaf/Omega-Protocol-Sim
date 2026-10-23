@@ -59,6 +59,7 @@ static func append_family(ctx, arm_first: int, sample_index: int=2, purple: Arra
 		var beat: Dictionary=ctx.beat("P3 transition: concurrent rings / arms / sniper",float(times[i])-previous,"Follow actual arm order and current debuffs. Numerical guide realization; HP/shields unmodeled.")
 		beat.hide_main_boss=true
 		beat.p3_transition_route=route.duplicate(true)
+		beat.p3_transition_public={"profile_id":str(ctx.profile.id),"phase":["outer","inner","outer_return","pocket"][i]}
 		beat.p3_transition_family={"arm_first":arm_first,"sample_index":sample_index,"sample_id":f.sample_id}
 		beat.stage_entities=[{"id":"p3_transition_boss","form":"final","pos":[0,0],"name":"Omega Reconfigured","p3_transition_entity":true}]
 		if i==0:

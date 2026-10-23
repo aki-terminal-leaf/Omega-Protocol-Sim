@@ -10,7 +10,7 @@ var failures:=0
 var simulations:=0
 func code_version() -> String:
 	var hash_context:=HashingContext.new(); hash_context.start(HashingContext.HASH_SHA256)
-	for path in ["res://scripts/p3_transition_courses.gd","res://scripts/p3_transition_patterns.gd","res://scripts/p3_transition_runtime.gd","res://data/p3_transition_routes.json","res://scripts/statuses.gd","res://tests/p3_transition_fidelity.gd"]:
+	for path in ["res://scripts/p3_transition_courses.gd","res://scripts/p3_transition_patterns.gd","res://scripts/p3_transition_runtime.gd","res://data/p3_transition_routes.json","res://scripts/statuses.gd","res://scripts/p3_transition_observation.gd","res://scripts/interactions.gd","res://tests/p3_transition_fidelity.gd"]:
 		hash_context.update(FileAccess.get_file_as_bytes(path))
 	return hash_context.finish().hex_encode()
 func equivalent(a, b) -> bool:
@@ -65,7 +65,14 @@ func simulate(id: String, family: int, sample: int, purple: Array, white: Array,
 		while elapsed<float(b.duration)-0.000001:
 			var dt:=minf(step,float(b.duration)-elapsed); var previous:=actors.duplicate(true)
 			for a in 8: actors[a].pos=Rules.v(actors[a].pos).move_toward(Contact.bot_goal(a,b,actors,state) if integrated else Rules.v(b.positions[a]),6.0*dt)
-			if integrated: Contact.tick(b,actors,previous,state,dt)
+			if integrated:
+				Contact.tick(b,actors,previous,state,dt)
+				# Explicit standalone presentation FIXTURE. Actual scene receipts are
+				# independently exercised by p3_public_main.gd, not claimed here.
+				var visible:Array=[]
+				for entity in b.get("stage_entities",[]):
+					if str(entity.get("form","")) in ["arm_left","arm_right"]:visible.append({"id":str(entity.id),"pos":entity.pos.duplicate()})
+				preload("res://scripts/p3_transition_observation.gd").publish(b,state,visible)
 			else: tick(state,actors,previous,dt)
 			elapsed+=dt
 			if restore: state=JSON.parse_string(JSON.stringify(state))
@@ -154,7 +161,10 @@ func run() -> void:
 	var restored:=simulate("elemental",0,2,[7,2,5,0],[6,3],true)
 	check(equivalent(normal.p3_transition.history,restored.p3_transition.history),"every-frame JSON restore preserves event history within1e-5")
 	var integrated:=simulate("elemental",0,2,[7,2,5,0],[6,3],false,0.05,true)
-	check(equivalent(normal.p3_transition.history,integrated.p3_transition.history),"three hooks preserve judgments through actual Interactions/Statuses pipeline")
+	# Information-fair prestaging intentionally changes pre-cue positions. Keep
+	# event identities/times and judgments comparable, not oracle trajectories.
+	var signature:Callable=func(history):return history.map(func(e):return {"kind":e.kind,"at":e.at,"hits":e.get("hits",[]),"coverage":e.get("coverage",[])})
+	check(equivalent(signature.call(normal.p3_transition.history),signature.call(integrated.p3_transition.history)),"same scheduled events and physical judgments through public-observation Interactions/Statuses fixture")
 	# All 70 choices of four purple times six white pairs = 420 partitions.
 	var partitions:=0
 	for mask in 256:

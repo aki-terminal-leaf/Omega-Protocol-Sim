@@ -15,6 +15,7 @@ var visible_damage_shapes:Array=[]
 # delay a newly eligible source while NPC observation sees the same state.
 var panto_displayed_cues:Array=[]
 var cannon_displayed_actors:Array=[]
+var p3_displayed_arms:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -534,6 +535,7 @@ func update_clone_cues() -> void:
 			boss.visible = not active.is_empty()
 
 func update_stage_entities() -> void:
+	p3_displayed_arms=[]
 	var entities:Array=current.get("stage_entities",[]).duplicate(true)
 	for transition in current.get("entity_transitions",[]):
 		if beat_elapsed>=float(transition.at):
@@ -560,6 +562,8 @@ func update_stage_entities() -> void:
 		var display_names:Dictionary={"beetle":"Omega","male":"Omega M","female":"Omega F","male_p5":"Omega M","female_p5":"Omega F","final":"Omega Reconfigured","alpha":"Alpha Omega","fist_b5":"拳 A","fist_b6":"拳 B","arm_left":"","arm_right":"","rear_unit":"Rear Power Unit","optical_unit":"Optical Unit"}
 		node.get_node("EntityLabel").text=("↻" if float(entity.turn)>0 else "↺") if entity.has("turn") else str(entity.get("label",display_names.get(entity.form,entity.form)))
 		node.visible=actors.size()==8 and stance!="RESOLVED" and bool(entity.get("visible",true)) and beat_elapsed+0.000001>=float(entity.get("spawn_delay",0))
+		if current.has("p3_transition_public") and entity.get("p3_transition_entity",false) and str(entity.form) in ["arm_left","arm_right"] and node.is_visible_in_tree() and node.get_meta("official_model",false) and node.has_node("GameMesh") and node.get_node("GameMesh").is_visible_in_tree():
+			p3_displayed_arms.append({"id":str(entity.id),"pos":[node.position.x,node.position.z]})
 	for node in bosses:node.visible=not bool(current.get("hide_main_boss",false))
 	if bosses.size() == 1:
 		var face := float(current.get("boss_facing", current.get("p1_route", {}).get("boss_facing", 0.0)))

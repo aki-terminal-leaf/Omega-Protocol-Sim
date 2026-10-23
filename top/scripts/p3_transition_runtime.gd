@@ -16,6 +16,7 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 	var zone: Dictionary=beat.p3_transition_void.duplicate(true)
 	zone.start=float(zone.start)+now; zone.end=float(zone.end)+now
 	state.p3_transition={"pending":[],"history":[],"arms":{},"origin":now,"until":now+float(beat.p3_transition_duration),"void":zone,"purple":[],"white":[],"packets":[],"last_time":now}
+	preload("res://scripts/p3_transition_observation.gd").begin(beat,state)
 	for raw in beat.p3_transition_events:
 		var e: Dictionary=raw.duplicate(true); e.at=float(e.at)+now
 		if e.kind=="marks": e.expires=float(e.expires)+now

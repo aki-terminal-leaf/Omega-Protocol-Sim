@@ -463,6 +463,14 @@ func oracle_state_before(target: int) -> Dictionary:
 			result.motion_allowances=[]
 			for i in 8:result.motion_allowances.append(Movement.speed(b,result,i)*dt)
 			Interactions.tick(b, simulated, previous, result, dt)
+			if checkpoint_assisted and b.has("p3_transition_public"):
+				# Synthetic PAST, never an actually displayed or manual receipt.
+				result.p3_checkpoint_assisted=true
+				var past_arms:Array=[]
+				for entity in b.get("stage_entities",[]):
+					if str(entity.get("form","")) in ["arm_left","arm_right"]:
+						past_arms.append({"id":str(entity.id),"pos":entity.pos.duplicate()})
+				preload("res://scripts/p3_transition_observation.gd").publish(b,result,past_arms,"assisted_checkpoint_not_observed")
 			clock += dt
 		for check in b.checks:
 			if check.kind == "lb": result.lb = check.type; result.lb_actor = check.eligible[0]
@@ -498,6 +506,8 @@ func start_run(checkpoint := 0, new_seed := true) -> void:
 	feedback.text = "[color=#8ce3d1]%s · seed %s[/color]\n" % ["示範模式（不計入成績）" if demo else "練習開始", seed_edit.text]
 	if checkpoint_assisted and state.get("cannons_checkpoint_assisted",false):
 		feedback.text+="[color=#90a3bd]分段輔助：已重建第一輪站位與點名，不計完整練習。[/color]\n"
+	if checkpoint_assisted and state.get("p3_checkpoint_assisted",false):
+		feedback.text+="[color=#90a3bd]分段輔助：P3 過去提示與站位已重建，不計完整練習。[/color]\n"
 	begin_beat(true)
 	set_practice_view(true)
 func begin_beat(reset_positions := false) -> void:
@@ -619,6 +629,8 @@ func publish_observed_cues()->void:
 		preload("res://scripts/panto_observation.gd").presented(current,state,arena.visible_damage_shapes)
 	if current.has("cannons_public"):
 		preload("res://scripts/cannons_observation.gd").publish(current,state,arena.cannon_displayed_actors)
+	if current.has("p3_transition_public"):
+		preload("res://scripts/p3_transition_observation.gd").publish(current,state,arena.p3_displayed_arms)
 func move_player(dt: float) -> void:
 	if demo: return
 	var cast_locked: bool=load("res://scripts/p6_runtime.gd").is_locked(state,player)
