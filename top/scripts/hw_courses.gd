@@ -10,6 +10,12 @@ static func append_hw(ctx) -> void:
 static func append_family(ctx, orientations: Array, colour: String) -> void:
 	assert(orientations.size()==4 and colour in ["red","blue"])
 	var order: Array=ctx.order.duplicate()
+	# Public initial-role priority; never rotate initial spawn by future towers.
+	var public_order:Array=order.duplicate()
+	var public_neutral:Array=P.formation(0,0,public_order)
+	for slot in [2,3,6,7]:
+		var actor:int=int(public_order[slot])
+		public_neutral[actor]=(public_neutral[actor] as Vector2).normalized()*3.0
 	var route := P.route(str(ctx.profile.id))
 	var inward_remote: bool=route.get("remote_after_handoff","")=="inside_boss"
 	var hold_old: bool=route.get("old_rot_after_handoff","")=="hold_at_marker_and_inner_tower_until_expiry"
@@ -71,6 +77,8 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 	add(ctx,ctx.positions,130.0-last,"Critical Error: real Overflow Debugger gate",route)
 	var first: Dictionary=ctx.beats[start]
 	first.hw_events=P.events(order,orientations,colour); first.hw_duration=130.0; first.hw_initial=[]
+	first.spawn=public_neutral.duplicate()
+	first.hw_public_firstwave={"neutral":public_neutral.duplicate(),"order":public_order.duplicate()}
 	first.hw_pairing_preview=[]
 	for kind in ["remote","local"]:
 		var slot:=2 if kind=="remote" else 6
@@ -154,6 +162,8 @@ static func transition(ctx, order: Array, round_index: int, angle: int, duration
 	ctx.beats[-1].hw_path=path
 
 static func coaching_goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vector2:
+	var observed_goal=load("res://scripts/hw_firstwave_observation.gd").goal(actor,beat,actors,state)
+	if observed_goal is Vector2:return observed_goal
 	var replacement=load("res://scripts/hw_cooperation.gd").replacement_actor(actor,beat,actors,state)
 	if replacement is int:
 		return load("res://scripts/hw_cooperation.gd").walking_goal(actor,base_goal(int(replacement),beat,state),beat,actors,state)

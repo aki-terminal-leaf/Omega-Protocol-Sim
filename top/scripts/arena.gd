@@ -287,6 +287,14 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 		if eligible!=panto_displayed_cues:
 			redraw_elapsed=0.0
 			draw_indicators()
+	# HW NPCs observe the same drawn towers, not an unrendered pending timer.
+	# Refresh on reveal/removal/new-run boundaries despite the redraw throttle.
+	if actors.size()==8 and (current.get("hello_world",false) or visible_damage_shapes.any(func(shape):return shape.get("hw_preview",false))):
+		var eligible_hw:Array=LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors).filter(func(shape):return shape.get("hw_preview",false) and shape.get("kind","")=="tower")
+		var displayed_hw:Array=visible_damage_shapes.filter(func(shape):return shape.get("hw_preview",false) and shape.get("kind","")=="tower")
+		if eligible_hw!=displayed_hw:
+			redraw_elapsed=0.0
+			draw_indicators()
 func update_cannon_marker_receipt()->void:
 	var previous:Array=cannon_displayed_actors.duplicate()
 	cannon_displayed_actors=[]

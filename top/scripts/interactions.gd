@@ -14,6 +14,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	state.loop_deadline=float(state.get("sim_time",0))+float(beat.get("duration",0))
 	Statuses.begin(beat, state)
 	Statuses.sync(beat, state)
+	load("res://scripts/hw_firstwave_observation.gd").begin(beat,actors,state)
 	sync_followups(beat,state)
 	if not beat.has("transfers"): return
 	var config: Dictionary = beat.transfers

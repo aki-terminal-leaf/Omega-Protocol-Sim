@@ -505,6 +505,8 @@ func start_run(checkpoint := 0, new_seed := true) -> void:
 	sprint_left = 0; knockback_resist_left = 0; dash_left = 0
 	running = true; paused = false; pending_advance = false; sample_elapsed = 0
 	feedback.text = "[color=#8ce3d1]%s · seed %s[/color]\n" % ["示範模式（不計入成績）" if demo else "練習開始", seed_edit.text]
+	if checkpoint_assisted and str(encounter.get("id",""))=="p3_hello":
+		feedback.text+="[color=#90a3bd]分段輔助：Hello World 已重建前段狀態與走位，不計完整練習。[/color]\n"
 	if checkpoint_assisted and state.get("cannons_checkpoint_assisted",false):
 		feedback.text+="[color=#90a3bd]分段輔助：已重建第一輪站位與點名，不計完整練習。[/color]\n"
 	if checkpoint_assisted and state.get("p3_checkpoint_assisted",false):
@@ -532,6 +534,8 @@ func begin_beat(reset_positions := false) -> void:
 	Markers.ensure(state);state.waymark_layout=waymark_layout.duplicate(true)
 	if current.has("p1_path"):state.panto_presentation_required=true
 	else:state.erase("panto_presentation_required")
+	if current.get("hello_world",false):state.hw_firstwave_presentation_required=true
+	else:state.erase("hw_firstwave_presentation_required")
 	Interactions.begin(current, actors, state)
 	Movement.begin(current,state,player if not demo else -1)
 	if current.has("program_loop"): Rules.ensure_loop_state(current, state)
@@ -626,6 +630,8 @@ func _process(delta: float) -> void:
 	publish_observed_cues()
 	update_hud()
 func publish_observed_cues()->void:
+	if current.get("hello_world",false):
+		load("res://scripts/hw_firstwave_observation.gd").publish(current,state,arena.visible_damage_shapes)
 	if current.has("p1_path"):
 		preload("res://scripts/panto_observation.gd").presented(current,state,arena.visible_damage_shapes)
 	if current.has("cannons_public"):

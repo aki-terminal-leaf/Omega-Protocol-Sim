@@ -4,6 +4,14 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.20 來源候選：HW 首輪 NPC 預處理與玩家配合
+
+NPC 出生／預站位不再依尚未顯示的首輪塔方向；實際塔出現後才選外圈路徑，依玩家真正靠近或站定的同色側補位，結算前可回應玩家回到另一合法側。玩家仍須自己走位；原本已在合法塔內可以不動，漏塔／錯毒仍照原機制失敗。
+
+來源已有 67 條主程式操作／621 項、100 條 NPC 四輪走位／600 項與 42 項觀察檢查通過；最終 Main 367 項（含分段輔助）、既有 HW／檢知／P3 及 20 機制必要回歸也已通過；新包／Web／原生仍待驗。詳見 [HW 首輪範圍](docs/development/HW_PUBLIC_FIRSTWAVE.md)。這不是全部攻略符合或真人通關認證；後續輪次的資訊隔離、八方玩家預處理及其他攻略工作仍保留。
+
+固定網站目前仍是下方已發布的 v0.3.19；新 Web 驗證完成後會先更新，不等待原生。AnAn 原生與離線包另留實證。
+
 ### v0.3.19 已更新 Web：P3 提示狀態與異常回饋
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.19（執行碼 5d790cd）。正常練習維持簡潔；Tab 可看不透露方向的提示狀態。提示資訊無法確認時，沿用既有介面提供 R 同點名重練選項；不改判定、分數、暫停或玩家走位。
