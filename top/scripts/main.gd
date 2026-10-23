@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT
 extends Control
+const P3Observation = preload("res://scripts/p3_transition_observation.gd")
 const P6Setup = preload("res://scripts/p6_setup.gd")
 const P6LB = preload("res://scripts/p6_lb.gd")
 const Movement = preload("res://scripts/movement.gd")
@@ -784,7 +785,8 @@ func resolve_beat() -> void:
 	state.failure_cursor = state.get("runtime_failures",[]).size()
 	state.last_snapshot_actors = actors.duplicate(true)
 	if wall_recorded and not ("Death wall (earlier during movement)" in errors): errors.append("Death wall (earlier during movement)")
-	journal.append({"beat": index, "title": current.title, "seed": encounter.seed, "failures": errors, "dynamis": state.dynamis.duplicate(), "mode": "demo" if demo else "practice", "statuses": state.get("statuses", []).duplicate(true), "timeline_cursor": state.get("timeline", []).size(), "actors": actors.duplicate(true), "actual_tether_holders": state.get("tether_holders", []).duplicate(), "loop_cleansed": state.get("loop_cleansed", []).duplicate(), "loop_ruin_expires": state.get("loop_ruin_expires", []).duplicate()})
+	var cue_diagnostic := p3_diagnostic()
+	journal.append({"beat": index, "title": current.title, "seed": encounter.seed, "failures": errors, "dynamis": state.dynamis.duplicate(), "mode": "demo" if demo else "practice", "statuses": state.get("statuses", []).duplicate(true), "timeline_cursor": state.get("timeline", []).size(), "actors": actors.duplicate(true), "actual_tether_holders": state.get("tether_holders", []).duplicate(), "loop_cleansed": state.get("loop_cleansed", []).duplicate(), "loop_ruin_expires": state.get("loop_ruin_expires", []).duplicate(), "p3_observation_status":str(cue_diagnostic.get("status","inactive"))})
 	if errors.is_empty(): beat_passed += 1; log_feedback("✓ 判定 %d 通過" % (index+1), true)
 	else:
 		beat_failed += 1; all_errors.append_array(errors)
@@ -796,6 +798,7 @@ func resolve_beat() -> void:
 		log_feedback("失敗檢討 · " + current.title, false)
 		if not str(current.labels[player]).strip_edges().is_empty(): log_feedback("參考處理：" + str(current.labels[player]), false)
 		log_feedback(str(current.get("note","")), false)
+	append_p3_diagnostic_review(cue_diagnostic)
 	update_hud()
 	write_report()
 func advance_beat() -> void:
@@ -837,8 +840,33 @@ func update_hud() -> void:
 		party.text = text_value
 	update_lb_controls()
 	sync_practice_hud(party_rows)
+func p3_diagnostic() -> Dictionary:
+	return P3Observation.diagnostic(current,state)
+func p3_diagnostic_text(diagnostic:Dictionary) -> String:
+	match str(diagnostic.get("status","inactive")):
+		"uninitialized": return "等待練習提示建立"
+		"waiting_marks": return "等待狙擊點名"
+		"waiting_source": return "已出現點名 · 等待手臂提示"
+		"partial_first_wave": return "第一波手臂提示顯示中（%d/3）" % int(diagnostic.get("sources_seen",0))
+		"observed": return "已觀察到手臂提示" if diagnostic.get("marks_seen",false) else "已觀察到手臂 · 等待狙擊點名"
+		"assisted": return "分段輔助重建"
+		"blocked": return "手臂提示無法確認 · R 同點名重練"
+		"invalid_record": return "提示資訊不完整 · R 同點名重練"
+	return ""
+func append_p3_diagnostic_review(diagnostic:Dictionary) -> void:
+	var line := ""
+	match str(diagnostic.get("status","inactive")):
+		"uninitialized": line = "本段結束時提示尚未建立。"
+		"waiting_marks": line = "本段結束前尚未確認狙擊點名。"
+		"waiting_source", "partial_first_wave": line = "本段結束前尚未確認完整手臂提示。"
+		"blocked": line = "本段手臂提示無法確認；可按 R 同點名重練。"
+		"invalid_record": line = "本段提示資訊不完整；可按 R 同點名重練。"
+	if line.is_empty(): return
+	# Informational review only: never add a failure, change a verdict or reset state.
+	feedback.text += "[color=#90a3bd]提示回饋 · %s[/color]\n" % line
+	feedback.scroll_to_line(feedback.get_line_count())
 func report() -> Dictionary:
-	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "practice_clock":encounter.get("clock",{}).duplicate(true), "p5_preparation":preparation_report(), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"marker_keys":marker_bindings.duplicate(),"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
+	return {"format": "top-practice-report/3", "version": ProjectSettings.get_setting("application/config/version", "0.3.0-preview"), "scenario": encounter.get("id", ""), "seed": encounter.get("seed", 0), "strategy": encounter.get("profile", ""), "strategy_definition": active_profile.duplicate(true), "fidelity_parameters": Interactions.Statuses.parameter_snapshot(), "role": Encounter.ROLES[player], "mode": "demo" if demo else "practice", "hints": answers_visible(), "teaching_preference": hints.button_pressed, "snapshots": journal, "retries": retry_history, "samples": samples, "failures": all_errors, "fidelity": "stateful contacts, statuses and expiry / partially calibrated community geometry", "checkpoint_assisted": checkpoint_assisted, "dead": state.get("dead",[]).duplicate(), "statuses": state.get("statuses", []).duplicate(true), "timeline": state.get("timeline", []).duplicate(true), "runtime_failures": state.get("runtime_failures", []).duplicate(), "paired_tethers": state.get("paired_tethers", []).duplicate(true), "tether_events": state.get("tether_events", []).duplicate(true), "simulation_time": state.get("sim_time", 0.0), "practice_clock":encounter.get("clock",{}).duplicate(true), "p5_preparation":preparation_report(), "p3_observation":p3_diagnostic(), "runtime_state": report_runtime_state(), "target_markers":state.get("target_markers",{}).duplicate(true), "waymarks":state.get("waymark_layout",waymark_layout).duplicate(true), "camera": {"yaw": arena.camera_yaw, "pitch": arena.camera_pitch, "distance": arena.camera_size, "follow": arena.follow_player, "overhead": arena.overhead, "fov": arena.camera.fov, "viewport": [world.size.x,world.size.y], "practice_view": practice_view}, "controls": {"marker_keys":marker_bindings.duplicate(),"sprint_left": sprint_left, "knockback_resist_left": knockback_resist_left, "dash_left": dash_left, "jump_height": actors[player].get("height",0.0) if actors.size()==8 else 0.0}}
 func report_runtime_state() -> Dictionary:
 	var result:Dictionary=state.duplicate(true)
 	result.erase("timeline") #the authoritative top-level timeline is already exported
@@ -1074,10 +1102,15 @@ func sync_practice_hud(party_rows: Array = []) -> void:
 	# ordinary drill clean, but never leave an unexplained frozen formation.
 	var finished := configured and not running and not journal.is_empty()
 	var failed_pause := paused and failed_review()
-	hud_status_panel.visible = training_overlay or finished or failed_pause
+	var diagnostic := p3_diagnostic()
+	var diagnostic_problem:bool = str(diagnostic.get("status","inactive")) in ["blocked","invalid_record"]
+	hud_status_panel.visible = training_overlay or finished or failed_pause or (practice_view and configured and diagnostic_problem)
 	if not training_overlay:
 		if finished: hud_cue.text = cue.text + " · %d 通過 / %d 失誤 · R 同點名重練" % [beat_passed, beat_failed]
 		elif failed_pause: hud_cue.text = "判定失敗 · Tab 檢討 / R 同點名重練"
+	if training_overlay or diagnostic_problem:
+		var diagnostic_text := p3_diagnostic_text(diagnostic)
+		if not diagnostic_text.is_empty(): hud_cue.text += " · " + diagnostic_text
 	sync_party_status_hud(party_rows)
 	hud_lb_row.visible = configured and lb_panel.visible and state.has("p6_lb")
 	hud_lb_status.text = lb_info.text.split("\n")[0] if hud_lb_row.visible else ""

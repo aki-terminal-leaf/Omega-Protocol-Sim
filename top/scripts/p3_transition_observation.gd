@@ -132,3 +132,46 @@ static func goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vecto
  var phase:String=str(selection(beat).phase)
  var angles:Array=C.pocket(nominal,int(seen.first))
  return R.direction(float(angles[0 if phase=="pocket" else 1]))*(19.0 if phase in ["outer","outer_return"] else 16.5)
+const DIAGNOSTIC_STATUSES=["inactive","uninitialized","blocked","invalid_record","assisted","observed","partial_first_wave","waiting_source","waiting_marks"]
+const DIAGNOSTIC_REASONS={"first_wave_order_not_observed":"ambiguous_first_wave","invalid_or_duplicate_source_id":"inconsistent_source","invalid_source_position":"inconsistent_source","source_outside_public_arm_lattice":"inconsistent_source","contradictory_source_position":"inconsistent_source","duplicate_physical_source":"inconsistent_source","invalid_presentation_basis":"invalid_presentation","contradictory_or_malformed_source_cache":"record_inconsistent"}
+const DIAGNOSTIC_FIELDS=["version","origin","profile_id","purple","white","marks_at","sources","first","first_at","basis","blocked","invalid"]
+## Read-only coarse status for HUD/report. Returns a fresh primitive-only dict and never
+## exposes raw, first wave, groups, positions, IDs or timing. No motion claims.
+## Malformed records get a coarse status, not a promise about legacy planner motion.
+static func diagnostic(beat:Dictionary,state:Dictionary)->Dictionary:
+ var flag:Variant=state.get("p3_checkpoint_assisted",false)
+ var assisted:bool=flag is bool and flag==true
+ var out:Dictionary={"status":"inactive","marks_seen":false,"checkpoint_assisted":assisted,"source_onset":"source_unknown","sources_seen":0,"reason_category":""}
+ if not beat.has("p3_transition_public"):return out
+ if selection(beat).is_empty():
+  out.status="invalid_record";return out
+ var raw:Variant=state.get(KEY,null)
+ if not raw is Dictionary:
+  out.status="uninitialized";return out
+ var invalid:Variant=raw.get("invalid",null)
+ if (raw.get("blocked",null) is bool and raw.blocked==true) or (invalid is Array and not invalid.is_empty()):
+  out.status="blocked";out.reason_category=diagnostic_reason(raw);return out
+ # Unvalidated records report zero counts/no marks; that is not evidence of absence.
+ out.status="invalid_record"
+ for field in DIAGNOSTIC_FIELDS:
+  if not raw.has(field):return out
+ if not raw.blocked is bool or not number(raw.version) or not number(raw.origin) or not raw.profile_id is String or not raw.basis is String:return out
+ for field in ["marks_at","first","first_at"]:
+  if raw[field]!=null and not number(raw[field]):return out
+ if raw.basis=="assisted_checkpoint_not_observed" and not assisted:return out
+ var seen:Dictionary=memory(beat,state)
+ if seen.is_empty():return out
+ var count:int=seen.sources.size();var marks:bool=not seen.purple.is_empty()
+ # memory() tolerates a complete first wave without a first record; never treat it as ready.
+ if seen.first==null and count>=3:return out
+ out.marks_seen=marks;out.sources_seen=clampi(count,0,3)
+ if seen.first!=null:out.status="assisted" if seen.basis=="assisted_checkpoint_not_observed" else "observed"
+ elif count>0:out.status="partial_first_wave"
+ else:out.status="waiting_source" if marks else "waiting_marks"
+ return out
+static func diagnostic_reason(raw:Dictionary)->String:
+ var invalid:Variant=raw.get("invalid",null)
+ if invalid is Array and not invalid.is_empty() and invalid[0] is Dictionary:
+  var reason:Variant=invalid[0].get("reason",null)
+  if reason is String and DIAGNOSTIC_REASONS.has(reason):return DIAGNOSTIC_REASONS[reason]
+ return "record_inconsistent"

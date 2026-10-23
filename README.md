@@ -4,6 +4,12 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.19 開發候選：P3 提示狀態與異常回饋
+
+新增不洩漏方向／未來順序的唯讀提示狀態。正常練習不多出警示；提示無法判讀時沿用既有介面說明，R 重練仍是選擇，不改判定或替玩家移動。來源 848 項純檢查、210 項 Main（含 82 幀正常流程零誤警示）及必要既有回歸通過。詳見 [提示診斷範圍](docs/development/P3_OBSERVATION_DIAGNOSTICS.md)。
+
+候選尚待新 PCK／Web 驗證；固定網址目前仍是下方已驗證的 v0.3.18，原生仍待驗、桌面操作停用。
+
 ### v0.3.18 已更新 Web：P3 公開資訊走位與玩家操作驗證
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.18（執行碼 b616fc1）。P3 NPC 只依當下減益及實際顯示的手臂分流，不偷讀未來答案；累積的 Omega 練習族群、Sigma 手標、Panto 與 Cannons 公開提示改善亦已隨新 Web 包發布。
