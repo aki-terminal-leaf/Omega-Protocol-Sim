@@ -376,12 +376,13 @@
     },
     "p1_panto": {
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "setup_or_in_mechanic_preparation": "依攻略排優先序／分兩隊；選內出外回或外出內回",
       "required_player_actions": "起始扇形可見後選安全側；按數字出飛彈、分攤、繞火與誘導水圈",
       "npc_response_contract": "只在起始火焰揭示後分流；依實際玩家誘導落點協作，尊重社群補位責任",
-      "remaining_or_source_uncertainty": "v16來源已驗中立出生、已顯示軸向/旋向與掉幀不偷讀；原遊戲提示時序、所有人類合法替代路線/誘導適配、全部種子、分攤線視覺與新平台仍待核對",
+      "remaining_or_source_uncertainty": "v16來源、同一PCK17組與實際WinChrome/AMDWebGL2已驗；native GUI UNRUN待桌面空檔。Main166 UI1..5不含KR6，82物理流程含所有profile；原遊戲提示時序、所有人類合法替代路線/誘導適配、全部種子與分攤線視覺仍待核對",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -396,12 +397,13 @@
     },
     "p1_cannons": {
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
-      "setup_or_in_mechanic_preparation": "確認固定散開、動態炮標出口或分坦備選；不可開場就擺正解",
+      "setup_or_in_mechanic_preparation": "確認七選項的固定散開、動態炮標排序或分坦；公開固定職責/坦位可預站，動態分配才等待觀察",
       "required_player_actions": "看自己是否被點名及排序後走出口；坦克每次保持合法最遠誘導",
-      "npc_response_contract": "依每輪實際點名分配，無標集合；玩家漏移不能由NPC接管修正",
-      "remaining_or_source_uncertainty": "七選項含動態／靜態／分坦差別；出生即答案、炮線可讀性與坦扇來源角度爭議；完整職業減傷不在現有模型",
+      "npc_response_contract": "動態只依實際顯示完整三人或已知第一組的合法互補推知；固定/坦位用公開規則；玩家漏移不救回；明示分段fixture不是觀察收據或完整信用",
+      "remaining_or_source_uncertainty": "v17限定source驗收通過：Main81/468、scene299、有限140/613、P1events1266及共用回歸/獨立覆核；新匯出與native/Web仍待完成。原頭標onset與KR90/120角度仍未知/current120不變；非空partial永久block是有限政策非guide mandate；炮線可讀性與完整職業減傷未完成",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -886,7 +888,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "requirements_ref": "p1_panto",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -896,7 +899,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/02/aether",
@@ -908,7 +912,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "requirements_ref": "p1_panto",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -918,7 +923,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/03/lpdu",
@@ -930,7 +936,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "requirements_ref": "p1_panto",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -940,7 +947,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/04/cn_moogle",
@@ -954,7 +962,8 @@
       },
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "requirements_ref": "p1_panto",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -964,7 +973,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/05/cn_moogle",
@@ -978,7 +988,8 @@
       },
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "requirements_ref": "p1_panto",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -988,7 +999,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/06/kr_09stop",
@@ -1000,7 +1012,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/PANTO_OBSERVATION.md"
       ],
       "requirements_ref": "p1_panto",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1010,7 +1023,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/01/elemental",
@@ -1022,7 +1036,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1031,7 +1046,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/02/aether",
@@ -1043,7 +1059,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1052,7 +1069,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/03/lpdu",
@@ -1064,7 +1082,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1073,7 +1092,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/04/cn_moogle",
@@ -1085,7 +1105,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1094,7 +1115,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/05/kr_09stop",
@@ -1106,7 +1128,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1115,7 +1138,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/06/aether",
@@ -1129,7 +1153,8 @@
       },
       "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1138,7 +1163,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/07/lpdu",
@@ -1152,7 +1178,8 @@
       },
       "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
       "research_docs": [
-        "docs/research/P1_FIDELITY.md"
+        "docs/research/P1_FIDELITY.md",
+        "docs/development/CANNONS_OBSERVATION.md"
       ],
       "requirements_ref": "p1_cannons",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1161,7 +1188,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
     },
     {
       "option_key": "p2_synergy/01/elemental",
@@ -2978,10 +3006,19 @@
     {
       "version": "0.3.16-candidate",
       "mechanic_id": "p1_panto",
-      "status": "source_verified_export_pending",
+      "status": "source_pack_and_web_verified_native_pending",
       "evidence_doc": "docs/development/PANTO_OBSERVATION.md",
-      "scope": "neutralspawn and presentation-acknowledged publicaxis/sign;82physicalcourses757checks/Main166/Arena127/P1events1266 plusfocusedsharedregression",
-      "remaining": "export/native/Web/fixeddeploy; original-gamecueonset source_unknown, allhumanalternatives/adaptation andall100certification unchanged"
+      "scope": "neutralspawn and presentation-acknowledged publicaxis/sign;82physicalcourses757checks/Main166/Arena127/P1events1266 plusfocusedsharedregression;samePCK17gates andactualWindowsChrome/AMDRX7900XTWebGL2 N+D/currentcue/Rreset",
+      "remaining": "nativeGUI UNRUN pendingactualdesktopidle/publicdeploy; Main166UI1..5 excludesKR6 though82physicscoversallprofiles; original-gamecueonset source_unknown, allhumanalternatives/adaptation andall100certification unchanged",
+      "runtime_commit": "2bbffbf7ce7243ff25548d257de3e788b8c16019"
+    },
+    {
+      "version": "0.3.17-candidate",
+      "mechanic_id": "p1_cannons",
+      "status": "source_verified_export_pending",
+      "evidence_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "scope": "81actualMainphysicalinputreplays/468checks/0testfailures:70normal,8wrongroute,1legalradial,2labelledassisted; repairedtexturedscene299/0; MF1 source repair closed separately;final140/613,currentScene299,P1events1266/focusedshared andindependentsource/input/testfixture reviewPASS",
+      "remaining": "fresh export/native/Web/publicdeploy; originalcueonset andKR90vs120 unknown/current120unchanged; permanentnonempty-partialblockfinitepolicy; all100not_certified"
     }
   ]
 }

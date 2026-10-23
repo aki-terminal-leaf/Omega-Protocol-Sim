@@ -14,6 +14,7 @@ var visible_damage_shapes:Array=[]
 # Current rendered Panto tells; never let the ordinary0.07s redraw throttle
 # delay a newly eligible source while NPC observation sees the same state.
 var panto_displayed_cues:Array=[]
+var cannon_displayed_actors:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -279,11 +280,31 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 	update_camera()
 	update_sigma_capacity_labels()
 	update_omega_source_cue()
+	update_cannon_marker_receipt()
 	if actors.size()==8 and (current.has("p1_path") or not panto_displayed_cues.is_empty()):
 		var eligible:Array=panto_cue_signature(LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors))
 		if eligible!=panto_displayed_cues:
 			redraw_elapsed=0.0
 			draw_indicators()
+func update_cannon_marker_receipt()->void:
+	var previous:Array=cannon_displayed_actors.duplicate()
+	cannon_displayed_actors=[]
+	if actors.size()!=8 or not current.has("cannons_public"):
+		for actor in previous:
+			if int(actor)<mechanic_signs.size():mechanic_signs[int(actor)].visible=false
+		return
+	# Publish the actual current textured sprites, not their hidden target list.
+	# This refresh uses the same public symbol/texture path as ordinary drawing
+	# before Main gives the receipt to the next NPC steering update.
+	for actor in 8:
+		var symbols:Array=SynergySigns.observed_all(actor,current,observed_state)
+		var marker:Sprite3D=mechanic_signs[actor]
+		marker.visible="cannon" in symbols
+		marker.texture=SynergySigns.texture("cannon") if marker.visible else null
+		marker.position.y=(6.0 if overhead else 5.6)+float(actors[actor].get("height",0.0))
+		if marker.texture!=null:marker.pixel_size=2.0*cue_scale(actor_nodes[actor])/float(marker.texture.get_width())
+		secondary_mechanic_signs[actor].visible=false
+		if marker.is_visible_in_tree() and marker.texture!=null:cannon_displayed_actors.append(actor)
 func panto_cue_signature(shapes:Array)->Array:
 	var result:Array=[]
 	for shape in shapes:

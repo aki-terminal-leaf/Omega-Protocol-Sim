@@ -4,6 +4,8 @@ const P=preload("res://scripts/p1_patterns.gd")
 const Runtime=preload("res://scripts/p1_runtime.gd")
 const Contact=preload("res://scripts/interactions.gd")
 const Status=preload("res://scripts/statuses.gd")
+const Cannon=preload("res://scripts/cannons_observation.gd")
+const Signs=preload("res://scripts/synergy_signs.gd")
 const Rules=preload("res://scripts/rules.gd")
 const Encounter=preload("res://scripts/encounters.gd")
 var assertions:=0
@@ -32,6 +34,13 @@ func simulate(beats: Array,restore:=false) -> Dictionary:
 		var restored_loop:=false
 		while elapsed<float(b.duration)-0.000001:
 			var dt:=minf(0.025,float(b.duration)-elapsed);var previous:=actors.duplicate(true)
+			# Event-only simulator has no Arena. Explicitly simulate the current
+			# eligible head receipt, NOT an actual rendered/native/Web observation.
+			if b.has("cannons_public"):
+				var displayed:Array=[]
+				for actor in 8:
+					if "cannon" in Signs.observed_all(actor,b,state):displayed.append(actor)
+				Cannon.publish(b,state,displayed)
 			var goals:Array=[]
 			# Match Main's ordered bot update, while retaining actual pre-frame positions for swept contacts.
 			for i in 8:
@@ -191,6 +200,7 @@ func run() -> void:
 				var ctx=context(profile,seed_value);C.append_loop(ctx);var state:=simulate(ctx.beats)
 				check(state.runtime_failures.is_empty(),"Loop 6/s %s seed %d: %s" % [profile.id,seed_value,str(state.runtime_failures.slice(0,5))])
 				check(state.loop_hp_pending.is_empty() and state.loop_max_hp.all(func(hp):return hp==1.0),"full independent Loop course reaches final delayed HP expiry")
+	print("P1 event-only Cannons receipts: SIMULATED SynergySigns eligibility, not Arena/native/Web proof")
 	print("P1 fidelity: %d assertions, %d failures" % [assertions,failures])
 	quit(1 if failures else 0)
 func panto_and_cannons(profiles: Array) -> void:

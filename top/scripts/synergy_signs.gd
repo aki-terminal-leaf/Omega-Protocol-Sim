@@ -23,9 +23,11 @@ static func texture(value:String) -> Texture2D:
 	if err!=OK:return null
 	textures[key]=ImageTexture.create_from_image(pixels)
 	return textures[key]
+static func same_actor(value:Variant,actor:int)->bool:
+	return (value is int or value is float) and is_finite(float(value)) and float(value)==float(actor)
 static func observed_all(actor:int,beat:Dictionary,state:Dictionary) -> Array:
 	var result:Array=[]
-	if actor in state.get("dead",[]):return result
+	if state.get("dead",[]).any(func(value):return same_actor(value,actor)):return result
 	for raw in beat.get("party_statuses",[]):
 		if int(raw.actor)==actor and raw.get("marker",false) and raw.has("symbol") and Party.signal_visible(raw,state,beat) and str(raw.key) not in state.get("consumed_party_signals",{}).get(str(actor),[]):result.append(str(raw.symbol))
 	if actor in state.get("p4_wave",{}).get("markers",[]):result.append("stack")
@@ -35,7 +37,7 @@ static func observed_all(actor:int,beat:Dictionary,state:Dictionary) -> Array:
 	# P1 actual Wave Cannon targets; second icons follow the first hit by3.9s.
 	var p1:Dictionary=state.get("p1",{})
 	for event in p1.get("pending",[]):
-		if event.kind=="proteans" and actor in event.targets:
+		if event.kind=="proteans" and event.targets.any(func(value):return same_actor(value,actor)):
 			var at:=float(event.at);var now:=float(state.get("sim_time",0));var origin:=float(p1.get("coaching_origin",0))
 			var show_at:=origin if at-origin<7.0 else at-5.1
 			if now+0.000001>=show_at and now<at:result.append("cannon")

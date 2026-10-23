@@ -4,9 +4,15 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.17 開發候選：Cannons 依實際炮標觀察分工
+
+沿用既有炮頭標；動態排序只讀已實際顯示的第一／第二輪三人，固定職責與坦克站位仍可預先採用公開規則。實際 Main 輸入重播 81 流程／468 項 0 失敗（含負向與明示輔助案例），修復後場景 299 項 0 失敗；140個有限物理流程／613項、必要共用與P1事件1266項回歸、獨立來源及輸入覆核亦已通過。這是來源限定驗收，尚未新匯出或平台驗收；固定站仍是 v0.3.13。
+
+[情報、分段輔助與未結門檻](docs/development/CANNONS_OBSERVATION.md)
+
 ### v0.3.16 開發候選：Panto 依已顯示提示行動
 
-NPC 不再出生於未來解答點，也不在軸向或旋轉方向顯示前偷跑；掉幀跳過提示時不猜未見方向。82個實際移動流程／757項、Main166項、提示網格127項、原P1事件1266項與必要共用回歸通過。這是來源限定驗收，尚待新匯出與Windows／Web操作驗收；原遊戲提示精確時序仍待補證，固定站仍是v0.3.13。
+NPC 不再出生於未來解答點，也不在軸向或旋轉方向顯示前偷跑；掉幀跳過提示時不猜未見方向。82個實際移動流程／757項、Main166項、提示網格127項、原P1事件1266項與必要共用回歸通過。同一 v0.3.16 匯出 PCK 的 17 組檢查及實際 Windows Chrome／AMD WebGL2 輸入與提示畫面已通過；原生 GUI 尚未執行，待實際桌面空檔。原遊戲提示精確時序仍待補證，固定站仍是v0.3.13；不是手動完整通關。
 
 [觀察、玩家責任與驗收邊界](docs/development/PANTO_OBSERVATION.md)
 

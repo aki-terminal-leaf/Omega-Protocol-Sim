@@ -134,7 +134,14 @@ static func append_cannons(ctx) -> void:
 	var first:=cannon_goals(ctx,marked,dynamic); var second:=cannon_goals(ctx,rest,dynamic)
 	var center:=repeated(Rules.direction(180)*7)
 	center[0]=first[0]; center[1]=first[1]
+	var start: int=ctx.beats.size()
 	append(ctx,"Wave Cannons",P.cannons(marked),[6.0,7.8,15.1],[first,center if dynamic else first,second],meta)
+	for i in range(start,ctx.beats.size()):
+		# Public method/timing only: never include the solved marked partition.
+		ctx.beats[i].cannons_public={"profile_id":str(ctx.profile.id),"dynamic":dynamic,"split_tanks":meta.tank_variant=="split_mitigated","phase":["first","recover","second"][i-start],"source_onset":"source_unknown"}
+	# Subset-independent training fixture, NOT an original pull formation.
+	ctx.beats[start].spawn=[]
+	for actor in 8: ctx.beats[start].spawn.append(Vector2(-3.5+actor,6.0))
 
 static func append_loop(ctx) -> void:
 	var start: int=ctx.beats.size()

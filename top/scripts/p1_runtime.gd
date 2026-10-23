@@ -3,6 +3,7 @@ extends RefCounted
 const Rules = preload("res://scripts/rules.gd")
 const Patterns = preload("res://scripts/p1_patterns.gd")
 const Observation = preload("res://scripts/panto_observation.gd")
+const CannonObservation = preload("res://scripts/cannons_observation.gd")
 
 static func begin(beat: Dictionary, state: Dictionary) -> void:
 	if beat.has("program_loop"): Rules.ensure_loop_state(beat,state)
@@ -11,6 +12,7 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 	var now := float(state.get("sim_time",0))
 	state.p1.coaching_origin=now
 	if beat.has("p1_path"): Observation.begin(beat,state)
+	if beat.has("cannons_public"): CannonObservation.begin(beat,state)
 	for raw in beat.p1_events:
 		var event: Dictionary=raw.duplicate(true)
 		event.at=now+float(event.at)

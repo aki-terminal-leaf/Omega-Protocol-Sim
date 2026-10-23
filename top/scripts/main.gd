@@ -443,6 +443,15 @@ func oracle_state_before(target: int) -> Dictionary:
 		P6Setup.initialize(result,simulated,encounter.id,-1,selected_job(),player)
 		bind_snapshot_geometry(b,simulated,result)
 		Interactions.begin(b, simulated, result)
+		if checkpoint_assisted and b.has("cannons_public") and b.has("p1_events") and bool(b.cannons_public.dynamic):
+			# Build a valid assisted PAST, never a fake displayed receipt. Ordinary
+			# fresh runs/retries never read this hidden builder-target fixture.
+			result.cannons_checkpoint_assisted=true
+			var first_targets:Array=[];var first_at:float=INF
+			for event in b.p1_events:
+				if event.kind=="proteans" and float(event.at)<first_at:
+					first_at=float(event.at);first_targets=event.targets.duplicate()
+			preload("res://scripts/cannons_observation.gd").install_checkpoint_fixture(b,result,first_targets)
 		Movement.begin(b,result)
 		var clock := 0.0
 		while clock < float(b.duration):
@@ -487,6 +496,8 @@ func start_run(checkpoint := 0, new_seed := true) -> void:
 	sprint_left = 0; knockback_resist_left = 0; dash_left = 0
 	running = true; paused = false; pending_advance = false; sample_elapsed = 0
 	feedback.text = "[color=#8ce3d1]%s · seed %s[/color]\n" % ["示範模式（不計入成績）" if demo else "練習開始", seed_edit.text]
+	if checkpoint_assisted and state.get("cannons_checkpoint_assisted",false):
+		feedback.text+="[color=#90a3bd]分段輔助：已重建第一輪站位與點名，不計完整練習。[/color]\n"
 	begin_beat(true)
 	set_practice_view(true)
 func begin_beat(reset_positions := false) -> void:
@@ -521,7 +532,7 @@ func begin_beat(reset_positions := false) -> void:
 	checkpoint_select.select(index)
 	update_hud()
 	arena.update_state(actors,current,player,answers_visible(),elapsed,state)
-	publish_panto_cues()
+	publish_observed_cues()
 func bind_snapshot_geometry(b: Dictionary, party_actors: Array, runtime: Dictionary) -> void:
 	for shape in b.get("shapes", []):
 		if shape.has("snapshot_position_actor"):
@@ -556,7 +567,7 @@ func retry_beat() -> void:
 	running = true; paused = false; elapsed = 0; pending_advance = false; wall_recorded = false
 	Interactions.sync(current, state)
 	arena.update_state(actors,current,player,answers_visible(),elapsed,state)
-	publish_panto_cues()
+	publish_observed_cues()
 	status.text = "重練段落 %d" % (index+1)
 func _process(delta: float) -> void:
 	# Web pointer lock may complete after a quick press/release has already ended.
@@ -601,11 +612,13 @@ func _process(delta: float) -> void:
 				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "actors": actors.duplicate(true), "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
 			if elapsed >= float(current.duration): resolve_beat()
 	arena.update_state(actors, current, player, answers_visible(), elapsed, state)
-	publish_panto_cues()
+	publish_observed_cues()
 	update_hud()
-func publish_panto_cues()->void:
+func publish_observed_cues()->void:
 	if current.has("p1_path"):
 		preload("res://scripts/panto_observation.gd").presented(current,state,arena.visible_damage_shapes)
+	if current.has("cannons_public"):
+		preload("res://scripts/cannons_observation.gd").publish(current,state,arena.cannon_displayed_actors)
 func move_player(dt: float) -> void:
 	if demo: return
 	var cast_locked: bool=load("res://scripts/p6_runtime.gd").is_locked(state,player)
