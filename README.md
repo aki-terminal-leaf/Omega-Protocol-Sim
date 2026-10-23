@@ -4,6 +4,12 @@
 
 **[v0.3.20 Windows離線／Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.21 開發候選：P2 Elemental 職能列隊與指定換邊
+
+頭標出現前保持 H/T/M/R 初始列隊；看見八人實際圖形後，同側重複僅下位者換邊，保留原點名與真搭檔。玩家自己操作，NPC 記住已見圖形而不替錯站救場；後續仍由原 Fire／Glitch／分攤判定結算。
+
+2,520 種純分組／85,814項、240組生成保留差分、Main350項及29條實際WASD／345項通過；必要共用回歸及匯出平台驗收逐步追蹤中。固定站仍是 v0.3.20，本候選未發布。只涵蓋 Elemental 限定修正，不代表其餘攻略、新北／武器全部來源、完整P2或真人全通關。[來源與邊界](docs/development/P2_ELEMENTAL_PREPARATION.md)。
+
 ### v0.3.20 已更新 Web：HW 首輪 NPC 預處理與玩家配合
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.20（執行碼 d8bd203）。首輪塔尚未顯示前不依塔方向出生／預站；實際塔出現後才選外圈路徑。NPC 依玩家真正靠近或站定的同色側配合，結算前可回應玩家回側；玩家仍須自己操作，合法原地不強迫移動，漏做／錯做不會被救回。原移速、塔／感染／Bug／Debugger與傷害判定不變，分段重建清楚標為輔助。

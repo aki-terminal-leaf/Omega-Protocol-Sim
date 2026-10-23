@@ -15,6 +15,7 @@ var visible_damage_shapes:Array=[]
 # delay a newly eligible source while NPC observation sees the same state.
 var panto_displayed_cues:Array=[]
 var cannon_displayed_actors:Array=[]
+var synergy_displayed_glyphs:Array=[]
 var p3_displayed_arms:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
@@ -282,6 +283,7 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 	update_sigma_capacity_labels()
 	update_omega_source_cue()
 	update_cannon_marker_receipt()
+	update_synergy_marker_receipt()
 	if actors.size()==8 and (current.has("p1_path") or not panto_displayed_cues.is_empty()):
 		var eligible:Array=panto_cue_signature(LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors))
 		if eligible!=panto_displayed_cues:
@@ -295,6 +297,20 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 		if eligible_hw!=displayed_hw:
 			redraw_elapsed=0.0
 			draw_indicators()
+func update_synergy_marker_receipt()->void:
+	synergy_displayed_glyphs=[]
+	if actors.size()!=8 or not current.has("synergy_public"):return
+	# Receipt consists only of current, actually visible textured glyph sprites.
+	# Refresh at beat boundaries before Main's next NPC steering substep.
+	for actor in 8:
+		var observed:Array=SynergySigns.observed_all(actor,current,observed_state)
+		var symbol:String=str(observed[0]) if not observed.is_empty() else ""
+		var marker:Sprite3D=mechanic_signs[actor]
+		marker.visible=not symbol.is_empty();marker.texture=SynergySigns.texture(symbol)
+		marker.position.y=(6.0 if overhead else 5.6)+float(actors[actor].get("height",0.0))
+		if marker.texture!=null:marker.pixel_size=2.0*cue_scale(actor_nodes[actor])/float(marker.texture.get_width())
+		secondary_mechanic_signs[actor].visible=false
+		if marker.is_visible_in_tree() and marker.texture!=null:synergy_displayed_glyphs.append({"actor":actor,"symbol":symbol})
 func update_cannon_marker_receipt()->void:
 	var previous:Array=cannon_displayed_actors.duplicate()
 	cannon_displayed_actors=[]

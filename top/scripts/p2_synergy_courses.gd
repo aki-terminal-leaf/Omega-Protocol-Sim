@@ -2,6 +2,8 @@
 extends RefCounted
 ## P2 normalized cast-start clock. Source: pinned TOPStates + four public clears.
 ## Icon/appearance boundaries are guide-order presentation cues, not measured frames.
+const Prep=preload("res://scripts/synergy_preparation.gd")
+const Assign=preload("res://scripts/synergy_assignment.gd")
 const Clones=preload("res://scripts/clone_patterns.gd")
 static func append_synergy(ctx) -> void:
 	var sword:=bool(ctx.profile.get("p2_sword",ctx.rng.randi_range(0,1)))
@@ -22,6 +24,15 @@ static func append_synergy(ctx) -> void:
 			var actor:int=ctx.at(i*2+side)
 			glitch.append({"actor":actor,"key":"remote_glitch" if remote else "mid_glitch","expires":33.1})
 			markers.append({"actor":actor,"key":"synergy_marker","name":str(symbols[i]),"status_id":0,"icon":0,"remaining":-1,"marker":true,"symbol":str(symbols[i])})
+	# Preserve random mechanic pairs/order; derive only the guide route separately.
+	var assignment:Dictionary={}
+	var route:Array=ctx.order.duplicate()
+	if str(ctx.profile.id)=="elemental":
+		var public_glyphs:Array=[]
+		for raw in markers:public_glyphs.append({"actor":raw.actor,"symbol":raw.symbol})
+		assignment=Assign.assign(public_glyphs,Prep.config())
+		assert(not assignment.is_empty())
+		route=assignment.route_order.duplicate()
 	# Real symbols are remembered BEFORE the genuine/decoy pair is read.
 	for i in 8:ctx.pos(i,Vector2(-3.0 if i%2==0 else 3.0,-5.0+float(i/2)*3.0))
 	var cast:Dictionary=ctx.beat("Party Synergy · cast",3.0,"準備排隊，稍後記住頭上的圖案與左右組。")
@@ -33,6 +44,8 @@ static func append_synergy(ctx) -> void:
 		members.sort_custom(func(a,b):return lineup_priority.find(a)<lineup_priority.find(b))
 		for rank in 4:cast.positions[int(members[rank])]=Vector2(-3.0 if side==0 else 3.0,-5.0+rank*3.0)
 	cast.spawn=cast.positions.duplicate()
+	if not assignment.is_empty():
+		for actor in 8:ctx.positions[actor]=Prep.queue_goal(actor,assignment)
 	var mark:Dictionary=ctx.beat("Party Synergy · remember symbols",3.1,"記住自己的圖案與組別；圖案會消失，之後不能再靠文字讀答案。")
 	mark.stage_entities=mains.duplicate(true)+[eye.duplicate(true)];mark.hide_main_boss=true;mark.party_statuses=markers.duplicate(true)
 	var appear:Dictionary=ctx.beat("Party Synergy · two M / two F",2.2,"兩男兩女出場；找外側男與其正對面的女，不能用中心那組判斷安全區。")
@@ -53,10 +66,10 @@ static func append_synergy(ctx) -> void:
 	for i in 4:
 		var z:float=-12.0+i*8.0
 		var x:float=sqrt(18.0*18.0-z*z) if remote else 11.0
-		ctx.pos(i*2,ctx.rotated(Vector2(-x,z),eye_angle))
+		ctx.positions[int(route[i*2])]=ctx.rotated(Vector2(-x,z),eye_angle)
 		var other_z:float=-z if remote and ctx.profile.get("remote_full_cross",true) else z
 		if remote and not ctx.profile.get("remote_full_cross",true):other_z=-z if i in [0,3] else z
-		ctx.pos(i*2+1,ctx.rotated(Vector2(x,other_z),eye_angle))
+		ctx.positions[int(route[i*2+1])]=ctx.rotated(Vector2(x,other_z),eye_angle)
 	var fire:Dictionary=ctx.beat("Optimized Fire III",6.4,"以場外眼睛為北：散開火圈，同時滿足搭檔距離。")
 	ctx.spread(fire,range(8),float(ctx.Params.parameter("p2_fire_radius")))
 	for shape in fire.shapes:shape.hit_status="magic_vulnerability";shape.hit_status_duration=2.0
@@ -69,16 +82,16 @@ static func append_synergy(ctx) -> void:
 	for entity in laser.stage_entities:
 		if str(entity.get("id","")).begins_with("main_"):entity.visible=false
 	var left:Array=[];var right:Array=[]
-	for i in 4:left.append(ctx.at(i*2));right.append(ctx.at(i*2+1))
+	for i in 4:left.append(int(route[i*2]));right.append(int(route[i*2+1]))
 	var targets:Array=ctx.shuffled(range(8)).slice(0,2)
 	if (targets[0] in left)==(targets[1] in left):
 		var candidates:Array=targets.duplicate()
 		candidates.sort_custom(func(a,b):return ctx.rotated(ctx.positions[a],-eye_angle).y<ctx.rotated(ctx.positions[b],-eye_angle).y)
 		var chosen:int=candidates[0] if ctx.profile.stack_flex=="north" else candidates[-1]
-		var symbol_index:int=ctx.order.find(chosen)/2
-		var partner:int=ctx.at(symbol_index*2+(1 if chosen in left else 0))
+		var symbol_index:int=route.find(chosen)/2
+		var partner:int=int(route[symbol_index*2+(1 if chosen in left else 0)])
 		left.erase(chosen);right.erase(chosen);left.erase(partner);right.erase(partner)
-		if ctx.order.find(chosen)%2==0:right.append(chosen);left.append(partner)
+		if route.find(chosen)%2==0:right.append(chosen);left.append(partner)
 		else:left.append(chosen);right.append(partner)
 	ctx.group_goals(left,ctx.polar(270,4.8),0.06);ctx.group_goals(right,ctx.polar(90 if remote else 180,4.8),0.06)
 	var knock:Dictionary=ctx.beat("Discharger · two safe gaps",6.9,"以外圈新男分身（三男正中間）為北。女分身在中心擊退13；左組西、右組近南／遠東。")
@@ -105,7 +118,12 @@ static func append_synergy(ctx) -> void:
 	var finish:Dictionary=ctx.beat("Party Synergy · M/F reappear",1.5,"男女交換後返回戰鬥；本練習到此結束，不自動接續LB。")
 	finish.stage_entities=settled(late.slice(0,2))+[eye.duplicate(true)];finish.hide_main_boss=true
 	var clock:=0.0
+	var phase_index:=0
 	for b in ctx.beats:
+		if not assignment.is_empty():
+			b.synergy_public=Prep.config()
+			b.synergy_public.merge({"phase":Prep.PHASES[phase_index],"eye_angle":eye_angle,"remote":remote,"north":north})
+		phase_index+=1
 		b.synergy_start=clock;b.synergy_clock="cast_start";b.hide_predictive_aoes=true;clock+=float(b.duration)
 		b.timing_basis="community nominal + finite four-clear observations; icon frame timing unmeasured"
 static func settled(entities:Array) -> Array:

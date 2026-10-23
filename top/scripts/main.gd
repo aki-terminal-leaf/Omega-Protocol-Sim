@@ -37,6 +37,7 @@ var catalog: Array = []
 var strategies: Array = []
 var filtered: Array = []
 var mechanic_methods: Dictionary = {}
+var synergy_frame_stepping:=false
 var configured := false
 var active_profile: Dictionary = {}
 var launch_buttons: Array = []
@@ -443,6 +444,7 @@ func oracle_state_before(target: int) -> Dictionary:
 				for i in 8: simulated[i].pos = b.spawn[i]
 		P6Setup.initialize(result,simulated,encounter.id,-1,selected_job(),player)
 		bind_snapshot_geometry(b,simulated,result)
+		result.synergy_presentation_required=b.has("synergy_public")
 		Interactions.begin(b, simulated, result)
 		if checkpoint_assisted and b.has("cannons_public") and b.has("p1_events") and bool(b.cannons_public.dynamic):
 			# Build a valid assisted PAST, never a fake displayed receipt. Ordinary
@@ -453,6 +455,9 @@ func oracle_state_before(target: int) -> Dictionary:
 				if event.kind=="proteans" and float(event.at)<first_at:
 					first_at=float(event.at);first_targets=event.targets.duplicate()
 			preload("res://scripts/cannons_observation.gd").install_checkpoint_fixture(b,result,first_targets)
+		if checkpoint_assisted and b.has("synergy_public") and str(b.synergy_public.phase)=="remember":
+			result.synergy_checkpoint_assisted=true
+			preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed")
 		Movement.begin(b,result)
 		var clock := 0.0
 		while clock < float(b.duration):
@@ -472,6 +477,9 @@ func oracle_state_before(target: int) -> Dictionary:
 					if str(entity.get("form","")) in ["arm_left","arm_right"]:
 						past_arms.append({"id":str(entity.id),"pos":entity.pos.duplicate()})
 				preload("res://scripts/p3_transition_observation.gd").publish(b,result,past_arms,"assisted_checkpoint_not_observed")
+			if checkpoint_assisted and b.has("synergy_public"):
+				result.synergy_checkpoint_assisted=true
+				preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed")
 			clock += dt
 		for check in b.checks:
 			if check.kind == "lb": result.lb = check.type; result.lb_actor = check.eligible[0]
@@ -511,6 +519,8 @@ func start_run(checkpoint := 0, new_seed := true) -> void:
 		feedback.text+="[color=#90a3bd]分段輔助：已重建第一輪站位與點名，不計完整練習。[/color]\n"
 	if checkpoint_assisted and state.get("p3_checkpoint_assisted",false):
 		feedback.text+="[color=#90a3bd]分段輔助：P3 過去提示與站位已重建，不計完整練習。[/color]\n"
+	if checkpoint_assisted and state.get("synergy_checkpoint_assisted",false):
+		feedback.text+="[color=#90a3bd]分段輔助：協同程序的過去頭標與分組已重建，不計完整練習。[/color]\n"
 	begin_beat(true)
 	set_practice_view(true)
 func begin_beat(reset_positions := false) -> void:
@@ -532,6 +542,7 @@ func begin_beat(reset_positions := false) -> void:
 	P6Setup.initialize(state,actors,encounter.id,player if not demo else -1,selected_job(),player)
 	bind_snapshot_geometry(current,actors,state)
 	Markers.ensure(state);state.waymark_layout=waymark_layout.duplicate(true)
+	state.synergy_presentation_required=current.has("synergy_public")
 	if current.has("p1_path"):state.panto_presentation_required=true
 	else:state.erase("panto_presentation_required")
 	if current.get("hello_world",false):state.hw_firstwave_presentation_required=true
@@ -592,6 +603,7 @@ func _process(delta: float) -> void:
 	if current.is_empty(): return
 	var speed: float = [0.5, 0.75, 1.0, 1.25, 1.5][speed_select.selected]
 	if running and not paused:
+		synergy_frame_stepping=true
 		var budget:=delta*speed
 		while budget>0.000001 and running and not paused:
 			if pending_advance:
@@ -626,10 +638,13 @@ func _process(delta: float) -> void:
 				sample_elapsed = 0
 				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "actors": actors.duplicate(true), "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
 			if elapsed >= float(current.duration): resolve_beat()
+	synergy_frame_stepping=false
 	arena.update_state(actors, current, player, answers_visible(), elapsed, state)
 	publish_observed_cues()
 	update_hud()
 func publish_observed_cues()->void:
+	if current.has("synergy_public") and not synergy_frame_stepping:
+		preload("res://scripts/synergy_preparation.gd").publish(current,state,arena.synergy_displayed_glyphs)
 	if current.get("hello_world",false):
 		load("res://scripts/hw_firstwave_observation.gd").publish(current,state,arena.visible_damage_shapes)
 	if current.has("p1_path"):

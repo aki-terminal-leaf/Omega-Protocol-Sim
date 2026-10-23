@@ -14,6 +14,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	state.loop_deadline=float(state.get("sim_time",0))+float(beat.get("duration",0))
 	Statuses.begin(beat, state)
 	Statuses.sync(beat, state)
+	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").begin(beat,state)
 	load("res://scripts/hw_firstwave_observation.gd").begin(beat,actors,state)
 	sync_followups(beat,state)
 	if not beat.has("transfers"): return
@@ -31,6 +32,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 
 static func sync(beat: Dictionary, state: Dictionary) -> void:
 	Statuses.sync(beat, state)
+	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").tick(beat,state)
 	sync_followups(beat,state)
 	if not beat.has("transfers"): return
 	beat.transfers.holders = state.tether_holders.duplicate()
@@ -140,6 +142,7 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 		# Return after the eye. Neither stack swaps nor the new north may steer
 		# the bots into their final knockback groups before that source appears.
 		return Vector2.ZERO
+	if beat.has("synergy_public"):return preload("res://scripts/synergy_preparation.gd").goal(actor,beat,actors,state)
 	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	if beat.has("cannons_public"):return preload("res://scripts/cannons_observation.gd").goal(actor,beat,actors,state)
 	if beat.has("p3_transition_public"):return preload("res://scripts/p3_transition_observation.gd").goal(actor,beat,actors,state)
