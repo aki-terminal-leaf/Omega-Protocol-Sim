@@ -1,6 +1,16 @@
 # 固定部署階段紀錄
 
-## v0.3.19 Web-first — current fixed deployment
+## v0.3.20 Web-first — current fixed deployment
+
+- URL https://top.servicing.cc ; runtime d8bd203571ba5f97dff92f4aa9d3ab6ba9c4005c.
+- PCK SHA-256 e4a4df2e7d8af7676789c9332aa036b8aeb6a0838146b3778c4dee6fe31c0278.
+- HW firstwave publictower-gated neutralspawn/prestage and actualhuman sidechoice, same unchanged physics/judgments. Source42+Main367/80initialprivacy/5generatedHW +67keycourses621 +100fourround600 andnecessaryregressions pass.
+- ExactnewPCK10affectedgates; actualHWWebselection/input/release, before/aftertowerdraw andRreset; public13canonical/decodedgzip +freshHTTPSstartup pass.
+- Controlled/syntheticfixture and actualdrawnsource scopes keptseparate; no manual/native/physicalGPU/allguide certification. Native/offlinepending separate, currentAnAnwindowauthorized.
+- [Release/checksums/verification](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview). Unchangedv19geometrymatrices retained, no completeallmatrixrerun claim. Fullguide/preparation/performance/AVFX remainactive.
+
+
+## v0.3.19 Web-first — accepted baseline (historical)
 
 - URL https://top.servicing.cc ; runtime 5d790cd70c6a986defc845ddc6a5d7d82084abe9.
 - PCK SHA-256 a398ff66dc83933adf4e7db35d4816b1a6e1d0390f4b23d1f5499f1bfbbb207f.

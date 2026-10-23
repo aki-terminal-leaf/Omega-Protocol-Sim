@@ -2,19 +2,21 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.20 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.20 來源候選：HW 首輪 NPC 預處理與玩家配合
+### v0.3.20 已更新 Web：HW 首輪 NPC 預處理與玩家配合
 
-NPC 出生／預站位不再依尚未顯示的首輪塔方向；實際塔出現後才選外圈路徑，依玩家真正靠近或站定的同色側補位，結算前可回應玩家回到另一合法側。玩家仍須自己走位；原本已在合法塔內可以不動，漏塔／錯毒仍照原機制失敗。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.20（執行碼 d8bd203）。首輪塔尚未顯示前不依塔方向出生／預站；實際塔出現後才選外圈路徑。NPC 依玩家真正靠近或站定的同色側配合，結算前可回應玩家回側；玩家仍須自己操作，合法原地不強迫移動，漏做／錯做不會被救回。原移速、塔／感染／Bug／Debugger與傷害判定不變，分段重建清楚標為輔助。
 
-來源已有 67 條主程式操作／621 項、100 條 NPC 四輪走位／600 項與 42 項觀察檢查通過；最終 Main 367 項（含分段輔助）、既有 HW／檢知／P3 及 20 機制必要回歸也已通過；新包／Web／原生仍待驗。詳見 [HW 首輪範圍](docs/development/HW_PUBLIC_FIRSTWAVE.md)。這不是全部攻略符合或真人通關認證；後續輪次的資訊隔離、八方玩家預處理及其他攻略工作仍保留。
+來源42項、Main367（含80組初始資訊差分及五打法四輪）、67條操作／621項、100條NPC四輪／600項與必要回歸通過；新PCK十項受影響檢查、實際Web操作／塔揭示／重試、固定HTTPS與全新啟動通過。詳見 [HW首輪範圍](docs/development/HW_PUBLIC_FIRSTWAVE.md)及 [發布／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview)。
 
-固定網站目前仍是下方已發布的 v0.3.19；新 Web 驗證完成後會先更新，不等待原生。AnAn 原生與離線包另留實證。
+這只結清首輪限定修正，不是全部攻略或真人完整通關認證。後續輪次資訊隔離、初始八方玩家預處理、其他玩家分支、最佳化與完整AVFX繼續。Windows原生及離線包另留實證，無桌面SwiftShader WebGL2不等於實體GPU或原生驗收。
 
-### v0.3.19 已更新 Web：P3 提示狀態與異常回饋
+![實際匯出Web的HW首輪塔提示（目前視角僅含部分場地）；非原生／真人通關證據](docs/images/top-v0320-hw-public-web.webp)
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.19（執行碼 5d790cd）。正常練習維持簡潔；Tab 可看不透露方向的提示狀態。提示資訊無法確認時，沿用既有介面提供 R 同點名重練選項；不改判定、分數、暫停或玩家走位。
+### v0.3.19 已部署基線（歷史）：P3 提示狀態與異常回饋
+
+前一個基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.19（執行碼 5d790cd）。正常練習維持簡潔；Tab 可看不透露方向的提示狀態。提示資訊無法確認時，沿用既有介面提供 R 同點名重練選項；不改判定、分數、暫停或玩家走位。
 
 來源 848 項純檢查、210 項 Main（82 幀正常流程零誤警示）及必要既有回歸通過；新 PCK 七項受影響檢查、實際 Web 的六欄位狀態／提示前後／移動與釋放／重試、固定 HTTPS 資源與全新啟動通過。未改動的舊機制保留 v0.3.18 基線，不宣稱重跑所有舊矩陣。詳見 [診斷範圍](docs/development/P3_OBSERVATION_DIAGNOSTICS.md)及 [Web／來源發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.19-preview)。
 
