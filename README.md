@@ -2,17 +2,21 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.21 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.22 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.22-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.22 開發候選：LPDU 初始 THMR 與公開圖形分組
+### v0.3.22 已更新 Web：LPDU 初始 THMR 與公開圖形分組
 
-LPDU 頭標前依 T/H/M/R 雙列，實際看見八人圖形後，同側同圖案僅南邊的人換側；真搭檔、點名、移速及判定不變，玩家仍須自行操作。Remote 右側依 BPOG/GOPB 完全反轉，與 Elemental／Aether 不混用。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.22（執行碼 e29b514）。LPDU 頭標前依 T/H/M/R 雙列；實際看見八人圖形後，同側同圖案僅南邊的人換側。Remote 右側為 BPOG/GOPB 完全反轉，不混用 Elemental／Aether。玩家自己操作，NPC 記住已見圖形、不替玩家移動或救場；真搭檔、點名、移速與判定不變。
 
-來源驗證通過：LPDU 2,520種／45,448項、Main306項、29條WASD／345項，Elemental既有85,814項及WASD345項、P2共用Main350項、240組生成差分、320組P2／16,663項與20機制Main回歸通過。固定站仍為下方 v0.3.21；尚未取得 v0.3.22 精確 PCK、實際 Web 或原生驗收。只修 LPDU 初始準備與一致的圖形記憶路由，不代表後段分攤原始列隊歧義、武器／新北、Aether 自由換序或全部 P2 已完成。[來源與限定範圍](docs/development/P2_LPDU_PREPARATION.md)。
+LPDU2,520種／45,448項、Main306項、29條WASD／345項及Elemental／P2／240生成差分／20機制必要回歸通過。同一新PCK十一組檢查、實際Web的THMR初始隊列／八人頭標前後／輸入釋放／R重練、固定HTTPS十三種內容與全新啟動通過。[來源與限定範圍](docs/development/P2_LPDU_PREPARATION.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.22-preview)。
 
-### v0.3.21 已更新 Web：P2 Elemental 職能列隊與指定換邊
+僅結清 LPDU 初始準備與一致的圖形記憶路由。後段分攤原始列隊歧義、武器／新北、Aether自由換序、全部P2／攻略、最佳化與完整AVFX仍繼續；無桌面SwiftShader不是原生／實體GPU或真人完整通關。v0.3.22原生待驗，Windows v0.3.20保留自身限定證據。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.21（執行碼 50ae0d8）。頭標出現前保持 H/T/M/R 初始列隊；看見八人實際圖形後，同側重複僅下位者換邊，原點名與真搭檔不變。玩家自己操作；NPC 記住已見圖形，不替玩家移動或救場。
+![實際匯出Web的LPDU八人圖形頭標；非原生、完整AVFX或真人通關證據](docs/images/top-v0322-p2-lpdu-web.webp)
+
+### v0.3.21 已部署基線（歷史）：P2 Elemental 職能列隊與指定換邊
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.21（執行碼 50ae0d8）。頭標出現前保持 H/T/M/R 初始列隊；看見八人實際圖形後，同側重複僅下位者換邊，原點名與真搭檔不變。玩家自己操作；NPC 記住已見圖形，不替玩家移動或救場。
 
 2,520 種純分組／85,814項、240組生成保留差分、Main350項、29條實際WASD／345項及必要回歸通過；同一新PCK八組檢查、實際Web頭標前後／輸入釋放／R重開、固定HTTPS十三種內容與全新啟動通過。[來源與限定範圍](docs/development/P2_ELEMENTAL_PREPARATION.md) · [發布／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.21-preview).
 

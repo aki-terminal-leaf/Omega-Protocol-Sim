@@ -1,6 +1,13 @@
 # 固定部署階段紀錄
 
-## v0.3.21 Web-first — current fixed deployment
+## v0.3.22 Web-first — current fixed deployment
+
+- Runtime `e29b51484a2aaad2ebb736974feecc6547992924`; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.22-preview).
+- PCK `ec929e542c7efd7d28d9e9043504387511e582d53fcaaf6aeeaed50710011633`; eleven strict exact-pack gates, actualLPDUWeb8checks+THMRdiagnostic, HTTPS13representations+freshstartup PASS.
+- SourceLPDU2520/45448,Main306,WASD29/345; Elemental/P2/240generator/shared20regressions PASS.
+- Scope initial THMR/southern duplicate and public-memory route only; no native/manual/allguide/fullP2/perf/fullAVFX completion. Windows20 separately unchanged.
+
+## v0.3.21 Web-first — accepted baseline (historical)
 
 - URL https://top.servicing.cc ; runtime 50ae0d8a3e03a22a28ed5b8cf438eaa714b2aaf8.
 - PCK SHA-256 209feb8fb19812fa9d8eb0f4e4d90886b75815b25a4aff3d2006d76e7e8a5dd2.
