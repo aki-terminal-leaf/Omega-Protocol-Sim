@@ -5,6 +5,7 @@ extends RefCounted
 const Prep=preload("res://scripts/synergy_preparation.gd")
 const Assign=preload("res://scripts/synergy_assignment.gd")
 const Clones=preload("res://scripts/clone_patterns.gd")
+const Conga=preload("res://scripts/aether_conga.gd")
 static func append_synergy(ctx) -> void:
 	var sword:=bool(ctx.profile.get("p2_sword",ctx.rng.randi_range(0,1)))
 	var legs:=bool(ctx.profile.get("p2_legs",ctx.rng.randi_range(0,1)))
@@ -31,7 +32,12 @@ static func append_synergy(ctx) -> void:
 	if not prep_config.is_empty():
 		var public_glyphs:Array=[]
 		for raw in markers:public_glyphs.append({"actor":raw.actor,"symbol":raw.symbol})
-		assignment=Assign.assign(public_glyphs,prep_config)
+		if Prep.is_conga(prep_config.profile_id):
+			# Demo/oracle fixture only: independent default line + actual markers.
+			# No RNG draw added/removed; ordinary NPCs never read this route.
+			assignment=Conga.assign(public_glyphs,Prep.aether_spawn(),prep_config.shape_order)
+		else:
+			assignment=Assign.assign(public_glyphs,prep_config)
 		assert(not assignment.is_empty())
 		route=assignment.route_order.duplicate()
 	# Real symbols are remembered BEFORE the genuine/decoy pair is read.

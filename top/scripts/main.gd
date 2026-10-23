@@ -457,7 +457,7 @@ func oracle_state_before(target: int) -> Dictionary:
 			preload("res://scripts/cannons_observation.gd").install_checkpoint_fixture(b,result,first_targets)
 		if checkpoint_assisted and b.has("synergy_public") and str(b.synergy_public.phase)=="remember":
 			result.synergy_checkpoint_assisted=true
-			preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed")
+			preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed",simulated)
 		Movement.begin(b,result)
 		var clock := 0.0
 		while clock < float(b.duration):
@@ -479,7 +479,7 @@ func oracle_state_before(target: int) -> Dictionary:
 				preload("res://scripts/p3_transition_observation.gd").publish(b,result,past_arms,"assisted_checkpoint_not_observed")
 			if checkpoint_assisted and b.has("synergy_public"):
 				result.synergy_checkpoint_assisted=true
-				preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed")
+				preload("res://scripts/synergy_preparation.gd").publish_statuses(b,result,"assisted_checkpoint_not_observed",simulated)
 			clock += dt
 		for check in b.checks:
 			if check.kind == "lb": result.lb = check.type; result.lb_actor = check.eligible[0]
@@ -644,7 +644,7 @@ func _process(delta: float) -> void:
 	update_hud()
 func publish_observed_cues()->void:
 	if current.has("synergy_public") and not synergy_frame_stepping:
-		preload("res://scripts/synergy_preparation.gd").publish(current,state,arena.synergy_displayed_glyphs)
+		preload("res://scripts/synergy_preparation.gd").publish(current,state,arena.synergy_displayed_glyphs,"displayed_textured_glyphs",actors)
 	if current.get("hello_world",false):
 		load("res://scripts/hw_firstwave_observation.gd").publish(current,state,arena.visible_damage_shapes)
 	if current.has("p1_path"):

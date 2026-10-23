@@ -14,7 +14,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	state.loop_deadline=float(state.get("sim_time",0))+float(beat.get("duration",0))
 	Statuses.begin(beat, state)
 	Statuses.sync(beat, state)
-	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").begin(beat,state)
+	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").begin(beat,state,actors)
 	load("res://scripts/hw_firstwave_observation.gd").begin(beat,actors,state)
 	sync_followups(beat,state)
 	if not beat.has("transfers"): return
@@ -74,6 +74,8 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 	Statuses.tick(actors, previous, state, dt)
 	preload("res://scripts/monitor_preparation.gd").observe(beat,actors,state)
 	Statuses.sync(beat, state)
+	# Aether-only headless receipt from this tick's actual clock/statuses/poses.
+	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").observe(beat,actors,state)
 	sync_followups(beat,state)
 	if beat.has("transfers"): tick_transfers(beat,actors,previous,state,dt)
 	# Resolve Limitless only after the same physical contact pass used by YOU.
