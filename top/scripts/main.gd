@@ -426,7 +426,7 @@ func prepare() -> void:
 	save_settings()
 func new_state() -> Dictionary:
 	var initial:Dictionary={"dynamis":encounter.initial_dynamis.duplicate(),"spent":[],"lb":"","lb_actor":-1,"aggro":0,"sim_time":0.0,"seed":encounter.seed,"human_actor":-1 if demo or checkpoint_assisted else player}
-	if omega_marking_supported():
+	if p5_marking_supported():
 		initial.p5_marking_mode="assist" if demo or checkpoint_assisted else p5_marking_mode
 		initial.preparation_origin="demo" if demo else ("checkpoint_assisted" if checkpoint_assisted else "practice")
 		Markers.ensure(initial);initial.target_markers.mode=initial.p5_marking_mode
@@ -1205,10 +1205,10 @@ func remove_library_draft()->void:
 func show_target_markers()->void:
 	if not practice_view or actors.size()!=8:return
 	marker_target.select(player)
-	var supported:=omega_marking_supported();omega_marking_box.visible=supported
+	var supported:=p5_marking_supported();omega_marking_box.visible=supported
 	omega_marking_select.select(0 if p5_marking_mode=="manual" else 1)
 	if supported:
-		var actual:=str(state.get("omega",{}).get("cooperation",{}).get("mode",""))
+		var actual:=str(state.get("sigma" if sigma_marking_supported() else "omega",{}).get("cooperation",{}).get("mode",""))
 		omega_marking_note.text=("目前：示範／輔助分配。" if demo or actual=="assist" else "目前：手動上標。")+"變更後以同一點名重新開始。"
 	marker_popup.popup_centered(Vector2i(340,720) if supported else Vector2i(340,450))
 func apply_target_marker(target:int,marker:String)->void:
@@ -1238,10 +1238,14 @@ func apply_waymark_settings()->void:
 
 func omega_marking_supported()->bool:
 	return encounter.get("id","")=="p5_omega" and active_profile.get("id","")=="cn_moogle"
+func sigma_marking_supported()->bool:
+	return encounter.get("id","")=="p5_sigma" and active_profile.get("id","")=="cn_moogle"
+func p5_marking_supported()->bool:
+	return omega_marking_supported() or sigma_marking_supported()
 func apply_omega_marking_mode()->void:
-	if not omega_marking_supported():return
+	if not p5_marking_supported():return
 	var requested:String=["manual","assist"][omega_marking_select.selected]
-	if requested==p5_marking_mode and not demo and state.get("p5_marking_mode","")==requested and state.get("omega",{}).get("cooperation",{}).get("mode","")==requested:
+	if requested==p5_marking_mode and not demo and state.get("p5_marking_mode","")==requested and state.get("sigma" if sigma_marking_supported() else "omega",{}).get("cooperation",{}).get("mode","")==requested:
 		marker_popup.hide();return
 	if not encounter.is_empty():
 		var archive:=FileAccess.open("user://before-marking-mode-%d.json"%Time.get_ticks_msec(),FileAccess.WRITE)
@@ -1250,6 +1254,7 @@ func apply_omega_marking_mode()->void:
 		archive.store_string(JSON.stringify(json_safe(report()),"  "))
 	p5_marking_mode=requested;save_settings();marker_popup.hide();demo=false;start_run(0,false)
 func preparation_report()->Dictionary:
+	if encounter.get("id","")=="p5_sigma":return sigma_preparation_report()
 	var co:Dictionary=state.get("omega",{}).get("cooperation",{})
 	var actual_mode:=str(co.get("mode","legacy_coaching"))
 	var assisted:=actual_mode in ["assist","legacy_coaching"] or demo or checkpoint_assisted
@@ -1271,11 +1276,29 @@ func preparation_report()->Dictionary:
 	if not latest.get("errors",[]).is_empty():ready=false
 	return {"mode":actual_mode,"requested_mode":state.get("p5_marking_mode","legacy_coaching"),"assisted":assisted,"checkpoint_assisted":checkpoint_assisted,"human_actor":human,"source_pending":bool(co.get("source_pending",not omega_marking_supported())),"manual_preparation_complete":ready,"manual_preparation_complete_at_world_pulses":at_world_pulses,"current_assignment_consistent":latest.get("errors",[]).is_empty(),"assessment_scope":"observed self-mark preparation at actual World pulses, not full guide certification","phases":phases,"latest_errors":latest.get("errors",[]).duplicate(true),"latest_unresolved":latest.get("unresolved",[]).duplicate(true)}
 func append_preparation_feedback()->void:
-	if not omega_marking_supported():return
+	if not p5_marking_supported():return
 	var prep:=preparation_report();var line:String
 	if prep.assisted:line="輔助分配：本輪不列為手動上標通過。"
-	elif prep.manual_preparation_complete_at_world_pulses:line="兩輪判定前手標分工完成；戰鬥與判定後變更另見紀錄。"
+	elif sigma_marking_supported() and prep.get("manual_preparation_complete_at_lock",false):line="分工前手標已完成；機制判定與後來變更另見紀錄。"
+	elif not sigma_marking_supported() and prep.get("manual_preparation_complete_at_world_pulses",false):line="兩輪判定前手標分工完成；戰鬥與判定後變更另見紀錄。"
 	else:
 		line="手標流程未完成；請檢查漏標、錯標、上標時機與自己實際操作。"
 		if all_errors.is_empty() and not demo:cue.text="機制判定通過 · 手標流程未完成"
 	feedback.append_text("\n[color=#90a3bd]"+line+"[/color]")
+
+func sigma_preparation_report()->Dictionary:
+	var co:Dictionary=state.get("sigma",{}).get("cooperation",{})
+	var actual_mode:String=str(co.get("mode","legacy_coaching"))
+	var assisted:bool=actual_mode in ["assist","legacy_coaching"] or demo or checkpoint_assisted
+	var human:int=-1
+	var raw_human:Variant=state.get("human_actor",-1)
+	if (raw_human is int or raw_human is float) and is_finite(float(raw_human)) and float(raw_human)==floorf(float(raw_human)) and float(raw_human)>=0 and float(raw_human)<8:human=int(raw_human)
+	var entry:Dictionary=co.get("entry",{})
+	var resolution:Dictionary=entry.get("resolution",{})
+	var latest:Dictionary=co.get("latest",{})
+	var required:bool=human>=0 and human not in [int(entry.get("near",-1)),int(entry.get("far",-1))]
+	var receipt:bool=bool(resolution.get("self_action",{}).get("current",false))
+	var locked:bool=bool(entry.get("locked",false))
+	var at_lock:bool=actual_mode=="manual" and not assisted and human>=0 and locked and bool(resolution.get("complete",false)) and resolution.get("errors",[]).is_empty() and (not required or receipt)
+	var consistent:bool=latest.get("errors",[]).is_empty()
+	return {"mode":actual_mode,"requested_mode":state.get("p5_marking_mode","legacy_coaching"),"assisted":assisted,"checkpoint_assisted":checkpoint_assisted,"human_actor":human,"source_pending":bool(co.get("source_pending",not sigma_marking_supported())),"locked":locked,"manual_preparation_complete":at_lock and consistent,"manual_preparation_complete_at_lock":at_lock,"current_assignment_consistent":consistent,"assessment_scope":"observed self-marks at the implementation route boundary, not a sourced timestamp, combat result or full guide certification","reveal_kind":entry.get("reveal_kind","current_runtime_observation"),"lock_boundary":"implementation_boundary","lock_time":entry.get("lock_time",-1.0),"lock_sequence":entry.get("lock_sequence",-1),"player_action_required":required,"actual_self_action":receipt,"raw_owners_at_lock":entry.get("owners_at_lock",[]).duplicate(),"normalized_at_lock":resolution.get("normalized",{}).duplicate(true),"allocation_at_lock":resolution.get("allocation",[]).duplicate(true),"errors_at_lock":resolution.get("errors",[]).duplicate(true),"latest_errors":latest.get("errors",[]).duplicate(true),"latest_unresolved":latest.get("unresolved",[]).duplicate(true)}

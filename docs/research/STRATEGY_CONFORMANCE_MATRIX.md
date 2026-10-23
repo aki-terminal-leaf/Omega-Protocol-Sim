@@ -11,6 +11,8 @@
 
 - [v0.3.13 Omega 限定實作與實際平台證據](../development/OMEGA_MANUAL_PREPARATION.md)：真實手標／分帳／來源可讀性已部署；更多族群與全選項認證仍待完成。
 
+- [v0.3.15 Sigma 手標來源候選](../development/SIGMA_MANUAL_PREPARATION.md)：限定互動／移動／Main 已驗；新平台與全部攻略認證仍待完成。
+
 ## 20機制：玩家責任與NPC契約
 
 | 機制／選項數 | 玩家預處理與實際動作 | NPC須遵守 | 仍需開發／驗證 |
@@ -151,7 +153,7 @@
 | `p5_sigma/01/elemental` | Elemental · Waymark 塔／F側分工 | 圖形OX△□，場地標點對應五／六塔；一層且無World者分配F側三人。  |
 | `p5_sigma/02/aether` | Aether · Saus Waymark towers | BPOG圖形列，記住實際場地標點；解F姿態後分工等待／追雷射。  |
 | `p5_sigma/03/lpdu` | LPDU · Waymark 塔／三人小列隊 | BPOG圖形列與場地標點宏；F側優先MT，一層無World者處理手臂與遠跳。  |
-| `p5_sigma/04/cn_moogle` | 莫古力 · 目視雙人塔優先／手標World | OX△□；轉22.5°後忽略正後塔，相鄰標點旁有雙去雙；近世界留F對面、遠世界到旋轉側。  |
+| `p5_sigma/04/cn_moogle` | 莫古力 · 目視雙人塔優先／手標World | OX△□；轉22.5°後忽略正後塔，相鄰標點旁有雙去雙；近世界留F對面、遠世界到旋轉側。 [v0.3.15 手標來源候選](../development/SIGMA_MANUAL_PREPARATION.md)已驗限定範圍，平台與完整攻略仍未認證。 |
 | `p5_sigma/05/kr_09stop` | 09STOP · O△□X／綁1–3 | 依實際場地標點宏踩塔；遠世界在F側，近世界隨旋轉方向轉90°。  |
 
 ### p5_omega

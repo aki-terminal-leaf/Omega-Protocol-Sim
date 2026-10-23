@@ -4,9 +4,15 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.15 開發候選：Sigma 實際手標協作
+
+莫古力 Sigma 依玩家真實手標分工，NPC 不替玩家操作；漏標、錯標與晚改標分開記錄。來源候選的 18 個實際移動重播／1,534 項檢查、170 項 Main 輸入／保存／重試及必要共用回歸通過。尚待新匯出與 Windows／Web 操作驗收，固定站仍為 v0.3.13；不是全部攻略或完整 AVFX 認證。
+
+[玩家責任、來源與剩餘範圍](docs/development/SIGMA_MANUAL_PREPARATION.md)
+
 ### v0.3.14 開發候選：Omega 更多練習族群
 
-獨立莫古力 Omega 加入 II 兩層檢知 0／1／2 人的固定種子練習族群，並修正 JSON 還原的持有人編號。來源的 27 個移動流程／1,403 項合作檢查與必要共用回歸已通過；尚待新版匯出與實際平台驗收，固定站仍為 v0.3.13。這是練習覆蓋，不宣稱完整副本亂數或全部攻略完成。
+獨立莫古力 Omega 加入 II 兩層檢知 0／1／2 人的固定種子練習族群，並修正 JSON 還原的持有人編號。來源的 27 個移動流程／1,403 項合作檢查與必要共用回歸已通過；最終匯出包十組檢查與實際 Web 操作已通過；原生操作仍待桌面空檔，固定站仍為 v0.3.13。這是練習覆蓋，不宣稱完整副本亂數或全部攻略完成。
 
 [範圍、證據與剩餘項目](docs/development/OMEGA_GENERATED_TRAINING.md)
 

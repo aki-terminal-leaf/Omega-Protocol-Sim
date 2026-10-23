@@ -1997,7 +1997,8 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
-        "docs/research/SIGMA_FIDELITY.md"
+        "docs/research/SIGMA_FIDELITY.md",
+        "docs/development/SIGMA_MANUAL_PREPARATION.md"
       ],
       "requirements_ref": "p5_sigma",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -2005,7 +2006,7 @@
       "player_preparation_proof": "not_accepted_as_complete",
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
-      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
+      "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence. v0.3.15 CN手標來源候選已整合並通過限定互動/移動/Main回歸；新平台及完整攻略認證仍待完成。",
       "catalog_runtime_drift": ""
     },
     {
@@ -2955,10 +2956,18 @@
     {
       "version": "0.3.14-candidate",
       "option_key": "p5_omega/04/cn_moogle",
-      "status": "source_verified_export_pending",
+      "status": "source_pack_and_web_verified_native_pending",
       "evidence_doc": "docs/development/OMEGA_GENERATED_TRAINING.md",
       "scope": "standalone training families0/1/2, generated actual movement and JSON-holder normalization",
-      "remaining": "platform export/QA/deploy; arbitrary I1/joint RNG, all human/community branches, full100 certification"
+      "remaining": "native GUI QA/public deploy/cleanup; arbitrary I1 joint RNG, all human/community branches, full100 certification"
+    },
+    {
+      "version": "0.3.15-candidate",
+      "option_key": "p5_sigma/04/cn_moogle",
+      "status": "source_verified_export_pending",
+      "evidence_doc": "docs/development/SIGMA_MANUAL_PREPARATION.md",
+      "scope": "observed CN manual/assist cooperation; immutable route lock vs current marks;18 moving courses/1534 assertions and170Main checks",
+      "remaining": "fresh export/native/Web QA/deploy; precise initial F staging/source branches, other community rules and full100 certification"
     }
   ]
 }

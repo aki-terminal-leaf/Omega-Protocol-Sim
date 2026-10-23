@@ -28,6 +28,7 @@ static func place(beat: Dictionary,c: Dictionary,roles: Array,point_index: int) 
 	var key: String=c.path_key
 	var route: Dictionary=paths()[key]
 	for slot in 8:
+		if roles.size()!=8 or not preload("res://scripts/sigma_preparation.gd").whole(roles[slot],0,7):continue
 		var p:=R.v(route.roles[slot][point_index].pos).rotated(deg_to_rad(float(c.f_angle)))
 		beat.positions[int(roles[slot])]=p
 		beat.labels[int(roles[slot])]=["HELLO NEAR","HELLO DISTANT","NEAR jump1","NEAR jump2","DISTANT jump1","DISTANT jump2","ARM LEFT","ARM RIGHT"][slot]
@@ -44,7 +45,9 @@ static func begin(beat: Dictionary,state: Dictionary) -> void:
 		for actor in 8:status().give(state,actor,"remote_glitch" if c.remote else "mid_glitch",32.0)
 		status().give(state,int(c.near),"near_world",56.0)
 		status().give(state,int(c.far),"distant_world",56.0)
+	preload("res://scripts/sigma_cooperation.gd").initialize(c,state)
 	if beat.has("sigma_path_index"):
+		if preload("res://scripts/sigma_cooperation.gd").active(state):preload("res://scripts/sigma_cooperation.gd").lock(state);preload("res://scripts/sigma_cooperation.gd").sync(beat,state);return
 		if state.sigma.roles.is_empty():
 			state.sigma.roles=allocation(c,state.dynamis)
 			if state.sigma.roles.is_empty():status().fail(state,"Sigma: fewer than three one-stack non-World utility candidates");return
@@ -96,6 +99,7 @@ static func snapshot(beat: Dictionary,actors: Array,state: Dictionary) -> Array:
 	return errors
 static func sync(beat: Dictionary,state: Dictionary) -> void:
 	if not state.has("sigma"):return
+	preload("res://scripts/sigma_cooperation.gd").sync(beat,state)
 	if not beat.get("sigma_tell",false):
 		# Preserve the learned pattern through resolution, then clear stale UI.
 		if not beat.get("sigma_towers",false):state.sigma.erase("visible_towers")
