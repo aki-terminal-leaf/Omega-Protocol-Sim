@@ -4,6 +4,12 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.14 開發候選：Omega 更多練習族群
+
+獨立莫古力 Omega 加入 II 兩層檢知 0／1／2 人的固定種子練習族群，並修正 JSON 還原的持有人編號。來源的 27 個移動流程／1,403 項合作檢查與必要共用回歸已通過；尚待新版匯出與實際平台驗收，固定站仍為 v0.3.13。這是練習覆蓋，不宣稱完整副本亂數或全部攻略完成。
+
+[範圍、證據與剩餘項目](docs/development/OMEGA_GENERATED_TRAINING.md)
+
 ### v0.3.13 已部署：Omega 手標驅動協作
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已部署 v0.3.13（執行碼 0934b9f）。莫古力 Omega 依實際手標協作，手動／輔助分帳；玩家仍須自己移動、轉面、疾跑及接線。原生 Windows 與 Chrome／AMD GPU 已核對自標、模式套用、同點名重練及兩側檢知來源；固定 HTTPS 資源與全新啟動通過。

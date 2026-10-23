@@ -21,59 +21,70 @@ func party(points:Array) -> Array:
 	var out:Array=[]
 	for actor in 8:out.append({"pos":R.v(points[actor]),"face":0.0,"role":E.ROLES[actor]})
 	return out
-func player_sign(state:Dictionary,phase:String) -> void:
+func player_sign(state:Dictionary,phase:String,prefer_receiver:=false) -> void:
 	var result:=C.observed(state,phase)
 	var human:int=int(state.human_actor)
 	var kind:String=result.classes[human]
 	var signs:Array=P.STOPS if kind=="stop" else (P.BINDS if kind=="bind" else P.ATTACKS)
-	# Deliberately take an equivalent legal numbered sign, even if an NPC had
-	# it. The real Markers event records displacement; NPCs must complement it.
-	Marks.assign(state,human,"" if kind=="unmarked" else signs[0],human,"player")
-func replay(mandatory:int,variant:String,human_utility:=false) -> void:
+	# Player observes both selected monitor signs before choosing an unused-Bind receiver.
+	# This is a real explicit Attack action, never NPC conversion of the human.
+	if prefer_receiver and kind=="bind" and result.roles[6]>=0 and result.roles[7]>=0 and human not in result.roles.slice(6):signs=P.ATTACKS
+	# Take an equivalent legal number, even if an NPC had it. When the same
+	# number remains from round one, choose another legitimate number so this
+	# second-round player decision has a real event, not a fabricated receipt.
+	var sign:String="" if kind=="unmarked" else str(signs[0])
+	if sign!="" and Marks.marker_for(state,human)==sign:sign=str(signs[1])
+	Marks.assign(state,human,sign,human,"player")
+func replay(mandatory:int,variant:String,human_utility:=false,human_category:="") -> void:
 	var profiles:Array=JSON.parse_string(FileAccess.get_file_as_string("res://data/strategies.json"))
 	var profile:Dictionary=profiles.filter(func(p):return p.id=="cn_moogle")[0].duplicate(true)
-	profile.merge({"omega_monitor_angle":90,"omega_beetle_angle":0},true)
+	# Force the production generator itself. Angles cover both monitor sides and three cardinal beetle origins.
+	profile.merge({"omega_training_family":mandatory,"omega_monitor_angle":90 if mandatory!=1 else 270,"omega_beetle_angle":270 if human_category!="" else mandatory*90},true)
 	var encounter:Dictionary=E.new().build("p5_omega",17391,profile)
 	var cfg:Dictionary=encounter.beats[0].omega_config
-	var stacks:Array=[1,1,1,1,1,1,1,1]
-	for j in mandatory:stacks[int(cfg.second[j])]=2
-	for actor in 8:
-		if stacks.count(2)>=4:break
-		if actor not in cfg.first and actor not in cfg.second:stacks[actor]=2
+	var stacks:Array=encounter.initial_dynamis.duplicate()
+	check(cfg.setup.family==mandatory and cfg.setup.initial_stacks==stacks,"m%d generated setup and encounter stacks"%mandatory)
+	check(cfg.setup.second.filter(func(actor):return int(stacks[int(actor)])==2).size()==mandatory,"m%d generated mandatory holders"%mandatory)
 	var human:int=int(cfg.second[0]) if mandatory>0 else stacks.find(2)
+	if human_category=="world_near":human=int(cfg.first[0])
+	elif human_category=="world_far":human=int(cfg.first[1])
+	elif human_category=="one_stack":human=int(range(8).filter(func(actor):return int(stacks[actor])==1 and actor not in cfg.first)[0])
+	elif human_category=="optional_two":human=int(range(8).filter(func(actor):return int(stacks[actor])==2 and actor not in cfg.second and actor not in cfg.first)[0])
 	if human_utility:
-		for actor in 8:
-			if stacks[actor]==2 and actor not in cfg.first and actor not in cfg.second:human=actor
+		var first_roles:Array=O.choose(cfg,stacks,false)
+		var after_first:Array=stacks.duplicate()
+		for actor in first_roles.slice(0,6):after_first[int(actor)]+=1
+		human=int(O.choose(cfg,after_first,true)[6])
 	var state:Dictionary={"sim_time":0.0,"dynamis":stacks.duplicate(),"spent":[],"lb":"","aggro":0,"seed":17391,"human_actor":human,"p5_marking_mode":"manual"}
 	var actors:=party(encounter.beats[0].spawn)
 	var combat:Array=[]
 	var signed_second:=false
+	var player_collects:=false
 	var first_report:Dictionary={}
-	var prefix:="m%d %s utility%s "%[mandatory,variant,human_utility]
+	var prefix:="m%d %s utility%s %s "%[mandatory,variant,human_utility,human_category]
 	var player_sprint_until:=0.0
 	var player_sprint_ready:=0.0
 	var pickup_boundary:=0
 	var saw_human_pickup:=false
+	var player_owned_line_at_entry:=false
 	var first_locked:Dictionary={}
 	for raw in encounter.beats:
 		var b:Dictionary=raw.duplicate(true)
-		# Scenario setup before the real transfer grant, never a holder write.
-		if human_utility and b.has("transfers"):b.transfers.initial=cfg.first.duplicate()
 		I.begin(b,actors,state)
 		if state.omega.cooperation.phase=="first" and state.target_markers.events.all(func(event):return event.source!="player"):
 			if human_utility:
 				check(state.omega.first_roles[6]>=0 and state.omega.first_roles[7]>=0 and human not in state.omega.first_roles.slice(6),prefix+"actual NPC utilities precede eligible human Attack")
 				Marks.assign(state,human,"attack2",human,"player")
-			elif variant=="correct":player_sign(state,"first")
+			elif variant=="correct":player_sign(state,"first",human_category=="optional_two")
 			elif variant=="wrong":Marks.assign(state,human,"attack8",human,"player")
 		if b.get("omega_wait_phase","")=="second" and not signed_second:
 			signed_second=true
-			if human_utility:
-				check(int(state.omega.cooperation.phases.second.dynamis[human])==3,prefix+"human actual first gain reaches3")
-				# Player explicitly replaces their first Attack; omission is blank.
-				if variant=="correct":player_sign(state,"second")
-				else:Marks.assign(state,human,"",human,"player")
-			elif variant=="correct" and state.omega.cooperation.phases.second.dynamis[human]==2:player_sign(state,"second")
+			# Read the REAL post-World snapshot: an optional first-round receiver may
+			# now be a three-stack collector, independently of the test category.
+			player_collects=int(state.omega.cooperation.phases.second.dynamis[human])==3
+			if human_utility:check(player_collects,prefix+"human actual first gain reaches3")
+			if variant=="correct":player_sign(state,"second")
+			elif human_utility:Marks.assign(state,human,"",human,"player")
 		I.sync(b,state);M.begin(b,state,human)
 		if b.has("transfers"):
 			var expected_requests:Array=state.omega.second_roles.slice(6).filter(func(actor):return int(actor)>=0 and int(actor)!=human)
@@ -81,7 +92,9 @@ func replay(mandatory:int,variant:String,human_utility:=false) -> void:
 			for actor in expected_requests:
 				check(is_equal_approx(float(state.bot_sprint_until[int(actor)]),float(state.sim_time)+10.0) and is_equal_approx(float(state.bot_sprint_ready[int(actor)]),float(state.sim_time)+60.0),prefix+"real NPC Sprint expiry and cooldown")
 			pickup_boundary=state.get("tether_events",[]).size()
-			if human_utility and variant=="correct" and float(state.sim_time)>=player_sprint_ready:
+			player_owned_line_at_entry=state.get("tether_holders",[]).map(func(actor):return int(actor)).has(human)
+			if human_utility:check(not player_owned_line_at_entry,prefix+"fresh collector genuinely requires physical pickup")
+			if player_collects and variant=="correct" and float(state.sim_time)>=player_sprint_ready:
 				# Test-driver PLAYER ability, not Movement.begin or bot Sprint.
 				player_sprint_until=float(state.sim_time)+10.0;player_sprint_ready=float(state.sim_time)+60.0
 		var seq:int=int(state.target_markers.sequence)
@@ -93,7 +106,7 @@ func replay(mandatory:int,variant:String,human_utility:=false) -> void:
 			first_report=state.omega.cooperation.latest.duplicate(true)
 			check(first_report.complete if variant=="correct" or human_utility else not first_report.complete,prefix+"observed first contract")
 			check(first_report.mandatory.size()==mandatory,prefix+"actual compulsory II count")
-			check(first_report.self_action.observed==(variant!="omitted" or human_utility),prefix+"real receipt only")
+			check(first_report.self_action.observed==((variant!="omitted" or human_utility) and human not in cfg.first),prefix+"real receipt only")
 			if variant!="correct" and not human_utility:check(human not in state.omega.first_roles,prefix+"wrong/omitted human never oracle allocated")
 		var elapsed:=0.0
 		while elapsed<float(b.duration)-0.000001:
@@ -115,7 +128,7 @@ func replay(mandatory:int,variant:String,human_utility:=false) -> void:
 					if not C.holds(actor,b,state):goal=I.bot_goal(actor,b,actors,state)
 				actors[actor].pos=R.v(actors[actor].pos).move_toward(goal,speed*dt)
 			I.tick(b,actors,previous,state,dt);elapsed+=dt
-		if b.has("transfers") and human_utility:
+		if b.has("transfers") and player_collects:
 			for event in state.get("tether_events",[]).slice(pickup_boundary):
 				if event.get("kind","")=="tether_pickup" and int(event.get("to",-1))==human:saw_human_pickup=true
 			check((human in state.tether_holders)==(variant=="correct"),prefix+"actual player line ownership")
@@ -140,7 +153,9 @@ func replay(mandatory:int,variant:String,human_utility:=false) -> void:
 			check(json_normal(state.omega.cooperation.phases.first.resolution)==json_normal(first_locked.resolution),prefix+"first receipt same JSON normal form immediately after restore")
 			I.begin(b,actors,state) # same-beat restore must not regrant or remark
 			check(int(state.target_markers.sequence)==int(state.target_markers.events.back().sequence),prefix+"JSON sequence intact")
-	if human_utility:check(saw_human_pickup==(variant=="correct"),prefix+"actual pickup versus omission")
+	if player_collects:
+		if human_utility:check(saw_human_pickup==(variant=="correct"),prefix+"fresh collector actual pickup versus omission")
+		else:check((player_owned_line_at_entry or saw_human_pickup) if variant=="correct" else not saw_human_pickup,prefix+"actual initial ownership or observed physical pickup; never synthetic")
 	check(state.target_markers.events.all(func(event):return event.source!="npc" or int(event.target)!=human),prefix+"NPC never marks human")
 	check(float(state.bot_sprint_until[human])==0.0,prefix+"no automatic human Sprint")
 	check(not str(state.get("runtime_failures",[])).contains("marker"),prefix+"preparation not synthetic combat failure")
@@ -265,6 +280,11 @@ func run() -> void:
 	lifecycle();invalid_manual();utility_commit();assist_player_sprint()
 	for mandatory in [0,1,2]:
 		for variant in ["correct","omitted","wrong"]:replay(mandatory,variant)
-	for variant in ["correct","omitted"]:replay(0,variant,true)
+	# Generated three-stack collectors in every family; production transfer owners remain untouched.
+	for mandatory in [0,1,2]:
+		for variant in ["correct","omitted"]:replay(mandatory,variant,true)
+	# World players require no fake first mark; genuine first receiver and optional Bind roles also move/resolve.
+	for mandatory in [0,1,2]:
+		for category in ["world_near","world_far","one_stack","optional_two"]:replay(mandatory,"correct",false,category)
 	print("NPC OMEGA COOPERATION cases=",cases," failures=",failures)
 	quit(1 if failures else 0)

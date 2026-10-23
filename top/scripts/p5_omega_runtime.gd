@@ -4,7 +4,9 @@ const R=preload("res://scripts/rules.gd")
 const Cooperation=preload("res://scripts/omega_cooperation.gd")
 static func status():return load("res://scripts/statuses.gd")
 static func choose(c:Dictionary,dynamis:Array,second:bool) -> Array:
-	var holders:Array=c.second if second else c.first
+	# JSON restores actor numbers as floats; normalize locally for identity checks.
+	# Never rewrite the actual config, marker owners, or Dynamis.
+	var holders:Array=(c.second if second else c.first).map(func(actor):return int(actor))
 	var utility:Array=[]
 	if second:
 		for raw in c.priority:

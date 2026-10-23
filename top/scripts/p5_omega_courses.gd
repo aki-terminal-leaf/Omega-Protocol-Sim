@@ -2,13 +2,21 @@
 extends RefCounted
 const R=preload("res://scripts/rules.gd")
 const Runtime=preload("res://scripts/p5_omega_runtime.gd")
+const OmegaSetup=preload("res://scripts/omega_setup.gd")
 static func append_omega(ctx) -> void:
 	var start:int=ctx.beats.size()
 	var monitor_angle:float=ctx.profile.get("omega_monitor_angle",90.0 if ctx.rng.randi_range(0,1) else 270.0)
 	var beetle_angle:float=ctx.profile.get("omega_beetle_angle",ctx.rng.randi_range(0,3)*90.0)
 	var c:Dictionary={"id":"omega_%d"%start,"profile":ctx.profile.id,"first":[ctx.at(4),ctx.at(5)],"second":[ctx.at(0),ctx.at(6)],"priority":ctx.priority.duplicate(),"monitor_angle":monitor_angle,"beetle_angle":beetle_angle,"far_side":ctx.profile.get("omega_far_side",270 if ctx.profile.id=="cn_moogle" else 90),"standalone":ctx.mechanic_id=="p5_omega"}
+	if c.standalone and ctx.profile.id=="cn_moogle":
+		# Sample a separate training setup without shifting clone/transfer RNG.
+		var saved_rng_state:int=ctx.rng.state
+		var setup:Dictionary=OmegaSetup.generate(ctx,ctx.initial_stacks("p5_omega"),ctx.profile.get("omega_setup_override",{}))
+		ctx.rng.state=saved_rng_state
+		c.merge({"setup_id":setup.id,"training_family":setup.family,"setup":setup,"first":setup.first,"second":setup.second,"initial_stacks":setup.initial_stacks},true)
 	ctx.omega_dodges()
 	for i in range(start,ctx.beats.size()):ctx.beats[i].omega_config=c
+	if c.has("setup"):ctx.beats[start].note+=" 本獨立練習涵蓋 II 兩層檢知 0／1／2 人族群，不代表副本出現比例。"
 	ctx.beats[start].spawn=[]
 	for _i in 8:ctx.beats[start].spawn.append(Vector2.ZERO)
 	var first:Array=Runtime.choose(c,ctx.initial_stacks("p5_omega"),false)

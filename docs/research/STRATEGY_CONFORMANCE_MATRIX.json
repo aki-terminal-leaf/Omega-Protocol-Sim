@@ -2951,6 +2951,14 @@
       "evidence_doc": "docs/development/OMEGA_MANUAL_PREPARATION.md",
       "scope": "actual manual marks, cooperation, phase receipts, loading cue, final Windows/Web export and public startup",
       "remaining": "broader standalone I/II families, all human branches, other community rules; full 100-option certification unchanged"
+    },
+    {
+      "version": "0.3.14-candidate",
+      "option_key": "p5_omega/04/cn_moogle",
+      "status": "source_verified_export_pending",
+      "evidence_doc": "docs/development/OMEGA_GENERATED_TRAINING.md",
+      "scope": "standalone training families0/1/2, generated actual movement and JSON-holder normalization",
+      "remaining": "platform export/QA/deploy; arbitrary I1/joint RNG, all human/community branches, full100 certification"
     }
   ]
 }
