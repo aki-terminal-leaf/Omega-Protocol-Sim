@@ -116,3 +116,19 @@ before updating https://top.servicing.cc. Native acceptance remains
 pending_desktop_disabled; it is not a prerequisite for this Web-first stage and
 is never reported as passing. No desktop/AnAn GUI, input, focus/capture or idle
 probe is used.
+
+## Web-first 0.3.18 deployment closure
+
+Runtime/source tag: b616fc183a73e182463ff7aa611c000260a41b18. The fixed
+https://top.servicing.cc now serves v0.3.18-preview-web-test. All 23 exact-PCK
+gates passed; actual exported-browser UI/downloaded reports verify selection,
+pre/post current-cue memory, physical D input, released-human hold and R reset.
+The browser session stops before 5 seconds, not a full manual clear. Fresh HTTPS
+startup uses headless Chromium / SwiftShader WebGL2 at CSS 1440x900 / DPR0.5;
+this is not physical-GPU/native proof. Public canonical and decoded-gzip hashes
+all match. Native remains pending_desktop_disabled; no desktop call was made.
+
+The release contains Web and exact-Git source ZIPs, checksums and a sanitized
+verification receipt; no Windows v0.3.18 binary. Documentation closure is a
+separate commit and does not change the runtime export. All outstanding scope
+limitations above remain active.

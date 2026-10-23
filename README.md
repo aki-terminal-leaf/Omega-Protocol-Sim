@@ -4,39 +4,43 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.18 Web 優先候選：P3 公開資訊走位與玩家操作驗證
+### v0.3.18 已更新 Web：P3 公開資訊走位與玩家操作驗證
 
-P3 NPC 只依當下減益與已實際顯示的手臂分流，不提前讀取未來答案。全 420 分組 × 五打法 × 兩手臂順序共 4,200 條完整走位、21,685 項檢查通過；實際 Main 的 WASD 自動化輸入另有 40 正向、3 負向流程／508 項通過。這不是手動完整通關或原遊戲時序認證；正向玩家案例目前只涵蓋一種手臂順序。詳見 [P3 證據與限制](docs/development/P3_PUBLIC_OBSERVATION.md)。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.18（執行碼 b616fc1）。P3 NPC 只依當下減益及實際顯示的手臂分流，不偷讀未來答案；累積的 Omega 練習族群、Sigma 手標、Panto 與 Cannons 公開提示改善亦已隨新 Web 包發布。
 
-依使用者最新指示，本階段通過新 Web 包與無桌面瀏覽器驗證後先更新固定站；原生驗收保持待驗、禁止桌面操作。目前候選尚未部署，固定站仍為 v0.3.13。累積的 Omega／Sigma／Panto／Cannons 改善會隨新 Web 包發布，完整攻略、最佳化及完整 AVFX 仍在進行。
+來源有 4,200 條全分組走位／21,685 項，以及實際 Main 的 40 正向、3 負向 WASD 流程／508 項通過；同一新 PCK 的 23 組回歸通過。VPS 無桌面 Chromium／SwiftShader WebGL2 實際操作核對選單、提示前後、玩家移動／釋放及同點名重試；固定 HTTPS 資源與全新啟動亦通過。詳見 [驗證範圍](docs/development/P3_PUBLIC_OBSERVATION.md)及 [Web／來源發布包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.18-preview)。
+
+原生驗收仍待驗、桌面操作保持禁止；這不是實體 GPU 或手動完整通關認證。玩家正向來源案例目前只涵蓋一種手臂順序；完整攻略、最佳化及完整 AVFX 仍在進行。
+
+![VPS headless Chromium 的實際 P3 Web 畫面；不是原生或實體 GPU 驗收](docs/images/top-v0318-p3-web.webp)
 
 ### v0.3.17 開發候選：Cannons 依實際炮標觀察分工
 
-沿用既有炮頭標；動態排序只讀已實際顯示的第一／第二輪三人，固定職責與坦克站位仍可預先採用公開規則。實際 Main 輸入重播 81 流程／468 項 0 失敗（含負向與明示輔助案例），修復後場景 299 項 0 失敗；140個有限物理流程／613項、必要共用與P1事件1266項回歸、獨立來源及輸入覆核亦已通過。v0.3.17 相同匯出包的 20 組檢查與限定 Web 操作已通過；原生 GUI 未通過且桌面操作已停用，因此該候選未發布。新 Web-first 授權由上方 v0.3.18 候選承接。
+沿用既有炮頭標；動態排序只讀已實際顯示的第一／第二輪三人，固定職責與坦克站位仍可預先採用公開規則。實際 Main 輸入重播 81 流程／468 項 0 失敗（含負向與明示輔助案例），修復後場景 299 項 0 失敗；140個有限物理流程／613項、必要共用與P1事件1266項回歸、獨立來源及輸入覆核亦已通過。v0.3.17 相同匯出包的 20 組檢查與限定 Web 操作已通過；原生 GUI 未通過且桌面操作已停用，因此該候選未發布。該來源改善已由上方 v0.3.18 Web-first 發布承接，原生仍待驗。
 
 [情報、分段輔助與未結門檻](docs/development/CANNONS_OBSERVATION.md)
 
 ### v0.3.16 開發候選：Panto 依已顯示提示行動
 
-NPC 不再出生於未來解答點，也不在軸向或旋轉方向顯示前偷跑；掉幀跳過提示時不猜未見方向。82個實際移動流程／757項、Main166項、提示網格127項、原P1事件1266項與必要共用回歸通過。同一 v0.3.16 匯出 PCK 的 17 組檢查及實際 Windows Chrome／AMD WebGL2 輸入與提示畫面已通過；原生 GUI 尚未執行，待實際桌面空檔。原遊戲提示精確時序仍待補證，固定站仍是v0.3.13；不是手動完整通關。
+NPC 不再出生於未來解答點，也不在軸向或旋轉方向顯示前偷跑；掉幀跳過提示時不猜未見方向。82個實際移動流程／757項、Main166項、提示網格127項、原P1事件1266項與必要共用回歸通過。同一 v0.3.16 匯出 PCK 的 17 組檢查及實際 Windows Chrome／AMD WebGL2 輸入與提示畫面已通過；原生 GUI 尚未執行，待實際桌面空檔。原遊戲提示精確時序仍待補證，當時固定站為v0.3.13；不是手動完整通關。
 
 [觀察、玩家責任與驗收邊界](docs/development/PANTO_OBSERVATION.md)
 
 ### v0.3.15 開發候選：Sigma 實際手標協作
 
-莫古力 Sigma 依玩家真實手標分工，NPC 不替玩家操作；漏標、錯標與晚改標分開記錄。來源候選的 18 個實際移動重播／1,534 項檢查、170 項 Main 輸入／保存／重試及必要共用回歸通過。新匯出包十三組檢查及Windows Chrome WebGL2實際操作已通過；原生GUI仍待實際桌面空檔，固定站仍為v0.3.13。不是手動完整通關、全部攻略或完整AVFX認證。
+莫古力 Sigma 依玩家真實手標分工，NPC 不替玩家操作；漏標、錯標與晚改標分開記錄。來源候選的 18 個實際移動重播／1,534 項檢查、170 項 Main 輸入／保存／重試及必要共用回歸通過。新匯出包十三組檢查及Windows Chrome WebGL2實際操作已通過；原生GUI仍待實際桌面空檔，當時固定站為v0.3.13。不是手動完整通關、全部攻略或完整AVFX認證。
 
 [玩家責任、來源與剩餘範圍](docs/development/SIGMA_MANUAL_PREPARATION.md)
 
 ### v0.3.14 開發候選：Omega 更多練習族群
 
-獨立莫古力 Omega 加入 II 兩層檢知 0／1／2 人的固定種子練習族群，並修正 JSON 還原的持有人編號。來源的 27 個移動流程／1,403 項合作檢查與必要共用回歸已通過；最終匯出包十組檢查與實際 Web 操作已通過；原生操作仍待桌面空檔，固定站仍為 v0.3.13。這是練習覆蓋，不宣稱完整副本亂數或全部攻略完成。
+獨立莫古力 Omega 加入 II 兩層檢知 0／1／2 人的固定種子練習族群，並修正 JSON 還原的持有人編號。來源的 27 個移動流程／1,403 項合作檢查與必要共用回歸已通過；最終匯出包十組檢查與實際 Web 操作已通過；原生操作仍待桌面空檔，當時固定站為 v0.3.13。這是練習覆蓋，不宣稱完整副本亂數或全部攻略完成。
 
 [範圍、證據與剩餘項目](docs/development/OMEGA_GENERATED_TRAINING.md)
 
-### v0.3.13 已部署：Omega 手標驅動協作
+### v0.3.13 歷史已部署階段：Omega 手標驅動協作
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已部署 v0.3.13（執行碼 0934b9f）。莫古力 Omega 依實際手標協作，手動／輔助分帳；玩家仍須自己移動、轉面、疾跑及接線。原生 Windows 與 Chrome／AMD GPU 已核對自標、模式套用、同點名重練及兩側檢知來源；固定 HTTPS 資源與全新啟動通過。
+歷史階段曾在固定站 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.13（執行碼 0934b9f）。莫古力 Omega 依實際手標協作，手動／輔助分帳；玩家仍須自己移動、轉面、疾跑及接線。原生 Windows 與 Chrome／AMD GPU 已核對自標、模式套用、同點名重練及兩側檢知來源；固定 HTTPS 資源與全新啟動通過。
 
 ![v0.3.13 最終匯出包的 Windows 原生與 Chrome Web 檢知來源實際畫面](docs/images/top-v0313-omega-loading.webp)
 

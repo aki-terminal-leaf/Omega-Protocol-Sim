@@ -1,6 +1,18 @@
 # 固定部署階段紀錄
 
-固定網址：https://top.servicing.cc 。每個階段通過限定來源／互動、實際匯出、Windows／Web驗收後更新同一網址；局部驗證不是全部攻略符合。
+## v0.3.18 Web-first — current fixed deployment
+
+- URL: https://top.servicing.cc ; runtime b616fc183a73e182463ff7aa611c000260a41b18.
+- PCK SHA-256: 4c4335a6dfecc86860e472cdca4fd7b8dbae2d4f964633c9201ac249ae7a7e04.
+- Source: 4200 public-walking courses /21685 assertions; actual Main physical keys40positive+3negative /508assertions.
+- Same new PCK: all23 canonical regression gates. Actual exported-browser P3 UI/receipt/input/retry, fixedHTTPS canonical+decodedgzip hashes and fresh headless WebGL2 startup passed.
+- Browser: VPS Chromium / SwiftShader, not physical-GPU or actual manual/native acceptance. Scoped browser exercise stops before5s.
+- Owner explicitly requested Web-first without waiting for native. Native pending, desktop disabled. No Windows18artifact. Cumulative14–17 Web source improvements included; oldnativepending evidence remains pending.
+- [Release / checksums / verification receipt](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.18-preview).
+- Documentation closure is separate from the runtime commit; all-guide / measured optimization / full AVFX remain active. Earlier deployment entries below are historical.
+
+
+固定網址：https://top.servicing.cc 。依使用者 2026-10-24 最新指示，來源、新 Web 包與無桌面 Web 驗證完成後先更新；原生另列待驗、桌面操作停用。早期 v0.3.11–v0.3.13 的 Windows／Web 驗收紀錄保留原來範圍；局部驗證不是全部攻略符合。
 
 - **2026-10-23 v0.3.11 已部署**：執行碼 c773d153572683468855883d3d7519526eff29c4。HW／檢知／Delta／P6等既有已覆核增量；實際Web匯出包20機制100選項、Windows五個完整示範、Windows Chrome155／AMD GPU13項操作及固定HTTPS啟動通過；13個identity/gzip資源表示皆核對。這不是手動全流程通關或全部攻略認證。
 - **2026-10-23 v0.3.12 已部署**：執行碼783abe2360185238f31b16da8c7a3278235f1257。Sigma CN橫排、提前真塔容量與重開即時清理；來源及匯出包限定檢查、Windows原生六塔／GPU Web五塔的1／2容量與重開畫面、固定HTTPS檔案／啟動均通過。手標驅動分工仍在下一階段。
