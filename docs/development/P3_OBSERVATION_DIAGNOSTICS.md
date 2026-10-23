@@ -1,7 +1,7 @@
-# P3 observation diagnostics — v0.3.19 source candidate
+# P3 observation diagnostics — v0.3.19 Web-first release
 
-The fixed Web deployment remains v0.3.18 until the new PCK and actual Web checks
-pass. This increment adds read-only information status, not movement, a solution
+The fixed Web deployment is now v0.3.19-preview-web-test after the actual new-PCK,
+exported-browser and public HTTPS checks passed. This increment adds read-only information status, not movement, a solution
 hint, a timing deadline or a new player confirmation step.
 
 ## Behaviour
@@ -64,6 +64,22 @@ Godot --headless --path top --script res://tests/p3_diagnostic_main.gd
 Fresh affected-PCK and real exported-Web UI/report checks are required before
 Web-first publication. Ordinary Web does not inject broken state to fabricate an
 error-path screenshot; forced rejection/missing-model cases above are explicitly
-headless Main fixtures. Native stays pending and desktop operations remain
-disabled. Full guide/player-preparation coverage, original onset/HP/shields,
+headless Main fixtures. Native evidence remains pending; the owner has now
+made AnAn desktop available for verification. Full guide/player-preparation coverage, original onset/HP/shields,
 measured optimization and complete AVFX remain active.
+
+## Deployment closure
+
+Runtime/source tag: 5d790cd70c6a986defc845ddc6a5d7d82084abe9. Fixed URL:
+https://top.servicing.cc . Seven exact-PCK affected gates passed; normal actual
+Web UI/downloaded reports verify the six-field waiting/observed/reset diagnostics
+without injecting broken game state. Rejection/missing-model error paths remain
+explicit headless-Main fixtures, not ordinary Web pixel proof. Actual WebGL2 uses
+VPS Chromium / SwiftShader, CSS1440x900 / DPR0.5; no physical-GPU/native claim.
+All public canonical and decoded-gzip hashes and a fresh HTTPS startup pass.
+
+Web and exact-Git source ZIPs, sanitized verification and SHA256SUMS are published
+at https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.19-preview .
+Native evidence is still pending; the owner has now made AnAn desktop available.
+No Windows19binary has yet been published. Documentation closure
+is separate from the runtime commit and does not rebuild the accepted export.

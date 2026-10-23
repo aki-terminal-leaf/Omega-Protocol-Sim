@@ -4,15 +4,19 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.19 開發候選：P3 提示狀態與異常回饋
+### v0.3.19 已更新 Web：P3 提示狀態與異常回饋
 
-新增不洩漏方向／未來順序的唯讀提示狀態。正常練習不多出警示；提示無法判讀時沿用既有介面說明，R 重練仍是選擇，不改判定或替玩家移動。來源 848 項純檢查、210 項 Main（含 82 幀正常流程零誤警示）及必要既有回歸通過。詳見 [提示診斷範圍](docs/development/P3_OBSERVATION_DIAGNOSTICS.md)。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.19（執行碼 5d790cd）。正常練習維持簡潔；Tab 可看不透露方向的提示狀態。提示資訊無法確認時，沿用既有介面提供 R 同點名重練選項；不改判定、分數、暫停或玩家走位。
 
-候選尚待新 PCK／Web 驗證；固定網址目前仍是下方已驗證的 v0.3.18，原生仍待驗、桌面操作停用。
+來源 848 項純檢查、210 項 Main（82 幀正常流程零誤警示）及必要既有回歸通過；新 PCK 七項受影響檢查、實際 Web 的六欄位狀態／提示前後／移動與釋放／重試、固定 HTTPS 資源與全新啟動通過。未改動的舊機制保留 v0.3.18 基線，不宣稱重跑所有舊矩陣。詳見 [診斷範圍](docs/development/P3_OBSERVATION_DIAGNOSTICS.md)及 [Web／來源發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.19-preview)。
 
-### v0.3.18 已更新 Web：P3 公開資訊走位與玩家操作驗證
+原生仍待驗；使用者已重新開放 AnAn 桌面驗證。無桌面 SwiftShader WebGL2 不是實體 GPU 或真人完整通關。全部攻略、最佳化與完整 AVFX 工作繼續保留。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.18（執行碼 b616fc1）。P3 NPC 只依當下減益及實際顯示的手臂分流，不偷讀未來答案；累積的 Omega 練習族群、Sigma 手標、Panto 與 Cannons 公開提示改善亦已隨新 Web 包發布。
+![實際無桌面 Web 的中立提示狀態；非原生或實體 GPU 驗收](docs/images/top-v0319-p3-diagnostics-web.webp)
+
+### v0.3.18 已部署基線（歷史）：P3 公開資訊走位與玩家操作驗證
+
+上一個基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.18（執行碼 b616fc1）。P3 NPC 只依當下減益及實際顯示的手臂分流，不偷讀未來答案；累積的 Omega 練習族群、Sigma 手標、Panto 與 Cannons 公開提示改善亦已隨新 Web 包發布。
 
 來源有 4,200 條全分組走位／21,685 項，以及實際 Main 的 40 正向、3 負向 WASD 流程／508 項通過；同一新 PCK 的 23 組回歸通過。VPS 無桌面 Chromium／SwiftShader WebGL2 實際操作核對選單、提示前後、玩家移動／釋放及同點名重試；固定 HTTPS 資源與全新啟動亦通過。詳見 [驗證範圍](docs/development/P3_PUBLIC_OBSERVATION.md)及 [Web／來源發布包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.18-preview)。
 

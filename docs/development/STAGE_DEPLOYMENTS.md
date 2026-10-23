@@ -1,6 +1,16 @@
 # 固定部署階段紀錄
 
-## v0.3.18 Web-first — current fixed deployment
+## v0.3.19 Web-first — current fixed deployment
+
+- URL https://top.servicing.cc ; runtime 5d790cd70c6a986defc845ddc6a5d7d82084abe9.
+- PCK SHA-256 a398ff66dc83933adf4e7db35d4816b1a6e1d0390f4b23d1f5499f1bfbbb207f.
+- Read-only P3 information status, no direction/first-side/timing/steering/grade changes; source848+Main210/82normalframes/0noise and affectedexistingregressions pass.
+- Seven exact-PCK affected gates, actual Web6fieldwaiting/observed/reset +normalinput/retry, publiccanonical/decodedgzip and freshHTTPSWebGL2 startup pass. Unaffectedv18matrices notrerun; acceptedbaseline retained.
+- Errorstates useheadless-Main fixtures, notinjectedordinaryWeb. SwiftShader issoftwareWebGL2, notphysicalGPU/native/manual proof. Nativepending, noWindows19artifact; desktopnowauthorized foractualverification.
+- [Release/checksums/verification](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.19-preview). Runtime/docscommits separate, noexportreplay. Fullguide/performance/AVFX remainactive.
+
+
+## v0.3.18 Web-first — accepted baseline (historical)
 
 - URL: https://top.servicing.cc ; runtime b616fc183a73e182463ff7aa611c000260a41b18.
 - PCK SHA-256: 4c4335a6dfecc86860e472cdca4fd7b8dbae2d4f964633c9201ac249ae7a7e04.
