@@ -75,7 +75,12 @@ static func append_panto(ctx) -> void:
 	append(ctx,"Pantokrator",P.panto(ctx.order,orientation,direction,facing),times,goals,meta)
 	for i in range(start,ctx.beats.size()):
 		ctx.beats[i].p1_path={"numbers":numbers.duplicate(),"groups":group.duplicate(),"base":base,"direction":direction,"outer":outer}
+		# Public scenario selection is separate from the solved demo/checkpoint path.
+		ctx.beats[i].panto_public={"profile_id":id,"variant":meta.panto_variant}
 		ctx.beats[i].title="Pantokrator · missile %d/4"%(i-start+1)
+	# Public training fixture: never spawn on the future missile checkpoint.
+	ctx.beats[start].spawn=[]
+	for actor in 8: ctx.beats[start].spawn.append(Vector2(-3.5+actor,6.0))
 	ctx.beats[start].status_grants=[]
 	for actor in 8:
 		var number:=int(numbers[actor])

@@ -2,6 +2,7 @@
 extends RefCounted
 const Rules = preload("res://scripts/rules.gd")
 const Patterns = preload("res://scripts/p1_patterns.gd")
+const Observation = preload("res://scripts/panto_observation.gd")
 
 static func begin(beat: Dictionary, state: Dictionary) -> void:
 	if beat.has("program_loop"): Rules.ensure_loop_state(beat,state)
@@ -9,6 +10,7 @@ static func begin(beat: Dictionary, state: Dictionary) -> void:
 	if not state.has("p1"): state.p1={"pending":[],"history":[],"until":0.0}
 	var now := float(state.get("sim_time",0))
 	state.p1.coaching_origin=now
+	if beat.has("p1_path"): Observation.begin(beat,state)
 	for raw in beat.p1_events:
 		var event: Dictionary=raw.duplicate(true)
 		event.at=now+float(event.at)
@@ -118,10 +120,10 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 		elif event.has("locked_at"):
 			shape.cue_type="telegraph"; shape.telegraph_at=float(event.locked_at)
 		beat.shapes.append(shape)
+	# Observe only the regenerated, actually rendered preview field, even if no
+	# NPC goal is requested (human-only/pause/checkpoint presentation).
+	if beat.has("p1_path"): Observation.sync(beat,state)
 
-static func coaching_goal(actor: int, beat: Dictionary, state: Dictionary) -> Vector2:
-	var c:Dictionary=beat.p1_path
-	# Preserve the validated0.1s waypoint cadence without creating323 UI checkpoints.
-	var now:=float(state.get("sim_time",0))-float(state.p1.coaching_origin)
-	var target_time:=clampf((floorf((now+0.000001)*10.0)+1)*0.1,0.1,32.3)
-	return load("res://scripts/p1_courses.gd").panto_point(target_time,int(c.numbers[actor]),float(c.base)+int(c.groups[actor])*180,int(c.direction),bool(c.outer))
+static func coaching_goal(actor: int, _beat: Dictionary, state: Dictionary) -> Vector2:
+	# p1_path remains oracle data for demos/endpoints, never an AI input.
+	return Observation.goal(actor,state)

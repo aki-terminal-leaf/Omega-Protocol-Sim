@@ -4,9 +4,15 @@
 
 **[下載版 v0.3.10-preview（Linux／source）](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.10-preview)** · [Windows／Web 下載 v0.3.3-preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.3-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.16 開發候選：Panto 依已顯示提示行動
+
+NPC 不再出生於未來解答點，也不在軸向或旋轉方向顯示前偷跑；掉幀跳過提示時不猜未見方向。82個實際移動流程／757項、Main166項、提示網格127項、原P1事件1266項與必要共用回歸通過。這是來源限定驗收，尚待新匯出與Windows／Web操作驗收；原遊戲提示精確時序仍待補證，固定站仍是v0.3.13。
+
+[觀察、玩家責任與驗收邊界](docs/development/PANTO_OBSERVATION.md)
+
 ### v0.3.15 開發候選：Sigma 實際手標協作
 
-莫古力 Sigma 依玩家真實手標分工，NPC 不替玩家操作；漏標、錯標與晚改標分開記錄。來源候選的 18 個實際移動重播／1,534 項檢查、170 項 Main 輸入／保存／重試及必要共用回歸通過。尚待新匯出與 Windows／Web 操作驗收，固定站仍為 v0.3.13；不是全部攻略或完整 AVFX 認證。
+莫古力 Sigma 依玩家真實手標分工，NPC 不替玩家操作；漏標、錯標與晚改標分開記錄。來源候選的 18 個實際移動重播／1,534 項檢查、170 項 Main 輸入／保存／重試及必要共用回歸通過。新匯出包十三組檢查及Windows Chrome WebGL2實際操作已通過；原生GUI仍待實際桌面空檔，固定站仍為v0.3.13。不是手動完整通關、全部攻略或完整AVFX認證。
 
 [玩家責任、來源與剩餘範圍](docs/development/SIGMA_MANUAL_PREPARATION.md)
 

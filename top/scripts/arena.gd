@@ -11,6 +11,9 @@ const SynergySigns=preload("res://scripts/synergy_signs.gd")
 const LateDamagePreview=preload("res://scripts/late_damage_preview.gd")
 var upcoming_beats:Array=[]
 var visible_damage_shapes:Array=[]
+# Current rendered Panto tells; never let the ordinary0.07s redraw throttle
+# delay a newly eligible source while NPC observation sees the same state.
+var panto_displayed_cues:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -269,12 +272,24 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 	for sign in target_signs:sign.visible=false
 	if actors.size() != 8:
 		aoe.clear_surfaces(); signs.clear_surfaces(); positions_initialized = false
+		panto_displayed_cues=[]
 		clear_p3_effects()
 	update_stage_entities()
 	update_clone_cues()
 	update_camera()
 	update_sigma_capacity_labels()
 	update_omega_source_cue()
+	if actors.size()==8 and (current.has("p1_path") or not panto_displayed_cues.is_empty()):
+		var eligible:Array=panto_cue_signature(LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors))
+		if eligible!=panto_displayed_cues:
+			redraw_elapsed=0.0
+			draw_indicators()
+func panto_cue_signature(shapes:Array)->Array:
+	var result:Array=[]
+	for shape in shapes:
+		if not shape.get("p1_preview",false) or shape.get("kind","")!="cone":continue
+		result.append([float(shape.angle),float(shape.damage_at),str(shape.get("cue_type","")),LateDamagePreview.in_window(float(shape.damage_at)-float(observed_state.get("sim_time",0)))])
+	return result
 func update_sigma_capacity_labels()->void:
 	for label in sigma_capacity_labels:label.visible=false
 	if actors.size()!=8:return
@@ -384,6 +399,7 @@ func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 func draw_indicators() -> void:
 	aoe.clear_surfaces(); aoe_vertex_count=0
 	visible_damage_shapes=LateDamagePreview.shapes(current,observed_state,beat_elapsed,guide,upcoming_beats,actors)
+	panto_displayed_cues=panto_cue_signature(visible_damage_shapes)
 	for shape in visible_damage_shapes:
 		var source_tell := LateDamagePreview.is_telegraph(shape) and not LateDamagePreview.in_window(float(shape.damage_at)-float(observed_state.get("sim_time",0)))
 		draw_shape(shape,Color(1.0,0.68,0.12,0.26) if source_tell else Color.TRANSPARENT)

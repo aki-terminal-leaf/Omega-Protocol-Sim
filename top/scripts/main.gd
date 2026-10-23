@@ -508,6 +508,8 @@ func begin_beat(reset_positions := false) -> void:
 	P6Setup.initialize(state,actors,encounter.id,player if not demo else -1,selected_job(),player)
 	bind_snapshot_geometry(current,actors,state)
 	Markers.ensure(state);state.waymark_layout=waymark_layout.duplicate(true)
+	if current.has("p1_path"):state.panto_presentation_required=true
+	else:state.erase("panto_presentation_required")
 	Interactions.begin(current, actors, state)
 	Movement.begin(current,state,player if not demo else -1)
 	if current.has("program_loop"): Rules.ensure_loop_state(current, state)
@@ -519,6 +521,7 @@ func begin_beat(reset_positions := false) -> void:
 	checkpoint_select.select(index)
 	update_hud()
 	arena.update_state(actors,current,player,answers_visible(),elapsed,state)
+	publish_panto_cues()
 func bind_snapshot_geometry(b: Dictionary, party_actors: Array, runtime: Dictionary) -> void:
 	for shape in b.get("shapes", []):
 		if shape.has("snapshot_position_actor"):
@@ -553,6 +556,7 @@ func retry_beat() -> void:
 	running = true; paused = false; elapsed = 0; pending_advance = false; wall_recorded = false
 	Interactions.sync(current, state)
 	arena.update_state(actors,current,player,answers_visible(),elapsed,state)
+	publish_panto_cues()
 	status.text = "重練段落 %d" % (index+1)
 func _process(delta: float) -> void:
 	# Web pointer lock may complete after a quick press/release has already ended.
@@ -597,7 +601,11 @@ func _process(delta: float) -> void:
 				samples.append({"beat": index, "time": snappedf(elapsed, 0.01), "player_pos": [actors[player].pos.x, actors[player].pos.y], "actors": actors.duplicate(true), "face": actors[player].face, "statuses": state.get("statuses", []).duplicate(true), "tether_holders": state.get("tether_holders", []).duplicate()})
 			if elapsed >= float(current.duration): resolve_beat()
 	arena.update_state(actors, current, player, answers_visible(), elapsed, state)
+	publish_panto_cues()
 	update_hud()
+func publish_panto_cues()->void:
+	if current.has("p1_path"):
+		preload("res://scripts/panto_observation.gd").presented(current,state,arena.visible_damage_shapes)
 func move_player(dt: float) -> void:
 	if demo: return
 	var cast_locked: bool=load("res://scripts/p6_runtime.gd").is_locked(state,player)

@@ -381,7 +381,7 @@
       "setup_or_in_mechanic_preparation": "依攻略排優先序／分兩隊；選內出外回或外出內回",
       "required_player_actions": "起始扇形可見後選安全側；按數字出飛彈、分攤、繞火與誘導水圈",
       "npc_response_contract": "只在起始火焰揭示後分流；依實際玩家誘導落點協作，尊重社群補位責任",
-      "remaining_or_source_uncertainty": "T0預算安全區偷跑；兩種CN變體、Aether/LPDU南北與滿覆蓋分流、KR六族均需逐分支核對；分攤線視覺缺",
+      "remaining_or_source_uncertainty": "v16來源已驗中立出生、已顯示軸向/旋向與掉幀不偷讀；原遊戲提示時序、所有人類合法替代路線/誘導適配、全部種子、分攤線視覺與新平台仍待核對",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -895,7 +895,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/02/aether",
@@ -916,7 +917,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/03/lpdu",
@@ -937,7 +939,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/04/cn_moogle",
@@ -960,7 +963,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/05/cn_moogle",
@@ -983,7 +987,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_panto/06/kr_09stop",
@@ -1004,7 +1009,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md"
     },
     {
       "option_key": "p1_cannons/01/elemental",
@@ -2964,10 +2970,18 @@
     {
       "version": "0.3.15-candidate",
       "option_key": "p5_sigma/04/cn_moogle",
-      "status": "source_verified_export_pending",
+      "status": "source_pack_and_web_verified_native_pending",
       "evidence_doc": "docs/development/SIGMA_MANUAL_PREPARATION.md",
       "scope": "observed CN manual/assist cooperation; immutable route lock vs current marks;18 moving courses/1534 assertions and170Main checks",
-      "remaining": "fresh export/native/Web QA/deploy; precise initial F staging/source branches, other community rules and full100 certification"
+      "remaining": "nativeGUI QA/publicdeploy/cleanup; preciseinitialF/sourcebranches, othercommunityrules and full100certification"
+    },
+    {
+      "version": "0.3.16-candidate",
+      "mechanic_id": "p1_panto",
+      "status": "source_verified_export_pending",
+      "evidence_doc": "docs/development/PANTO_OBSERVATION.md",
+      "scope": "neutralspawn and presentation-acknowledged publicaxis/sign;82physicalcourses757checks/Main166/Arena127/P1events1266 plusfocusedsharedregression",
+      "remaining": "export/native/Web/fixeddeploy; original-gamecueonset source_unknown, allhumanalternatives/adaptation andall100certification unchanged"
     }
   ]
 }
