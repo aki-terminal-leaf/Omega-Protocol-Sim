@@ -1,6 +1,13 @@
 # 固定部署階段紀錄
 
-## v0.3.22 Web-first — current fixed deployment
+## v0.3.23 Web-first — current fixed deployment
+
+- Runtime `7a98670e79b6429ccd8e7b2df009c2c5e270ea82`; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview).
+- PCK `55a96509a8d9b53c338c67f6501d99416b31faab760827677aed3e8f6c2d14ab`; thirteen strict exact-pack gates, actualAetherWeb10checks, HTTPS13representations+freshstartup PASS.
+- SourceAether2520/30351,unit64,Main159,physical141/1825 (128role/rank/distance +5negative +8stationary); 240generator/Elemental/LPDU/P2/shared20regressions PASS.
+- Scope independent defaultconga +actualhumanrank/NPCroommaking +8displayedglyph/frozenpose memory only. Legacydodge/lateflex not certified; no native/manual/fullP2/allguide/perf/fullAVFX completion. Windows20 separately unchanged.
+
+## v0.3.22 Web-first — accepted baseline (historical)
 
 - Runtime `e29b51484a2aaad2ebb736974feecc6547992924`; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.22-preview).
 - PCK `ec929e542c7efd7d28d9e9043504387511e582d53fcaaf6aeeaed50710011633`; eleven strict exact-pack gates, actualLPDUWeb8checks+THMRdiagnostic, HTTPS13representations+freshstartup PASS.

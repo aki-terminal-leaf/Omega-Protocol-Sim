@@ -2,15 +2,21 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.22 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.22-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.23 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.23 來源候選：Aether 實際橫排換序
+### v0.3.23 已更新 Web：Aether 實際橫排換序與公開圖形記憶
 
-Aether 依玩家實際橫排名次留位，真正顯示八人圖形後記住同畫面位置；玩家移動不改寫過去、不讀未揭露配對、不替玩家操作。純2,520種／30,351項、Main159項、141條實際按鍵課程／1,825項、240生成差分及必要回歸通過。[驗證與限定範圍](docs/development/P2_AETHER_PREPARATION.md)。固定站仍為下列 v0.3.22；候選未作新PCK／Web／原生驗收，不是完整P2或全部攻略符合性。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.23（執行碼 7a98670）。HRMTTMRH 只是推薦起始橫排；玩家可自己換序，七名 NPC 依玩家實際位置留位。真正顯示八人圖形後，按同圖案實際左右記住同畫面位置；之後移動不改寫過去，不讀未揭露真配對、不替玩家操作或救場。Remote 僅外側列互換，保留 LPDU／Elemental 各自規則。
 
-### v0.3.22 已更新 Web：LPDU 初始 THMR 與公開圖形分組
+純2,520種／30,351項、單元64項、Main159項、141條實際輸入課程／1,825項、240生成差分及必要回歸通過。相同新PCK十三組檢查；實際Web十項操作包含跨過同圖案搭檔／NPC留位、八人圖形與同畫面位置記憶、擷取後再移動／放開按鍵／R清空，固定HTTPS十三種表示與全新啟動皆通過。[來源與限定範圍](docs/development/P2_AETHER_PREPARATION.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview)。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.22（執行碼 e29b514）。LPDU 頭標前依 T/H/M/R 雙列；實際看見八人圖形後，同側同圖案僅南邊的人換側。Remote 右側為 BPOG/GOPB 完全反轉，不混用 Elemental／Aether。玩家自己操作，NPC 記住已見圖形、不替玩家移動或救場；真搭檔、點名、移速與判定不變。
+僅結清這批初始橫排與公開記憶互動；首次完整圖形觀察凍結是訓練政策，不是已證實遊戲鎖定時限。武器／新北／後段分攤、全部P2／攻略、量測最佳化與完整AVFX仍繼續。無桌面SwiftShader不是原生／實體GPU或真人完整通關；v0.3.23原生待驗，Windows v0.3.20保留自身獨立證據。
+
+![實際匯出Web的Aether當前圖形與玩家換序；畫面右緣裁切，非原生或完整P2通關證據](docs/images/top-v0323-p2-aether-web.webp)
+
+### v0.3.22 已部署基線（歷史）：LPDU 初始 THMR 與公開圖形分組
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.22（執行碼 e29b514）。LPDU 頭標前依 T/H/M/R 雙列；實際看見八人圖形後，同側同圖案僅南邊的人換側。Remote 右側為 BPOG/GOPB 完全反轉，不混用 Elemental／Aether。玩家自己操作，NPC 記住已見圖形、不替玩家移動或救場；真搭檔、點名、移速與判定不變。
 
 LPDU2,520種／45,448項、Main306項、29條WASD／345項及Elemental／P2／240生成差分／20機制必要回歸通過。同一新PCK十一組檢查、實際Web的THMR初始隊列／八人頭標前後／輸入釋放／R重練、固定HTTPS十三種內容與全新啟動通過。[來源與限定範圍](docs/development/P2_LPDU_PREPARATION.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.22-preview)。
 

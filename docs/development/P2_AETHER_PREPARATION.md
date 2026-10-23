@@ -16,4 +16,12 @@ Fire 圖案順序 X／Square／O／Triangle；Remote 只交換外側列，不能
 
 240 組生成差分相同：其餘四種解法完整序列（含公開 metadata）保持一致；Aether 僅排除刻意更改的公開準備 metadata／路線位置／起始站位。真 RNG、圖形搭檔、目標、傷害幾何與時間保持不變。Elemental／LPDU 原 Main 與各 29 條實際輸入、320 組 P2／16,663 項及 20 機制 Main 必要回歸通過。獨立跨模型唯讀審查和父層核對分別留存；協作 CLI 曾逾時的局部產出未被當成成功。
 
-範圍是 seed17391、eye0／clone22.5 的實際輸入矩陣，不是所有初始順序／全部隨機幾何。武器／新北／後段分攤、CN/KR、完整 P2、全20機制100選項符合性、量測最佳化與完整 AVFX 仍在進行。候選 v0.3.23 尚需同一新 PCK 與 Web／固定 HTTPS 驗收；現站仍 v0.3.22。原生驗收獨立待驗，Windows v0.3.20 保留自身證據。
+範圍是 seed17391、eye0／clone22.5 的實際輸入矩陣，不是所有初始順序／全部隨機幾何。武器／新北／後段分攤、CN/KR、完整 P2、全20機制100選項符合性、量測最佳化與完整 AVFX 仍在進行。此來源候選其後已完成下節列出的新 PCK／Web／固定 HTTPS 驗收。原生驗收獨立待驗，Windows v0.3.20 保留自身證據。
+
+## v0.3.23 實際 Web 發布
+
+固定站 https://top.servicing.cc 已驗收更新。執行碼 `7a98670e79b6429ccd8e7b2df009c2c5e270ea82`，相同新PCK `55a96509a8d9b53c338c67f6501d99416b31faab760827677aed3e8f6c2d14ab`。十三組精確PCK與實際Web十項操作、固定HTTPS十三種表示、全新啟動通過。父層實際檢視本輪頭標前／顯示／擷取後玩家再移動／圖形消失／R重開畫面；下載報告驗證實際名次0與同圖案搭檔換側、凍結位置不改寫、放開輸入不被NPC移動。不是完整手動Fire／武器／P2通關；Fire負向與正向仍由同一PCK的141條真實輸入檢查提供。原生獨立待驗。
+
+[發布與下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview)。下圖是同次Web擷取圖形後玩家再移動的實際畫面，記憶仍保留原先位置；非原生或全攻略認證。
+
+![擷取圖形後玩家實際移動，公開記憶不被改寫](../images/top-v0323-p2-aether-after-capture.webp)
