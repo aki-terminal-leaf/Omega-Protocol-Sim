@@ -4,6 +4,12 @@
 
 **[v0.3.30 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.30-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.31 來源檢查點：P2 莫古力同頭標 NPC 左右優先序（新 Web 待驗）
+
+整合已獨立審查的 P2 CN／莫古力 NPC 修正：同頭標依既有 H1 > MT > ST > D1 > D2 > D3 > D4 > H2 順序，高順位站在面向光之眼的左側；回報案例是 D2 左、D4 右。其他四套方法、原始頭標／亂數／攻擊與狀態判定保持不變，玩家仍依實際受擊／Buff、Debuff／死亡判定，不要求精確攻略座標。[來源修正與範圍](docs/research/P2_CN_PRIORITY_FIX.md)。
+
+這裡僅為來源整合；既有來源證據包含 1,024 順位檢查、64 初始排列檢查與兩個完整 NPC 示範／38 檢查，不是手動、全攻略或 Web 驗收。需要新 PCK／瀏覽器／公開站驗證後才發佈；固定站與下載目前仍是下方 v0.3.30，尚未包含本修正。原生待驗、桌面停用。
+
 ### v0.3.30 已更新 Web：Hello World 後續輪次可返回選塔
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.30（執行碼 `484ebfd`）。修正判塔前玩家從另一塔返回時，NPC 還保留舊選擇的問題；判定後本輪責任凍結。玩家仍依實際攻擊／狀態／死亡判定，不要求精確攻略座標。[修正與範圍](docs/development/HW_LATER_CHOICE.md) · [本版驗證](docs/development/WEB_V0330.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.30-preview)。
