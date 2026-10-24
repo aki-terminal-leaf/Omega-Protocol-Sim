@@ -1,10 +1,16 @@
-# v0.3.28 current Web-first baseline
+# v0.3.29 current Web-first baseline
+
+- Runtime `132e3babb296677065fffb4db28c58b6f0351ba4`; PCK `b61ee7114cf3e692d9543f890429e860473a8b8ca9e6da479dc435b42c21babf`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview).
+- Two optional KR fixed-DPS policies;13freshPCK,onecompleteactualWeb8checks/3positives+R+idle,parentpixels,13HTTPS+freshstartup passed.
+- Derived east mirror/HT vacancies and illustrative distances remain disclosed. Native29 pending; desktop disabled. Not all20/102/manual/FPS/completeAVFX. Existing legacy719 staysFAILED.
+
+## v0.3.28 historical Web-first baseline
 
 - Runtime `d8f37cea4907b273e85319e935e80bbb21cea275`; PCK `5e65c083f31b28c037225e49cfebe7e3cccf8c7934cc68bdde5c9829709a664b`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview).
 - LPDU N4 engineering spacing only: source3873pure/72NPC/20actualMain,4800generatedpreservation;11freshPCK,onecompleteactualWeb8checks,parentpixels,13HTTPS+freshstartup passed.
 - Player actual attack/status/death policy unchanged. Two original fixture failures preservedFAILED; legacy719 notPASS. Scripted0.5x, not native/manual/FPS/allguide/officialtolerance. Native28 pending; desktop disabled. All20/100→optimization→AVFX active.
 
-# v0.3.27 current Web-first baseline
+## v0.3.27 historical Web-first baseline
 
 - Runtime `485bd84c66d08e93f7b2aa8e58d9598893527cf7`; PCK `8a04f5cd8ad6684a9d0d901f719885ca833102a5b6883314c88e1298e23ba9e4`; [fixed site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview).
 - Astoh M2-player/N3 only: source19/641,20/372,pure39 and existing affected gates;21 exactPCK,actualWeb8checks,13HTTPSrepresentations,freshstartup passed. Parent separately viewed settings and final12/13/15 pixels.

@@ -28,3 +28,12 @@ NPC 每次依當前遊戲內八人狀態列的有效檢知與可見 Boss 半場�
 重現：鎖定 Godot 4.7.2，`--headless --path top --script res://tests/monitor_fixed_dps_contract.gd -- --oracle=res://tests/monitor_fixed_dps_oracle.json`；實際輸入使用 `--script res://tests/monitor_fixed_dps_main.gd`。解析錯誤／腳本錯誤即失敗，不只看 exit code。
 
 這只是來源檢查點；新 v0.3.29 PCK、實際 Web、固定 HTTPS、發布仍待驗。現有固定站為已驗收 v0.3.28。AnAn 桌面停用，原生29待驗；完整20機制（原100＋新2選項）、量測最佳化與完整AVFX仍繼續。
+
+
+## Web-first v0.3.29 已驗收（2026-10-24）
+
+Runtime `132e3babb296677065fffb4db28c58b6f0351ba4`，PCK `b61ee7114cf3e692d9543f890429e860473a8b8ca9e6da479dc435b42c21babf`。十三組全新精確PCK測試通過；oracle僅為從當前Git HEAD逐位元組封存的外部測試預期資料，不作為遊戲來源替代，產品匯出仍排除tests/*。
+
+單次完整headless Web八項／三正向加R與真實不操作負向通過；共140份原始報告、20張當前設定／選項／覆蓋畫面逐一新檢查；開場另8個選單定位僅重用同版本、同PCK與同視窗比例下已查核的控制座標（不是28張新像素審閱，亦未沿用任何舊攻擊／走位PASS）；兩次舊完整流程（設定座標與輸入收斂）仍保留FAILED；新完整流程使用放鍵後新取樣回授及長距離實測斜向粗調，不拼接先前PASS。三例各5次脈衝，在4.688／6.003／6.662模擬秒收斂；10次／7.5秒／0.17的測試輸入上限未放寬，非產品座標判定。公開選單選兩個獨立政策、固定seed5的D3/ST空位交換、seed17有檢知D3的真實WASD／右鍵面向、四來源目標配對、八人各受擊一次、5秒／7秒狀態及R清空。負向確實重複受擊而FAIL；目前模型對正受擊coverage只給一次狀態，不冒稱負向人類狀態缺失或每次傷害完整還原。最終像素、固定HTTPS十三種表示與全新啟動另行通過。[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)。
+
+當前三次開始前各確認0.5×／固定seed；不宣稱原生、真人、FPS、官方幾何或全攻略。原生29待驗，桌面停用；20機制／102選項正確性→量測最佳化→完整AVFX繼續。上文待驗語句記錄的是當時來源檢查點。

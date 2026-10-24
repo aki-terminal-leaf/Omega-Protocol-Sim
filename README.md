@@ -2,17 +2,27 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.28 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.29 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.29 來源檢查點：09STOP 固定無點名DPS（新Web待驗）
+### v0.3.29 已更新 Web：09STOP 固定無點名 DPS／D3 外移
 
-新增「固定無點名DPS」與獨立「D3外移」選項；NPC依當前公開檢知／Boss方向分配，玩家自行走位與轉向，合法異位依實際攻擊／狀態／死亡判定。舊六打法維持不變。[來源、推導界線與重現](docs/development/P3_MONITOR_FIXED_DPS.md)。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.29（執行碼 `132e3ba`）。新增獨立「固定無點名DPS」與「D3外移」選項，NPC依當前公開檢知／Boss方向分配，玩家自行走位與轉向；舊六打法不變。合法異位仍按實際攻擊／狀態／死亡判定，不因偏離攻略座標單獨失敗。[來源與推導界線](docs/development/P3_MONITOR_FIXED_DPS.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)。
 
-來源純1,792組／32,726項、56實際Main／995項、舊20Main／372項與72NPC／258項通過；384舊生成內容／RNG／排序完全相同。56流程分44正向、8真實錯面向／不操作失敗、4明示撤回提示，不是全角色／種子認證。原圖未校準精確公尺、東側及完整H/T補位另為推導。這不是新Web／原生發布；固定站仍為下方v0.3.28，AnAn桌面停用，原生29待驗；全20機制／現102選項、量測最佳化與完整AVFX繼續。
+新PCK十三組與單次完整實際Web八項通過：公開選單分別選兩政策，seed5確認D3內／外與ST補位交換，seed17由有檢知的D3自行WASD及右鍵轉向；三次正向均核對四組實際攻擊配對、八人各一次受擊、5秒／7秒狀態、無死亡或異常。R保留seed17並清空舊結果；不操作的D3發生真正重複受擊而FAIL，不由NPC救場。每次開始前從當前設定畫面確認固定種子與0.5×；最終畫面另行檢查。固定HTTPS十三種表示與全新啟動通過。
 
-### v0.3.28 已更新 Web：LPDU N4 避開光束邊界
+來源1,792組／32,726項、56實際Main／995項、20舊Main／372項、72NPC／258項及384舊生成／RNG／排序保持通過。原圖未校準精確公尺，東側鏡像與完整H/T補位是推導；這是限定腳本Web，不是原生、真人通關、FPS或全20／102攻略驗收。原生29待驗、AnAn桌面停用；其餘攻略、量測最佳化與完整AVFX繼續。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.28（執行碼 `d8f37ce`）。只調整LPDU第四名無檢知NPC的訓練位置，維持N4靠內／N5靠牆，避開M1光束邊界；玩家仍以實際攻擊／狀態／死亡判定，合法非攻略座標不會單獨判失敗。
+![實際Web：一般固定DPS選項，D3在內側、ST補外側；位置由同次原始報告核對](docs/images/top-v0329-fixed-dps.webp)
+
+![實際Web：明確選擇D3外移後，D3與ST補位交換；非自動改動普通陣型](docs/images/top-v0329-d3-outer.webp)
+
+![實際Web：有檢知的D3自行走位轉向，攻擊PASS與八人狀態；時長另由同次報告核對](docs/images/top-v0329-marked-pass.webp)
+
+![實際Web：R後不操作造成實際攻擊FAIL，預期負向對照](docs/images/top-v0329-idle-fail.webp)
+
+### v0.3.28 已部署基線（歷史）：LPDU N4 避開光束邊界
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.28（執行碼 `d8f37ce`）。只調整LPDU第四名無檢知NPC的訓練位置，維持N4靠內／N5靠牆，避開M1光束邊界；玩家仍以實際攻擊／狀態／死亡判定，合法非攻略座標不會單獨判失敗。
 
 來源四案例87項、32種子純規則3873項、72NPC案例258項、六種檢知20條Main輸入372項通過；4800完整生成差分僅48組LPDU的N4位置改變。相同新PCK十一組、完整單次實際Web八項、固定HTTPS十三種表示與全新啟動均通過（啟動檢查不是第二次遊戲流程）。Web用公開選單、WASD／暫停中右鍵轉向／P／R／報告，開始前確認固定seed1、0.5×；實測轉向約0.229度，八人各受擊一次、原始配對及5秒／7秒狀態正確，R清空，不操作的D3漏吃攻擊並缺少應有狀態而真實FAIL。最終畫面另行檢查；前兩次腳本假設失敗原樣保留，不拼接為通過。[來源與範圍](docs/development/P3_LPDU_N4.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview)。
 
