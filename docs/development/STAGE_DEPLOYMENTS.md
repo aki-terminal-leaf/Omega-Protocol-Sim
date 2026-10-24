@@ -1,3 +1,9 @@
+# v0.3.28 current Web-first baseline
+
+- Runtime `d8f37cea4907b273e85319e935e80bbb21cea275`; PCK `5e65c083f31b28c037225e49cfebe7e3cccf8c7934cc68bdde5c9829709a664b`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview).
+- LPDU N4 engineering spacing only: source3873pure/72NPC/20actualMain,4800generatedpreservation;11freshPCK,onecompleteactualWeb8checks,parentpixels,13HTTPS+freshstartup passed.
+- Player actual attack/status/death policy unchanged. Two original fixture failures preservedFAILED; legacy719 notPASS. Scripted0.5x, not native/manual/FPS/allguide/officialtolerance. Native28 pending; desktop disabled. All20/100→optimization→AVFX active.
+
 # v0.3.27 current Web-first baseline
 
 - Runtime `485bd84c66d08e93f7b2aa8e58d9598893527cf7`; PCK `8a04f5cd8ad6684a9d0d901f719885ca833102a5b6883314c88e1298e23ba9e4`; [fixed site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview).

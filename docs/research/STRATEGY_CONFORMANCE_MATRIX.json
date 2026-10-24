@@ -3029,6 +3029,16 @@
       "evidence_doc": "docs/development/P3_MONITOR_ADAPTIVE.md",
       "scope": "ordinary Astoh M2-human/N3 current-public adaptive planning; actual browser pass/status/R/idle fail;21 same-PCK gates and13HTTPS+freshstartup",
       "remaining": "other source ranks,5other layouts,all player branches/full100;native27 pending;measured optimization/fullAVFX active"
+    },
+    {
+      "version": "0.3.28",
+      "runtime_commit": "d8f37cea4907b273e85319e935e80bbb21cea275",
+      "status": "verified_scoped_web_native_pending",
+      "mechanic_id": "p3_monitors",
+      "profile": "lpdu",
+      "evidence_doc": "docs/development/P3_LPDU_N4.md",
+      "scope": "N4 inner engineering spacing only; actual LPDU M1/D3 source pairs/all8status/R/idle failure;11freshPCK/13HTTPS/freshstartup",
+      "remaining": "all other source ranks/player branches/full20/100;no official geometry/tolerance certification;native28 pending;optimization/fullAVFX active"
     }
   ]
 }

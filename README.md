@@ -2,17 +2,25 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.27 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.28 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.28 來源候選：LPDU N4 避開光束邊界（尚未部署）
+### v0.3.28 已更新 Web：LPDU N4 避開光束邊界
 
-只調整LPDU的N4訓練位置，保留N4靠內／N5靠牆；實際Main同輸入比較已重現原版微小轉向時的錯誤命中，候選四案例87項通過。新增32種子純規則3873項、72NPC案例258項、六種檢知20條Main輸入372項通過；4800完整生成差分僅48組LPDU的N4位置改變。玩家仍依實際攻擊／狀態／死亡判定，合法非攻略座標不獨立判失敗。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.28（執行碼 `d8f37ce`）。只調整LPDU第四名無檢知NPC的訓練位置，維持N4靠內／N5靠牆，避開M1光束邊界；玩家仍以實際攻擊／狀態／死亡判定，合法非攻略座標不會單獨判失敗。
 
-舊全機制理想快照測試有719失敗／缺少動態狀態，原版同樣重現；保留失敗、不列為通過。此候選不是完整攻略／官方公尺容差認證；新PCK及實際Web待驗，固定站仍v0.3.27。AnAn桌面停用、原生待驗，完整20／100攻略、最佳化及AVFX繼續。[來源、測試與界線](docs/development/P3_LPDU_N4.md)。
+來源四案例87項、32種子純規則3873項、72NPC案例258項、六種檢知20條Main輸入372項通過；4800完整生成差分僅48組LPDU的N4位置改變。相同新PCK十一組、完整單次實際Web八項、固定HTTPS十三種表示與全新啟動均通過（啟動檢查不是第二次遊戲流程）。Web用公開選單、WASD／暫停中右鍵轉向／P／R／報告，開始前確認固定seed1、0.5×；實測轉向約0.229度，八人各受擊一次、原始配對及5秒／7秒狀態正確，R清空，不操作的D3漏吃攻擊並缺少應有狀態而真實FAIL。最終畫面另行檢查；前兩次腳本假設失敗原樣保留，不拼接為通過。[來源與範圍](docs/development/P3_LPDU_N4.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview)。
 
-### v0.3.27 已更新 Web：Astoh M2玩家／N3 應變
+工程間距與微轉角不是官方公尺／容差認證，也不是來源精確0.1度測試的同一操作；舊理想快照測試719失敗原版同樣重現，保留失敗、不列為通過。限定腳本Web，不是原生、真人全流程、FPS或全20／100攻略驗收。原生28待驗、AnAn桌面停用；其餘攻略、量測最佳化與完整AVFX繼續。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.27（執行碼 `485bd84`）。僅 Astoh、玩家為 M2 時，N3 依當前公開提示與玩家實際穩定位置／面向調整目標；其他六名 NPC、玩家輸入與實際攻擊／狀態／死亡判定不變。合法異位不會僅因沒踩攻略座標而失敗，晚到的錯面向不保證被救回。
+![實際Web：LPDU M1玩家微轉向；N4位置另由同次報告驗證，非真人或原生驗收](docs/images/top-v0328-lpdu-n4.webp)
+
+![實際Web：檢知攻擊PASS與八人狀態；配對和時長由同次原始報告驗證](docs/images/top-v0328-actual-pass.webp)
+
+![實際Web：R重練後不操作的D3漏吃攻擊而FAIL，這是預期負向對照](docs/images/top-v0328-idle-fail.webp)
+
+### v0.3.27 已部署基線（歷史）：Astoh M2玩家／N3 應變
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.27（執行碼 `485bd84`）。僅 Astoh、玩家為 M2 時，N3 依當前公開提示與玩家實際穩定位置／面向調整目標；其他六名 NPC、玩家輸入與實際攻擊／狀態／死亡判定不變。合法異位不會僅因沒踩攻略座標而失敗，晚到的錯面向不保證被救回。
 
 來源19條實際流程641項、20條回歸372項、純39項與必要既有檢查通過；同一新PCK21組、實際Web八項、固定HTTPS十三種內容與全新啟動均已驗證。Web用公開選單、WASD／暫停中右鍵朝向／P／R及報告；開始前確認固定seed1、0.5×。實際觀察到N3非標準目標、到達與凍結、攻擊通過／八人狀態時長、R清空，以及不動的實際攻擊失敗。另行檢查最終畫面；前四輪失敗保留，不改判通過。[來源與界線](docs/development/P3_MONITOR_ADAPTIVE.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview)。
 

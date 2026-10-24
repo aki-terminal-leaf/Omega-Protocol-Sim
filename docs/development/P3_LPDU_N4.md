@@ -20,3 +20,10 @@ Godot --headless --path top --script res://tests/npc_monitor_preparation.gd
 ~~~
 
 The20 actual Main regression cases, four original input-sensitivity cases, generation differential and failed legacy baseline comparison are retained task evidence, not additional shipped gameplay fixtures. The new tracked test checks semantic margin/pairs/separation/statuses; it does not assert the exact new N4 coordinate. Its +/-0.1degree and0.05normalized-dot limits are finite engineering regressions, not calibrated FFXIV tolerances.
+
+
+## Web-first v0.3.28 accepted (2026-10-24)
+
+Runtime `d8f37cea4907b273e85319e935e80bbb21cea275`, exact PCK `5e65c083f31b28c037225e49cfebe7e3cccf8c7934cc68bdde5c9829709a664b`. All11 fresh exact-pack gates passed. One complete actual ordinary LPDU M1/D3 browser workflow passed8 checks: physical sorting before3s by actual event timestamp, staging, measured positive heading 0.229183118deg, current N4 inside N5, original eligible pairs, eight hits exactly once, exact5s/7s states, R clearing and actual idle D3zero-hit/missing-state FAIL. Separate parent finalpixels,13 fixed HTTPS identity/decoded-gzip representations and fresh public startup passed. [Release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview).
+
+Two original browser workflows remainFAILED: idle assertion mistakenly required Debuff/death despite actual missing required states; sorting assertion compared later report-read time3.106 against actual valid event2.977<3. Corrections only affect fixture schema; product window/verdict unchanged. Original raw failures preserved, no compositePASS. Known same-version UI coordinates came from14 prior parent-viewed exact source/PCK screens; current settings pixels were freshly acknowledged. Scripted paused0.5x, no native/manual/FPS/officialcalibration/allguide claim. Legacy719 staysFAILED. Native28 pending, desktop disabled; all20/100 correctness→measured optimization→fullAVFX remainactive. Historical pending statements above describe the source checkpoint.
