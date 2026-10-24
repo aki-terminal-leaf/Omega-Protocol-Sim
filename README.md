@@ -4,6 +4,12 @@
 
 **[v0.3.29 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.30 來源檢查點：Hello World 後續輪次可返回選塔（新 Web 待驗）
+
+修正後續輪次「玩家改回原塔、NPC 仍鎖住先前選擇」：判塔前依實際同色／Bug 與當前位置更新責任，NPC 重新走外圈；判塔後保留本輪選擇。玩家仍按真實攻擊／狀態／死亡判定，不要求與攻略座標相同。[修正、重現與範圍](docs/development/HW_LATER_CHOICE.md)。
+
+108 項生命週期與三個實際 Main 流程／48 項通過；兩個正向實際四塔各一人、零新增錯誤，太晚返回保留真實失敗。實際案例是 Elemental 固定家族／角色6、全 NPC 合成前段後接實體 WASD，不是完整手動／全攻略證明。首輪與共用流程回歸通過；新 PCK／Web／原生待驗，固定站仍為下方 v0.3.29。後續提示的完整公開憑據仍待補，20 機制／102 選項與量測效能／完整 AVFX 持續。
+
 ### v0.3.29 已更新 Web：09STOP 固定無點名 DPS／D3 外移
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.29（執行碼 `132e3ba`）。新增獨立「固定無點名DPS」與「D3外移」選項，NPC依當前公開檢知／Boss方向分配，玩家自行走位與轉向；舊六打法不變。合法異位仍按實際攻擊／狀態／死亡判定，不因偏離攻略座標單獨失敗。[來源與推導界線](docs/development/P3_MONITOR_FIXED_DPS.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)。

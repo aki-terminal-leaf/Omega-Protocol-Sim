@@ -28,6 +28,25 @@ static func replacement_actor(actor:int,beat:Dictionary,actors:Array,state:Dicti
 		for old_key in state.hw.keys():
 			if str(old_key).begins_with("hw_tower_choice_"):state.hw.erase(old_key)
 	state.hw.cooperation_round=int(c.round)
+	# Later rounds: a public exclusive tower choice is reversible until the
+	# actual tower event resolves. A tracked default choice still uses the
+	# outside lane; do not fall straight through to a stale authored path.
+	if int(c.round)>0:
+		var pending_tower:=false
+		for pending in state.hw.get("pending",[]):
+			if pending.get("kind","")=="towers" and int(pending.get("round",-1))==int(c.round) and float(pending.at)>now+0.000001:pending_tower=true;break
+		if revealed and pending_tower:
+			var buffs:Array=state.get("statuses",[])
+			if buffs.size()==8:
+				var colour:="red" if buffs[human].has("red") else ("blue" if buffs[human].has("blue") else "")
+				var bug:="overflow" if buffs[human].has("overflow") else ("sync" if buffs[human].has("sync") else "")
+				if colour!="" and bug!="" and buffs[actor].has(colour) and buffs[actor].has(bug):
+					if hp.distance_to(alternate)<=5.5 and hp.distance_to(own)>5.5:state.hw[key]=ni
+					elif state.hw.has(key) and hp.distance_to(own)<=5.5 and hp.distance_to(alternate)>5.5:state.hw[key]=hi
+		if not state.hw.has(key):return null
+		if int(state.hw[key])==ni:return human
+		return actor if int(state.hw[key])==hi else null
+	# Round zero remains owned by the existing first-public observation policy.
 	# Persist the observed legal side swap through every later beat in this round.
 	if not state.hw.has(key):
 		if not revealed:return null
@@ -50,6 +69,15 @@ static func walking_goal(actor:int,target:Vector2,beat:Dictionary,actors:Array,s
 		if pending.get("kind","")=="towers" and int(pending.get("round",-1))==round_index:tower_pending=true;break
 	if not tower_pending:return target
 	var key:="hw_cooperation_lane_%d_%d" % [round_index,actor]
+	if round_index>0:
+		var human:=int(state.get("human_actor",-1))
+		var choice_key:="hw_tower_choice_%d_%d" % [round_index,mini(human,actor)]
+		var side:=int(state.hw.get(choice_key,-1))
+		var side_key:=key+"_side"
+		# Authored route waypoints evolve during a lane. Reset only when the
+		# observed responsibility changes, not on every moving waypoint.
+		if int(state.hw.get(side_key,-2))!=side:
+			state.hw[key]="out";state.hw[side_key]=side
 	var phase:=str(state.hw.get(key,"out"))
 	var here:=Rules.v(actors[actor].pos)
 	if phase=="out":

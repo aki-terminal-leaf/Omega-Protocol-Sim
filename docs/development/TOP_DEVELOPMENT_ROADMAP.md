@@ -239,3 +239,8 @@ LPDU N4內側工程間距已更新固定站並[發布](https://github.com/aki-te
 ## v0.3.29 Web-first 限定驗收
 
 09STOP兩固定DPS選項已[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)並更新固定站；13精確PCK、單次完整Web八項、獨立最終畫面、HTTPS13表示與全新啟動通過。非全20／102攻略；原生29待驗／桌面停用。仍先續NPC攻略正確性，再量測最佳化與完整AVFX。
+
+
+## v0.3.30 後續輪次選塔來源檢查點（新平台待驗）
+
+[HW 後續輪次選擇](HW_LATER_CHOICE.md)：只修 NPC 判塔前責任更新與外圈側切換，玩家／速度／攻擊／狀態規則不變。生命週期108／實際Main3流程48項及相依回歸通過，兩個正向與一個真實太晚失敗分帳。只限受控 Elemental 第二輪角色6實際案例，合成前段不等於普通手動；逐輪完整公開憑據未完成。新 PCK／Web／原生待驗，既有固定站29不變；全20／102正確性→量測效能→完整AVFX仍進行。
