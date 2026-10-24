@@ -4,6 +4,12 @@
 
 **[v0.3.28 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.29 來源檢查點：09STOP 固定無點名DPS（新Web待驗）
+
+新增「固定無點名DPS」與獨立「D3外移」選項；NPC依當前公開檢知／Boss方向分配，玩家自行走位與轉向，合法異位依實際攻擊／狀態／死亡判定。舊六打法維持不變。[來源、推導界線與重現](docs/development/P3_MONITOR_FIXED_DPS.md)。
+
+來源純1,792組／32,726項、56實際Main／995項、舊20Main／372項與72NPC／258項通過；384舊生成內容／RNG／排序完全相同。56流程分44正向、8真實錯面向／不操作失敗、4明示撤回提示，不是全角色／種子認證。原圖未校準精確公尺、東側及完整H/T補位另為推導。這不是新Web／原生發布；固定站仍為下方v0.3.28，AnAn桌面停用，原生29待驗；全20機制／現102選項、量測最佳化與完整AVFX繼續。
+
 ### v0.3.28 已更新 Web：LPDU N4 避開光束邊界
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.28（執行碼 `d8f37ce`）。只調整LPDU第四名無檢知NPC的訓練位置，維持N4靠內／N5靠牆，避開M1光束邊界；玩家仍以實際攻擊／狀態／死亡判定，合法非攻略座標不會單獨判失敗。

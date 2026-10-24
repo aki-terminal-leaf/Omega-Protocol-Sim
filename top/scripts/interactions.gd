@@ -141,10 +141,15 @@ static func desired_holders(beat: Dictionary) -> Array:
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
 	if beat.has("omega_config") and preload("res://scripts/omega_cooperation.gd").holds(actor,beat,state):return Rules.v(actors[actor].pos)
 	if beat.has("sigma_config") and preload("res://scripts/sigma_cooperation.gd").holds(actor,beat,state):return Rules.v(actors[actor].pos)
+	if beat.has("monitor_fixed_dps"):return preload("res://scripts/monitor_fixed_dps.gd").goal(actor,beat,actors,state)
 	if beat.has("monitor_preparation"):return preload("res://scripts/monitor_preparation.gd").goal(actor,beat,state,actors).limit_length(19.8)
 	# Only AI steering is bounded. Human positions and all wall judgments stay
 	# untouched; sidesteps around edge-origin tethers must not steer bots out.
 	return raw_bot_goal(actor,beat,actors,state).limit_length(19.8)
+
+static func bot_facing(actor: int, beat: Dictionary, actors: Array, state: Dictionary):
+	if beat.has("monitor_fixed_dps"):return preload("res://scripts/monitor_fixed_dps.gd").facing(actor,beat,actors,state)
+	return beat.facing.get(actor,0.0)
 
 static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
 	if beat.has("synergy_north_reveal") and float(state.get("sim_time",0))+0.000001<float(state.get("beat_started",0))+float(beat.synergy_north_reveal):

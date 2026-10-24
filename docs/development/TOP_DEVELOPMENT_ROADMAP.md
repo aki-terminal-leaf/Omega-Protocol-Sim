@@ -29,7 +29,7 @@ v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站�
 
 ### 全範圍而非抽樣
 
-- 20個產品機制、100個可選選項、5個社群；Panto/Cannons/Monitors的額外變體分列，Solar Ray只有1個共用選項。
+- 20個產品機制、102個可選選項（原100＋09STOP固定DPS兩個明確變體）、5個社群；Panto/Cannons/Monitors的額外變體分列，Solar Ray只有1個共用選項。
 - 不是20×5完整區服矩陣。內部`p5_full`五組只作狀態連續性驗證，不算額外產品選項。
 - [全20機制與100選項清冊](../research/STRATEGY_CONFORMANCE_MATRIX.md)、[JSON](../research/STRATEGY_CONFORMANCE_MATRIX.json)、[CSV](../research/STRATEGY_CONFORMANCE_MATRIX.csv)已逐項列入範圍；**列入不等於符合**。
 - 原回報55項仍由[NPC_GUIDE_AUDIT](../research/NPC_GUIDE_AUDIT.md)保留追溯；它是CN專項，不足以認證其他攻略。
@@ -229,3 +229,8 @@ Astoh M2玩家／N3增量已更新固定站並[發布](https://github.com/aki-te
 ## v0.3.28 Web-first 限定驗收
 
 LPDU N4內側工程間距已更新固定站並[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.28-preview)；11精確PCK、單次完整Web八項、獨立最終畫面、HTTPS13表示與全新啟動通過。不是全部檢知或全20／100攻略；原生28待驗、桌面停用。先續其餘攻略正確性，再量測最佳化與完整AVFX。
+
+
+## v0.3.29 固定DPS來源檢查點（新平台待驗）
+
+[P3 09STOP固定DPS](P3_MONITOR_FIXED_DPS.md)：兩個明確新選項、當前公開提示NPC分配與人類no-op；純1792／32726、56實際Main／995、舊20Main／372及72NPC／258通過，384舊完整生成／RNG／排序相同。44正向與8真實負向／4明示提示撤回分帳，不等於全部角色／種子。H/T全組合與東側鏡像為來源推導、既有KR精確幾何未校準。清冊現102行；原100規劃基準與未認證項保留。現有固定站仍v0.3.28，新PCK／Web／發布待驗；桌面停用、原生29待驗；全攻略→量測效能→完整AVFX持續。

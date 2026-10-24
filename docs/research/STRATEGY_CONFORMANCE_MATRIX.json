@@ -5,7 +5,7 @@
   "purpose": "development backlog and coverage inventory, NOT a completed guide conformance certification",
   "scope": {
     "product_mechanics": 20,
-    "selectable_options": 100,
+    "selectable_options": 102,
     "community_profiles": 5,
     "excluded_internal_p5_full_options": 5,
     "complete_regional_cartesian_matrix": false
@@ -1748,6 +1748,52 @@
       "catalog_runtime_drift": ""
     },
     {
+      "option_key": "p3_monitors/07/kr_09stop",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 7,
+      "profile": "kr_09stop",
+      "name": "09STOP · 固定無點名DPS",
+      "catalog_description_snapshot": "無點名DPS固定於各自位置，檢知依H1 H2 T1 T2 D1–D4排序，H/T補北側與空位。東側鏡像及其餘組合為原圖推導；站位距離為訓練示意。",
+      "declared_option_overrides": {
+        "monitor_dps_policy": "fixed_dps"
+      },
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/development/P3_MONITOR_FIXED_DPS.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "row340 fixedDPS/optionalD3 outer source; complete HTvacancies/Eastreflection derived; training metres uncalibrated",
+      "guide_reaudit_status": "verified_scoped_source_only; complete guide not certified",
+      "player_preparation_proof": "44positive actual Main rows across both policies; not all role/seed branches",
+      "runtime_conformance": "verified_scoped_headless_not_fullguide",
+      "rendered_platform_proof": "new_export_Web_native_pending",
+      "notes": "New explicit optional policy; no borrowed3sconga or coordinate-only player verdict. Existing six options retained.",
+      "catalog_runtime_drift": ""
+    },
+    {
+      "option_key": "p3_monitors/08/kr_09stop",
+      "mechanic_id": "p3_monitors",
+      "menu_index_1_based": 8,
+      "profile": "kr_09stop",
+      "name": "09STOP · 固定DPS（D3外移）",
+      "catalog_description_snapshot": "同固定DPS；D4有檢知、D3無時，D3可改站外側，H/T補原D3空位。此為原攻略的可選調整，不影響普通陣型；距離為訓練示意。",
+      "declared_option_overrides": {
+        "monitor_dps_policy": "fixed_dps_d3_outer"
+      },
+      "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
+      "research_docs": [
+        "docs/development/P3_MONITOR_FIXED_DPS.md"
+      ],
+      "requirements_ref": "p3_monitors",
+      "source_scope": "row340 fixedDPS/optionalD3 outer source; complete HTvacancies/Eastreflection derived; training metres uncalibrated",
+      "guide_reaudit_status": "verified_scoped_source_only; complete guide not certified",
+      "player_preparation_proof": "44positive actual Main rows across both policies; not all role/seed branches",
+      "runtime_conformance": "verified_scoped_headless_not_fullguide",
+      "rendered_platform_proof": "new_export_Web_native_pending",
+      "notes": "New explicit optional policy; no borrowed3sconga or coordinate-only player verdict. Existing six options retained.",
+      "catalog_runtime_drift": ""
+    },
+    {
       "option_key": "p4_wave/01/elemental",
       "mechanic_id": "p4_wave",
       "menu_index_1_based": 1,
@@ -3040,5 +3086,17 @@
       "scope": "N4 inner engineering spacing only; actual LPDU M1/D3 source pairs/all8status/R/idle failure;11freshPCK/13HTTPS/freshstartup",
       "remaining": "all other source ranks/player branches/full20/100;no official geometry/tolerance certification;native28 pending;optimization/fullAVFX active"
     }
-  ]
+  ],
+  "catalog_incremental_update_fixed_dps": {
+    "date": "2026-10-24",
+    "baseline_options": 100,
+    "added_option_keys": [
+      "p3_monitors/07/kr_09stop",
+      "p3_monitors/08/kr_09stop"
+    ],
+    "source_base_commit": "8c84200db580b1e990abf8cedeb07e48e49d1222",
+    "mechanic_strategies_sha256": "70249177a1c173f4d19f866d9a05b6bd69879a2b332ff7e9f46b484167287801",
+    "old_source_snapshot_retained": true,
+    "status": "verified_scoped_source_new_platform_pending"
+  }
 }

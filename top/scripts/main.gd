@@ -469,7 +469,7 @@ func oracle_state_before(target: int) -> Dictionary:
 			var previous := simulated.duplicate(true)
 			for i in 8:
 				simulated[i].pos = Rules.v(simulated[i].pos).move_toward(Interactions.bot_goal(i, b, simulated, result), dt * Movement.speed(b,result,i)) if not load("res://scripts/p6_runtime.gd").is_locked(result,i) else simulated[i].pos
-				simulated[i].face = b.facing.get(i, 0.0)
+				simulated[i].face = Interactions.bot_facing(i, b, simulated, result)
 			result.motion_allowances=[]
 			for i in 8:result.motion_allowances.append(Movement.speed(b,result,i)*dt)
 			Interactions.tick(b, simulated, previous, result, dt)
@@ -635,7 +635,7 @@ func _process(delta: float) -> void:
 			for i in 8:
 				if i == player and not demo: continue
 				actors[i].pos = Rules.v(actors[i].pos).move_toward(Interactions.bot_goal(i, current, actors, state), dt * Movement.speed(current,state,i)) if not load("res://scripts/p6_runtime.gd").is_locked(state,i) else actors[i].pos
-				actors[i].face = current.facing.get(i, 0.0)
+				actors[i].face = Interactions.bot_facing(i, current, actors, state)
 			state.motion_allowances=[]
 			for i in 8:state.motion_allowances.append(Movement.speed(current,state,i)*dt)
 			if not demo:state.motion_allowances[player]=(7.5 if sprint_left>0 else 6.0)*dt+30.0*minf(dash_left,dt)

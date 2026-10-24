@@ -1,0 +1,4706 @@
+[
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "MT"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "MT": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "ST": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "MT"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "MT": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "ST": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "MT"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "MT": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "ST": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "MT"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "MT": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "ST": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "ST"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "ST"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "ST"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "ST"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "MT": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "MT": "N1",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "MT": "N1",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "MT": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "H2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "H2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "MT": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H2": "N1",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H2": "N1",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H2": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H2": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H2": "N1",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H2": "N1",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H2": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H2": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H2": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H2": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H2": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H2": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H2": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H2": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "ST"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "ST": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "MT",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "MT": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "MT": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H1": "N1",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "H2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "H2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "H2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "H2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D1"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D1": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D2": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "MT",
+      "ST",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "ST": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "MT",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "MT",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "MT",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "MT": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "MT",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "MT": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D2"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D2": "M3",
+      "D3": "N4",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D3": "M3",
+      "D2": "N3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "ST",
+      "D1",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D1": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D1": "N2",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "ST",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "ST",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "ST": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "ST",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "ST": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N4",
+      "MT": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D3"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D3": "M3",
+      "D4": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D3": "N4",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "D1",
+      "D2",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D1": "M1",
+      "D2": "M2",
+      "D4": "M3",
+      "D3": "N5",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N3",
+      "ST": "N4"
+    },
+    "d3_adjusted": true
+  },
+  {
+    "marked": [
+      "D1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D1",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D1": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D2": "N3",
+      "H1": "N1",
+      "H2": "N2",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "east",
+    "sign_x": 1,
+    "role_slot": {
+      "D2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  },
+  {
+    "marked": [
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "policy": "fixed_dps_d3_outer",
+    "boss_monitor": "west",
+    "sign_x": -1,
+    "role_slot": {
+      "D2": "M1",
+      "D3": "M2",
+      "D4": "M3",
+      "D1": "N2",
+      "H1": "N1",
+      "H2": "N3",
+      "MT": "N4",
+      "ST": "N5"
+    },
+    "d3_adjusted": false
+  }
+]

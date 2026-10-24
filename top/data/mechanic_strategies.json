@@ -251,6 +251,22 @@
       "profile": "kr_09stop",
       "name": "09STOP · HHTTDDDD 鏡像",
       "description": "檢知／無檢知各依H1 H2 T1 T2 D1 D2 D3 D4排序，依Boss方向鏡像。"
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 固定無點名DPS",
+      "description": "無點名DPS固定於各自位置，檢知依H1 H2 T1 T2 D1–D4排序，H/T補北側與空位。東側鏡像及其餘組合為原圖推導；站位距離為訓練示意。",
+      "overrides": {
+        "monitor_dps_policy": "fixed_dps"
+      }
+    },
+    {
+      "profile": "kr_09stop",
+      "name": "09STOP · 固定DPS（D3外移）",
+      "description": "同固定DPS；D4有檢知、D3無時，D3可改站外側，H/T補原D3空位。此為原攻略的可選調整，不影響普通陣型；距離為訓練示意。",
+      "overrides": {
+        "monitor_dps_policy": "fixed_dps_d3_outer"
+      }
     }
   ],
   "p4_wave": [

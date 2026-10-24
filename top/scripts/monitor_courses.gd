@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT
 extends RefCounted
+const Fixed = preload("res://scripts/monitor_fixed_dps.gd")
 ## Original 901ea5a six layouts, priorities, RNG and physical checks preserved.
 static func append_monitors(ctx) -> void:
 	var saved_order: Array = ctx.order.duplicate()
@@ -12,6 +13,14 @@ static func append_monitors(ctx) -> void:
 	var sign_x = 1 if ctx.rng.randi_range(0, 1) else -1
 	var canonical = [Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-16),Vector2(3,0),Vector2(15,0),Vector2(0,9),Vector2(0,18)]
 	var layout: String = ctx.profile.get("monitor_layout",ctx.profile.id if ctx.profile.id in ["aether","lpdu"] else "astoh")
+
+	var fixed_policy: String = str(ctx.profile.get("monitor_dps_policy", ""))
+	var fixed_dps: bool = layout == "kr_astoh" and fixed_policy in Fixed.POLICIES
+	if fixed_dps:
+		# Deterministic source-derived allocation; preserve RNG calls and order.
+		var allocated: Array = Fixed.allocate(ctx.order.slice(0, 3), fixed_policy)
+		assert(allocated.size() == 8, "fixed DPS allocator must be total")
+		ctx.order = allocated
 	if layout == "aether": canonical = [Vector2(-11,-9),Vector2(-11,9),Vector2(10,11),Vector2(1,-15),Vector2(10,-11),Vector2(15,-4),Vector2(15,4),Vector2(1,15)]
 	# LPDU source step5 places N4 inside N5. Engineering spacing keeps N4
 	# off M1's halfplane boundary; these are not official calibrated metres.
@@ -23,11 +32,13 @@ static func append_monitors(ctx) -> void:
 		ctx.pos(i,canonical[i] if layout=="cn_fixed" else Vector2(canonical[i].x*sign_x,canonical[i].y))
 		ctx.label(i, "MONITOR %d" % (i + 1) if i < 3 else "No monitor %d" % (i - 2))
 	var layout_name: String={"astoh":"Astoh","aether":"Aether · 第三檢知南側","lpdu":"LPDU · 第一檢知北側","cn_fixed":"莫古力 · 固定左側","cn_mirror":"莫古力 · 鏡像換邊","kr_astoh":"09STOP"}.get(layout,layout)
+	if fixed_dps: layout_name = "09STOP · 固定DPS" + ("（D3外移）" if fixed_policy == "fixed_dps_d3_outer" else "")
 	var b = ctx.beat("Oversampled Wave Cannon · %s · %s" % [layout_name,"EAST" if (sign_x == 1) == (layout not in ["aether","lpdu"]) else "WEST"],10.1,"每個檢知隨機命中其半場兩人，不足時補選其他人；還要避開半徑7的受擊小圓。Q/E 或右鍵調整朝向。")
 	# Start the independent drill at the visible cast, not already on its answers.
 	b.spawn=[]
 	for actor in 8:b.spawn.append(Vector2((actor-3.5)*0.35,6.0))
 	b.monitor_layout = layout
+	if fixed_dps: b.monitor_fixed_dps = {"policy": fixed_policy}
 	var sources: Array = [{"kind": "half", "angle": (270 if layout in ["aether","lpdu"] else 90) * sign_x, "radius": 45, "name": "Boss monitor"}]
 	var goals = [270.0 * sign_x, 0.0, 180.0]
 	if layout=="cn_fixed":goals=[270.0 if sign_x==1 else 98.5,0.0,180.0]
