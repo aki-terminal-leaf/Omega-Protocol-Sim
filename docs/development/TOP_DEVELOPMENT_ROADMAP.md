@@ -219,3 +219,8 @@ Elemental初始HTMR列隊／下位重複換邊改由實際可見八人圖形驅�
 ## v0.3.27 Web-first 限定驗收
 
 Astoh M2玩家／N3增量已更新固定站並[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview)；21精確PCK、實際Web八項、獨立最終畫面、HTTPS13表示與全新啟動通過。不是全部檢知攻略或全20／100；原生27待驗、桌面停用。依既定順序繼續其餘正確性，再量測最佳化與完整AVFX。
+
+
+## v0.3.28 LPDU N4 來源限定修正（平台待驗）
+
+[LPDU N4來源與界線](P3_LPDU_N4.md)：原版seed1微小轉向造成錯誤隨機候選已由實際Main輸入重現，只調N4訓練位置，其他判定／玩家所有權／亂數不變。純3873項、72NPC／258項、20Main輸入／372項與4800生成差分限定通過。舊全機制靜態快照719失敗在原版一致重現，仍記FAIL，不作全攻略證書。新版PCK／實際Web待驗，固定站仍v27；原生待驗、桌面停用。全20／100攻略→量測最佳化→完整AVFX仍ACTIVE。

@@ -4,6 +4,12 @@
 
 **[v0.3.27 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.28 來源候選：LPDU N4 避開光束邊界（尚未部署）
+
+只調整LPDU的N4訓練位置，保留N4靠內／N5靠牆；實際Main同輸入比較已重現原版微小轉向時的錯誤命中，候選四案例87項通過。新增32種子純規則3873項、72NPC案例258項、六種檢知20條Main輸入372項通過；4800完整生成差分僅48組LPDU的N4位置改變。玩家仍依實際攻擊／狀態／死亡判定，合法非攻略座標不獨立判失敗。
+
+舊全機制理想快照測試有719失敗／缺少動態狀態，原版同樣重現；保留失敗、不列為通過。此候選不是完整攻略／官方公尺容差認證；新PCK及實際Web待驗，固定站仍v0.3.27。AnAn桌面停用、原生待驗，完整20／100攻略、最佳化及AVFX繼續。[來源、測試與界線](docs/development/P3_LPDU_N4.md)。
+
 ### v0.3.27 已更新 Web：Astoh M2玩家／N3 應變
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.27（執行碼 `485bd84`）。僅 Astoh、玩家為 M2 時，N3 依當前公開提示與玩家實際穩定位置／面向調整目標；其他六名 NPC、玩家輸入與實際攻擊／狀態／死亡判定不變。合法異位不會僅因沒踩攻略座標而失敗，晚到的錯面向不保證被救回。

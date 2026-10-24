@@ -13,7 +13,9 @@ static func append_monitors(ctx) -> void:
 	var canonical = [Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-16),Vector2(3,0),Vector2(15,0),Vector2(0,9),Vector2(0,18)]
 	var layout: String = ctx.profile.get("monitor_layout",ctx.profile.id if ctx.profile.id in ["aether","lpdu"] else "astoh")
 	if layout == "aether": canonical = [Vector2(-11,-9),Vector2(-11,9),Vector2(10,11),Vector2(1,-15),Vector2(10,-11),Vector2(15,-4),Vector2(15,4),Vector2(1,15)]
-	elif layout == "lpdu": canonical = [Vector2(10,-11),Vector2(-11,-9),Vector2(-11,9),Vector2(1,-15),Vector2(15,-4),Vector2(15,4),Vector2(10,11),Vector2(1,15)]
+	# LPDU source step5 places N4 inside N5. Engineering spacing keeps N4
+	# off M1's halfplane boundary; these are not official calibrated metres.
+	elif layout == "lpdu": canonical = [Vector2(10,-11),Vector2(-11,-9),Vector2(-11,9),Vector2(1,-15),Vector2(15,-4),Vector2(15,4),Vector2(7,10.5),Vector2(1,15)]
 	if layout=="cn_mirror":canonical=[Vector2(-7,-13),Vector2(-13,-5),Vector2(-13,5),Vector2(0,-9),Vector2(3,0),Vector2(16,0),Vector2(0,9),Vector2(0,18)]
 	elif layout=="kr_astoh":canonical=[Vector2(-7,-11),Vector2(-13,-5),Vector2(-13,5),Vector2(-0.7,-16),Vector2(3,0),Vector2(15,0),Vector2(-0.7,9),Vector2(-0.7,18)]
 	elif layout=="cn_fixed":canonical=[Vector2(-8 if sign_x==1 else 8,-17),Vector2(-11,-5.5),Vector2(-11,5.5),Vector2(-sign_x,-8),Vector2(6,0),Vector2(18,0),Vector2(-sign_x,8),Vector2(-sign_x,18)]
