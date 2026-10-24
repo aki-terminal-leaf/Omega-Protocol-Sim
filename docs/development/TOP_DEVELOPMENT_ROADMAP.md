@@ -11,7 +11,7 @@
 3. **完成AVFX**：補足原始輸入、完整播放語義、實際整合、原遊戲對照與Windows／Web匯出，不以shader小實驗宣告完成。
 
 可並行資料盤點、來源閱讀與獨立review；功能整合／驗收按上述順序。每次只結清一個可審核段落，未完成工作保留在矩陣，不以局部PASS替代整體完成。
-本路線圖初版為規劃，不表示全項實作。其後 v0.3.11／v0.3.12／v0.3.13 已逐階段驗收並部署；目前固定站為 v0.3.29，限定範圍見 [部署紀錄](STAGE_DEPLOYMENTS.md)。下列尚未結清的分支繼續保留，開發 push 不等於 release。
+本路線圖初版為規劃，不表示全項實作。其後 v0.3.11／v0.3.12／v0.3.13 已逐階段驗收並部署；目前固定站為 v0.3.31，限定範圍見 [部署紀錄](STAGE_DEPLOYMENTS.md)。下列尚未結清的分支繼續保留，開發 push 不等於 release。
 
 v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站；各舊候選的原生 GUI 證據仍未完成，不能混算通過。[P3 公開觀察增量](P3_PUBLIC_OBSERVATION.md)有 4,200 條全分組走位及 40 正向／3 負向 Main 鍵盤流程通過；新 PCK 的 23 組回歸、無桌面 Chromium／SwiftShader WebGL2 操作、固定 HTTPS 位元組及全新啟動已通過。玩家正向尚未涵蓋全部手臂／減益組合。依使用者要求先更新 Web，不等待原生；原生待驗；該歷史階段曾開放 AnAn 桌面；依2026-10-24最新指示，桌面目前停用，後續原生仍待驗。完整攻略、最佳化及完整 AVFX 其餘工作繼續保留。
 
@@ -31,7 +31,7 @@ v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站�
 
 - 20個產品機制、102個可選選項（原100＋09STOP固定DPS兩個明確變體）、5個社群；Panto/Cannons/Monitors的額外變體分列，Solar Ray只有1個共用選項。
 - 不是20×5完整區服矩陣。內部`p5_full`五組只作狀態連續性驗證，不算額外產品選項。
-- [全20機制與100選項清冊](../research/STRATEGY_CONFORMANCE_MATRIX.md)、[JSON](../research/STRATEGY_CONFORMANCE_MATRIX.json)、[CSV](../research/STRATEGY_CONFORMANCE_MATRIX.csv)已逐項列入範圍；**列入不等於符合**。
+- [全20機制與102選項清冊](../research/STRATEGY_CONFORMANCE_MATRIX.md)、[JSON](../research/STRATEGY_CONFORMANCE_MATRIX.json)、[CSV](../research/STRATEGY_CONFORMANCE_MATRIX.csv)已逐項列入範圍；**列入不等於符合**。
 - 原回報55項仍由[NPC_GUIDE_AUDIT](../research/NPC_GUIDE_AUDIT.md)保留追溯；它是CN專項，不足以認證其他攻略。
 - 已登錄但未完整研究的莫靈喵、MM+W／鈺子燒、KR Kiwi，以及後續找到的具體新分支也要納入來源盤點；不先掛名為可用打法，不宣稱網路所有攻略已搜盡。
 
@@ -241,6 +241,13 @@ LPDU N4內側工程間距已更新固定站並[發布](https://github.com/aki-te
 09STOP兩固定DPS選項已[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview)並更新固定站；13精確PCK、單次完整Web八項、獨立最終畫面、HTTPS13表示與全新啟動通過。非全20／102攻略；原生29待驗／桌面停用。仍先續NPC攻略正確性，再量測最佳化與完整AVFX。
 
 
-## v0.3.30 後續輪次選塔來源檢查點（新平台待驗）
+## v0.3.30 後續輪次選塔來源檢查點（歷史；其後已部署）
 
 [HW 後續輪次選擇](HW_LATER_CHOICE.md)：只修 NPC 判塔前責任更新與外圈側切換，玩家／速度／攻擊／狀態規則不變。生命週期108／實際Main3流程48項及相依回歸通過，兩個正向與一個真實太晚失敗分帳。只限受控 Elemental 第二輪角色6實際案例，合成前段不等於普通手動；逐輪完整公開憑據未完成。新 PCK／Web／原生待驗，既有固定站29不變；全20／102正確性→量測效能→完整AVFX仍進行。
+
+
+## v0.3.31 已發佈：P2 莫古力NPC同頭標左右順位
+
+[本版範圍與證據](WEB_V0331.md)、[來源修正](../research/P2_CN_PRIORITY_FIX.md)與[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)：固定站現為v0.3.31／7116ade，累積包含v0.3.30後續輪次選塔修正。21同PCK、單次完整Web20項／118報告／8全新ACK／18當次畫面、HTTPS13表示及獨立全新啟動通過；來源1,024順位與640差分、64初始排列、2完整NPC示範／38項分帳。
+
+Web seed2／6是明示NPC示範，停在Fire判定前；只核對當前HUD圖形與四組優先側，不認證手動通關、完整攻略或完整公開圖形憑據。初始橫排WASD／釋放／R另有普通玩家輸入證據。玩家以實際攻擊／狀態／死亡判定，攻略座標僅建議；原生31待驗，桌面停用。先續全20／102攻略與玩家互動正確性，再量測效能與完整AVFX，未完成項仍ACTIVE。

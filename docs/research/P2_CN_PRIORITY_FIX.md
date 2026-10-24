@@ -39,3 +39,9 @@ The retained private baseline/candidate comparison covers 640 full course
 outputs (128 seeds × five methods): all 512 other-method outputs equal;
 all CN non-position data and the first four beats equal. Only later CN
 NPC guide positions differ. No build/release version is changed here.
+
+## Web v0.3.31 publication
+
+The scoped fix is now included in the [Web-first preview](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview) at https://top.servicing.cc (runtime `7116ade`). Twenty-one exact-PCK gates and twenty fresh browser checks passed, with 118 reports, eight new parent UI ACKs and eighteen reviewed candidate images. Public HTTPS thirteen representations and a separate fresh startup were verified.
+
+Browser seeds 2/6 explicitly used NPC demo and stopped before Fire judgment: all four same-glyph priorities and D2-left/D4-right were observed, not player wins. Separate ordinary WASD/release/R checks cover initial preparation only. Optical-eye orientation is a source oracle, not a public receipt measurement. The earlier source-only paragraph is historical; native, full-guide/public-glyph-receipt, performance and complete AVFX acceptance remain pending.

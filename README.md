@@ -2,17 +2,29 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.30 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.30-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.31 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.31 來源檢查點：P2 莫古力同頭標 NPC 左右優先序（新 Web 待驗）
+### v0.3.31 已更新 Web：P2 莫古力同頭標 NPC 左右優先序
 
-整合已獨立審查的 P2 CN／莫古力 NPC 修正：同頭標依既有 H1 > MT > ST > D1 > D2 > D3 > D4 > H2 順序，高順位站在面向光之眼的左側；回報案例是 D2 左、D4 右。其他四套方法、原始頭標／亂數／攻擊與狀態判定保持不變，玩家仍依實際受擊／Buff、Debuff／死亡判定，不要求精確攻略座標。[來源修正與範圍](docs/research/P2_CN_PRIORITY_FIX.md)。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.31（執行碼 `7116ade`）。同頭標依 H1 > MT > ST > D1 > D2 > D3 > D4 > H2 順序，高順位站在面向光之眼的左側；回報案例 D2 左、D4 右已修正。其他四方法、原始頭標／亂數／攻擊／狀態規則不變；玩家仍依實際受擊、Buff／Debuff與死亡判定，不要求精確攻略座標。[修正與範圍](docs/research/P2_CN_PRIORITY_FIX.md) · [本版驗證](docs/development/WEB_V0331.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)。
 
-這裡僅為來源整合；既有來源證據包含 1,024 順位檢查、64 初始排列檢查與兩個完整 NPC 示範／38 檢查，不是手動、全攻略或 Web 驗收。需要新 PCK／瀏覽器／公開站驗證後才發佈；固定站與下載目前仍是下方 v0.3.30，尚未包含本修正。原生待驗、桌面停用。
+同一新 PCK 21組與單次完整實際 Web 20項／118份報告通過，含8次全新畫面互動確認、18張當次畫面核對；固定 HTTPS 13種表示與獨立全新啟動通過。來源包含1,024順位檢查、640生成差分、64初始排列與2個完整NPC示範／38檢查，來源示範與Web範圍分開計算。
 
-### v0.3.30 已更新 Web：Hello World 後續輪次可返回選塔
+**操作展示**：選 P2「協同程序」→「莫古力」→ 開始練習；七名NPC先排固定橫列，玩家自行WASD加入，放開後保持位置，按R同點名回到中立出生點。下圖依序播放同次實際擷取的「未操作／加入／R後」三張畫面，不是連續錄影，也不是完整機制通關。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.30（執行碼 `484ebfd`）。修正判塔前玩家從另一塔返回時，NPC 還保留舊選擇的問題；判定後本輪責任凍結。玩家仍依實際攻擊／狀態／死亡判定，不要求精確攻略座標。[修正與範圍](docs/development/HW_LATER_CHOICE.md) · [本版驗證](docs/development/WEB_V0330.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.30-preview)。
+![同次Web三張實際畫面順序展示：玩家未操作、WASD加入、R清空；非連續錄影](docs/images/top-v0331-cn-row-retry.gif)
+
+另以公開設定固定seed2／6並明確啟用NPC示範：兩次先逐人核對實際HUD頭標，再檢查四組同圖案左右順位及D2左／D4右。這兩段均停在Fire判定前，沒有玩家通關或攻擊結果驗收；光之眼座標軸來自來源參考，不冒稱公開報告量測值。
+
+![實際Web seed2：NPC示範同頭標左右排列，Fire判定前；非玩家通關](docs/images/top-v0331-cn-seed2-pairs.webp)
+
+![實際Web seed6：另一組頭標的NPC示範排列，Fire判定前；非玩家通關](docs/images/top-v0331-cn-seed6-pairs.webp)
+
+本版未完成CN公開頭標憑據工作流、全部攻略／玩家分支、原生或實體GPU／FPS驗收；舊失敗原樣保留、不改判通過。原生31待驗、AnAn桌面停用；全20／102攻略正確性→量測效能→完整AVFX繼續。
+
+### v0.3.30 已部署基線（歷史）：Hello World 後續輪次可返回選塔
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.30（執行碼 `484ebfd`）。修正判塔前玩家從另一塔返回時，NPC 還保留舊選擇的問題；判定後本輪責任凍結。玩家仍依實際攻擊／狀態／死亡判定，不要求精確攻略座標。[修正與範圍](docs/development/HW_LATER_CHOICE.md) · [本版驗證](docs/development/WEB_V0330.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.30-preview)。
 
 同一新 PCK 十八組通過，含108生命週期與三個後續輪次 Main 流程／48項：兩個正向通過、太晚返回保留真正失敗。全新 Web 七項／78報告檢查首輪提示前後、WASD、放開後不被救位、R清空；八張當次畫面另行核對。固定 HTTPS 十三種表示與獨立全新啟動通過。
 
@@ -352,11 +364,11 @@ Web 候選成功匯出，但 VPS 瀏覽器擷取中斷，尚未通過，因此 W
 
 ## 下載與開始
 
-目前提供 [v0.3.30 Web／精確來源與 SHA256](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.30-preview)；固定站提供同版 Web 使用者測試。[v0.3.20 Windows 離線包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) 另行保留，原生桌面驗收仍待完成。較早 Linux／Windows 包是歷史版本，不代表含有本版修正；含本機遊戲素材的舊包標記為 `local-game-models`。
+目前提供 [v0.3.31 Web／精確來源與 SHA256](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)；固定站提供同版 Web 使用者測試。[v0.3.20 Windows 離線包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) 另行保留，原生桌面驗收仍待完成。較早 Linux／Windows 包是歷史版本，不代表含有本版修正；含本機遊戲素材的舊包標記為 `local-game-models`。
 
-- **Windows 原生包（舊版）**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。本版 v0.3.30 請使用下方 Web 步驟。
+- **Windows 原生包（舊版）**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。本版 v0.3.31 請使用下方 Web 步驟。
 - **Linux**：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
-- **Web v0.3.30**：先安裝 Python 3，完整解壓；Windows 執行 `start-web.cmd`，macOS／Linux 執行 `python3 start-server.py`，再開啟 `http://127.0.0.1:8765/`。隨附伺服器提供必要的 COOP／COEP；不要直接開 `file://`。
+- **Web v0.3.31**：先安裝 Python 3，完整解壓；Windows 執行 `start-web.cmd`，macOS／Linux 執行 `python3 start-server.py`，再開啟 `http://127.0.0.1:8765/`。隨附伺服器提供必要的 COOP／COEP；不要直接開 `file://`。
 - **原始碼**：以 Godot **4.7.2-stable** 開啟 **`top/project.godot`**，不是根目錄的舊 DSR 專案。公開 source ZIP 不含遊戲素材，缺少時使用訓練外觀。
 
 執行發布包不需要遊戲安裝、帳號、ACT、Dalamud、第三方標記器或網路登入。
@@ -412,7 +424,7 @@ Program Loop／Limitless／Omega 透過實際移動交接線，Delta成對線在
 
 ## 開發
 
-[全攻略互動 → 最佳化 → 完整AVFX開發路線圖](docs/development/TOP_DEVELOPMENT_ROADMAP.md) · [20機制／100選項玩家預處理與NPC驗收清冊](docs/research/STRATEGY_CONFORMANCE_MATRIX.md)。這是待開發／待驗證計畫，不是全攻略或AVFX已完成的聲明。
+[全攻略互動 → 最佳化 → 完整AVFX開發路線圖](docs/development/TOP_DEVELOPMENT_ROADMAP.md) · [20機制／102選項玩家預處理與NPC驗收清冊](docs/research/STRATEGY_CONFORMANCE_MATRIX.md)。這是待開發／待驗證計畫，不是全攻略或AVFX已完成的聲明。
 
 ```sh
 godot --headless --path top --editor --import --quit

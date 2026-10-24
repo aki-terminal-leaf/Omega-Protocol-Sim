@@ -1,0 +1,378 @@
+{
+  "ok": true,
+  "runtime_commit": "7116ade00797ca4b9fbb61951f0187edb3b74019",
+  "version": "v0.3.31-preview-web-test",
+  "url": "https://top.servicing.cc",
+  "observed_at_unix": 1792845821.5252945,
+  "pck_sha256": "d1bd5731c2280bdaf7f4e59ad514701146bc7f4c98cf78e240e577f88a85c47e",
+  "compiled_gates": 21,
+  "same_PCK_lifecycle_checks": 108,
+  "same_PCK_later_HW_courses": 3,
+  "same_PCK_later_HW_fixture_checks": 48,
+  "same_PCK_later_HW_outcomes": [
+    "PASS",
+    "PASS",
+    "FAIL"
+  ],
+  "same_PCK_later_HW_modes": [
+    "alternate_hold",
+    "touch_alternate_then_return",
+    "touch_alternate_then_return_late"
+  ],
+  "browser_checks": {
+    "startup_exact_version_pck_coop_webgl2": true,
+    "ordinary_CN_selection": true,
+    "seven_NPC_fixed_row": true,
+    "no_input_human_not_rescued": true,
+    "physical_WASD_human_join": true,
+    "released_human_stays": true,
+    "correct_eight_role_order": true,
+    "R_same_seed_neutral_no_future": true,
+    "seed2_public_settings_demo_start": true,
+    "seed2_glyphs_match_oracle": true,
+    "seed2_D2_D4_same_icon": true,
+    "seed2_four_pairs_priority_left": true,
+    "seed2_D2_left_D4_right": true,
+    "seed2_stopped_before_fire_judgment": true,
+    "seed6_public_settings_demo_start": true,
+    "seed6_glyphs_match_oracle": true,
+    "seed6_D2_D4_same_icon": true,
+    "seed6_four_pairs_priority_left": true,
+    "seed6_D2_left_D4_right": true,
+    "seed6_stopped_before_fire_judgment": true
+  },
+  "browser_reports": 118,
+  "fresh_candidate_images": 18,
+  "fresh_UI_acks": 8,
+  "same_version_static_locator_reuse": 0,
+  "raw_failed_workflow_preserved": true,
+  "public_representations": 13,
+  "fresh_https_startup": true,
+  "native_acceptance": "pending_native_acceptance",
+  "desktop_operations": false,
+  "limitations": [
+    "CN source priority and actual-Main full-NPC-demo fixtures are scoped, not complete player-executed guide coverage.",
+    "Browser seeds2/6 are NPC demo, stopped before Fire judgment; no player-win claim. Initial row/preparation positions are advisory, not independent player-fail gates.",
+    "Glyphs transcribed from actual PNG/HUD; eye orientation is source oracle, not a measured public receipt.",
+    "Headless SwiftShader only; native/physical GPU/performance acceptance pending.",
+    "Full20/102 guide correctness, measured optimization and complete AVFX remain active; prior failures preserved."
+  ],
+  "cn_expected": {
+    "cn_priority": {
+      "checks": 1024,
+      "failures": 0,
+      "courses": 640,
+      "cn_pairs": 512
+    },
+    "cn_lineup": {
+      "checks": 64,
+      "failures": []
+    },
+    "cn_priority_main": {
+      "checks": 38,
+      "failures": []
+    }
+  },
+  "CN_priority_result": {
+    "checks": 1024,
+    "cn_pairs": 512,
+    "courses": 640,
+    "d2d4": [
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 2,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 6,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -13.4164085388184,
+        "D4_local_x": 13.4164085388184,
+        "remote": true,
+        "seed": 10,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -13.4164085388184,
+        "D4_local_x": 13.4164085388184,
+        "remote": true,
+        "seed": 20,
+        "shape": "square"
+      },
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 21,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 30,
+        "shape": "triangle"
+      },
+      {
+        "D2_local_x": -10.9999990463257,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 31,
+        "shape": "triangle"
+      },
+      {
+        "D2_local_x": -13.416407585144,
+        "D4_local_x": 13.416407585144,
+        "remote": true,
+        "seed": 36,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 41,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -13.416410446167,
+        "D4_local_x": 13.416410446167,
+        "remote": true,
+        "seed": 42,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 49,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 56,
+        "shape": "triangle"
+      },
+      {
+        "D2_local_x": -10.9999980926514,
+        "D4_local_x": 11.0000019073486,
+        "remote": false,
+        "seed": 57,
+        "shape": "square"
+      },
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 61,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -11.0000009536743,
+        "D4_local_x": 10.9999990463257,
+        "remote": false,
+        "seed": 65,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -11.0000009536743,
+        "D4_local_x": 10.9999990463257,
+        "remote": false,
+        "seed": 66,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 88,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 97,
+        "shape": "triangle"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 100,
+        "shape": "triangle"
+      },
+      {
+        "D2_local_x": -11.0,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 101,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -10.9999990463257,
+        "D4_local_x": 11.0,
+        "remote": false,
+        "seed": 103,
+        "shape": "triangle"
+      },
+      {
+        "D2_local_x": -10.9999990463257,
+        "D4_local_x": 10.9999990463257,
+        "remote": false,
+        "seed": 116,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -13.4164085388184,
+        "D4_local_x": 13.4164085388184,
+        "remote": true,
+        "seed": 123,
+        "shape": "circle"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 125,
+        "shape": "cross"
+      },
+      {
+        "D2_local_x": -17.5499286651611,
+        "D4_local_x": 17.5499286651611,
+        "remote": true,
+        "seed": 127,
+        "shape": "cross"
+      }
+    ],
+    "failure_labels": [],
+    "failures": 0
+  },
+  "CN_lineup_result": {
+    "checks": 64,
+    "failures": [],
+    "scope": "pure helper + Interactions route; not Main/native/manual"
+  },
+  "CN_main_result": {
+    "checks": 38,
+    "courses": [
+      {
+        "all_errors": [],
+        "frames": 1385,
+        "knockback_frames": 1,
+        "max_movement_excess": 6.61611556984631e-07,
+        "pairs": [
+          {
+            "high": "D2",
+            "high_local_x": -11.0,
+            "low": "D4",
+            "low_local_x": 11.0,
+            "shape": "circle"
+          },
+          {
+            "high": "D1",
+            "high_local_x": -11.0,
+            "low": "D3",
+            "low_local_x": 11.0,
+            "shape": "cross"
+          },
+          {
+            "high": "MT",
+            "high_local_x": -11.0,
+            "low": "ST",
+            "low_local_x": 11.0,
+            "shape": "triangle"
+          },
+          {
+            "high": "H1",
+            "high_local_x": -11.0,
+            "low": "H2",
+            "low_local_x": 11.0,
+            "shape": "square"
+          }
+        ],
+        "seed": 2,
+        "sim_time": 34.599999999999
+      },
+      {
+        "all_errors": [],
+        "frames": 1385,
+        "knockback_frames": 1,
+        "max_movement_excess": 7.3611736295387e-07,
+        "pairs": [
+          {
+            "high": "MT",
+            "high_local_x": -13.416407585144,
+            "low": "H2",
+            "low_local_x": 13.416407585144,
+            "shape": "circle"
+          },
+          {
+            "high": "D2",
+            "high_local_x": -17.5499286651611,
+            "low": "D4",
+            "low_local_x": 17.5499286651611,
+            "shape": "cross"
+          },
+          {
+            "high": "H1",
+            "high_local_x": -17.5499286651611,
+            "low": "ST",
+            "low_local_x": 17.5499286651611,
+            "shape": "triangle"
+          },
+          {
+            "high": "D1",
+            "high_local_x": -13.416407585144,
+            "low": "D3",
+            "low_local_x": 13.416407585144,
+            "shape": "square"
+          }
+        ],
+        "seed": 6,
+        "sim_time": 34.599999999999
+      }
+    ],
+    "failures": [],
+    "scope": "actual Main full NPC demo only; not manual/native/Web"
+  },
+  "artifacts": {
+    "TOP-Practice-Lab-v0.3.31-Web.zip": {
+      "bytes": 226674686,
+      "sha256": "81ad7f1c318ada3404a3416ba41bb3a09747feada98dc36fbe59d4797345cbd5"
+    },
+    "Omega-Protocol-Sim-v0.3.31-source.zip": {
+      "bytes": 49767781,
+      "sha256": "ca018095c6330dfc0ad0d74f7d0df488c66a66cd2a644a0f5fdd3338b6640830"
+    }
+  },
+  "publication_contract_sha256": "dab8d10bec923e94eea90230af8a0ddf87f4ba90b7e96066b465979787233a38",
+  "parent_review_sha256": "cd394e4d0167c3713126588163cf56d4cdb3c510e287137e8faa89d5c5a6431e",
+  "release_notes_sha256": "d8646d8c056c24883d09d5b82d3f793305958f6e377290bac1c4f30d31b9dfaa",
+  "evidence_sha256": {
+    "browser-stage-closure.json": "e6731401b9fe48c9eda8e26ba5655def22031fcf7b7aa3e351d51484d01c55f6",
+    "pack-stage-closure.json": "79b7278e75bf9ba1a866d59fd8e72e3501e676db88af85570eaa4438a42d5127",
+    "source-seal/source-acceptance.json": "e0bb802ba65145609b7fd49b63975bd26ebb9a209efd38c98756b633f7d68759",
+    "pack-acceptance.json": "577816aa5e3074bded2edab54e9def217bcfb8c3acab400ae6d8aedff0070fa6",
+    "browser-acceptance.json": "76e5df9261520158ef5e2337b4c43a477577e3464e6b19a128d7437b5e37c09b",
+    "browser-stage-collection.json": "d782e3ee6d4282458ce0486b150ae415cf6aa419fee769731db188ce3ae9c36b",
+    "final-pixel-review.json": "9679e13371be9f04e60c13bad1939f28e6c69b7c707a83b5ab3be73434315c70",
+    "activation-proof.json": "bebf683f3a3673ab06bffd94889ea92eca87eb6467515e0154a93cc4474d1b68",
+    "public-verification.json": "07d931f20138b85b7dd1713a3eeb2764c1bec81df92ff123bf9f46fb0f118e65",
+    "public-startup.json": "9a6e027f56cb7362c981cbcac42d381ef08f0a82e0d011f2b5d33f1cfffcbb31",
+    "public-pixel-review.json": "4bc0c5a10d32cdd7206ae30115f489f536d2d633ff08d98dba31572915579b5c",
+    "release-asset-proof.json": "96393d31990ad974318aeb5f8a5d1b44a39478680320a55c1ba72c7957536b21",
+    "parent-publication-review.json": "cd394e4d0167c3713126588163cf56d4cdb3c510e287137e8faa89d5c5a6431e",
+    "publication-contract.json": "dab8d10bec923e94eea90230af8a0ddf87f4ba90b7e96066b465979787233a38",
+    "publication-review/parent-collection.json": "3e26a04cb3305501d2b7872e0746a042675bf9fc93dd5497bd1ccd8fbc34e44d"
+  }
+}
