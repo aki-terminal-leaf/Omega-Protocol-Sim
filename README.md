@@ -2,11 +2,21 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.23 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.24 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.24-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.23 已更新 Web：Aether 實際橫排換序與公開圖形記憶
+### v0.3.24 已更新 Web：NPC 依實際武器提示躲避
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.23（執行碼 7a98670）。HRMTTMRH 只是推薦起始橫排；玩家可自己換序，七名 NPC 依玩家實際位置留位。真正顯示八人圖形後，按同圖案實際左右記住同畫面位置；之後移動不改寫過去，不讀未揭露真配對、不替玩家操作或救場。Remote 僅外側列互換，保留 LPDU／Elemental 各自規則。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.24（執行碼 47dec6d）。Elemental／Aether／LPDU／CN／KR 的武器躲避不再讀已解答位置，而是辨認真正可見的外側分身與實體武器。缺少提示時停在當前位置；先前看到的提示消失可記住，雙武器等矛盾提示則撤銷記憶。玩家仍自己操作，錯誤提示不會被隱藏答案救回。
+
+純197項、十五原版模型Main課程／187項、五選項240組完整生成差分與必要回歸通過。相同新PCK十五組檢查；實際Web八項涵蓋提示前後、實體武器觀察、七NPC公開路徑、玩家輸入／釋放與R清空，固定HTTPS十三種表示及全新啟動通過。[來源與限定範圍](docs/development/P2_PUBLIC_WEAPONS.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.24-preview)。
+
+瀏覽器驗證止於13.4秒傷害判定前；錯誤／缺失／矛盾武器與實際傷害證據來自同一PCK的十五Main課程，不冒稱瀏覽器注入或手動通關。單一格點路徑仍是限定範圍；LPDU分組側、新北、後段、完整P2／全攻略、量測最佳化與完整AVFX繼續。原生24待驗，Windows20保留獨立證據。
+
+![實際匯出Web的武器提示與NPC路徑；固定視角，非原生或真人通關證據](docs/images/top-v0324-p2-public-weapons.webp)
+
+### v0.3.23 已部署基線（歷史）：Aether 實際橫排換序與公開圖形記憶
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.23（執行碼 7a98670）。HRMTTMRH 只是推薦起始橫排；玩家可自己換序，七名 NPC 依玩家實際位置留位。真正顯示八人圖形後，按同圖案實際左右記住同畫面位置；之後移動不改寫過去，不讀未揭露真配對、不替玩家操作或救場。Remote 僅外側列互換，保留 LPDU／Elemental 各自規則。
 
 純2,520種／30,351項、單元64項、Main159項、141條實際輸入課程／1,825項、240生成差分及必要回歸通過。相同新PCK十三組檢查；實際Web十項操作包含跨過同圖案搭檔／NPC留位、八人圖形與同畫面位置記憶、擷取後再移動／放開按鍵／R清空，固定HTTPS十三種表示與全新啟動皆通過。[來源與限定範圍](docs/development/P2_AETHER_PREPARATION.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview)。
 

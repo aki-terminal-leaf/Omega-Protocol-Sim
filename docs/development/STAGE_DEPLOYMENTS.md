@@ -1,6 +1,15 @@
 # 固定部署階段紀錄
 
-## v0.3.23 Web-first — current fixed deployment
+## v0.3.24 Web-first — current fixed deployment
+
+- Runtime 47dec6d7ac38dca13fb446d4c0b0f46df506dad3; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.24-preview).
+- PCK 6f9476716f7f1b91c6f6c3fda322640073ff8e965818137b3b96777a2236f7de; fifteen exact-pack gates (all13 retained +pure197 +actual15officialMain187), focused8actualWebchecks, HTTPS13representations+freshstartup PASS.
+- Five-profile publicphysicalweapon receipt; absentcueholds, completeconflictsrevoke, genuineabsence retainsobservedpast. 240ALL5priorRNG/pairs/times/shapes/positions/spawn/metadata exact except harmlessmarker; requiredAether/Elemental/LPDU/P2/shared20/clonevisual source regressions PASS.
+- Browserbefore13.4 judgment, not browserfaultinjection/fullclear/native/physicalGPU; negativeactualdamage belongs to15compiledMaincourses. LPDUgroup-side/newNorth/lateflex/fullP2/allguide/perf/fullAVFX remainactive. Windows20 separate.
+
+
+
+## v0.3.23 Web-first — accepted baseline (historical)
 
 - Runtime `7a98670e79b6429ccd8e7b2df009c2c5e270ea82`; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.23-preview).
 - PCK `55a96509a8d9b53c338c67f6501d99416b31faab760827677aed3e8f6c2d14ab`; thirteen strict exact-pack gates, actualAetherWeb10checks, HTTPS13representations+freshstartup PASS.
