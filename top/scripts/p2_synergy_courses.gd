@@ -41,6 +41,13 @@ static func append_synergy(ctx) -> void:
 			assignment=Assign.assign(public_glyphs,prep_config)
 		assert(not assignment.is_empty())
 		route=assignment.route_order.duplicate()
+	if str(ctx.profile.id)==CnLineup.PROFILE_ID and assignment.is_empty():
+		# Owner-reported NPC priority: higher rank takes left, facing the eye.
+		# Sort the guide route only; keep actual glyph pairs/order and RNG intact.
+		assert(ctx.priority.size()==8 and range(8).all(func(a):return ctx.priority.count(a)==1))
+		for i in 4:
+			var duo:Array=ctx.ranked([route[i*2],route[i*2+1]])
+			route[i*2]=duo[0];route[i*2+1]=duo[1]
 	# Real symbols are remembered BEFORE the genuine/decoy pair is read.
 	for i in 8:ctx.pos(i,Vector2(-3.0 if i%2==0 else 3.0,-5.0+float(i/2)*3.0))
 	var cast:Dictionary=ctx.beat("Party Synergy · cast",3.0,"準備排隊，稍後記住頭上的圖案與左右組。")
