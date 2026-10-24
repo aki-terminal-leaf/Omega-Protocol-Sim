@@ -2,17 +2,25 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.26 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.27 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.27 來源已驗收，Web 發布待驗：Astoh 檢知 N3 應變
+### v0.3.27 已更新 Web：Astoh M2玩家／N3 應變
 
-僅 Astoh、玩家為 M2 時，N3 依當前公開提示與玩家實際穩定位置／面向調整目標；其他六名 NPC、玩家輸入與真實攻擊／狀態／死亡判定不變。保留正常移速與晚到輸入承諾截止，不保證救回錯誤面向。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.27（執行碼 `485bd84`）。僅 Astoh、玩家為 M2 時，N3 依當前公開提示與玩家實際穩定位置／面向調整目標；其他六名 NPC、玩家輸入與實際攻擊／狀態／死亡判定不變。合法異位不會僅因沒踩攻略座標而失敗，晚到的錯面向不保證被救回。
 
-來源19條實際WASD／QE／R流程641項、20條回歸372項、純契約39項及必要既有檢查通過；獨立唯讀審查完成。工程網格／角度不是官方合法容差。新PCK／實際Web／原生尚待驗證，固定站仍為下方v0.3.26。[限定範圍與重現指令](docs/development/P3_MONITOR_ADAPTIVE.md)。全20／100攻略、量測最佳化與完整AVFX繼續。
+來源19條實際流程641項、20條回歸372項、純39項與必要既有檢查通過；同一新PCK21組、實際Web八項、固定HTTPS十三種內容與全新啟動均已驗證。Web用公開選單、WASD／暫停中右鍵朝向／P／R及報告；開始前確認固定seed1、0.5×。實際觀察到N3非標準目標、到達與凍結、攻擊通過／八人狀態時長、R清空，以及不動的實際攻擊失敗。另行檢查最終畫面；前四輪失敗保留，不改判通過。[來源與界線](docs/development/P3_MONITOR_ADAPTIVE.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview)。
 
-### v0.3.26 已更新 Web：玩家結果判定＋莫古力開場固定橫排
+只是限定腳本Web驗證，不是原生、真人全流程、FPS或全20／100攻略認證；網格／13度工程輸入不是官方容差。原生27待驗、AnAn桌面停用；量測最佳化與完整AVFX繼續。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.26（執行碼 40de224）。
+![實際Web：M2玩家穩定輸入後，N3到達當前公開資訊推得的非標準目標；腳本驗證非真人通關](docs/images/top-v0327-n3-adaptive.webp)
+
+![實際Web：檢知攻擊通過與八人狀態；狀態時長另由同次報告驗證](docs/images/top-v0327-actual-pass.webp)
+
+![實際Web：R重練後不操作造成真實攻擊失敗，這是預期負向對照](docs/images/top-v0327-idle-fail.webp)
+
+### v0.3.26 已部署基線（歷史）：玩家結果判定＋莫古力開場固定橫排
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.26（執行碼 40de224）。
 
 **新玩家判定政策**：玩家PASS／FAIL依模擬中實際攻擊命中、狀態與死亡結果判定，不再要求站到攻略座標；走非攻略但實際安全的位置也算通過。未量測的P6傷害獨立標為 UNKNOWN 驗證項，不推定死亡、也不代表真實遊戲可存活。NPC是否遵照攻略另為一軸。
 

@@ -3019,6 +3019,16 @@
       "evidence_doc": "docs/development/CANNONS_OBSERVATION.md",
       "scope": "81actualMainphysicalinputreplays/468checks/0testfailures:70normal,8wrongroute,1legalradial,2labelledassisted; repairedtexturedscene299/0; MF1 source repair closed separately;final140/613,currentScene299,P1events1266/focusedshared andindependentsource/input/testfixture reviewPASS",
       "remaining": "fresh export/native/Web/publicdeploy; originalcueonset andKR90vs120 unknown/current120unchanged; permanentnonempty-partialblockfinitepolicy; all100not_certified"
+    },
+    {
+      "version": "0.3.27",
+      "runtime_commit": "485bd84c66d08e93f7b2aa8e58d9598893527cf7",
+      "status": "verified_scoped_web_native_pending",
+      "mechanic_id": "p3_monitors",
+      "profile": "elemental",
+      "evidence_doc": "docs/development/P3_MONITOR_ADAPTIVE.md",
+      "scope": "ordinary Astoh M2-human/N3 current-public adaptive planning; actual browser pass/status/R/idle fail;21 same-PCK gates and13HTTPS+freshstartup",
+      "remaining": "other source ranks,5other layouts,all player branches/full100;native27 pending;measured optimization/fullAVFX active"
     }
   ]
 }

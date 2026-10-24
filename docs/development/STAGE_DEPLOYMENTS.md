@@ -1,6 +1,12 @@
+# v0.3.27 current Web-first baseline
+
+- Runtime `485bd84c66d08e93f7b2aa8e58d9598893527cf7`; PCK `8a04f5cd8ad6684a9d0d901f719885ca833102a5b6883314c88e1298e23ba9e4`; [fixed site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.27-preview).
+- Astoh M2-player/N3 only: source19/641,20/372,pure39 and existing affected gates;21 exactPCK,actualWeb8checks,13HTTPSrepresentations,freshstartup passed. Parent separately viewed settings and final12/13/15 pixels.
+- Actual attack/status/death player policy unchanged; no exact guide-coordinate PASS gate. Scripted0.5x, not fullmanual/native/FPS/allguide. Four retained failed workflows stay failed. Native27 pending; desktop disabled. Full20/100→measured optimization→completeAVFX remains active.
+
 # 固定部署階段紀錄
 
-## v0.3.26 Web-first (player outcome + CN row) — current fixed deployment
+## v0.3.26 Web-first (player outcome + CN row) — historical baseline
 
 - Runtime `40de2247d59e1f815d9b089a6caccd44c0d87f2d` (source `40de2247d59e1f815d9b089a6caccd44c0d87f2d`); https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview); PCK `1e4b352f0d666385893662cbc9b5d39d9de31f194bf79769516eacea3cb927e2`.
 - Source: outcome pure25 / Main 4 flows 19 / rules196 / P6 precision55 / P6 LB604 / global20; 16 same-PCK gates; 8 actual Web checks; HTTPS 13 representations + fresh startup PASS.
