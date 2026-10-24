@@ -74,6 +74,11 @@ static func evaluate(beat: Dictionary, actors: Array, state: Dictionary) -> Arra
 	for key in ["dynamis","dead","spent","defense_victims","blaster_victims","tether_holders"]:
 		if state.has(key):state[key]=state[key].map(func(value):return int(value))
 	var failures: Array = []
+	# Persistent death is an actual outcome: a dead actor standing safely (or on any
+	# guide point) does not pass. Uses only current state.dead, never guide coordinates.
+	for raw in state.get("dead", []):
+		var actor := int(raw)
+		if actor >= 0 and actor < actors.size(): failures.append("%s: dead (persistent death outcome)" % actors[actor].role)
 	if beat.has("program_loop"):
 		ensure_loop_state(beat, state)
 		tick_loop_state(state)

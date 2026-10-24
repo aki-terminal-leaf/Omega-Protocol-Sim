@@ -28,6 +28,23 @@ static func fail(state: Dictionary, reason: String) -> void:
 	state.runtime_failures.append(reason)
 	event(state, "failure", {"reason": reason})
 
+## Non-outcome advisory (coaching GUIDE / measurement VERIFICATION). Never touches
+## runtime_failures or dead; deduplicated by kind+message so per-frame calls do not grow.
+const ADVISORY_KINDS = ["guide", "verification"]
+static func advise(state: Dictionary, kind: String, message: String, details: Dictionary = {}) -> bool:
+	assert(kind in ADVISORY_KINDS)
+	if not state.has("advisories"): state.advisories = []
+	if not state.has("timeline"): state.timeline = []
+	var scope: float = float(state.get("beat_started", 0)) if kind == "verification" else -1.0
+	for existing in state.advisories:
+		if str(existing.kind) == kind and str(existing.message) == message and float(existing.get("beat_started", -1.0)) == scope: return false
+	var entry := {"kind": kind, "message": message, "time": snappedf(float(state.get("sim_time", 0)), 0.001), "beat_started":scope}
+	state.advisories.append(entry)
+	var record := details.duplicate(true)
+	record.advisory_kind = kind; record.message = message
+	event(state, "advisory", record)
+	return true
+
 static func give(state: Dictionary, actor: int, name: String, duration: float, source := -1) -> void:
 	ensure(state)
 	var buffs: Dictionary = state.statuses[actor]

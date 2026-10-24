@@ -50,7 +50,7 @@ static func begin(beat: Dictionary,state: Dictionary) -> void:
 		if preload("res://scripts/sigma_cooperation.gd").active(state):preload("res://scripts/sigma_cooperation.gd").lock(state);preload("res://scripts/sigma_cooperation.gd").sync(beat,state);return
 		if state.sigma.roles.is_empty():
 			state.sigma.roles=allocation(c,state.dynamis)
-			if state.sigma.roles.is_empty():status().fail(state,"Sigma: fewer than three one-stack non-World utility candidates");return
+			if state.sigma.roles.is_empty():status().advise(state,"guide","Sigma: fewer than three one-stack non-World utility candidates; coaching route unsolved (NPC routing not synthesized)",{"dynamis":state.dynamis.duplicate()});return
 			status().event(state,"sigma_coaching_allocation",{"roles":state.sigma.roles.duplicate(),"dynamis":state.dynamis.duplicate(),"tie":"documented eligibility; deterministic community priority for free conga ties"})
 		state.sigma.roles=state.sigma.roles.map(func(i):return int(i))
 		place(beat,c,state.sigma.roles,int(beat.sigma_path_index))

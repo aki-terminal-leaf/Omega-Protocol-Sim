@@ -109,7 +109,7 @@ func run() -> void:
 	state=fresh(a); state.lb="tank"; state.lb_actor=0; ctx=context(); C.append_magic(ctx); course(ctx,a,state)
 	check(not state.runtime_failures.is_empty(),"Legacy instant LB flag cannot satisfy Magic Number")
 	state=fresh(a); state.p6={}; D.flares(a,[0,1,2],state)
-	check(not state.runtime_failures.is_empty(),"Close flares fail closed without arbitrary safe radius")
+	check(state.runtime_failures.is_empty() and state.dead.is_empty() and state.get("advisories",[]).any(func(a):return a.kind=="verification") and str(state.p6.damage_verification).begins_with("incomplete"),"Unknown close flare damage is reported separately from actual outcome failure")
 	check(D.flare_bounds(10,false).upper==null,"Unsampled interior remains genuinely unknown")
 	state.p6_hp=[{"hp":100.0,"shield":20.0}]; state.dead=[]
 	var packet := D.apply_packet(state,0,100,0.5)

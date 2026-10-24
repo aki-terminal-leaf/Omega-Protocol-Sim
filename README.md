@@ -4,7 +4,9 @@
 
 **[v0.3.25 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.26 來源候選：莫古力開場面向 A 固定橫排
+### v0.3.26 來源候選：玩家結果判定／莫古力開場橫排
+
+玩家通過以實際攻擊、Buff／Debuff 與死亡為準，**不必站在 NPC／攻略指定座標**；攻略建議與傷害驗證未知獨立顯示，不憑未知距離判死，也不冒稱原遊戲傷害已完整驗證。[玩家結果判定](docs/development/PLAYER_OUTCOME_VERDICT.md)。來源候選通過25項真規則控制、實際Main四流程19項、全20機制同種子回歸；匯出版另驗，線上目前仍為v0.3.25。
 
 CN／莫古力開場按原海報 **H1 MT ST D1 D2 D3 D4 H2** 朝 A 橫排；七名NPC依當前公開A走位，玩家從原本中立出生點自己加入，不會被補位。純64項、實際Main16場164項、240完整課程保留差分及八組必要回歸通過。[限定範圍與未解問題](docs/development/P2_CN_INITIAL_LINEUP.md)。**Web／同包PCK／原生仍待各自驗證，固定站目前維持v0.3.25。** 同圖案左右、CN公開圖形分組與後續Fire私有目標依賴仍未解決；不是完整莫古力攻略認證。
 

@@ -59,7 +59,7 @@ static func begin(b:Dictionary,state:Dictionary) -> void:
 		var second:bool=b.omega_phase=="second";var key:="second_roles" if second else "first_roles"
 		if state.omega[key].is_empty():
 			state.omega[key]=choose(c,state.dynamis,second)
-			if state.omega[key].is_empty():status().fail(state,"Omega: no valid actual-stack utility allocation");return
+			if state.omega[key].is_empty():status().advise(state,"guide","Omega: no valid actual-stack utility allocation (%s); coaching route unsolved"%str(b.omega_phase),{"actual_dynamis":state.dynamis.duplicate()});return
 			status().event(state,"omega_coaching_allocation",{"phase":b.omega_phase,"roles":state.omega[key].duplicate(),"actual_dynamis":state.dynamis.duplicate()})
 		state.omega[key]=state.omega[key].map(func(i):return int(i))
 		place(b,c,state.omega[key],second)

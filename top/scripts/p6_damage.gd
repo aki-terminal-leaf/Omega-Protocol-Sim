@@ -24,8 +24,9 @@ static func flares(actors: Array, targets: Array, state: Dictionary) -> Array:
 			if not is_finite(distance):
 				state.runtime_failures.append("P6 flare has non-finite actor positions")
 			elif actor!=int(target) and distance<MIN_OBSERVED_FAR_DISTANCE:
-				# Reject the practice result without inventing lethal damage/HP.
-				state.runtime_failures.append("P6 close flare: separation %.3f falls inside unmeasured falloff; survival unverified" % distance)
+				# Unmeasured falloff is a VERIFICATION gap, not injury/death and not proof of safety.
+				# No HP is invented; actual outcomes come only from apply_packet / real hits.
+				load("res://scripts/statuses.gd").advise(state,"verification","P6 close flare: separation inside unmeasured falloff (<%.3fy); damage unknown, survival unverified" % MIN_OBSERVED_FAR_DISTANCE,{"source_actor":int(target),"target_actor":actor,"distance":distance})
 	state.p6.damage_verification="incomplete: no identifiable interior falloff or complete party mitigation/HP replay"
 	return packets
 

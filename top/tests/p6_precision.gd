@@ -89,6 +89,6 @@ func run() -> void:
 		check(not D.apply_packet(damage_state,0,10.0,invalid).ok,"Invalid mitigation rejected")
 	check(damage_state.p6_hp[0].hp==100.0 and damage_state.p6_hp[0].shield==25.0,"Invalid numeric packets preserve HP and shields")
 	s=fresh(a); D.flares(a,[0,1,2],s)
-	check(not s.runtime_failures.is_empty(),"Interior uncertainty still rejects practice survival")
+	check(s.runtime_failures.is_empty() and s.dead.is_empty() and s.get("advisories",[]).any(func(a):return a.kind=="verification") and str(s.p6.damage_verification).begins_with("incomplete"),"Interior uncertainty remains explicit, without inventing injury or death")
 	print("P6 precision: %d assertions, %d failures" % [checks,failures])
 	quit(1 if failures else 0)
