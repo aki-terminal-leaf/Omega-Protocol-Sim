@@ -41,8 +41,24 @@ static func replacement_actor(actor:int,beat:Dictionary,actors:Array,state:Dicti
 				var colour:="red" if buffs[human].has("red") else ("blue" if buffs[human].has("blue") else "")
 				var bug:="overflow" if buffs[human].has("overflow") else ("sync" if buffs[human].has("sync") else "")
 				if colour!="" and bug!="" and buffs[actor].has(colour) and buffs[actor].has(bug):
-					if hp.distance_to(alternate)<=5.5 and hp.distance_to(own)>5.5:state.hw[key]=ni
-					elif state.hw.has(key) and hp.distance_to(own)<=5.5 and hp.distance_to(alternate)>5.5:state.hw[key]=hi
+					# Actual revealed towers define occupancy; formation goals are
+					# offset training targets, not the attack's hit geometry.
+					# Preserve old fixtures without tower payloads as a fallback.
+					var inside_own:=hp.distance_to(own)<=5.5
+					var inside_alternate:=hp.distance_to(alternate)<=5.5
+					for pending in state.hw.get("pending",[]):
+						if pending.get("kind","")!="towers" or int(pending.get("round",-1))!=int(c.round):continue
+						if float(pending.at)<=now+0.000001 or float(pending.at)-now>float(c.reveal_window):continue
+						var towers:Array=pending.get("towers",[]).filter(func(t):return str(t.get("colour",""))==colour)
+						if towers.size()!=2:continue
+						var own_first:=own.distance_to(Rules.v(towers[0].pos))<own.distance_to(Rules.v(towers[1].pos))
+						var alternate_first:=alternate.distance_to(Rules.v(towers[0].pos))<alternate.distance_to(Rules.v(towers[1].pos))
+						if own_first==alternate_first:continue
+						inside_own=Rules.contains(towers[0] if own_first else towers[1],hp,actors)
+						inside_alternate=Rules.contains(towers[0] if alternate_first else towers[1],hp,actors)
+						break
+					if inside_alternate and not inside_own:state.hw[key]=ni
+					elif state.hw.has(key) and inside_own and not inside_alternate:state.hw[key]=hi
 		if not state.hw.has(key):return null
 		if int(state.hw[key])==ni:return human
 		return actor if int(state.hw[key])==hi else null
