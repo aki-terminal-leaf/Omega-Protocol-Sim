@@ -2,11 +2,23 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.24 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.24-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.25 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.24 已更新 Web：NPC 依實際武器提示躲避
+### v0.3.25 已更新 Web：從真正可見分身辨認新北
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.24（執行碼 47dec6d）。Elemental／Aether／LPDU／CN／KR 的武器躲避不再讀已解答位置，而是辨認真正可見的外側分身與實體武器。缺少提示時停在當前位置；先前看到的提示消失可記住，雙武器等矛盾提示則撤銷記憶。玩家仍自己操作，錯誤提示不會被隱藏答案救回。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.25（執行碼 c0d79cb）。Elemental／Aether／LPDU 的 NPC 在身體實際顯示後，才依五個外圈男分身的公開幾何辨認新北；缺少來源時等候，真正消失可記住過去，完整矛盾則撤銷。保留擊退前置集合，玩家仍須自己操作，不由 NPC 救場。
+
+來源純1,345項、原版模型20條Main／274項（13正向、7控制）、三攻略生命週期84項、240完整生成差分與12組既有回歸通過；同一新PCK的17組檢查及實際Web9項操作、固定HTTPS13種表示與全新啟動通過。[來源與限定範圍](docs/development/P2_PUBLIC_NORTH.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview)。
+
+Web 操作透過公開「分段輔助」重建**較早的圖形記憶**，新北仍須來自**當前真正顯示的分身**；驗證在27.1秒擊退前停止，不是普通全課程或瀏覽器後段戰鬥通關。負向提示及真實擊退／分攤／刀判定屬同PCK Main證據。CN／KR新北、LPDU武器側軸、原遊戲精確五點位置及全部攻略仍未結清；原生25待驗，Windows20保留獨立證據。全20／100正確性、量測最佳化與完整AVFX繼續。
+
+![實際匯出Web：當前分身顯示後的新北觀察；較早圖形使用明示分段輔助，非原生或真人通關](docs/images/top-v0325-p2-displayed-north.webp)
+
+![實際匯出Web：分身顯示後NPC離開集合位置，玩家釋放輸入仍由自己控制；非完整攻略認證](docs/images/top-v0325-p2-npc-staging.webp)
+
+### v0.3.24 已部署基線（歷史）：NPC 依實際武器提示躲避
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.24（執行碼 47dec6d）。Elemental／Aether／LPDU／CN／KR 的武器躲避不再讀已解答位置，而是辨認真正可見的外側分身與實體武器。缺少提示時停在當前位置；先前看到的提示消失可記住，雙武器等矛盾提示則撤銷記憶。玩家仍自己操作，錯誤提示不會被隱藏答案救回。
 
 純197項、十五原版模型Main課程／187項、五選項240組完整生成差分與必要回歸通過。相同新PCK十五組檢查；實際Web八項涵蓋提示前後、實體武器觀察、七NPC公開路徑、玩家輸入／釋放與R清空，固定HTTPS十三種表示及全新啟動通過。[來源與限定範圍](docs/development/P2_PUBLIC_WEAPONS.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.24-preview)。
 

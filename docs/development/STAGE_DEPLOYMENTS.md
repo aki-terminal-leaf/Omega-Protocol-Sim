@@ -1,6 +1,14 @@
 # 固定部署階段紀錄
 
-## v0.3.24 Web-first — current fixed deployment
+## v0.3.25 Web-first — current fixed deployment
+
+- Runtime `c0d79cbe5906add1dbd8801abe530e8c36e25e6a`; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview).
+- PCK `9b61893cb39bc9f34680eff083d2576fbe6b57a3cefaea0d6b55e50673cb3ec1`; seventeen exact-pack gates (all15retained +Northpure1345 +official20Main274), focused9actualWebchecks, HTTPS13representations+freshstartup PASS.
+- Source20Main/274 (13positive7controls), lifecycle84, strongestmissing-sourceMain90, exact240ALLmetadata/noexclusions and12retainedsourcegates PASS. No game-runtime changes during platform repair; omitted role-sample args fixed and incomplete176/13 attempt retained.
+- Three existing Elemental/Aether/LPDU assignments only. Earlierglyphs explicitly ASSISTED via publicUI; CURRENTNorth from actual DISPLAYED physicalbodies; NPCstaging/A-release/Rreset checked before27.1Discharger. Latejudgment/negativecue evidence belongs to exactPCK, not browser fullclear.
+- HeadlessSwiftShader, not native/physicalGPU/manual/fullguide. CNKRnewNorth/LPDUweaponaxis/originalgamefivepointsource/fullCartesian/all20/all100/perf/fullAVFX remainactive. Native25pending; Windows20 separate.
+
+## v0.3.24 Web-first — accepted baseline (historical)
 
 - Runtime 47dec6d7ac38dca13fb446d4c0b0f46df506dad3; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.24-preview).
 - PCK 6f9476716f7f1b91c6f6c3fda322640073ff8e965818137b3b96777a2236f7de; fifteen exact-pack gates (all13 retained +pure197 +actual15officialMain187), focused8actualWebchecks, HTTPS13representations+freshstartup PASS.
