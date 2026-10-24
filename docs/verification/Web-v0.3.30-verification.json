@@ -1,0 +1,76 @@
+{
+  "ok": true,
+  "runtime_commit": "484ebfd5e2205beeb7c95af928f4ce6efe7b75fb",
+  "version": "v0.3.30-preview-web-test",
+  "url": "https://top.servicing.cc",
+  "observed_at_unix": 1792839356.0939345,
+  "pck_sha256": "471da90a361587c7538059e6c96a82c66e3cf6443b78654484310e4a8bfaed48",
+  "compiled_gates": 18,
+  "same_PCK_lifecycle_checks": 108,
+  "same_PCK_later_HW_courses": 3,
+  "same_PCK_later_HW_fixture_checks": 48,
+  "same_PCK_later_HW_outcomes": [
+    "PASS",
+    "PASS",
+    "FAIL"
+  ],
+  "same_PCK_later_HW_modes": [
+    "alternate_hold",
+    "touch_alternate_then_return",
+    "touch_alternate_then_return_late"
+  ],
+  "browser_checks": {
+    "startup": true,
+    "hw_selected": true,
+    "pre_cue_no_tower_receipt": true,
+    "post_cue_drawn_tower_receipt": true,
+    "human_input_moved": true,
+    "released_input_not_rescued": true,
+    "retry_clears_future": true
+  },
+  "browser_reports": 78,
+  "fresh_candidate_images": 8,
+  "fresh_UI_acks": 0,
+  "same_version_static_locator_reuse": 5,
+  "raw_failed_workflow_preserved": true,
+  "public_representations": 13,
+  "fresh_https_startup": true,
+  "native_acceptance": "pending_native_acceptance",
+  "desktop_operations": false,
+  "limitations": [
+    "Scoped Hello World later-round reversible choice fix, centered Elemental controlled case within authored training responsibility margin.",
+    "Three controlled later-round Main courses use a synthetic all-NPC prelude then actual human WASD; not ordinary manual/full-guide/all-role or noncentral legal-pose coverage.",
+    "Fresh headless Web gameplay checks first wave only; later-round behavior is covered separately on the same exact PCK.",
+    "Five same-version UI locator fixtures reused from a failed original workflow; zero fresh interactive parent acknowledgments. All eight current candidate images separately viewed.",
+    "SwiftShader headless browser, not physical GPU/native/FPS/performance certification.",
+    "Later public receipt gap and legal noncentral-pose discriminator remain unverified; all20/102 correctness, measured optimization and full AVFX remain active.",
+    "This release does not include the separately pushed P2 CN D2/D4 priority fix."
+  ],
+  "artifacts": {
+    "TOP-Practice-Lab-v0.3.30-Web.zip": {
+      "bytes": 226674485,
+      "sha256": "b4500a0f75a302ad60e8fb88f1fc8379d20a51d5835ae03f73ce27cf32cdcdeb"
+    },
+    "Omega-Protocol-Sim-v0.3.30-source.zip": {
+      "bytes": 49134585,
+      "sha256": "98a79f4fc6ea425a0f1857a1839efb7733449fa0142113bddbc1d22e06ee8e6e"
+    }
+  },
+  "publication_contract_sha256": "0cc12aee472aaae1ef7e782d6e7836bb3576b075c077612ceefd10756cc0df12",
+  "parent_review_sha256": "7cab38048ff42402b94e90adf709e02a7c49ebae23a7448c23036e6a645107ab",
+  "release_notes_sha256": "1feeb2ad009e79bcd0b34866f45a6f8908948c865cdee917be924f866051f85b",
+  "evidence_sha256": {
+    "pack-acceptance.json": "f4a970f12b63f475a4ec88d20aafa6c3a726c65ade6341adef377c4814c82486",
+    "browser-acceptance.json": "bb410cce1cbb98d180e5886d4b96637d17479bb01858bb12e1991618d8dbe2a3",
+    "browser-stage-collection.json": "e519d817e48e7d43dec19fb1bf227c1c77a129ef9744865d17e7c55f2817384c",
+    "final-pixel-review.json": "3aecd49768ad298ffd4f9f39fb2fcbeb9dad41201c1dc79843c7da856ce64859",
+    "activation-proof.json": "a13d2fa344b480deb05385cf0917e0a8b270148802a95007526cc41f3bbac4f5",
+    "public-verification.json": "8a6a3bba4c1f32bc2c3dbcbe984a15c2807ca1394e9a50ac2fdb15637f2bcda1",
+    "public-startup.json": "f718ecf7f36fdbc82403bcfc9fb15140c732ee7d031e314bfd7defdce385f3d9",
+    "public-pixel-review.json": "bd81b8cbd31e2000ec0e8e66ad3171e7631fe1eb4cf8218293ccf96ab078a743",
+    "release-asset-proof.json": "b5ed5ce33768a6df4d3deb3373eb8e9800ae131147eec1a5a8203501b14a8bbd",
+    "parent-publication-review.json": "7cab38048ff42402b94e90adf709e02a7c49ebae23a7448c23036e6a645107ab",
+    "publication-contract.json": "0cc12aee472aaae1ef7e782d6e7836bb3576b075c077612ceefd10756cc0df12",
+    "publication-review/parent-collection.json": "fec9cbd813e875f7c614e6dc91058453438af4dfd61ace3ab4d7a3d1e26d5c01"
+  }
+}
