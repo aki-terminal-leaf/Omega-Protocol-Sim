@@ -2,17 +2,29 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.25 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.26 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.26 來源候選：玩家結果判定／莫古力開場橫排
+### v0.3.26 已更新 Web：玩家結果判定＋莫古力開場固定橫排
 
-玩家通過以實際攻擊、Buff／Debuff 與死亡為準，**不必站在 NPC／攻略指定座標**；攻略建議與傷害驗證未知獨立顯示，不憑未知距離判死，也不冒稱原遊戲傷害已完整驗證。[玩家結果判定](docs/development/PLAYER_OUTCOME_VERDICT.md)。來源候選通過25項真規則控制、實際Main四流程19項、全20機制同種子回歸；匯出版另驗，線上目前仍為v0.3.25。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.26（執行碼 40de224）。
 
-CN／莫古力開場按原海報 **H1 MT ST D1 D2 D3 D4 H2** 朝 A 橫排；七名NPC依當前公開A走位，玩家從原本中立出生點自己加入，不會被補位。純64項、實際Main16場164項、240完整課程保留差分及八組必要回歸通過。[限定範圍與未解問題](docs/development/P2_CN_INITIAL_LINEUP.md)。**Web／同包PCK／原生仍待各自驗證，固定站目前維持v0.3.25。** 同圖案左右、CN公開圖形分組與後續Fire私有目標依賴仍未解決；不是完整莫古力攻略認證。
+**新玩家判定政策**：玩家PASS／FAIL依模擬中實際攻擊命中、狀態與死亡結果判定，不再要求站到攻略座標；走非攻略但實際安全的位置也算通過。未量測的P6傷害獨立標為 UNKNOWN 驗證項，不推定死亡、也不代表真實遊戲可存活。NPC是否遵照攻略另為一軸。
 
-### v0.3.25 已更新 Web：從真正可見分身辨認新北
+**CN開場NPC橫排**：七名NPC按 H1 MT ST D1 D2 D3 D4 H2 朝 A 橫排；玩家可從中立出生點自己用 WASD 加入，不被補位；未排隊不會攔住頭標時間軸，也不單因此判失敗。實際Web只驗到3秒頭標前。
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.25（執行碼 c0d79cb）。Elemental／Aether／LPDU 的 NPC 在身體實際顯示後，才依五個外圈男分身的公開幾何辨認新北；缺少來源時等候，真正消失可記住過去，完整矛盾則撤銷。保留擊退前置集合，玩家仍須自己操作，不由 NPC 救場。
+來源驗證：結果判定純25項、實際Main 4流程19項、規則196、P6精度55、P6 LB 604、全域20課程；同一PCK 16組檢查、分組取證的八項公開Web練習操作（0.5×只在CN開始前確認）、固定HTTPS十三種表示與全新啟動通過。[玩家結果判定](docs/development/PLAYER_OUTCOME_VERDICT.md) · [CN開場範圍](docs/development/P2_CN_INITIAL_LINEUP.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview)。
+
+八項採CN／安全異位與Solar受擊／R分項組合驗證，不代表先前失敗的整體流程已改判通過。不是全P2、全20／100攻略、原生、手動、實體GPU或FPS認證。同圖案左右來源未知、CN公開圖形分組、已知後續Fire私有目標依賴、新北仍OPEN。原生26待驗（AnAn桌面停用）；Windows20獨立。
+
+![實際匯出Web：七名NPC排入固定職能橫排，未操作的玩家仍在中立出生點](docs/images/top-v0326-cn-npc-row.webp)
+
+![實際匯出Web：Solar非攻略但實際安全的替代位置判為PASS](docs/images/top-v0326-player-safe-alternative.webp)
+
+![實際匯出Web：實際被命中／魔法易傷狀態判為FAIL——這是預期的失敗對照，不是發布損壞](docs/images/top-v0326-player-real-hit.webp)
+
+### v0.3.25 已部署基線（歷史）：從真正可見分身辨認新北
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.25（執行碼 c0d79cb）。Elemental／Aether／LPDU 的 NPC 在身體實際顯示後，才依五個外圈男分身的公開幾何辨認新北；缺少來源時等候，真正消失可記住過去，完整矛盾則撤銷。保留擊退前置集合，玩家仍須自己操作，不由 NPC 救場。
 
 來源純1,345項、原版模型20條Main／274項（13正向、7控制）、三攻略生命週期84項、240完整生成差分與12組既有回歸通過；同一新PCK的17組檢查及實際Web9項操作、固定HTTPS13種表示與全新啟動通過。[來源與限定範圍](docs/development/P2_PUBLIC_NORTH.md) · [Web／來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview)。
 

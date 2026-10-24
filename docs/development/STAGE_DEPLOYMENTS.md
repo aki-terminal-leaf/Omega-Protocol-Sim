@@ -1,6 +1,15 @@
 # 固定部署階段紀錄
 
-## v0.3.25 Web-first — current fixed deployment
+## v0.3.26 Web-first (player outcome + CN row) — current fixed deployment
+
+- Runtime `40de2247d59e1f815d9b089a6caccd44c0d87f2d` (source `40de2247d59e1f815d9b089a6caccd44c0d87f2d`); https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview); PCK `1e4b352f0d666385893662cbc9b5d39d9de31f194bf79769516eacea3cb927e2`.
+- Source: outcome pure25 / Main 4 flows 19 / rules196 / P6 precision55 / P6 LB604 / global20; 16 same-PCK gates; 8 actual Web checks; HTTPS 13 representations + fresh startup PASS.
+- Player PASS basis: modeled actual attack/status/death, not guide coordinates. Unmeasured P6 damage = separate UNKNOWN verification. NPC guide conformance separate.
+- Web new case: ordinary Solar safe alternate PASS; actual hit/magic-vuln FAIL (expected control); R. CN initial NPC row only before 3s. Public 0.5x observed before CN only.
+- No full P2 / all20 / all100 guide, native, manual, physical GPU or FPS certification. Native26 pending (AnAn desktop OFF); Windows20 separate.
+
+
+## v0.3.25 Web-first — accepted baseline (historical)
 
 - Runtime `c0d79cbe5906add1dbd8801abe530e8c36e25e6a`; fixed https://top.servicing.cc; [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview).
 - PCK `9b61893cb39bc9f34680eff083d2576fbe6b57a3cefaea0d6b55e50673cb3ec1`; seventeen exact-pack gates (all15retained +Northpure1345 +official20Main274), focused9actualWebchecks, HTTPS13representations+freshstartup PASS.

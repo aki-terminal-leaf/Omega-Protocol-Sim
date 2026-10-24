@@ -11,9 +11,9 @@
 3. **完成AVFX**：補足原始輸入、完整播放語義、實際整合、原遊戲對照與Windows／Web匯出，不以shader小實驗宣告完成。
 
 可並行資料盤點、來源閱讀與獨立review；功能整合／驗收按上述順序。每次只結清一個可審核段落，未完成工作保留在矩陣，不以局部PASS替代整體完成。
-本路線圖初版為規劃，不表示全項實作。其後 v0.3.11／v0.3.12／v0.3.13 已逐階段驗收並部署；目前固定站為 v0.3.25，限定範圍見 [部署紀錄](STAGE_DEPLOYMENTS.md)。下列尚未結清的分支繼續保留，開發 push 不等於 release。
+本路線圖初版為規劃，不表示全項實作。其後 v0.3.11／v0.3.12／v0.3.13 已逐階段驗收並部署；目前固定站為 v0.3.26，限定範圍見 [部署紀錄](STAGE_DEPLOYMENTS.md)。下列尚未結清的分支繼續保留，開發 push 不等於 release。
 
-v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站；各舊候選的原生 GUI 證據仍未完成，不能混算通過。[P3 公開觀察增量](P3_PUBLIC_OBSERVATION.md)有 4,200 條全分組走位及 40 正向／3 負向 Main 鍵盤流程通過；新 PCK 的 23 組回歸、無桌面 Chromium／SwiftShader WebGL2 操作、固定 HTTPS 位元組及全新啟動已通過。玩家正向尚未涵蓋全部手臂／減益組合。依使用者要求先更新 Web，不等待原生；原生待驗；使用者現已重新開放 AnAn 桌面，後續另留原生證據。完整攻略、最佳化及完整 AVFX 其餘工作繼續保留。
+v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站；各舊候選的原生 GUI 證據仍未完成，不能混算通過。[P3 公開觀察增量](P3_PUBLIC_OBSERVATION.md)有 4,200 條全分組走位及 40 正向／3 負向 Main 鍵盤流程通過；新 PCK 的 23 組回歸、無桌面 Chromium／SwiftShader WebGL2 操作、固定 HTTPS 位元組及全新啟動已通過。玩家正向尚未涵蓋全部手臂／減益組合。依使用者要求先更新 Web，不等待原生；原生待驗；該歷史階段曾開放 AnAn 桌面；依2026-10-24最新指示，桌面目前停用，後續原生仍待驗。完整攻略、最佳化及完整 AVFX 其餘工作繼續保留。
 
 [P3 提示狀態診斷 v0.3.19 Web-first](P3_OBSERVATION_DIAGNOSTICS.md)已發布：來源／七項新包受影響檢查、實際 Web 狀態／操作、固定 HTTPS 及全新啟動通過。此項不更改走位、判定或未知原始時序；未改動的舊機制保留 v0.3.18 基線，原生仍待驗，AnAn 已重新開放驗證。全部玩家義務、最佳化及完整 AVFX 仍未結清。
 
@@ -22,6 +22,8 @@ v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站�
 [Aether P2 橫排準備 v0.3.23](P2_AETHER_PREPARATION.md)已更新固定站：來源141條實際輸入、十三組精確PCK、實際Web十項操作、固定HTTPS與全新啟動通過；原生獨立待驗。未覆蓋全部初始排列／幾何、武器／新北／後段與完整P2，全20／100、最佳化與完整AVFX仍繼續。
 
 [公開身體辨認新北 v0.3.25](P2_PUBLIC_NORTH.md)已驗收並更新固定站：限定Elemental／Aether／LPDU既有分工，來源20Main274／生命週期84、17組同PCK、實際Web9項及固定HTTPS通過；Web較早圖形明示分段輔助、當前North仍須實際顯示。CN／KR、LPDU武器側軸、原遊戲精確幾何、全角色×攻略及全部P2仍未認證；原生25待驗。全20／100正確性、量測最佳化與完整AVFX繼續。
+
+[玩家結果判定＋CN開場 v0.3.26](PLAYER_OUTCOME_VERDICT.md)已更新固定站（[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview)、[top.servicing.cc](https://top.servicing.cc)）。下一步順序不變：全20／100正確性 → 量測效能 → AVFX啟用；AnAn桌面保持停用，原生26待驗。
 
 ### 全範圍而非抽樣
 
