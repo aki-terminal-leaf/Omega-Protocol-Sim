@@ -152,6 +152,8 @@ static func raw_bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dic
 		return Vector2.ZERO
 	# All five profiles (CN/KR have no Prep config): public weapon receipt only.
 	if beat.has("synergy_weapon_public"):return preload("res://scripts/synergy_weapons.gd").goal(actor,beat,actors,state)
+	# CN initial cast row only: public waymark A; invalid A/meta holds actual pose.
+	if beat.has("synergy_cn_lineup"):return preload("res://scripts/synergy_cn_lineup.gd").goal(actor,beat,actors,state)
 	if beat.has("synergy_public"):return preload("res://scripts/synergy_preparation.gd").goal(actor,beat,actors,state)
 	if beat.has("p1_path"):return load("res://scripts/p1_runtime.gd").coaching_goal(actor,beat,state)
 	if beat.has("cannons_public"):return preload("res://scripts/cannons_observation.gd").goal(actor,beat,actors,state)

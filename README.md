@@ -4,6 +4,10 @@
 
 **[v0.3.25 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.25-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.26 來源候選：莫古力開場面向 A 固定橫排
+
+CN／莫古力開場按原海報 **H1 MT ST D1 D2 D3 D4 H2** 朝 A 橫排；七名NPC依當前公開A走位，玩家從原本中立出生點自己加入，不會被補位。純64項、實際Main16場164項、240完整課程保留差分及八組必要回歸通過。[限定範圍與未解問題](docs/development/P2_CN_INITIAL_LINEUP.md)。**Web／同包PCK／原生仍待各自驗證，固定站目前維持v0.3.25。** 同圖案左右、CN公開圖形分組與後續Fire私有目標依賴仍未解決；不是完整莫古力攻略認證。
+
 ### v0.3.25 已更新 Web：從真正可見分身辨認新北
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.25（執行碼 c0d79cb）。Elemental／Aether／LPDU 的 NPC 在身體實際顯示後，才依五個外圈男分身的公開幾何辨認新北；缺少來源時等候，真正消失可記住過去，完整矛盾則撤銷。保留擊退前置集合，玩家仍須自己操作，不由 NPC 救場。

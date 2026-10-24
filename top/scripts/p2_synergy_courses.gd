@@ -6,6 +6,7 @@ const Prep=preload("res://scripts/synergy_preparation.gd")
 const Assign=preload("res://scripts/synergy_assignment.gd")
 const Clones=preload("res://scripts/clone_patterns.gd")
 const Conga=preload("res://scripts/aether_conga.gd")
+const CnLineup=preload("res://scripts/synergy_cn_lineup.gd")
 static func append_synergy(ctx) -> void:
 	var sword:=bool(ctx.profile.get("p2_sword",ctx.rng.randi_range(0,1)))
 	var legs:=bool(ctx.profile.get("p2_legs",ctx.rng.randi_range(0,1)))
@@ -53,6 +54,12 @@ static func append_synergy(ctx) -> void:
 	if not assignment.is_empty():
 		for actor in 8:cast.positions[actor]=Prep.queue_goal(actor,{},str(ctx.profile.id))
 	cast.spawn=cast.positions.duplicate()
+	if str(ctx.profile.id)==CnLineup.PROFILE_ID:
+		# CN poster fixed role rank facing A. Neutral spawn above stays exact; the
+		# human must walk into the row. No RNG draw; later beats/ctx.positions untouched.
+		cast[CnLineup.KEY]=CnLineup.metadata()
+		cast.positions=CnLineup.default_slots()
+		cast.note="面向A點，由左到右依優先級 H1 MT ST D1 D2 D3 D4 H2 橫排排隊；請自己走到自己職能的位置，之後記住頭上的圖案。"
 	if not assignment.is_empty():
 		for actor in 8:ctx.positions[actor]=Prep.queue_goal(actor,assignment)
 	var mark:Dictionary=ctx.beat("Party Synergy · remember symbols",3.1,"記住自己的圖案與組別；圖案會消失，之後不能再靠文字讀答案。")
