@@ -16,6 +16,9 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	Statuses.sync(beat, state)
 	preload("res://scripts/synergy_weapons.gd").begin(beat,state)
 	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").begin(beat,state,actors)
+	# Per-cast public new-North lifecycle; headless observation happens in tick
+	# (actual clock, spawn/transition-filtered) only when not presenting.
+	preload("res://scripts/synergy_north.gd").begin(beat,state)
 	load("res://scripts/hw_firstwave_observation.gd").begin(beat,actors,state)
 	sync_followups(beat,state)
 	if not beat.has("transfers"): return
@@ -78,6 +81,7 @@ static func tick(beat: Dictionary, actors: Array, previous: Array, state: Dictio
 	# Aether-only headless receipt from this tick's actual clock/statuses/poses.
 	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").observe(beat,actors,state)
 	if beat.has("synergy_weapon_public"):preload("res://scripts/synergy_weapons.gd").observe_headless(beat,state)
+	if beat.has("synergy_public"):preload("res://scripts/synergy_north.gd").observe_headless(beat,state)
 	sync_followups(beat,state)
 	if beat.has("transfers"): tick_transfers(beat,actors,previous,state,dt)
 	# Resolve Limitless only after the same physical contact pass used by YOU.

@@ -19,6 +19,7 @@ var synergy_displayed_glyphs:Array=[]
 var p3_displayed_arms:Array=[]
 ## Rendered P2 clone weapon tells decoded from actual visible parts/geometry.
 var synergy_weapon_observations:Array=[]
+var synergy_north_observations:Array=[]
 const P3Effects=preload("res://scripts/p3_effects.gd")
 var p3_fx_root:Node3D
 var p3_loading:Array=[]
@@ -596,6 +597,33 @@ func update_stage_entities() -> void:
 		var face := float(current.get("boss_facing", current.get("p1_route", {}).get("boss_facing", 0.0)))
 		EnemyRings.configure(bosses[0], {"facing":face})
 	synergy_weapon_observations=observe_weapon_nodes(stage_nodes) if current.has("synergy_weapon_public") else []
+	synergy_north_observations=observe_north_bodies(stage_nodes) if current.has("synergy_public") else []
+
+## New-North public input: only actually visible built M/F BODY geometry at its
+## WORLD XZ. Never labels/IDs/stance/last_stance/entity metadata. Hidden Arena,
+## root, GameMesh/Body or all body meshes hidden => absent; weapon parts
+## (atr_parts_a/b, fallback gear) alone never count.
+func observe_north_bodies(nodes:Array)->Array:
+	var out:Array=[]
+	for node in nodes:
+		if not is_instance_valid(node) or not node is Node3D or not node.is_inside_tree() or not node.is_visible_in_tree():continue
+		var official:=bool(node.get_meta("official_model",false))
+		var form:=str(node.get_meta("model_form","")) if official else str(node.get_meta("fallback_form",""))
+		if not (form.begins_with("male") or form.begins_with("female")):continue
+		var holder:String="GameMesh" if official else "Body"
+		if not node.has_node(holder) or not body_geometry(node.get_node(holder)):continue
+		var p:Vector3=(node as Node3D).global_position
+		out.append({"form":form,"pos":[p.x,p.z],"official":official,"body":holder})
+	return out
+
+static func body_geometry(node:Node)->bool:
+	if node is MeshInstance3D:
+		var part:=str(node.name)
+		var mesh:Mesh=(node as MeshInstance3D).mesh
+		if not part.contains("atr_parts_a") and not part.contains("atr_parts_b") and mesh!=null and mesh.get_surface_count()>0 and (node as MeshInstance3D).is_visible_in_tree():return true
+	for child in node.get_children():
+		if body_geometry(child):return true
+	return false
 
 ## After visibility/transitions/stance parts are applied. Uses only rendered
 ## tree visibility, node position and built body form; never last_stance/labels.

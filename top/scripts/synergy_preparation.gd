@@ -16,6 +16,9 @@ const PHASES=["cast","remember","appear","dodge","fire","laser","knock","stack",
 const AETHER_ORDER=[2,6,4,0,1,5,7,3]
 const AETHER_LINE_Z=0.0
 const CONGA_KEYS=["mode","default_order"]
+const LATE=["knock","stack","blades","expiry","finish"]
+## Public new-North receipt (body geometry only), never chosen.north.
+const North=preload("res://scripts/synergy_north.gd")
 static func config(profile_id:String="elemental")->Dictionary:
  if profile_id=="lpdu":return {"profile_id":"lpdu","left":[0,2,4,6],"right":[1,3,5,7],"shape_order":["cross","square","circle","triangle"]}
  if profile_id=="aether":return {"profile_id":"aether","mode":"conga","default_order":AETHER_ORDER.duplicate(),"shape_order":["cross","square","circle","triangle"]}
@@ -28,7 +31,8 @@ static func selection(beat:Dictionary)->Dictionary:
  if not raw is Dictionary or not raw.get("profile_id",null) is String or raw.get("phase","") not in PHASES:return {}
  var cfg:Dictionary=config(raw.profile_id)
  if cfg.is_empty():return {}
- if not raw.get("remote",null) is bool or not number(raw.get("eye_angle",null)) or not number(raw.get("north",null)):return {}
+ # Generator "north" metadata is private here: never read, validated or used.
+ if not raw.get("remote",null) is bool or not number(raw.get("eye_angle",null)):return {}
  for key in cfg:
   if raw.get(key,null)!=cfg[key]:return {}
  for key in ["left","right"]+CONGA_KEYS:
@@ -248,9 +252,7 @@ static func conga_goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary,c
  if assignment.is_empty():return held
  if phase in ["remember","appear"]:return frozen_vectors(seen.positions)[actor]
  if phase in ["fire","laser"]:return fire_goal(actor,assignment,bool(chosen.remote),float(chosen.eye_angle))
- if phase in ["knock","stack","blades","expiry","finish"]:
-  if seen.stacks.is_empty():return Vector2.ZERO
-  return R.v(knock_goals(assignment,seen.stacks,bool(chosen.remote),float(chosen.eye_angle),float(chosen.north),phase!="knock")[actor])
+ if phase in LATE:return late_goal(actor,beat,actors,state,chosen,assignment,seen)
  return held
 static func goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vector2:
  var chosen:Dictionary=selection(beat)
@@ -262,10 +264,18 @@ static func goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vecto
  if phase=="dodge":return preload("res://scripts/synergy_weapons.gd").goal(actor,beat,actors,state)
  var seen:Dictionary=memory(beat,state)
  var assignment:Dictionary=A.assign(seen.get("glyphs",[]),config(chosen.profile_id))
+ # After the staging gate, missing/invalid memory holds the actual pose.
+ if phase in LATE:return late_goal(actor,beat,actors,state,chosen,assignment,seen)
  if assignment.is_empty():return queue_goal(actor,{},chosen.profile_id)
  if phase in ["remember","appear"]:return queue_goal(actor,assignment)
  if phase in ["fire","laser"]:return fire_goal(actor,assignment,bool(chosen.remote),float(chosen.eye_angle))
- if phase in ["knock","stack","blades","expiry","finish"]:
-  if seen.stacks.is_empty():return Vector2.ZERO
-  return R.v(knock_goals(assignment,seen.stacks,bool(chosen.remote),float(chosen.eye_angle),float(chosen.north),phase!="knock")[actor])
  return R.v(actors[actor].pos)
+## Late knock/stack/blades/expiry/finish: valid remembered assignment+stacks AND
+## a valid public north receipt; same knock_goals with the receipt direction.
+## Otherwise hold the actor's ACTUAL pose (no private north/queue/centre fallback).
+static func late_goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary,chosen:Dictionary,assignment:Dictionary,seen:Dictionary)->Vector2:
+ var held:Vector2=R.v(actors[actor].pos)
+ if assignment.is_empty() or seen.is_empty() or not seen.get("stacks",null) is Array or seen.stacks.size()!=2:return held
+ var north:Variant=North.north(beat,state)
+ if north==null:return held
+ return R.v(knock_goals(assignment,seen.stacks,bool(chosen.remote),float(chosen.eye_angle),float(north),chosen.phase!="knock")[actor])

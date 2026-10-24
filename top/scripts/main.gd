@@ -447,6 +447,8 @@ func oracle_state_before(target: int) -> Dictionary:
 		result.synergy_presentation_required=b.has("synergy_public")
 		result.synergy_weapons_presentation_required=true
 		result.erase("synergy_weapons_checkpoint_assisted")
+		# Internal crossbeat substeps never publish headless/displayed new-North.
+		result.synergy_north_presentation_required=true
 		Interactions.begin(b, simulated, result)
 		if checkpoint_assisted and b.has("cannons_public") and b.has("p1_events") and bool(b.cannons_public.dynamic):
 			# Build a valid assisted PAST, never a fake displayed receipt. Ordinary
@@ -485,6 +487,9 @@ func oracle_state_before(target: int) -> Dictionary:
 			if checkpoint_assisted and b.has("synergy_weapon_public"):
 				# Synthetic assisted PAST with its own basis, never a displayed receipt.
 				preload("res://scripts/synergy_weapons.gd").publish_assisted(b,result)
+			if checkpoint_assisted and b.has("synergy_public"):
+				# Explicit assisted synthetic PAST (own flag/basis), never displayed.
+				preload("res://scripts/synergy_north.gd").publish_assisted(b,result)
 			clock += dt
 		for check in b.checks:
 			if check.kind == "lb": result.lb = check.type; result.lb_actor = check.eligible[0]
@@ -555,6 +560,8 @@ func begin_beat(reset_positions := false) -> void:
 	else:state.erase("panto_presentation_required")
 	if current.get("hello_world",false):state.hw_firstwave_presentation_required=true
 	else:state.erase("hw_firstwave_presentation_required")
+	# Actual Main presents new-North only from rendered body geometry.
+	state.synergy_north_presentation_required=true
 	Interactions.begin(current, actors, state)
 	Movement.begin(current,state,player if not demo else -1)
 	if current.has("program_loop"): Rules.ensure_loop_state(current, state)
@@ -655,6 +662,9 @@ func publish_observed_cues()->void:
 		preload("res://scripts/synergy_preparation.gd").publish(current,state,arena.synergy_displayed_glyphs,"displayed_textured_glyphs",actors)
 	if current.has("synergy_weapon_public") and not synergy_frame_stepping:
 		preload("res://scripts/synergy_weapons.gd").publish(current,state,arena.synergy_weapon_observations,"displayed_physical_parts")
+	if current.has("synergy_public") and not synergy_frame_stepping:
+		var north_script=preload("res://scripts/synergy_north.gd")
+		north_script.publish(current,state,arena.synergy_north_observations,north_script.DISPLAYED)
 	if current.get("hello_world",false):
 		load("res://scripts/hw_firstwave_observation.gd").publish(current,state,arena.visible_damage_shapes)
 	if current.has("p1_path"):
