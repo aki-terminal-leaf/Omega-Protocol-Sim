@@ -13,6 +13,7 @@ static func begin(beat: Dictionary, actors: Array, state: Dictionary) -> void:
 	state.loop_departure_order=[]
 	state.loop_deadline=float(state.get("sim_time",0))+float(beat.get("duration",0))
 	Statuses.begin(beat, state)
+	preload("res://scripts/monitor_preparation.gd").begin(beat,state)
 	Statuses.sync(beat, state)
 	preload("res://scripts/synergy_weapons.gd").begin(beat,state)
 	if beat.has("synergy_public"):preload("res://scripts/synergy_preparation.gd").begin(beat,state,actors)
@@ -140,7 +141,7 @@ static func desired_holders(beat: Dictionary) -> Array:
 static func bot_goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary) -> Vector2:
 	if beat.has("omega_config") and preload("res://scripts/omega_cooperation.gd").holds(actor,beat,state):return Rules.v(actors[actor].pos)
 	if beat.has("sigma_config") and preload("res://scripts/sigma_cooperation.gd").holds(actor,beat,state):return Rules.v(actors[actor].pos)
-	if beat.has("monitor_preparation"):return preload("res://scripts/monitor_preparation.gd").goal(actor,beat,state).limit_length(19.8)
+	if beat.has("monitor_preparation"):return preload("res://scripts/monitor_preparation.gd").goal(actor,beat,state,actors).limit_length(19.8)
 	# Only AI steering is bounded. Human positions and all wall judgments stay
 	# untouched; sidesteps around edge-origin tethers must not steer bots out.
 	return raw_bot_goal(actor,beat,actors,state).limit_length(19.8)

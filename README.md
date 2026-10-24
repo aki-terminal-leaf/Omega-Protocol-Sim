@@ -4,6 +4,12 @@
 
 **[v0.3.26 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.27 來源已驗收，Web 發布待驗：Astoh 檢知 N3 應變
+
+僅 Astoh、玩家為 M2 時，N3 依當前公開提示與玩家實際穩定位置／面向調整目標；其他六名 NPC、玩家輸入與真實攻擊／狀態／死亡判定不變。保留正常移速與晚到輸入承諾截止，不保證救回錯誤面向。
+
+來源19條實際WASD／QE／R流程641項、20條回歸372項、純契約39項及必要既有檢查通過；獨立唯讀審查完成。工程網格／角度不是官方合法容差。新PCK／實際Web／原生尚待驗證，固定站仍為下方v0.3.26。[限定範圍與重現指令](docs/development/P3_MONITOR_ADAPTIVE.md)。全20／100攻略、量測最佳化與完整AVFX繼續。
+
 ### v0.3.26 已更新 Web：玩家結果判定＋莫古力開場固定橫排
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.26（執行碼 40de224）。

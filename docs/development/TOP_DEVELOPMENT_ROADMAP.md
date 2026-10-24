@@ -25,6 +25,8 @@ v0.3.14–v0.3.17 的累積來源改善已隨 Web-first v0.3.18 更新固定站�
 
 [玩家結果判定＋CN開場 v0.3.26](PLAYER_OUTCOME_VERDICT.md)已更新固定站（[發布](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.26-preview)、[top.servicing.cc](https://top.servicing.cc)）。下一步順序不變：全20／100正確性 → 量測效能 → AVFX啟用；AnAn桌面保持停用，原生26待驗。
 
+[Astoh 檢知 M2玩家／N3應變 v0.3.27來源增量](P3_MONITOR_ADAPTIVE.md)已限定驗收：19實際輸入／641項、20回歸／372項、純39項及必要既有檢查通過，七檔獨立審查完成。新PCK／實際Web／發布仍待驗；固定站仍26。只改N3目標，不把玩家攻略座標當失敗條件；其他角色／打法、全部攻略、量測最佳化與AVFX仍繼續。原生待驗、AnAn桌面停用。
+
 ### 全範圍而非抽樣
 
 - 20個產品機制、100個可選選項、5個社群；Panto/Cannons/Monitors的額外變體分列，Solar Ray只有1個共用選項。
