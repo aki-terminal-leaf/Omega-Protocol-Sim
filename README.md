@@ -2,11 +2,25 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.31 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.32 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.31 已更新 Web：P2 莫古力同頭標 NPC 左右優先序
+### v0.3.32 已更新 Web：HW 非中心合法選塔／NPC 實際塔範圍
 
-固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.31（執行碼 `7116ade`）。同頭標依 H1 > MT > ST > D1 > D2 > D3 > D4 > H2 順序，高順位站在面向光之眼的左側；回報案例 D2 左、D4 右已修正。其他四方法、原始頭標／亂數／攻擊／狀態規則不變；玩家仍依實際受擊、Buff／Debuff與死亡判定，不要求精確攻略座標。[修正與範圍](docs/research/P2_CN_PRIORITY_FIX.md) · [本版驗證](docs/development/WEB_V0331.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)。
+固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.32（執行碼 `804b6ea`）。HW 後續輪次的 NPC 選塔成員依真正揭露的塔範圍與玩家實際位置判斷，不再要求玩家貼齊塔中心；合法非中心選擇不因偏離攻略座標單獨失敗。玩家仍以實際攻擊、Buff／Debuff及死亡結果判定。[修正與界線](docs/development/HW_LATER_CHOICE.md) · [本版驗證](docs/development/WEB_V0332.md) · [Web／精確來源／校驗下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview)。
+
+同一新 PCK 23組通過，含5,570幾何檢查、六個合成後續輪次／64項（3正向PASS、3預期負向FAIL，保留真實失敗）；這些案例使用合成NPC前段，不是普通手動Web通關。另一次全新普通Web首輪7項／39份報告、5次新畫面互動確認與8張當次畫面核對通過；正式HTTPS13種表示與獨立全新啟動通過。
+
+**操作展示**：P3「你好，世界」→ Elemental → 自行WASD，放開後不由NPC救位，R同點名重練清空未來資訊。下圖依序播放同一次實際擷取的「塔提示前／實際塔出現／R後」三張畫面，不是連續錄影，也不是後續輪次手動通關。
+
+![同次Web三張實際擷取畫面：提示前、實際塔、R後；非連續錄影或完整通關](docs/images/top-v0332-hw-source-retry.gif)
+
+![當次Web實際首輪塔提示與玩家；檢查止於塔／大圈判定前](docs/images/top-v0332-hw-tower.webp)
+
+瀏覽器只驗首輪公開來源、D鍵移動、放鍵不救位及R重練，止於塔／大圈判定前；沒有後續輪次普通手動／公開憑據、全攻略、原生、實體GPU或FPS驗收。原生32待驗，AnAn桌面仍停用；全20／102攻略正確性→量測效能→完整AVFX繼續。
+
+### v0.3.31 已部署基線（歷史）：P2 莫古力同頭標 NPC 左右優先序
+
+前一基線曾在 [top.servicing.cc](https://top.servicing.cc) 部署 v0.3.31（執行碼 `7116ade`）。同頭標依 H1 > MT > ST > D1 > D2 > D3 > D4 > H2 順序，高順位站在面向光之眼的左側；回報案例 D2 左、D4 右已修正。其他四方法、原始頭標／亂數／攻擊／狀態規則不變；玩家仍依實際受擊、Buff／Debuff與死亡判定，不要求精確攻略座標。[修正與範圍](docs/research/P2_CN_PRIORITY_FIX.md) · [本版驗證](docs/development/WEB_V0331.md) · [Web／精確來源／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)。
 
 同一新 PCK 21組與單次完整實際 Web 20項／118份報告通過，含8次全新畫面互動確認、18張當次畫面核對；固定 HTTPS 13種表示與獨立全新啟動通過。來源包含1,024順位檢查、640生成差分、64初始排列與2個完整NPC示範／38檢查，來源示範與Web範圍分開計算。
 
@@ -364,11 +378,11 @@ Web 候選成功匯出，但 VPS 瀏覽器擷取中斷，尚未通過，因此 W
 
 ## 下載與開始
 
-目前提供 [v0.3.31 Web／精確來源與 SHA256](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.31-preview)；固定站提供同版 Web 使用者測試。[v0.3.20 Windows 離線包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) 另行保留，原生桌面驗收仍待完成。較早 Linux／Windows 包是歷史版本，不代表含有本版修正；含本機遊戲素材的舊包標記為 `local-game-models`。
+目前提供 [v0.3.32 Web／精確來源與 SHA256](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview)；固定站提供同版 Web 使用者測試。[v0.3.20 Windows 離線包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) 另行保留，原生桌面驗收仍待完成。較早 Linux／Windows 包是歷史版本，不代表含有本版修正；含本機遊戲素材的舊包標記為 `local-game-models`。
 
-- **Windows 原生包（舊版）**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。本版 v0.3.31 請使用下方 Web 步驟。
+- **Windows 原生包（舊版）**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。本版 v0.3.32 請使用下方 Web 步驟。
 - **Linux**：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
-- **Web v0.3.31**：先安裝 Python 3，完整解壓；Windows 執行 `start-web.cmd`，macOS／Linux 執行 `python3 start-server.py`，再開啟 `http://127.0.0.1:8765/`。隨附伺服器提供必要的 COOP／COEP；不要直接開 `file://`。
+- **Web v0.3.32**：先安裝 Python 3，完整解壓；Windows 執行 `start-web.cmd`，macOS／Linux 執行 `python3 start-server.py`，再開啟 `http://127.0.0.1:8765/`。隨附伺服器提供必要的 COOP／COEP；不要直接開 `file://`。
 - **原始碼**：以 Godot **4.7.2-stable** 開啟 **`top/project.godot`**，不是根目錄的舊 DSR 專案。公開 source ZIP 不含遊戲素材，缺少時使用訓練外觀。
 
 執行發布包不需要遊戲安裝、帳號、ACT、Dalamud、第三方標記器或網路登入。

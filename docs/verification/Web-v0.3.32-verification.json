@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "runtime_commit": "804b6ea082aa15f70de1b80df52e897da85faade",
+  "version": "v0.3.32-preview-web-test",
+  "url": "https://top.servicing.cc",
+  "observed_at_unix": 1792850919.579742,
+  "pck_sha256": "99fef0ca3cbb88a44a48b3eb138509d49c9886a1d0cde6673581d37c4e38ac48",
+  "compiled_gates": 23,
+  "browser_checks": {
+    "startup": true,
+    "hw_selected": true,
+    "pre_cue_no_tower_receipt": true,
+    "post_cue_drawn_tower_receipt": true,
+    "human_input_moved": true,
+    "released_input_not_rescued": true,
+    "retry_clears_future": true
+  },
+  "browser_reports": 39,
+  "fresh_candidate_images": 8,
+  "fresh_UI_acks": 5,
+  "same_version_static_locator_reuse": 0,
+  "public_representations": 13,
+  "fresh_https_startup": true,
+  "native_acceptance": "pending_native_acceptance",
+  "desktop_operations": false,
+  "scope": "Scoped HW actual-revealed tower geometry NPC membership fix; exact23PCK gates including5570 geometry and64/sixsyntheticactualoutcome assertions. Fresh ordinaryHW firstwave7checks/39reports/8newpixels/5ACKs, stopped beforejudgment. NOTordinarylatermanual/fullguide/native/performance/completeAVFX.",
+  "limitations": [
+    "Six later-round cases use a synthetic auto-prelude; not ordinary manual/publicreceipt evidence.",
+    "Browser is firstwave only before tower/bug judgments; not manual win/fullclear.",
+    "Headless SwiftShader only, not physical GPU/native/performance acceptance.",
+    "Later-round ordinary manual/publicreceipt gap OPEN; full20/102guidecorrectness->measuredperf->AVFX active."
+  ],
+  "artifacts": {
+    "TOP-Practice-Lab-v0.3.32-Web.zip": {
+      "bytes": 226675307,
+      "sha256": "ee3a6174e273785b6dd0632b989fbd06d06e21fffc3517d9d471678eb25fdd13"
+    },
+    "Omega-Protocol-Sim-v0.3.32-source.zip": {
+      "bytes": 51077857,
+      "sha256": "ce021a97f4a828c27150d736d4804924fecf6fa88912ce3367f8374e9e9f8107"
+    }
+  },
+  "publication_contract_sha256": "b07538c7528f52ec50838b5f03ca711b8acc32eb2465ec53fb37de0fe337db3d",
+  "parent_review_sha256": "cdf158c24d21806ea5e7c575c11ab8a65ce716e6a114b9e8ba173bd2ceca6ffe",
+  "release_notes_sha256": "dc7d2384399610a6a213da400db09292a4252e1d5c493e06772b79ea3cbe3724",
+  "evidence_sha256": {
+    "activation-proof.json": "04fc9208d24b8dd553f9bd2e86296d6c97be1319bbc32931789eaab6bd23a279",
+    "pack-acceptance.json": "341e2f65f5f26af5288720ee9daada39d75c31d9c704dc93c7a889355c469fae",
+    "browser-acceptance.json": "30b03b3d7e25de49dc751e28a2cedb147df4f968cba1c3d7df57e50186092b02",
+    "browser-stage-closure.json": "1a278454b47687e75de92f0750b93e8c3d8526ae0a5d9090c5dc9d0fc46dcaeb",
+    "remote-final-collection.json": "79c871501ea2063731d30caff5aaf335088d94d07334c21062fa6b9a4c81a272",
+    "final-pixel-review.json": "5954b86040b9ca7f4dae14d4cdd4134ba43cf41595326db43e323ad6f88e3bde",
+    "public-verification.json": "0492bde6ff881209164b37a56d5ff1f46835c96947a11d01dcac4698ca7472bd",
+    "public-startup.json": "53bbaa56dcbf680e40db7147293b0e19696fcb9eceabf25f2c4388fcf9bed18e",
+    "public-pixel-review.json": "3ac18380822331bd32d478005dd291d46eb377bc7cf89b4fb1fd42adba4a6d15",
+    "release-asset-proof.json": "ff3e558794005093a11e4f318d6a2a2c6f6b3077cab971b3ce9c881990d68909",
+    "source-seal/source-acceptance.json": "31815ef932cdca5c27a23133a5ad23160f5410d28fe2218d2eaeeb3b17111290",
+    "publication-contract.json": "b07538c7528f52ec50838b5f03ca711b8acc32eb2465ec53fb37de0fe337db3d",
+    "parent-publication-review.json": "cdf158c24d21806ea5e7c575c11ab8a65ce716e6a114b9e8ba173bd2ceca6ffe",
+    "publication-review/parent-collection.json": "b6be401162c69419928dd5e6e04739eac8df63736a6539e61f56112246896f6c"
+  }
+}

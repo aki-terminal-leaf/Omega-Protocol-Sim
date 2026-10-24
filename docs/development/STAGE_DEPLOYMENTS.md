@@ -1,4 +1,11 @@
-# v0.3.29 current Web-first baseline
+# v0.3.32 current Web-first baseline
+
+- Runtime `804b6ea082aa15f70de1b80df52e897da85faade`; PCK `99fef0ca3cbb88a44a48b3eb138509d49c9886a1d0cde6673581d37c4e38ac48`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview); [scope](WEB_V0332.md).
+- HW actualtowerfootprint NPCmembership fix;23exactPCK incl5570geometry and6syntheticlatercases/64assertions (3PASS/3expectedFAIL). Syntheticauto-prelude is NOTordinarymanualWeb evidence.
+- One fresh ordinaryfirstwaveWeb7checks/39reports/5newACKs/8reviewedimages BEFOREtower/bugjudgment;13HTTPS representations andseparatefreshpublicstartup passed. Originalgzip90snetworkfailure retainedFAILED, independentlyreviewedcompletefollowup13PASS.
+- Native32 pending; AnAn desktop PROHIBITED. Noordinarylatermanual/publicreceipt/fullguide/native/physicalGPU/FPS acceptance. All20/102correctness->measuredoptimization->completeAVFX ACTIVE. GIF3actualsnapshots, notcontinuousvideo. Earlier entries below are historical.
+
+## v0.3.29 historical Web-first baseline
 
 - Runtime `132e3babb296677065fffb4db28c58b6f0351ba4`; PCK `b61ee7114cf3e692d9543f890429e860473a8b8ca9e6da479dc435b42c21babf`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.29-preview).
 - Two optional KR fixed-DPS policies;13freshPCK,onecompleteactualWeb8checks/3positives+R+idle,parentpixels,13HTTPS+freshstartup passed.
@@ -100,7 +107,7 @@
 - Documentation closure is separate from the runtime commit; all-guide / measured optimization / full AVFX remain active. Earlier deployment entries below are historical.
 
 
-固定網址：https://top.servicing.cc 。依使用者 2026-10-24 最新指示，來源、新 Web 包與實際 Web 驗證完成後先更新；原生另列實際證據，目前工作視窗已授權 AnAn 桌面驗證。早期 v0.3.11–v0.3.13 的 Windows／Web 驗收紀錄保留原來範圍；局部驗證不是全部攻略符合。
+固定網址：https://top.servicing.cc 。依使用者 2026-10-24 最新指示，來源、新 Web 包與實際 Web 驗證完成後先更新；原生另列實際證據，該歷史工作視窗曾授權 AnAn 桌面驗證；依最新指示目前桌面停用，原生32待驗。早期 v0.3.11–v0.3.13 的 Windows／Web 驗收紀錄保留原來範圍；局部驗證不是全部攻略符合。
 
 - **2026-10-23 v0.3.11 已部署**：執行碼 c773d153572683468855883d3d7519526eff29c4。HW／檢知／Delta／P6等既有已覆核增量；實際Web匯出包20機制100選項、Windows五個完整示範、Windows Chrome155／AMD GPU13項操作及固定HTTPS啟動通過；13個identity/gzip資源表示皆核對。這不是手動全流程通關或全部攻略認證。
 - **2026-10-23 v0.3.12 已部署**：執行碼783abe2360185238f31b16da8c7a3278235f1257。Sigma CN橫排、提前真塔容量與重開即時清理；來源及匯出包限定檢查、Windows原生六塔／GPU Web五塔的1／2容量與重開畫面、固定HTTPS檔案／啟動均通過。手標驅動分工仍在下一階段。
