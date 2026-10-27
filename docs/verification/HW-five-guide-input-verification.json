@@ -1,0 +1,100 @@
+{
+  "ok": true,
+  "source_commit": "d2c88631dcd3f4da0e7126ad1039fd214a8fe48b",
+  "rows": [
+    {
+      "method": 2,
+      "name": "aether",
+      "positive_roles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "positive_stop": 130,
+      "negative_human": 6,
+      "negative_stop": 45.05,
+      "result_sha256": "77b8383f999fa56e57633c8e9912576d874b6198e26da2ab2edfa8c9e35bdcfc",
+      "log_sha256": "47868ec3563b2c729671862ad296219917393189a6b4044d8b1d205ac3750b49",
+      "summary": [
+        "HW_FULL_PLAYER_RESULT {\"checks\":179,\"courses\":9,\"failures\":0,\"roles\":[0,1,2,3,4,5,6,7,6],\"scope\":\"actual Main WASD fromHW0 to per-row stop; controlled identity/red/[2,0,0,0], nominal guide timeline and manual scene stepping; current public roles/drawn towers, no synthetic prelude; not native/manual/Web/allguide\",\"stop_times\":[130.0,130.0,130.0,130.0,130.0,130.0,130.0,130.0,45.05]}"
+      ]
+    },
+    {
+      "method": 3,
+      "name": "lpdu",
+      "positive_roles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "positive_stop": 130,
+      "negative_human": 6,
+      "negative_stop": 45.05,
+      "result_sha256": "47f7b625a32369ee0ba57253cba46441da3dfd94c444f2296d49617b1f4737f4",
+      "log_sha256": "8ba191fbb85ae396f9c00d5ab26c2de9872198e1afd8ce81f427e8bb27117cc8",
+      "summary": [
+        "HW_FULL_PLAYER_RESULT {\"checks\":179,\"courses\":9,\"failures\":0,\"roles\":[0,1,2,3,4,5,6,7,6],\"scope\":\"actual Main WASD fromHW0 to per-row stop; controlled identity/red/[2,0,0,0], nominal guide timeline and manual scene stepping; current public roles/drawn towers, no synthetic prelude; not native/manual/Web/allguide\",\"stop_times\":[130.0,130.0,130.0,130.0,130.0,130.0,130.0,130.0,45.05]}"
+      ]
+    },
+    {
+      "method": 4,
+      "name": "cn-moogle",
+      "positive_roles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "positive_stop": 130,
+      "negative_human": 6,
+      "negative_stop": 45.05,
+      "result_sha256": "355629ce5fd2066903010c011d25159a5c372ee6e36150f9463e3aeb2572032b",
+      "log_sha256": "8a0397df077c3167682822f03d5363a8ffb06e1a9e41d8f11544187f050d3905",
+      "summary": [
+        "HW_FULL_PLAYER_RESULT {\"checks\":179,\"courses\":9,\"failures\":0,\"roles\":[0,1,2,3,4,5,6,7,6],\"scope\":\"actual Main WASD fromHW0 to per-row stop; controlled identity/red/[2,0,0,0], nominal guide timeline and manual scene stepping; current public roles/drawn towers, no synthetic prelude; not native/manual/Web/allguide\",\"stop_times\":[130.0,130.0,130.0,130.0,130.0,130.0,130.0,130.0,45.05]}"
+      ]
+    },
+    {
+      "method": 5,
+      "name": "kr09stop",
+      "positive_roles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "positive_stop": 130,
+      "negative_human": 6,
+      "negative_stop": 45.05,
+      "result_sha256": "5357148a053edfcb59d5248fc52d0ea3f54622b25ca236a7f0b998aa5c4555d7",
+      "log_sha256": "7ea7a9e6a17d808702d91dde8c14f82714cd44d8475548952a54ef084a464719",
+      "summary": [
+        "HW_FULL_PLAYER_RESULT {\"checks\":179,\"courses\":9,\"failures\":0,\"roles\":[0,1,2,3,4,5,6,7,6],\"scope\":\"actual Main WASD fromHW0 to per-row stop; controlled identity/red/[2,0,0,0], nominal guide timeline and manual scene stepping; current public roles/drawn towers, no synthetic prelude; not native/manual/Web/allguide\",\"stop_times\":[130.0,130.0,130.0,130.0,130.0,130.0,130.0,130.0,45.05]}"
+      ]
+    }
+  ],
+  "new_cases": 36,
+  "total_with_Elemental": 45,
+  "positive_total": 40,
+  "negative_total": 5,
+  "scope": "all five guide families/eightroles controlled identity/red/[2,0,0,0] nominal timeline, actual WASD from0; no blue/mixed/fullCartesian/manual/native/Web certification",
+  "at": 1793090649.1123707
+}

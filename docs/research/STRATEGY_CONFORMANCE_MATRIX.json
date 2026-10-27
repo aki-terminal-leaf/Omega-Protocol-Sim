@@ -487,7 +487,7 @@
       "setup_or_in_mechanic_preparation": "依攻略八方觀察初始Smell、塔色、配對預覽；不是直接出生在四輪解答",
       "required_player_actions": "依塔色／毒／Debugger選側；主動感染、吃塔、拉線、等爆炸後回場",
       "npc_response_contract": "合法等價側別由玩家先選時對側補位；依實際感染／線狀態重算，不偷改毒或Debugger",
-      "remaining_or_source_uncertainty": "已具備初始公開站位／配對預覽／實際塔顯示、首輪NPC資訊依賴與v30後輪玩家選側、v32合法非中心踩塔；後三輪實際呈現依賴修正進行中、尚未驗收。五攻略前處理／交毒／第四輪、八職責從頭玩家流程與錯漏晚操作仍待驗；原遊戲數值／同時事件保留未知。",
+      "remaining_or_source_uncertainty": "後三輪實際呈現依賴來源修正已驗，五攻略各八職責受控全程WASD及漏做負向已驗；新Web33尚待同包／瀏覽器驗收。首輪公開站位／配對預覽與v32實際塔幾何證據保留；更多顏色／方向／合法替代、原服數值與同時事件仍待核。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -1572,7 +1572,9 @@
         "docs/development/HW_LATER_CHOICE.md",
         "docs/development/WEB_V0330.md",
         "docs/development/WEB_V0332.md",
-        "docs/development/HW_PREPARATION_CONTRACT.md"
+        "docs/development/HW_PREPARATION_CONTRACT.md",
+        "docs/development/HW_LATER_PRESENTATION.md",
+        "docs/verification/HW-five-guide-input-verification.json"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1599,7 +1601,9 @@
         "docs/development/HW_LATER_CHOICE.md",
         "docs/development/WEB_V0330.md",
         "docs/development/WEB_V0332.md",
-        "docs/development/HW_PREPARATION_CONTRACT.md"
+        "docs/development/HW_PREPARATION_CONTRACT.md",
+        "docs/development/HW_LATER_PRESENTATION.md",
+        "docs/verification/HW-five-guide-input-verification.json"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1626,7 +1630,9 @@
         "docs/development/HW_LATER_CHOICE.md",
         "docs/development/WEB_V0330.md",
         "docs/development/WEB_V0332.md",
-        "docs/development/HW_PREPARATION_CONTRACT.md"
+        "docs/development/HW_PREPARATION_CONTRACT.md",
+        "docs/development/HW_LATER_PRESENTATION.md",
+        "docs/verification/HW-five-guide-input-verification.json"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1653,7 +1659,9 @@
         "docs/development/HW_LATER_CHOICE.md",
         "docs/development/WEB_V0330.md",
         "docs/development/WEB_V0332.md",
-        "docs/development/HW_PREPARATION_CONTRACT.md"
+        "docs/development/HW_PREPARATION_CONTRACT.md",
+        "docs/development/HW_LATER_PRESENTATION.md",
+        "docs/verification/HW-five-guide-input-verification.json"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1680,7 +1688,9 @@
         "docs/development/HW_LATER_CHOICE.md",
         "docs/development/WEB_V0330.md",
         "docs/development/WEB_V0332.md",
-        "docs/development/HW_PREPARATION_CONTRACT.md"
+        "docs/development/HW_PREPARATION_CONTRACT.md",
+        "docs/development/HW_LATER_PRESENTATION.md",
+        "docs/verification/HW-five-guide-input-verification.json"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
