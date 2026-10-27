@@ -11,6 +11,7 @@ func _initialize()->void:call_deferred("run")
 func run()->void:
  var app=Scene.instantiate();root.add_child(app);await process_frame;app.set_process(false);app.arena.set_process(false)
  var a=app.arena;var cues=a.source_cues
+ cues.experimental_effects=true # This fixture explicitly tests the opt-in graph renderer.
  a.set_encounter("p2_synergy")
  var points:Array=[Vector2(-10,-10),Vector2(10,-10),Vector2(-10,10),Vector2(10,10)]
  var ids:Array=[31525,31526,31530,31533];var stances:Array=["SHIELD","SWORD","LEGS","STAFF"]

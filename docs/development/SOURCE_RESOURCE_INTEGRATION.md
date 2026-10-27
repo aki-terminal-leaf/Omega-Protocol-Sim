@@ -1,3 +1,9 @@
+# Original-resource integration — staged delivery
+
+## v0.3.34 scoped milestone
+
+See [the current animation milestone](WEB_V0334.md). Release templates retain accepted practice effects and admit only known weapon animations. Full original AVFX rendering remains OPEN and is available only in explicit source/editor previews. The records below describe preceding development snapshots; their no-deployment statements are historical, not the final publication status.
+
 # Original-resource integration: source and native diagnostics, visual acceptance open
 
 2026-10-28. This candidate is based on accepted Web32 (`483141a`), not the frozen, failed Web33 NPC candidate. It does not resume unrelated NPC correctness work. **The live site has not been updated by this source stage.**

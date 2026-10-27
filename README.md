@@ -4,6 +4,12 @@
 
 **[v0.3.32 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### v0.3.34 原始武器動作：分段發佈候選
+
+加入原始武器動作與模型呈現，保留現有練習特效；未驗收的原始粒子不在發佈版啟用。本段不是全階段特效還原，女性完整起手、光之眼開合及原版場景材質仍待完成。[本段範圍與驗證](docs/development/WEB_V0334.md) · [分支與逐段發佈規則](docs/development/BRANCHES.md)。來源與原生限定驗證已完成，正式更新須通過精確匯出包與網頁驗證。
+
+目前 TOP 開發與原生驗證使用 AnAn，桌面已於 2026-10-28 重新授權。以下舊版段落中的桌面停用是當時狀態，不代表現在。
+
 ### v0.3.32 已更新 Web：HW 非中心合法選塔／NPC 實際塔範圍
 
 固定站 [top.servicing.cc](https://top.servicing.cc) 已更新 v0.3.32（執行碼 `804b6ea`）。HW 後續輪次的 NPC 選塔成員依真正揭露的塔範圍與玩家實際位置判斷，不再要求玩家貼齊塔中心；合法非中心選擇不因偏離攻略座標單獨失敗。玩家仍以實際攻擊、Buff／Debuff及死亡結果判定。[修正與界線](docs/development/HW_LATER_CHOICE.md) · [本版驗證](docs/development/WEB_V0332.md) · [Web／精確來源／校驗下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview)。

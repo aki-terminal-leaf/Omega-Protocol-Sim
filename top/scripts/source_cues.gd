@@ -14,6 +14,8 @@ const NAMES = {"Storage Violation":31492,"Blaster":31498,"Omega Blaster":32373,"
 static var catalog:Dictionary={}
 static var documents:Dictionary={}
 static var samples:Dictionary={}
+## Unverified graph rendering is a developer-only opt-in, never a release default.
+var experimental_effects:=false
 var arena:Node3D
 var state_ref:Dictionary={}
 var cursor:=0
@@ -31,6 +33,7 @@ var beat_start:=0.0
 
 func setup(owner_arena:Node3D)->void:
  arena=owner_arena
+ experimental_effects=OS.has_feature("editor") and OS.get_cmdline_user_args().has("--experimental-source-effects")
  if catalog.is_empty() and FileAccess.file_exists(CATALOG):
   var loaded:Variant=JSON.parse_string(FileAccess.get_file_as_string(CATALOG))
   if loaded is Dictionary:catalog=loaded
@@ -218,6 +221,9 @@ func find_source(id:int,origin:Vector2)->Node3D:
   if gap<distance:distance=gap;best=node
  return best
 func queue_action(id:int,origin:Vector2,yaw:float,at:float,key:String,source:Node3D=null,timing:String="")->void:
+ # The released milestone owns only known weapon animations; other actions and
+ # source particles retain the accepted practice presentation until visually verified.
+ if not experimental_effects and not WEAPON_TMB.has(id):return
  if scheduled.has(key):return
  scheduled[key]=true
  var form:=str(source.get_meta("model_form","")) if is_instance_valid(source) else "unbound"
@@ -235,6 +241,7 @@ func queue_action(id:int,origin:Vector2,yaw:float,at:float,key:String,source:Nod
   var binding:=Pose.configure(source,sample)
   if binding.get("ok",false):animations[owner]={"binding":binding,"start":at+float(spec.get("node_time",0))/30.0,"end":at+float(spec.duration_s),"source":source}
   else:diagnostics["animation/%s/%s"%[form,binding.get("error","")]]=true
+ if not experimental_effects:return
  for node in timeline.get("nodes",[]):
   if node.get("tag","")!="C012":continue
   var path:=str(node.get("path",""))
@@ -358,4 +365,4 @@ static func find_skeleton(node:Node)->Skeleton3D:
 func report()->Dictionary:
  var active:Array=[]
  for item in effects.values():active.append({"ability":item.ability,"path":item.path,"start":item.start,"particles":item.player.last_particles.size(),"diagnostics":item.player.diagnostics.keys()})
- return {"source_resources":not catalog.is_empty(),"active":active,"animations":animations.size(),"retained_invisible_rigs":retired_rigs.size(),"emitted":emitted.duplicate(true),"diagnostics":diagnostics.keys(),"clock":"simulation seconds / source local 30Hz","rendering_complete":false,"optical_lid":"source default static pose; original dynamic timeline pending"}
+ return {"presentation_mode":"experimental_source_effects" if experimental_effects else "weapon_animations", "source_particles_enabled":experimental_effects, "source_resources":not catalog.is_empty(),"active":active,"animations":animations.size(),"retained_invisible_rigs":retired_rigs.size(),"emitted":emitted.duplicate(true),"diagnostics":diagnostics.keys(),"clock":"simulation seconds / source local 30Hz","rendering_complete":false,"optical_lid":"source default static pose; original dynamic timeline pending"}

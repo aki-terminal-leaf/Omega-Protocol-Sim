@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Omega Protocol — Practice Lab"
-config/version="0.3.32-preview"
+config/version="0.3.34-preview"
 run/main_scene="res://scenes/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Omega Protocol Practice Lab"

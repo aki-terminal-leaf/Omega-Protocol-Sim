@@ -1,0 +1,374 @@
+{
+  "scope": "v0.3.34 weapon-animation milestone, not complete original AVFX",
+  "source_hashes": {
+    "top/scripts/source_cues.gd": "1571c57ffc8722d8e0dff53dd6771d68ffb87f61a47b3ebaab32842bc8a0e92f",
+    "top/project.godot": "203444fedbea69249dd5cc50a4127c8b03db6fb5fce3c4d04039d1d127f38755",
+    "top/export_presets.cfg": "3da3f9ca5727db66ff43af11b44056b15f94307e6819ffaf131ecee5bba81c9e",
+    "top/tests/source_release_scope.gd": "74596c5347745cc3b5902d4b3cd1ad8e4d8243a8d8cff5a858897089b90659bc",
+    "top/tests/source_cue_lifecycle.gd": "7010ef3eb8212ddedb189eda014fa0b2f7ec9a736d8e1b9e96019a6716b89140",
+    "top/tests/source_weapon_boundary.gd": "7761bee33b24934cb509ea9146ab8cb40312b1e4afc0eff065931ce536437d0e"
+  },
+  "source_gate": {
+    "cases": [
+      {
+        "emitted": [
+          {
+            "ability": 31525,
+            "at": 12.7333333333333,
+            "key": "weapon/31525/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp021.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31533,
+            "at": 13.4,
+            "key": "weapon/31533/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp005.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": false,
+        "state_sha256": "542c3d16939b4180a9685919e5525fa0187455780c28d2d120d1133342265510",
+        "sword": false
+      },
+      {
+        "emitted": [
+          {
+            "ability": 31525,
+            "at": 12.7333333333333,
+            "key": "weapon/31525/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp021.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31530,
+            "at": 13.4,
+            "key": "weapon/31530/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp006.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": true,
+        "state_sha256": "147c648dd3e590566b2e13638917acc78dbe1908d475a5caf9937b44cfcfedb8",
+        "sword": false
+      },
+      {
+        "emitted": [
+          {
+            "ability": 31526,
+            "at": 12.9666666666666,
+            "key": "weapon/31526/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp015.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31533,
+            "at": 13.4,
+            "key": "weapon/31533/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp005.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": false,
+        "state_sha256": "c3c79768542d7ce0b07ac785f63160bd917b509c3110e225bcde335df32486b7",
+        "sword": true
+      },
+      {
+        "emitted": [
+          {
+            "ability": 31526,
+            "at": 12.9666666666666,
+            "key": "weapon/31526/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp015.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31530,
+            "at": 13.4,
+            "key": "weapon/31530/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp006.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": true,
+        "state_sha256": "05e0de22296217e9f5c76932468a350461ea008509c4ad7a214648152441f106",
+        "sword": true
+      }
+    ],
+    "checks": 46,
+    "failures": 0,
+    "mode": "weapon_animations",
+    "rendered": false,
+    "scope": "actual Main default release mode, all four weapon combinations, source pose, pause/retry and identical combat state without source presentation"
+  },
+  "native_gate": {
+    "cases": [
+      {
+        "emitted": [
+          {
+            "ability": 31525,
+            "at": 12.7333333333333,
+            "key": "weapon/31525/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp021.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31533,
+            "at": 13.4,
+            "key": "weapon/31533/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp005.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": false,
+        "state_sha256": "542c3d16939b4180a9685919e5525fa0187455780c28d2d120d1133342265510",
+        "sword": false
+      },
+      {
+        "emitted": [
+          {
+            "ability": 31525,
+            "at": 12.7333333333333,
+            "key": "weapon/31525/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp021.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31530,
+            "at": 13.4,
+            "key": "weapon/31530/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp006.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": true,
+        "state_sha256": "147c648dd3e590566b2e13638917acc78dbe1908d475a5caf9937b44cfcfedb8",
+        "sword": false
+      },
+      {
+        "emitted": [
+          {
+            "ability": 31526,
+            "at": 12.9666666666666,
+            "key": "weapon/31526/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp015.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31533,
+            "at": 13.4,
+            "key": "weapon/31533/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp005.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": false,
+        "state_sha256": "c3c79768542d7ce0b07ac785f63160bd917b509c3110e225bcde335df32486b7",
+        "sword": true
+      },
+      {
+        "emitted": [
+          {
+            "ability": 31526,
+            "at": 12.9666666666666,
+            "key": "weapon/31526/3/entity2",
+            "origin": [
+              3.82683420181274,
+              9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity2",
+            "tmb": "chara/action/mon_sp/m0513/mon_sp015.tmb",
+            "tmb_time_origin": "source weapon windup"
+          },
+          {
+            "ability": 31530,
+            "at": 13.4,
+            "key": "weapon/31530/3/entity3",
+            "origin": [
+              -3.82683420181274,
+              -9.23879528045654
+            ],
+            "phase": 2,
+            "source": "entity3",
+            "tmb": "chara/action/mon_sp/m0514/mon_sp006.tmb",
+            "tmb_time_origin": "source weapon windup"
+          }
+        ],
+        "errors": [],
+        "legs": true,
+        "state_sha256": "05e0de22296217e9f5c76932468a350461ea008509c4ad7a214648152441f106",
+        "sword": true
+      }
+    ],
+    "checks": 58,
+    "failures": 0,
+    "mode": "weapon_animations",
+    "rendered": true,
+    "scope": "actual Main default release mode, all four weapon combinations, source pose, pause/retry and identical combat state without source presentation"
+  },
+  "experimental_boundary": {
+    "cases": [
+      {
+        "drawn_texture_materials": 23,
+        "errors": [],
+        "legs": false,
+        "sword": false
+      },
+      {
+        "drawn_texture_materials": 20,
+        "errors": [],
+        "legs": true,
+        "sword": false
+      },
+      {
+        "drawn_texture_materials": 22,
+        "errors": [],
+        "legs": false,
+        "sword": true
+      },
+      {
+        "drawn_texture_materials": 19,
+        "errors": [],
+        "legs": true,
+        "sword": true
+      }
+    ],
+    "checks": 51,
+    "failures": 0,
+    "late_sword_sources": 5,
+    "scope": "actual Main transitions, all four legal weapon combinations, source texture binding, pause and retry; not native visual fidelity"
+  },
+  "runs": [
+    {
+      "name": "release",
+      "code": 0,
+      "ok": true,
+      "seconds": 5.921159029006958
+    },
+    {
+      "name": "experimental-boundary",
+      "code": 0,
+      "ok": true,
+      "seconds": 8.59790849685669
+    },
+    {
+      "name": "lifecycle",
+      "code": 0,
+      "ok": true,
+      "seconds": 2.96116042137146
+    },
+    {
+      "name": "clone-tells",
+      "code": 0,
+      "ok": true,
+      "seconds": 6.56376576423645
+    },
+    {
+      "name": "native",
+      "code": 0,
+      "ok": true,
+      "seconds": 15.18403959274292
+    }
+  ],
+  "full_original_visual_gate": "OPEN; experimental graph renderer excluded from released templates",
+  "native_packaged_acceptance": "NOT_RUN; native source fixture only",
+  "web_acceptance": "required on exact exported PCK before release",
+  "independent_review": {
+    "model": "claude-sonnet-5-5",
+    "route": "Claude Code claude.ai subscription",
+    "frozen_source_sha256": "b8d34f5725bad8dcc15eb2e65f8037f727fbb579a90bede643aa314bcce16c1d",
+    "disposition": "State comparison failure isolated to unequal time-step boundaries (motion budget ~3.6e-13); symmetric fixture now passes exact state/actors comparisons for all four combinations. Final editor feature restriction and export exclusions reviewed by parent. Actual four-combination gates cover exactly-once event admission. No media preloads in source player/curve modules."
+  }
+}

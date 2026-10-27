@@ -59,3 +59,7 @@ workers must retain bounded isolated jobs and parent review.
 - Shader key/value CRC labels are explicit source mappings, not necessarily
   CRC32 of their human-readable labels. Never invent unknown IDs by hashing
   guessed names or claim a partial semantic match is an exact host selection.
+
+## Milestone publication and branch policy (owner 2026-10-28)
+
+After every coherent validated increment, publish its scoped GitHub release and deploy the exact accepted Web build. Keep main as the published baseline and develop as integration; preserve unmerged historical work under recoverable archive refs. Source-only pushes do not complete a releasable milestone. Actual Web gates remain required. See docs/development/BRANCHES.md.

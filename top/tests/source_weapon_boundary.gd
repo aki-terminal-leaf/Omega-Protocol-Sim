@@ -14,6 +14,7 @@ func check(ok:bool,why:String)->void:
 func _initialize()->void:call_deferred("run")
 func run()->void:
  var app=Main.instantiate();root.add_child(app);await process_frame;app.set_process(false);app.arena.set_process(false)
+ app.arena.source_cues.experimental_effects=true # Explicit experimental renderer coverage.
  for i in app.filtered.size():
   if app.filtered[i].id=="p2_synergy":app.choose_mechanic(i)
  app.strategy_select.select(1);app.choose_strategy(1);app.fresh_seed.set_pressed_no_signal(false);app.hints.button_pressed=false
