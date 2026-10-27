@@ -82,7 +82,7 @@ static func expire(actors: Array, state: Dictionary) -> void:
 			state.statuses[actor][name+"_debugger"]={"expires":float(state.sim_time)+9999.0}
 			var radius := 5.0 if name!="overflow" else 20.0
 			var hits := Rules.hits({"actor":actor,"radius":radius},actors)
-			record(state,"hw_blast",{"actor":actor,"status":name,"hits":hits})
+			record(state,"hw_blast",{"actor":actor,"status":name,"hits":hits,"pos":[Rules.v(actors[actor].pos).x,Rules.v(actors[actor].pos).y]})
 			if name in ["red","blue"]:
 				if actor not in state.dead: state.statuses[actor].erase("latent_"+name)
 				for other in hits:

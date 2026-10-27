@@ -376,7 +376,7 @@ static func resolve_world_pulse(check: Dictionary, actors: Array, state: Diction
 			statuses.give(state,actor,"world_vulnerability",float(statuses.parameter("world_vulnerability_duration")))
 			state.dynamis[actor]=mini(3,int(state.dynamis[actor])+1)
 			chain.touched.append(actor)
-		var record := {"chain":id,"pulse":pulse,"side":"near" if side==0 else "far","from":chain.holders[side],"receiver":receiver,"hits":caught,"time":now}
+		var record := {"chain":id,"pulse":pulse,"side":"near" if side==0 else "far","from":chain.holders[side],"receiver":receiver,"hits":caught,"time":now,"from_position":[v(actors[int(chain.holders[side])].pos).x,v(actors[int(chain.holders[side])].pos).y],"receiver_position":[v(actors[receiver].pos).x,v(actors[receiver].pos).y]}
 		chain.history.append(record)
 		statuses.event(state,"world_pulse",record)
 	chain.holders=receivers;chain.next_pulse=pulse+1

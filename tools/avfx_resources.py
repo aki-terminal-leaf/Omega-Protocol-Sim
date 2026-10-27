@@ -31,7 +31,7 @@ def virtual_path(value):
         raise ValueError('Invalid virtual resource path')
     path = PurePosixPath(value)
     if (path.is_absolute() or str(path) != value or '..' in path.parts
-            or path.parts[0] not in {'vfx', 'chara', 'shader'}
+            or path.parts[0] not in {'vfx', 'chara', 'shader', 'bg'}
             or path.suffix not in EXTENSIONS):
         raise ValueError('Unsafe or unsupported virtual resource path')
     return value

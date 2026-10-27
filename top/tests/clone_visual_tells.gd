@@ -38,7 +38,8 @@ func run()->void:
        var b:Array=parts(n).filter(func(part):return "atr_parts_b" in str(part.name))
        check(not a.is_empty() and not b.is_empty(),"both original weapon variants exist")
        check(a.all(func(part):return part.visible==(stance in ["SHIELD","LEGS"])),"A original variant visibility")
-       check(b.all(func(part):return part.visible==(stance in ["SWORD","STAFF"])),"B original variant visibility")
+       check(b.all(func(part):return part.visible==((stance in ["SWORD","STAFF"]) or (str(e.form).begins_with("female") and stance=="NEUTRAL"))),"B ordinary female legs or male sword visibility")
+       check(app.arena.official_weapon(n,str(e.form))==("" if stance=="NEUTRAL" else stance),"physical weapon observer has no neutral anatomy leak")
       else:
        check(n.has_node(stance) if stance!="NEUTRAL" else true,"source ZIP fallback has physical tell")
      app.arena.draw_indicators()

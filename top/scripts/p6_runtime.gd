@@ -65,6 +65,7 @@ static func animation_lock(state: Dictionary, actor: int, duration: float) -> vo
 
 static func resolve(event: Dictionary, actors: Array, state: Dictionary) -> void:
 	var record := event.duplicate(true)
+	record.observed_positions=actors.map(func(actor):return Patterns.xy(Rules.v(actor.pos)))
 	# Godot JSON parses numbers as floats; Array membership is type-sensitive.
 	# Normalize IDs at the runtime boundary so restored flare eligibility agrees.
 	var targets: Array=[]

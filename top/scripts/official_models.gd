@@ -2,7 +2,7 @@
 extends RefCounted
 ## Optional original local-game meshes and resident animations. No game assets are embedded in source.
 const PACK := "res://assets/official/"
-const SCALES := {"beetle": 0.9, "male": 3.0, "female": 3.0, "final": 1.4, "alpha":0.8,"fist_b5":1.5,"fist_b6":1.5,"arm_left":1.4,"arm_right":1.4,"male_p5":3.0,"female_p5":3.0,"rear_unit":1.4}
+const SCALES := {"beetle": 0.9, "male": 3.0, "female": 3.0, "final": 1.4, "alpha":0.8,"fist_b5":1.5,"fist_b6":1.5,"arm_left":1.4,"arm_right":1.4,"male_p5":3.0,"female_p5":3.0,"rear_unit":1.4,"optical_unit":1.0}
 const PLAYERS := ["pc_war_miq", "pc_war_miq", "pc_whm_aur", "pc_sch_hyr", "pc_drg_miq", "pc_sam_miq", "pc_brd_vra", "pc_blm_miq"]
 static var scenes: Dictionary = {}
 
@@ -25,6 +25,7 @@ static func instantiate(form: String) -> Node3D:
 	root.add_child(model)
 	root.set_meta("official_model", true)
 	root.set_meta("model_form", form)
+	if form=="optical_unit": root.set_meta("pose_fidelity","original SGB-default geometry/placement; dynamic lid/visibility reconstruction pending")
 	var animation: AnimationPlayer = find_animation(model)
 	if animation != null:
 		for clip in animation.get_animation_list():
@@ -34,7 +35,7 @@ static func instantiate(form: String) -> Node3D:
 				animation.play(clip)
 				root.set_meta("original_idle", clip)
 				break
-	root.set_meta("pose_fidelity", "original resident animation sampled at 30fps" if root.has_meta("original_idle") else "static bind pose")
+	if form!="optical_unit": root.set_meta("pose_fidelity", "original resident animation sampled at 30fps" if root.has_meta("original_idle") else "static bind pose")
 	# Keep the same cue API as the procedural fallback. These nodes deliberately
 	# do not invent original weapon animation or an uncalibrated part mapping.
 	for cue in (["SWORD", "SHIELD"] if form.begins_with("male") else (["LEGS", "STAFF"] if form.begins_with("female") else [])):
@@ -81,8 +82,8 @@ static func set_parts(node: Node, form: String, active: String) -> void:
 	if node is MeshInstance3D:
 		var part := str(node.name)
 		if part.contains("atr_parts_a"): node.visible = active == ("SHIELD" if form.begins_with("male") else "LEGS")
-		elif part.contains("atr_parts_b"): node.visible = active != "NEUTRAL" and active != ("SHIELD" if form.begins_with("male") else "LEGS")
-		elif form.begins_with("female") and part.contains("atr_bv_c"): node.visible = active != "LEGS"
+		elif part.contains("atr_parts_b"): node.visible = (active != "NEUTRAL" and active != "SHIELD") if form.begins_with("male") else active != "LEGS"
+		elif form.begins_with("female") and part.contains("atr_bv_c"): node.visible = active == "STAFF"
 	for child in node.get_children(): set_parts(child,form,active)
 
 static func find_animation(node: Node) -> AnimationPlayer:

@@ -133,6 +133,7 @@ static func patches(actors: Array, state: Dictionary) -> void:
 
 static func resolve(e: Dictionary, actors: Array, state: Dictionary) -> void:
 	var c: Dictionary=state.delta.config; var rec:=e.duplicate(true)
+	rec.observed_positions=actors.map(func(actor):return P.xy(R.v(actor.pos)))
 	match str(e.kind):
 		"monitor_loading":
 			grant(state,int(c.monitor),"delta_monitor",10.147,3452 if int(c.monitor_hand)==1 else 3453)

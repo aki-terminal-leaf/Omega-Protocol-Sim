@@ -64,6 +64,7 @@ var follow_target = Vector3.ZERO
 var camera_target = Vector3.ZERO
 var encounter_id = "p1_loop"
 var bosses: Array = []
+var source_cues = preload("res://scripts/source_cues.gd").new()
 var floor_node: Node3D
 var actor_models: Array = []
 var animation_time = 0.0
@@ -87,6 +88,7 @@ var omega_source_loading:Dictionary={}
 var death_wall:Node3D
 
 func _ready() -> void:
+	source_cues.name="OriginalResourceCues";add_child(source_cues);source_cues.setup(self)
 	var environment = WorldEnvironment.new()
 	var env = Environment.new()
 	env.background_mode = Environment.BG_COLOR
@@ -237,6 +239,7 @@ func update_cue_presentation() -> void:
 		if boss.has_node("Cue"): boss.get_node("Cue").pixel_size = 0.025 * cue_scale(boss)
 
 func set_encounter(id: String) -> void:
+	source_cues.clear()
 	encounter_id = id
 	if not is_inside_tree(): return
 	for boss in bosses:
@@ -300,6 +303,8 @@ func update_state(new_actors: Array, beat_value: Dictionary, player: int, hints:
 		if eligible_hw!=displayed_hw:
 			redraw_elapsed=0.0
 			draw_indicators()
+	source_cues.update(runtime,current,actors,beat_elapsed)
+
 func update_synergy_marker_receipt()->void:
 	synergy_displayed_glyphs=[]
 	if actors.size()!=8 or not current.has("synergy_public"):return
@@ -580,7 +585,7 @@ func update_stage_entities() -> void:
 			var label:=Label3D.new(); label.font = UI_FONT;label.name="EntityLabel";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.position.y=4.8;label.font_size=28;label.pixel_size=0.025;node.add_child(label)
 	for i in stage_nodes.size():
 		var node:Node3D=stage_nodes[i];var entity:Dictionary=entities[i]
-		var p:Vector2=Rules.v(entity.pos);node.position=Vector3(p.x,float(entity.get("height",0)),p.y)
+		var p:Vector2=Rules.v(entity.pos);node.position=Vector3(p.x,9.0 if entity.form=="optical_unit" and node.get_meta("official_model",false) else float(entity.get("height",0)),p.y)
 		EnemyRings.configure(node, entity)
 		var stance:String=entity.get("stance","")
 		if node.get_meta("last_stance","__unset__")!=stance:
@@ -642,7 +647,7 @@ func observe_weapon_nodes(nodes:Array)->Array:
 ## Derived solely from visible real parts/geometry, never planned entity stance.
 static func weapon_conflict(node:Node,form:String,official:bool)->bool:
 	if official:
-		var a:Array=[];var b:Array=[];collect_parts(node,a,b)
+		var a:Array=[];var b:Array=[];collect_weapon_parts(node,form,a,b)
 		return (a.has(true) and b.has(true)) or (a.has(true) and a.has(false)) or (b.has(true) and b.has(false))
 	var shown:Array=[]
 	for option in ["SWORD","SHIELD","LEGS","STAFF"]:
@@ -657,9 +662,17 @@ static func collect_parts(node:Node,a:Array,b:Array)->void:
 		elif part.contains("atr_parts_b"):b.append((node as MeshInstance3D).is_visible_in_tree())
 	for child in node.get_children():collect_parts(child,a,b)
 
+static func collect_weapon_parts(node:Node,form:String,a:Array,b:Array)->void:
+	if node is MeshInstance3D:
+		var part:=str(node.name)
+		if part.contains("atr_parts_a"):a.append((node as MeshInstance3D).is_visible_in_tree())
+		elif (form.begins_with("male") and part.contains("atr_parts_b")) or (form.begins_with("female") and part.contains("atr_bv_c")):
+			b.append((node as MeshInstance3D).is_visible_in_tree())
+	for child in node.get_children():collect_weapon_parts(child,form,a,b)
+
 ## Both A/B categories required and each internally coherent; exactly one shown.
 static func official_weapon(node:Node,form:String)->String:
-	var a:Array=[];var b:Array=[];collect_parts(node,a,b)
+	var a:Array=[];var b:Array=[];collect_weapon_parts(node,form,a,b)
 	if a.is_empty() or b.is_empty():return ""
 	if a.has(true) and a.has(false):return ""
 	if b.has(true) and b.has(false):return ""
