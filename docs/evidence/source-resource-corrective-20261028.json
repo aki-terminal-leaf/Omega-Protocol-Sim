@@ -1,0 +1,108 @@
+{
+  "status": "source_regressions_pass_visual_open",
+  "snapshot": {
+    "results": [
+      {
+        "test": "source_weapon_boundary",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "test": "source_review_regressions",
+        "code": 0,
+        "ok": true
+      }
+    ],
+    "source": {
+      "top/scripts/arena.gd": "a76c8ae33778a547d8638335e322df13ec1fde287c1cfdb11dd6578679eb9437",
+      "top/scripts/source_animation.gd": "d1977f75eb108b6eef4952aea334520c46becd6815a7da50e2acb393046de8f8",
+      "top/scripts/source_avfx_player.gd": "0cee747d1f693136635bad3cf92207575add7131b13c2be2c5af22ef906febe8",
+      "top/scripts/source_cues.gd": "376277e35695ac2728a649802e75c6ae9accd38d7a72cc5c548a1b1172c6b0ce",
+      "top/tests/source_weapon_boundary.gd": "8fc3c92736993cb751753a08fc396ead81a9bcea638677f8767535443129e2e6",
+      "top/tests/source_review_regressions.gd": "0931509998be23ed0a704eecc377eb51d678ef002080f93a42892c576a115713"
+    }
+  },
+  "weapon_boundary": {
+    "cases": [
+      {
+        "drawn_texture_materials": 23,
+        "errors": [],
+        "legs": false,
+        "sword": false
+      },
+      {
+        "drawn_texture_materials": 20,
+        "errors": [],
+        "legs": true,
+        "sword": false
+      },
+      {
+        "drawn_texture_materials": 22,
+        "errors": [],
+        "legs": false,
+        "sword": true
+      },
+      {
+        "drawn_texture_materials": 19,
+        "errors": [],
+        "legs": true,
+        "sword": true
+      }
+    ],
+    "checks": 51,
+    "failures": 0,
+    "late_sword_sources": 5,
+    "scope": "actual Main transitions, all four legal weapon combinations, source texture binding, pause and retry; not native visual fidelity"
+  },
+  "review_regressions": {
+    "checks": 67,
+    "failures": [],
+    "scope": "snapshot-before-update retry, no state writes, rig identity/group/physics isolation, frozen pose ownership, external animator override"
+  },
+  "pixel_contract": {
+    "compatibility": {
+      "encoded_expected": 188,
+      "gpu": "AMD Radeon RX 7900 XT",
+      "ok": true,
+      "output_encoded": 187,
+      "raw": 128,
+      "raw_expected": 128,
+      "renderer": "gl_compatibility",
+      "scope": "native unshaded 0.5 linear test; not original game tone mapping/glow/blending equivalence"
+    },
+    "forward": {
+      "encoded_expected": 188,
+      "gpu": "AMD Radeon RX 7900 XT",
+      "ok": true,
+      "output_encoded": 188,
+      "raw": 188,
+      "raw_expected": 188,
+      "renderer": "forward_plus",
+      "scope": "native unshaded 0.5 linear test; not original game tone mapping/glow/blending equivalence"
+    }
+  },
+  "native_images": {
+    "count": 16,
+    "scope": "prior frozen source fixture, before deterministic source identity correction; not packaged release acceptance",
+    "sha256_manifest": {
+      "m0-f0-t14.00.png": "6d94d67c84943194a4998dcad24bfc54f9e73f87df2963ad4a6b0295998761fc",
+      "m1-f0-t13.70.png": "5ca75bcb4535642f151a832dde65cf04f59bdfbec62732a5c83506ce6d3e417f",
+      "m0-f1-t13.50.png": "62c2a0222de5def5a8e6f38f72a6417d3735a7100d0f2c0b084d3b503341dfe4",
+      "m1-f1-t14.00.png": "1d605db262830b383df5796078e8f7fa242afb1d7aa92eaba21f5f9def11a473",
+      "m1-f0-t14.00.png": "74a786d1e93b921cc8cee4e9595d47965813d5abe8b4ddf396fc8ead9729de9a",
+      "m1-f1-t12.95.png": "d8c9b3741ddcf07437fe7cd8d212b886f1abf8bd057d0e4d51dc32e2d935eda1",
+      "m0-f0-t12.95.png": "f0d2d70586493d7dd2ed82aa14f09952a1dbd2bab3ce1aa281ce669871a04ab1",
+      "m0-f0-t13.50.png": "0c269e94b473f470d77d69907a414f5e6b25d7465b206865704b5565d3ea2951",
+      "m1-f1-t13.50.png": "f73a3878249e3fc942d10083bd411a935094030496dd33f14ee22564a1830fe7",
+      "m0-f0-t13.70.png": "454bccd16a1e743e59822fccdef24cfeba0a11c0e0b5a8052f761409b3977a7e",
+      "m1-f0-t13.50.png": "1be4c4f7529c5c52e9a93bf3e4c19e600eb86a978d36c4c8d3c3506d2aec47d1",
+      "m0-f1-t13.70.png": "e991d7c00e6d4d0d6d01c5c79e2eaa7bf6426f4e2890bd6f1128e62831432edc",
+      "m0-f1-t14.00.png": "b81d7fabf0b2fa488baeb8a638d687e1c1e43472e9c8fa5b1a7e27ec7a143f3f",
+      "m1-f1-t13.70.png": "d7a383d221ad62ab4808c2d6f59578cc22650387fc3ae7d6163f73bca4c23ef2",
+      "m0-f1-t12.95.png": "61e95a037be57a72dbea7f1eb5ed2df17b7529eb3273d830105fb4594301ed67",
+      "m1-f0-t12.95.png": "7c5258fe63ba80349b181860151853ccfb5fb88293c0d9753b65b2eff104658a"
+    }
+  },
+  "visual_gate": "OPEN",
+  "deployed": false
+}

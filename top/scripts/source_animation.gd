@@ -170,6 +170,9 @@ static func seek(binding: Dictionary, seconds: float) -> bool:
 		_activate(binding, skel)
 	for k in bone_total:
 		skel.call("set_bone_global_pose_override", ids[k], poses[k], 1.0, true)
+	# Bone-bound VFX reads this same frame even if the retained source rig is hidden.
+	if skel.has_method("force_update_all_bone_transforms"):
+		skel.call("force_update_all_bone_transforms")
 	(binding["diagnostics"] as Dictionary)["last_seek"] = {"requested": seconds, "applied": t, "clamped": t != seconds, "frame_a": i0, "frame_b": i1, "blend": f}
 	return true
 
@@ -212,8 +215,12 @@ static func _restore_player(st: Dictionary) -> void:
 	var pl = st["player"]
 	if not is_instance_valid(pl):
 		return
-	pl.active = st["active"]
+	# A newer animator request belongs to its caller; never rewind it on release.
 	var clip: String = st["clip"]
+	if String(pl.current_animation) != clip:
+		pl.active = st["active"]
+		return
+	pl.active = st["active"]
 	if clip != "" and pl.has_animation(clip):
 		pl.play(clip)
 		pl.seek(st["position"], true)

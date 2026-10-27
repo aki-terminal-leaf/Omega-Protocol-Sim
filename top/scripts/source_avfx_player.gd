@@ -4,7 +4,9 @@ extends "res://scripts/avfx_player.gd"
 ## Ported from avfx-materials.js / avfx-runtime.js. NOT the original Apricot shader; never
 ## rendering-complete. Overrides only _material/_animate_material/_mesh/_particle/_schedule*.
 const TAGS=["TC1","TC2","TC3","TC4"]
-const HEADER="""uniform vec4 particle_color:source_color=vec4(1.0);
+const HEADER="""float linear_channel_to_srgb(float c){return c<=0.0031308?12.92*c:1.055*pow(c,1.0/2.4)-0.055;}
+vec3 linear_to_output(vec3 c){return OUTPUT_IS_SRGB?vec3(linear_channel_to_srgb(c.r),linear_channel_to_srgb(c.g),linear_channel_to_srgb(c.b)):c;}
+uniform vec4 particle_color=vec4(1.0);
 uniform bool has_uv2=false;
 uniform bool has_custom=false;
 uniform int c2a_mode=0;
@@ -16,13 +18,13 @@ varying vec2 uv_d;
 float wrap_axis(float x,int m){if(m==1){return clamp(x,0.0,1.0);}if(m==2){return 1.0-abs(1.0-mod(x,2.0));}return fract(x);}
 vec2 pick_uv(int n,vec2 a,vec2 b,vec2 c,vec2 d){if(n==1){return b;}if(n==2){return c;}if(n==3){return d;}return a;}
 vec2 layer_uv(vec2 v,vec2 sc,vec2 tr,float ro){vec2 q=(v-vec2(0.5))*sc;float c=cos(ro);float s=sin(ro);return mat2(vec2(c,s),vec2(-s,c))*q+vec2(0.5)+tr;}
-vec4 apply_c2a(vec4 b,int mode){vec4 r=b;if(mode==0){r.a=b.a*max(b.r,max(b.g,b.b));}else{r.a=dot(b.rgb,vec3(0.298912,0.586611,0.114478));}return r;}
-vec4 merge_ink(vec4 a,vec4 b,int co,int ao){vec3 c=a.rgb*b.rgb;if(co==1){c=a.rgb+b.rgb;}else if(co==2){c=a.rgb-b.rgb;}else if(co==3){c=max(a.rgb,b.rgb);}else if(co==4){c=min(a.rgb,b.rgb);}float x=a.a*b.a;if(ao==1){x=max(a.a,b.a);}else if(ao==2){x=min(a.a,b.a);}return vec4(c,x);}
+vec4 apply_c2a(vec4 b,int mode){if(mode==2){return vec4(1.0,1.0,1.0,dot(b.rgb,vec3(0.298911988735199,0.5866109728813171,0.11447799950838089)));}vec4 r=b;if(mode==0){r.a=b.a*max(b.r,max(b.g,b.b));}else{r.a=dot(b.rgb,vec3(0.298912,0.586611,0.114478));}return r;}
+vec4 merge_ink(vec4 a,vec4 b,int co,int ao){vec3 c=a.rgb*b.rgb;if(co==1){c=a.rgb+b.rgb;}else if(co==2){c=a.rgb-b.rgb;}else if(co==3){c=max(a.rgb,b.rgb);}else if(co==4){c=min(a.rgb,b.rgb);}float x=a.a*b.a;if(ao==1){x=max(a.a,b.a);}else if(ao==2){x=min(a.a,b.a);}else if(ao==3){x=a.a;}return vec4(c,x);}
 """
-const LAYER_UNIFORMS="uniform sampler2D tex{i}:source_color,{filter},{repeat};uniform bool ena{i}=false;uniform bool c2a{i}=false;uniform int uvn{i}=0;uniform int cop{i}=0;uniform int aop{i}=0;uniform vec2 scale{i}=vec2(1.0);uniform vec2 scroll{i}=vec2(0.0);uniform float rot{i}=0.0;uniform ivec2 wrap{i}=ivec2(0);\n"
+const LAYER_UNIFORMS="uniform sampler2D tex{i}:{filter},{repeat};uniform bool ena{i}=false;uniform bool c2a{i}=false;uniform int uvn{i}=0;uniform int cop{i}=0;uniform int aop{i}=0;uniform vec2 scale{i}=vec2(1.0);uniform vec2 scroll{i}=vec2(0.0);uniform float rot{i}=0.0;uniform ivec2 wrap{i}=ivec2(0);\n"
 const LAYER_SAMPLE="if(ena{i}){vec2 p=layer_uv(pick_uv(uvn{i},uv_a,uv_b,uv_c,uv_d),scale{i},scroll{i},rot{i});{wrapline}vec4 b=texture(tex{i},p);if(c2a{i}){b=apply_c2a(b,c2a_mode);}{combine}}\n"
 ## "max_multiply": a*=max(r,g,b) (replay JS). "weighted_assign": a=luma(rgb) (older source player).
-var color_to_alpha_mode:="max_multiply"
+var color_to_alpha_mode:="verified_luma"
 ## Replay forces double-sided; default honours the original CulT field.
 var force_double_sided:=false
 ## Blend mode 4 (screen) has no Godot fixed-function equivalent; this is the stated fallback.
@@ -42,7 +44,7 @@ func reset()->void:
 func report()->Dictionary:
  var result:=super.report()
  result["rendering_complete"]=false;result["gameplay_eligible"]=false
- result["material_subset"]="TC1..TC4 TxNo-only, RGB op 0-4, alpha op 0-2, per-layer UV/wrap; not the original Apricot shader"
+ result["material_subset"]="TC1 static single-mask RGBA + TC1..TC4 explicit TxNo, RGB op0-4, alpha op0-3, decoded UNORM samples/luma CTA, per-layer UV/wrap; not the original Apricot shader"
  result["binders"]=binders_seen.keys()
  return result
 func _num(values:Dictionary,field:String,fallback:float)->float:
@@ -129,7 +131,7 @@ func _shader_for(states:PackedStringArray,filters:PackedStringArray,hardware_rep
   var wrapline:="" if hardware_repeat[i] else "p=vec2(wrap_axis(p.x,wrap{i}.x),wrap_axis(p.y,wrap{i}.y));"
   var combine:="ink=b;" if i==0 else "ink=merge_ink(ink,b,cop{i},aop{i});"
   code+=LAYER_SAMPLE.replace("{wrapline}",wrapline).replace("{combine}",combine).replace("{i}",str(i))
- code+="ALBEDO=max(particle_color.rgb*vertex_color.rgb*ink.rgb,vec3(0.0));ALPHA=clamp(particle_color.a*vertex_color.a*ink.a,0.0,1.0);if(ALPHA<1.0/255.0){discard;}\n}\n"
+ code+="ALBEDO=linear_to_output(max(particle_color.rgb*vertex_color.rgb*ink.rgb,vec3(0.0)));ALPHA=clamp(particle_color.a*vertex_color.a*ink.a,0.0,1.0);if(ALPHA<1.0/255.0){discard;}\n}\n"
  var shader:=Shader.new();shader.code=code;_shader_cache[cache_key]=shader;return shader
 func _material(spec:Dictionary)->ShaderMaterial:
  var node:=_node("Ptcl",int(spec.index));var kind:=int(spec.kind);var decal:=kind==10
@@ -170,11 +172,20 @@ func _material(spec:Dictionary)->ShaderMaterial:
   var info:={"slot":i,"active":false,"uvn":0,"uv_set":int(m.get("UvSN",0))}
   infos.append(info)
   if int(m.get("bEna",0))==0:continue
-  if not m.get("TLst",[]).is_empty() or not m.get("TxN",{}).is_empty() or not m.get("TxNR",{}).is_empty():diagnostics[label+"_mask_requires_apricot_shader"]=true
   var rgb_op:=int(m.get("TCCT",0));var alpha_op:=int(m.get("TCAT",0))
+  if i==0 and (rgb_op!=0 or alpha_op!=0):
+   diagnostics["tc1_native_calculate_controls_unresolved/%d/%d"%[rgb_op,alpha_op]]=true # preview samples TC1 directly; no host-control equivalence
   if i>0 and (rgb_op<0 or rgb_op>4):diagnostics[label+"_color_operator_unsupported/%d"%rgb_op]=true;continue
-  if i>0 and (alpha_op<0 or alpha_op>2):diagnostics[label+"_alpha_operator_unsupported/%d"%alpha_op]=true;continue
+  if i>0 and (alpha_op<0 or alpha_op>3):diagnostics[label+"_alpha_operator_unsupported/%d"%alpha_op]=true;continue
   var index:=int(m.get("TxNo",-1))
+  if _enabled(m,"bUSC") or _enabled(m,"bPFC"):
+   diagnostics[label+"_screen_sample_unimplemented"]=true;continue
+  if index<0 and i==0:
+   # OBSERVED single-mask subset on these decoded weapon resources, not full TLst semantics.
+   var masks:Variant=m.get("TLst",[]);var tx:Variant=m.get("TxN",{});var txr:Variant=m.get("TxNR",{})
+   if masks is Array and masks.size()==1 and (masks[0] is int or masks[0] is float) and is_finite(float(masks[0])) and float(masks[0])==floor(float(masks[0])) and tx is Dictionary and tx.is_empty() and txr is Dictionary and txr.is_empty():
+    index=int(masks[0]);diagnostics["tc1_single_static_mask_rgba_subset"]=true
+   else:diagnostics["tc1_dynamic_or_missing_mask_unimplemented"]=true;continue
   if index<0:diagnostics[label+"_no_source_texture_TxNo"]=true;continue
   var texture:=_texture(index)
   if texture==null:
@@ -193,7 +204,7 @@ func _material(spec:Dictionary)->ShaderMaterial:
   material.set_shader_parameter("c2a%d"%i,p[2]);material.set_shader_parameter("uvn%d"%i,p[3])
   material.set_shader_parameter("cop%d"%i,p[4]);material.set_shader_parameter("aop%d"%i,p[5]);material.set_shader_parameter("wrap%d"%i,p[6])
  material.set_shader_parameter("has_uv2",source_uv);material.set_shader_parameter("has_custom",source_uv)
- material.set_shader_parameter("c2a_mode",1 if color_to_alpha_mode=="weighted_assign" else 0)
+ material.set_shader_parameter("c2a_mode",2 if color_to_alpha_mode=="verified_luma" else (1 if color_to_alpha_mode=="weighted_assign" else 0))
  if decal:
   material.set_shader_parameter("arena_radius",arena_radius);material.set_shader_parameter("arena_center",arena_center);material.set_shader_parameter("decal_lift",decal_lift)
  material.set_meta("avfx_layers",infos)

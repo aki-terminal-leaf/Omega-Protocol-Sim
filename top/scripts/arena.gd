@@ -577,7 +577,8 @@ func update_stage_entities() -> void:
 	for i in entities.size():keys.append([str(entities[i].get("id",i)),str(entities[i].form)])
 	var signature:=JSON.stringify(keys)
 	if signature!=stage_signature:
-		for node in stage_nodes:remove_child(node);node.queue_free()
+		for node in stage_nodes:
+			if not source_cues.retire_actor(node):remove_child(node);node.queue_free()
 		stage_nodes=[];stage_signature=signature
 		for entity in entities:
 			var node:Node3D=Visuals.boss(entity.form);add_child(node);stage_nodes.append(node)

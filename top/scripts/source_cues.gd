@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 extends Node3D
-## Original-resource presentation only. Never writes combat state or predicts NPC choices.
+## Presentation adapter: never writes combat state or predicts NPC choices.
+## Temporarily owns source skeleton/player poses and invisible retired stage rigs.
 ## TMB/PAP/AVFX local clocks are synchronized; original engine equivalence is NOT claimed.
 const Player = preload("res://scripts/source_avfx_player.gd")
 const Pose = preload("res://scripts/source_animation.gd")
@@ -19,6 +20,7 @@ var cursor:=0
 var last_time:=-1.0
 var effects:Dictionary={}
 var animations:Dictionary={}
+var retired_rigs:Dictionary={}
 var scheduled:Dictionary={}
 var diagnostics:Dictionary={}
 var emitted:Array=[]
@@ -35,17 +37,25 @@ func setup(owner_arena:Node3D)->void:
 func clear()->void:
  for item in animations.values():Pose.clear(item.binding)
  animations.clear()
- for item in effects.values():item.player.free()
+ for rig in retired_rigs.values():
+  if is_instance_valid(rig):dispose(rig)
+ retired_rigs.clear()
+ for item in effects.values():dispose(item.player)
  effects.clear();scheduled.clear();diagnostics.clear();emitted.clear();cursor=0;last_time=-1.0
  state_ref={};beat_ref={};beat_index=-1;beat_start=0.0
 func _exit_tree()->void:
  for item in animations.values():Pose.clear(item.binding)
-func update(state:Dictionary,beat:Dictionary,actors:Array,elapsed:float)->void:
- if catalog.is_empty() or not is_instance_valid(arena):return
- var now:=float(state.get("sim_time",0.0))
+func dispose(node:Node)->void:
+ if node.get_parent()!=null:node.get_parent().remove_child(node)
+ node.queue_free()
+func synchronize_state(state:Dictionary,now:float)->void:
  if not is_same(state_ref,state) or now<last_time-0.000001:
   clear();state_ref=state
  phase=int(str(arena.encounter_id).substr(1,1))
+func update(state:Dictionary,beat:Dictionary,actors:Array,elapsed:float)->void:
+ if catalog.is_empty() or not is_instance_valid(arena):return
+ var now:=float(state.get("sim_time",0.0))
+ synchronize_state(state,now)
  if actors.size()!=8:return
  # Original M/F tells are already physically revealed by the normal renderer.
  # Only those visible sources receive a pre-impact PAP wind-up. No future entity list.
@@ -68,13 +78,24 @@ func update(state:Dictionary,beat:Dictionary,actors:Array,elapsed:float)->void:
  if not is_equal_approx(now,last_time):
   sample_animations(now)
   sample_effects(now)
+  release_retired_rigs()
  last_time=now
 func snapshot(beat:Dictionary,actors:Array,state:Dictionary)->void:
- if catalog.is_empty():return
+ if catalog.is_empty() or not is_instance_valid(arena) or actors.size()!=8:return
  var now:=float(state.get("sim_time",0.0))
+ synchronize_state(state,now)
+ # Main resolves this old beat before enter_beat/update_stage_entities replaces its sources.
+ if not is_same(beat_ref,beat):
+  beat_ref=beat;beat_index+=1;beat_start=now-float(beat.get("duration",0))
  for shape in beat.get("shapes",[]):
   if shape.get("decorative",false):continue
-  if WEAPONS.has(str(shape.get("name",""))):continue # queued from visible model, with source wind-up
+  if WEAPONS.has(str(shape.get("name",""))):
+   var id:=int(WEAPONS[str(shape.name)]);var origin:=Rules.point(shape,actors);var source:=find_source(id,origin)
+   if source!=null and source.is_visible_in_tree():
+    var lead:float={31525:20.0/30.0,31526:13.0/30.0}.get(id,0.0)
+    queue_action(id,origin,float(source.rotation_degrees.y),now-lead,"weapon/%d/%d/%s"%[id,beat_index,source_identity(source)],source,"exact_resolution_fallback; source may begin mid-windup")
+   else:diagnostics["missing_visible_weapon_source/%d"%id]=true
+   continue # Resolution fallback admits zero-lead/short beats, not a claim of complete windup.
   shape_cue(shape,actors,now,"snapshot/%s"%now)
 func shape_id(shape:Dictionary)->int:
  if shape.has("ability_id"):return int(shape.ability_id)
@@ -163,8 +184,14 @@ func consume_resolutions(kind:String,d:Dictionary,actors:Array,at:float,key:Stri
     var id:=(31625 if int(d.get("pulse",0))==0 else 31626) if d.get("side","")=="near" else (33040 if int(d.get("pulse",0))==0 else 33041)
     queue_action(id,Rules.v(d.receiver_position),0,at,key)
 func source_identity(source:Node3D)->String:
- var index:int=arena.stage_nodes.find(source)
- return "entity%d"%index if index>=0 else "boss%d"%arena.bosses.find(source)
+ # Stable semantic index, cached before retirement; never feed runtime instance IDs to RNG.
+ if source.has_meta("source_cue_identity"):return str(source.get_meta("source_cue_identity"))
+ var stage_index:int=arena.stage_nodes.find(source);var boss_index:int=arena.bosses.find(source)
+ var identity:="entity%d"%stage_index if stage_index>=0 else "boss%d"%boss_index
+ if stage_index<0 and boss_index<0:
+  diagnostics["unregistered_source_identity"]=true;identity="unregistered%d"%source.get_instance_id()
+ source.set_meta("source_cue_identity",identity)
+ return identity
 func action_row(id:int,form:String="")->Dictionary:
  var rows:Array=catalog.get("actions",{}).get(str(id),[])
  for row in rows:
@@ -190,14 +217,14 @@ func find_source(id:int,origin:Vector2)->Node3D:
   var gap:=Vector2(node.position.x,node.position.z).distance_squared_to(origin)
   if gap<distance:distance=gap;best=node
  return best
-func queue_action(id:int,origin:Vector2,yaw:float,at:float,key:String,source:Node3D=null)->void:
+func queue_action(id:int,origin:Vector2,yaw:float,at:float,key:String,source:Node3D=null,timing:String="")->void:
  if scheduled.has(key):return
  scheduled[key]=true
  var form:=str(source.get_meta("model_form","")) if is_instance_valid(source) else "unbound"
  var row:=action_row(id,form);var tmb:=str(WEAPON_TMB.get(id,row.get("tmbs",{}).get("end","")))
  if tmb.is_empty() or not catalog.timelines.has(tmb):diagnostics["missing_action_timeline/%d"%id]=true;return
  var timeline:Dictionary=catalog.timelines[tmb]
- emitted.append({"ability":id,"at":at,"origin":[origin.x,origin.y],"tmb":tmb,"key":key,"phase":phase,"source":source_identity(source) if is_instance_valid(source) else "ground_or_target","tmb_time_origin":"source weapon windup" if key.begins_with("weapon/") else "actual resolution; local positive offsets retained"})
+ emitted.append({"ability":id,"at":at,"origin":[origin.x,origin.y],"tmb":tmb,"key":key,"phase":phase,"source":source_identity(source) if is_instance_valid(source) else "ground_or_target","tmb_time_origin":timing if not timing.is_empty() else ("source weapon windup" if key.begins_with("weapon/") else "actual resolution; local positive offsets retained")})
  if emitted.size()>256:emitted.pop_front()
  # Global source-space PAP sample, not ordinary glTF local animation.
  var animation_key:=form+"|"+tmb
@@ -247,12 +274,43 @@ func load_sample(path:String)->Dictionary:
 func sample_animations(now:float)->void:
  for key in animations.keys():
   var item:Dictionary=animations[key]
-  if not is_instance_valid(item.source) or now>float(item.end):Pose.clear(item.binding);animations.erase(key);continue
+  if not is_instance_valid(item.source):Pose.clear(item.binding);animations.erase(key);continue
+  if item.get("frozen",false):
+   if not has_source_effect(item.source):Pose.clear(item.binding);animations.erase(key)
+   continue
+  if now>float(item.end):
+   if has_source_effect(item.source):
+    Pose.seek(item.binding,maxf(0.0,float(item.end)-float(item.start)));item.frozen=true
+   else:Pose.clear(item.binding);animations.erase(key)
+   continue
   if now>=float(item.start) and not Pose.seek(item.binding,now-float(item.start)):diagnostics["pose_seek/"+str(item.binding.get("error",""))]=true
+# Retain an invisible rig only for original bone-bound effect tails. It is NOT
+# part of stage_nodes, visible bodies, weapon tells or any NPC observation input.
+func has_source_effect(node:Node3D)->bool:
+ for effect in effects.values():
+  if is_instance_valid(effect.source) and effect.source==node:return true
+ return false
+func retire_actor(node:Node3D)->bool:
+ var owner:=str(node.get_instance_id())
+ var needed:=animations.has(owner)
+ for effect in effects.values():
+  if is_instance_valid(effect.source) and effect.source==node:needed=true;break
+ if not needed:return false
+ node.reparent(self,true);node.visible=false;retired_rigs[owner]=node
+ return true
+func release_retired_rigs()->void:
+ for owner in retired_rigs.keys():
+  var node:Node3D=retired_rigs[owner];var needed:=false
+  for effect in effects.values():
+   if is_instance_valid(effect.source) and effect.source==node:needed=true;break
+  if needed:continue
+  if animations.has(owner):Pose.clear(animations[owner].binding);animations.erase(owner)
+  if is_instance_valid(node):dispose(node)
+  retired_rigs.erase(owner)
 func sample_effects(now:float)->void:
  for key in effects.keys():
   var item:Dictionary=effects[key];var player:Node3D=item.player
-  if now>=float(item.end):player.free();effects.erase(key);continue
+  if now>=float(item.end):dispose(player);effects.erase(key);continue
   player.visible=now>=float(item.start)
   if not player.visible:continue
   var age:=(now-float(item.start))*30.0
@@ -300,4 +358,4 @@ static func find_skeleton(node:Node)->Skeleton3D:
 func report()->Dictionary:
  var active:Array=[]
  for item in effects.values():active.append({"ability":item.ability,"path":item.path,"start":item.start,"particles":item.player.last_particles.size(),"diagnostics":item.player.diagnostics.keys()})
- return {"source_resources":not catalog.is_empty(),"active":active,"animations":animations.size(),"emitted":emitted.duplicate(true),"diagnostics":diagnostics.keys(),"clock":"simulation seconds / source local 30Hz","rendering_complete":false,"optical_lid":"source default static pose; original dynamic timeline pending"}
+ return {"source_resources":not catalog.is_empty(),"active":active,"animations":animations.size(),"retained_invisible_rigs":retired_rigs.size(),"emitted":emitted.duplicate(true),"diagnostics":diagnostics.keys(),"clock":"simulation seconds / source local 30Hz","rendering_complete":false,"optical_lid":"source default static pose; original dynamic timeline pending"}
