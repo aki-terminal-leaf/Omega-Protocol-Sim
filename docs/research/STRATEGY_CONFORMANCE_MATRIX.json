@@ -382,7 +382,7 @@
       "setup_or_in_mechanic_preparation": "依攻略排優先序／分兩隊；選內出外回或外出內回",
       "required_player_actions": "起始扇形可見後選安全側；按數字出飛彈、分攤、繞火與誘導水圈",
       "npc_response_contract": "只在起始火焰揭示後分流；依實際玩家誘導落點協作，尊重社群補位責任",
-      "remaining_or_source_uncertainty": "v16來源、同一PCK17組與實際WinChrome/AMDWebGL2已驗；native GUI UNRUN待桌面空檔。Main166 UI1..5不含KR6，82物理流程含所有profile；原遊戲提示時序、所有人類合法替代路線/誘導適配、全部種子與分攤線視覺仍待核對",
+      "remaining_or_source_uncertainty": "v16來源／17組同包及限定Web證據保留；該來源已納入現行Web32，不再把歷史「待部署」當目前阻塞。未取得原生完整驗收；Main166 UI1..5不含KR6，物理82流程含所有profile。原遊戲提示時序、所有合法玩家替代／誘導及炮線可讀性待核。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -403,7 +403,7 @@
       "setup_or_in_mechanic_preparation": "確認七選項的固定散開、動態炮標排序或分坦；公開固定職責/坦位可預站，動態分配才等待觀察",
       "required_player_actions": "看自己是否被點名及排序後走出口；坦克每次保持合法最遠誘導",
       "npc_response_contract": "動態只依實際顯示完整三人或已知第一組的合法互補推知；固定/坦位用公開規則；玩家漏移不救回；明示分段fixture不是觀察收據或完整信用",
-      "remaining_or_source_uncertainty": "v17限定source驗收通過：Main81/468、scene299、有限140/613、P1events1266及共用回歸/獨立覆核；新匯出與native/Web仍待完成。原頭標onset與KR90/120角度仍未知/current120不變；非空partial永久block是有限政策非guide mandate；炮線可讀性與完整職業減傷未完成",
+      "remaining_or_source_uncertainty": "v17來源Main81/468、scene299及後續同包／限定Web證據保留；已納入現行Web32。原生／真人完整流程未認證；原頭標onset與KR90/120未知/current120不變；非空partial永久block為有限政策，恢復能力、炮線及HP減傷未完成。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -423,7 +423,7 @@
       "setup_or_in_mechanic_preparation": "按該攻略單排／小隊優先序預排，記圖形配對與水晶／場標參考",
       "required_player_actions": "記圖形與眼睛；武器揭示後讀真假、選安全側；按Glitch交叉／換邊／補位",
       "npc_response_contract": "遵守各攻略圖形序、Remote全交叉或外側交換、南北端flex；不讀未揭示武器",
-      "remaining_or_source_uncertainty": "CN單橫排及水晶兩格站位未完；五攻略各自隊列與配對距離異常狀態須核實；頭標/武器匯出可讀性另驗",
+      "remaining_or_source_uncertainty": "v21–26已有各自限定預排／可見武器／北方來源／CN單排與玩家結果證據，v31修正CN同圖左右優先。不能仍稱CN單排完全未實作；完整角色分支、距離異常、後段flex、水晶參考及其他來源差異仍待核。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -463,7 +463,7 @@
       "setup_or_in_mechanic_preparation": "確認八波動次序與Sniper分工；先處於可觀察而非解答口袋",
       "required_player_actions": "讀手臂／炮標後移動到合法位置，處理八波與狙擊實際命中",
       "npc_response_contract": "手臂揭示後才選安全口袋，按實際點名與優先序移動",
-      "remaining_or_source_uncertainty": "NPC首段過早預站；五來源狙擊角色映射、手炮／衝擊／消失時點與完整HP界線需核對",
+      "remaining_or_source_uncertainty": "v18–19已有可見炮標／轉場診斷限定增量；不把舊「首段過早預站」當已重新重現的現行缺陷。完整五來源狙擊映射、手炮／衝擊時序與HP仍需核對。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -478,12 +478,16 @@
     },
     "p3_hello": {
       "research_docs": [
-        "docs/research/HW_FIDELITY.md"
+        "docs/research/HW_FIDELITY.md",
+        "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+        "docs/development/HW_LATER_CHOICE.md",
+        "docs/development/WEB_V0330.md",
+        "docs/development/WEB_V0332.md"
       ],
       "setup_or_in_mechanic_preparation": "依攻略八方觀察初始Smell、塔色、配對預覽；不是直接出生在四輪解答",
       "required_player_actions": "依塔色／毒／Debugger選側；主動感染、吃塔、拉線、等爆炸後回場",
       "npc_response_contract": "合法等價側別由玩家先選時對側補位；依實際感染／線狀態重算，不偷改毒或Debugger",
-      "remaining_or_source_uncertainty": "初始八方、無傷配對預覽、紅藍塔、玩家對側補位缺；原毒等待／第四輪Local-Remote與各攻略差異逐時點驗；接觸／同時事件來源未知",
+      "remaining_or_source_uncertainty": "已具備初始公開站位／配對預覽／實際塔顯示、首輪NPC資訊依賴與v30後輪玩家選側、v32合法非中心踩塔；後三輪實際呈現依賴修正進行中、尚未驗收。五攻略前處理／交毒／第四輪、八職責從頭玩家流程與錯漏晚操作仍待驗；原遊戲數值／同時事件保留未知。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -504,7 +508,7 @@
       "setup_or_in_mechanic_preparation": "依有／無檢知及各攻略優先序排3～4列，再依Boss半場選分工",
       "required_player_actions": "看自身左右檢知與Boss方向、實際轉面；在來源允許的等價位選位",
       "npc_response_contract": "對合法人類選位補位；保持每人正確受擊數，不救回錯朝向／非法站位",
-      "remaining_or_source_uncertainty": "六選項Astoh/Dylan/LPDU/CN固定與鏡像/KR分開；缺列隊／重排，人類移位適配待重現；原回報圖1未提供",
+      "remaining_or_source_uncertainty": "共8選項。v27 Elemental M2玩家/N3適配、v28 LPDU N4及v29 KR固定DPS有獨立限定Web證據；其他角色、合法異位、完整預排與所有分支未認證。來源圖1缺失與派生幾何不能升成原版證據。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -564,7 +568,7 @@
       "setup_or_in_mechanic_preparation": "各攻略圖形排隊、Glitch搭檔、記場標或目視雙人塔；依攻略實際手標",
       "required_player_actions": "圖形／炮標揭示後排位；觀察塔容量並選塔；依層數/World手標、等腳刀／十字再回場",
       "npc_response_contract": "依實際標記與可見塔／玩家選塔分工，不顯示錯標卻偷偷跑正確答案",
-      "remaining_or_source_uncertainty": "CN圖形橫排/同圖上下、第一次手炮後塔容量、手標123/禁止/attack5替代與World等候未完；西方宏、KR四塔側映射與綁1-3不可共用",
+      "remaining_or_source_uncertainty": "CN已有實際手標協作、attack5唯一缺號替補、鎖定／晚改標及限定Web證據；並非全部未實作。CN圖形排隊、早塔容量、完整玩家路徑／時序與其他社群宏／分工仍待核。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -584,7 +588,7 @@
       "setup_or_in_mechanic_preparation": "讀4×1/4×2入口層數與I/II；依各攻略選monitor、World接收者及手標",
       "required_player_actions": "兩次讀武器/燈與安全方向；實際上標、必要時自己疾跑；按真實三層接線",
       "npc_response_contract": "按當時attack/bind/ignore及真實Dynamis分配，II二層優先；保持手標語義與危險側數字位一致",
-      "remaining_or_source_uncertainty": "完整手標→分工、attack1/4避半場與ignore1/2危險側數字點缺；Far自由側/甲蟲為北等只按各自來源；第二次武器是否偷讀需證據，不能預設有bug",
+      "remaining_or_source_uncertainty": "CN已有實際手標分工／報告、三種訓練族群與限定Web證據；並非完整手標全缺。任意I/II聯合族群、所有玩家Far合法側／來源北、其他社群責任及第二次武器資訊隔離仍待核。",
       "full_conformance": "not_certified",
       "information_gate": "only_already_revealed_information",
       "validation_required": [
@@ -788,7 +792,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_loop/02/aether",
@@ -810,7 +815,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_loop/03/lpdu",
@@ -832,7 +838,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_loop/04/kr_09stop",
@@ -854,7 +861,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_loop/05/cn_moogle",
@@ -876,7 +884,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_panto/01/elemental",
@@ -900,7 +909,8 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
       "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
-      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_panto/02/aether",
@@ -924,7 +934,8 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
       "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
-      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_panto/03/lpdu",
@@ -948,7 +959,8 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
       "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
-      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_panto/04/cn_moogle",
@@ -974,7 +986,8 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
       "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
-      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_panto/05/cn_moogle",
@@ -1000,7 +1013,8 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
       "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
-      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_panto/06/kr_09stop",
@@ -1024,7 +1038,8 @@
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
       "scoped_increment_evidence": "docs/development/PANTO_OBSERVATION.md",
-      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/PANTO_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/01/elemental",
@@ -1047,7 +1062,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/02/aether",
@@ -1070,7 +1086,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/03/lpdu",
@@ -1093,7 +1110,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/04/cn_moogle",
@@ -1116,7 +1134,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/05/kr_09stop",
@@ -1139,7 +1158,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/06/aether",
@@ -1164,7 +1184,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p1_cannons/07/lpdu",
@@ -1189,7 +1210,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md"
+      "scoped_progress_doc": "docs/development/CANNONS_OBSERVATION.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_synergy/01/elemental",
@@ -1201,7 +1223,10 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
       "research_docs": [
-        "docs/research/P2_SYNERGY_TIMELINE.md"
+        "docs/research/P2_SYNERGY_TIMELINE.md",
+        "docs/development/P2_PUBLIC_WEAPONS.md",
+        "docs/development/P2_PUBLIC_NORTH.md",
+        "docs/development/P2_ELEMENTAL_PREPARATION.md"
       ],
       "requirements_ref": "p2_synergy",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1210,7 +1235,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_synergy/02/aether",
@@ -1222,7 +1248,10 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
       "research_docs": [
-        "docs/research/P2_SYNERGY_TIMELINE.md"
+        "docs/research/P2_SYNERGY_TIMELINE.md",
+        "docs/development/P2_PUBLIC_WEAPONS.md",
+        "docs/development/P2_PUBLIC_NORTH.md",
+        "docs/development/P2_AETHER_PREPARATION.md"
       ],
       "requirements_ref": "p2_synergy",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1231,7 +1260,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_synergy/03/lpdu",
@@ -1243,7 +1273,10 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
       "research_docs": [
-        "docs/research/P2_SYNERGY_TIMELINE.md"
+        "docs/research/P2_SYNERGY_TIMELINE.md",
+        "docs/development/P2_PUBLIC_WEAPONS.md",
+        "docs/development/P2_PUBLIC_NORTH.md",
+        "docs/development/P2_LPDU_PREPARATION.md"
       ],
       "requirements_ref": "p2_synergy",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1252,7 +1285,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_synergy/04/cn_moogle",
@@ -1264,7 +1298,10 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
-        "docs/research/P2_SYNERGY_TIMELINE.md"
+        "docs/research/P2_SYNERGY_TIMELINE.md",
+        "docs/development/P2_PUBLIC_WEAPONS.md",
+        "docs/development/P2_PUBLIC_NORTH.md",
+        "docs/development/WEB_V0331.md"
       ],
       "requirements_ref": "p2_synergy",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1273,7 +1310,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_synergy/05/kr_09stop",
@@ -1285,7 +1323,9 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
       "research_docs": [
-        "docs/research/P2_SYNERGY_TIMELINE.md"
+        "docs/research/P2_SYNERGY_TIMELINE.md",
+        "docs/development/P2_PUBLIC_WEAPONS.md",
+        "docs/development/P2_PUBLIC_NORTH.md"
       ],
       "requirements_ref": "p2_synergy",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1294,7 +1334,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_limitless/01/elemental",
@@ -1315,7 +1356,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_limitless/02/aether",
@@ -1336,7 +1378,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_limitless/03/lpdu",
@@ -1357,7 +1400,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_limitless/04/cn_moogle",
@@ -1378,7 +1422,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p2_limitless/05/kr_09stop",
@@ -1399,7 +1444,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_transition/01/elemental",
@@ -1420,7 +1466,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_transition/02/aether",
@@ -1441,7 +1488,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_transition/03/lpdu",
@@ -1462,7 +1510,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_transition/04/cn_moogle",
@@ -1483,7 +1532,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_transition/05/kr_09stop",
@@ -1504,7 +1554,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_hello/01/elemental",
@@ -1516,7 +1567,12 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://ffxiv.tuufless.com/elemental/top/",
       "research_docs": [
-        "docs/research/HW_FIDELITY.md"
+        "docs/research/HW_FIDELITY.md",
+        "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+        "docs/development/HW_LATER_CHOICE.md",
+        "docs/development/WEB_V0330.md",
+        "docs/development/WEB_V0332.md",
+        "docs/development/HW_PREPARATION_CONTRACT.md"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1525,7 +1581,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_hello/02/aether",
@@ -1537,7 +1594,12 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://www.thepfstrat.com/u/top",
       "research_docs": [
-        "docs/research/HW_FIDELITY.md"
+        "docs/research/HW_FIDELITY.md",
+        "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+        "docs/development/HW_LATER_CHOICE.md",
+        "docs/development/WEB_V0330.md",
+        "docs/development/WEB_V0332.md",
+        "docs/development/HW_PREPARATION_CONTRACT.md"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1546,7 +1608,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_hello/03/lpdu",
@@ -1558,7 +1621,12 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://github.com/cliaux/lpdu.github.io/blob/main/top/top_discord_strats.md",
       "research_docs": [
-        "docs/research/HW_FIDELITY.md"
+        "docs/research/HW_FIDELITY.md",
+        "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+        "docs/development/HW_LATER_CHOICE.md",
+        "docs/development/WEB_V0330.md",
+        "docs/development/WEB_V0332.md",
+        "docs/development/HW_PREPARATION_CONTRACT.md"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1567,7 +1635,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_hello/04/cn_moogle",
@@ -1579,7 +1648,12 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.qq.com/doc/DSlBpR0JqSElVelhH",
       "research_docs": [
-        "docs/research/HW_FIDELITY.md"
+        "docs/research/HW_FIDELITY.md",
+        "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+        "docs/development/HW_LATER_CHOICE.md",
+        "docs/development/WEB_V0330.md",
+        "docs/development/WEB_V0332.md",
+        "docs/development/HW_PREPARATION_CONTRACT.md"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1588,7 +1662,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_hello/05/kr_09stop",
@@ -1600,7 +1675,12 @@
       "declared_option_overrides": {},
       "primary_source_entry_url": "https://docs.google.com/spreadsheets/d/1lzaCorDOUwYglSXbMnEtoOcbRQdiIpVijhMh12r8N-Q/edit",
       "research_docs": [
-        "docs/research/HW_FIDELITY.md"
+        "docs/research/HW_FIDELITY.md",
+        "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+        "docs/development/HW_LATER_CHOICE.md",
+        "docs/development/WEB_V0330.md",
+        "docs/development/WEB_V0332.md",
+        "docs/development/HW_PREPARATION_CONTRACT.md"
       ],
       "requirements_ref": "p3_hello",
       "source_scope": "existing_source_scoped_partial; full diagrams/videos/branches not all verified",
@@ -1609,7 +1689,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/01/elemental",
@@ -1631,7 +1712,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/02/aether",
@@ -1653,7 +1735,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/03/lpdu",
@@ -1675,7 +1758,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/04/cn_moogle",
@@ -1699,7 +1783,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/05/cn_moogle",
@@ -1723,7 +1808,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/06/kr_09stop",
@@ -1745,7 +1831,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p3_monitors/07/kr_09stop",
@@ -1766,9 +1853,12 @@
       "guide_reaudit_status": "verified_scoped_source_only; complete guide not certified",
       "player_preparation_proof": "44positive actual Main rows across both policies; not all role/seed branches",
       "runtime_conformance": "verified_scoped_headless_not_fullguide",
-      "rendered_platform_proof": "new_export_Web_native_pending",
-      "notes": "New explicit optional policy; no borrowed3sconga or coordinate-only player verdict. Existing six options retained.",
-      "catalog_runtime_drift": ""
+      "rendered_platform_proof": "verified_scoped_Web_v0.3.29_native_pending_not_fullguide",
+      "notes": "v0.3.29 fixed-DPS scoped Web evidence: docs/development/P3_MONITOR_FIXED_DPS.md. Native, other roles/seeds and full-guide conformance remain pending.",
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md",
+      "historical_rendered_platform_proof": "new_export_Web_native_pending",
+      "historical_notes": "New explicit optional policy; no borrowed3sconga or coordinate-only player verdict. Existing six options retained."
     },
     {
       "option_key": "p3_monitors/08/kr_09stop",
@@ -1789,9 +1879,12 @@
       "guide_reaudit_status": "verified_scoped_source_only; complete guide not certified",
       "player_preparation_proof": "44positive actual Main rows across both policies; not all role/seed branches",
       "runtime_conformance": "verified_scoped_headless_not_fullguide",
-      "rendered_platform_proof": "new_export_Web_native_pending",
-      "notes": "New explicit optional policy; no borrowed3sconga or coordinate-only player verdict. Existing six options retained.",
-      "catalog_runtime_drift": ""
+      "rendered_platform_proof": "verified_scoped_Web_v0.3.29_native_pending_not_fullguide",
+      "notes": "v0.3.29 fixed-DPS scoped Web evidence: docs/development/P3_MONITOR_FIXED_DPS.md. Native, other roles/seeds and full-guide conformance remain pending.",
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md",
+      "historical_rendered_platform_proof": "new_export_Web_native_pending",
+      "historical_notes": "New explicit optional policy; no borrowed3sconga or coordinate-only player verdict. Existing six options retained."
     },
     {
       "option_key": "p4_wave/01/elemental",
@@ -1812,7 +1905,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p4_wave/02/aether",
@@ -1833,7 +1927,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p4_wave/03/lpdu",
@@ -1854,7 +1949,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p4_wave/04/cn_moogle",
@@ -1875,7 +1971,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p4_wave/05/kr_09stop",
@@ -1896,7 +1993,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_delta/01/elemental",
@@ -1917,7 +2015,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_delta/02/aether",
@@ -1938,7 +2037,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_delta/03/lpdu",
@@ -1959,7 +2059,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_delta/04/cn_moogle",
@@ -1981,7 +2082,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md"
+      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_delta/05/kr_09stop",
@@ -2002,7 +2104,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_sigma/01/elemental",
@@ -2023,7 +2126,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_sigma/02/aether",
@@ -2044,7 +2148,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_sigma/03/lpdu",
@@ -2065,7 +2170,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_sigma/04/cn_moogle",
@@ -2087,7 +2193,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence. v0.3.15 CN手標來源候選已整合並通過限定互動/移動/Main回歸；新平台及完整攻略認證仍待完成。",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_sigma/05/kr_09stop",
@@ -2108,7 +2215,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_omega/01/elemental",
@@ -2129,7 +2237,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_omega/02/aether",
@@ -2150,7 +2259,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_omega/03/lpdu",
@@ -2171,7 +2281,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_omega/04/cn_moogle",
@@ -2192,7 +2303,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_omega/05/kr_09stop",
@@ -2213,7 +2325,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p5_solar/01/elemental",
@@ -2235,7 +2348,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_memory/01/elemental",
@@ -2257,7 +2371,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_memory/02/aether",
@@ -2279,7 +2394,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_memory/03/lpdu",
@@ -2301,7 +2417,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_memory/04/cn_moogle",
@@ -2323,7 +2440,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_memory/05/kr_09stop",
@@ -2345,7 +2463,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_dive/01/elemental",
@@ -2367,7 +2486,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_dive/02/aether",
@@ -2389,7 +2509,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_dive/03/lpdu",
@@ -2411,7 +2532,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_dive/04/cn_moogle",
@@ -2433,7 +2555,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_dive/05/kr_09stop",
@@ -2455,7 +2578,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_wave/01/elemental",
@@ -2477,7 +2601,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_wave/02/lpdu",
@@ -2499,7 +2624,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_wave/03/aether",
@@ -2521,7 +2647,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_wave/04/cn_moogle",
@@ -2544,7 +2671,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md"
+      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_wave/05/kr_09stop",
@@ -2566,7 +2694,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_wave/01/elemental",
@@ -2588,7 +2717,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_wave/02/lpdu",
@@ -2610,7 +2740,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_wave/03/aether",
@@ -2632,7 +2763,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_wave/04/cn_moogle",
@@ -2654,7 +2786,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_arrow_wave/05/kr_09stop",
@@ -2676,7 +2809,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_dive/01/elemental",
@@ -2698,7 +2832,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_dive/02/aether",
@@ -2720,7 +2855,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_dive/03/lpdu",
@@ -2742,7 +2878,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_dive/04/cn_moogle",
@@ -2765,7 +2902,8 @@
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
       "catalog_runtime_drift": "",
-      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md"
+      "incremental_evidence": "2026-10-23: confirmed stale catalog text corrected; runtime_conformance remains not_certified; see docs/development/PLAYER_NPC_PREPARATION_INCREMENT.md",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_exa_dive/05/kr_09stop",
@@ -2787,7 +2925,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_meteors/01/elemental",
@@ -2810,7 +2949,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_meteors/02/aether",
@@ -2833,7 +2973,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_meteors/03/lpdu",
@@ -2856,7 +2997,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_meteors/04/cn_moogle",
@@ -2879,7 +3021,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_meteors/05/kr_09stop",
@@ -2902,7 +3045,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_magic/01/elemental",
@@ -2924,7 +3068,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_magic/02/aether",
@@ -2946,7 +3091,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_magic/03/lpdu",
@@ -2968,7 +3114,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_magic/04/cn_moogle",
@@ -2990,7 +3137,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     },
     {
       "option_key": "p6_magic/05/kr_09stop",
@@ -3012,7 +3160,8 @@
       "runtime_conformance": "not_certified",
       "rendered_platform_proof": "not_accepted_as_complete",
       "notes": "Registry text is a snapshot, not proof; reconcile stale source/scope labels against latest per-mechanic evidence.",
-      "catalog_runtime_drift": ""
+      "catalog_runtime_drift": "",
+      "current_evidence_index": "docs/development/STATUS_CURRENT.md"
     }
   ],
   "catalog_incremental_update": {
@@ -3036,35 +3185,47 @@
     {
       "version": "0.3.14-candidate",
       "option_key": "p5_omega/04/cn_moogle",
-      "status": "source_pack_and_web_verified_native_pending",
+      "status": "historical_scoped_evidence_in_current_web32_not_full_conformance",
       "evidence_doc": "docs/development/OMEGA_GENERATED_TRAINING.md",
       "scope": "standalone training families0/1/2, generated actual movement and JSON-holder normalization",
-      "remaining": "native GUI QA/public deploy/cleanup; arbitrary I1 joint RNG, all human/community branches, full100 certification"
+      "remaining": "Current gaps: docs/development/STATUS_CURRENT.md and mechanic_requirements. Historical native/platform claims retain their original scope; inclusion in Web32 does not certify a new full player/native run.",
+      "historical_status": "source_pack_and_web_verified_native_pending",
+      "historical_remaining": "native GUI QA/public deploy/cleanup; arbitrary I1 joint RNG, all human/community branches, full100 certification",
+      "current_evidence_doc": "docs/development/WEB_V0332.md"
     },
     {
       "version": "0.3.15-candidate",
       "option_key": "p5_sigma/04/cn_moogle",
-      "status": "source_pack_and_web_verified_native_pending",
+      "status": "historical_scoped_evidence_in_current_web32_not_full_conformance",
       "evidence_doc": "docs/development/SIGMA_MANUAL_PREPARATION.md",
       "scope": "observed CN manual/assist cooperation; immutable route lock vs current marks;18 moving courses/1534 assertions and170Main checks",
-      "remaining": "nativeGUI QA/publicdeploy/cleanup; preciseinitialF/sourcebranches, othercommunityrules and full100certification"
+      "remaining": "Current gaps: docs/development/STATUS_CURRENT.md and mechanic_requirements. Historical native/platform claims retain their original scope; inclusion in Web32 does not certify a new full player/native run.",
+      "historical_status": "source_pack_and_web_verified_native_pending",
+      "historical_remaining": "nativeGUI QA/publicdeploy/cleanup; preciseinitialF/sourcebranches, othercommunityrules and full100certification",
+      "current_evidence_doc": "docs/development/WEB_V0332.md"
     },
     {
       "version": "0.3.16-candidate",
       "mechanic_id": "p1_panto",
-      "status": "source_pack_and_web_verified_native_pending",
+      "status": "historical_scoped_evidence_in_current_web32_not_full_conformance",
       "evidence_doc": "docs/development/PANTO_OBSERVATION.md",
       "scope": "neutralspawn and presentation-acknowledged publicaxis/sign;82physicalcourses757checks/Main166/Arena127/P1events1266 plusfocusedsharedregression;samePCK17gates andactualWindowsChrome/AMDRX7900XTWebGL2 N+D/currentcue/Rreset",
-      "remaining": "nativeGUI UNRUN pendingactualdesktopidle/publicdeploy; Main166UI1..5 excludesKR6 though82physicscoversallprofiles; original-gamecueonset source_unknown, allhumanalternatives/adaptation andall100certification unchanged",
-      "runtime_commit": "2bbffbf7ce7243ff25548d257de3e788b8c16019"
+      "remaining": "Current gaps: docs/development/STATUS_CURRENT.md and mechanic_requirements. Historical native/platform claims retain their original scope; inclusion in Web32 does not certify a new full player/native run.",
+      "runtime_commit": "2bbffbf7ce7243ff25548d257de3e788b8c16019",
+      "historical_status": "source_pack_and_web_verified_native_pending",
+      "historical_remaining": "nativeGUI UNRUN pendingactualdesktopidle/publicdeploy; Main166UI1..5 excludesKR6 though82physicscoversallprofiles; original-gamecueonset source_unknown, allhumanalternatives/adaptation andall100certification unchanged",
+      "current_evidence_doc": "docs/development/WEB_V0332.md"
     },
     {
       "version": "0.3.17-candidate",
       "mechanic_id": "p1_cannons",
-      "status": "source_verified_export_pending",
+      "status": "historical_scoped_evidence_in_current_web32_not_full_conformance",
       "evidence_doc": "docs/development/CANNONS_OBSERVATION.md",
       "scope": "81actualMainphysicalinputreplays/468checks/0testfailures:70normal,8wrongroute,1legalradial,2labelledassisted; repairedtexturedscene299/0; MF1 source repair closed separately;final140/613,currentScene299,P1events1266/focusedshared andindependentsource/input/testfixture reviewPASS",
-      "remaining": "fresh export/native/Web/publicdeploy; originalcueonset andKR90vs120 unknown/current120unchanged; permanentnonempty-partialblockfinitepolicy; all100not_certified"
+      "remaining": "Current gaps: docs/development/STATUS_CURRENT.md and mechanic_requirements. Historical native/platform claims retain their original scope; inclusion in Web32 does not certify a new full player/native run.",
+      "historical_status": "source_verified_export_pending",
+      "historical_remaining": "fresh export/native/Web/publicdeploy; originalcueonset andKR90vs120 unknown/current120unchanged; permanentnonempty-partialblockfinitepolicy; all100not_certified",
+      "current_evidence_doc": "docs/development/WEB_V0332.md"
     },
     {
       "version": "0.3.27",
@@ -3095,6 +3256,86 @@
       "evidence_doc": "docs/development/P3_MONITOR_FIXED_DPS.md",
       "scope": "Two explicit fixed-DPS policies;13freshPCK;oneactualWeb3positive+R+idle;20freshUIparentreviews+8reusedsameversion-control-locators(no-prior-gameplay-credit);all8attack/status;13HTTPS/freshstartup",
       "remaining": "other roles/seeds/full20/102 guides;eastmirror/HTfills derived;not official geometry/native/manual/FPS/completeAVFX"
+    },
+    {
+      "version": "0.3.20",
+      "mechanic_id": "p3_hello",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/HW_PUBLIC_FIRSTWAVE.md",
+      "scope": "first-wave actual public source and limited player choice",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.21",
+      "mechanic_id": "p2_synergy",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/P2_ELEMENTAL_PREPARATION.md",
+      "scope": "Elemental initial HTMR preparation only",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.22",
+      "mechanic_id": "p2_synergy",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/P2_LPDU_PREPARATION.md",
+      "scope": "LPDU initial THMR/southern duplicate only",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.23",
+      "mechanic_id": "p2_synergy",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/P2_AETHER_PREPARATION.md",
+      "scope": "Aether observed conga/human rank and NPC room-making only",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.24",
+      "mechanic_id": "p2_synergy",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/P2_PUBLIC_WEAPONS.md",
+      "scope": "actual visible physical weapon memory only",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.25",
+      "mechanic_id": "p2_synergy",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/P2_PUBLIC_NORTH.md",
+      "scope": "displayed physical body new-North for existing three assignments",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.26",
+      "mechanic_id": "shared",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/PLAYER_OUTCOME_VERDICT.md",
+      "scope": "actual player outcomes and scoped CN initial row",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.30",
+      "mechanic_id": "p3_hello",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/WEB_V0330.md",
+      "scope": "later reversible choice source checkpoint included in v31; not separate v30 deployment",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.31",
+      "mechanic_id": "p2_synergy",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/WEB_V0331.md",
+      "scope": "CN duplicate priority plus included HW source checkpoint",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
+    },
+    {
+      "version": "0.3.32",
+      "mechanic_id": "p3_hello",
+      "status": "verified_scoped_not_full_conformance",
+      "evidence_doc": "docs/development/WEB_V0332.md",
+      "scope": "actual tower footprint for later player choice; synthetic prelude not ordinary manual",
+      "remaining": "See evidence document and STATUS_CURRENT; no full per-option player/native certification is inferred."
     }
   ],
   "catalog_incremental_update_fixed_dps": {
@@ -3108,5 +3349,15 @@
     "mechanic_strategies_sha256": "70249177a1c173f4d19f866d9a05b6bd69879a2b332ff7e9f46b484167287801",
     "old_source_snapshot_retained": true,
     "status": "verified_scoped_source_new_platform_pending"
+  },
+  "evidence_reconciliation": {
+    "date": "2026-10-27",
+    "source_baseline": "483141aed5aa2cd4e39eb99a3ec84b474767e65b",
+    "current_release": "0.3.32",
+    "purpose": "reconcile historical candidate state against current inclusion, not retroactive native/manual certification",
+    "status_doc": "docs/development/STATUS_CURRENT.md",
+    "native": "pending_desktop_prohibited",
+    "full_guide_certified_options": 0,
+    "warning": "0 fully certified rows is NOT 0 implemented features; no completion percentage is inferred"
   }
 }
