@@ -1,0 +1,137 @@
+{
+  "scope": "Original candidate resources found, extracted, converted and integrity verified ONLY",
+  "counts": {
+    "models": 3,
+    "materials": 7,
+    "model_textures": 8,
+    "effects": 8,
+    "effect_textures": 47
+  },
+  "raw_bundle_sha256": "f3806c46c0537b0eca61dc02520cc8cd9b5bc27b527e2f62938ce849496202a1",
+  "corrected_glb_sha256": "23999509212f4baad227409a7add272d1ff254e5699302ce2748cd3f714742b3",
+  "visual_game_fidelity": "NOT_ACCEPTED / pending shader+animation+reference alignment",
+  "simulator_changes": false,
+  "production_changes": false,
+  "desktop_operations": false,
+  "native": "PENDING",
+  "remaining": [
+    "Original scene state/visibility/lid animation and bguvscroll semantics",
+    "Exact P2/Delta phase and spawn/despawn visual alignment",
+    "Separate reviewed simulator integration, source scale/facing preservation",
+    "Broader NPC/Web33 legacy mismatch stays paused; no automatic resumption"
+  ],
+  "game_version": "2026.10.16.0000.0000",
+  "models": [
+    {
+      "path": "bg/ex2/05_zon_z3/ome/z3of/bgparts/z3of_a0_eye00.mdl",
+      "bytes": 13740,
+      "sha256": "d2d93f0edfd786bf7869893cc50b09c70eed264710f8f36c2d7385fded654a59",
+      "groups": [
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_flo01f.mtrl",
+          "vertices": 324,
+          "triangles": 448,
+          "bones": []
+        }
+      ],
+      "min": [
+        -0.3349609375,
+        -0.3349609375,
+        0.77490234375
+      ],
+      "max": [
+        0.3349609375,
+        0.3349609375,
+        0.80859375
+      ]
+    },
+    {
+      "path": "bg/ex2/05_zon_z3/ome/z3of/bgparts/z3of_a0_eye01.mdl",
+      "bytes": 190852,
+      "sha256": "394f2f912e5c21dae6f68cb5cdf040dbe061f0cd09b204e9a5bdb044adbeca8b",
+      "groups": [
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_flo03b.mtrl",
+          "vertices": 395,
+          "triangles": 448,
+          "bones": []
+        },
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_flo03a.mtrl",
+          "vertices": 634,
+          "triangles": 768,
+          "bones": []
+        },
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_flo01e.mtrl",
+          "vertices": 216,
+          "triangles": 256,
+          "bones": []
+        },
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_flo01h.mtrl",
+          "vertices": 466,
+          "triangles": 512,
+          "bones": []
+        },
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_clo02c.mtrl",
+          "vertices": 2876,
+          "triangles": 3472,
+          "bones": []
+        },
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_clo02a.mtrl",
+          "vertices": 176,
+          "triangles": 128,
+          "bones": []
+        }
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "max": [
+        1.0,
+        1.0,
+        0.923828125
+      ]
+    },
+    {
+      "path": "bg/ex2/05_zon_z3/ome/z3of/bgparts/z3of_a0_eye02.mdl",
+      "bytes": 31660,
+      "sha256": "f2ea469d69271d0bc32dcf8e40ff721be2f60519dd36e118724f68d308f7496b",
+      "groups": [
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_clo02c.mtrl",
+          "vertices": 626,
+          "triangles": 992,
+          "bones": []
+        },
+        {
+          "material": "bg/ex2/05_zon_z3/ome/z3of/material/z3of_a0_clo02a.mtrl",
+          "vertices": 70,
+          "triangles": 64,
+          "bones": []
+        }
+      ],
+      "min": [
+        -0.9375,
+        -0.35888671875,
+        0.0
+      ],
+      "max": [
+        0.9375,
+        0.35888671875,
+        0.9375
+      ]
+    }
+  ],
+  "source_asset_scope": "Original candidate MDL/MTRL/TEX, scene graph and8AVFX Tex closure; not gameplay acceptance",
+  "initial_glb_binding_failure": {
+    "bound_materials": 0,
+    "corrected_bound_materials": 7,
+    "geometry_and_image_binary_unchanged": true
+  }
+}

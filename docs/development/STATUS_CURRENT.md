@@ -17,6 +17,8 @@ Owner reprioritized on2026-10-27: **pause broader development after current-stag
 
 The Web33 candidate is **NOT_ACCEPTED / frozen**, not deployed: eight exact-package gates passed, `hw_legacy` failed four of46 assertions, and22 planned gates plus all browser gates were not run. See [candidate freeze](WEB_V0333_CANDIDATE.md). Earlier five-guide/eight-role controlled source evidence remains scoped; it cannot override the new failure. Production stays Web32.
 
+Optical resource identification is now **限定通過**: three original scene MDLs,7materials,8model textures and8AVFX/47declared textures were recovered and verified; static diffuse GLB conversion is available. [Source findings](../research/OPTICAL_UNIT_RESOURCES.md) explicitly retain original shader/animation/phase-state and simulator integration as open. Broader development stays paused.
+
 Deferred order is preserved: HW complete player/preparation flows → remaining all20/102 guide correctness → measured optimization → complete AVFX. Do not automatically resume those stages while Optical has priority.
 
 ## Established increments and open gaps

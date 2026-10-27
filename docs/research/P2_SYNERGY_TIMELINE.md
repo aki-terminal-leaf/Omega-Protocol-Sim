@@ -40,8 +40,12 @@ Fire/Laser and Spotlight/sword checkpoint boundaries). This is a training displa
 policy, not a claim that the game has these telegraphs. Post-hit flashes retain
 frozen actual actor positions. Damage deadlines and geometry are unchanged.
 
-The Optical Unit proxy's ModelChara480 has no ordinary visible boss mesh;
-its game appearance is VFX-based. A clearly documented procedural eye cue is
+The Optical Unit proxy's ModelChara480 has no ordinary visible NPC mesh.
+**2026-10-27 correction:** the actual TOP scene contains a shared-object chain
+with three original eye MDLs plus appearance/laser/closing VFX; see
+[Optical resource investigation](OPTICAL_UNIT_RESOURCES.md). The earlier
+VFX-only inference was incomplete; static source assets are now available,
+while phase-state/animation and final visual alignment remain pending. A clearly documented procedural eye cue is
 used at the observed radius45, facing the exact same inward axis as its laser.
 It is **not** relabeled P6 background geometry or a claimed original model.
 Vector markers reconstruct the source colors/shapes; no external font glyphs
