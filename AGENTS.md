@@ -42,13 +42,13 @@ coherent, reviewable increments.
   production wiring and exported-platform QA. Godot can exit zero on script
   errors: reject `SCRIPT ERROR`, `Parse Error` and `Compile Error` in test logs.
 
-## Verification permissions (updated 2026-10-22)
+## Verification permissions (updated 2026-10-27)
 
-The user explicitly reauthorized desktop operations for this TOP task on
-2026-10-22. Desktop/native-window validation is permitted within this project;
-it is not a global authorization for unrelated projects. Prefer deterministic
-headless regression gates alongside actual rendered verification. Independent
-workers must retain bounded isolated jobs and parent review.
+The owner resumed TOP development without desktop operations. Continue VPS
+headless, isolated non-focus browser and HTTP work only. Do not launch native
+GUI windows, send OS keyboard/mouse input, change focus, capture the desktop,
+or probe idle state. Native acceptance remains pending; headless is not native
+proof. This supersedes the historical 2026-10-22 desktop-available window.
 
 ## AVFX / shader schema evidence
 

@@ -1,0 +1,77 @@
+{
+  "scope": "later HW actual presentation source increment, not Web/native/full-guide acceptance",
+  "source_sha256": {
+    "top/scripts/hw_firstwave_observation.gd": "15d194b1e31a2f8d0f02ec63d2605663c7ada5a839e01017986c47fb3e251f84",
+    "top/scripts/hw_courses.gd": "019ea2932139da3d53f2ddfbc021b4b7bfcf662c6bebb7d7c30c58a697ef1a1b"
+  },
+  "gates": [
+    {
+      "run": "final-firstwave-unit",
+      "summary": [
+        "HW_FIRSTWAVE_UNIT_RESULT {\"checks\":43,\"failures\":0,\"scope\":\"synthetic presented-source/schema/isolation/choice fixtures, not physical/native/Web proof\"}"
+      ],
+      "result_sha256": "e5fa4dad276f039a466f5a9a5c9c77140f3130fab5be8f29d1988f025ffcec0d"
+    },
+    {
+      "run": "final-generator-equivalence",
+      "summary": [
+        "HW_HANDOFF_EQUIVALENCE_RESULT {\"checks\":240,\"failures\":0,\"scope\":\"exact generated beats, paths, metadata, final pose and order vs frozen 483141a across 240 mixed-orientation five-family courses; not runtime/player proof\"}"
+      ],
+      "result_sha256": "5a4ec50b5ca991fb30201bba4f4e00b69cd6ab74d7ea04ecc3c8ff6e2053d3cb"
+    },
+    {
+      "run": "final-five-guide-main",
+      "summary": [
+        "HW_FIRSTWAVE_MAIN_RESULT {\"checks\":367,\"failures\":0,\"full_courses\":5,\"privacy_fixtures\":80,\"scope\":\"controlled differential first-spawn fixtures + actual Main five generated demos/drawn-source/substeps/retry/stationary-human; headless scene, not manual/native/Web/allguide proof\"}"
+      ],
+      "result_sha256": "bbd42386aaf4b761c10bbb6cd139050213c434ac54d89bcf60699d28831b335b"
+    },
+    {
+      "run": "final-public-channel-traces",
+      "summary": [
+        "HW_LATER_OBSERVATION_RESULT {\"checks\":126,\"classification\":\"Changed-source public channel dependence plus continuous controlled pre-reveal0vs2 orientation trajectories; not exhaustive privacy proof\",\"courses\":12,\"failures\":[],\"full_judgment_courses\":9,\"pre_reveal_only_courses\":3,\"scope\":\"Elemental fixed family/allNPC controlled actual Main; changed source but no manual/Web/native/fullguide credit\"}"
+      ],
+      "result_sha256": "93ac3b185fa0892bb3ebf9f40df9d636064f7a74116d52e911b68683be61134b"
+    },
+    {
+      "run": "later-boundary-regression",
+      "summary": [
+        "HW_LATER_UNIT_RESULT {\"checks\":46,\"failures\":0,\"scope\":\"synthetic source/schema/public-state isolation and footprint controls, not physics/full guide proof\"}"
+      ],
+      "result_sha256": "d0aa3d8503c0c915036bbc0cfe9eb99ca5dda95598afcd35f863bc712d59104f"
+    },
+    {
+      "run": "late-checkpoint-actual-main",
+      "summary": [
+        "HW_LATER_CHECKPOINT_RESULT {\"checkpoints\":[7,14,21,25],\"checks\":20,\"failures\":0,\"scope\":\"actual Main assisted reconstruction at waves2/3/4 and terminal beat; not ordinary/manual credit\"}"
+      ],
+      "result_sha256": "7383d8608453e01b22e8beb6c499934f49cb4079b3866754ba079bbbf3a1c819"
+    },
+    {
+      "run": "omission-scoped-control",
+      "summary": [
+        "HW_FULL_PLAYER_RESULT {\"checks\":11,\"courses\":1,\"failures\":0,\"scope\":\"actual Main WASD fromHW0to130; controlled identity/red/[2,0,0,0], nominal guide timeline and manual scene stepping; current public roles/drawn towers, no synthetic prelude; not native/manual/Web/allguide\"}"
+      ],
+      "result_sha256": "8a7045854f7c5864f58a6ec2e4a8cf4a6430e338fb4bcce66a64e05d9d833dfe"
+    }
+  ],
+  "controlled_player_input": {
+    "ok_for_controlled_input_evidence": true,
+    "review": "Sonnet NO_MUST_FIX with reporting conditions met",
+    "positive_rows": 8,
+    "positive_artifact": "engine-runs/elemental-complete-prestaging/engine.log",
+    "positive_wrapper_retained": "FAIL: single invalid healthy-role expectation after intended negative failure",
+    "negative_artifact": "engine-runs/omission-scoped-control",
+    "negative_checks": 11,
+    "negative_human": 6,
+    "negative_stop": 45.05,
+    "metadata_only_followup": "summary now derives roles/stop_times; controller/conditions unchanged",
+    "current_driver_sha256": "176f2dba3690fa2c2a257c211bb0b22535d06c7e92aceaf5a69dd69db606ed52",
+    "scope": "Elemental only identity/red/[2,0,0,0], real WASD from0, nominal timeline/manual Main stepping; no all5/mixed/blue/manual/Web/native certification"
+  },
+  "independent_source_review": "Gemini plus explicit parent adjudication; all accepted fixes tested; speculative findings rejected with counterevidence",
+  "desktop": "PROHIBITED",
+  "native": "PENDING",
+  "current_deployment": "Web32 unchanged",
+  "source_stage_accepted": true
+}

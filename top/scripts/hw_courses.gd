@@ -17,8 +17,6 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 		var actor:int=int(public_order[slot])
 		public_neutral[actor]=(public_neutral[actor] as Vector2).normalized()*3.0
 	var route := P.route(str(ctx.profile.id))
-	var inward_remote: bool=route.get("remote_after_handoff","")=="inside_boss"
-	var hold_old: bool=route.get("old_rot_after_handoff","")=="hold_at_marker_and_inner_tower_until_expiry"
 	var start: int=ctx.beats.size()
 	var last := 0.0
 	for round_index in 4:
@@ -35,35 +33,9 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 			add(ctx,staging,3.0,"Initial Smells: rot moves first, tethers inside",route)
 			add(ctx,points,at-3.0,"Hello World 1/4: towers and bugs",route)
 		last=at
-		if round_index<3:
-			add(ctx,points,1.05,"Wait for real bug Magic Vulnerability before Patch",route)
-			# Actual contact, no grants on these movement beats.
-			for side in 2:
-				var sign_x := -1.0 if side==0 else 1.0
-				put(points,order,round_index,0,side,Vector2(sign_x*9.899495,-9.899495),angle)
-				put(points,order,round_index,6,side,Vector2(sign_x*9.899495,-9.899495),angle)
-			add(ctx,points,1.35,"Local collects matching rot first; Remote holds",route)
-			for side in 2: put(points,order,round_index,2,side,Vector2((-1.0 if side==0 else 1.0)*5.282728,11.328847),angle)
-			add(ctx,points,0.55,"Remote collects matching rot and breaks",route)
-			for side in 2:
-				var sign_x := -1.0 if side==0 else 1.0
-				put(points,order,round_index,0,side,Vector2(sign_x*9.899495,-9.899495) if hold_old else Vector2(sign_x*12.4,-12.4),angle)
-				put(points,order,round_index,4,side,Vector2(sign_x*5.282728,11.328847) if hold_old else Vector2(sign_x*6.5,17),angle)
-				put(points,order,round_index,2,side,Vector2(sign_x*5.3,4.5) if inward_remote else Vector2(sign_x*16.5,10),angle)
-			add(ctx,points,1.05,"Remote first; Local waits for Patch vulnerability",route)
-			for side in 2: put(points,order,round_index,6,side,Vector2(-1.1 if side==0 else 1.1,-5),angle)
-			add(ctx,points,6.0,"Local converges; hold until the actual old rot expiries",route)
-			last=at+10.0
-		else:
-			# Local breaks on activation on the stack side, then Remote leaves.
-			add(ctx,points,1.2,"Fourth: Local first, no handoff",route)
-			for side in 2:
-				var sign_x := -1.0 if side==0 else 1.0
-				put(points,order,round_index,2,side,Vector2(sign_x*7,4.5) if route.get("fourth_remote_exit","")=="inside" else Vector2(sign_x*16.5,10),angle)
-				put(points,order,round_index,4,side,Vector2(sign_x*5.282728,11.328847) if route.get("fourth_sync_exit","")=="hold" else Vector2(sign_x*6.5,17),angle)
-				if route.get("fourth_local_exit","")=="inside": put(points,order,round_index,6,side,Vector2(sign_x*1.1,3.0),angle)
-			add(ctx,points,9.0,"Fourth: Remote last; avoid final rot blasts",route)
-			last=at+10.2
+		for stage in post_tower_stages(round_index,angle,order,route):
+			add(ctx,stage.points,float(stage.duration),str(stage.title),route)
+		last=at+(10.0 if round_index<3 else 10.2)
 		var tower_goals:=P.formation(round_index,angle,order)
 		var tower_pairs:Array=[]
 		for role in [0,4]:
@@ -93,6 +65,52 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 				first.hw_initial.append({"actor":int(order[posmod(role-round_index*2,8)+side]),"name":"remote_code_smell" if role==2 else "local_code_smell","duration":23.0+21.0*round_index})
 	for index in range(start,ctx.beats.size()):
 		ctx.beats[index].hw_pattern={"orientations":orientations.duplicate(),"defamation_colour":colour,"numeric_positions":"training realization; not official coordinates","guide_route_complete":bool(route.get("source_route_audited",false))}
+
+## Single maintained post-tower movement stages, shared by the course generator
+## and the later public NPC path. Pure: depends only on round, role order,
+## tower orientation and route policy. Each stage holds a snapshot of points.
+static func post_tower_stages(round_index: int, angle: int, order: Array, route: Dictionary) -> Array:
+	var inward_remote: bool=route.get("remote_after_handoff","")=="inside_boss"
+	var hold_old: bool=route.get("old_rot_after_handoff","")=="hold_at_marker_and_inner_tower_until_expiry"
+	var points := P.formation(round_index,angle,order)
+	var stages: Array=[]
+	if round_index<3:
+		stages.append({"duration":1.05,"title":"Wait for real bug Magic Vulnerability before Patch","points":points.duplicate()})
+		# Actual contact, no grants on these movement beats.
+		for side in 2:
+			var sign_x := -1.0 if side==0 else 1.0
+			put(points,order,round_index,0,side,Vector2(sign_x*9.899495,-9.899495),angle)
+			put(points,order,round_index,6,side,Vector2(sign_x*9.899495,-9.899495),angle)
+		stages.append({"duration":1.35,"title":"Local collects matching rot first; Remote holds","points":points.duplicate()})
+		for side in 2: put(points,order,round_index,2,side,Vector2((-1.0 if side==0 else 1.0)*5.282728,11.328847),angle)
+		stages.append({"duration":0.55,"title":"Remote collects matching rot and breaks","points":points.duplicate()})
+		for side in 2:
+			var sign_x := -1.0 if side==0 else 1.0
+			put(points,order,round_index,0,side,Vector2(sign_x*9.899495,-9.899495) if hold_old else Vector2(sign_x*12.4,-12.4),angle)
+			put(points,order,round_index,4,side,Vector2(sign_x*5.282728,11.328847) if hold_old else Vector2(sign_x*6.5,17),angle)
+			put(points,order,round_index,2,side,Vector2(sign_x*5.3,4.5) if inward_remote else Vector2(sign_x*16.5,10),angle)
+		stages.append({"duration":1.05,"title":"Remote first; Local waits for Patch vulnerability","points":points.duplicate()})
+		for side in 2: put(points,order,round_index,6,side,Vector2(-1.1 if side==0 else 1.1,-5),angle)
+		stages.append({"duration":6.0,"title":"Local converges; hold until the actual old rot expiries","points":points.duplicate()})
+	else:
+		# Local breaks on activation on the stack side, then Remote leaves.
+		stages.append({"duration":1.2,"title":"Fourth: Local first, no handoff","points":points.duplicate()})
+		for side in 2:
+			var sign_x := -1.0 if side==0 else 1.0
+			put(points,order,round_index,2,side,Vector2(sign_x*7,4.5) if route.get("fourth_remote_exit","")=="inside" else Vector2(sign_x*16.5,10),angle)
+			put(points,order,round_index,4,side,Vector2(sign_x*5.282728,11.328847) if route.get("fourth_sync_exit","")=="hold" else Vector2(sign_x*6.5,17),angle)
+			if route.get("fourth_local_exit","")=="inside": put(points,order,round_index,6,side,Vector2(sign_x*1.1,3.0),angle)
+		stages.append({"duration":9.0,"title":"Fourth: Remote last; avoid final rot blasts","points":points.duplicate()})
+	return stages
+
+## Goal of one actor at elapsed seconds after tower resolution, or null.
+static func sample_post_tower(stages: Array, elapsed: float, actor: int):
+	if stages.is_empty() or actor<0 or actor>7 or not is_finite(elapsed): return null
+	var t := 0.0
+	for stage in stages:
+		t+=float(stage.duration)
+		if elapsed<t-0.000001: return stage.points[actor]
+	return stages[-1].points[actor]
 
 static func put(points: Array, order: Array, round_index: int, role: int, side: int, point: Vector2, angle: int) -> void:
 	points[int(order[posmod(role-2*round_index,8)+side])]=point.rotated(deg_to_rad(angle*45.0))

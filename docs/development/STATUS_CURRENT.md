@@ -14,7 +14,7 @@ The matrix lists **20 mechanics / 102 options**, not 102 completions. No complet
 ## Current priorities
 
 1. Reconcile evidence/status and guide-specific preparation contracts (this document/matrix).
-2. HW later-round presented-information dependency; then complete normal-player preparation, four waves, real handoffs, Critical Error and retry. Candidate is **未驗收** until new source and Web gates pass.
+2. HW later-round presented-information dependency; then complete normal-player preparation, four waves, real handoffs, Critical Error and retry. [Later public-source increment](HW_LATER_PRESENTATION.md) has scoped source acceptance; new Web package/browser gates and other-guide full-player matrices remain pending.
 3. Remaining guide/role branches across all20/102, with independently referenced preparation and NPC responses.
 4. Measured optimization; then complete AVFX integration and evidence. Existing partial work is retained, not described as absent.
 

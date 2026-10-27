@@ -137,7 +137,9 @@ func _init() -> void:
     check(R.v(O.goal(2,beat,actors,restored)).is_equal_approx(R.v(nb[2])),"future receipt rejected")
     # Other rounds untouched.
     var later := fixture_beat(); later.hw_tower_cooperation.round=1
-    check(O.goal(2,later,actors,state)==null,"round 1 keeps legacy route")
+    check(O.goal(2,later,actors,state)==actors[2].pos,"round 1 strict Main cannot fall back to hidden route")
+    var legacy:Dictionary=state.duplicate(true);legacy.erase("hw_firstwave_presentation_required")
+    check(O.goal(2,later,actors,legacy)==null,"round 1 explicit legacy invalid-window fallback remains separate")
     # Synthetic fixture path is labelled assisted.
     beat=fixture_beat(); beat.shapes=towers(4); state=fixture_state(false); actors=actors_at(nb)
     O.begin(beat,actors,state); state.sim_time=25.0
