@@ -13,10 +13,11 @@ The matrix lists **20 mechanics / 102 options**, not 102 completions. No complet
 
 ## Current priorities
 
-1. Reconcile evidence/status and guide-specific preparation contracts (this document/matrix).
-2. HW later-round presented-information dependency; then complete normal-player preparation, four waves, real handoffs, Critical Error and retry. [Later public-source increment](HW_LATER_PRESENTATION.md) has scoped source acceptance; all five guide/eight-role controlled input matrices passed; new Web package/browser gates and broader colors/branches remain pending.
-3. Remaining guide/role branches across all20/102, with independently referenced preparation and NPC responses.
-4. Measured optimization; then complete AVFX integration and evidence. Existing partial work is retained, not described as absent.
+Owner reprioritized on2026-10-27: **pause broader development after current-stage closure; resolve P2/P5 Delta Optical Unit resources first**, using AnAn filesystem/command access without desktop operations.
+
+The Web33 candidate is **NOT_ACCEPTED / frozen**, not deployed: eight exact-package gates passed, `hw_legacy` failed four of46 assertions, and22 planned gates plus all browser gates were not run. See [candidate freeze](WEB_V0333_CANDIDATE.md). Earlier five-guide/eight-role controlled source evidence remains scoped; it cannot override the new failure. Production stays Web32.
+
+Deferred order is preserved: HW complete player/preparation flows → remaining all20/102 guide correctness → measured optimization → complete AVFX. Do not automatically resume those stages while Optical has priority.
 
 ## Established increments and open gaps
 
