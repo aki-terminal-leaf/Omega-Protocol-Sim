@@ -2,7 +2,7 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.34 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview)** · [v0.3.20 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.34 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview)** · [v0.3.34 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
 ### v0.3.34 已更新 Web：原始武器動作與模型呈現
 
@@ -10,7 +10,11 @@
 
 ![v0.3.34 實際 Chrome 武器動作畫面；示範模式單張截圖，不代表完整原版特效還原](docs/images/top-v0334-weapon-windup.webp)
 
-目前 TOP 開發與原生驗證使用 AnAn，桌面已於 2026-10-28 重新授權。以下舊版段落中的桌面停用是當時狀態，不代表現在。
+**Windows x64 離線版也已增補至同一 release。** 解壓縮後執行 EXE 並保留相鄰同名 PCK；練習本體無需網路。正式包完成 HW／協同程序／地火三段示範及原生視窗 P、R、D 移動／放鍵驗證；完整攻略與完整原始特效仍未完成。[Windows 限定驗證](docs/development/WINDOWS_V0334.md)。
+
+![v0.3.34 正式 Windows 執行檔：實際移動放鍵後畫面，不代表全機制手動通關](docs/images/top-v0334-windows-manual.webp)
+
+目前 TOP 全部未完成路線圖已恢復開發；AnAn 桌面使用期限為 2026-10-28 18:00 台灣時間。以下舊版段落中的桌面停用是當時狀態，不代表本次授權。
 
 ### v0.3.32 已部署基線（歷史）：HW 非中心合法選塔／NPC 實際塔範圍
 

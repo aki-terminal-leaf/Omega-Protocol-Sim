@@ -1,0 +1,329 @@
+{
+  "publication": {
+    "ok": true,
+    "url": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview",
+    "tag": "top-v0.3.34-preview",
+    "assets": [
+      {
+        "name": "SHA256SUMS-Windows.txt",
+        "bytes": 207,
+        "sha256": "b98319ae54f68bb6236ce7234774df5b35cae3dcf62aa4d363b08aa49c2e357f",
+        "server_digest": "sha256:b98319ae54f68bb6236ce7234774df5b35cae3dcf62aa4d363b08aa49c2e357f",
+        "url": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/download/top-v0.3.34-preview/SHA256SUMS-Windows.txt"
+      },
+      {
+        "name": "TOP-Practice-Lab-v0.3.34-Windows-x64.zip",
+        "bytes": 324412929,
+        "sha256": "6f116f63319d54f373a2b7662e18e7793a7d3026baa1e07e83af9e5344949c97",
+        "server_digest": "sha256:6f116f63319d54f373a2b7662e18e7793a7d3026baa1e07e83af9e5344949c97",
+        "url": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/download/top-v0.3.34-preview/TOP-Practice-Lab-v0.3.34-Windows-x64.zip"
+      },
+      {
+        "name": "Windows-v0.3.34-verification.json",
+        "bytes": 9585,
+        "sha256": "e36d020272f218cdb3f48fcc78c6c2a317d0cc43dc14d4c40e7963f66bfef427",
+        "server_digest": "sha256:e36d020272f218cdb3f48fcc78c6c2a317d0cc43dc14d4c40e7963f66bfef427",
+        "url": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/download/top-v0.3.34-preview/Windows-v0.3.34-verification.json"
+      }
+    ],
+    "original_assets_unchanged": true,
+    "total_assets": 7,
+    "runtime_commit": "e325886dc18716e54b1d8c01bfb4f100d73922d5",
+    "pck_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a",
+    "metadata_clarification": "Removed stale build-time pending labels from current acceptance artifact; package and original4assets unchanged; original metadata retained."
+  },
+  "acceptance": {
+    "ok": true,
+    "version": "0.3.34-preview",
+    "runtime_commit": "e325886dc18716e54b1d8c01bfb4f100d73922d5",
+    "pck_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a",
+    "exe_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562",
+    "headless_release_demos": [
+      {
+        "scenario": "p3_hello",
+        "ok": true,
+        "checks": {
+          "exit": true,
+          "no_engine_errors": true,
+          "actual_report": true,
+          "version": true,
+          "scenario": true,
+          "demo": true,
+          "no_dead": true,
+          "no_failures": true,
+          "towers16": true,
+          "blasts32": true,
+          "debugger8": true
+        },
+        "time": 130.0000026,
+        "seconds": 15.38452434539795,
+        "errors": [],
+        "exit": 0
+      },
+      {
+        "scenario": "p2_synergy",
+        "ok": true,
+        "checks": {
+          "exit": true,
+          "no_engine_errors": true,
+          "actual_report": true,
+          "version": true,
+          "scenario": true,
+          "demo": true,
+          "no_dead": true,
+          "no_failures": true
+        },
+        "time": 34.5999999999993,
+        "seconds": 8.778367280960083,
+        "errors": [],
+        "exit": 0
+      },
+      {
+        "scenario": "p6_exa_wave",
+        "ok": true,
+        "checks": {
+          "exit": true,
+          "no_engine_errors": true,
+          "actual_report": true,
+          "version": true,
+          "scenario": true,
+          "demo": true,
+          "no_dead": true,
+          "no_failures": true
+        },
+        "time": 34.3999999999993,
+        "seconds": 10.172210216522217,
+        "errors": [],
+        "exit": 0
+      }
+    ],
+    "native_gui": {
+      "ok": true,
+      "input_method": "OS keyboard down/up guarded by exact owned foreground, no idle query",
+      "movement": {
+        "before": [
+          -3.0,
+          1.0
+        ],
+        "moved": [
+          -0.291665613651276,
+          1.0
+        ],
+        "released": [
+          -0.291665613651276,
+          1.0
+        ]
+      },
+      "frames": [
+        {
+          "name": "ready",
+          "sha256": "c0c3cb0994834cd0b739cf60c06d4f19fc9d1f0e8b994e7dbbc90b2f47cdfed8",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144842.5534413
+        },
+        {
+          "name": "weapons",
+          "sha256": "67414c59bc0975b6bc6f7b9f545d067b2ac7d2dc0a3b8534cfc6ca0e0022166a",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144879.6504185
+        },
+        {
+          "name": "windup",
+          "sha256": "07cdb0014e2cae4a6aa00e2b7e30eebc8cf897258399d04a27b9fdc3fce1d90e",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144884.5919757
+        },
+        {
+          "name": "resolution",
+          "sha256": "4355088c4fdbad5cc970c8b80143dee6687cb900e53e16f1ddf2a1b32335a666",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144885.4785638
+        },
+        {
+          "name": "tail",
+          "sha256": "cd7b95364050dae60aeba5f5ff4e4d4f165523adccab9e92be74eac8cfa8ffc9",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144887.701087
+        },
+        {
+          "name": "manual-retry",
+          "sha256": "56805943849c26bead3019e8754df29095f7b6bd709b80532d5a1ae12b1a3b65",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144888.5649214
+        },
+        {
+          "name": "manual-stopped",
+          "sha256": "1d66ed60e209ceac597114ba111eb43923ebc5c6d361b4da973a7fc0a4723da8",
+          "size": [
+            1280,
+            800
+          ],
+          "at": 1793144891.0889146
+        }
+      ],
+      "reports": [
+        {
+          "file": "01-ready.json",
+          "sha256": "dc86c6fdc9db61aeadeacee41eb9a4142f5deafac140c6af3850237ebacf897a",
+          "simulation_time": 0.465450666666666
+        },
+        {
+          "file": "02-advance-9.0-0.json",
+          "sha256": "ebda4798000abcab9cc1bad09ab77acd9b446bab5839e48c77c24274c2548b02",
+          "simulation_time": 1.58350622222222
+        },
+        {
+          "file": "03-advance-9.0-1.json",
+          "sha256": "95e4a62e4d140c5179cf026dc8de476cb691237831fdfe8a3499dcece37dd6ec",
+          "simulation_time": 2.69461733333335
+        },
+        {
+          "file": "04-advance-9.0-2.json",
+          "sha256": "cd9698acf103b6c3e0808870ab2d1308e32d79a70c79f97fd0304b5e722081de",
+          "simulation_time": 3.80324577777781
+        },
+        {
+          "file": "05-advance-9.0-3.json",
+          "sha256": "ca249285a7f7bac72b8c04818e0c4f0fda23c1c3f397bae2741fd530e147fd95",
+          "simulation_time": 4.91336482539689
+        },
+        {
+          "file": "06-advance-9.0-4.json",
+          "sha256": "2fe490d8d31c5ce0df3209d04109dd466e3d0ae430d2ca6b8a7b89ae0318f59e",
+          "simulation_time": 6.03142038095247
+        },
+        {
+          "file": "07-advance-9.0-5.json",
+          "sha256": "40fc8ddb2bb406cdc7659615da8158eca82c62f6b177e71a20af8dbe90e5a280",
+          "simulation_time": 7.14935949206361
+        },
+        {
+          "file": "08-advance-9.0-6.json",
+          "sha256": "b05f330cec1464c0c5782209ba653a162dba8ae30421c74ba8ffbd732937e634",
+          "simulation_time": 8.26047060317475
+        },
+        {
+          "file": "09-advance-9.0-7.json",
+          "sha256": "586e3553bd1f78ed32d10e6518123a105a13bf2ba3fc188a3d3e19e08379aa2e",
+          "simulation_time": 8.98269282539699
+        },
+        {
+          "file": "10-advance-9.0-8.json",
+          "sha256": "1aab94a9bff86c2bd661bc8145ca87abd5544ac6acdc3a7adb1a7dbac1d4834b",
+          "simulation_time": 9.10769282539699
+        },
+        {
+          "file": "11-advance-13.1-0.json",
+          "sha256": "c5f5b741e004014724a63aa5d4842403ebf69aaec501af1694c358b5863ae7ac",
+          "simulation_time": 10.2217340952383
+        },
+        {
+          "file": "12-advance-13.1-1.json",
+          "sha256": "0a814154e75ff9aaa41dc4f5f927c5e37a963fc5c511fb730f01cbdb4f33c016",
+          "simulation_time": 11.3397896507939
+        },
+        {
+          "file": "13-advance-13.1-2.json",
+          "sha256": "b0530eff9c25686c5686d030e7a5b82996430a0e43c5610c1fb870a883561544",
+          "simulation_time": 12.4519263492066
+        },
+        {
+          "file": "14-advance-13.1-3.json",
+          "sha256": "50770fddb833ec686f6532cd7b36bcb83dd27953152376266fb9cfb8a4afef20",
+          "simulation_time": 13.0920819047622
+        },
+        {
+          "file": "15-advance-13.65-0.json",
+          "sha256": "1c7904d27950a9616989e7fa62dd77f81c5624fcc7436022ab2c0de28d7e4f58",
+          "simulation_time": 13.6408872380955
+        },
+        {
+          "file": "16-advance-15.0-0.json",
+          "sha256": "c81556af0e2e020908b82c6ac40727675f3e576d7232d4f0a5b96bdfd6c33495",
+          "simulation_time": 14.7541038888892
+        },
+        {
+          "file": "17-advance-15.0-1.json",
+          "sha256": "74ab5a6604da8c6abc169e854550800ee88c99dca5670f05de8490874f1c160d",
+          "simulation_time": 14.9832705555559
+        },
+        {
+          "file": "18-advance-15.0-2.json",
+          "sha256": "cdd2aec5380aff20f2dc600341a6b5e5a44f9e447a48d53bfde84fb532635967",
+          "simulation_time": 15.1093512539686
+        },
+        {
+          "file": "19-R-manual.json",
+          "sha256": "9b48b51ed9bf54ab68af8a8d4b9bddcd95e3f71d053ea7bab2c627f4bc9305c3",
+          "simulation_time": 0.52533638095238
+        },
+        {
+          "file": "20-D-moved.json",
+          "sha256": "e5ad1478f152b4272850c1feda21497bb842b766052fa1edd938fabe3e7e59a6",
+          "simulation_time": 1.21244471428571
+        },
+        {
+          "file": "21-advance-1.51244471428571-0.json",
+          "sha256": "0b7cdd03c0a4bc840028bfe272f21a764773821ccbe800bac9fb38045b9f28db",
+          "simulation_time": 1.49716693650793
+        },
+        {
+          "file": "22-advance-1.51244471428571-1.json",
+          "sha256": "b733f82d473be14e639f2a9351bbfb8d97449900f470a3d25ca48367d81b71c7",
+          "simulation_time": 1.61522249206349
+        },
+        {
+          "file": "23-advance-2.1152224920634897-0.json",
+          "sha256": "4b5767f03ffe82f978232c4a87a045d2f2828328b7a2eed53a965934e8642838",
+          "simulation_time": 2.1013336031746
+        }
+      ],
+      "actual_images_reviewed": true,
+      "renderer": "Godot Compatibility OpenGL3.3 / AMD Radeon RX7900XT",
+      "cleanup": {
+        "pid": 27440,
+        "exit": 0,
+        "errors": []
+      }
+    },
+    "scope": "Official Windows release EXE with accepted Web34 adjacent PCK. Three full default Elemental demos; actual P2 GUI weapon phases and pause/R/manual D down/up. Not all20mechanics/102options/native manual full clears or original AVFX fidelity.",
+    "failures_preserved": [
+      "v1 input before first rendered frame; no actual GUI acceptance",
+      "v2 PostMessage-only D did not move; final assertion failed; superseded by separate successful v3 actual OS keyboard run"
+    ],
+    "existing_web_package_unchanged": true,
+    "no_new_Web_deployment_needed": "same accepted bytes already live",
+    "proof_inputs": {
+      "native_result": "15588eb1f3cd9fc82a93a1d9fdf53047ed09968cb95be1a68c71ce022d632be3",
+      "headless_result": "efe251477315ca16c097998ecb7a084a97eec18977588426dac1436e97092a85",
+      "gui_script": "e0f6d32ac4b58d6077cd2bc569b21e8295e15eac6a51032d8988cd1fe19c9898"
+    },
+    "archive": {
+      "file": "TOP-Practice-Lab-v0.3.34-Windows-x64.zip",
+      "bytes": 324412929,
+      "sha256": "6f116f63319d54f373a2b7662e18e7793a7d3026baa1e07e83af9e5344949c97",
+      "exe_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562",
+      "pck_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a",
+      "zip_crc_and_embedded_sha_verified": true
+    },
+    "metadata_note": "Archive fields describe immutable package bytes. Current acceptance is native_gui.ok and top-level ok; initial pre-test packaging labels are retained privately, not current status."
+  }
+}

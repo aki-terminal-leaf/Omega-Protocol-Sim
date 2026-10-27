@@ -42,13 +42,15 @@ coherent, reviewable increments.
   production wiring and exported-platform QA. Godot can exit zero on script
   errors: reject `SCRIPT ERROR`, `Parse Error` and `Compile Error` in test logs.
 
-## Verification permissions (updated 2026-10-22)
+## Current scope and verification window (owner 2026-10-28, Telegram50293)
 
-The user explicitly reauthorized desktop operations for this TOP task on
-2026-10-22. Desktop/native-window validation is permitted within this project;
-it is not a global authorization for unrelated projects. Prefer deterministic
-headless regression gates alongside actual rendered verification. Independent
-workers must retain bounded isolated jobs and parent review.
+All unfinished TOP roadmap work is resumed, superseding the original-resource-only
+hold. AnAn desktop/native GUI/input/capture is authorized for this TOP task until
+2026-10-28 18:00 Asia/Taipei (10:00 UTC); wrap/save by17:50 and stop desktop work
+by18:00, even if scheduling is delayed. It does not renew the next day or authorize
+unrelated projects. Preserve unrelated windows and serialize input ownership.
+Authorized non-desktop work may continue after the cutoff. Use scoped source and
+actual exported-platform gates; do not turn a local pass into full-guide acceptance.
 
 ## AVFX / shader schema evidence
 
