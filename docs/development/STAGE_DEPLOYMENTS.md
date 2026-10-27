@@ -1,4 +1,11 @@
-# v0.3.32 current Web-first baseline
+# v0.3.34 current original-animation Web milestone
+
+- Runtime `e325886dc18716e54b1d8c01bfb4f100d73922d5`; PCK `429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview); [scope](WEB_V0334.md).
+- Source46/native58 (12 frames), exact exported PCK46, experimental51+13 and physical-weapon292 checks. Actual native Chrome/AMD RX7900XT WebGL2 report/pose/pause/R/D/release sequence, 13 fixed HTTPS identity/gzip decoded-content representations and fresh public startup accepted. No packaged Windows build is claimed.
+- Original source particles remain disabled in release templates; full shader/timing/material fidelity, female complete windup and Optical lid animation remain open. Web32 retained for rollback; failedWeb33 not merged.
+- TOP desktop work is authorized as of2026-10-28; desktop holds in older sections below describe their historical stage, not current authority.
+
+# v0.3.32 historical Web-first baseline
 
 - Runtime `804b6ea082aa15f70de1b80df52e897da85faade`; PCK `99fef0ca3cbb88a44a48b3eb138509d49c9886a1d0cde6673581d37c4e38ac48`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.32-preview); [scope](WEB_V0332.md).
 - HW actualtowerfootprint NPCmembership fix;23exactPCK incl5570geometry and6syntheticlatercases/64assertions (3PASS/3expectedFAIL). Syntheticauto-prelude is NOTordinarymanualWeb evidence.

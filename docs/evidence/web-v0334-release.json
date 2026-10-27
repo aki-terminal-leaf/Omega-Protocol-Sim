@@ -1,0 +1,151 @@
+{
+  "version": "v0.3.34-preview-web-test",
+  "runtime_commit": "e325886dc18716e54b1d8c01bfb4f100d73922d5",
+  "pck_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a",
+  "release": {
+    "ok": true,
+    "id": 425780039,
+    "tag": "top-v0.3.34-preview",
+    "url": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview",
+    "published_at": "2026-10-27T17:36:53Z",
+    "commit": "e325886dc18716e54b1d8c01bfb4f100d73922d5",
+    "assets": {
+      "Omega-Protocol-Sim-v0.3.34-source.zip": {
+        "id": 682338554,
+        "bytes": 51719079,
+        "digest": "sha256:ede7a62b0e5072eb2126b31cf59b75a965811c452341cb59dcaa3fe6642c8463"
+      },
+      "SHA256SUMS-v0.3.34.txt": {
+        "id": 682338556,
+        "bytes": 293,
+        "digest": "sha256:88e8dcfb169c63fd434fa8d69324f4445ca281d2d0f014a2b88eb11d473275cb"
+      },
+      "TOP-Practice-Lab-v0.3.34-Web.zip": {
+        "id": 682338555,
+        "bytes": 296553933,
+        "digest": "sha256:831ebc5d67eb9480d4b1b4a8c17aea5810629086fb2465baf099aedd554adb01"
+      },
+      "VALIDATION-v0.3.34.json": {
+        "id": 682338552,
+        "bytes": 5330,
+        "digest": "sha256:df1b0dafae0fa38caf76e09bbf2b499f36c74f46a6c6b2e83fe479a40b61fd54"
+      }
+    },
+    "draft": false
+  },
+  "https": {
+    "ok": true,
+    "representations": [
+      {
+        "file": "index.html",
+        "encoding": "identity",
+        "decoded_sha256": "3f3ed8b483bb11dc28aa7396fe1cea8ff023057bceb91f8c6b703d7f26b0e5d4",
+        "wire_sha256": "3f3ed8b483bb11dc28aa7396fe1cea8ff023057bceb91f8c6b703d7f26b0e5d4"
+      },
+      {
+        "file": "index.html",
+        "encoding": "gzip",
+        "decoded_sha256": "3f3ed8b483bb11dc28aa7396fe1cea8ff023057bceb91f8c6b703d7f26b0e5d4",
+        "wire_sha256": "1bf5573bd49cb36990e638f1709e29cb90a0f8846be1672e0f90a0ac0c5c2777"
+      },
+      {
+        "file": "top-v0334-e325886dc187.audio.position.worklet.js",
+        "encoding": "identity",
+        "decoded_sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+        "wire_sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+      },
+      {
+        "file": "top-v0334-e325886dc187.audio.position.worklet.js",
+        "encoding": "gzip",
+        "decoded_sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+        "wire_sha256": "f74ffab5e908e6545a6e5ff316abf8f8db6fce55c1d50b167527e27d184b6f6f"
+      },
+      {
+        "file": "top-v0334-e325886dc187.audio.worklet.js",
+        "encoding": "identity",
+        "decoded_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+        "wire_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+      },
+      {
+        "file": "top-v0334-e325886dc187.audio.worklet.js",
+        "encoding": "gzip",
+        "decoded_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+        "wire_sha256": "ca611560eb3310da30b785c63c1931d0b074834b0c0500f84a1ac92f27b92b78"
+      },
+      {
+        "file": "top-v0334-e325886dc187.js",
+        "encoding": "identity",
+        "decoded_sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+        "wire_sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba"
+      },
+      {
+        "file": "top-v0334-e325886dc187.js",
+        "encoding": "gzip",
+        "decoded_sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+        "wire_sha256": "60ca6df424c4b9bbefd23171578c1d01086e608937881272b04efd482d1baa5b"
+      },
+      {
+        "file": "top-v0334-e325886dc187.pck",
+        "encoding": "identity",
+        "decoded_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a",
+        "wire_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a"
+      },
+      {
+        "file": "top-v0334-e325886dc187.pck",
+        "encoding": "gzip",
+        "decoded_sha256": "429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a",
+        "wire_sha256": "54bcc55c2fa26a4f8728b70e7fe66e95ad448b9afd1a18e8864eede04a670cee"
+      },
+      {
+        "file": "top-v0334-e325886dc187.png",
+        "encoding": "identity",
+        "decoded_sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+        "wire_sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+      },
+      {
+        "file": "top-v0334-e325886dc187.wasm",
+        "encoding": "identity",
+        "decoded_sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+        "wire_sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+      },
+      {
+        "file": "top-v0334-e325886dc187.wasm",
+        "encoding": "gzip",
+        "decoded_sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+        "wire_sha256": "d36d91a9d2ceddd02c711c459d4c1b5b8bbf7c120788b6e5c53bc8cae5160f83"
+      }
+    ]
+  },
+  "fresh_public_startup": {
+    "ok": true,
+    "prefix": "top-v0334-e325886dc187",
+    "page": {
+      "url": "https://top.servicing.cc/",
+      "canvas": [
+        1280,
+        800
+      ],
+      "resources": [
+        {
+          "name": "https://top.servicing.cc/top-v0334-e325886dc187.png",
+          "duration": 88.23000001907349
+        },
+        {
+          "name": "https://top.servicing.cc/top-v0334-e325886dc187.js",
+          "duration": 149.70500004291534
+        },
+        {
+          "name": "https://top.servicing.cc/top-v0334-e325886dc187.wasm",
+          "duration": 695.6450000405312
+        },
+        {
+          "name": "https://top.servicing.cc/top-v0334-e325886dc187.pck",
+          "duration": 5963.5199999809265
+        }
+      ]
+    },
+    "frame_sha256": "437844eb0e29290cf9b091452d0adf82829c2dbf90898504ff22bff93e3c8836"
+  },
+  "full_original_visual_gate": "OPEN; unverified source particles not in release mode",
+  "rollback": "Web32 preserved"
+}
