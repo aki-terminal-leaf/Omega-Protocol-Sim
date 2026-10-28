@@ -10,6 +10,12 @@ Build: `Unity.exe -batchmode -force-d3d11 -projectPath UNITY_PROJECT -logFile UN
 
 Run: `TOPReplay.exe --top-data=PRIVATE_NATIVE_DATA`. Default data location is `TOPData` beside the executable. Right-drag orbit, wheel zoom, Space pause, arrows+/-5s; phase/seek/rate controls remain interactive. QA: add `--qa=FRESH_EVIDENCE_DIRECTORY`; this produces native camera renders and state JSON but **not** an automatic fidelity PASS. Inspect pixels and bind the exact source/data/build hashes.
 
+## Lossless source-export images
+
+For a native snapshot, run `python3 tools/unity/restore_source_images.py --data PRIVATE_NATIVE_DATA --sources PRIVATE_PINNED_MAPPING.json --out FRESH_NATIVE_DATA`. Each mapping value supplies `path` and exact `sha256` for an original PNG-containing GLB. The tool matches the original model hash, image names/order, texture routing and material identity, appends unchanged source PNG bytes, then proves every image hash and the entire original native binary prefix. Geometry, materials, skins, nodes, strict animation accessors and clips are unchanged. The reviewed optical exception permits its existing primary-diffuse material-binding correction while additionally proving all original static geometry accessors.
+
+The source-image restoration report is authoritative for replaced native GLBs; the older conversion proof remains upstream provenance. Restoring an earlier exporter image does not certify original TEX sizes or original game shader fidelity. Source mapping/private files never enter Git.
+
 ## Foundation contracts
 
 - Original record milliseconds; reference video is a different fight. No global retiming. Exclude only explicit forced-cinematic intervals.

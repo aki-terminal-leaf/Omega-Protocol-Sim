@@ -27,6 +27,12 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 - Frozen Sonnet review identified a redundant current-position freshness gate before weapon bone lookup. Removed it; finite numeric anchor validation added. Actual input audit finds no malformed raw positions, zero unknown-family weapon casts and zero ID0 tethers. All 33 overlapping weapon/full texture aliases have identical PNG hashes.
 - The initial reverse test failed on a serialized diagnostic/order-sensitive report while images were identical; canonical active renderer/binder state plus actual pixels pass. Original failure retained. Source preview envelopes, unsupported bindings/rules, budget-rejected samples and 62 unbounded tethers remain explicit OPEN items.
 
+## Lossless original-export model images (2026-10-28)
+
+- Restored 92 pinned original PNGs across all 12 currently used NPC forms (1024/2048 and rectangular source sizes), replacing the Web-delivery 512px/lossy WebP derivatives. No upscaling or color enhancement. All old native binary bytes, geometry, material corrections, rigging and added/strict animation channels remain unchanged; exact source PNG hashes read back.
+- Same native v26 binary plus fresh private data-v6 passes 22 all-phase scene samples, reverse binding/pixel identity, pause/disable and zero runtime errors; build/data unchanged throughout. Earlier exporter resolution and PBR approximation are still distinct from raw TEX/original shader fidelity.
+- Earlier source-image conversion failed only on an empty `extensions: {}` dictionary retained by the WebP converter. Normalizing that empty metadata preserves texture routing; the failed data-v5 snapshot remains unaccepted. Fresh v6 validates the actual PNG restoration.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.
