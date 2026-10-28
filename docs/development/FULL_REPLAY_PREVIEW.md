@@ -2,7 +2,7 @@
 
 日期：2026-10-28。這是既有 Godot 練習器旁的**單場流程回放預覽**，不是全部原版演出完成，也不改變獨立選機制／打法的練習預設。Godot Web／Windows v0.3.35 與判定完全不變。
 
-預定獨立入口：<https://top.servicing.cc/replay-v0.1.0/index.html>。發布／公開啟動追蹤尚待結清，不以本文連結存在宣稱已部署。
+已部署獨立入口：<https://top.servicing.cc/replay-v0.1.0/index.html>；[GitHub 開發預覽／離線包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.1.0-preview)。來源 `e33319e`，公開 HTTPS 12項內容、全新 AnAn Chromium 的實際播放／暫停／特效開關／P6按鈕略過／8個原始隕石常駐效果與收尾通過；正式 Web35 的 HTML／部署資料／執行素材未變。
 
 ## 本版限定完成與驗證
 
@@ -31,3 +31,9 @@
 ## 原始碼與使用
 
 [獨立回放來源與構建契約](../../tools/full_replay/README.md)。遊戲媒體、原始事件快取、解碼音效及私人平台日誌不進 Git。新構建輸出明示未驗證，需實際平台檢查才能發布。
+
+## 發版檔案核對
+
+ZIP為77,539,480 bytes，SHA-256 `737264bcdbc6a42ba9b7bb190232f55679e53627bf7679f521cc0982de9e1194`；ZIP逐檔 CRC／SHA、GitHub伺服器size／digest皆吻合。公開前的隱藏分頁測試未收到 rAF 的失敗保留，改為只對本任務分頁做focus-emulation，沒有啟用OS焦點或全域輸入。草稿tag API404依release ID收回，沒有建立重複草稿；metadata的預設Python請求403，與本機／既有描述性驗證UA回應核對後續行，沒有重新上傳資產。
+
+[限定驗證摘要](FULL_REPLAY_PREVIEW_VALIDATION.json)綁定來源、兩個接受bundle與公開啟動；原始私人平台日誌不進Git。所有task CDP targets、暫存HTTP server與音效節點已清理；使用者Chrome及其他分頁保持原狀。

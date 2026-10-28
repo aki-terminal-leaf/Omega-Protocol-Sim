@@ -126,3 +126,11 @@ Runtime `bf6b418765d89492d43ae6332db00d280a8e447b`; PCK `2f5ede5f12c81762dbdb48c
 - **2026-10-23 v0.3.13 已部署**：執行碼 `0934b9f5cc38c8758f1a3026ce0ba2b38c509fd5`。CN Omega 真實手標驅動分工、手動／輔助收據、兩輪實際層數與物理接線；最終匯出包九組檢查、Windows 原生／Chrome AMD GPU 自標與模式操作、270°／90° 來源可讀畫面、固定 HTTPS 13 個資源表示與全新 GPU 啟動通過。初版來源遮擋已修並重新匯出驗收；沒有把舊版畫面算成最終版。更多亂數族群、其他攻略及真人完整流程仍未認證。
 
 全部攻略與玩家義務、最佳化、完整AVFX仍依開發路線圖接續。
+
+
+## 2026-10-28：獨立單場回放 v0.1.0-preview
+
+- [固定預覽](https://top.servicing.cc/replay-v0.1.0/index.html)／[開發預覽release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.1.0-preview)，來源e33319e。
+- 實際P1→P6整場UI連播、過場略過、native muted audio lifecycle／真正bfcache返回、公開HTTPS與全新Chromium控制／素材內容通過；[範圍與證據](FULL_REPLAY_PREVIEW.md)。
+- 這是90個在範圍演出單元仍全部保守partial的流程預覽，不是完整原版重現；正式GodotWeb35／Windows35、練習預設與判定不變。
+- 既有top-web服務新增獨立immutable `/replay-v0.1.0/` static route，保留main部署／位元組與可恢復設定備份；新正式版部署須保留這個已發布路由。沒有新增永久服務或更改排程。

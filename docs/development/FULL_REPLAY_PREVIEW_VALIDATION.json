@@ -1,0 +1,86 @@
+{
+  "version": "v0.1.0-preview",
+  "scope": "full recorded battle playback and source-resource reconstruction preview, not complete visual restoration",
+  "master_duration_ms": 1109404,
+  "P6_cinematic_skip": [
+    798834,
+    853482
+  ],
+  "source_cues": 1226,
+  "source_abilities": 120,
+  "raw_resources": 1123,
+  "compiled_AVFX": 157,
+  "source_textures": 747,
+  "audio_streams": 82,
+  "audio_cues": 557,
+  "live_status_bound_tethers": 32,
+  "recorded_tethers": 94,
+  "unresolved_tether_lifetimes": 62,
+  "resident_meteor_bodies": "original AVFX at observed target-activity windows only; actual spawn/despawn OPEN",
+  "whole_UI_playback": {
+    "status": "PASS",
+    "bundle_sha256": "251e000ad93fe53bab2b7f12313e99ab431e934e991a69a7d8796c94e0837606",
+    "samples": 223,
+    "phases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "reached_ms": 1109404,
+    "cleanup": true,
+    "note": "new post-acceptance change only BFCache pagehide handler, separate affected lifecycle gate required"
+  },
+  "audio_native_muted_validation": {
+    "status": "PASS",
+    "seek_offsets_seconds": [
+      0.5,
+      1,
+      2
+    ],
+    "rate_change": true,
+    "pause_cleanup": true,
+    "end_active": 0,
+    "end_pending": 0,
+    "failed_assets": 0,
+    "auditory_fidelity": "NOT_RUN"
+  },
+  "rendering_complete": false,
+  "gameplay_verdict": "not a gameplay simulator; unchanged formal Web35",
+  "remaining": [
+    "tower scene lifecycle",
+    "world headmarkers and complete status HUD",
+    "scene and background fidelity",
+    "original material and host timeline semantics",
+    "unresolved tether lifetimes",
+    "meteor actual spawn/despawn",
+    "BGM, original sound spatial/mixing and auditory comparison"
+  ],
+  "last_lifecycle_gate": {
+    "status": "PASS",
+    "persisted_pagehide_branch": true,
+    "native_navigation_return": true,
+    "actual_bfcache_used": true,
+    "bundle_sha256": "1dac7968254a329caea9e4f44d290e40e19dca153a1712e0da3b23832038b2f0"
+  },
+  "public_startup": {
+    "status": "PASS",
+    "url": "https://top.servicing.cc/replay-v0.1.0/index.html",
+    "actual_ui_play_pause": true,
+    "effect_toggle": true,
+    "phase6_button_cinematic_skip": true,
+    "body_instances": 8,
+    "critical_sha256": {
+      "viewer.js": "1dac7968254a329caea9e4f44d290e40e19dca153a1712e0da3b23832038b2f0",
+      "manifest.js": "75384cd556ae6e1da2553b7a5f0d737342b1d3c23af9857eced92be7c5d7cc2f",
+      "full-data.js": "497077618836e2e0169db1988ce2be59047a6551ea93113c81a6c75efcbeccdb",
+      "record.js": "5e6299102fdee44d498710e643deec36dde78444b2a180f0bdfced2fcbcac192",
+      "weapon-data.js": "9923a5862b97d01bc461780b488bd297d9268b0af6fe7f2987d3147f4f5f424c"
+    },
+    "cleanup": true,
+    "first_hidden_page_driver_failure_retained": true
+  },
+  "source_commit": "e33319ef2a666dc62b015c1c8c6a3605c73e6311"
+}

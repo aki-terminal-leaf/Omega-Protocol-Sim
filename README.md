@@ -6,7 +6,9 @@
 
 ### 單場全流程回放（開發預覽，演出未齊）
 
-另提供 P1→P6 的固定紀錄回放候選，包含原版資源特效、狀態支持的動態連線與選擇開啟的音效，略過強制過場。已做實際整場播放與收尾檢查；**不是全部演出完整還原**，塔／部分頭標／場景／音樂與若干特效生命週期仍缺。[限定範圍、來源與驗證](docs/development/FULL_REPLAY_PREVIEW.md)。正式 Godot Web35 與獨立機制練習不變。公開入口／release 會在部署與全新啟動核對後補上。
+另提供 P1→P6 的固定紀錄回放候選，包含原版資源特效、狀態支持的動態連線與選擇開啟的音效，略過強制過場。已做實際整場播放與收尾檢查；**不是全部演出完整還原**，塔／部分頭標／場景／音樂與若干特效生命週期仍缺。[限定範圍、來源與驗證](docs/development/FULL_REPLAY_PREVIEW.md)。正式 Godot Web35 與獨立機制練習不變。[直接開啟流程預覽](https://top.servicing.cc/replay-v0.1.0/index.html) · [離線包／校驗與來源](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.1.0-preview)。
+
+![實際 Chromium 分段取樣畫面；非完整原版保真驗收](https://top.servicing.cc/replay-v0.1.0/PREVIEW.jpg)
 
 ### v0.3.35：HW 公開塔提示、塔色與玩家分邊
 
