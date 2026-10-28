@@ -55,6 +55,7 @@ public sealed partial class TopReplay : MonoBehaviour {
    foreach(var p in (JObject)Plan["actors"]){if((bool?)Record["actors"]?[p.Key]?["player"]==true)continue;var root=new GameObject("Actor "+p.Key);var a=new Actor{Id=p.Key,Root=root,Binding=(JObject)p.Value};actors.Add(p.Key,a);}
    Ready=true;Status="";Seek(0);Debug.Log("TOP_READY "+actors.Count+" actors / "+floors.Count+" phases");
    if(Arg("qa")!=null)StartCoroutine(Qa(Arg("qa")));
+   if(Arg("fx-smoke")!=null)StartCoroutine(GuardFxSmoke(FxSmoke(Arg("fx-smoke")),Arg("fx-smoke")));
   }catch(Exception e){Status=e.ToString();Debug.LogError("TOP_FATAL "+e);if(Arg("qa")!=null)Application.Quit(1);}
  }
  async Task LoadModel(string id){
@@ -157,7 +158,7 @@ public sealed partial class TopReplay : MonoBehaviour {
   var key=new GameObject("Scene light").AddComponent<Light>();key.type=LightType.Directional;key.intensity=1.5f;key.color=new Color(1,.95f,.87f);key.transform.rotation=Quaternion.Euler(50,-30,0);UpdateCamera();
  }
  void UpdateCamera(){if(!View)return;var q=Quaternion.Euler(orbitPitch,orbitYaw,0);View.transform.position=focus+q*new Vector3(0,0,-distance);View.transform.LookAt(focus);}
- void Update(){if(!Ready)return;if(Playing){Seek(Clock+Time.unscaledDeltaTime*1000*Rate);if(Clock>=duration)Playing=false;}if(Arg("qa")!=null)return;
+ void Update(){if(!Ready)return;if(Playing){Seek(Clock+Time.unscaledDeltaTime*1000*Rate);if(Clock>=duration)Playing=false;}if(Arg("qa")!=null||Arg("fx-smoke")!=null)return;
   if(Input.GetKeyDown(KeyCode.Space))Playing=!Playing;if(Input.GetKeyDown(KeyCode.LeftArrow))Seek(Clock-5000);if(Input.GetKeyDown(KeyCode.RightArrow))Seek(Clock+5000);
   if(Input.GetMouseButton(1)){orbitYaw+=Input.GetAxis("Mouse X")*3;orbitPitch=Mathf.Clamp(orbitPitch-Input.GetAxis("Mouse Y")*3,5,85);UpdateCamera();}
   float scroll=Input.mouseScrollDelta.y;if(scroll!=0){distance=Mathf.Clamp(distance-scroll*4,12,250);UpdateCamera();}

@@ -12,6 +12,14 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 -1221real-source curve/random/axis/color/life cases pass the native math differential. This is not a rendered-particle acceptance.
 - Frozen independent review raised3conditional input hypotheses. Full dataset audit finds0non-skin animated targets,0ambiguous animated names,0negative/degenerate scene matrices,0skinnedbackgrounds; exactWactionset31525/26/30/33 and all emitted forms exist. This implementation is scoped to that validated exporter contract, not an arbitrary asset importer.
 
+## Native AVFX source checkpoint (2026-10-28)
+
+- Native CPU graph differential: 162 documents, 1134 samples, 21131 particles, 12835 selected transform/color comparisons. Identity and bounded-work checks passed against the frozen source-preview oracle.
+- Windows RX7900XT GPU tests isolate each supported particle kind (1,2,5,6,8,10,12,13). All eight produce source-material pixels with debug mode zero. Per-kind changed-pixel counts: 7331,7292,30517,89,214,49689,2571,60232. This is technical primitive coverage, not visual game equivalence.
+- Fixed a non-readable texture-copy failure using an explicitly matching texture and Graphics.CopyTexture. Raw/source-copy images are pixel-identical. Earlier zero-pixel failures and non-source calibration probes remain separate evidence, not passes.
+- Frozen Sonnet 5.5 review found no must-fix on the supported subset. Tested project source/settings/packages/metadata read back from AnAn as a 51-file archive; private media excluded.
+- Still open: alpha-only Screen mask composition, unconnected spline trails, billboard/direction rules, game host lifetimes/effectors, actual event director/bone endpoints, audio, full scene/video fidelity. No release, main replacement or practice migration is claimed.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.
