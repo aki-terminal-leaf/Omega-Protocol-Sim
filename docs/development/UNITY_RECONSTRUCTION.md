@@ -51,6 +51,12 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 - Native v31: 22 all-phase samples, eight target rigs and actual visible-renderer count zero throughout; reverse bindings/pixels, pause and effect disposal pass with zero errors and immutable build/data. All 31 earlier unavailable-player-actor diagnostic occurrences are gone; unsupported NPC EID rows remain separately diagnosed.
 - Independent Three.js original-preset-idle/raw-track comparison passes 176 actual native head matrices, max delta <0.0000016. This proves the proxy source transform, not the original players' unrecorded morphology or animation.
 
+## Available original NPC EID bindings (2026-10-28)
+
+- Nine original version-21 EID families (169 bind points) are parsed using the pinned maintained MIT VFXEditor layout. Every source hash and complete binary roundtrip matches; M/F tables exactly match the earlier independent parser. Twelve model forms map by their actual original model paths, including Final Omega, Alpha, rear unit and arms.
+- Native v32/data-v7: 22 all-phase seek/render samples, reverse binding/pixel identity, pause/disable, zero actual player renderers and zero runtime errors. All previously observed missing-NPC-bone/unavailable-actor diagnostics are absent in this sample set. Unsupported host rules remain diagnosed.
+- Independent original Three.js animation + EID offset + source-curve evaluation passes 15 newly resolved Final/Alpha attachment positions (max delta <0.0000041). All 176 invisible-preset target head matrices still pass independently. Existing source-preview rotation conventions are retained; these checks do not certify original game-host rotation/lifecycles or full audiovisual fidelity.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.

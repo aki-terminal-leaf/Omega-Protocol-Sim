@@ -46,7 +46,7 @@ public sealed partial class TopReplay : MonoBehaviour {
   Instance=this;Application.runInBackground=true;QualitySettings.vSyncCount=0;Application.targetFrameRate=60;
   DataRoot=Arg("top-data")??Path.GetFullPath(Path.Combine(Application.dataPath,"../TOPData"));
   try {
-   Record=Read("record");Manifest=Read("manifest");Plan=Read("motion-plan");Scenes=Read("scene-data");Full=Read("full-data");Weapons=Read("weapon-data");duration=D(Record["duration_ms"]);
+   Record=Read("record");Manifest=Read("manifest");Plan=Read("motion-plan");Scenes=Read("scene-data");Full=Read("full-data");Weapons=Read("weapon-data");LoadSourceAttachments();duration=D(Record["duration_ms"]);
    CreateCamera();templateRoot=new GameObject("Private templates");templateRoot.SetActive(false);
    var needed=new HashSet<string>();foreach(var p in (JObject)Plan["actors"])needed.Add(S(p.Value["form"]));
    foreach(var p in (JObject)Scenes["phases"])foreach(var key in new[]{"nodes","floor_nodes"})foreach(var n in p.Value[key]??new JArray())needed.Add(S(n["asset"]));

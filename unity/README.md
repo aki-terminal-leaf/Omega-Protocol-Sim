@@ -22,6 +22,10 @@ Sound is off initially. The Sound/Mute controls opt into original OGG cue playba
 
 `--audio-qa=FRESH_OUTPUT` runs the native decoder, actual audio-thread DSP signal and resource lifecycle checks. Its per-source filter zeros output after measurement, so the test does not play sound to the speakers. Native v28 verifies 87 clips, six phase signals, stopped-voice recovery and in-flight disposal. This is not auditory comparison.
 
+## Original NPC attachment tables
+
+`python3 tools/unity/prepare_eid_data.py --data PRIVATE_NATIVE_DATA --raw ORIGINAL_RESOURCE_ROOT --manifest PINNED_RESOURCE_MANIFEST --out FRESH_NATIVE_DATA` adds original `attachment-data.json` to a fresh snapshot. Only verified version-21 EID records are accepted, with source hashes, complete binary roundtrip and exact prior M/F cross-check. Native loading is backward compatible with older M/F-only snapshots. Model-family selection comes from original GLB model paths; missing rows remain diagnosed rather than invented.
+
 ## Foundation contracts
 
 - Original record milliseconds; reference video is a different fight. No global retiming. Exclude only explicit forced-cinematic intervals.

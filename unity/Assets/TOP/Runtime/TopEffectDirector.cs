@@ -70,8 +70,7 @@ public sealed partial class TopReplay {
   if(type==3){
    if(!AttachmentActor(key,out var a)||a.Rig==null){d.Add("attachment_actor_unavailable/"+key);return false;}
    if(hiddenTargets.ContainsKey(key))d.Add("player_bone_proxy/original_preset_not_recorded_motion");
-   int id=DirInt(prop["BPID"]);string family=c.Weapon?c.Family:DirFamily(a.Form);JToken row=null;
-   if(family!=null&&Weapons["eid"]?[family]?["rows"] is JArray rows)row=rows.FirstOrDefault(x=>DirInt(x["id"])==id);
+   int id=DirInt(prop["BPID"]);string family=c.Weapon?c.Family:SourceAttachmentFamily(a.Form);JToken row=SourceAttachmentRow(family,id);if(row!=null)d.Add("original_eid_family/"+family);
    string bone=S(row?["bone"]);if(bone==""){DirBoneIds.TryGetValue(id,out bone);d.Add("bone_id_fallback/"+key+"/"+id);}
    if(bone==null||!a.Rig.Nodes.TryGetValue(bone,out var node)){d.Add("missing_attachment_bone/"+key+"/"+id);return false;}
    var m=node.localToWorldMatrix;
