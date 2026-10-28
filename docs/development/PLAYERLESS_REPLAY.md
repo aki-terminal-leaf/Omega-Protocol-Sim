@@ -26,3 +26,7 @@ The v0.2 source candidate has actual all-six-phase continuous playback,21savedre
 ## Scoped v0.2 source correction accepted
 
 Actual exactv7 all-six-phase continuous replay,23frames,0visiblepartyroots, file://playback and5newnativeaudiodecodes passed. Originalsourcealpha/threshold/nativecutoutcoverage fixes the whitegalaxy regression; actualP2pixels show the star/nebula background again. Current-form M/Fdispatch replaceswrong-sexeffect/audio roots and retains observedshieldstop/returnstate. TwoMhide001source paths remain unresolved. Full visualfidelity remainsOPEN: P6largegoldenparticles are isolated toAVFX, nottheBGscene; nestedfloors, tower/line/Opticalstate, lighting/fog/materialUV/BGM and whole90unitcomparison still needwork. No whole-completion claim.
+
+## Published scoped milestone
+
+Source`4cd1dd25db372d9070423c282a3861eef726703d`; prerelease`top-replay-v0.2.0-preview`; [Web](https://top.servicing.cc/replay-v0.2.0/index.html) / [offline ZIP and checksums](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.2.0-preview). All3releaseassets matched GitHub server SHA-256 digests. Fresh HTTPS Chromium playback/controls/cinematic skip/8residentbodies/0partyroots passed. FormalWeb35 and v0.1 retained. Complete90unitrestoration remainsACTIVE/OPEN.

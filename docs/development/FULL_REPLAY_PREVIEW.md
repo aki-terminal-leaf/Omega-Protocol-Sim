@@ -1,3 +1,5 @@
+> Latest: [v0.2 playerless preview](https://top.servicing.cc/replay-v0.2.0/index.html), [scope and remaining work](PLAYERLESS_REPLAY.md). The v0.1 details below are historical; neither version certifies full original restoration.
+
 # TOP 全流程回放預覽 v0.1.0
 
 日期：2026-10-28。這是既有 Godot 練習器旁的**單場流程回放預覽**，不是全部原版演出完成，也不改變獨立選機制／打法的練習預設。Godot Web／Windows v0.3.35 與判定完全不變。

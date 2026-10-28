@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0-playerless-candidate",
+  "version": "0.2.0-playerless-preview",
   "source_files": {
     "tools/full_replay/src/action-context.js": "44d4ba911c37be460d94f0bd9a10983a6d690b210f2eac389789cb4d58b34bd3",
     "tools/full_replay/src/viewer.js": "dfe3a182972e23a6224bc4140e54f9ecd55c5c5056514d3c0149d02db3e45ef8",
@@ -15,7 +15,7 @@
   "scoped_visual_gate": "PASS staticbackgroundcutout/noplayer/P2state sample; not full effects/reference fidelity",
   "complete_recreation": false,
   "pending_full_reference": "all90units; P6renderer/towers/tethers/floor/light/UV/BGM",
-  "published": false,
+  "published": true,
   "prior_candidate": {
     "version": "0.2.0-candidate",
     "source_files": {
@@ -52,5 +52,8 @@
       "rendering_complete": false,
       "build_equivalence": "Executable code identical after stripping generated comments/whitespace; cosmetic whitespace only in source copies"
     }
-  }
+  },
+  "release": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.2.0-preview",
+  "web": "https://top.servicing.cc/replay-v0.2.0/index.html",
+  "source_commit": "4cd1dd25db372d9070423c282a3861eef726703d"
 }

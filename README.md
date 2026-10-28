@@ -4,7 +4,15 @@
 
 **[v0.3.35 Web／Windows／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.35-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### 單場全流程回放（開發預覽，演出未齊）
+### 無玩家演出 v0.2（開發預覽，完整重現仍在進行）
+
+預設不顯示玩家人物、姓名、圓環、隊伍 HUD 或玩家技能／LB；保留不可見目標，供機制特效定位。這一階段修正 P2 持續換形／換回、盾姿勢解除、當前 M/F 資源對應，以及原始背景的透明遮罩。已通過實際六階段連續播放、離線開啟及新增音效解碼檢查。**尚不是完整原版還原**：共享地板、塔／連線／眼睛生命週期、P6 特效、燈光／霧／材質動畫／音樂及逐項影片比對仍在進行。正式 Godot Web35 與獨立機制練習不變。
+
+[直接開啟無玩家預覽](https://top.servicing.cc/replay-v0.2.0/index.html) · [離線包／校驗](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.2.0-preview) · [本階段範圍與後續缺口](docs/development/PLAYERLESS_REPLAY.md)
+
+![實際無玩家 Chromium 畫面；部分原始場景／效果仍未完整還原](https://top.servicing.cc/replay-v0.2.0/PREVIEW.jpg)
+
+### 舊版紀錄回放 v0.1（保留比較）
 
 另提供 P1→P6 的固定紀錄回放候選，包含原版資源特效、狀態支持的動態連線與選擇開啟的音效，略過強制過場。已做實際整場播放與收尾檢查；**不是全部演出完整還原**，塔／部分頭標／場景／音樂與若干特效生命週期仍缺。[限定範圍、來源與驗證](docs/development/FULL_REPLAY_PREVIEW.md)。正式 Godot Web35 與獨立機制練習不變。[直接開啟流程預覽](https://top.servicing.cc/replay-v0.1.0/index.html) · [離線包／校驗與來源](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-replay-v0.1.0-preview)。
 
