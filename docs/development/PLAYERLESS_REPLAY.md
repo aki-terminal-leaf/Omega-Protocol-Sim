@@ -19,6 +19,10 @@ Functional no-player playback, actual render pixels, original-resource hashes, n
 3. Correct original scene material/light/fog/animated-layer behavior and source VFX renderer semantics.
 4. Compare every in-scope video substep at useful image scale, resolve remaining P1–P6 discrepancies, and validate each accepted Web milestone. Preserve the existing formal practice deployment and desktop cutoff.
 
-## Current candidate gate
+## Historical v4 candidate gate
 
 The v0.2 source candidate has actual all-six-phase continuous playback,21savedrenderframes and zerovisiblepartyroots. Seven original PAP supplements are native sampled. **Visual gate FAILED:** the galaxy background becomes excessive white noise without the approximate global fog; original alpha/UV/material state remains unresolved. No newrelease/deployment/mainintegration was performed. Keep v0.1 and formalWeb35 unchanged until a corrected coherent candidate passes.
+
+## Scoped v0.2 source correction accepted
+
+Actual exactv7 all-six-phase continuous replay,23frames,0visiblepartyroots, file://playback and5newnativeaudiodecodes passed. Originalsourcealpha/threshold/nativecutoutcoverage fixes the whitegalaxy regression; actualP2pixels show the star/nebula background again. Current-form M/Fdispatch replaceswrong-sexeffect/audio roots and retains observedshieldstop/returnstate. TwoMhide001source paths remain unresolved. Full visualfidelity remainsOPEN: P6largegoldenparticles are isolated toAVFX, nottheBGscene; nestedfloors, tower/line/Opticalstate, lighting/fog/materialUV/BGM and whole90unitcomparison still needwork. No whole-completion claim.

@@ -73,7 +73,7 @@ async function loadAsset(id){if(cache.has(id))return cache.get(id);if(promises.h
  }finally{loadingCount--;}})().catch(e=>{promises.delete(id);throw e;});promises.set(id,promise);return promise;}
 async function loadSerial(ids){for(const id of [...new Set(ids)])await loadAsset(id);}
 function textSprite(text,color='#eaf4ff',scale=3){const c=document.createElement('canvas');c.width=256;c.height=64;const cx=c.getContext('2d');cx.font='bold 27px system-ui';cx.textAlign='center';cx.strokeStyle='#07101b';cx.lineWidth=7;cx.strokeText(text,128,43);cx.fillStyle=color;cx.fillText(text,128,43);const tex=new THREE.CanvasTexture(c),sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,depthTest:false}));sp.scale.set(scale,scale/4,1);return sp;}
-for(const [txt,x,z] of [['N',0,-23],['E',23,0],['S',0,23],['W',-23,0]]){const sp=textSprite(txt,'#b6cde8',2.2);sp.position.set(x,.5,z);scene.add(sp);}
+for(const [txt,x,z] of [['N',0,-23],['E',23,0],['S',0,23],['W',-23,0]]){const sp=textSprite(txt,'#b6cde8',2.2);sp.position.set(x,.5,z);sp.visible=false;scene.add(sp);}
 function addRig(k,form,scale){if(actors.has(k))return;const data=cache.get(form),root=new THREE.Group(),mesh=cloneRig(data.scene);root.add(mesh);mesh.scale.setScalar(scale);actorRoot.add(root);const mixer=new THREE.AnimationMixer(mesh),actions=new Map();
  for(const clip of data.animations){const action=mixer.clipAction(clip);action.setLoop(THREE.LoopRepeat,Infinity);actions.set(clip.name,action);}
  const a=R.actors[k],color=colors[party.findIndex(x=>x.id===k)]||0xf1c58c;const label=textSprite(a?.player?a.label:(a?.label||form),a?.player?'#'+color.toString(16).padStart(6,'0'):'#e5ceab',a?.player?2.4:4);label.position.y=a?.player?2.7:6;root.add(label);

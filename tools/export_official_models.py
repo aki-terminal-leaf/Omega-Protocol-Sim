@@ -242,19 +242,31 @@ def export_model(realm,args,form,meta):
                 gmat['extras']['original_shader_constants']={hex(k):v for k,v in constants.items()}
                 diffuse=constants.get(0x2C2A34DD,[1,1,1])
                 if len(diffuse)>=3:pbr['baseColorFactor']=[min(1.0,max(0.0,v)) for v in diffuse[:3]]+[1]
+                threshold=constants.get(0x29AC0223)
+                if threshold and len(threshold)==1 and 0<float(threshold[0])<1:
+                    gmat['alphaMode']='MASK';gmat['alphaCutoff']=float(threshold[0])
+                    gmat['extras']['alpha_basis']='original g_AlphaThreshold (0x29AC0223)'
             for tex in mat.Textures:
                 usage={0x115306BE:'Diffuse',0x0C5EC1F1:'Normal',510652316:'Diffuse',2863978985:'Normal'}.get(int(tex.Sampler.SamplerIdRaw),'Other')
                 if usage not in ['Diffuse','Normal']:continue
                 tp=str(tex.Dx11Path)
-                key=tp+':'+usage
+                native_alpha=bool(meta.get('source_path') and usage=='Diffuse' and gmat.get('alphaMode')=='MASK')
+                key=tp+':'+usage+(':native-alpha' if native_alpha else '')
                 if key not in tex_cache:
                     tf=realm.GetFile[TexFile](tp)
                     if tf is None:raise RuntimeError('Missing texture: '+tp)
                     im=Image.frombytes('RGBA',(int(tf.Header.Width),int(tf.Header.Height)),bytes(tf.ImageData),'raw','BGRA')
-                    im.thumbnail((getattr(args,'max_texture_size',1024),getattr(args,'max_texture_size',1024)),Image.Resampling.LANCZOS)
+                    if not native_alpha:im.thumbnail((getattr(args,'max_texture_size',1024),getattr(args,'max_texture_size',1024)),Image.Resampling.LANCZOS)
+                    else:gmat['extras']['alpha_texture_resolution']='native; generic reduction erased cutout coverage'
                     # Character texture alpha contains shader information, not general opacity.
                     # Preserve opaque game surfaces rather than turning the whole mesh invisible.
-                    if usage=='Diffuse':im.putalpha(255)
+                    if usage=='Diffuse':
+                        if not meta.get('source_path'):im.putalpha(255)
+                        else:
+                            # BG diffuse alpha is genuine cutout data (galaxy/spark layers),
+                            # unlike monster legacy diffuse alpha. Preserve it verbatim.
+                            gmat['extras']['original_bg_diffuse_alpha']='preserved'
+
                     elif meta.get('source_path'):
                         r,g,b,a=im.split();im=Image.merge('RGBA',(r,ImageOps.invert(g),b,a))
                     else:
