@@ -135,7 +135,7 @@ static func publish(beat: Dictionary, state: Dictionary, shapes) -> void:
 static func _pose(actors: Array, actor: int):
 	return F._vec(actors[actor].get("pos",null)) if actors[actor] is Dictionary else null
 
-static func _mapping(entry: Dictionary, order: Array, targets: Array, actors: Array) -> Array:
+static func _mapping(entry: Dictionary, order: Array, targets: Array, actors: Array, human: int = -1) -> Array:
 	var stored=F._order(entry.get("mapping",null))
 	if not stored.is_empty(): return stored
 	var mapping: Array=range(8)
@@ -143,6 +143,16 @@ static func _mapping(entry: Dictionary, order: Array, targets: Array, actors: Ar
 		var a: int=int(order[base]); var b: int=int(order[base+1])
 		var pa=_pose(actors,a); var pb=_pose(actors,b)
 		if pa==null or pb==null: continue
+		# The real player's publicly visible staging chooses their nearer legal side.
+		# A two-NPC minimax assignment must not reserve that same side for the peer.
+		# No input or human position is changed; later carrier choices still use
+		# actual exclusive tower occupancy and retain genuine late-arrival failure.
+		if human==a or human==b:
+			var hp:Vector2=pa if human==a else pb
+			var other:int=b if human==a else a
+			if absf(angle_difference(hp.angle(),targets[other].angle()))<absf(angle_difference(hp.angle(),targets[human].angle()))-EPS:
+				mapping[a]=b; mapping[b]=a
+			continue
 		var keep := maxf(absf(angle_difference(pa.angle(),targets[a].angle())),absf(angle_difference(pb.angle(),targets[b].angle())))
 		var swap := maxf(absf(angle_difference(pa.angle(),targets[b].angle())),absf(angle_difference(pb.angle(),targets[a].angle())))
 		if swap<keep-EPS: mapping[a]=b; mapping[b]=a
@@ -243,7 +253,7 @@ static func goal(actor: int, beat: Dictionary, actors: Array, state: Dictionary)
 		return (p.normalized() if p.length()>0.001 else Vector2.UP)*_stage_radius(_role_base(slot,round_index))
 	if bool(receipt.get("assisted",false)): state.hw_later_assisted=true
 	var targets := F._points(receipt.targets)
-	var mapping := _mapping(entry,order,targets,actors)
+	var mapping := _mapping(entry,order,targets,actors,int(state.get("human_actor",-1)))
 	var effective: int=mapping[actor]
 	var rep=_human_rep(actor,round_index,beat,actors,state,entry,targets,mapping)
 	if rep!=null: effective=mapping[int(rep)]
