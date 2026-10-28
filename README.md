@@ -4,6 +4,10 @@
 
 **[v0.3.35 Web／Windows／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.35-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
+### 單場全流程回放（開發預覽，演出未齊）
+
+另提供 P1→P6 的固定紀錄回放候選，包含原版資源特效、狀態支持的動態連線與選擇開啟的音效，略過強制過場。已做實際整場播放與收尾檢查；**不是全部演出完整還原**，塔／部分頭標／場景／音樂與若干特效生命週期仍缺。[限定範圍、來源與驗證](docs/development/FULL_REPLAY_PREVIEW.md)。正式 Godot Web35 與獨立機制練習不變。公開入口／release 會在部署與全新啟動核對後補上。
+
 ### v0.3.35：HW 公開塔提示、塔色與玩家分邊
 
 後三輪 NPC 依實際顯示塔行動，初次分邊尊重玩家公開預站；真正紅／藍塔色及其揭示／移除時窗已修正。八職責從0秒到130秒的受控按鍵重播通過；漏操作、漏交接與太晚返回仍有真實失敗。這不等於全種子／全攻略或真人全通關。[本版證據與界線](docs/development/WEB_V0335.md)。

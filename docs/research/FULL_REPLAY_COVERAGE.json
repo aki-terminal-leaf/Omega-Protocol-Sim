@@ -1,0 +1,2093 @@
+{
+  "reference_video": "https://www.youtube.com/watch?v=5P8VnTECmO4",
+  "same_fight_as_master_record": false,
+  "units_total": 96,
+  "units_in_scope": 90,
+  "units_excluded": 6,
+  "all_units_restored": false,
+  "units": [
+    {
+      "phase": "P1",
+      "step": "01 入場與常態",
+      "video_sample_s": [
+        5,
+        10,
+        14,
+        20,
+        26
+      ],
+      "ability_ids": [
+        31741
+      ],
+      "resources": "m0110 本體、骨架／待機／普攻；原始材質、發光、地板、外圈死亡牆",
+      "lifecycle": "普攻出手與命中分離；進戰、朝向、退場",
+      "existing_and_gap": "模型／部分動畫已有；常駐效果與完整場景待接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "02 Program Loop 配號與建立機關",
+      "video_sample_s": [
+        30,
+        40
+      ],
+      "ability_ids": [
+        31491,
+        31495
+      ],
+      "resources": "1～4 順序狀態圖示；兩條可交接連線；塔的外環／立體核心／充能",
+      "lifecycle": "出現、轉接目標、有效／無效、倒數、結束",
+      "existing_and_gap": "TMB 可追；塔／線／狀態需獨立來源映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "03 第 1 輪塔與 Blaster",
+      "video_sample_s": [
+        30,
+        40
+      ],
+      "ability_ids": [
+        31492,
+        31496,
+        31498
+      ],
+      "resources": "塔引爆、線端標記、Blaster 光束／爆炸／命中聲；線爆後 Twice-come Ruin、HP Penalty 圖示／身上效果（若有）",
+      "lifecycle": "第1組結束後第二組出現；不要新畫四套同素材；從第1輪即記施加／層數／解除",
+      "existing_and_gap": "原檔依候選表補核；排程未完整",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 21,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "04 第 2 輪塔與 Blaster",
+      "video_sample_s": [
+        40,
+        50
+      ],
+      "ability_ids": [
+        31492,
+        31496,
+        31498
+      ],
+      "resources": "重用上輪資源；另記塔座標、線目標、狀態解除",
+      "lifecycle": "第2輪獨立 start／resolve／cleanup；保留各持有者 HP Penalty／Ruin 施加與消退",
+      "existing_and_gap": "同一資源不同實例",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 21,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "05 第 3 輪塔與 Blaster",
+      "video_sample_s": [
+        50,
+        55
+      ],
+      "ability_ids": [
+        31492,
+        31496,
+        31498
+      ],
+      "resources": "重用塔／光束；HP Penalty 等狀態圖示與身上光效另核",
+      "lifecycle": "第3輪、免疫／狀態轉換；保留各持有者 HP Penalty／Ruin 施加與消退",
+      "existing_and_gap": "同一資源不同實例",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 21,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "06 第 4 輪塔與 Blaster",
+      "video_sample_s": [
+        60,
+        64
+      ],
+      "ability_ids": [
+        31492,
+        31497,
+        31498
+      ],
+      "resources": "最終 Blaster 變體、塔消散、連線解除",
+      "lifecycle": "尾輪不可只以循環強制截斷",
+      "existing_and_gap": "末輪 Action 與前三輪有別",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 19,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "07 Pantokrator 起手",
+      "video_sample_s": [
+        70,
+        80,
+        83
+      ],
+      "ability_ids": [
+        31499,
+        31501,
+        32368
+      ],
+      "resources": "本體起手／蓄力；順序狀態；兩側初始火焰扇形、旋轉連續火焰",
+      "lifecycle": "預兆與實際火焰分開；起點／旋向／步進",
+      "existing_and_gap": "PAP 一部分已有；火焰 AVFX 待追",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 28,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "08 第 1 組飛彈／分攤與誘導圈",
+      "video_sample_s": [
+        83,
+        90
+      ],
+      "ability_ids": [
+        31500,
+        31502,
+        31503
+      ],
+      "resources": "落點預兆、飛彈軌跡／爆煙、分攤波動炮、命中層",
+      "lifecycle": "先鎖定地面落點，再播放；不跟著玩家滑動",
+      "existing_and_gap": "需技能、地面、目標三類實例",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 184,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "09 第 2 組飛彈／分攤",
+      "video_sample_s": [
+        90,
+        99
+      ],
+      "ability_ids": [
+        31500,
+        31502,
+        31503,
+        32368
+      ],
+      "resources": "重用飛彈／分攤／火焰資源",
+      "lifecycle": "保留每次扇形、落點、延遲與壽命",
+      "existing_and_gap": "同一資源不同排程",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 210,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "10 第 3 組飛彈／分攤",
+      "video_sample_s": [
+        99,
+        100
+      ],
+      "ability_ids": [
+        31500,
+        31502,
+        31503,
+        32368
+      ],
+      "resources": "同上；衝擊環、煙塵尾跡不能提前清掉",
+      "lifecycle": "第3組與火焰交錯",
+      "existing_and_gap": "同一資源不同排程",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 210,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "11 第 4 組與旋轉結束",
+      "video_sample_s": [
+        100,
+        108
+      ],
+      "ability_ids": [
+        31500,
+        31502,
+        31503,
+        32368
+      ],
+      "resources": "同上；最後一波特效衰減與本體收招",
+      "lifecycle": "最後一組後停止生新粒子、保留尾跡",
+      "existing_and_gap": "同一資源不同排程",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 210,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "12 終段扇形／三人點名波動炮",
+      "video_sample_s": [
+        110,
+        120
+      ],
+      "ability_ids": [
+        31504,
+        31505
+      ],
+      "resources": "紅色點名及脈衝、炮口蓄光、兩側大扇形、細束與命中",
+      "lifecycle": "紅標5次脈衝與個人炮兩組替換；大扇形／細束可重疊。主紀錄首炮108.195s、扇形108.196s，不從攻略語句推成先後完全分離",
+      "existing_and_gap": "點名來源要查 VFX 表，不由技能名猜",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 11,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P1",
+      "step": "13 跳走／場地切換",
+      "video_sample_s": [
+        130,
+        136
+      ],
+      "ability_ids": [],
+      "resources": "跳躍／解體／消失、地面編碼光紋與場景過渡、音樂切點",
+      "lifecycle": "本體消失和 P2 出現不是一個瞬間換模型",
+      "existing_and_gap": "場景導演、BGM 待定位；未見的 Atomic Ray 另列候選",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "01 M/F 出場與 Firewall",
+      "video_sample_s": [
+        136,
+        140,
+        145
+      ],
+      "ability_ids": [
+        31552,
+        31553
+      ],
+      "resources": "m0513／m0514；出現白光、Packet Filter 圖示／狀態；地板符文",
+      "lifecycle": "兩隻個體、可攻擊狀態；F 普通腿不可藏掉",
+      "existing_and_gap": "兩模型已有；完整出場／狀態待接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 4,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "02 雙 Solar Ray",
+      "video_sample_s": [
+        147,
+        150
+      ],
+      "ability_ids": [
+        32362,
+        32363
+      ],
+      "resources": "雙角色施法 PAP、蓄能／單體重擊／命中／SCD",
+      "lifecycle": "caster 與 target 各自綁定；不要只留下施法光",
+      "existing_and_gap": "部分 M/F 原檔已有，未整招驗收",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 6,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "03 Party Synergy 配對",
+      "video_sample_s": [
+        158,
+        160,
+        170
+      ],
+      "ability_ids": [
+        31550,
+        31551
+      ],
+      "resources": "○×△□ 頭標、Mid／Remote Glitch 圖示、配對連線、消失效果；外圈 Optical 早期出現場景 cue",
+      "lifecycle": "頭標淡出與距離連線有效／無效要分開；眼睛已提早出現，不能等發射才生成",
+      "existing_and_gap": "共用標記需精確 ID 映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 4,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "04 分身出現與武器準備",
+      "video_sample_s": [
+        174,
+        178,
+        180
+      ],
+      "ability_ids": [
+        31515,
+        31516,
+        31510,
+        31511
+      ],
+      "resources": "真假 M/F 實例；出現／性別變形／盾與腿刃開關 PAP、AVFX、SCD、EID",
+      "lifecycle": "普通身體、劍／盾、普通腿／腿刃／杖的完整顯隱",
+      "existing_and_gap": "原始切換檔已有，完整狀態機未驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 7,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "05 M 劍／盾出招分支",
+      "video_sample_s": [
+        184
+      ],
+      "ability_ids": [
+        31525,
+        31526
+      ],
+      "resources": "m0513sp21c0t1、m0513sp15c0c；盾分層光環／劍光／共同起手",
+      "lifecycle": "兩分支都需；這支影片不代表所有組合",
+      "existing_and_gap": "v2.2 四招子集之一；非原渲染一致",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "06 F 腿刃／杖出招分支",
+      "video_sample_s": [
+        184
+      ],
+      "ability_ids": [
+        31530,
+        31533
+      ],
+      "resources": "m0514sp06c0c、m0514sp05c0c；雙腿斬線／冰晶／杖掛點",
+      "lifecycle": "腿刃左右掛點與一般腿互斥；杖／冰法命中層",
+      "existing_and_gap": "v2.2 子集；未見分支由資源／攻略補列",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "07 Optical Unit 與分散火球",
+      "video_sample_s": [
+        180,
+        184,
+        190
+      ],
+      "ability_ids": [
+        31521,
+        31535
+      ],
+      "resources": "眼睛三 MDL、SGB、材質 UV、後續開眼／蓄光／雷射／閉眼；八目標 Optimized Fire III 效果（形態依來源／影格核對）",
+      "lifecycle": "眼睛是場景物件；炮束和火球不要錯歸屬；首次出生見 P2-03",
+      "existing_and_gap": "眼睛模型＋8 AVFX 已取；開合／場景時間軸未完成",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 8,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "08 另一組換性別／新增 M 分身",
+      "video_sample_s": [
+        190,
+        199
+      ],
+      "ability_ids": [
+        31517,
+        31518,
+        31519,
+        31520
+      ],
+      "resources": "白閃、M↔F 變形、克隆召喚、姿勢、部件切換",
+      "lifecycle": "保留 actor 身分；換外觀不等於新 actor",
+      "existing_and_gap": "變形 TMB 原檔線索已有，父時間軸待接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 8,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "09 擊退與雙分攤",
+      "video_sample_s": [
+        199,
+        204
+      ],
+      "ability_ids": [
+        31534,
+        31536
+      ],
+      "resources": "F 擊退動畫、地面衝擊、分攤標記／命中、擊退音效",
+      "lifecycle": "先擊退再分攤；兩側 Mid／Remote 排程分歧",
+      "existing_and_gap": "M/F 部分原檔已有，分支需另一 POV 補證",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 8,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "10 五個 M 劍光收束",
+      "video_sample_s": [
+        204
+      ],
+      "ability_ids": [
+        31526
+      ],
+      "resources": "本體／四分身劍光、各自朝向／生命週期",
+      "lifecycle": "同份資源多 caster；清理不能互相影響",
+      "existing_and_gap": "v2.2 局部已接、五個 caster 已測",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "11 Synthetic Shield／Limitless 佈局",
+      "video_sample_s": [
+        210,
+        220
+      ],
+      "ability_ids": [
+        32369,
+        31544,
+        31545,
+        31556,
+        31557
+      ],
+      "resources": "M 盾形成／保護連結、Boss Optimized Passage of Arms（31556，非玩家技能）、F Laser Shower 蓄力、外圈分身",
+      "lifecycle": "持續護盾／通道直到死亡或取消；不中斷當作短爆炸",
+      "existing_and_gap": "M/F 原檔可追；護盾持續／終止待驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 22,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "12 兩條坦線與 Sagittarius Arrow",
+      "video_sample_s": [
+        230,
+        232
+      ],
+      "ability_ids": [
+        31539,
+        31540,
+        31541,
+        31542,
+        31543,
+        32629
+      ],
+      "resources": "兩組 Bladedance 的前搖／多段斬擊／命中；箭雨線型地面與 SCD",
+      "lifecycle": "坦線目標、左右來源、每段時序、出招與命中分開",
+      "existing_and_gap": "兩角色連擊檔已取；未接整招",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 48,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "13 Beyond Defense 突進",
+      "video_sample_s": [
+        240,
+        241
+      ],
+      "ability_ids": [
+        31527,
+        31528
+      ],
+      "resources": "M 躍進／落地 PAP、caster／target 雙 AVFX、衝擊／音效；此時段已開始的 Optimized Meteor 三個 Flare 頭標",
+      "lifecycle": "實際移動／起落點與視覺位移要分清",
+      "existing_and_gap": "原檔已有；不可因舊音效名判武器",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 6,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "14 Pile Pitch＋Optimized Meteor",
+      "video_sample_s": [
+        250,
+        251
+      ],
+      "ability_ids": [
+        31529,
+        31537,
+        31538
+      ],
+      "resources": "分攤衝擊、三個 Flare 頭標／光柱、隕石落下／爆光、F 施法",
+      "lifecycle": "三個目標與分攤不同事件；餘光延後清理；Flare 頭標起點見前列，這列處理落擊與解除",
+      "existing_and_gap": "部分 M/F 檔已有；標記／命中依賴另核",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 12,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "15 Optical Cosmo Memory",
+      "video_sample_s": [
+        260,
+        263
+      ],
+      "ability_ids": [
+        31522,
+        31523,
+        31524
+      ],
+      "resources": "眼睛蓄力／大範圍閃光／環光／音效；M/F 配套時間軸",
+      "lifecycle": "可見眼睛與傷害來源／通用 helper 不能一對一硬套",
+      "existing_and_gap": "眼睛檔已取；動態關聯仍待驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 4,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P2",
+      "step": "16 擊殺、護盾解除與轉階段",
+      "video_sample_s": [
+        270,
+        277,
+        280
+      ],
+      "ability_ids": [
+        31507,
+        31509
+      ],
+      "resources": "M/F 死亡／解體、護盾解除、Laser Shower 取消、場景轉場",
+      "lifecycle": "成功擊殺不應播放未發生的狂暴命中",
+      "existing_and_gap": "死亡／取消／過場需獨立 cue；31511 於P3早期另有事件，不作護盾解除的已證ID",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 6,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "01 Final Omega 重組／過場",
+      "video_sample_s": [
+        284,
+        290,
+        295
+      ],
+      "ability_ids": [
+        31561,
+        31562,
+        31563,
+        31564,
+        31511
+      ],
+      "resources": "m0515 出場、黑球／碎片／組裝、背景／地板／光照切換、SCD；31511 等未命名過渡事件僅列來源線索，不武斷命名",
+      "lifecycle": "場景層與可攻擊狀態分開；未知名 Action 保留數字",
+      "existing_and_gap": "主體／部分場地已有；完整過場未接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 8,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "02 第一組擴散環 1→4",
+      "video_sample_s": [
+        284,
+        290,
+        295
+      ],
+      "ability_ids": [
+        31567,
+        31568,
+        31569,
+        31570
+      ],
+      "resources": "中心爆炸、三層環形衝擊、地面預兆、雷光／尾跡；Sniper／High-powered Sniper 狀態早期施加與倒數",
+      "lifecycle": "四個空間／時間實例；不要依地板紋理猜判定圈",
+      "existing_and_gap": "部分 P3 特效資產已有，仍需映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 16,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "03 六隻外圈手臂依序出現",
+      "video_sample_s": [
+        290,
+        295,
+        300
+      ],
+      "ability_ids": [
+        31566
+      ],
+      "resources": "m0524 外圈手臂、出現／蓄力／攻擊（是否落下另驗）、兩批各三隻",
+      "lifecycle": "左右型號、角度、兩批出現／命中／消失；不可把靜態手臂當成動作已完成",
+      "existing_and_gap": "手臂模型已有；完整生命週期未接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 12,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "04 第二組擴散環＋兩批手臂爆發",
+      "video_sample_s": [
+        295,
+        300,
+        303
+      ],
+      "ability_ids": [
+        31567,
+        31568,
+        31569,
+        31570,
+        31566
+      ],
+      "resources": "重用環形與手臂；圓形預兆、攻擊爆煙／衝擊光",
+      "lifecycle": "環與手臂交錯，不能一口氣播放",
+      "existing_and_gap": "需每段排程與地面鎖點",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 28,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "05 Sniper 分散與雙人分攤",
+      "video_sample_s": [
+        300,
+        303,
+        306
+      ],
+      "ability_ids": [
+        31571,
+        31572
+      ],
+      "resources": "狙擊狀態圖示、紫色／白色頭標、個人／雙人命中光效",
+      "lifecycle": "狀態已於 P3-02 窗口施加；這列是第二批手臂同段的倒數結算／解除",
+      "existing_and_gap": "標記／Status 根待補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 6,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "06 Hello World 起手與配毒",
+      "video_sample_s": [
+        310,
+        314,
+        320
+      ],
+      "ability_ids": [
+        31573
+      ],
+      "resources": "全屏衝擊、各 Code Smell／Bug／Debugger 圖示、身體病毒光效；Latent Synchronization、Cascading Latent Defect、Latent Performance Defect 與 Nisi 接觸轉移的來源分開",
+      "lifecycle": "狀態由倒數轉成活性；UI icon 與世界特效不是同一物件",
+      "existing_and_gap": "動畫／部分狀態資料已有，完整視效待提取映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "07 第1輪：紅藍塔→大圈／分攤→連線→傳毒",
+      "video_sample_s": [
+        330,
+        340,
+        343
+      ],
+      "ability_ids": [
+        31583,
+        31584,
+        31599,
+        31574,
+        31575,
+        31587,
+        31578,
+        31579
+      ],
+      "resources": "兩色塔、大小爆炸、紅綠／藍線、傳染身上特效、解除光效",
+      "lifecycle": "塔出生→命中→新線→斷線→轉移→消退；逐子步驟存 cue",
+      "existing_and_gap": "需完整 Status／Tether／AVFX 依賴",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 80,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "08 第2輪：重用但換持有者",
+      "video_sample_s": [
+        350,
+        360,
+        364
+      ],
+      "ability_ids": [
+        31583,
+        31584,
+        31599,
+        31574,
+        31575,
+        31587,
+        31578,
+        31579
+      ],
+      "resources": "重用第1輪資源，不重取四套；保留新持有者與兩色材質",
+      "lifecycle": "相同六個子步驟；一輪特效可跨到下一輪",
+      "existing_and_gap": "同資源、不同實例／狀態",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 80,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "09 第3輪：再次轉移",
+      "video_sample_s": [
+        370,
+        380,
+        385
+      ],
+      "ability_ids": [
+        31583,
+        31584,
+        31599,
+        31574,
+        31575,
+        31587,
+        31578,
+        31579
+      ],
+      "resources": "重用塔／線／爆炸／傳毒；免疫 Debugger 顯示",
+      "lifecycle": "同上；持續效果不能每次重置成初始態",
+      "existing_and_gap": "同資源、不同實例／狀態",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 80,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "10 第4輪：不再傳毒、收束",
+      "video_sample_s": [
+        390,
+        400,
+        406,
+        410
+      ],
+      "ability_ids": [
+        31583,
+        31584,
+        31599,
+        31574,
+        31575,
+        31587,
+        31578,
+        31579
+      ],
+      "resources": "最後塔、斷線、病毒自然爆發／解除、所有尾跡收束",
+      "lifecycle": "尾輪傳毒流程不同；不可套前三輪完全相同邏輯",
+      "existing_and_gap": "不同終止分支待驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 80,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "11 Critical Error",
+      "video_sample_s": [
+        420,
+        425,
+        430
+      ],
+      "ability_ids": [
+        31588
+      ],
+      "resources": "王蓄力／全場爆光／故障脈衝／音效、免疫效果",
+      "lifecycle": "狀態免疫／解除層與畫面衝擊分開",
+      "existing_and_gap": "候選 TMB 有引用，未整招視聽驗收",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "12 監視器預備",
+      "video_sample_s": [
+        430,
+        440
+      ],
+      "ability_ids": [
+        31558,
+        31596
+      ],
+      "resources": "m0515 左／右部件開啟、Boss 蓄光、玩家方向監視器、狀態圖示",
+      "lifecycle": "玩家與王各自朝向；左／右分支皆要",
+      "existing_and_gap": "已有部分 P3 原素材；未完成全部掛點／方向生命週期",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 6,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "13 Oversampled 發射／收回",
+      "video_sample_s": [
+        448,
+        450
+      ],
+      "ability_ids": [
+        31596,
+        31597
+      ],
+      "resources": "炮口、光束／命中、閃光、監視器收回與清理",
+      "lifecycle": "讀條、發射、傷害、收束四種時間不可混用",
+      "existing_and_gap": "既有部分重建；原 AVFX 覆蓋未完整",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 16,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P3",
+      "step": "14 Ion Efflux／結束與 reboot",
+      "video_sample_s": [
+        460,
+        463
+      ],
+      "ability_ids": [
+        31560,
+        31559
+      ],
+      "resources": "倒地／重啟／白閃／場景切換、未完成蓄力取消",
+      "lifecycle": "若讀條遭轉階段中止，不播放狂暴完成效果；31610 是 P4 邊界事件，見下一列",
+      "existing_and_gap": "成功通關只提供成功分支",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 1,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P4",
+      "step": "01 重啟、血量狀態與 LB",
+      "video_sample_s": [
+        470,
+        478
+      ],
+      "ability_ids": [
+        31610,
+        202
+      ],
+      "resources": "同 m0515 本體不同狀態／材質、重啟動畫；此紀錄 MNK LB3",
+      "lifecycle": "血量更新屬 UI；LB 是玩家資源，不是王特效",
+      "existing_and_gap": "主體已有；狀態與玩家 LB 另列",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 1,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P4",
+      "step": "02 第1波分散→誘導圈→雙分攤",
+      "video_sample_s": [
+        478,
+        480,
+        488
+      ],
+      "ability_ids": [
+        31617,
+        31614,
+        31616,
+        31615
+      ],
+      "resources": "多來源個人波束、落點圈、兩分攤頭標與粗炮、命中聲",
+      "lifecycle": "標記→分散→固定地面→分攤→清理",
+      "existing_and_gap": "要拆同名不同 Action，避免一份 Wave Cannon 包全部；地面效果有31616→z3oa_boss_gimmick05→z3oa_b0_g05c0c引用；具體形狀／預兆長度仍待原AVFX核對",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 56,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P4",
+      "step": "03 第2波＋第一組擴散環",
+      "video_sample_s": [
+        490,
+        499,
+        500
+      ],
+      "ability_ids": [
+        31614,
+        31616,
+        31615,
+        31567,
+        31568,
+        31569,
+        31570
+      ],
+      "resources": "重用 P3 環與上一波炮；地面圈／環同場",
+      "lifecycle": "保留交錯先後與重疊尾跡",
+      "existing_and_gap": "不需為重用項重取檔案",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 70,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P4",
+      "step": "04 第3波＋第二組擴散環",
+      "video_sample_s": [
+        509,
+        510
+      ],
+      "ability_ids": [
+        31614,
+        31616,
+        31615,
+        31567,
+        31568,
+        31569,
+        31570
+      ],
+      "resources": "同上；末輪分攤與環的先後不同",
+      "lifecycle": "每輪獨立排程，不把全段時間伸縮",
+      "existing_and_gap": "同資源、不同排程",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 70,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P4",
+      "step": "05 Blue Screen 與 P5 白閃",
+      "video_sample_s": [
+        520,
+        530,
+        532
+      ],
+      "ability_ids": [
+        31611,
+        31612,
+        31621,
+        31622
+      ],
+      "resources": "崩潰動畫、白屏／屏幕色調、場景及地板替換、金色 M/F 出現",
+      "lifecycle": "成功血量門檻分支；失敗版未由通關影片證明",
+      "existing_and_gap": "需要場景／後處理，不只一個 AVFX",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "01 金色 M/F 與雙擊 Solar Ray",
+      "video_sample_s": [
+        532,
+        540,
+        542,
+        550
+      ],
+      "ability_ids": [
+        33196,
+        31489
+      ],
+      "resources": "m0513／m0514 b0002、金屬／發光材質、雙擊 PAP／VFX／SCD",
+      "lifecycle": "第一擊與第二擊、變身外觀／角色身分",
+      "existing_and_gap": "金色模型已有；不是 P2 簡單染黃",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 12,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "02 Delta 全場傷害與狀態配發",
+      "video_sample_s": [
+        560,
+        570
+      ],
+      "ability_ids": [
+        31624
+      ],
+      "resources": "Run Dynamis 蓄力／爆光、近／遠世界狀態、紅綠／藍線",
+      "lifecycle": "狀態／線的出現、尚未激活、激活三態",
+      "existing_and_gap": "原技能時間軸可追；狀態線需補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "03 Beetle／Final 分身與拳頭配對",
+      "video_sample_s": [
+        575,
+        580
+      ],
+      "ability_ids": [
+        31628,
+        32630
+      ],
+      "resources": "兩種 Omega、藍／黃 Rocket Punch b0005/b0006、生成光、頭頂位置",
+      "lifecycle": "拳頭不是純頭標；顏色／型號／對象／位置鎖定",
+      "existing_and_gap": "兩拳模型已有；原始配色／碰撞演出待驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "04 外圈手臂旋向提示與眼睛出現",
+      "video_sample_s": [
+        580,
+        585
+      ],
+      "ability_ids": [
+        32630,
+        31521
+      ],
+      "resources": "m0524 手臂、旋向箭頭／蓄能、Optical 場景召喚與開合",
+      "lifecycle": "手臂初始朝向與順／逆時針提示；眼睛獨立場景",
+      "existing_and_gap": "模型已取；箭頭及場景時序需補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "05 眼雷射＋拳頭落點／爆炸",
+      "video_sample_s": [
+        585,
+        589,
+        590
+      ],
+      "ability_ids": [
+        31521,
+        31482
+      ],
+      "resources": "眼雷射本體／地面光帶、拳頭落地預兆、衝擊爆煙／碎片",
+      "lifecycle": "玩家技能遮擋多；保留眼、拳、玩家光效不同歸屬",
+      "existing_and_gap": "僅可確認疊加畫面；眼睛完整開合仍待補 POV",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 8,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "06 Beyond Defense＋手臂旋轉炮",
+      "video_sample_s": [
+        594,
+        599
+      ],
+      "ability_ids": [
+        31527,
+        31528,
+        31600,
+        31601
+      ],
+      "resources": "M 突進雙端效果、手臂蓄光／連續光束、旋轉根節點",
+      "lifecycle": "手臂朝向逐發改變；光束需跟炮口而非場中心",
+      "existing_and_gap": "M 檔已有；手臂整招未接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 78,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "07 監視器與 Pile Pitch",
+      "video_sample_s": [
+        599,
+        604
+      ],
+      "ability_ids": [
+        31638,
+        31597,
+        31529
+      ],
+      "resources": "王／玩家監視器、方向光束、分攤爆光與音效",
+      "lifecycle": "兩種同時演出分不同 caster／target",
+      "existing_and_gap": "重用 P3、P2 資源但需本階段排程",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 20,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "08 Swivel Cannon 的機體發亮預兆",
+      "video_sample_s": [
+        604,
+        610,
+        611
+      ],
+      "ability_ids": [
+        31637
+      ],
+      "resources": "Beetle 左／右發光材質／部件、一側大範圍掃射（半場類型）、本體姿勢",
+      "lifecycle": "先有機體提示再發射；不能用地面答案圈代替；與世界首爆屬同一解決窗口，不強制設成同毫秒",
+      "existing_and_gap": "左右分支需來源＋另一視角確認",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Δ",
+      "step": "09 近／遠世界連跳與尾線解除",
+      "video_sample_s": [
+        611,
+        620
+      ],
+      "ability_ids": [
+        31625,
+        31626,
+        33040,
+        33041,
+        31587
+      ],
+      "resources": "首個大爆炸、兩次較小命中、跳躍光效／連線候選、Dynamis 層數圖示",
+      "lifecycle": "兩條鏈各三次；精確目標取紀錄，不從影片猜；Swivel cast584.077s、世界首爆584.791s按主紀錄保留差值",
+      "existing_and_gap": "共用 P5 世界資源尚未完整映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 64,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "01 Solar Ray 後 Sigma 配對與六人點名",
+      "video_sample_s": [
+        630,
+        642,
+        650
+      ],
+      "ability_ids": [
+        33196,
+        31489,
+        32788
+      ],
+      "resources": "雙擊重擊、Sigma 施法；○×△□、Mid／Remote、六個炮擊頭標",
+      "lifecycle": "頭標／配對線／近遠世界狀態共存",
+      "existing_and_gap": "重用已有模型；狀態／頭標根待補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 14,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "02 兩臂雷射與六道 Wave Cannon",
+      "video_sample_s": [
+        660,
+        667,
+        670
+      ],
+      "ability_ids": [
+        31603,
+        31604,
+        31602
+      ],
+      "resources": "兩側手臂、個人頭標、細束、命中層、炮口掛點",
+      "lifecycle": "兩臂與六人炮不要合併成一條技能",
+      "existing_and_gap": "同名炮有不同 ID／形狀",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 20,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "03 塔出現與中央 F 準備",
+      "video_sample_s": [
+        670,
+        675
+      ],
+      "ability_ids": [
+        31640,
+        32559,
+        32560
+      ],
+      "resources": "單人／多人塔候選、外圈佈局、中央 F 出現效果；M 消失／F 生成或變形需由 Action/TMB 判定",
+      "lifecycle": "Mid 6塔／Remote 5塔；Remote 交叉連線；容量圖樣、出生／蓄力與角色變化另驗",
+      "existing_and_gap": "主紀錄含31492/31493不同塔事件；素材是否共用／容量外觀仍待核，不能只從攻略猜材質",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 3,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "04 Discharger 擊退→踩塔",
+      "video_sample_s": [
+        675,
+        682
+      ],
+      "ability_ids": [
+        31534,
+        31492,
+        31493
+      ],
+      "resources": "中央擊退環、F 出招／音效、各容量塔的成功結束",
+      "lifecycle": "先擊退後塔結算；不要直接把玩家傳送",
+      "existing_and_gap": "原檔部分已有；容量來源與分支未全部驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 19,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "05 F、兩臂與 Rear Power Unit 出現",
+      "video_sample_s": [
+        682,
+        697
+      ],
+      "ability_ids": [
+        31631
+      ],
+      "resources": "m0514、兩個 m0524、m0525 後部機關、出現／旋向提示；F 腿刃／非腿刃外觀分支",
+      "lifecycle": "三類模型分別初始化，旋轉根節點獨立",
+      "existing_and_gap": "三類模型已有；m0525 不是 Optical Unit",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "06 旋轉雷射 14 發＋腿刃",
+      "video_sample_s": [
+        697,
+        700,
+        705
+      ],
+      "ability_ids": [
+        31631,
+        31632,
+        31530,
+        31531,
+        31532
+      ],
+      "resources": "後部機關炮口／連續雷射、F 腿刃兩側光線／斬擊",
+      "lifecycle": "每次射擊與旋轉進度；腿刃是並行事件；另一非腿刃分支保留待補，不由此片抹掉",
+      "existing_and_gap": "腿刃 v2.2 部分已接，旋轉炮待完成",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 28,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Σ",
+      "step": "07 近遠世界＋兩臂最後雷射",
+      "video_sample_s": [
+        705,
+        707,
+        710
+      ],
+      "ability_ids": [
+        31625,
+        31626,
+        33040,
+        33041,
+        31602
+      ],
+      "resources": "重用世界鏈；兩臂定向雷射與命中、機關消失",
+      "lifecycle": "最後旋轉方向與世界跳躍同時存在",
+      "existing_and_gap": "資源重用不代表排程可重用",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 48,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "01 Solar Ray／Omega 施法與兩組世界狀態",
+      "video_sample_s": [
+        720,
+        731,
+        740
+      ],
+      "ability_ids": [
+        33197,
+        31490,
+        32789
+      ],
+      "resources": "雙擊重擊、Omega 全場衝擊、第一／第二輪近遠世界倒數圖示",
+      "lifecycle": "兩組延時狀態、Dynamis 追蹤",
+      "existing_and_gap": "王形態已有；狀態導演待接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 13,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "02 兩對 M/F 與中間 Final",
+      "video_sample_s": [
+        741,
+        750
+      ],
+      "ability_ids": [
+        31525,
+        31526,
+        31530,
+        31533,
+        31643
+      ],
+      "resources": "兩組 M/F 召喚與武器預備、Final Omega、左右發光部件",
+      "lifecycle": "兩組組合各自獨立；四種組合不是四份模型",
+      "existing_and_gap": "原模型及四武器檔已有；完整召喚／切換未驗",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "03 第一組武器＋第一次兩側炮",
+      "video_sample_s": [
+        754,
+        755
+      ],
+      "ability_ids": [
+        31526,
+        31533,
+        31643,
+        31609
+      ],
+      "resources": "M 劍／盾、F 腿刃／冰法、Final 對向大扇形、命中",
+      "lifecycle": "多源同時播；保持個別位置／方向／起手",
+      "existing_and_gap": "武器子集已接；Final 發光與炮待補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "04 第二組武器＋轉向炮",
+      "video_sample_s": [
+        758,
+        759
+      ],
+      "ability_ids": [
+        31525,
+        31533,
+        31608,
+        31609
+      ],
+      "resources": "重用四武器資源，第二對克隆與轉90度發光／炮",
+      "lifecycle": "換 actor、不覆寫第一組仍存尾跡；第二對已事先出現，此時啟動不是再生成",
+      "existing_and_gap": "同資源、不同實例／旋轉",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 0,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "05 第一輪近遠世界＋監視器",
+      "video_sample_s": [
+        765,
+        770,
+        772
+      ],
+      "ability_ids": [
+        31639,
+        31597,
+        31625,
+        31626,
+        33040,
+        33041
+      ],
+      "resources": "王／玩家監視器、世界三跳、Dynamis 圖示／狀態",
+      "lifecycle": "監視器朝向與世界持有者各自保存",
+      "existing_and_gap": "重用 P3／Delta 資源，需另寫 cue",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 54,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "06 第二輪近遠世界＋兩條 Blaster",
+      "video_sample_s": [
+        780,
+        785,
+        790,
+        792
+      ],
+      "ability_ids": [
+        32374,
+        31641,
+        32373,
+        31625,
+        31626,
+        33040,
+        33041
+      ],
+      "resources": "Beetle 邊界出現、P1 樣式連線、線爆炸、第二組世界跳躍",
+      "lifecycle": "連線先結束、世界後結算；兩輪狀態不混",
+      "existing_and_gap": "P1／P5 重用；完整狀態機未接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 42,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P5-Ω",
+      "step": "07 最後 Solar Ray／Blind Faith",
+      "video_sample_s": [
+        800,
+        810,
+        820,
+        825
+      ],
+      "ability_ids": [
+        33197,
+        31490,
+        31623,
+        32626
+      ],
+      "resources": "雙擊、長蓄力、全場白閃、金色模型消失與轉場聲音",
+      "lifecycle": "Boss 血量檢查成功過場／未達門檻失敗分開；Dynamis 個人層數需求另列，不混為 Blind Faith 唯一失敗條件",
+      "existing_and_gap": "過場／失敗分支仍需資料；不從通關片捏造",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 12,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "01a 過場：Omega-F 與 Alpha 陸行鳥",
+      "video_sample_s": [
+        830,
+        835,
+        840,
+        845,
+        850
+      ],
+      "ability_ids": [
+        32626
+      ],
+      "resources": "金色 Omega-F 過場姿勢／表情；Alpha 陸行鳥模型、服裝／護目鏡、骨架、接近／互動／表情動作；過場鏡頭",
+      "lifecycle": "女體坐姿→Alpha 接近與接觸→反應鏡頭；各角色獨立軌，不只載入 Alpha Omega",
+      "existing_and_gap": "本輪影片直接看見 Alpha 陸行鳥；現有資產鍵 alpha 是 m0771 王，不是這隻陸行鳥，須另定位",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "excluded_forced_or_postkill_cinematic",
+      "source_cue_count": 0,
+      "restoration_status": "excluded_by_request",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "01b 過場：Dynamis 發光與轉白",
+      "video_sample_s": [
+        850,
+        855,
+        860
+      ],
+      "ability_ids": [
+        32626
+      ],
+      "resources": "Alpha／Omega-F 橙金色光、粒子、白場／曝光轉場、角色淡出、過場聲音",
+      "lifecycle": "身體附著發光→全屏轉白→新形態揭示；光效和攝影機曝光分開",
+      "existing_and_gap": "已看見橙金光與白場；原始 scene／timeline、VFX、音訊仍待定位",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "excluded_forced_or_postkill_cinematic",
+      "source_cue_count": 0,
+      "restoration_status": "excluded_by_request",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "01c 過場：Alpha Omega 揭示與場景改換",
+      "video_sample_s": [
+        865,
+        870,
+        875,
+        880
+      ],
+      "ability_ids": [
+        32626
+      ],
+      "resources": "m0771 特寫／展臂動作、材質與發光；鏡頭運動、金色破碎背景、地板與照明切換、BGM cue",
+      "lifecycle": "特寫→全身→恢復戰鬥鏡頭／可攻擊；場景、相機與角色分軌",
+      "existing_and_gap": "m0771／地板已有；過場 PAP、相機與完整背景／音訊未接",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "excluded_forced_or_postkill_cinematic",
+      "source_cue_count": 0,
+      "restoration_status": "excluded_by_request",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "02 Cosmo Memory＋坦 LB3",
+      "video_sample_s": [
+        888,
+        890,
+        895
+      ],
+      "ability_ids": [
+        31649,
+        4241
+      ],
+      "resources": "王施法／大爆光；實際紀錄 DRK Dark Force、全隊護盾、Dynamis 狀態轉換；Quickening→Brilliant／Spark of Dynamis 圖示、層數與身上效果（若有）",
+      "lifecycle": "Boss AVFX、坦 LB、狀態三層分開",
+      "existing_and_gap": "王動畫部分已有；原始特效／LB 待補映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 2,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "03 雙目標普攻／Flash Gale",
+      "video_sample_s": [
+        895,
+        900
+      ],
+      "ability_ids": [
+        31747,
+        32223
+      ],
+      "resources": "m0771 普攻姿勢、兩個目標的命中／風壓、SCD",
+      "lifecycle": "同次出手的兩個命中；不能只顯示坦一人；各機制組前重用雙連普攻，次數按紀錄而非只播首組",
+      "existing_and_gap": "逐次事件可重用，視聽尚待完整",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 20,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "04 第一次 Cosmo Arrow：兩批預兆",
+      "video_sample_s": [
+        905,
+        910,
+        912
+      ],
+      "ability_ids": [
+        31650,
+        31651,
+        32337
+      ],
+      "resources": "內先／外先長條預兆、吸氣／蓄光、初始箭陣",
+      "lifecycle": "首批和第二批出生時間分開；另一分支另補證",
+      "existing_and_gap": "m0771／gimmick4 時間軸可追",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 12,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "05 Cosmo Arrow：逐步擴散／收束",
+      "video_sample_s": [
+        912,
+        920,
+        925
+      ],
+      "ability_ids": [
+        31651,
+        31652
+      ],
+      "resources": "連續條狀爆發、光幕／尾跡、每步位置與音效",
+      "lifecycle": "重複資源位移，不是拉伸一張貼圖",
+      "existing_and_gap": "AVFX 原引用已列；渲染尚未齊全",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 72,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "06 第一次 Cosmo Dive",
+      "video_sample_s": [
+        920,
+        925,
+        930
+      ],
+      "ability_ids": [
+        31654,
+        31655,
+        31656
+      ],
+      "resources": "跳躍／俯衝 PAP、空中軌跡、雙坦衝擊與遠端分攤",
+      "lifecycle": "兩個近目標＋一個遠端；分清離地到落地",
+      "existing_and_gap": "模型動畫部分已有；完整三端效果待補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 32,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "07 第一次 Unlimited：四個錯峰起點",
+      "video_sample_s": [
+        940
+      ],
+      "ability_ids": [
+        31660,
+        31661
+      ],
+      "resources": "四個外圈 Exaflare 初始標記、方向箭頭、炮口／蓄力",
+      "lifecycle": "四個起點依序出現，不同時刷出整條路徑",
+      "existing_and_gap": "原始預兆與 propagation 分開取",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 12,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "08 Exaflare 行進＋六輪誘導圈",
+      "video_sample_s": [
+        940,
+        950
+      ],
+      "ability_ids": [
+        31662,
+        31663
+      ],
+      "resources": "移動爆炸鏈、地面誘導圈、落點爆光／煙塵",
+      "lifecycle": "每步生成／命中／清理；六輪固定落點",
+      "existing_and_gap": "資源可重用；精確渲染／聲音待補",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 144,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "09 第一組 Wave Cannon 4＋4→分攤",
+      "video_sample_s": [
+        960,
+        965,
+        970
+      ],
+      "ability_ids": [
+        31657,
+        31659,
+        31658
+      ],
+      "resources": "兩組四道個人炮、最終粗分攤炮、炮口蓄光、前排受擊",
+      "lifecycle": "個人炮與最終分攤不同資源／事件",
+      "existing_and_gap": "不能以同名技能合併，候選表分 ID",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 20,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "10 第二次 Arrow 預兆／展開",
+      "video_sample_s": [
+        978,
+        980,
+        989
+      ],
+      "ability_ids": [
+        31650,
+        31651,
+        31652
+      ],
+      "resources": "重用 Arrow，內先／外先獨立選擇，非必為第一次反向",
+      "lifecycle": "每批同樣拆出生→擴散→消失",
+      "existing_and_gap": "分支補證，不能由單場推所有組合",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 72,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "11 Arrow 中的 4＋4 炮與最終分攤",
+      "video_sample_s": [
+        989,
+        990,
+        1000,
+        1005
+      ],
+      "ability_ids": [
+        31657,
+        31659,
+        31658
+      ],
+      "resources": "重用波束＋Arrow 同時存在的合成層",
+      "lifecycle": "逐源疊加，保留不同壽命與光照",
+      "existing_and_gap": "不是另一套新美術，是重用／同步工作",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 20,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "12 第二次 Unlimited＋六輪圈",
+      "video_sample_s": [
+        1010,
+        1015,
+        1020,
+        1026
+      ],
+      "ability_ids": [
+        31660,
+        31661,
+        31662,
+        31663
+      ],
+      "resources": "重用四起點／行進爆炸／地面圈",
+      "lifecycle": "本輪角度與第一次各自記錄",
+      "existing_and_gap": "同資源、另一排程",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 156,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "13 第二次 Cosmo Dive 與近戰 LB",
+      "video_sample_s": [
+        1030,
+        1035,
+        1040
+      ],
+      "ability_ids": [
+        31654,
+        31655,
+        31656,
+        4243,
+        202
+      ],
+      "resources": "俯衝／三端命中；此紀錄 NIN Chimatsuri、MNK Final Heaven",
+      "lifecycle": "職業 LB 動作／武器／命中／音效獨立於 Boss",
+      "existing_and_gap": "玩家 LB 要按主紀錄，不能照 SMN 影片配隊",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 32,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "14 Cosmo Meteor 起手與誘導圈",
+      "video_sample_s": [
+        1050,
+        1055,
+        1060
+      ],
+      "ability_ids": [
+        31664,
+        31666
+      ],
+      "resources": "王召喚姿勢、八人誘導圈、隕石成形／墜落光效",
+      "lifecycle": "地面圈先鎖位，不能隨角色移動",
+      "existing_and_gap": "模型／AVFX 主體歸屬待核",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 16,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "15 兩大隕石＋六小彗星、法系 LB（主紀錄）",
+      "video_sample_s": [
+        1062,
+        1065,
+        1070
+      ],
+      "ability_ids": [
+        31664,
+        34867,
+        32699
+      ],
+      "resources": "可攻擊隕石／彗星模型與材質、出生／受擊／破碎；PCT Chromatic Fantasy",
+      "lifecycle": "物件是可攻擊 actor，不可用地面圈替代；原片 SMN 的 LB 不適用主紀錄；第一輪4+4命中與法系 LB 前後交錯；34867 才是 PCT LB，32699 是 Boss Cosmo Meteor",
+      "existing_and_gap": "需另查 BNpc／ModelChara；PCT LB 本輪僅紀錄確認",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 32,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification",
+      "historical_step_label": "15 兩大隕石＋五小彗星、法系 LB",
+      "correction": "master record has40:1/40:2 and41:1..6; prior five-comet label is historical, not a reopened game-RNG uncertainty"
+    },
+    {
+      "phase": "P6",
+      "step": "16 分散命中後續、遠敏 LB 收隕石",
+      "video_sample_s": [
+        1070,
+        1080
+      ],
+      "ability_ids": [
+        32699,
+        4244
+      ],
+      "resources": "分散衝擊兩輪；BRD Sagittarius Arrow；隕石破碎／碎片",
+      "lifecycle": "同名箭與 P2 怪物版不能混檔；破壞按實際死亡／事件；第一輪已於上一列開始，不將兩輪全部排在 LB 後",
+      "existing_and_gap": "需玩家版資源與可攻擊物件生命週期",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 32,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "17 三個 Flare＋其餘分攤",
+      "video_sample_s": [
+        1080,
+        1082
+      ],
+      "ability_ids": [
+        31667,
+        31668,
+        31665
+      ],
+      "resources": "三 Flare 頭標、遠端落擊、大爆光、其餘人的分攤",
+      "lifecycle": "標記起止、三目標與分攤來源分開",
+      "existing_and_gap": "這是 Boss Cosmo Meteor 收尾，非玩家 Meteor",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 9,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "18 Magic Number 第1次：坦→治療 LB",
+      "video_sample_s": [
+        1090,
+        1095,
+        1100
+      ],
+      "ability_ids": [
+        31670,
+        4241,
+        4248
+      ],
+      "resources": "王 Magic Number、DRK Dark Force、6秒狀態圖示／身上效果、AST Astral Stasis",
+      "lifecycle": "受擊、狀態生效、治療 LB 清除；含實際施法延遲",
+      "existing_and_gap": "聲光／狀態／LB 三條獨立時間軸",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 4,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "19 Magic Number 第2次：另一組 LB",
+      "video_sample_s": [
+        1105,
+        1110,
+        1112
+      ],
+      "ability_ids": [
+        31670,
+        199,
+        4247
+      ],
+      "resources": "重用王效果；PLD Last Bastion、SCH Angel Feathers、解除與復活特效",
+      "lifecycle": "職業不同，不能僅複製前一輪 LB 外觀",
+      "existing_and_gap": "按主紀錄列四職業 LB，非固定通用盾",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 4,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "20 最終 Run Dynamis／擊殺與收尾",
+      "video_sample_s": [
+        1120,
+        1130,
+        1135,
+        1140,
+        1150
+      ],
+      "ability_ids": [
+        31648
+      ],
+      "resources": "最後蓄力／全場能量、王死亡 PAP／消散、場地殘留／勝利音樂",
+      "lifecycle": "成功中止與完整狂暴要分開；主紀錄兩次死亡保留",
+      "existing_and_gap": "通關片無法證明失敗版；完整結尾待映射",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "in_scope",
+      "source_cue_count": 5,
+      "restoration_status": "partial_not_certified",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "21 擊殺後過場：王停機與玩家特寫",
+      "video_sample_s": [
+        1150,
+        1155,
+        1160,
+        1170
+      ],
+      "ability_ids": [],
+      "resources": "Alpha Omega 停機／表情／姿勢；主視角玩家臉部／服裝／表情、全隊站位、相機切換、場景音訊",
+      "lifecycle": "影片附錄：超出主FFLogs戰鬥結尾，不捏造戰鬥事件；鏡頭可含本地玩家專屬外觀",
+      "existing_and_gap": "本輪影格可見玩家特寫與全隊；現有同一外觀替身不足以精確重現",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "excluded_forced_or_postkill_cinematic",
+      "source_cue_count": 0,
+      "restoration_status": "excluded_by_request",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "22 擊殺後過場：白光、殘骸與解體",
+      "video_sample_s": [
+        1180,
+        1190,
+        1200,
+        1220,
+        1240
+      ],
+      "ability_ids": [],
+      "resources": "白光／能量流、金色背景、失能蟲型Omega／殘骸、倒地／鬆落／黑色消散粒子、場景SCD",
+      "lifecycle": "白場→蟲型身體→消散；殘骸是否重用P1模型須查scene／variant，不能直接假設",
+      "existing_and_gap": "已直接看見蟲型殘骸及消散；原始模型型號／PAP／場景時間軸待定位",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "excluded_forced_or_postkill_cinematic",
+      "source_cue_count": 0,
+      "restoration_status": "excluded_by_request",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    },
+    {
+      "phase": "P6",
+      "step": "23 Alpha 與隊伍收尾、淡出",
+      "video_sample_s": [
+        1240,
+        1260,
+        1280,
+        1290
+      ],
+      "ability_ids": [],
+      "resources": "Alpha 陸行鳥收尾動作／表情、隊伍姿勢、鏡頭／光照淡出、過場與勝利音訊候選",
+      "lifecycle": "終場場景不等於戰鬥結束同毫秒；本片末段轉白，不補造未見寶箱／結算UI",
+      "existing_and_gap": "已見Alpha與淡出；音樂／音效未試聽，不以Gamesound only標題冒稱已驗音訊",
+      "evidence": "影片附近採樣＋攻略拆解＋來源／事件；同列ID可包含並行Boss與玩家技能，不代表共享檔案；微步驟精確起止／所有分支未逐幀認證",
+      "scope": "excluded_forced_or_postkill_cinematic",
+      "source_cue_count": 0,
+      "restoration_status": "excluded_by_request",
+      "evidence_precision": "cue index only; not visual or complete lifecycle certification"
+    }
+  ]
+}
