@@ -667,6 +667,7 @@ func publish_observed_cues()->void:
 		north_script.publish(current,state,arena.synergy_north_observations,north_script.DISPLAYED)
 	if current.get("hello_world",false):
 		load("res://scripts/hw_firstwave_observation.gd").publish(current,state,arena.visible_damage_shapes)
+		load("res://scripts/hw_later_observation.gd").publish(current,state,arena.visible_damage_shapes)
 	if current.has("p1_path"):
 		preload("res://scripts/panto_observation.gd").presented(current,state,arena.visible_damage_shapes)
 	if current.has("cannons_public"):

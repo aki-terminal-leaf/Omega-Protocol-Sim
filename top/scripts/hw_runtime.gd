@@ -151,4 +151,4 @@ static func sync(beat: Dictionary, state: Dictionary) -> void:
 	for event in state.hw.pending:
 		if event.kind!="towers" or float(event.at)-now>10.0: continue
 		for tower in event.towers:
-			beat.shapes.append({"kind":"tower","pos":Rules.v(tower.pos),"radius":tower.radius,"colour":str(tower.colour),"name":"HW "+str(tower.colour),"decorative":true,"hw_preview":true})
+			beat.shapes.append({"kind":"tower","pos":Rules.v(tower.pos),"radius":tower.radius,"colour":str(tower.colour),"name":"HW "+str(tower.colour),"decorative":true,"hw_preview":true,"hw_round":int(event.round),"hw_origin":float(state.hw.start)})

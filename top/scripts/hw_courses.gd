@@ -26,9 +26,11 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 		var at := 24.0+21.0*round_index
 		var angle := int(orientations[round_index])
 		var points := P.formation(round_index,angle,order)
+		var body_start: int=round_start
 		if round_index>0:
 			transition(ctx,order,round_index,angle,at-last,route)
 			points=P.formation(round_index,angle,order)
+			body_start=ctx.beats.size()
 		else:
 			var staging := points.duplicate()
 			for slot in [2,3,6,7]: staging[int(order[slot])]=(points[int(order[slot])] as Vector2).normalized()*3.0
@@ -73,8 +75,10 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 		for beat_index in range(round_start,ctx.beats.size()):
 			ctx.beats[beat_index].hw_tower_cooperations=tower_pairs.duplicate(true)
 			ctx.beats[beat_index].hw_tower_cooperation=tower_pairs[0].duplicate(true)
+			if round_index>0 and beat_index>=body_start: ctx.beats[beat_index].hw_later=later_local(ctx.beats[beat_index].positions,order,round_index,angle)
 	# Keep the runtime active through the genuine 21s bad Critical Error expiry.
 	add(ctx,ctx.positions,130.0-last,"Critical Error: real Overflow Debugger gate",route)
+	ctx.beats[-1].hw_later=later_local(ctx.positions,order,3,int(orientations[3]))
 	var first: Dictionary=ctx.beats[start]
 	first.hw_events=P.events(order,orientations,colour); first.hw_duration=130.0; first.hw_initial=[]
 	first.spawn=public_neutral.duplicate()
@@ -93,6 +97,15 @@ static func append_family(ctx, orientations: Array, colour: String) -> void:
 				first.hw_initial.append({"actor":int(order[posmod(role-round_index*2,8)+side]),"name":"remote_code_smell" if role==2 else "local_code_smell","duration":23.0+21.0*round_index})
 	for index in range(start,ctx.beats.size()):
 		ctx.beats[index].hw_pattern={"orientations":orientations.duplicate(),"defamation_colour":colour,"numeric_positions":"training realization; not official coordinates","guide_route_complete":bool(route.get("source_route_audited",false))}
+
+# Angle-free guide choreography indexed by role+side, for public-angle routing.
+static func later_local(positions: Array, order: Array, round_index: int, angle: int) -> Dictionary:
+	var local: Array=[]; local.resize(8)
+	for role in [0,2,4,6]:
+		for side in 2:
+			var p: Vector2=load("res://scripts/rules.gd").v(positions[int(order[posmod(role-2*round_index,8)+side])])
+			local[role+side]=P.xy(p.rotated(-deg_to_rad(angle*45.0)))
+	return {"round":round_index,"local":local}
 
 static func put(points: Array, order: Array, round_index: int, role: int, side: int, point: Vector2, angle: int) -> void:
 	points[int(order[posmod(role-2*round_index,8)+side])]=point.rotated(deg_to_rad(angle*45.0))
@@ -164,6 +177,8 @@ static func transition(ctx, order: Array, round_index: int, angle: int, duration
 static func coaching_goal(actor:int,beat:Dictionary,actors:Array,state:Dictionary)->Vector2:
 	var observed_goal=load("res://scripts/hw_firstwave_observation.gd").goal(actor,beat,actors,state)
 	if observed_goal is Vector2:return observed_goal
+	var later_goal=load("res://scripts/hw_later_observation.gd").goal(actor,beat,actors,state)
+	if later_goal is Vector2:return later_goal
 	var replacement=load("res://scripts/hw_cooperation.gd").replacement_actor(actor,beat,actors,state)
 	if replacement is int:
 		return load("res://scripts/hw_cooperation.gd").walking_goal(actor,base_goal(int(replacement),beat,state),beat,actors,state)
