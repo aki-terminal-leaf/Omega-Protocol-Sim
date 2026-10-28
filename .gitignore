@@ -11,5 +11,5 @@
 /top/assets/official/
 
 # Separate fixed-record replay dependencies and generated output.
-/tools/full_replay/node_modules/
+/tools/full_replay/node_modules
 /tools/full_replay/dist/

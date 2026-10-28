@@ -2089,5 +2089,11 @@
       "restoration_status": "excluded_by_request",
       "evidence_precision": "cue index only; not visual or complete lifecycle certification"
     }
+  ],
+  "presentation_scope": "non_player_performance",
+  "invisible_target_tracks_retained": true,
+  "excluded_components": [
+    "visible player bodies/names/rings/party HUD",
+    "player-owned skills/LB VFX/audio"
   ]
 }

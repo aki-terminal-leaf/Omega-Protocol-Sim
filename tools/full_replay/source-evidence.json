@@ -1,24 +1,37 @@
 {
+  "version": "0.2.0-candidate",
   "source_files": {
-    "src/audio-sync.js": "bf2cd3be3a65acd25c321c07a19df677f1c8fdbf3e5a6694db38e7413ce494b1",
-    "src/viewer.js": "c3b47f4c959d002a774b92ec18e3997d128dcb4bdbd503b060db2d1476b45768",
-    "src/avfx-polyline.js": "840e3b73eae1cd3de5f300bfb27dc90974468991a83432a904ea86dfba4db31e",
-    "src/avfx-runtime.js": "755ab9aaaac08a5a8422c1f981d8dea74927aae30a0c1cd38caf1dd06a508d85",
-    "src/index.html": "79a6b55f07f97f8424f9bf7eab085301f82eb933144dccf8d4ddda028be38fd0",
-    "src/avfx-materials.js": "696013565d4adfb58039c5d59c116c685f73d1a18cc3287e0417bd5f0abb5b40"
+    "actor-state.js": "24585404a4e54541dd0e1314262aea6d7afc963e74ea488e45ca440b13f513e2",
+    "bg-materials.js": "7b04687b90c517acde25ac1975f7ca9fcc92f4006251dab22221c279345189be",
+    "scene-graph.js": "a93e3611345b437d74ce887a0eb63d16c36a8aa1eb8b91abf9988899e2af3be9",
+    "viewer.js": "151915bc9743e5cf43de390c9b91b4fb9d4f77032360243e6018738270f29714"
   },
-  "full_ui_playback_bundle": "251e000ad93fe53bab2b7f12313e99ab431e934e991a69a7d8796c94e0837606",
-  "post_pagehide_bundle": "1dac7968254a329caea9e4f44d290e40e19dca153a1712e0da3b23832038b2f0",
-  "full_ui_states": 223,
-  "duration_ms": 1109404,
-  "all_phases": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
-  ],
+  "functional_browser_gate": "PASS: actual all6phase continuous,21frames,0visiblepartyroots",
+  "visual_gate": "FAILED: galaxy alpha/material reconstruction produces white noise",
+  "published": false,
   "rendering_complete": false,
-  "build_equivalence": "Executable code identical after stripping generated comments/whitespace; cosmetic whitespace only in source copies"
+  "prior_milestone": {
+    "source_files": {
+      "src/audio-sync.js": "bf2cd3be3a65acd25c321c07a19df677f1c8fdbf3e5a6694db38e7413ce494b1",
+      "src/viewer.js": "c3b47f4c959d002a774b92ec18e3997d128dcb4bdbd503b060db2d1476b45768",
+      "src/avfx-polyline.js": "840e3b73eae1cd3de5f300bfb27dc90974468991a83432a904ea86dfba4db31e",
+      "src/avfx-runtime.js": "755ab9aaaac08a5a8422c1f981d8dea74927aae30a0c1cd38caf1dd06a508d85",
+      "src/index.html": "79a6b55f07f97f8424f9bf7eab085301f82eb933144dccf8d4ddda028be38fd0",
+      "src/avfx-materials.js": "696013565d4adfb58039c5d59c116c685f73d1a18cc3287e0417bd5f0abb5b40"
+    },
+    "full_ui_playback_bundle": "251e000ad93fe53bab2b7f12313e99ab431e934e991a69a7d8796c94e0837606",
+    "post_pagehide_bundle": "1dac7968254a329caea9e4f44d290e40e19dca153a1712e0da3b23832038b2f0",
+    "full_ui_states": 223,
+    "duration_ms": 1109404,
+    "all_phases": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "rendering_complete": false,
+    "build_equivalence": "Executable code identical after stripping generated comments/whitespace; cosmetic whitespace only in source copies"
+  }
 }

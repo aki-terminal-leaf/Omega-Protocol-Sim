@@ -19,3 +19,17 @@ Node.js, npm, exact Three.js0.180.0 and esbuild0.25.11. In this directory: `npm 
 - Unimplemented source particles/materials/effectors remain diagnostics. All renderer and gameplay-equivalence flags remain false.
 
 See [scope and verification](../../docs/development/FULL_REPLAY_PREVIEW.md) and the90in-scope/6excluded unit index. Existing full20/102strategy, optimization and AVFX roadmap work remains open.
+
+## v0.2 playerless scene/actor milestone
+
+The default presentation hides every party root, name/ring and party HUD, while retaining the original eight invisible target tracks and mechanic tethers. Playback controls are separate from a collapsed settings drawer; this does not change Godot practice defaults.
+
+`actor-state.js` separates immutable NPC identity from appearance and preserves P2 simulation and return transforms. The swap uses original C010 clip-end as an explicit approximation, not a verified frame boundary. Corroborated family autoattacks cannot silently undo a transform. Seven newly required original PAP clips restore the post-transform action bindings. Shield final pose is retained until actual recorded targetability loss; original blend/host loop is still unresolved.
+
+`scene-graph.js` composes nested original LGB/SGB transforms with a single arena-origin shift, retains repeated instances, diagnoses cycles and excludes cinematic layers. `build_scene_data.mjs` builds **private** delivery data from the original scene JSON and a verified model export directory (`export-proof.json` plus GLBs), using explicit phase layer selection. Invoke with `--scenes`, `--models`, `--data`, `--out`; output must be fresh. Runtime loads only background-layer meshes, not all candidate mechanics. The original `IsVisible` fields are not treated as runtime activation evidence. All39background models remain PBR reconstructions; lighting, material animation and server-controlled activation are not certified.
+
+`bg-materials.js` reads original `g_EmissiveColor` (0x38A64362, maintained TexTools ShaderHelpers), preserving valid zero-diffuse emissive surfaces. Unsupported lightshaft/verticalfog geometry is **not** drawn as opaque white fallback. Those missing effects remain open work, not restored scenes.
+
+`node test-state.mjs PRIVATE_OFFLINE_DATA` checks reverse seeking, both transform/return timelines, observed shield cancellation, repeated nested transforms and cycle/cinematic exclusion. Actual browser gates remain mandatory for every changed build; a unit-test pass or a source inventory is not full visual acceptance.
+
+Still open: context-correct M/F AVFX/audio (the old preview selected several roots by initial identity), full tower/line lifecycle, exact optical appearance/activation, original material/host-stop/spline behavior, per-phase BGM and all90in-scope reference-video units. The master record and reference video are different fights; no global time-warp is applied. This milestone is not the requested complete recreation.
