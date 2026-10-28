@@ -45,6 +45,12 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 - Native P2 now disables only four instances declared by the original source layer as `p1_boss`; original objects remain recoverable. P2 has 57 active of 61 scene objects. Other phases and all materials/actor sampling are unchanged. Exact animated floor handover timing remains OPEN.
 - Native v30/data-v6 passes 24 seeks, actual all-six-phase 64x continuous playback, pause and forced-cinematic exclusion with zero errors and unchanged build/data hashes. Before/after production P2 images inspected. This is not all-unit visual acceptance.
 
+## Invisible original target-bone proxies (2026-10-28)
+
+- Eight original player-preset skeletons now follow the eight recorded target tracks for enemy bone attachments. Every player mesh renderer remains disabled, including after root activation and reverse seeks. No player skill, appearance or party UI is introduced. The preset idle is explicitly **not** the recorded race/appearance/job motion.
+- Native v31: 22 all-phase samples, eight target rigs and actual visible-renderer count zero throughout; reverse bindings/pixels, pause and effect disposal pass with zero errors and immutable build/data. All 31 earlier unavailable-player-actor diagnostic occurrences are gone; unsupported NPC EID rows remain separately diagnosed.
+- Independent Three.js original-preset-idle/raw-track comparison passes 176 actual native head matrices, max delta <0.0000016. This proves the proxy source transform, not the original players' unrecorded morphology or animation.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.

@@ -15,7 +15,7 @@ public sealed partial class TopReplay {
   foreach(double t in times){
    EffectsEnabled=false;Seek(t);yield return null;
    string label=((int)t).ToString();string baseline=Path.Combine(output,label+"-base.png"),effect=Path.Combine(output,label+".png");Capture(baseline);
-   EffectsEnabled=true;Seek(t);yield return null;Capture(effect);var state=EffectsReport();var row=new JObject{{"time",Clock},{"phase",Phase},{"changed_pixels",FxPixelDiff(baseline,effect)},{"effects",state},{"scene",Snapshot()}};
+   EffectsEnabled=true;Seek(t);yield return null;Capture(effect);var state=EffectsReport();if(hiddenTargets.Count!=8||VisiblePlayerCount()!=0)throw new Exception("Invisible target rig contract violated");var row=new JObject{{"time",Clock},{"phase",Phase},{"changed_pixels",FxPixelDiff(baseline,effect)},{"effects",state},{"scene",Snapshot()},{"targets",InvisibleTargetReport()}};
    rows.Add(row);File.WriteAllText(Path.Combine(output,"states.json"),rows.ToString());Debug.Log("TOP_EVENT_FX "+label+" phase "+Phase+" instances "+dirInstances.Count+" pixels "+row["changed_pixels"]);
   }
   // Absolute source sampling must not depend on whether a seek was forwards or backwards.

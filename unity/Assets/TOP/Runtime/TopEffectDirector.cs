@@ -68,7 +68,8 @@ public sealed partial class TopReplay {
   if(!(c.Weapon&&type==3)&&!DirPoint(c,key,freeze?c.Anchor:Clock,freeze,out pos,out heading)){d.Add("stale_or_missing_position/"+key);return false;}
   rot=DirYaw(heading);
   if(type==3){
-   if(!actors.TryGetValue(key,out var a)||a.Rig==null){d.Add("attachment_actor_unavailable/"+key);return false;}
+   if(!AttachmentActor(key,out var a)||a.Rig==null){d.Add("attachment_actor_unavailable/"+key);return false;}
+   if(hiddenTargets.ContainsKey(key))d.Add("player_bone_proxy/original_preset_not_recorded_motion");
    int id=DirInt(prop["BPID"]);string family=c.Weapon?c.Family:DirFamily(a.Form);JToken row=null;
    if(family!=null&&Weapons["eid"]?[family]?["rows"] is JArray rows)row=rows.FirstOrDefault(x=>DirInt(x["id"])==id);
    string bone=S(row?["bone"]);if(bone==""){DirBoneIds.TryGetValue(id,out bone);d.Add("bone_id_fallback/"+key+"/"+id);}

@@ -50,10 +50,11 @@ public sealed partial class TopReplay : MonoBehaviour {
    CreateCamera();templateRoot=new GameObject("Private templates");templateRoot.SetActive(false);
    var needed=new HashSet<string>();foreach(var p in (JObject)Plan["actors"])needed.Add(S(p.Value["form"]));
    foreach(var p in (JObject)Scenes["phases"])foreach(var key in new[]{"nodes","floor_nodes"})foreach(var n in p.Value[key]??new JArray())needed.Add(S(n["asset"]));
+   if(((JObject)Record["actors"]).Properties().Any(x=>(bool?)x.Value["player"]==true))needed.Add("player");
    foreach(string id in needed){Status="Loading "+id;await LoadModel(id);}
    foreach(var phase in (JObject)Scenes["phases"])CreateFloor(int.Parse(phase.Key),(JObject)phase.Value);
    foreach(var p in (JObject)Plan["actors"]){if((bool?)Record["actors"]?[p.Key]?["player"]==true)continue;var root=new GameObject("Actor "+p.Key);var a=new Actor{Id=p.Key,Root=root,Binding=(JObject)p.Value};actors.Add(p.Key,a);}
-   EffectsEnabled=Arg("fx-smoke")==null;Ready=true;Status="";Seek(0);Debug.Log("TOP_READY "+actors.Count+" actors / "+floors.Count+" phases");
+   InitializeInvisibleTargets();EffectsEnabled=Arg("fx-smoke")==null;Ready=true;Status="";Seek(0);Debug.Log("TOP_READY "+actors.Count+" actors / "+floors.Count+" phases");
    if(Arg("qa")!=null)StartCoroutine(Qa(Arg("qa")));
    if(Arg("scene-qa")!=null)StartCoroutine(GuardFxSmoke(SceneQa(Arg("scene-qa")),Arg("scene-qa")));
    if(Arg("audio-qa")!=null)StartCoroutine(GuardFxSmoke(AudioQa(Arg("audio-qa")),Arg("audio-qa")));
@@ -152,7 +153,7 @@ public sealed partial class TopReplay : MonoBehaviour {
    }
    string stance=S(m["stance"]);foreach(var renderer in a.Rig.Renderers){string n=renderer.name;if(n.Contains("atr_parts_a"))renderer.enabled=stance==(a.Form.StartsWith("male")?"SHIELD":"LEGS");else if(n.Contains("atr_parts_b"))renderer.enabled=a.Form.StartsWith("female")?stance!="LEGS":stance!="NEUTRAL"&&stance!="SHIELD";else if(n.Contains("atr_bv_c"))renderer.enabled=stance!="LEGS";}
   }
-  EvaluateEffects();
+  EvaluateInvisibleTargets();EvaluateEffects();
  }
  partial void EvaluateEffects();
  void CreateCamera(){
@@ -173,7 +174,7 @@ public sealed partial class TopReplay : MonoBehaviour {
   GUILayout.Label("P"+Phase+"  "+TimeSpan.FromMilliseconds(Clock).ToString(@"mm\:ss\.fff"));foreach(float speed in new[]{.5f,1,2,8})if(GUILayout.Button(speed+"x",GUILayout.Width(40)))Rate=speed;GUILayout.EndHorizontal();float t=GUILayout.HorizontalSlider((float)Clock,0,(float)duration);if(Math.Abs(t-Clock)>1)Seek(t);GUILayout.Label("Right mouse: orbit | Wheel: zoom | Space: pause | Arrows: +/-5s");GUILayout.EndArea();}
  static JArray MatrixJson(Matrix4x4 matrix){var a=new JArray();for(int i=0;i<16;i++)a.Add(matrix[i]);return a;}
  public JObject Snapshot(){var rows=new JArray();foreach(var a in actors.Values)if(a.Visible)rows.Add(new JObject{{"id",a.Id},{"form",a.Form},{"clip",a.Rig.Clip},{"position",new JArray(a.Root.transform.position.x,a.Root.transform.position.y,a.Root.transform.position.z)},{"bones",a.Rig.Bones.Length},{"firstBoneWorldRH",a.Rig.Bones.Length>0?MatrixJson(Mirror(a.Rig.Bones[0].localToWorldMatrix)):new JArray()}});
-  return new JObject{{"time",Clock},{"phase",Phase},{"actors",rows},{"visiblePlayers",0},{"invisibleTargetTracks",Record["actors"].Children<JProperty>().Count(x=>(bool?)x.Value["player"]==true)},{"sceneObjects",floors[Phase].transform.childCount},{"activeSceneObjects",floors[Phase].transform.Cast<Transform>().Count(x=>x.gameObject.activeSelf)},{"diagnostics",new JArray(diagnostics)},{"complete",false}};}
+  return new JObject{{"time",Clock},{"phase",Phase},{"actors",rows},{"visiblePlayers",VisiblePlayerCount()},{"invisibleTargetRigs",hiddenTargets.Count},{"invisibleTargetTracks",Record["actors"].Children<JProperty>().Count(x=>(bool?)x.Value["player"]==true)},{"sceneObjects",floors[Phase].transform.childCount},{"activeSceneObjects",floors[Phase].transform.Cast<Transform>().Count(x=>x.gameObject.activeSelf)},{"diagnostics",new JArray(diagnostics)},{"complete",false}};}
  IEnumerator Qa(string output){
   Directory.CreateDirectory(output);var rows=new JArray();double[] times=Arg("qa-mode")=="closeups"?new double[]{208000,650727,673000,884000}:new double[]{26500,80000,140000,158000,200000,208000,210000,226603,226653,260000,270000,315900,477000,560000,650727,670500,673000,725900,884000,1039000,1068500,1109404,200000,26500};
   foreach(double t in times){Seek(t);yield return null;yield return new WaitForEndOfFrame();var s=Snapshot();rows.Add(s);Capture(Path.Combine(output,"frame-"+rows.Count+"-"+((int)t)+".png"));if(new double[]{208000,650727,673000,884000}.Contains(t)){
