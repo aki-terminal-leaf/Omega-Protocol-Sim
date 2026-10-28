@@ -1,0 +1,163 @@
+{
+  "runtime_commit": "bf6b418765d89492d43ae6332db00d280a8e447b",
+  "version": "v0.3.35-preview-web-test",
+  "pck_sha256": "2f5ede5f12c81762dbdb48ce381992ba6624db242fcb7a952c8501e1157360b2",
+  "release": {
+    "ok": true,
+    "id": 426146179,
+    "tag": "top-v0.3.35-preview",
+    "url": "https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.35-preview",
+    "published_at": "2026-10-28T00:56:05Z",
+    "commit": "bf6b418765d89492d43ae6332db00d280a8e447b",
+    "assets": {
+      "Omega-Protocol-Sim-v0.3.35-source.zip": {
+        "id": 683359511,
+        "bytes": 51950273,
+        "digest": "sha256:11ca3e6fc1987f7a71cff42291c307dee5f6f3b2dca5a8818bf1789190eb83a4"
+      },
+      "SHA256SUMS-v0.3.35.txt": {
+        "id": 683359512,
+        "bytes": 400,
+        "digest": "sha256:164220b8d73badcbd361f465a8359eb364a5b0a5cf4623b6bdf5af647c7f0fc0"
+      },
+      "TOP-Practice-Lab-v0.3.35-Web.zip": {
+        "id": 683359513,
+        "bytes": 296570083,
+        "digest": "sha256:278f8397e6cb4b5005c5967662eb5c8f961cdae6d88145dcadf9ba0726326fdc"
+      },
+      "TOP-Practice-Lab-v0.3.35-Windows-x64.zip": {
+        "id": 683359514,
+        "bytes": 324430799,
+        "digest": "sha256:86eb31944b0666853826edfc6816ddcbb8c6ab5dc61fe7228301e52b88e890ea"
+      },
+      "VALIDATION-v0.3.35.json": {
+        "id": 683359510,
+        "bytes": 45991,
+        "digest": "sha256:bc677580406f8abe2a0b127aa0eeb22795c99415df43324d55e8d0179d57d63b"
+      }
+    },
+    "draft": false
+  },
+  "exact_pck": {
+    "ok": true,
+    "results": [
+      {
+        "name": "hw_full_manual",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "name": "hw_tower_presentation",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "name": "hw_later_public",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "name": "hw_firstwave_main",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "name": "hw_later_choice_input",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "name": "hw_later_public_main",
+        "code": 0,
+        "ok": true
+      },
+      {
+        "name": "source_release_scope",
+        "code": 0,
+        "ok": true
+      }
+    ],
+    "adaptations": {
+      "hw_full_manual": {
+        "canonical_sha256": "16fd391c2c7f921149c68b6879f391091d73fa43272abfea1c73fcbbcde7302a",
+        "adapted_sha256": "d20d49cf03a8bc0f58fdffc0d2e8c8b8239f40958f9d1cbbe5e08cdee90a65f2",
+        "only_change": "none"
+      },
+      "hw_tower_presentation": {
+        "canonical_sha256": "d1673573ad862c5566c06ba1d68cbd2f4e49889e722985347c6ef8a73f4f2fcf",
+        "adapted_sha256": "401e5c7c1e283535cbd1704324f8da6eddfbb063ed67a012c7d22f0672d54639",
+        "only_change": "none"
+      },
+      "hw_later_public": {
+        "canonical_sha256": "10122b257a45b87a45bf26a5713828c92766fad9a1091ddeffe90f663d25417f",
+        "adapted_sha256": "3cb197419ede5890250cf2b24bcde4a62bd6d599345b511b38fce20e84aceb0d",
+        "only_change": "none"
+      },
+      "hw_firstwave_main": {
+        "canonical_sha256": "9d8b17419ff0ee7a2f0d41c363667f59ad87d7b3fc2a6edef4abb99aa44e8a20",
+        "adapted_sha256": "de739b821093964f5bd3ffca6d7dda6ca004daf9cb54d0c1461dd531cadce973",
+        "only_change": "none"
+      },
+      "hw_later_choice_input": {
+        "canonical_sha256": "d891767c7a6dc74c19e6792d74b6dd41ba548f2ff11544434952ef6957e3918d",
+        "adapted_sha256": "68f177d7e370c4e4416b4ad0bcbd8a23fd8f211952812cb0a8e1059cfed0555b",
+        "only_change": "none"
+      },
+      "hw_later_public_main": {
+        "canonical_sha256": "857c6bdf0bbd83c2685ad367e0496c58bd427ffcf4c0dcf90d7ff5ae6e3b412c",
+        "adapted_sha256": "a1d6c1ad25bed8437bf4792577859020615c3b070cef10b77249e52311792f96",
+        "only_change": "external observer preload path"
+      },
+      "source_release_scope": {
+        "canonical_sha256": "74596c5347745cc3b5902d4b3cd1ad8e4d8243a8d8cff5a858897089b90659bc",
+        "adapted_sha256": "e860059d58bb60190b5aaa2262449fa928dcd427d82c88fdd2a7e76bbe31985c",
+        "only_change": "none"
+      }
+    },
+    "pck_sha256": "2f5ede5f12c81762dbdb48ce381992ba6624db242fcb7a952c8501e1157360b2"
+  },
+  "web": {
+    "renderer": {
+      "renderer": "WebKit WebGL",
+      "unmasked": "ANGLE (AMD, AMD Radeon RX 7900 XT (0x0000744C) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    "frames": 13,
+    "reports": 42,
+    "movement": {
+      "before": [
+        10.9601545333862,
+        -10.9601545333862
+      ],
+      "moved": [
+        14.5408115386963,
+        -10.9601545333862
+      ],
+      "released": [
+        14.5408115386963,
+        -10.9601545333862
+      ],
+      "source": "public 0.2-second samples; normal D down/up, P and R controls"
+    }
+  },
+  "windows": {
+    "frames": 11,
+    "reports": 126,
+    "movement": {
+      "before": [
+        10.9601545333862,
+        -10.9601545333862
+      ],
+      "moved": [
+        13.6685085296631,
+        -10.9601545333862
+      ],
+      "released": [
+        13.6685085296631,
+        -10.9601545333862
+      ]
+    },
+    "exe_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"
+  },
+  "https_representations": 13,
+  "scope": "scoped HW public observation / actual coloured cues / initial public human-side priority; not all guides or complete original media"
+}

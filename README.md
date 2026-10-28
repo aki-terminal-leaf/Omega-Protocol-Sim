@@ -2,9 +2,17 @@
 
 《FFXIV The Omega Protocol (Ultimate)／絕歐米茄》的 Godot **4.7.2-stable** 單人機制練習工具，fork 自 [WCGH/Dragonsong-Sim](https://github.com/WCGH/Dragonsong-Sim)。
 
-**[v0.3.34 Web／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview)** · [v0.3.34 Windows離線](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview) · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
+**[v0.3.35 Web／Windows／精確來源下載](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.35-preview)** · [逐機制 Buff／Debuff](docs/research/MECHANIC_STATUSES.md) · [攻略來源](docs/research/STRATEGIES.md)
 
-### v0.3.34 已更新 Web：原始武器動作與模型呈現
+### v0.3.35：HW 公開塔提示、塔色與玩家分邊
+
+後三輪 NPC 依實際顯示塔行動，初次分邊尊重玩家公開預站；真正紅／藍塔色及其揭示／移除時窗已修正。八職責從0秒到130秒的受控按鍵重播通過；漏操作、漏交接與太晚返回仍有真實失敗。這不等於全種子／全攻略或真人全通關。[本版證據與界線](docs/development/WEB_V0335.md)。
+
+![v0.3.35 實際 Web 第四輪兩紅兩藍塔；NPC示範，不代表真人全通關](docs/images/top-v0335-hw-web.webp)
+
+![v0.3.35 正式 Windows 執行檔的實際塔色；玩家視角](docs/images/top-v0335-hw-windows.webp)
+
+### v0.3.34 歷史里程碑：原始武器動作與模型呈現
 
 加入原始武器動作與模型呈現，保留現有練習特效；未驗收的原始粒子不在發佈版啟用。本段不是全階段特效還原，女性完整起手、光之眼開合及原版場景材質仍待完成。[本段範圍與驗證](docs/development/WEB_V0334.md) · [分支與逐段發佈規則](docs/development/BRANCHES.md)。已發佈並更新 [固定網頁版](https://top.servicing.cc)，執行碼 `e325886`。來源／原生限定檢查、46 項精確 PCK 檢查、實際 Chrome／RX 7900 XT 的動作、暫停、R 重練、D 移動／放鍵，以及 13 項 HTTPS 內容校驗與全新公開啟動通過。
 
@@ -390,11 +398,11 @@ Web 候選成功匯出，但 VPS 瀏覽器擷取中斷，尚未通過，因此 W
 
 ## 下載與開始
 
-目前提供 [v0.3.34 Web／精確來源與 SHA256](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview)；固定站提供同版 Web 使用者測試。[v0.3.20 Windows 離線包](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.20-preview) 另行保留，原生桌面驗收仍待完成。較早 Linux／Windows 包是歷史版本，不代表含有本版修正；含本機遊戲素材的舊包標記為 `local-game-models`。
+目前提供 [v0.3.35 Web、Windows x64、精確來源與 SHA256](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.35-preview)；[固定網頁版](https://top.servicing.cc) 同版。較早 Linux／Windows 下載是歷史版本，不代表包含目前修正。
 
-- **Windows 原生包（舊版）**：完整解壓，開啟 `TOP-Practice-Lab.exe`，`.pck` 留在旁邊。本版 v0.3.34 請使用下方 Web 步驟。
-- **Linux**：`chmod +x TOP-Practice-Lab.x86_64` 後執行。
-- **Web v0.3.34**：先安裝 Python 3，完整解壓；Windows 執行 `start-web.cmd`，macOS／Linux 執行 `python3 start-server.py`，再開啟 `http://127.0.0.1:8765/`。隨附伺服器提供必要的 COOP／COEP；不要直接開 `file://`。
+- **Windows x64 v0.3.35**：完整解壓，開啟 `TOP-Practice-Lab.exe`，同名 `.pck` 保留在旁；練習本體無需網路。
+- **Web v0.3.35**：安裝 Python3 後完整解壓；Windows 用 `start-web.cmd`，macOS／Linux 用 `python3 start-server.py`，開啟 `http://127.0.0.1:8765/`。內附伺服器提供 COOP／COEP；不要直接開 `file://`。
+- **Linux 原生**：現有下載為舊版；本版可用 Web 或以固定 Godot4.7.2 自行匯出。
 - **原始碼**：以 Godot **4.7.2-stable** 開啟 **`top/project.godot`**，不是根目錄的舊 DSR 專案。公開 source ZIP 不含遊戲素材，缺少時使用訓練外觀。
 
 執行發布包不需要遊戲安裝、帳號、ACT、Dalamud、第三方標記器或網路登入。

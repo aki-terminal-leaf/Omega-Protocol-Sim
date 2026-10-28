@@ -1,4 +1,8 @@
-# v0.3.34 current original-animation Web milestone
+# v0.3.35 current HW public-observation milestone
+
+Runtime `bf6b418765d89492d43ae6332db00d280a8e447b`; PCK `2f5ede5f12c81762dbdb48ce381992ba6624db242fcb7a952c8501e1157360b2`. Windows/Web exact-PCK scoped gates and fixed HTTPS/fresh startup accepted. [Scope](WEB_V0335.md), [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.35-preview). Full roadmap remains active. Earlier deployment status labels below are historical.
+
+# v0.3.34 historical original-animation Web milestone
 
 - Runtime `e325886dc18716e54b1d8c01bfb4f100d73922d5`; PCK `429d18d833a686a8d944c5f1e72a1c45959f036eb569d579d9ec3b6a70aa328a`; [site](https://top.servicing.cc); [release](https://github.com/aki-terminal-leaf/Omega-Protocol-Sim/releases/tag/top-v0.3.34-preview); [scope](WEB_V0334.md).
 - Source46/native58 (12 frames), exact exported PCK46, experimental51+13 and physical-weapon292 checks. Actual native Chrome/AMD RX7900XT WebGL2 report/pose/pause/R/D/release sequence, 13 fixed HTTPS identity/gzip decoded-content representations and fresh public startup accepted. No packaged Windows build is claimed.
