@@ -1,0 +1,11 @@
+/Library/
+/Temp/
+/Obj/
+/Logs/
+/UserSettings/
+/Builds/
+/Assets/StreamingAssets/TOP/
+/.vs/
+/*.csproj
+/*.sln
+/TOPData/
