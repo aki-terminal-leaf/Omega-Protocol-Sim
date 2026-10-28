@@ -55,10 +55,11 @@ public sealed partial class TopReplay : MonoBehaviour {
    foreach(var p in (JObject)Plan["actors"]){if((bool?)Record["actors"]?[p.Key]?["player"]==true)continue;var root=new GameObject("Actor "+p.Key);var a=new Actor{Id=p.Key,Root=root,Binding=(JObject)p.Value};actors.Add(p.Key,a);}
    EffectsEnabled=Arg("fx-smoke")==null;Ready=true;Status="";Seek(0);Debug.Log("TOP_READY "+actors.Count+" actors / "+floors.Count+" phases");
    if(Arg("qa")!=null)StartCoroutine(Qa(Arg("qa")));
+   if(Arg("scene-qa")!=null)StartCoroutine(GuardFxSmoke(SceneQa(Arg("scene-qa")),Arg("scene-qa")));
    if(Arg("audio-qa")!=null)StartCoroutine(GuardFxSmoke(AudioQa(Arg("audio-qa")),Arg("audio-qa")));
    if(Arg("fx-qa")!=null)StartCoroutine(GuardFxSmoke(FxQa(Arg("fx-qa")),Arg("fx-qa")));
    if(Arg("fx-smoke")!=null)StartCoroutine(GuardFxSmoke(FxSmoke(Arg("fx-smoke")),Arg("fx-smoke")));
-  }catch(Exception e){Status=e.ToString();Debug.LogError("TOP_FATAL "+e);if((Arg("qa")??Arg("fx-qa")??Arg("fx-smoke")??Arg("audio-qa"))!=null)Application.Quit(1);}
+  }catch(Exception e){Status=e.ToString();Debug.LogError("TOP_FATAL "+e);if((Arg("qa")??Arg("fx-qa")??Arg("fx-smoke")??Arg("audio-qa")??Arg("scene-qa"))!=null)Application.Quit(1);}
  }
  async Task LoadModel(string id){
   if(templates.ContainsKey(id))return;var spec=Manifest["native_assets"]?[id];if(S(spec?["kind"])!="glb")throw new Exception("Missing model "+id);
@@ -87,7 +88,7 @@ public sealed partial class TopReplay : MonoBehaviour {
   foreach(var renderer in root.GetComponentsInChildren<Renderer>(true))if(renderer.sharedMaterials.Any(m=>unsupported.Contains(m)))renderer.enabled=false;
  }
  void CreateFloor(int id,JObject phase){var g=new GameObject("Source scene P"+id);floors.Add(id,g);var nodes=((JArray)phase["nodes"]).Concat(phase["floor_nodes"]??new JArray());
-  foreach(var n in nodes){string asset=S(n["asset"]);if(!templates.TryGetValue(asset,out var template))throw new Exception("Missing scene "+asset);var instance=Instantiate(template,g.transform);instance.name=S(n["key"]);SetSceneMatrix(instance,Matrix(n["worldMatrix"]));instance.SetActive(true);}g.SetActive(false);
+  foreach(var n in nodes){string asset=S(n["asset"]);if(!templates.TryGetValue(asset,out var template))throw new Exception("Missing scene "+asset);var instance=Instantiate(template,g.transform);instance.name=S(n["key"]);SetSceneMatrix(instance,Matrix(n["worldMatrix"]));bool visible=!(id==2&&S(n["source"]?["rootLayer"])=="p1_boss");instance.SetActive(visible);if(!visible)diagnostics.Add("P2_replaces_P1_floor_layer/"+instance.name);}g.SetActive(false);
  }
  void SetSceneMatrix(GameObject instance,Matrix4x4 matrix){
   SetMatrix(instance.transform,matrix);var x=(Vector3)matrix.GetColumn(0);var y=(Vector3)matrix.GetColumn(1);var z=(Vector3)matrix.GetColumn(2);
@@ -160,7 +161,7 @@ public sealed partial class TopReplay : MonoBehaviour {
   var key=new GameObject("Scene light").AddComponent<Light>();key.type=LightType.Directional;key.intensity=1.5f;key.color=new Color(1,.95f,.87f);key.transform.rotation=Quaternion.Euler(50,-30,0);UpdateCamera();
  }
  void UpdateCamera(){if(!View)return;var q=Quaternion.Euler(orbitPitch,orbitYaw,0);View.transform.position=focus+q*new Vector3(0,0,-distance);View.transform.LookAt(focus);}
- void Update(){if(!Ready)return;if(Playing){Seek(Clock+Time.unscaledDeltaTime*1000*Rate);if(Clock>=duration)Playing=false;}SyncAudio();if(Arg("qa")!=null||Arg("fx-smoke")!=null||Arg("fx-qa")!=null||Arg("audio-qa")!=null)return;
+ void Update(){if(!Ready)return;if(Playing){Seek(Clock+Time.unscaledDeltaTime*1000*Rate);if(Clock>=duration)Playing=false;}SyncAudio();if(Arg("qa")!=null||Arg("fx-smoke")!=null||Arg("fx-qa")!=null||Arg("audio-qa")!=null||Arg("scene-qa")!=null)return;
   if(Input.GetKeyDown(KeyCode.Space))Playing=!Playing;if(Input.GetKeyDown(KeyCode.LeftArrow))Seek(Clock-5000);if(Input.GetKeyDown(KeyCode.RightArrow))Seek(Clock+5000);
   if(Input.GetMouseButton(1)){orbitYaw+=Input.GetAxis("Mouse X")*3;orbitPitch=Mathf.Clamp(orbitPitch-Input.GetAxis("Mouse Y")*3,5,85);UpdateCamera();}
   float scroll=Input.mouseScrollDelta.y;if(scroll!=0){distance=Mathf.Clamp(distance-scroll*4,12,250);UpdateCamera();}
@@ -172,7 +173,7 @@ public sealed partial class TopReplay : MonoBehaviour {
   GUILayout.Label("P"+Phase+"  "+TimeSpan.FromMilliseconds(Clock).ToString(@"mm\:ss\.fff"));foreach(float speed in new[]{.5f,1,2,8})if(GUILayout.Button(speed+"x",GUILayout.Width(40)))Rate=speed;GUILayout.EndHorizontal();float t=GUILayout.HorizontalSlider((float)Clock,0,(float)duration);if(Math.Abs(t-Clock)>1)Seek(t);GUILayout.Label("Right mouse: orbit | Wheel: zoom | Space: pause | Arrows: +/-5s");GUILayout.EndArea();}
  static JArray MatrixJson(Matrix4x4 matrix){var a=new JArray();for(int i=0;i<16;i++)a.Add(matrix[i]);return a;}
  public JObject Snapshot(){var rows=new JArray();foreach(var a in actors.Values)if(a.Visible)rows.Add(new JObject{{"id",a.Id},{"form",a.Form},{"clip",a.Rig.Clip},{"position",new JArray(a.Root.transform.position.x,a.Root.transform.position.y,a.Root.transform.position.z)},{"bones",a.Rig.Bones.Length},{"firstBoneWorldRH",a.Rig.Bones.Length>0?MatrixJson(Mirror(a.Rig.Bones[0].localToWorldMatrix)):new JArray()}});
-  return new JObject{{"time",Clock},{"phase",Phase},{"actors",rows},{"visiblePlayers",0},{"invisibleTargetTracks",Record["actors"].Children<JProperty>().Count(x=>(bool?)x.Value["player"]==true)},{"sceneObjects",floors[Phase].transform.childCount},{"diagnostics",new JArray(diagnostics)},{"complete",false}};}
+  return new JObject{{"time",Clock},{"phase",Phase},{"actors",rows},{"visiblePlayers",0},{"invisibleTargetTracks",Record["actors"].Children<JProperty>().Count(x=>(bool?)x.Value["player"]==true)},{"sceneObjects",floors[Phase].transform.childCount},{"activeSceneObjects",floors[Phase].transform.Cast<Transform>().Count(x=>x.gameObject.activeSelf)},{"diagnostics",new JArray(diagnostics)},{"complete",false}};}
  IEnumerator Qa(string output){
   Directory.CreateDirectory(output);var rows=new JArray();double[] times=Arg("qa-mode")=="closeups"?new double[]{208000,650727,673000,884000}:new double[]{26500,80000,140000,158000,200000,208000,210000,226603,226653,260000,270000,315900,477000,560000,650727,670500,673000,725900,884000,1039000,1068500,1109404,200000,26500};
   foreach(double t in times){Seek(t);yield return null;yield return new WaitForEndOfFrame();var s=Snapshot();rows.Add(s);Capture(Path.Combine(output,"frame-"+rows.Count+"-"+((int)t)+".png"));if(new double[]{208000,650727,673000,884000}.Contains(t)){

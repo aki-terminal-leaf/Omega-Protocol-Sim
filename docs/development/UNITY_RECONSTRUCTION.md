@@ -39,6 +39,12 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 - Native v28: all 87 original OGGs decode with nonzero PCM (118315520 decoded float bytes); six phases generate actual audio-thread DSP signals. The QA filter measures then zeros samples before device output. Pause/seek/disable/mute/rate2/rate8-silence/dispose pass, including stopped-voice recovery and disposal of an actual in-flight request. No runtime errors; build/data hashes unchanged.
 - Frozen independent review found exception bookkeeping, stopped-voice recovery and in-flight native-request disposal gaps. All were corrected and verified in v28. The 562 actual cue keys are unique. These are native decoding/DSP/lifecycle checks, **not a listening or original-mix acceptance**.
 
+## P2 static arena layer correction (2026-10-28)
+
+- Actual camera isolation showed the P1 solid floor still covering P2: removing source `p1_boss` objects reveals the dark original P2 rings. Turning off emission was pixel-identical to the faulty baseline, excluding emission brightness as the cause. Reference-video P2 combat appearance inspected independently; no asset recoloring/exposure change used.
+- Native P2 now disables only four instances declared by the original source layer as `p1_boss`; original objects remain recoverable. P2 has 57 active of 61 scene objects. Other phases and all materials/actor sampling are unchanged. Exact animated floor handover timing remains OPEN.
+- Native v30/data-v6 passes 24 seeks, actual all-six-phase 64x continuous playback, pause and forced-cinematic exclusion with zero errors and unchanged build/data hashes. Before/after production P2 images inspected. This is not all-unit visual acceptance.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.
