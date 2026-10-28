@@ -33,6 +33,12 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 - Same native v26 binary plus fresh private data-v6 passes 22 all-phase scene samples, reverse binding/pixel identity, pause/disable and zero runtime errors; build/data unchanged throughout. Earlier exporter resolution and PBR approximation are still distinct from raw TEX/original shader fidelity.
 - Earlier source-image conversion failed only on an empty `extensions: {}` dictionary retained by the WebP converter. Normalizing that empty metadata preserves texture routing; the failed data-v5 snapshot remains unaccepted. Fresh v6 validates the actual PNG restoration.
 
+## Native source-audio checkpoint (2026-10-28)
+
+- Optional Sound/Mute controls (default off) now schedule original decoded C063 streams against the record clock. Two concurrent native decode requests, 96-clip cap, flat 0.3 gain; rates 0.1–3 use pitch-linked playback, higher rates are explicitly silent. Original game mixing, distance attenuation, looping and BGM remain OPEN.
+- Native v28: all 87 original OGGs decode with nonzero PCM (118315520 decoded float bytes); six phases generate actual audio-thread DSP signals. The QA filter measures then zeros samples before device output. Pause/seek/disable/mute/rate2/rate8-silence/dispose pass, including stopped-voice recovery and disposal of an actual in-flight request. No runtime errors; build/data hashes unchanged.
+- Frozen independent review found exception bookkeeping, stopped-voice recovery and in-flight native-request disposal gaps. All were corrected and verified in v28. The 562 actual cue keys are unique. These are native decoding/DSP/lifecycle checks, **not a listening or original-mix acceptance**.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.

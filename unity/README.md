@@ -16,6 +16,12 @@ For a native snapshot, run `python3 tools/unity/restore_source_images.py --data 
 
 The source-image restoration report is authoritative for replaced native GLBs; the older conversion proof remains upstream provenance. Restoring an earlier exporter image does not certify original TEX sizes or original game shader fidelity. Source mapping/private files never enter Git.
 
+## Original source audio
+
+Sound is off initially. The Sound/Mute controls opt into original OGG cue playback. Cues follow the record clock; pause, seek, disable and destruction release voices. Decode completion only caches a clip; fresh current-state synchronization owns playback. Rate 0.1–3 is pitch-linked (not time stretching); higher rates remain silent. Source mixing/gain/attenuation/looping and per-phase BGM are not original-game implementations.
+
+`--audio-qa=FRESH_OUTPUT` runs the native decoder, actual audio-thread DSP signal and resource lifecycle checks. Its per-source filter zeros output after measurement, so the test does not play sound to the speakers. Native v28 verifies 87 clips, six phase signals, stopped-voice recovery and in-flight disposal. This is not auditory comparison.
+
 ## Foundation contracts
 
 - Original record milliseconds; reference video is a different fight. No global retiming. Exclude only explicit forced-cinematic intervals.

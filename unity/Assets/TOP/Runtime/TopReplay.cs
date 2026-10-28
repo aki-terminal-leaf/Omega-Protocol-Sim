@@ -55,9 +55,10 @@ public sealed partial class TopReplay : MonoBehaviour {
    foreach(var p in (JObject)Plan["actors"]){if((bool?)Record["actors"]?[p.Key]?["player"]==true)continue;var root=new GameObject("Actor "+p.Key);var a=new Actor{Id=p.Key,Root=root,Binding=(JObject)p.Value};actors.Add(p.Key,a);}
    EffectsEnabled=Arg("fx-smoke")==null;Ready=true;Status="";Seek(0);Debug.Log("TOP_READY "+actors.Count+" actors / "+floors.Count+" phases");
    if(Arg("qa")!=null)StartCoroutine(Qa(Arg("qa")));
+   if(Arg("audio-qa")!=null)StartCoroutine(GuardFxSmoke(AudioQa(Arg("audio-qa")),Arg("audio-qa")));
    if(Arg("fx-qa")!=null)StartCoroutine(GuardFxSmoke(FxQa(Arg("fx-qa")),Arg("fx-qa")));
    if(Arg("fx-smoke")!=null)StartCoroutine(GuardFxSmoke(FxSmoke(Arg("fx-smoke")),Arg("fx-smoke")));
-  }catch(Exception e){Status=e.ToString();Debug.LogError("TOP_FATAL "+e);if((Arg("qa")??Arg("fx-qa")??Arg("fx-smoke"))!=null)Application.Quit(1);}
+  }catch(Exception e){Status=e.ToString();Debug.LogError("TOP_FATAL "+e);if((Arg("qa")??Arg("fx-qa")??Arg("fx-smoke")??Arg("audio-qa"))!=null)Application.Quit(1);}
  }
  async Task LoadModel(string id){
   if(templates.ContainsKey(id))return;var spec=Manifest["native_assets"]?[id];if(S(spec?["kind"])!="glb")throw new Exception("Missing model "+id);
@@ -154,12 +155,12 @@ public sealed partial class TopReplay : MonoBehaviour {
  }
  partial void EvaluateEffects();
  void CreateCamera(){
-  var go=new GameObject("Replay camera");View=go.AddComponent<Camera>();View.tag="MainCamera";View.fieldOfView=43;View.nearClipPlane=.1f;View.farClipPlane=1200;View.backgroundColor=new Color(.035f,.06f,.11f);View.clearFlags=CameraClearFlags.SolidColor;View.allowHDR=true;
+  var go=new GameObject("Replay camera");View=go.AddComponent<Camera>();View.tag="MainCamera";go.AddComponent<AudioListener>();View.fieldOfView=43;View.nearClipPlane=.1f;View.farClipPlane=1200;View.backgroundColor=new Color(.035f,.06f,.11f);View.clearFlags=CameraClearFlags.SolidColor;View.allowHDR=true;
   RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=new Color(.65f,.74f,.9f);RenderSettings.ambientEquatorColor=new Color(.35f,.4f,.5f);RenderSettings.ambientGroundColor=new Color(.15f,.2f,.3f);
   var key=new GameObject("Scene light").AddComponent<Light>();key.type=LightType.Directional;key.intensity=1.5f;key.color=new Color(1,.95f,.87f);key.transform.rotation=Quaternion.Euler(50,-30,0);UpdateCamera();
  }
  void UpdateCamera(){if(!View)return;var q=Quaternion.Euler(orbitPitch,orbitYaw,0);View.transform.position=focus+q*new Vector3(0,0,-distance);View.transform.LookAt(focus);}
- void Update(){if(!Ready)return;if(Playing){Seek(Clock+Time.unscaledDeltaTime*1000*Rate);if(Clock>=duration)Playing=false;}if(Arg("qa")!=null||Arg("fx-smoke")!=null||Arg("fx-qa")!=null)return;
+ void Update(){if(!Ready)return;if(Playing){Seek(Clock+Time.unscaledDeltaTime*1000*Rate);if(Clock>=duration)Playing=false;}SyncAudio();if(Arg("qa")!=null||Arg("fx-smoke")!=null||Arg("fx-qa")!=null||Arg("audio-qa")!=null)return;
   if(Input.GetKeyDown(KeyCode.Space))Playing=!Playing;if(Input.GetKeyDown(KeyCode.LeftArrow))Seek(Clock-5000);if(Input.GetKeyDown(KeyCode.RightArrow))Seek(Clock+5000);
   if(Input.GetMouseButton(1)){orbitYaw+=Input.GetAxis("Mouse X")*3;orbitPitch=Mathf.Clamp(orbitPitch-Input.GetAxis("Mouse Y")*3,5,85);UpdateCamera();}
   float scroll=Input.mouseScrollDelta.y;if(scroll!=0){distance=Mathf.Clamp(distance-scroll*4,12,250);UpdateCamera();}
@@ -167,6 +168,7 @@ public sealed partial class TopReplay : MonoBehaviour {
  void OnGUI(){if(!Ready){GUI.Label(new Rect(20,20,Screen.width-40,200),Status);return;}GUILayout.BeginArea(new Rect(16,Screen.height-95,Screen.width-32,85),GUI.skin.box);GUILayout.BeginHorizontal();if(GUILayout.Button(Playing?"Pause":"Play",GUILayout.Width(70)))Playing=!Playing;
   foreach(int p in Enumerable.Range(1,6))if(GUILayout.Button("P"+p,GUILayout.Width(40)))Seek(D(Record["phase_markers"][p-1]["t"]));
   bool effects=GUILayout.Toggle(EffectsEnabled,"Effects",GUILayout.Width(70));if(effects!=EffectsEnabled){EffectsEnabled=effects;EvaluateEffects();}
+  bool audio=GUILayout.Toggle(AudioEnabled,"Sound",GUILayout.Width(65));if(audio!=AudioEnabled){AudioEnabled=audio;SyncAudio();}bool mute=GUILayout.Toggle(AudioMuted,"Mute",GUILayout.Width(55));if(mute!=AudioMuted){AudioMuted=mute;SyncAudio();}
   GUILayout.Label("P"+Phase+"  "+TimeSpan.FromMilliseconds(Clock).ToString(@"mm\:ss\.fff"));foreach(float speed in new[]{.5f,1,2,8})if(GUILayout.Button(speed+"x",GUILayout.Width(40)))Rate=speed;GUILayout.EndHorizontal();float t=GUILayout.HorizontalSlider((float)Clock,0,(float)duration);if(Math.Abs(t-Clock)>1)Seek(t);GUILayout.Label("Right mouse: orbit | Wheel: zoom | Space: pause | Arrows: +/-5s");GUILayout.EndArea();}
  static JArray MatrixJson(Matrix4x4 matrix){var a=new JArray();for(int i=0;i<16;i++)a.Add(matrix[i]);return a;}
  public JObject Snapshot(){var rows=new JArray();foreach(var a in actors.Values)if(a.Visible)rows.Add(new JObject{{"id",a.Id},{"form",a.Form},{"clip",a.Rig.Clip},{"position",new JArray(a.Root.transform.position.x,a.Root.transform.position.y,a.Root.transform.position.z)},{"bones",a.Rig.Bones.Length},{"firstBoneWorldRH",a.Rig.Bones.Length>0?MatrixJson(Mirror(a.Rig.Bones[0].localToWorldMatrix)):new JArray()}});
@@ -189,6 +191,6 @@ public sealed partial class TopReplay : MonoBehaviour {
   File.WriteAllText(Path.Combine(output,"result.json"),new JObject{{"status","CAPTURED_NOT_VISUALLY_ACCEPTED"},{"unity",Application.unityVersion},{"gpu",SystemInfo.graphicsDeviceName},{"frames",rows.Count},{"complete",false}}.ToString());Application.Quit(0);
  }
  void Capture(string path){var rt=RenderTexture.GetTemporary(1280,800,24,RenderTextureFormat.ARGB32);var prior=View.targetTexture;var active=RenderTexture.active;try{View.targetTexture=rt;View.Render();RenderTexture.active=rt;var tex=new Texture2D(1280,800,TextureFormat.RGB24,false);tex.ReadPixels(new Rect(0,0,1280,800),0,0);tex.Apply();File.WriteAllBytes(path,tex.EncodeToPNG());Destroy(tex);}finally{View.targetTexture=prior;RenderTexture.active=active;RenderTexture.ReleaseTemporary(rt);}}
- void OnDestroy(){shuttingDown=true;DisposeEffects();foreach(var import in imports.Values)import.Dispose();foreach(var texture in textures.Values)Destroy(texture);}
+ void OnDestroy(){shuttingDown=true;DisposeAudio();DisposeEffects();foreach(var import in imports.Values)import.Dispose();foreach(var texture in textures.Values)Destroy(texture);}
 }
 }
