@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &807991240
+--- !u!1 &940686247
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 807991242}
-  - component: {fileID: 807991241}
+  - component: {fileID: 940686249}
+  - component: {fileID: 940686248}
   m_Layer: 0
   m_Name: TOP Replay
   m_TagString: Untagged
@@ -136,30 +136,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &807991241
+--- !u!114 &940686248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807991240}
+  m_GameObject: {fileID: 940686247}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b5c7e7a0ba733c4d811755c9c4805a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Top.UnityReplay.TopReplay
+  EffectsEnabled: 1
   Playing: 0
   Rate: 1
   View: {fileID: 0}
   DataRoot: 
   Status: Loading TOP
---- !u!4 &807991242
+--- !u!4 &940686249
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807991240}
+  m_GameObject: {fileID: 940686247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -172,4 +173,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 807991242}
+  - {fileID: 940686249}

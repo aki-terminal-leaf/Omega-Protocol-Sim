@@ -20,6 +20,13 @@ See [Unity project](../../unity/README.md). Engine6000.4.10f1, maintainedglTFast
 - Frozen Sonnet 5.5 review found no must-fix on the supported subset. Tested project source/settings/packages/metadata read back from AnAn as a 51-file archive; private media excluded.
 - Still open: alpha-only Screen mask composition, unconnected spline trails, billboard/direction rules, game host lifetimes/effectors, actual event director/bone endpoints, audio, full scene/video fidelity. No release, main replacement or practice migration is claimed.
 
+## Native source-event director checkpoint (2026-10-28)
+
+- Source C012/body/weapon events and 32 status-bounded tether lifetimes now drive native effects. Per-particle binders resolve root/ground and available NPC EID/bone positions, with left-handed conversion; invisible players retain position tracks but do not acquire invented bones. Effects can be toggled off and instances are disposed before source textures/imports.
+- Native v26: 22 seek cases, all six phases produce actual source-effect pixels, zero runtime errors, exact reverse-seek binding states and pixels, paused clock stable, disabling disposes all instances. All build/data hashes unchanged during execution. Images inspected as technical integration evidence, not reference-video acceptance.
+- Frozen Sonnet review identified a redundant current-position freshness gate before weapon bone lookup. Removed it; finite numeric anchor validation added. Actual input audit finds no malformed raw positions, zero unknown-family weapon casts and zero ID0 tethers. All 33 overlapping weapon/full texture aliases have identical PNG hashes.
+- The initial reverse test failed on a serialized diagnostic/order-sensitive report while images were identical; canonical active renderer/binder state plus actual pixels pass. Original failure retained. Source preview envelopes, unsupported bindings/rules, budget-rejected samples and 62 unbounded tethers remain explicit OPEN items.
+
 ## Deliberately still open
 
 NativeAVFXrenderer/director/host-stop/attachment/material/primitive semantics, original towers/lines/scene activation/environment animation/lighting, exact audio/BGM/listening, all90in-scope video units, native GUI input/performance/platform publication and the preserved20mechanic/102strategy roadmap. No practice migration, official Unity release, main integration or Web redeployment is claimed by this source checkpoint.

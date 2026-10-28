@@ -13,6 +13,7 @@ public sealed class TopAvfxRenderer : IDisposable {
  public HashSet<string> Diagnostics=>graph.Diagnostics;
  public int ParticleCount=>particles.Count;public int DrawCount{get;private set;}
  public Func<(Vector3 Start,Vector3 End)?> Endpoints;
+ public Func<TopAvfxGraph.Particle,(Vector3 Start,Vector3 End)?> ParticleEndpoints;
  public int RenderOnlyKind=-1;public int DebugMaterialMode;public bool DebugSolidMaterial=>DebugMaterialMode!=0;public int CameraCallbacks{get;private set;}public int CommandBytes=>commands?.sizeInBytes??0;public bool TrackBounds;public Bounds RenderBounds{get;private set;}public bool HasBounds{get;private set;}public readonly HashSet<int> DrawnKinds=new();
  readonly TopAvfxGraph graph;readonly JObject pack;readonly uint seed;readonly Func<string,Texture2D> textureResolver;
  readonly Dictionary<string,Mesh> meshes=new();readonly Dictionary<string,Draw> draws=new();readonly Dictionary<int,Definition> definitions=new();readonly List<Texture2D> ownedTextures=new();
@@ -66,7 +67,7 @@ public sealed class TopAvfxRenderer : IDisposable {
   return DynamicMesh(draw,pos,colors,uv,indices);
  }
  Mesh Ribbon(TopAvfxGraph.Particle p,JToken node,Draw draw,Camera view){
-  var ends=Endpoints?.Invoke();if(!ends.HasValue){Diagnostics.Add("polyline_endpoint_missing");return null;}var data=node["data"];if(!B(data?["bCtg"])){Diagnostics.Add("polyline_not_endpoint_connected");return null;}Diagnostics.Add("polyline_reconstruction_not_game_equivalence");foreach(var field in new[]{"bSpl","bLcl","bEdg","bNtB","BWpT","LnCT","NBBA","PnED"})if(N(data[field])!=0)Diagnostics.Add("polyline_field_not_reproduced/"+field);
+  var ends=ParticleEndpoints!=null?ParticleEndpoints(p):Endpoints?.Invoke();if(!ends.HasValue){Diagnostics.Add("polyline_endpoint_missing");return null;}var data=node["data"];if(!B(data?["bCtg"])){Diagnostics.Add("polyline_not_endpoint_connected");return null;}Diagnostics.Add("polyline_reconstruction_not_game_equivalence");foreach(var field in new[]{"bSpl","bLcl","bEdg","bNtB","BWpT","LnCT","NBBA","PnED"})if(N(data[field])!=0)Diagnostics.Add("polyline_field_not_reproduced/"+field);
   int raw=I(data["PnC"]);if(raw<2){Diagnostics.Add("polyline_point_count");return null;}int count=Math.Min(raw,64);float centre=N(data["PnCC"],-1)/raw;if(centre<=0||centre>=1){centre=.5f;Diagnostics.Add("polyline_center_index_assumed_half");}
   var widths=new Dictionary<string,float>();foreach(var f in new[]{"Wd","WdB","WdC","WdE"}){if(data[f] is not JObject objectValue||!objectValue.HasValues){Diagnostics.Add("polyline_missing_data/"+f);return null;}var v=TopAvfxMath.Scalar(data[f],data[f+"R"],p.Age,seed,p.Key+"/polyline/"+f,0);if(!v.HasValue)return null;widths[f]=Mathf.Max(0,(float)v.Value);}
   var colorsAt=new Dictionary<string,Color>();foreach(var f in new[]{"ColB","ColC","ColE"}){var c=TopAvfxMath.Colour(data[f],p.Age,seed,p.Key+"/polyline/"+f);if(!c.HasValue)return null;colorsAt[f]=c.Value;}
