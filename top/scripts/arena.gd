@@ -439,6 +439,11 @@ func rectangle(p: Vector2, axis: Vector2, start: float, length: float, width: fl
 func draw_shape(shape: Dictionary, override := Color.TRANSPARENT) -> void:
 	var colour = Color(1, 0.30, 0.23, 0.24)
 	if shape.get("rule", "avoid") == "count": colour = Color(0.18, 0.8, 0.78, 0.28) if shape.get("count", 1) > 1 else Color(0.97, 0.71, 0.29, 0.3)
+	# HW tower colour is mechanic information, not the generic damage tint.
+	if shape.get("hw_preview",false) and shape.get("kind","")=="tower":
+		if shape.get("colour","")=="red": colour=Color("ff6b78")
+		elif shape.get("colour","")=="blue": colour=Color("68aaff")
+		colour.a=0.24
 	if override != Color.TRANSPARENT: colour = override
 	var p = Rules.point(shape, actors)
 	match shape.get("kind", "circle"):
@@ -508,8 +513,14 @@ func draw_signs(tethers: Array) -> void:
 		sign_line(p, q, Color("79e49c") if tether.get("kind","")=="local" else Color("8edbff"))
 		sign_ring(p + Vector3(0, 0.65, 0), 0.42, Color("ffcc76"))
 		sign_line(p + Vector3(0, 0.7, 0), p + Vector3(0, 1.25, 0), Color("ffcc76"))
-	for shape in current.get("shapes", []):
-		if current.get("hide_predictive_aoes",false) and not guide:continue
+	var sign_shapes:Array=current.get("shapes",[])
+	if current.get("hello_world",false):
+		# Only towers already admitted to the real preview draw list can emit signs.
+		# Do not reveal future authored towers or suppress current public ones.
+		sign_shapes=sign_shapes.filter(func(shape):return shape.get("kind","")!="tower")
+		sign_shapes.append_array(visible_damage_shapes.filter(func(shape):return shape.get("hw_preview",false) and shape.get("kind","")=="tower"))
+	for shape in sign_shapes:
+		if current.get("hide_predictive_aoes",false) and not guide and not shape.get("hw_preview",false):continue
 		var p2 = Rules.point(shape, actors)
 		var p = Vector3(p2.x, 0, p2.y)
 		var kind = shape.get("kind", "")
