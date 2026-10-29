@@ -9,6 +9,7 @@ static func value(curve:Dictionary,time:float)->Variant:
  if keys.is_empty():return null
  var rgb:=str(curve.get("kind","scalar"))=="rgb"
  for i in keys.size():
+  if not is_finite(float(keys[i].time)):return null
   if int(keys[i].type) not in [0,1,2]:return null
   if i>0 and float(keys[i].time)<=float(keys[i-1].time):return null
   for n in keys[i].data:
@@ -18,6 +19,9 @@ static func value(curve:Dictionary,time:float)->Variant:
  if t<start or t>end:
   var behavior:Variant=curve.get("BvPr" if t<start else "BvPo")
   if behavior==null:return null
+  # Renderer policy only: one source key is constant for known outside modes.
+  # Repeat has no interval; Add has zero delta. Native outside semantics are OPEN.
+  if keys.size()==1 and int(behavior) in [0,1,2]:return _key(keys[0],rgb)
   if int(behavior)==0:t=clampf(t,start,end)
   elif int(behavior) in [1,2] and end>start:
    cycles=floor((t-start)/(end-start));t=start+fposmod(t-start,end-start)

@@ -1,6 +1,52 @@
 # Validation status
 
+## Parent reconciliation — 2026-10-29, after bridge acceptance
+
+**Current scoped status: PASS for the single-key renderer policy and the frozen
+42-check source-material fixture. This supersedes only the historical sandbox
+blocker below. Native semantics, raster and all-96 visual acceptance remain OPEN.**
+
+The bridge's ordinary-user independent acceptance ran after the model's sandbox
+attempt. Evidence: `top-visual-curves-gate-50685-1793265609866258200/summary.json`:
+42 checks, no failures/script errors; actual source material at frames 9/45/9 has
+scale (8,1), scroll (.27,.225)/(.27,.125)/(.27,.225). Import peak RSS 744390656 B;
+source fixture peak RSS 132390912 B; both under 1.5 GiB job limit, free RAM above
+8 GiB. No GUI, capture or audible playback was used.
+
+Frozen source SHA-256:
+`b0066c2ef4cd459b189d076ec51ef98d2a564ec924e94aee6cea0e8c92262b2b`.
+Parent froze all three changed files before Claude Sonnet 5.5 read-only review;
+verdict NO_MUST_FIX, not runtime or full-product approval.
+
+Separate actual-source UV audit:
+`top-visual-curves-uv-audit-50685-1793265735028449700/summary.json`:
+52,230 cases; unsupported Rot 0 / Scl 7 / Scr 8, versus baseline 12 / 35 / 104.
+This resolves 136 prior unsupported sample cases, not 136 visual units. Fifteen
+remaining samples contain non-monotone spline x geometry. They remain OPEN;
+no monotonicity guard was relaxed in this checkpoint. Audit exit 0 merely means
+the diagnostic completed, not that the remaining 15 were accepted. Native-game
+branch choice/outside behavior, raster and all-96 fidelity are not certified.
+
+The API is static `value()` in `avfx_animation.gd`; `Runtime` is a fixture alias.
+Nonfinite key times are explicitly rejected by this patch. Audio remains N_A
+under current owner scope; no audio files were integrated.
+
+## Historical model-sandbox snapshot (retained, superseded above)
+
+
 **All-96 acceptance: OPEN. No release, repository push or existing-site replacement has been performed for this lab.**
+
+Owner correction (2026-10-29): current acceptance is **visual-only**. Audio
+development/integration and auditory QA are excluded (N_A for this scope),
+not acceptance blockers. The visual baseline is `fef9f5c5`; no files from the
+stopped audio worktree are part of this change.
+
+The [single-key visual curve checkpoint](VISUAL_CURVES.md) records the actual
+pre-fix material UV failure and conservative renderer policy fix. Post-fix
+headless acceptance is **BLOCKED**: the unmodified trusted runner cannot create
+its external evidence directory under this session's filesystem permissions.
+Native outside semantics, raster validation and all-96 visual acceptance remain
+**OPEN**; source inspection is not runtime or visual acceptance.
 
 Godot 4.7.2 only. Original actor/scene-matrix/EID numeric composition has a scoped source-oracle pass (30 poses, 2621 bones); this is not original-game visual fidelity.
 
@@ -12,4 +58,4 @@ The [hidden original-reference target gate](ATTACHMENTS.md) also passed all 50 h
 
 The actual lab UI now routes through a per-unit director with source/cache/catalogue/attachment pins, exact original cue keys and separate review-window clocks. Review padding never synthesizes a source stop. Six cinematic units plus the P1 exit transition lack original choreography and are unavailable, not successful empty playback. Temporal body/tether context is distinct from action ownership; prior no-removal tethers remain explicitly unknown.
 
-Remaining: complete per-unit performance content beyond this routing, original binding/host semantics and unresolved rendering/audio, recorded-player pose/source host dependencies, cinematic decoding/playback and final actual visual/exported-runtime acceptance. Sample counts, parser success and numeric checks never substitute for those gates.
+Remaining within current visual scope: complete per-unit performance content beyond this routing, original binding/host semantics and unresolved rendering, recorded-player pose/source host dependencies, cinematic decoding/playback and final actual visual/exported-runtime acceptance. Audio and auditory QA are excluded from current owner acceptance. Sample counts, parser success and numeric checks never substitute for those gates.
