@@ -82,7 +82,19 @@ static func _unique_inverse(x0:float,x1:float,x2:float,x3:float,t:float)->Varian
  # contacts and near-coincident derivative roots fail closed, not deduplicated.
  var eps:=1.4210854715202004e-14
  var stationary:Array[float]=[]
- if qa==0.0:
+ # Test original coordinates: scaling must not turn a merely near endpoint
+ # into an exact stationary endpoint. Factor the Bernstein derivative before
+ # expanding it, so rounding cannot move an exact endpoint root inside (0,1).
+ if x1==x0 or x2==x3:
+  if not (x1==x0 and x2==x3):
+   # a=0: u*(2*b+(c-2*b)*u); c=0: (1-u)*(a+(2*b-a)*u).
+   var denominator:=(c-2.0*b) if x1==x0 else (a-2.0*b)
+   if denominator!=0.0:
+    var root:=(-2.0*b/denominator) if x1==x0 else (a/denominator)
+    if not is_finite(root):return null
+    if root>0.0 and root<1.0:stationary.append(root)
+  # Both zero: 2*b*u*(1-u), with no internal stationary root.
+ elif qa==0.0:
   if qb!=0.0:
    var root:=-a/qb
    if not is_finite(root):return null

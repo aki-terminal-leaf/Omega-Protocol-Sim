@@ -27,5 +27,23 @@ func _initialize()->void:
  check(Runtime._unique_inverse(0.0,1.0,2.0,0.0,0.0)==null,"degenerate span")
  check(Runtime._unique_inverse(0.0,INF,2.0,3.0,0.75)==null,"nonfinite geometry")
  check(close_to(Runtime.value(curve(0.0,1.0),0.5),0.5),"existing monotone path")
+ # Full double literals, independent public geometry; never JSON-round source
+ # controls. Mirroring exercises exact stationary endpoints at both ends.
+ var overshoot:=1.6300000000000003
+ var sample:=3.0*0.8*0.8*0.2*overshoot+3.0*0.8*0.2*0.2+0.2*0.2*0.2
+ check(close_to(Runtime.value(curve(overshoot,1.0),sample),0.104),"exact right endpoint derivative factor")
+ check(close_to(Runtime.value(curve(0.0,1.0-overshoot),1.0-sample),0.896),"exact left endpoint derivative factor")
+ check(close_to(Runtime._unique_inverse(0.0,0.0,1.0,1.0,0.15625),0.25),"both endpoint derivatives zero")
+ check(close_to(Runtime._unique_inverse(0.0,0.0,0.5,1.0,0.0859375),0.25),"left endpoint factor unique inverse")
+ # This target has one well-conditioned inverse. Generic near-endpoint
+ # handling may reject conservatively OR return the correct value; null is
+ # not mandatory merely because an unrelated stationary point is near 1.
+ var near_right:Variant=Runtime.value(curve(overshoot,0.9999999999999998),sample)
+ check(near_right==null or close_to(near_right,0.104),"near right endpoint unique value or conservative rejection")
+ check(Runtime.value(curve(0.0000000000000002220446049250313,1.0-overshoot),1.0-sample)==null,"near left endpoint is not snapped")
+ var stationary:=overshoot/(3.0*overshoot-2.0)
+ var maximum:=Runtime._spline_x(stationary,overshoot,1.0,1.0)
+ check(Runtime._unique_inverse(0.0,overshoot,1.0,1.0,maximum)==null,"factored endpoint tangent fails closed")
+ check(Runtime._unique_inverse(0.0,overshoot,1.0,1.0,(maximum+1.0)/2.0)==null,"factored endpoint multiple inverses fail closed")
  print(JSON.stringify({"checks":checks,"failures":failures,"scope":"synthetic editor geometry only"}))
  quit(0 if failures.is_empty() else 1)

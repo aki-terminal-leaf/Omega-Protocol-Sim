@@ -1,5 +1,95 @@
 # Validation status
 
+## Parent reconciliation - 2026-10-29, final original-precision acceptance
+
+**Current scoped PASS: conservative unique-inverse scalar editor geometry,
+exact-zero endpoint derivative factorization, and sampled source UV/material
+updates. Native game semantics, raster and all-96 visual acceptance remain OPEN.**
+
+Frozen runtime SHA-256:
+`1ff1d287cbace3680e3181d60c44b29ba95424a59d5aa72336bf85bd7962c266`.
+Frozen public test SHA-256:
+`29944e5ec4522144ccfa058ad4e61b5ea9b63560c3502be07c573f219a93d4cd`.
+Parent froze all four files before review. The comprehensive attempt timed
+out at 120 seconds without a verdict (not PASS). One reduced-scope Claude
+Sonnet 5.5 read-only retry reviewed the endpoint factor and complete inverse
+helper: NO_MUST_FIX. Parent separately reviewed the full four-file diff and
+corrected test oracle. This is not native/raster/full-product approval.
+Documentation reconciliation is subsequent parent-only text; runtime and test
+remain byte-exact to the independent acceptance/review snapshot.
+
+Evidence: private AnAn
+`top-spline-endpoint-gate-50685-1793267019654656500/parent-final-proof.json`.
+21 public synthetic checks, 42 single-key/source-uniform regressions,
+207 spline/source-material checks (18 ambiguous cases remain null),
+21 exact fold/tangent/ambiguity checks, and 22 additional exact-original-source
+material/forward-reverse checks all PASS, with no script errors.
+52,230 original-precision UV component samples at frames 0/9/45/117/171 have
+zero unsupported samples (Rot 0 / Scl 0 / Scr 0), versus prior 0/7/8 and the
+first unique-spline candidate's 0/0/2. These are finite sample cases, not
+52,230 effects or 96 completed performances; unsampled ambiguous portions
+remain unsupported, and this audit only covers CUvT=0 component sampling.
+
+The two exact-original source materials restore correct scroll values at
+9/16/9 and 45/60/45, rather than leaving the prior timepoint's stale uniform.
+Original SHA-pinned JSON is read directly: a 15-digit diagnostic JSON
+round-trip previously hid the endpoint-partition failure. Runtime correction
+uses exact original-coordinate equality and algebraic derivative factoring,
+not tolerance snapping or removing genuine internal roots.
+
+The bridge task `top-spline-endpoint-50685` historically FAILED on its new
+public assertion "near right endpoint is not snapped". The model's separate
+sandbox run was blocked at external directory creation (WinError 5). Both
+records are retained, neither is relabeled a pass. Parent independently
+confirmed that synthetic target has exactly one well-conditioned inverse
+u=.2/value .104, so mandatory null was an invalid test oracle. Parent changed
+only that assertion to accept the correct value or conservative rejection;
+no runtime code was changed or source precision rounded. The final bounded
+parent invocation above then passed every gate including true multiple-root
+and tangent negatives. This correction and failed logs remain in parent
+reports; no repeated model job or sandbox/ACL bypass was used.
+
+All runs used real Godot 4.7.2 headless, Dummy driver and dedicated 1.5 GiB
+JobObject/free-RAM floor 8 GiB. Import peak RSS 744341504 B; full UV audit peak
+RSS 336252928 B; material proof peak RSS 138362880 B. Short-process RSS samples
+can undercount peaks: job-private metrics are retained in each receipt.
+No desktop, GUI, capture, audible playback, release or push was performed.
+Audio remains excluded and its isolated worktree is not integrated.
+CoUF/binders, host/player poses, original shaders/material masks, persistent
+scene states, cinematics and actual visual/exported-runtime acceptance remain
+OPEN; these numeric checks do not clear them.
+
+## Historical candidate records (superseded only for the scope above)
+
+# Endpoint correction status ? 2026-10-29
+
+**Current endpoint correction: BLOCKED / NOT_RUN.** The exact trusted parent
+acceptance command exited 1 with WinError 5 creating its external evidence
+directory before staging or Godot. No current runtime PASS is claimed.
+See [endpoint correction and retained history](UNIQUE_SPLINE.md) for diagnosis,
+command, failed output path and the narrow algebraic change.
+
+Parent-reported prior candidate `bcacca51fa01169a718b6dcc63730ce85a4be27a`:
+207 spline + 42 regression + 21 exact tangent/ambiguity + 13 public checks PASS,
+but exact-original 52,230 UV audit retained 2 unsupported Scroll samples.
+The 15-digit diagnostic JSON fixture lost source precision and missed these
+endpoint partition failures. These are assistant/parent findings, not owner
+experiments. Historical evidence below is preserved, not current acceptance.
+
+Only the evaluator, public synthetic fixture and these two checkpoint documents
+are changed. Eight new synthetic cases bring the public fixture to 21 checks;
+all await the trusted bounded runner on the final sources. The original cache,
+old fixtures, accepted baseline and preserved failed commit are untouched.
+Source whitespace validation is separate from parsing and runtime gates.
+Native branches, raster and all-96 acceptance remain OPEN; audio is excluded.
+No commits, pushes or deployments were made.
+
+---
+
+## Historical validation records (reconciled above)
+
+# Validation status
+
 ## Unique-inverse local candidate — 2026-10-29
 
 The [unique spline checkpoint](UNIQUE_SPLINE.md) adds conservative unique-inverse
