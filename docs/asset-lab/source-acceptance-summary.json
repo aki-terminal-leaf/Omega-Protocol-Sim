@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "scope": "Godot96 miniature visuals only; development source, not released/exported visual acceptance",
+  "accepted_source_commit": "1398183d285a45d4f20edd77f1fe28ccc320c6e1",
+  "runtime_sha256": "1ff1d287cbace3680e3181d60c44b29ba95424a59d5aa72336bf85bd7962c266",
+  "engine": "Godot 4.7.2-stable Windows headless",
+  "checks": {
+    "public_synthetic": 21,
+    "singlekey_source_uniform": 42,
+    "spline_fixture": 207,
+    "exact_fold_tangent": 21,
+    "actual_source_material_forward_reverse": 22,
+    "raw_precision_uv_samples": 52230,
+    "unsupported_uv_samples": 0
+  },
+  "limits": {
+    "native_semantics": "OPEN",
+    "raster": "NOT_RUN",
+    "exported_lab": "NOT_RUN",
+    "all96_visual": "OPEN",
+    "audio": "EXCLUDED",
+    "new_screenshots_or_video": false
+  },
+  "memory_guard": {
+    "whole_job_bytes": 1610612736,
+    "free_ram_floor_bytes": 8589934592
+  },
+  "evidence_kind": "parent acceptance summary; private original source/cache/logs intentionally not included"
+}

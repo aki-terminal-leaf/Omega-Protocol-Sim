@@ -10,6 +10,12 @@
 - [驗證與限制](VALIDATION.md)
 - [分項複合播放與來源界線](COMPOSITE.md)
 
+## 本次公開內容與限制（2026-10-29）
+
+[最新階段狀態](STATUS.md) 是目前驗收範圍；其他文件中歷史 FAIL／OPEN 記錄保留。此分支公開的是開發來源與工具，不是自帶遊戲媒體的可玩展示包，也沒有新的錄影或畫面保真認證。僅視覺；音訊工作留在獨立工作樹，未整合。
+
+已驗證：起手特效的來源依賴閉包／竄改拒絕、保守單鍵與唯一逆解曲線、精確端點修正、受影響材質前進／倒放數值。CoUF／武器掛點原生語義等缺口仍 OPEN。
+
 ## 執行與建置
 
 需 Godot 4.7.2 與 Python 3。原始遊戲媒體及戰鬥資料不存入 Git。供應具有 `manifest.json`、`record.json`、`motion-plan.json`、`full-data.json`、`weapon-data.json` 與 `assets/` 的既有 GLB/PNG/AVFX 私人來源快取；這是資料格式，不依賴 Unity 或任何 Unity 程式。
@@ -38,4 +44,6 @@ godot --path NEW_STANDALONE_PROJECT -- --asset-root=NEW_LAB_DATA --source-root=P
 python3 tools/asset_lab/verify_motion.py --data NEW_LAB_DATA --states NEW_EVIDENCE/states.json --out NEW_MOTION_PROOF.json
 ```
 
-骨架 oracle 另需 NumPy／SciPy。QA 不自動證明原版視覺等價性。不得因為項目存在、成功解析、有粒子或有截圖，就宣稱完整還原。來源 shader、host stop、場景交互、音訊、頭標／玩家 LB 及過場缺件逐項保留；原片與事件紀錄非同一場。
+骨架 oracle 另需 NumPy／SciPy。QA 不自動證明原版視覺等價性。不得因為項目存在、成功解析、有粒子或有截圖，就宣稱完整還原。來源 shader、host stop、場景交互、頭標／玩家 LB 及過場缺件逐項保留；原片與事件紀錄非同一場。
+
+音效、音樂及聽覺驗收已排除，不是本次視覺驗收缺口。歷史文件的影音門檻不再適用音訊部分。
