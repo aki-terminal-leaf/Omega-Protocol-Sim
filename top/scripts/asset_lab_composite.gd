@@ -42,6 +42,12 @@ var scene_root:Node3D
 var actor_root:Node3D
 var effect_root:Node3D
 var phase:=0
+# Static visual cache identity is independent of the report clock.
+var _scene_phase:=-1
+var _scene_diagnostics:Dictionary={}
+var _scene_asset_diagnostics:Dictionary={}
+var _building_scene:=false
+var _building_scene_asset:=""
 var source_window:=Vector2.ZERO
 var allowed_actions:Array=[]
 var verified_stops:Dictionary={}
@@ -51,7 +57,13 @@ var bone_cache:Dictionary={}
 var external_bone_pose:Callable
 var hidden_player_slots:Dictionary={}
 var player_attachment_provenance:Dictionary={}
-func _problem(reason:String)->void:diagnostics[reason]=true
+func _problem(reason:String)->void:
+ diagnostics[reason]=true
+ if _building_scene:
+  _scene_diagnostics[reason]=true
+  if not _building_scene_asset.is_empty():
+   if not _scene_asset_diagnostics.has(_building_scene_asset):_scene_asset_diagnostics[_building_scene_asset]={}
+   _scene_asset_diagnostics[_building_scene_asset][reason]=true
 func _path(relative:String)->String:
  var clean:=relative.replace("\\","/")
  if clean.is_empty() or clean.is_absolute_path() or clean.contains(":") or ".." in clean.split("/"):
@@ -262,17 +274,34 @@ func _phase_at(t:float)->int:
 func _matrix(values:Array)->Transform3D:
  return Transform3D(Basis(Vector3(values[0],values[1],values[2]),Vector3(values[4],values[5],values[6]),Vector3(values[8],values[9],values[10])),Vector3(values[12],values[13],values[14]))
 func _scene(at_phase:int)->void:
- if phase==at_phase:return
+ if _scene_phase==at_phase and is_instance_valid(scene_root):
+  scene_root.visible=true
+  diagnostics.merge(_scene_diagnostics,true)
+  return
  if is_instance_valid(scene_root):scene_root.free()
- scene_root=Node3D.new();scene_root.name="Original scene P"+str(at_phase);add_child(scene_root);phase=at_phase
- var source:Dictionary=scene_data.get("phases",{}).get(str(phase),{})
+ _scene_phase=at_phase;_scene_diagnostics.clear();_building_scene=true
+ scene_root=Node3D.new();scene_root.name="Original scene P"+str(at_phase);add_child(scene_root)
+ var source:Dictionary=scene_data.get("phases",{}).get(str(at_phase),{})
  var rows:Array=source.get("nodes",[]).duplicate();rows.append_array(source.get("floor_nodes",[]))
  for row in rows:
-  if phase==2 and row.get("source",{}).get("rootLayer")=="p1_boss":continue
-  if not row.get("worldMatrix") is Array or row.worldMatrix.size()!=16:_problem("invalid_source_scene_matrix/"+str(row.get("key")));continue
-  var packed:=_prototype(str(row.asset))
+  if at_phase==2 and row.get("source",{}).get("rootLayer")=="p1_boss":continue
+  if not _valid_scene_matrix(row.get("worldMatrix")):_problem("invalid_source_scene_matrix/"+str(row.get("key")));continue
+  _building_scene_asset=str(row.asset)
+  for reason in _scene_asset_diagnostics.get(_building_scene_asset,{}):_problem(reason)
+  var packed:=_prototype(_building_scene_asset)
+  if packed==null:_scene_asset_diagnostics.erase(_building_scene_asset)
+  _building_scene_asset=""
   if packed==null:continue
   var instance:Node3D=packed.instantiate();scene_root.add_child(instance);instance.name=str(row.get("key","source"));instance.transform=_matrix(row.worldMatrix)
+ _building_scene=false
+func _valid_scene_matrix(values:Variant)->bool:
+ if not values is Array or values.size()!=16:return false
+ for value in values:
+  if typeof(value) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)):return false
+ if values[3]!=0 or values[7]!=0 or values[11]!=0 or values[15]!=1:return false
+ # Vector3 components may overflow the engine's real_t even for finite doubles.
+ var transform:=_matrix(values)
+ return transform.basis.is_finite() and transform.origin.is_finite()
 func _row(form:String,bone_id:int)->Dictionary:
  var family:String=eid.get("byForm",{}).get(form,"")
  if family.is_empty():return {}
@@ -478,8 +507,9 @@ func _source_fx(cue:Dictionary)->void:
 func seek(t:float)->bool:
  if not configured or not is_finite(t) or t<source_window.x or t>=source_window.y:return false
  clock=t;provisional_precast.clear();bone_cache.clear();diagnostics.clear();reconstructed_preparations.clear();hidden_helpers.clear();player_attachment_provenance.clear();wanted_fx.clear();lifecycle_state.clear()
- if scene_enabled:_scene(_phase_at(t))
- else:phase=_phase_at(t)
+ phase=_phase_at(t)
+ if scene_enabled:_scene(phase)
+ elif is_instance_valid(scene_root):scene_root.visible=false
  for id in actor_slots:_pose_actor(id,t)
  for entry in active_fx.values():entry.fx.visible=false
  if effects_enabled:
@@ -502,7 +532,7 @@ func report()->Dictionary:
   if fx.visible:effects.append({"key":key,"report":fx.report()})
  return {"clock_ms":clock,"phase":phase,"cue_selection_enabled":cue_selection_enabled,"selected_cues":cue_selection.keys(),"actors":actors,"effects":effects,"hidden_target_presets":player_attachment_provenance.duplicate(true),"lifecycle":lifecycle_state.duplicate(true),"reconstructed_preparations":reconstructed_preparations.duplicate(true),"hidden_helpers":hidden_helpers.duplicate(true),"diagnostics":diagnostics.keys(),"provisional_precast_enabled":provisional_precast_enabled,"provisional_precast":provisional_precast.duplicate(true),"full_recreation_accepted":false}
 func dispose()->void:
+ _scene_phase=-1;_scene_diagnostics.clear();_scene_asset_diagnostics.clear();_building_scene=false;_building_scene_asset=""
  for node in [scene_root,actor_root,effect_root]:
   if is_instance_valid(node):node.free()
  scene_root=null;actor_root=null;effect_root=null;actor_slots.clear();prototypes.clear();motion_sources.clear();active_fx.clear();hidden_player_slots.clear();player_attachment_provenance.clear();lifetime_cache.clear();wanted_fx.clear();lifecycle_state.clear();cues.clear();packs.clear();bone_cache.clear();precast_source_positions.clear();reconstructed_preparations.clear();phase=0;omega_start=INF;effective_windows.clear();hidden_helpers.clear();verified_stops.clear();allowed_actions.clear();cue_selection.clear();cue_selection_enabled=false;configured=false;provisional_precast_enabled=false;provisional_precast.clear();diagnostics.clear()
-

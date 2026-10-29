@@ -93,10 +93,15 @@ func controller_checks()->void:
  scene.cues[0].node.bind_1.origin=2
  if scene.seek(3/.03) or scene.active_fx.fixture.fx.visible:failures.append({"unsupported_TMB_host_silently_drawn":true})
  scene.record={"actors":{},"tracks":{"fixture":[[0,0,0,0]]}}
- var prop:={"BPT":0,"BPTP":0,"CoUF":-1}
+ var prop:={"BPT":0,"BPTP":0,"CoUF":-1,"GenD":0,"bRng":0,"Pos":{"axes":{},"ACT":0,"ACTR":0,"unknown_fields":[]}}
  scene.diagnostics.clear()
  if not scene._attachment(scene.cues[0],prop,0,"fixture") is Transform3D:failures.append({"default_binder_pose_missing":true})
- for update_frame in [0,1,60]:
+ # Explicit positive fixture must not weaken missing-field rejection.
+ for field in ["BPT","BPTP","CoUF","GenD","bRng","Pos"]:
+  var missing:=prop.duplicate(true);missing.erase(field);scene.diagnostics.clear()
+  var reason:String="unsupported_original_binder_offset" if field=="Pos" else "missing_original_binder_field/"+field
+  if scene._attachment(scene.cues[0],missing,0,"fixture")!=null or not scene.diagnostics.has(reason):failures.append({"missing_binder_field_accepted":field})
+ for update_frame in [-2,0,1,60,400]:
   prop.CoUF=update_frame
   if scene._attachment(scene.cues[0],prop,0,"fixture")!=null:failures.append({"unverified_coordinate_update_silently_accepted":update_frame})
  scene.dispose();scene.free();camera.free()

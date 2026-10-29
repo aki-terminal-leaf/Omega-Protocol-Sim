@@ -9,6 +9,7 @@
 - [機器可讀目錄](../../top/data/asset_lab/catalog.json)
 - [驗證與限制](VALIDATION.md)
 - [分項複合播放與來源界線](COMPOSITE.md)
+- [場景顯隱／階段快取與倒放驗收](SCENE_LIFECYCLE.md)
 
 ## 本次公開內容與限制（2026-10-29）
 

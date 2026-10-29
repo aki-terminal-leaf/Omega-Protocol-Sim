@@ -43,5 +43,33 @@
     "native": "UNKNOWN",
     "raster": "NOT_RUN",
     "all96": "OPEN"
+  },
+  "scene_lifecycle_stage": {
+    "status": "PASS_STATIC_SCENE_NUMERIC_LIFECYCLE_ONLY",
+    "base_commit": "c090fc1e89ad32b6fe5e300d72ac6dce6ab6737d",
+    "runtime_file": "top/scripts/asset_lab_composite.gd",
+    "runtime_sha256": "130fe7b4a4698df4128d7ac003c3c0bef58e3c04d867958f31ee48d19a7a9d35",
+    "parent_checks": 12,
+    "public_synthetic_checks": 86,
+    "original_scene_phases": 6,
+    "original_scene_glbs_pinned": 66,
+    "original_scene_numeric_checks": 14813,
+    "original_scene_peak_rss_bytes": 568066048,
+    "original_scene_seconds": 2.2589071999536827,
+    "existing_lifetime_vectors": 17,
+    "existing_lifetime_controller": "PASS_AFTER_EXPLICIT_SYNTHETIC_FIXTURE_CORRECTION",
+    "runtime_review": "NO_MUST_FIX_EXACT_FROZEN_RUNTIME_AND_SCENE_TEST",
+    "fixture_review": "NO_MUST_FIX_SEMANTIC_DELTA; final explicit String annotation verified by actual Godot parser/runtime",
+    "historical_failures_retained": [
+      "six baseline scene failures",
+      "stale binder fixture also fails clean baseline",
+      "parent probe cwd error",
+      "intermediate fixture type-inference parse failure"
+    ],
+    "native_scene_activation": "UNKNOWN",
+    "raster": "NOT_RUN",
+    "exported_lab": "NOT_RUN",
+    "all96": "OPEN",
+    "audio": "EXCLUDED"
   }
 }
