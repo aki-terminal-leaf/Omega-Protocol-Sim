@@ -10,6 +10,7 @@ import json
 from pathlib import Path, PureWindowsPath
 import re
 import shutil
+import tempfile
 
 
 def sha(payload):
@@ -50,6 +51,27 @@ def verified(path, expected):
     return payload
 
 
+def file_pin(path):
+    digest = hashlib.sha256()
+    size = 0
+    with path.open('rb') as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(chunk)
+            size += len(chunk)
+    return {'sha256': digest.hexdigest(), 'bytes': size}
+
+
+def validate_asset(root, row):
+    expected = row.get('sha256')
+    size = row.get('bytes')
+    if (not isinstance(expected, str) or
+            not re.fullmatch('[0-9a-f]{64}', expected) or
+            type(size) is not int or size < 0):
+        raise ValueError('Reliable SHA256/byte count required: ' + repr(row))
+    if file_pin(checked_path(root, row['file'])) != {'sha256': expected, 'bytes': size}:
+        raise ValueError('Inherited/output asset integrity mismatch: ' + row['file'])
+
+
 def rows(metadata, key):
     result = {}
     for row in metadata[key]:
@@ -69,7 +91,7 @@ def require(mapping, key, kind):
 def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
     data, closure, sheets, catalog, out = (
         p.resolve() for p in (data, closure, sheets, catalog, out))
-    if out.exists():
+    if out.exists() or out.is_symlink():
         raise FileExistsError('Fresh private cache required')
     if any(out.is_relative_to(p) or p.is_relative_to(out)
            for p in (data, closure, sheets, catalog)):
@@ -81,6 +103,22 @@ def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
     source = read(closure / 'bundle/manifest.json')
     packs = read(closure / 'packs.json')
     textures = read(closure / 'bundle/textures.json')['textures']
+    # Sidecar rows must address exactly the manifest identity and path. Never
+    # infer a trusted digest by hashing an unpinned inherited file.
+    sidecar_path = data / 'native-asset-pins.json'
+    sidecar = read(sidecar_path) if sidecar_path.exists() else {}
+    for key, pin in sidecar.items():
+        row = require(manifest['native_assets'], key, 'sidecar asset key')
+        if pin['file'] != row['file']:
+            raise ValueError('Sidecar asset path mismatch: ' + key)
+        for field in ('sha256', 'bytes'):
+            if field in row and row[field] != pin[field]:
+                raise ValueError('Sidecar asset pin mismatch: ' + key)
+    inherited_assets = {}
+    for key, row in manifest['native_assets'].items():
+        pin = {**sidecar.get(key, {}), **row}
+        validate_asset(data, pin)
+        inherited_assets[key] = pin
     if source['missing']:
         raise ValueError('Original closure is incomplete')
     wanted = {int(a) for unit in read(catalog)['units'] for a in unit['actions']}
@@ -88,16 +126,21 @@ def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
                                   ('actions', 'cast_timeline', 'vfx'))
     pins = [sheets, catalog, closure / 'bundle/manifest.json',
             closure / 'packs.json', closure / 'bundle/textures.json']
-    pins += [data / name for name in ('manifest.json', 'full-data.json',
-                                     'record.json', 'motion-plan.json')]
+    pins += sorted(data.glob('*.json'))
     proof = {'schema': 1, 'status': 'SOURCE_CLOSURE_ONLY',
              'all96_accepted': False, 'rendering_complete': False,
              'dependencies': [], 'zero_start_vfx_references': [],
-             'source_pins': {str(p): sha(p.read_bytes()) for p in pins}}
+             'source_pins': {str(p): file_pin(p)['sha256'] for p in pins}}
     needed = set()
+    selected = 0
     for index, event in enumerate(record['events']):
-        if event['type'] != 'begincast' or event.get('a') not in wanted:
+        if event['type'] != 'begincast':
             continue
+        if type(event.get('a')) is not int:
+            raise ValueError('Malformed begincast ability: ' + repr(event.get('a')))
+        if event['a'] not in wanted:
+            continue
+        selected += 1
         action = event['a']
         row = require(actions, action, 'Action row')
         old = manifest.get('action_rows', {}).get(str(action))
@@ -128,6 +171,9 @@ def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
             'pose_status': 'UNKNOWN'})
         needed.add(path)
 
+    if not selected:
+        raise ValueError('Empty relevant begincast event selection')
+
     # Prepare all payloads before creating output, including path/hash checks.
     additions = {}
     def add(name, payload, kind, **provenance):
@@ -150,6 +196,8 @@ def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
         texture_rows[row['source']] = row
     needed_textures = set()
     for path in sorted(needed):
+        if path in full['packs']:
+            raise ValueError('Existing compiled pack mapping collision: ' + path)
         resource = require(source['resources'], path, 'original AVFX')
         pack = require(packs, path, 'compiled AVFX pack')
         raw = verified(checked_path(closure / 'bundle/raw', path), resource['sha256'])
@@ -168,6 +216,16 @@ def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
         row = require(texture_rows, texture, 'original texture')
         png = verified(checked_path(closure / 'bundle', row['file']), row['sha256'])
         original = verified(checked_path(closure / 'bundle/raw', texture), row['raw_sha256'])
+        if texture in full['textures']:
+            key = full['textures'][texture]
+            existing = require(inherited_assets, key, 'inherited texture asset')
+            if (existing['sha256'] != sha(png) or existing['bytes'] != len(png) or
+                    existing.get('source', texture) != texture or
+                    existing.get('original_sha256', sha(original)) != sha(original)):
+                raise ValueError('Conflicting existing texture source: ' + texture)
+            # Keep the original mapping; both inherited PNG and original raw
+            # closure have been validated, without rebinding existing cues.
+            continue
         token = sha(texture.encode('utf-8'))
         raw_key = add(token + '.atex', original, 'atex', source=texture)
         full['textures'][texture] = add(token + '.png', png, 'png', source=texture,
@@ -187,19 +245,33 @@ def extend(data: Path, closure: Path, sheets: Path, catalog: Path, out: Path):
         checked_path(out, row['file'])
     documents = {'manifest.json': encode(manifest), 'full-data.json': encode(full),
                  'animation-start-proof.json': encode(proof)}
-    out.mkdir(parents=True)
-    for p, relative in inherited:
-        if relative in documents:
-            continue
-        target = out / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(p, target)
-    for relative, payload in {**additions, **documents}.items():
-        target = out / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(payload)
-        if sha(target.read_bytes()) != sha(payload):
-            raise ValueError('Output verification failed: ' + relative)
+    # A fresh sibling keeps publication on the same filesystem. Windows rename
+    # refuses an existing destination; never remove or replace the final cache.
+    staging = Path(tempfile.mkdtemp(prefix='.' + out.name + '-', dir=out.parent))
+    try:
+        for p, relative in inherited:
+            if relative in documents:
+                continue
+            expected = file_pin(p)
+            target = staging / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(p, target)
+            if file_pin(target) != expected:
+                raise ValueError('Inherited copy verification failed: ' + relative)
+        for relative, payload in {**additions, **documents}.items():
+            target = staging / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(payload)
+            if file_pin(target) != {'sha256': sha(payload), 'bytes': len(payload)}:
+                raise ValueError('Output verification failed: ' + relative)
+        for key, row in manifest['native_assets'].items():
+            validate_asset(staging, inherited_assets.get(key, row))
+        if out.exists() or out.is_symlink():
+            raise FileExistsError('Fresh private cache required')
+        staging.rename(out)
+    finally:
+        if staging.exists():
+            shutil.rmtree(staging)
     return proof
 
 
