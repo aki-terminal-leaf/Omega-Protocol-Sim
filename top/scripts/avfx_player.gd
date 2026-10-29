@@ -10,6 +10,9 @@ const MAX_WORK=16000
 const MAX_PARTICLES=2048
 const MAX_DEPTH=16
 const MAX_TIMELINE_CYCLES=256
+# Virtual, bounded capacity profile; the ordinary preview keeps its original caps.
+func _work_limit()->int:return MAX_WORK
+func _particle_limit()->int:return MAX_PARTICLES
 const CLIP_KILL=0x4B494C4C
 const CLIP_RESET=0x52455354
 const CLIP_END=0x454E4420
@@ -217,7 +220,7 @@ func _node(group:String,index:int)->Dictionary:
  return nodes[index]
 func _tick()->bool:
  work+=1
- if work>MAX_WORK:diagnostics["budget_exceeded"]=true;return false
+ if work>_work_limit():diagnostics["budget_exceeded"]=true;return false
  return true
 func _local(node:Dictionary,age:float)->float:
  var start:=float(node.values.get("LpSt",0));var end:=float(node.values.get("LpEd",0))
@@ -251,7 +254,7 @@ func _emit(index:int,birth:float,now:float,ancestors:Array,key:String,result:Arr
    if int(v.get("CrCn",1))<0 or float(v.get("CrPr",100))<0 or float(v.get("CrPr",100))>100:
     diagnostics["invalid_emission_item"]=true;return
    var amount:=int(floor(float(count)))*int(v.get("CrCn",1))
-   if amount>MAX_PARTICLES:diagnostics["budget_exceeded"]=true;return
+   if amount>_particle_limit():diagnostics["budget_exceeded"]=true;return
    for number in amount:
     if not _tick():return
     var child_key:=key+"/%d/%d/%d"%[int(item.source_index),event_index,number]
@@ -282,7 +285,7 @@ func _particle(index:int,birth:float,now:float,ancestors:Array,key:String,result
  var pose:Variant=_chain_transform(chain,now)
  var tint:Variant=_chain_color(chain,now)
  if pose==null or tint==null:return
- if result.size()>=MAX_PARTICLES:diagnostics["budget_exceeded"]=true;return
+ if result.size()>=_particle_limit():diagnostics["budget_exceeded"]=true;return
  result.append({"key":key,"index":index,"kind":kind,"age":_local(node,age),"transform":pose,"color":tint})
 func _chain_transform(chain:Array,at_frame:float)->Variant:
  if chain.is_empty():return Transform3D.IDENTITY

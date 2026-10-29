@@ -19,7 +19,7 @@ try:
 except ImportError:
     import avfx_meshes as mesh, avfx_graph as graph, avfx_curves as curves
 
-SCALARS = curves.SCALARS
+SCALARS = {**curves.SCALARS, "Efct": set()}
 AXES = {"Pos", "Rot", "Scl"}
 COLOR = curves.COLOR_FIELDS
 DATA_CURVES = {"Ang", "AngR", "WB", "WBR", "WE", "WER", "RB", "RBR", "RE", "RER", "HBI", "HBIR", "HEI", "HEIR", "HBO", "HBOR", "HEO", "HEOR", "FrC", "FrCR", "NoAn", "Moph", "AnX", "AnY", "AnZ", "AnXR", "AnYR", "AnZR", "IjS", "IjSR"}
@@ -106,6 +106,11 @@ def compile_pack(data):
                         elif len(v) in (1,2,4):material[t]=literal(v)
                         else:issue(path+"/"+tag+"/"+t,"material_field")
                     node["materials"][tag]=material
+                elif tag=="Data" and group=="Efct":
+                    for t,v in mesh.blocks(value):
+                        if t in {"Pos","Rot"}:node["data"][t]=strip_raw(curves.decode_axes(v,"angle" if t=="Rot" else "scalar"))
+                        elif t in {"Att","AttR","RdO","RdOR","RdI","RdIR"}:node["data"][t]=strip_raw(curves.decode_curve(v,"scalar",t.endswith("R")))
+                        else:issue(path+"/Data/"+t,"effector_data")
                 elif tag=="Data" and group in SCALARS:
                     for t,v in mesh.blocks(value):
                         if t=="FrRt":node["data"][t]=strip_raw(curves.decode_axes(v,"angle"))

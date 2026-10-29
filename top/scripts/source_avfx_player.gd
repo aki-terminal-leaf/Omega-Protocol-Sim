@@ -99,7 +99,7 @@ func _planar_particle(node:Dictionary,index:int,birth:float,now:float,ancestors:
  var pose:Variant=_chain_transform(chain,now)
  var tint:Variant=_chain_color(chain,now)
  if pose==null or tint==null:return
- if result.size()>=MAX_PARTICLES:diagnostics["budget_exceeded"]=true;return
+ if result.size()>=_particle_limit():diagnostics["budget_exceeded"]=true;return
  var spec:={"key":key,"index":index,"kind":10,"age":_local(node,age),"transform":pose,"color":tint}
  _tag_binder(spec);result.append(spec)
 func _mesh(spec:Dictionary)->Mesh:
@@ -289,7 +289,7 @@ func _emit(index:int,birth:float,now:float,ancestors:Array,key:String,result:Arr
    if interval==null or count==null or float(interval)<=0.0 or float(count)<0.0:diagnostics["emission_curve"]=true;break
    if int(v.get("CrCn",1))<0 or float(v.get("CrPr",100))<0 or float(v.get("CrPr",100))>100:diagnostics["invalid_emission_item"]=true;return
    var amount:=int(floor(float(count)))*int(v.get("CrCn",1))
-   if amount>MAX_PARTICLES:diagnostics["budget_exceeded"]=true;return
+   if amount>_particle_limit():diagnostics["budget_exceeded"]=true;return
    for number in amount:
     if not _tick():return
     var child_key:=key+"/%d/%d/%d"%[int(item.source_index),event_index,number]
