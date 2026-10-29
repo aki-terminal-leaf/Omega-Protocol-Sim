@@ -1,5 +1,23 @@
 # Validation status
 
+## Unique-inverse local candidate — 2026-10-29
+
+The [unique spline checkpoint](UNIQUE_SPLINE.md) adds conservative unique-inverse
+evaluation only for nonmonotone scalar editor geometry. **New candidate runtime
+acceptance: BLOCKED / NOT_RUN.** The trusted acceptance invocation exited 1 at
+external evidence-directory creation (`WinError 5`) before staging or Godot.
+The frozen 42-check regression, 196 polynomial vectors (including 18 required
+null cases), and actual material frames 9/45/9 have not run on this candidate
+in this sandbox. The new 13-check public synthetic fixture is also NOT_RUN.
+Source whitespace validation passed; it is not parser/runtime acceptance.
+
+The accepted base `1f79a0316cd319ac23b78584c7f921e5005ddb7d` retains its historical
+scoped PASS below. That result does not certify this edited candidate. The
+parent reports independent unique-root agreement for the 15 remaining source
+samples; post-change source-uniform acceptance still requires its bounded
+ordinary-user runner. Historical failures are retained. Native semantics,
+ambiguous portions, raster and all-96 remain OPEN; audio remains excluded.
+
 ## Parent reconciliation — 2026-10-29, after bridge acceptance
 
 **Current scoped status: PASS for the single-key renderer policy and the frozen

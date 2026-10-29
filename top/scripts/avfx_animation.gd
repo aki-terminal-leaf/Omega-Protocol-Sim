@@ -44,19 +44,85 @@ static func value(curve:Dictionary,time:float)->Variant:
    if qa>0.0:
     var critical:=-qb/(2.0*qa)
     if critical>0.0 and critical<1.0:minimum=minf(minimum,(qa*critical+qb)*critical+a)
-   if minimum<0.0:return null
-   var low:=0.0;var high:=1.0
-   for _iteration in 48:
-    var q:=(low+high)/2.0;var v:=1.0-q
-    var x:=v*v*v*x0+3*v*v*q*x1+3*v*q*q*x2+q*q*q*x3
-    if x<t:low=q
-    else:high=q
-   u=(low+high)/2.0;u=u*u*(3.0-2.0*u)
+   if minimum<0.0:
+    var inverse:Variant=_unique_inverse(x0,x1,x2,x3,t)
+    if inverse==null:return null
+    u=float(inverse)
+   else:
+    var low:=0.0;var high:=1.0
+    for _iteration in 48:
+     var q:=(low+high)/2.0;var v:=1.0-q
+     var x:=v*v*v*x0+3*v*v*q*x1+3*v*q*q*x2+q*q*q*x3
+     if x<t:low=q
+     else:high=q
+    u=(low+high)/2.0
+   u=u*u*(3.0-2.0*u)
   var l:Variant=_key(left,rgb);var r:Variant=_key(right,rgb)
   result=l+(r-l)*u;break
  if result==null:return null
  if cycles!=0.0:result+=(_key(keys[-1],rgb)-_key(keys[0],rgb))*cycles
  return result
+static func _spline_x(u:float,p1:float,p2:float,p3:float)->float:
+ var v:=1.0-u
+ return 3.0*v*v*u*p1+3.0*v*u*u*p2+u*u*u*p3
+static func _unique_inverse(x0:float,x1:float,x2:float,x3:float,t:float)->Variant:
+ # Editor geometry policy, not a native-game branch-selection claim.
+ # Scale translated coordinates only for numerical conditioning, never use
+ # normalized time as the inverse. All source keys/handles remain unchanged.
+ var span:=x3-x0
+ if not is_finite(span) or span<=0.0:return null
+ var p1:=(x1-x0)/span;var p2:=(x2-x0)/span;var target:=(t-x0)/span
+ if not is_finite(p1) or not is_finite(p2) or not is_finite(target):return null
+ var scale:=maxf(1.0,maxf(absf(p1),absf(p2)))
+ p1/=scale;p2/=scale;target/=scale
+ var p3:=1.0/scale
+ var a:=p1;var b:=p2-p1;var c:=p3-p2
+ var qa:=a-2.0*b+c;var qb:=2.0*(b-a)
+ # 64 double-precision epsilons in scaled coordinates. Uncertain tangent
+ # contacts and near-coincident derivative roots fail closed, not deduplicated.
+ var eps:=1.4210854715202004e-14
+ var stationary:Array[float]=[]
+ if qa==0.0:
+  if qb!=0.0:
+   var root:=-a/qb
+   if not is_finite(root):return null
+   if root>0.0 and root<1.0:stationary.append(root)
+ elif qa!=0.0:
+  var discriminant:=qb*qb-4.0*qa*a
+  var uncertainty:=eps*(qb*qb+absf(4.0*qa*a))
+  if absf(discriminant)<=uncertainty:return null
+  if discriminant>0.0:
+   # Stable quadratic formula avoids subtracting nearly equal numbers.
+   var q:=-0.5*(qb+(sqrt(discriminant) if qb>=0.0 else -sqrt(discriminant)))
+   if q==0.0:return null
+   for root in [q/qa,a/q]:
+    if not is_finite(root):return null
+    if root>0.0 and root<1.0:stationary.append(root)
+ stationary.sort() # Only derivative partitions; never reorder source keys.
+ var boundaries:Array[float]=[0.0]
+ boundaries.append_array(stationary);boundaries.append(1.0)
+ var roots:=0;var low:=0.0;var high:=1.0
+ for i in boundaries.size()-1:
+  var left:=boundaries[i];var right:=boundaries[i+1]
+  if right-left<=eps:return null
+  var fl:=_spline_x(left,p1,p2,p3)-target
+  var fr:=_spline_x(right,p1,p2,p3)-target
+  # A shared boundary is one inverse, but its vanishing derivative makes
+  # inversion ill-conditioned. Reject instead of counting it twice.
+  if absf(fl)<=eps or absf(fr)<=eps:return null
+  if (fl<0.0)!=(fr<0.0):
+   roots+=1;low=left;high=right
+ if roots!=1:return null
+ var increasing:=_spline_x(high,p1,p2,p3)>_spline_x(low,p1,p2,p3)
+ for _iteration in 64:
+  var mid:=(low+high)/2.0
+  if (_spline_x(mid,p1,p2,p3)<target)==increasing:low=mid
+  else:high=mid
+ var u:=(low+high)/2.0
+ var derivative:=3.0*((qa*u+qb)*u+a)
+ if absf(derivative)<=1.0e-10:return null
+ if absf(_spline_x(u,p1,p2,p3)-target)>eps:return null
+ return u
 static func _key(key:Dictionary,rgb:bool)->Variant:
  return Vector3(float(key.data[0]),float(key.data[1]),float(key.data[2])) if rgb else float(key.data[2])
 static func unit(seed_value:int,channel:String,tick:int=0)->float:
