@@ -112,7 +112,14 @@ classes describe serialization, types and UI. They do **not** establish whether
 0/1/60/400 mean sampling, transition, freeze, lifetime-relative update or another
 native behavior. No formula is authorized by a field name or a parser default.
 
-## Next work, ranked by dependency
+## Follow-up — 2026-10-29
+
+The source-preservation dependency below has now passed parent byte/hash and
+real compiler-output acceptance for five weapon packs/eight binders, with no
+runtime formula change; see [BINDER_SOURCE.md](BINDER_SOURCE.md). The original
+investigation failure and native-semantics blocker remain unchanged.
+
+## Historical next work, ranked by dependency
 
 1. A source-grounded non-rendering increment can preserve original binder `Data`
    payloads and subtype tags losslessly, with byte/hash round-trip checks in a

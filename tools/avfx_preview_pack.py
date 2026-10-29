@@ -50,7 +50,7 @@ def compile_pack(data):
     result={"schema":1,"source_sha256":hashlib.sha256(data).hexdigest(),
             "raw_avfx_base64":base64.b64encode(data).decode(),
             "format_reference":mesh.REFERENCE,"time_units":"native AVFX numeric units",
-            "rendering_complete":False,"gameplay_eligible":False,"compiler_revision":2,
+            "rendering_complete":False,"gameplay_eligible":False,"compiler_revision":3,
             "execution_policy":"experimental deterministic preview; not game equivalence",
             "groups":{},"models":geometry["models"],"textures":geometry["textures"],
             "unsupported":[]}
@@ -77,7 +77,20 @@ def compile_pack(data):
                   "items":[{"values":i["values"],"role":i["role"],"source_index":i["source_index"]}
                            for i in source.get("items",[])],
                   "clips":source.get("clips",[]),"curves":{},"axes":{},"materials":{},"uv_sets":[],"data":{}}
-            for tag,value in mesh.blocks(payload):
+            fields=mesh.blocks(payload)
+            if group=="Bind":
+                # Preserve source bytes, including internal padding; no runtime semantics.
+                binder_blocks=[]
+                for tag,value in fields:
+                    block={"tag":tag,"payload_base64":base64.b64encode(value).decode("ascii"),
+                           "sha256":hashlib.sha256(value).hexdigest()}
+                    if tag=="Data":
+                        block["child_tags"]=[t for t,_ in mesh.blocks(value)]
+                        issue(path+"/Data","binder_data_semantics_unverified")
+                    binder_blocks.append(block)
+                node["binder_source"]={"schema":1,"payload_base64":base64.b64encode(payload).decode("ascii"),
+                                       "sha256":hashlib.sha256(payload).hexdigest(),"blocks":binder_blocks}
+            for tag,value in fields:
                 if tag in FLOAT_FIELDS.get(group,()):
                     if len(value)!=4: raise ValueError("Invalid float width: "+path+"/"+tag)
                     number=struct.unpack("<f",value)[0]

@@ -26,5 +26,22 @@
     "whole_job_bytes": 1610612736,
     "free_ram_floor_bytes": 8589934592
   },
-  "evidence_kind": "parent acceptance summary; private original source/cache/logs intentionally not included"
+  "evidence_kind": "parent acceptance summary; private original source/cache/logs intentionally not included",
+  "binder_source_stage": {
+    "status": "PASS_SOURCE_PRESERVATION_ONLY",
+    "compiler_sha256": "b90a1c17d831ab2738962113184e98cced9af951c6f85d20e260844aa46f93cf",
+    "original_weapon_packs": 5,
+    "binder_payloads": 8,
+    "real_compile_resources_output": "PASS",
+    "public_synthetic_tests": 8,
+    "existing_preview_tests": 9,
+    "frozen_independent_static_review": "NO_MUST_FIX",
+    "original_bridge_task": "FAILED_DIAGNOSTIC_ONLY_PARENT_ORACLE_ERROR_RETAINED",
+    "parent_oracle_correction": "Skip unsupported assertion after strip_raw intentionally removes that key; source preservation assertions unchanged",
+    "runtime_modified": false,
+    "private_source_media_in_git": false,
+    "native": "UNKNOWN",
+    "raster": "NOT_RUN",
+    "all96": "OPEN"
+  }
 }
