@@ -89,7 +89,6 @@ class RadialKernels(unittest.TestCase):
         for source in [radial,merge]:
             self.assertIn("blend_disabled",source)
             self.assertIn("filter_linear, repeat_disable",source)
-            self.assertNotIn("textureLod",source)
             self.assertNotIn("source_color",source.split("uniform sampler2D")[1])
             self.assertNotIn("COLOR *=",source)
         self.assertIn("0.3333333432674407958984375",radial)
@@ -99,12 +98,66 @@ class RadialKernels(unittest.TestCase):
 
     def test_diagnostics_are_nonuniform_and_portable(self):
         cases=k.cases()
-        self.assertEqual(len(cases["cases"]),6)
+        self.assertEqual(len(cases["cases"]),22)
         for spec in cases["textures"].values():
             self.assertEqual(len(spec["rgba8"]),spec["size"][0]*spec["size"][1]*4)
-            self.assertGreater(len(set(spec["rgba8"][3::4])),20)
+            self.assertGreaterEqual(len(set(spec["rgba8"][3::4])),min(5,spec["size"][0]*spec["size"][1]))
         for row in cases["cases"]:
-            self.assertEqual(row["sampler_policy"],k.POLICY)
+            self.assertIn(row["sampler_policy"],k.POLICIES)
             self.assertIn("NOT_ORIGINAL",row["provenance"])
+
+    def test_mirror_texel_centers_seams_and_independent_fold(self):
+        # Independent continuous triangle mapping, followed by CLAMP bilinear.
+        # Dyadic coordinates are exact here, avoiding fold/ALU rounding ambiguity.
+        coords=[-16.,-15.75,-3.,-2.,-1.,0.,1.,2.,3.,15.75,16.]
+        coords += [seam+d for seam in [-2.,-1.,0.,1.,2.] for d in [-1/1024,1/1024]]
+        for spec in k.cases()["textures"].values():
+            for x in coords:
+                for y in coords:
+                    folded=[1.-abs((v%2.)-1.) for v in [x,y]]
+                    actual=k.linear_sample(spec,[x,y],k.MIRROR_POLICY)
+                    expected=k.linear_sample(spec,folded,k.POLICY)
+                    for a,b in zip(actual,expected): self.assertAlmostEqual(a,b,places=6)
+            width,height=spec["size"]
+            for y in range(height):
+                for x in range(width):
+                    uv=[(x+.5)/width,(y+.5)/height]
+                    got=k.linear_sample(spec,uv,k.MIRROR_POLICY)
+                    expected=[k.div(v,255.) for v in spec["rgba8"][4*(y*width+x):4*(y*width+x)+4]]
+                    for a,b in zip(got,expected): self.assertAlmostEqual(a,b,places=6)
+        with self.assertRaises(ValueError): k.linear_sample(spec,[0.,0.],None)
+
+    def test_mirror_edge_duplication_and_singleton(self):
+        spec={"size":[2,1],"rgba8":[0,20,40,60,255,220,200,180]}
+        for coord in [-.25,0.,.25,1.75,2.,2.25]:
+            self.assertEqual(k.linear_sample(spec,[coord,-16.],k.MIRROR_POLICY)[0],0.)
+        for coord in [.75,1.,1.25]:
+            self.assertEqual(k.linear_sample(spec,[coord,16.],k.MIRROR_POLICY)[0],1.)
+        self.assertEqual(k.linear_sample(spec,[.5,0.],k.MIRROR_POLICY)[0],.5)
+        singleton=k.cases()["textures"]["single"]
+        self.assertEqual(k.linear_sample(singleton,[-15.9,15.9],k.MIRROR_POLICY),
+                         [k.div(v,255.) for v in singleton["rgba8"]])
+
+    def test_full_rgba_radial_counterexample_after_kernel_clamp(self):
+        fixtures=k.cases(); spec=fixtures["textures"]["odd"]
+        row=next(c for c in fixtures["cases"] if c["id"]=="odd-"+k.MIRROR_POLICY+"-1")
+        mirror=k.radial_image(row,spec)
+        clamp=k.radial_image(dict(row,sampler_policy=k.POLICY),spec)
+        self.assertEqual(len(mirror),9*7*4)
+        for channel in range(4): self.assertNotEqual(mirror[channel::4],clamp[channel::4])
+        taps,_=k.radial_samples([.9,.8],row["radial"],row["viewport"])
+        self.assertTrue(any(max(c)>1. for c,w in taps))
+        negative=dict(row,viewport=[-16.,-16.,16.,16.])
+        self.assertNotEqual(k.radial_image(negative,spec),k.radial_image(dict(negative,sampler_policy=k.POLICY),spec))
+
+    def test_manifest_partition_and_sampler_surface(self):
+        self.assertEqual(len(self.manifest["source_lf_sha256"]),106)
+        self.assertEqual(len(self.manifest["new_files"]),8)
+        self.assertIn(k.SOURCES[1],self.manifest["source_lf_sha256"])
+        shader=(k.ROOT/k.SOURCES[0]).read_text()
+        self.assertEqual(shader.count("texelFetch(s_input,"),4)
+        self.assertIn("textureSize(s_input, 0)",shader)
+        self.assertIn("period - 1 - r",shader)
+        self.assertIn("return texture(s_input, coord)",shader)
 
 if __name__=="__main__":unittest.main()

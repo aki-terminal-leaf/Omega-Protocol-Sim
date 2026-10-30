@@ -1,116 +1,113 @@
 """Serial bounded WindowsJobObject tests and private export. Never a rendering acceptance gate."""
-import argparse, json, os, sys, time, uuid
+import argparse, json, os, shutil, sys, time, uuid
 from pathlib import Path
-from prepare_radial_kernels import ROOT, PRIVATE, EXPECTED, SOURCES, POLICY, atomic, sha, validate
+from prepare_radial_kernels import ROOT, PRIVATE, EXPECTED, SOURCES, POLICY, POLICIES, atomic, sha, validate
 GODOT=Path("D:/Dev/OpenClawCodexBridge/tools/godot-4.7.2/Godot_v4.7.2-stable_win64.exe")
 ENGINE_SHA="ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424"
 GUARD_SHA="ca9c29ef8d28ef4bb8d764dbc1eb5a03745eb85173c6d417d5896fa824c3b87a"
 
 def document(out,report):
-    info={"schema":1,"status":"PARAMETERIZED_KERNELS_IMPLEMENTED_NATIVE_INTEGRATION_OPEN","rendering_accepted":False,"all96_accepted":False,"latest_summary":str(out/"summary.json"),"explicit_policy":POLICY,"source_evidence":{"manifest_sha256":EXPECTED,"accepted_contract":"docs/asset-lab/ring-native.json#shader_contract_audit","radial_literal_bits":"0x3eaaaaab","native_vertex_ported":False},"unsupported_native_dependencies":["resource factory installation","small-buffer upload/flush","sampler 0x265 decoding","A/B and merge texture ownership, formats and dimensions","absent IRad/defaults","native clock/lifetime"],"test_evidence":{"numeric_pass":report["numeric_pass"],"web_export_ready":report["web_export_ready"],"raster_verified":False,"headless_is_not_shader_compile_evidence":True,"status":report["status"],"blocker":report.get("blocker")},"project":report.get("project"),"web_output":report.get("web_output"),"engine_sha256":ENGINE_SHA}
+    dependencies=["native merge/prepass sampler words 377920", "target dimensions/formats/views/aliasing", "Default prepass math", "handle factory/cache identity", "absent IRad/defaults", "default clock/lifetime", "complete dynamic native graph"]
+    info={"schema":1,"status":report["status"],"rendering_accepted":False,"all96_accepted":False,
+        "latest_summary":str(out/"summary.json"),"policies":POLICIES,
+        "source_evidence":{"manifest_sha256":EXPECTED,"radial_literal_bits":"0x3eaaaaab","native_vertex_ported":False},
+        "unsupported_native_dependencies":dependencies,"test_evidence":{k:report.get(k) for k in
+            ["numeric_pass","web_export_ready","protected106_exact","raster_verified","blocker"]},
+        "project":report.get("project"),"web_output":report.get("web_output"),"engine_sha256":ENGINE_SHA,
+        "new_files":[s for s in SOURCES if s != SOURCES[1]],"diagnostic_sources":SOURCES}
     atomic(ROOT/"docs/asset-lab/radial-kernels.json",info)
-    atomic(ROOT/"docs/asset-lab/RADIAL_KERNELS.md",f"""# Parameterized radial kernels ? private conditional contract
+    atomic(ROOT/"docs/asset-lab/RADIAL_KERNELS.md",f"""# Radial native mirror sampler: isolated conditional diagnostic
 
-Pixel-only RadialBlur and DonutMerge implement the accepted pinned SM5 formulas.
-Native action31567 / P3-02 / all96 integration and rendering acceptance remain **false**.
-Source evidence: `RING_NATIVE.md` and `ring-native.json.shader_contract_audit`;
-RadialBlur ShCd SHA `218b8478ba791aacd1fdc3b773ff88e2bab905e38002bf3a0479c79d40bbec2e`,
-DonutMerge `e3dafd25f1422745231d06a643c0b2896ff6decb36ee94153408b5101baae117`,
-VSSampling1 `59a20841f65fcd46d95949c644d5c40f2b7646945fdb25f991c8fb067882d1e9`.
-No native constructors were retraced and no native capture or game execution occurred.
+Schema 1. rendering_accepted=false; all96_accepted=false. Owner action31567/P3-02/all96 remains OPEN.
+The parent-reviewed gpu_bridge_audit establishes radial packed 0x265: MIN_MAG_LINEAR_MIP_POINT
+(filter 0x14), U/V MIRROR (2), W CLAMP (3), bias 0, LOD 0, anisotropy 1, comparison NEVER.
+This increment implements its 2D LOD0 sampling semantics, not complete native rendering.
+DonutMerge source is immutable; its native sampler and prepass words 377920 remain UNKNOWN.
 
-## Inputs and safety
+## Explicit helper schema
 
-Instantiate the RefCounted helper and call `attach(CanvasItem, "radial"|"merge", inputs)`.
-`update(inputs)` replaces all supplied state; `release()` removes its own attachment.
-Each instance owns a separate material/shader. Check `is_current()` before drawing after
-external changes. Updates fail closed and release on stale texture bytes, texture sizes,
-shader code, material replacement or uniform mutation; no automatic process or clock runs.
-The helper cannot prevent callers from bypassing it and mutating Godot resources between checks.
-The direct material is an embedding boundary, not an enforced native render graph.
+Call attach(CanvasItem, "radial"|"merge", inputs), update(inputs), release(), is_current().
+Required inputs: sampler_policy, color_space="raw_rgba8_no_srgb",
+target="rgba8_unorm_blend_disabled", nonempty provenance; target_size integer2;
+viewport and uv_rect float4; s_input ImageTexture and s_input_size integer2.
+Radial requires radial float4. Merge requires radii and merge_param float4,
+s_merge ImageTexture and s_merge_size integer2.
+Policies: linear_clamp_explicit retains existing hardware clamp filtering;
+native_radial_0x265_mirror_lod0 is radial-only, explicitly selected, never a default.
+Merge rejects native radial policy. A missing/invalid policy fails closed and releases.
+Updates support either radial policy in both directions. Per-instance material/shader
+ownership isolates updates. is_current checks sampler boolean, all uploaded uniforms,
+texture identity/dimensions/bytes and shader identity/code. External mutation fails closed.
+No live lifecycle, clock, or native resource factory is introduced.
 
-All input fields are required: `viewport` float4; `uv_rect` float4; `target_size` integer2;
-`s_input` ImageTexture and `s_input_size` integer2; `radial` float4 for radial;
-`radii`, `merge_param` float4 plus `s_merge` and `s_merge_size` for merge;
-nonempty `provenance`; `sampler_policy="linear_clamp_explicit"`;
-`color_space="raw_rgba8_no_srgb"`; `target="rgba8_unorm_blend_disabled"`.
-These policies are explicit conditional embedding choices, **not decoded native 0x265**.
-Caller must supply an RGBA8 non-HDR target of the stated dimensions. The helper validates
-the declared contract and textures; the private harness constructs the actual target.
-Textures must be RGBA8 without mipmaps. No `source_color` conversion, premultiplication,
-COLOR multiplication, blending or spatial tonemapping is applied by the kernels.
+Conservative host domain: float4 magnitudes <=16, radii MAGNITUDE >=1e-4 (negative radii
+remain allowed), f32 radial weight-sum magnitude >=1e-4, UV endpoints within [-2,2].
+RGBA8 input textures have no mipmaps, axes 1..4096 including 1x1/1xN/Nx1.
+Declared target axes are integers 2..4096. Portable harness caps axes at 256 and checks
+actual SubViewport size; target 1x1 is rejected. The caller supplies a matching non-HDR target.
+All four channels remain raw; no source_color, premultiplication or blending.
 
-Conservative host domain: float4 components have magnitude <=16; radii magnitude >=1e-4;
-float32 radial weight sum magnitude >=1e-4; generated UV endpoints within [-2,2];
-positive integer dimensions <=4096. This bounds intermediate math for RGBA8 inputs,
-rejects nonfinite values, float32 overflow and singular/near-singular divisions.
-It deliberately rejects some valid native finite inputs rather than altering shader math.
-The shader has no denominator guard. The weight loop uses integer i=0..3, float32
-0x3eaaaaab = 0.3333333432674407958984375, and implicit `texture()` sampling.
-Merge never uses viewport.zw. All four color channels participate in both kernels.
-No packet mapping, viewport derivation, fixed-rate clock, defaults or native VS is implemented.
-Only the first native viewport vector is consumed by these pixel shaders.
+## Mirror proof and precision boundary
 
-## Numeric and Web protocol
+For each axis p=f32(f32(coord*N)-0.5), i=floor(p), f=p-i. Each neighbor i and i+1
+is addressed with r=((i % (2*N)) + 2*N) % (2*N), index=r if r<N else 2*N-1-r.
+The infinite texel-center lattice therefore duplicates both edge texels, reflecting
+...1,0,0,1,...,N-1,N-1,... . At normalized seams 0,1,2 the two neighbors are the
+same edge texel, so filtering is continuous across both sides. Negative periods use
+positive modulo; N=1 maps every neighbor to zero. This is MIRROR, not repeat_enable/REPEAT.
+Four texelFetch(...,0) loads are interpolated horizontally then vertically on all RGBA.
+LOD0 is explicit; textureSize(...,0) is explicit. No extra coordinate clamp is introduced.
+The original four-tap order, saturation*viewport/min, weights and raw third bits 3eaaaaab
+are unchanged. Coordinates stay within [-16,16]; N<=4096 bounds p to [-65536.5,65535.5],
+so floor/int/modulo are safe. Filtering differences/weights are bounded for UNORM inputs.
+Python rounds each reference arithmetic operation to f32. Shader compiler FMA/refactoring
+and D3D hardware subtexel/filter precision may differ from this manual f32 bilinear
+implementation: exact address semantics are implemented, bit-identical hardware filtering
+is NOT claimed. Actual GPU readback remains a separate parent gate.
 
-Python references explicitly round arithmetic through float32; Godot numeric weight tests
-use PackedFloat32Array. These are separate from GPU results. SM5 refactoringAllowed and
-cross-driver fused multiply/add differences mean no bit-exact GPU promise is made.
-Headless tests inspect actual material uniforms, missing/invalid/reverse updates, isolation,
-stale texture/uniform mutation, release and reattachment. Headless is **not shader raster
-or shader compile evidence**. Python tests read actual SHA-pinned ShCd DXBC chunks,
-reflection and disassembly, including the MUL at SHEX word75 and immediate operand at word81. Diagnostics are synthetic gradients
-with varied alpha, never substitutes for original action visuals.
+## Evidence and portable handoff
 
-Prepare: `python -B tools/asset_lab/prepare_radial_kernels.py --inputs ABS_MANIFEST --input-sha256 {EXPECTED} --output NEW_ABS_OUT`.
-Run: `python -B tools/asset_lab/run_radial_kernels.py --inputs ABS_MANIFEST --input-sha256 {EXPECTED} [--output NEW_ABS_OUT]`.
-The runner validates all 105 protected LF sources and all readonly files before/after,
-uses the pinned WindowsJobObject runner serially, 90s engine/45s other children,
-240s cumulative, 1.5GiB hard memory and 8GiB free floor. POSIX work_guard uses fcntl
-and is unavailable on this Windows host. Each run preserves unique logs and receipts.
-No automatic retry, global installs, network publication or desktop execution.
+Manifest SHA256: {EXPECTED}. All 106 protected LF sources (including merge) and all
+readonly files are checked before/after. Manifest new_files is the eight writable existing
+paths; diagnostic_sources lists nine kernel files including immutable merge.
+Runner uses SHA-pinned Godot 4.7.2 main executable {ENGINE_SHA} and the existing custom Web
+release template d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0.
+A byte-identical private copy of the main exe uses local _sc_/editor_data and explicit
+log paths to isolate editor settings/user data. No default/global template install. WindowsJobObject children are serial, 90s engine/45s
+others, 240s cumulative, 1.5GiB hard limit, 8GiB free floor. POSIX work_guard's fcntl is
+unavailable on Windows. Unique failures/logs/receipts are preserved; publication is atomic.
+Headless lifecycle/numeric tests are neither shader compilation nor raster evidence.
 
-Portable project: `{report.get('project')}`.
-Web destination: `{report.get('web_output')}`.
-Immutable final summary: `{out/'summary.json'}`.
-Current result: **{report['status']}**. Numeric pass: `{report['numeric_pass']}`.
-Web export ready: `{report['web_export_ready']}`. Blocker evidence: see summary `blocker` and the preserved per-child log paths.
-Exact exported/project file hashes and child receipts are in that summary.
+Latest summary: {out/'summary.json'}
+Project: {report.get('project')}
+Web: {report.get('web_output')}
+Status: {report['status']}; numeric_pass={report['numeric_pass']}; web_export_ready={report['web_export_ready']}.
+Blocker: {report.get('blocker')}.
+Summary source_sha256 explicitly hashes all nine listed diagnostic sources with LF
+normalization, including generated docs; summary itself is excluded. Output hashes exclude
+.godot caches and summary itself. Parent independently freezes all 114 source files.
 
-Parent protocol: modify the private project's `cases.json` before headless re-export.
-It contains `textures` keyed by ID with integer `size` and row-major `rgba8` byte arrays,
-and at most 64 `cases` (unique IDs, at most 16 textures, textures/targets <=256 per axis) with the required fields above (texture fields use those IDs),
-plus unique `id` and `kind`. Existing six cases are deterministic examples.
-`numeric_cases.json` is a separate fixed helper-test fixture, so parent case replacement
-does not change lifecycle test assumptions. The portable
-project contains no absolute original-resource paths. Export using pinned Godot's
-`--headless --path PROJECT --export-release Web WEB/index.html` after import.
-Serve the exported directory privately using the parent's existing Web tooling; open
-index.html in headless Chromium and wait for `window.__radial_finished === true`
-with a finite parent timeout (suggested 45s). Read `window.__radial_result` as JSON.
-It contains `finished`, `ok`, `failures`, and per-case `id`, `width`, `height`, `rgba8`.
-The finite harness renders one isolated SubViewport per case then pauses the tree.
-No play UI, looping, next action, duration or accumulation is present.
+Parent may replace project cases.json, then re-export. numeric_cases.json stays separate.
+Cases schema1 has textures keyed by ID with size and row-major rgba8, plus <=64 unique-ID
+cases with helper fields (texture references use IDs); <=16 textures. Readback retains all
+RGBA and top-to-bottom rows. UV=(pixel+0.5)/target_size transformed by uv_rect, no Y flip.
+Poll window.__radial_finished; window.__radial_result contains finished/ok/failures and
+per-case id/width/height/rgba8. Harness pauses after finite isolated SubViewport rendering.
+Fixtures cover clamp and mirror, odd 7x5 with varied alpha, singleton axes, and positive/
+negative out-of-range sampling from explicit diagnostic viewport values. These are host
+choices, NOT proof of a native viewport. No optional three-pass graph was added.
 
-Input texture bytes and readback rows are top-to-bottom. Godot Canvas UV at pixel center
-is ((x+0.5)/width,(y+0.5)/height), then uv = UV*uv_rect.xy + uv_rect.zw.
-This explicit Godot bridge has **no extra Y flip** and is not a VSSampling1 port.
-Compare against independent linear-clamp texel-center sampling, float32 kernel arithmetic
-and RGBA8 clamp/quantization. Orientation, alpha, color space and driver differences
-must be adjudicated from actual readback, not screenshots or this headless pass.
-The harness bypasses presentation-canvas alpha by reading the SubViewport image directly.
-
-Native integration remains gated on resource factory identity, small CB upload/flush,
-0x265 and merge sampler state, A/B+merge target ownership/formats/dimensions, absent IRad,
-default values, clock and lifetime. Export readiness is not rendering/all96 acceptance.
+Remaining native dependencies: {', '.join(dependencies)}. Initial direct C/A/B setup and
+rebinding evidence remains static only. Export readiness is not actual Chromium readback,
+original visual acceptance, mainWeb publication, or all96 acceptance.
 """)
 
 def main():
     p=argparse.ArgumentParser();p.add_argument("--inputs",type=Path,required=True);p.add_argument("--input-sha256",required=True);p.add_argument("--output",type=Path);a=p.parse_args()
     out=a.output or PRIVATE/("run-"+str(uuid.uuid4()))
-    if not out.is_absolute() or out.exists() or not out.resolve().is_relative_to(ROOT): raise ValueError("unique absolute worktree output required")
+    if not out.is_absolute() or out.exists() or not out.resolve().is_relative_to(PRIVATE.resolve()): raise ValueError("unique absolute worktree output required")
     out.mkdir(parents=True);print(out,flush=True)
-    report={"status":"BLOCKED","receipts":[],"numeric_pass":False,"web_export_ready":False,"protected105_exact":False,"raster_verified":False,"rendering_accepted":False,"all96_accepted":False,"explicit_policy":POLICY}
+    report={"status":"BLOCKED","receipts":[],"numeric_pass":False,"web_export_ready":False,"protected106_exact":False,"raster_verified":False,"rendering_accepted":False,"all96_accepted":False,"policies":POLICIES,"new_files":[s for s in SOURCES if s != SOURCES[1]],"diagnostic_sources":SOURCES}
     start=time.monotonic()
     try:
         validate(a.inputs,a.input_sha256)
@@ -129,17 +126,24 @@ def main():
             return text
         if sha(GODOT)!=ENGINE_SHA: raise ValueError("pinned Godot executable mismatch")
         report["engine_sha256"]=ENGINE_SHA
+        # Godot self-contained mode: exact pinned main exe, local editor_data.
+        # Never write _sc_ beside the shared executable or use global settings.
+        engine=out/"engine"/GODOT.name
+        atomic(engine,GODOT.read_bytes())
+        if sha(engine)!=ENGINE_SHA: raise ValueError("private engine copy mismatch")
+        atomic(engine.parent/"_sc_","")
+        report["private_engine"]=str(engine)
         gate("prepare",[sys.executable,"-B",ROOT/"tools/asset_lab/prepare_radial_kernels.py","--inputs",a.inputs,"--input-sha256",a.input_sha256,"--output",out/"prepared"],45,ROOT)
         project=out/"prepared/project";web=out/"web";web.mkdir()
         report["project"]=str(project);report["web_output"]=str(web/"index.html")
-        version=gate("version",[GODOT,"--headless","--version"],90,project)
+        version=gate("version",[engine,"--headless","--log-file",out/"version-engine.log","--version"],90,project)
         if "4.7.2.stable.official.ed1daf0bf" not in version: raise ValueError("engine build mismatch")
         gate("python-tests",[sys.executable,"-B","-m","unittest","discover","-s","tests","-p","test_radial_kernels.py","-v"],45,ROOT)
-        gate("import",[GODOT,"--headless","--path",project,"--editor","--import","--quit"],90,project)
-        text=gate("godot-numeric",[GODOT,"--headless","--path",project],90,project)
+        gate("import",[engine,"--headless","--log-file",out/"import-engine.log","--path",project,"--editor","--import","--quit"],90,project)
+        text=gate("godot-numeric",[engine,"--headless","--log-file",out/"numeric-engine.log","--path",project],90,project)
         if '"numeric_pass":true' not in text: raise RuntimeError("missing actual numeric success marker")
         report["numeric_pass"]=True
-        gate("web-export",[GODOT,"--headless","--path",project,"--export-release","Web",web/"index.html"],90,project)
+        gate("web-export",[engine,"--headless","--log-file",out/"export-engine.log","--path",project,"--export-release","Web",web/"index.html"],90,project)
         for suffix in ["html","js","wasm","pck"]:
             if not (web/("index."+suffix)).is_file(): raise RuntimeError("missing exported "+suffix)
         report["web_export_ready"]=True
@@ -148,11 +152,23 @@ def main():
         report["blocker"]=str(e)
     finally:
         try:
-            m=validate(a.inputs,a.input_sha256);report["protected105_exact"]=True;report["readonly_files_exact"]=len(m["readonly_files"])
+            m=validate(a.inputs,a.input_sha256);report["protected106_exact"]=True;report["readonly_files_exact"]=len(m["readonly_files"])
         except Exception as e:
             report["blocker"]=str(e);report["status"]="BLOCKED"
+        report["owned_cache_cleanup"]=[]
+        for cache in [out/"prepared/project/.godot",out/"engine/editor_data/cache"]:
+            if cache.exists():
+                if not cache.resolve().is_relative_to(out.resolve()): raise ValueError("cache outside owned output")
+                try:
+                    # Extended Windows path handles long Godot generated folding names.
+                    shutil.rmtree("\\\\?\\" + str(cache.resolve()))
+                    report["owned_cache_cleanup"].append(str(cache))
+                except OSError as e:
+                    report["status"]="BLOCKED"
+                    report["blocker"]="owned cache cleanup: "+str(e)
         report["seconds"]=time.monotonic()-start
         document(out,report)
+        report["source_hash_scope"]="All nine diagnostic_sources, LF-normalized, including docs; excludes summary itself"
         report["source_sha256"]={name:sha(ROOT/name,True) for name in SOURCES}
         report["output_sha256"]={str(p.relative_to(out)):sha(p) for p in out.rglob("*") if p.is_file() and ".godot" not in p.parts}
         atomic(out/"summary.json",report)

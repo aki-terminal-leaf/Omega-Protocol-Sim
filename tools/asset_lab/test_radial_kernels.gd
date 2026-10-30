@@ -93,7 +93,7 @@ func load_textures(data: Variant) -> bool:
         if not Kernel.vector_ok(row.get("target_size"),2,256.0):
             return false
         for dimension in row["target_size"]:
-            if dimension < 1 or dimension != floor(dimension):
+            if dimension < 2 or dimension != floor(dimension):
                 return false
         if not texture_map.has(row.get("s_input")) or (row["kind"] == "merge" and not texture_map.has(row.get("s_merge"))):
             return false
@@ -126,6 +126,34 @@ func numeric_tests(rows: Array) -> void:
     check(ka.update(changed),"forward update")
     check(b.material.get_shader_parameter("radial") == Vector4(.37,.62,1.,.7),"B isolated from A")
     check(ka.update(input),"reverse update")
+    changed["sampler_policy"] = Kernel.MIRROR_POLICY
+    check(ka.update(changed),"explicit clamp to mirror update")
+    check(a.material.get_shader_parameter("native_radial_mirror_lod0") == true,"mirror uniform actual upload")
+    check(b.material.get_shader_parameter("native_radial_mirror_lod0") == false,"sampler B isolated")
+    check(ka.is_current(),"mirror current")
+    check(ka.update(input),"explicit mirror to clamp reverse update")
+    check(a.material.get_shader_parameter("native_radial_mirror_lod0") == false,"reverse sampler upload")
+    a.material.set_shader_parameter("native_radial_mirror_lod0",true)
+    check(not ka.is_current(),"sampler uniform mutation detected")
+    check(not ka.update(input) and a.material == null,"sampler mutation releases")
+    check(ka.attach(a,"radial",changed),"reattach mirror")
+    a.material.set_shader_parameter("s_input",texture_map["b"])
+    check(not ka.is_current(),"sampler resource mutation detected")
+    check(not ka.update(changed) and a.material == null,"sampler resource mutation releases")
+    check(ka.attach(a,"radial",changed),"mirror reattach after resource mutation")
+    ka.release()
+    check(a.material == null and not ka.is_current(),"mirror release")
+    check(ka.attach(a,"radial",input),"clamp reattach after mirror release")
+    var original_image: Image = texture_map["a"].get_image()
+    var alternate_format := Image.create_from_data(original_image.get_width(),original_image.get_height(),false,Image.FORMAT_RF,original_image.get_data())
+    texture_map["a"].set_image(alternate_format)
+    check(not ka.is_current(),"same bytes and dimensions with changed format rejected")
+    check(not ka.update(input),"changed format releases")
+    texture_map["a"].set_image(original_image)
+    check(ka.attach(a,"radial",input),"reattach restored RGBA8")
+    var tiny: Dictionary = input.duplicate()
+    tiny["target_size"] = [1,1]
+    check(not ka.update(tiny),"target singleton rejected")
     check(Kernel.weights(1.) == [1.,.75,.5,.25],"four radial weights")
     check(Kernel.f32(0.3333333432674407958984375) != Kernel.f32(0.333333),"exact raw third literal")
     for bad in [[],[1.,2.,3.],[1.,2.,3.,INF],[1.,2.,3.,NAN],[1.,2.,3.,1e39],[1.,2.,3.,1e30],[0.,0.,2.6666666666666665,1.]]:
@@ -167,6 +195,11 @@ func numeric_tests(rows: Array) -> void:
     check(not ka.update(input) and a.material == null,"stale shader identity rejected")
     var merge_input: Dictionary = bind_input(rows[3])
     check(ka.attach(a,"merge",merge_input),"merge attach")
+    merge_input["sampler_policy"] = Kernel.MIRROR_POLICY
+    check(not ka.update(merge_input) and a.material == null,"merge rejects native radial sampler")
+    merge_input["sampler_policy"] = Kernel.POLICY
+    merge_input["radii"] = [-.21,-.35,-.72,-.6]
+    check(ka.attach(a,"merge",merge_input),"negative radius magnitudes supported")
     merge_input["radii"] = [0.,.2,.3,.4]
     check(not ka.update(merge_input),"zero radius rejected")
     a.queue_free()

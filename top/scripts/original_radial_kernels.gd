@@ -1,6 +1,7 @@
 extends RefCounted
 ## Explicit bounded embedding contract. No native lifecycle/default/packet mapping.
 const POLICY = "linear_clamp_explicit"
+const MIRROR_POLICY = "native_radial_0x265_mirror_lod0"
 const SPACE = "raw_rgba8_no_srgb"
 const TARGET = "rgba8_unorm_blend_disabled"
 const RADIAL = preload("res://materials/original_radial_blur.gdshader")
@@ -65,9 +66,12 @@ func is_current() -> bool:
             return false
     for key in _textures:
         var t: Texture2D = _textures[key][0]
-        if not is_instance_valid(t) or t.get_width() != _textures[key][1] or t.get_height() != _textures[key][2]:
+        if not is_instance_valid(t) or t.get_width() != _textures[key][1] or t.get_height() != _textures[key][2] or t.get_format() != Image.FORMAT_RGBA8:
             return false
-        if t.get_image().get_data() != _textures[key][3]:
+        var current_image: Image = t.get_image()
+        if current_image == null or current_image.get_format() != Image.FORMAT_RGBA8 or current_image.has_mipmaps():
+            return false
+        if current_image.get_data() != _textures[key][3]:
             return false
     return true
 
@@ -87,7 +91,10 @@ func attach(item: CanvasItem, kind: String, inputs: Dictionary) -> bool:
 func update(inputs: Dictionary) -> bool:
     if not is_current():
         return _fail("stale attachment/material/texture")
-    for pair in [["sampler_policy", POLICY], ["color_space", SPACE], ["target", TARGET]]:
+    var policy = inputs.get("sampler_policy")
+    if policy != POLICY and not (_kind == "radial" and policy == MIRROR_POLICY):
+        return _fail("explicit supported sampler_policy required; native mirror is radial-only")
+    for pair in [["color_space", SPACE], ["target", TARGET]]:
         if inputs.get(pair[0]) != pair[1]:
             return _fail("explicit policy required: " + pair[0])
     if not inputs.get("provenance") is String or inputs["provenance"].strip_edges().is_empty():
@@ -95,8 +102,8 @@ func update(inputs: Dictionary) -> bool:
     if not vector_ok(inputs.get("target_size"), 2, 4096.0):
         return _fail("target dimensions required")
     for x in inputs["target_size"]:
-        if x < 1 or x != floor(x):
-            return _fail("integer positive dimensions required")
+        if x < 2 or x != floor(x):
+            return _fail("integer target dimensions at least 2 required")
     var names: Array = ["viewport", "uv_rect", "radial"] if _kind == "radial" else ["viewport", "uv_rect", "radii", "merge_param"]
     for key in names:
         if not vector_ok(inputs.get(key), 4):
@@ -127,10 +134,12 @@ func update(inputs: Dictionary) -> bool:
         if tex.get_width() != dims[0] or tex.get_height() != dims[1] or dims[0] < 1 or dims[1] < 1:
             return _fail("texture dimension mismatch")
         var img: Image = tex.get_image()
-        if img == null or img.get_format() != Image.FORMAT_RGBA8 or img.has_mipmaps():
+        if img == null or tex.get_format() != Image.FORMAT_RGBA8 or img.get_format() != Image.FORMAT_RGBA8 or img.has_mipmaps():
             return _fail("raw RGBA8 without mipmaps required")
         next_textures[key] = [tex, tex.get_width(), tex.get_height(), img.get_data()]
     _expected.clear()
+    if _kind == "radial":
+        _expected["native_radial_mirror_lod0"] = policy == MIRROR_POLICY
     for key in names:
         _expected[key] = _v4(inputs[key])
     for key in tex_names:
