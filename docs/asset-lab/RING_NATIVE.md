@@ -648,3 +648,135 @@ Frozen handoff SHA256:
 Binary SHA256:
 `46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a`.
 History is preserved. Only these two documents receive semantic edits.
+
+
+## Radial sink audit — 2026-10-30 (schema 1)
+
+**STATIC_PARTIAL.** The actual singleton-to-packet-to-buffer-staging path is now
+established. Exact selected bytecode/resource-instance identity and GPU submission
+remain open. `rendering_accepted=false`, `all96_accepted=false`. Historical text
+above is preserved; this appendix narrows its earlier missing-reader conclusion.
+
+### Actual receiver and normal call path
+
+`1402bb01c` loads RCX directly from **G14290e498**; `1402bb023` calls
+`14035e680`. At `14035e6ad`, R15 receives incoming RCX. It is the sole R15
+definition in the captured caller body before the sink; intervening normal calls
+preserve it under the Windows x64 nonvolatile-register ABI. This is not
+radialtarget260/global142aa75d8 identity inferred from equal offsets.
+
+The supplied fragment `14035e6eb..140361cd9` chains through unwind entries
+35e6e6,35e6dd,35e6d5,35e6c5 to root35e680. Separately, a 342-instruction normal
+CFG witness reaches the call, including its actual branch. Three outgoing edges
+leave the capture: 362519,361e24,361cd9; no complete-method CFG claim is made.
+
+`140361487` reads `[R15+4470]`; SHR9 / TEST1 / JE3614cc skips the packet call
+when bit9 is clear. On the set path, `14036149e` passes **P=G+469c** in RDX;
+RCX is **C=[[G+570]+8]** and `1403614a9` directly calls `1403702d0`.
+The setter saves P in RDI and C in R12, reads the packet and stores its mode at
+C+6e0. It is not a register-only search: by-reference callee reads and stack
+vectors are traced explicitly.
+
+### Implementation-ready staging layout
+
+Let pNN denote f32 at P+hex(NN), except p00 is u32 mode. For ordinary finite
+inputs, with each operation rounded as scalar SSE: a=p08/p0c; b=a/p0c.
+No divisor clamp occurs here. Mode0 enters 370944; mode1 enters370760;
+mode2 enters37042a; other modes skip these named updates.
+
+| Mode0 destination | Name | Bytes | Payload |
+|---|---|---:|---|
+| C+a0 | cRadialBlurParam | 16 | p18,p1c,p04,b |
+| C+140 | cRadialBlurParam | 16 | p18,p1c,p04,a |
+| C+1e0 | cRadialBlurParam | 16 | p18,p1c,p04,p08 |
+| C | cDonutMergeParam | 32 | p20/2,p24/2,p28/2,p2c/2; p18,p1c,0.5/q,p10 |
+
+q is epsilon if COMISS(epsilon,p14) takes JA, otherwise p14. Epsilon is exactly
+bits **3a83126f** at14211dd64 (approximately0.001). This conditional preserves
+unordered operand behavior; mathematical max is not substituted. The four half
+scales come from vector bits3f000000 at1421416a0. Existing CPU evidence maps
+p08 to attenuated Len, p10 to comparison-clamped Str, p14 to Gra, p18/1c to
+center, p20/24 to the IR-derived pair and p28/2c to the OR-derived pair.
+**p04/p0c semantics and defaults are not fabricated.** Original absent-IRad
+fallback, default clock and lifetime remain UNKNOWN.
+
+RBP=RSP+100 in the setter: merge bytes at RSP+70..8f include stores through
+RBP-80..-74. Mode1 sends the same three vectors to C+280/+320/+3c0 as
+cGaussianBlurParam and uses the same merge block. Mode2 uses the distinct
+32-byte cParallelBlurParam blocks and16-byte cParallelMergeParam, documented
+with exact helper addresses in JSON; its transcendental helper identities are
+not guessed. Nearby468c..4698 fields are not labeled radial.
+
+### Concrete buffer path and its limit
+
+The setter finds named entries through their IDs and the name table reached via
+G142907d00+50; missing names/counts skip writes. `140347d50` receives subobject,
+entry index, vector pointer and byte count. It saves the pointer in RBP across
+calls. For E=[subobject+18]+16*index, B=[E+8], a null or short-capacity buffer
+calls `140226350(size, flags2, category11)` and stores the result into E+8.
+The allocation is0x70 bytes. `14021f0f0` records16-byte-rounded capacity and
+flags; **flags2 bypasses its native-buffer creation branch**.
+
+`14021f5d0(B,0,size,2)` obtains CPU staging storage through TLS command
+allocation and records B+28/+30/+34. A nonnull return is passed to141da7ec0
+with the saved vector source and size, then B+30 is cleared. This is a concrete
+staging/copy-call path, not proof of D3D Map/UpdateSubresource or GPU completion;
+the copy-helper body itself was not newly decoded.
+
+After the setter,3614c0 calls349fa0(G+568). Its pointer-array element1 is the
+same C. Count/mask/predicate govern virtual+28 dispatch. Captured generic render
+code3482b0 sets TLS context+880 from [[subobject+8]+b0], and348615 binds each
+nonnull buffer into context+940+8*entryID. The exact concrete virtual targets
+remain conditional; no indirect edge is replaced with an assumed callee.
+
+### Shader resource evidence and remaining typed edge
+
+Table14215c090 contains initializer36eae0 at+8 and renderer370ba0 at+28;
+36e980/36e9bb installs it in a resource receiver. This is a distinct resource
+leaf, not a replay of the exhausted G constructor. Initializer36eae0 constructs
+ten descriptors and calls subobject virtual+8 with stridea0. The first three
+literal paths are **shader/sm5/posteffect/RadialBlur.shcd** (descriptor index0),
+followed by GaussianBlur, ParallelBlur and ParallelMerge descriptors.
+Generic initializer347120 consumes descriptor+8, requests the resource through
+2fed30/2fedd0 and stores its handle at subobject+8. This is ShCd, not ShPk;
+no unrelated package key vector or hashed label is substituted.
+
+Renderer370ba0's captured switch table maps subobjects0..2 to mode0,3..5 to
+mode1,6..8 to mode2. Its calls are virtual; mode2 later dispatches C+640.
+These sources explain a **conditional** shader path, but do not prove that C
+and its subobjects received and retained these tables.
+
+The smallest remaining typed edge is therefore:
+**C=[[G+570]+8] and C+a0/+140/+1e0 -> installed initialization/render tables
+and returned shader handle at S+8 -> selected bytecode at [[S+8]+b0] with
+reflected CB registers.** Exact bytecode hashes, CB registers, actual texture
+instances, shader formula and GPU submission are unknown. This is a concrete
+instance/handle dependency, not a request to repeat constructor/global surveys.
+Aki can use the proven packet/staging mapping; it does not yet authorize an
+original-equivalent renderer or COMPLETE action31567/P3-02/all96 claims.
+
+### Evidence, review and preservation
+
+Frozen handoff SHA256 b5308b4fd5db914eb907f54dfb1acf825e9ff5caf04da7423b54a2fa0a86243a;
+binary SHA25646a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a;
+existing Capstone5.0.6. Verified105 initial LF files (103 protected plus both
+documents), all528 raw readonly files,253 historical top-level records and16
+nested records. They retain their original locations and values.
+
+New capture: **16 code spans /30,617 bytes;15 metadata records /1,148 bytes**.
+Total unique native records299 /103,488 bytes, within the requested caps.
+Scoped review asserts14 exact instruction sequences and the direct G address;
+normal CFG witness and unwind groups are separate private artifacts. No runtime
+assertions or rendering tests were performed. One pre-capture import failure is
+retained; the explicit existing Capstone path fixed it without installation.
+Initial displayed count103/101 was corrected to105/103. Two initial disassembly
+windows began inside instructions; the complete caller and reassembled setter
+correct them. The initial constant at14211dd60 was not the clamp: the RIP operand
+proves14211dd64. All original records/logs remain retained.
+
+Private scratch: `top/assets/official/top-ring-readback-51035`. The single
+`radial_sink_audit` JSON key records every new native hash, command/receipt/log
+hash, reviewed helper hash, exact joins, counterevidence and limitations.
+Documents are published with temporary files plus os.replace and then checked
+for exact MD prefix and historical JSON-value preservation. No product source,
+tests, Git index, commits, pushes, desktop or game execution were changed.
