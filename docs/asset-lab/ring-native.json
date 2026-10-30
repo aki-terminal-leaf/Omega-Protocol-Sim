@@ -1655,7 +1655,65 @@
       "sha256": "23dc9c0cc8c8db4caefec50cf95fa7b58368c7bee48dd59f1b8c4c45574b3773",
       "kind": "CODE"
     }
-  ],
+  ,
+{"va": "0x1403661c0", "bytes": 1185, "sha256": "ffd9e654bf23bf91b528e9768522d51c1c523f942684f16b641318b8536a87a2", "kind": "CODE"},
+{"va": "0x14260bdf0", "bytes": 188, "sha256": "8bf8678f6972dc476a4bb158da84bd0416b1365705187a57c8512bcc25a37a2a", "kind": "UNWIND"},
+{"va": "0x142fc07ac", "bytes": 96, "sha256": "b63bf81b40e698a788402618813f811747c2743196dfd8299bc2e15f4bf97198", "kind": "PDATA"},
+{"va": "0x140368c20", "bytes": 1882, "sha256": "8f0f9617dc3bc8f3368354085e79f0023e44935612e24f8e5d8e6ee0848e54c6", "kind": "CODE"},
+{"va": "0x14260c11c", "bytes": 244, "sha256": "0dad16bb26f06c58c39d05f41bcd4e0a566c1eee5e42cf97c0467b3b9d612c51", "kind": "UNWIND"},
+{"va": "0x142fc095c", "bytes": 96, "sha256": "9ba2249bf36b9860ec0e5ff77e76b99d420aceafbf6a671d1f0517da98a3c4a2", "kind": "PDATA"},
+{"va": "0x140369c10", "bytes": 1977, "sha256": "c85e408b4c1757852a7731991f3a7ac1a50f12789a9d67f0639481cb21a80d13", "kind": "CODE"},
+{"va": "0x14260c310", "bytes": 292, "sha256": "6e3d55a7c95cccb36bf22808635cb57a267e21de6d9d1ca1f1c0dfe2195c583e", "kind": "UNWIND"},
+{"va": "0x142fc0a58", "bytes": 108, "sha256": "80ef7b99112c56cb966543a3a9ca27f0734439fb9ffabc4c783c8682b685de33", "kind": "PDATA"},
+{"va": "0x14036c780", "bytes": 1621, "sha256": "17c7b4fb387230212b3a15105fe47e8feb636c874eb2d5d32569ee39e7814735", "kind": "CODE"},
+{"va": "0x14260c708", "bytes": 176, "sha256": "f49e6223e8ed20e678700e356ffc550ec7fc6962e46d9b4a499d0d403927cc13", "kind": "UNWIND"},
+{"va": "0x142fc0c8c", "bytes": 84, "sha256": "84dad55b1cee03af0a6dea4e1927194b54b930e658b957a8a39a0d49cc5d5cc6", "kind": "PDATA"},
+{"va": "0x14036d330", "bytes": 1932, "sha256": "ae2dcea8b4e7eb8f2209c3046b62f5582e2d931e29d0480f6eb990163e0760d0", "kind": "CODE"},
+{"va": "0x14260c834", "bytes": 104, "sha256": "2b4d985934c0c81090095228971fc2cfc58072ab57d46d0db5e7d7b3e6f3e7bc", "kind": "UNWIND"},
+{"va": "0x142fc0d34", "bytes": 36, "sha256": "baa2801fc48acbf61792db42cf9f690b3796fc38cf10b1c303154d9fbb4855cc", "kind": "PDATA"},
+{"va": "0x14036dad0", "bytes": 425, "sha256": "aa002717494964299f88fcfdd30a9d41a27fab995935565eb28355250784a7b9", "kind": "CODE"},
+{"va": "0x14260c89c", "bytes": 44, "sha256": "4296696eb08a4b064e3168b536c865203786c210376bcf87af8a35a14e82684d", "kind": "UNWIND"},
+{"va": "0x142fc0d58", "bytes": 12, "sha256": "c964f8941109701c1548028c2cec1c3d4ef70d294548121ba7625a2dbc7db8f9", "kind": "PDATA"},
+{"va": "0x14036dc80", "bytes": 432, "sha256": "4082ac282b67b567fb427310947a0c4b3de0ee20e2fc23e3dfc987b669099f9a", "kind": "CODE"},
+{"va": "0x14260c8c8", "bytes": 44, "sha256": "4296696eb08a4b064e3168b536c865203786c210376bcf87af8a35a14e82684d", "kind": "UNWIND"},
+{"va": "0x142fc0d64", "bytes": 12, "sha256": "d82cfeffa816604933097fb2390f1b3c4ce6c87a2e5d5036d983064af8813e19", "kind": "PDATA"},
+{"va": "0x14036dfd0", "bytes": 1276, "sha256": "971f50b63dd17dcab910785c9b9f9d5b617a54976a7cda2f8c5b8857590957e6", "kind": "CODE"},
+{"va": "0x14260c924", "bytes": 72, "sha256": "b83a91d4903cd35fcdaa5b3b436b41019f1c4e2969f6e98ca4df543b94a5058e", "kind": "UNWIND"},
+{"va": "0x142fc0d94", "bytes": 12, "sha256": "1b0082fb6c3e1bb78b018fe2479be980f7d9fe944422884cb31d64919bd68c1e", "kind": "PDATA"},
+{"va": "0x14034dd60", "bytes": 2658, "sha256": "4412b44363d97607665df181a91b77ae7493b3a254f799bba6e1589070339e88", "kind": "CODE"},
+{"va": "0x14260b2d4", "bytes": 304, "sha256": "7a26c30d5ea90fe43fca46095fc701d623e8238f9747ec169fc26fa1cb7ff6ed", "kind": "UNWIND"},
+{"va": "0x142fc01c4", "bytes": 132, "sha256": "4bf9ec3eedd7a75a68743cb5365120b4c8d4cc352d176772a046d3fcf9bac570", "kind": "PDATA"},
+{"va": "0x14034eae0", "bytes": 887, "sha256": "5d4769340ab68781ad51277f5d649e41531ceb5b75c7c89a92f34d0936857da8", "kind": "CODE"},
+{"va": "0x14260b424", "bytes": 60, "sha256": "0ff7c7bd56923cefea7c7b45f8dfcbab8aa3d41cd584c3fbb91aa296265bf47d", "kind": "UNWIND"},
+{"va": "0x142fc0260", "bytes": 12, "sha256": "b148b9b7691b9ab4b7d43f623b4b189344ecd2dca8555d1382b159a758f5bb52", "kind": "PDATA"},
+{"va": "0x14034ee60", "bytes": 328, "sha256": "977a0c6639817dd46af14971c7e708f1b5aedcb76718ecde85498b103dee4b1f", "kind": "CODE"},
+{"va": "0x14260b460", "bytes": 44, "sha256": "1091f5292eed66bda61636344a939c62100c18f6af1491b405c9db10a4279296", "kind": "UNWIND"},
+{"va": "0x142fc026c", "bytes": 12, "sha256": "db82f32543d6ca151275e055142ffafa9df67df7294da8d731be07ff04a50e4a", "kind": "PDATA"},
+{"va": "0x140352350", "bytes": 138, "sha256": "50f31e533e5d35b3db56ad6d13914e5842d24f833255f62cd65b32c7064704c7", "kind": "CODE"},
+{"va": "0x14260b6b0", "bytes": 20, "sha256": "35e41fcc6b8100dd284d13835e6d72cd48d074c71457aaf53548eb6627b5e251", "kind": "UNWIND"},
+{"va": "0x142fc0398", "bytes": 12, "sha256": "f56cb10927d320adefd49d26bd087ab0d5a5b93cc621bc5823e29412fd29da52", "kind": "PDATA"},
+{"va": "0x1403657f0", "bytes": 817, "sha256": "0fd663173735aa563498a5e26eda45c1ad3818584bba07c228b9e7a127958ab1", "kind": "CODE"},
+{"va": "0x14260bd3c", "bytes": 104, "sha256": "905e10fc96e2e35a4f9993c980e14fa6dfac859710ba2546f42290993751595e", "kind": "UNWIND"},
+{"va": "0x142fc0734", "bytes": 60, "sha256": "5b625de8587344ef00c56ca381ed3973ef30fbdc668d4341767020fa6e2d1734", "kind": "PDATA"},
+{"va": "0x1403660c0", "bytes": 220, "sha256": "25bba52610a0c286dadee46fd74cc1604926d41647f2e30bb531f3d0d9ce608e", "kind": "CODE"},
+{"va": "0x14260bde8", "bytes": 8, "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2", "kind": "UNWIND"},
+{"va": "0x142fc07a0", "bytes": 12, "sha256": "6eef0dddfc1c53190ff828c8ca1e1fc99c4bfd5409c771e825479cf28447bf16", "kind": "PDATA"},
+{"va": "0x14036b6b0", "bytes": 1689, "sha256": "ec93cc90a7e4690fdb793054787044d100434071598597c130e026cde193d5e1", "kind": "CODE"},
+{"va": "0x14260c5f0", "bytes": 64, "sha256": "a8a9a4cc5dc782d7cf21e22a8b16ddafd89b2413b09d2ba017ca49b2d7b69491", "kind": "UNWIND"},
+{"va": "0x142fc0be4", "bytes": 12, "sha256": "58fad7f88c2ac2a29b19eddd9d892f100e760296381bfc0d008535ae55efe246", "kind": "PDATA"},
+{"va": "0x14036c470", "bytes": 765, "sha256": "f223f9c950215f7286b3f8c8df8ca811489e8d932564d8dcc2c1d1e943257c33", "kind": "CODE"},
+{"va": "0x14260c6b0", "bytes": 88, "sha256": "f94df6664d43fdbbcbf4b605f5056a273ba926cc987d1d5dc864f164ce4628c3", "kind": "UNWIND"},
+{"va": "0x142fc0c50", "bytes": 60, "sha256": "38e356ecb3509b94c177ca7aa4c5251cb45af1c0bfb880c76e5b34340cc804ae", "kind": "PDATA"},
+{"va": "0x1404303b0", "bytes": 41, "sha256": "6726c47da933e745e94eaefaccce1a03ac2fe7e6520f2392727c421d2f93296a", "kind": "CODE"},
+{"va": "0x14261a0f4", "bytes": 8, "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2", "kind": "UNWIND"},
+{"va": "0x142fc929c", "bytes": 12, "sha256": "580318b297402cf3fceb28fa062f2b97ef2de8e2e863f0a19c788bc6a027b0d1", "kind": "PDATA"},
+{"va": "0x1404303e0", "bytes": 46, "sha256": "5b940f3c6e3f29cd1dcf1bdf9a877cad91772b506981cc3f077813f1a5a12628", "kind": "CODE"},
+{"va": "0x14261a0fc", "bytes": 8, "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2", "kind": "UNWIND"},
+{"va": "0x142fc92a8", "bytes": 12, "sha256": "1da98bec1109ae716d42299a2f2cb0c2e5aed02aa1b570a90a6f622f33083707", "kind": "PDATA"},
+{"va": "0x140430420", "bytes": 218, "sha256": "5d3b50965d1fc05e9c1aa88fa7a03251f59aaf6417ee09729ed8d2fcb5be43b8", "kind": "CODE"},
+{"va": "0x14261a104", "bytes": 12, "sha256": "95a10c6d2d751622a4535e1f8c8bdca6a784f9865cf0e1039457f8b7b56c3dae", "kind": "UNWIND"},
+{"va": "0x142fc92b4", "bytes": 12, "sha256": "d20c7bf53bf59881f332d88e1f0aa58253bff56a64da887cfbe779fed79af4f7", "kind": "PDATA"},
+{"va": "0x14034b740", "bytes": 105, "sha256": "ab18e748e19048ed8be368f0ca93e53789287ecde1da86599ba689229a82b40d", "kind": "CODE"}],
   "rendering_accepted": false,
   "all96_accepted": false,
   "private_evidence": "top/assets/official/top-ring-native-50976",
@@ -3054,4 +3112,897 @@
       "top/assets/official/top-ring-gpu-50976/review-1793352230956277400/probe.log": "853c185ff667bcb594285e2a200279763a4f63995ad85ec427f4d725cbb66b57"
     }
   }
+,
+  "function_dataflow_audit": {
+  "schema": 1,
+  "status": "STATIC_PARTIAL",
+  "rendering_accepted": false,
+  "all96_accepted": false,
+  "frozen_handoff_sha256": "fe13cb7c115f91bdfbd2e210a72a5b6c30928c6eb1296ff21e9ae4f2373d8ecf",
+  "initial_gate": {
+    "initial_source_count": 105,
+    "readonly_count": 394,
+    "native_count": 195,
+    "errors": []
+  },
+  "coverage": {
+    "frozen_loads": 74,
+    "resolved_roots": 35,
+    "selected_seed_roots": 19,
+    "selected_seed_count": 25,
+    "selected_code_bytes": 18537,
+    "external_typed_hops": 1,
+    "external_code_bytes": 105,
+    "new_code_spans": 20,
+    "new_metadata_spans": 38,
+    "new_native_records": 58,
+    "cumulative_native_records": 253,
+    "cumulative_native_bytes": 64136,
+    "typed_unindexed_accesses": 89,
+    "radial_overlapping_accesses": 0,
+    "flag_word_overlapping_accesses": 0,
+    "excluded_root": "0x14036a540: parent already proved nonradial; no redisassembly",
+    "remaining_roots": [
+      {
+        "root": "0x14036e8a0",
+        "seeds": [
+          "0x14036e8a6"
+        ],
+        "fragments": [
+          [
+            "0x14036e8a0",
+            "0x14036e903",
+            "0x260c9b4"
+          ]
+        ],
+        "bytes": 99
+      },
+      {
+        "root": "0x140379390",
+        "seeds": [
+          "0x140379418",
+          "0x140379426",
+          "0x140379441",
+          "0x14037944f",
+          "0x14037945d"
+        ],
+        "fragments": [
+          [
+            "0x140379390",
+            "0x140379398",
+            "0x260d5ec"
+          ],
+          [
+            "0x140379398",
+            "0x140379441",
+            "0x260d5f8"
+          ],
+          [
+            "0x140379441",
+            "0x140379483",
+            "0x260d60c"
+          ],
+          [
+            "0x140379483",
+            "0x14037953c",
+            "0x260d61c"
+          ],
+          [
+            "0x14037953c",
+            "0x14037956f",
+            "0x260d644"
+          ]
+        ],
+        "bytes": 479
+      },
+      {
+        "root": "0x140382410",
+        "seeds": [
+          "0x14038278f"
+        ],
+        "fragments": [
+          [
+            "0x140382410",
+            "0x140382431",
+            "0x260ddf4"
+          ],
+          [
+            "0x140382431",
+            "0x140382438",
+            "0x260de04"
+          ],
+          [
+            "0x140382438",
+            "0x14038243c",
+            "0x260de18"
+          ],
+          [
+            "0x14038243c",
+            "0x14038278f",
+            "0x260de2c"
+          ],
+          [
+            "0x14038278f",
+            "0x140382837",
+            "0x260de68"
+          ],
+          [
+            "0x140382837",
+            "0x140382945",
+            "0x260dea0"
+          ],
+          [
+            "0x140382945",
+            "0x140382972",
+            "0x260ded8"
+          ]
+        ],
+        "bytes": 1378
+      },
+      {
+        "root": "0x1403897f0",
+        "seeds": [
+          "0x14038989b"
+        ],
+        "fragments": [
+          [
+            "0x1403897f0",
+            "0x1403898b4",
+            "0x260e4d0"
+          ]
+        ],
+        "bytes": 196
+      },
+      {
+        "root": "0x14038a580",
+        "seeds": [
+          "0x14038a5d0",
+          "0x14038a615",
+          "0x14038a628",
+          "0x14038a63b",
+          "0x14038a64c",
+          "0x14038a68d",
+          "0x14038a6b2",
+          "0x14038a6c5",
+          "0x14038a6e1",
+          "0x14038a6f8",
+          "0x14038a70f",
+          "0x14038a732",
+          "0x14038a751",
+          "0x14038a796",
+          "0x14038a7a9",
+          "0x14038a815",
+          "0x14038a828",
+          "0x14038a83b",
+          "0x14038a84e",
+          "0x14038a85b",
+          "0x14038a87e",
+          "0x14038a89d"
+        ],
+        "fragments": [
+          [
+            "0x14038a580",
+            "0x14038a5a1",
+            "0x260e5a8"
+          ],
+          [
+            "0x14038a5a1",
+            "0x14038a7c6",
+            "0x260e5b0"
+          ],
+          [
+            "0x14038a7c6",
+            "0x14038a8f0",
+            "0x260e5cc"
+          ],
+          [
+            "0x14038a8f0",
+            "0x14038a902",
+            "0x260e5e4"
+          ],
+          [
+            "0x14038a902",
+            "0x14038a908",
+            "0x260e5fc"
+          ]
+        ],
+        "bytes": 904
+      },
+      {
+        "root": "0x140392ce0",
+        "seeds": [
+          "0x140393032",
+          "0x140393040",
+          "0x14039305b",
+          "0x140393069",
+          "0x140393077"
+        ],
+        "fragments": [
+          [
+            "0x140392ce0",
+            "0x140392d0c",
+            "0x260f108"
+          ],
+          [
+            "0x140392d0c",
+            "0x140392d33",
+            "0x260f118"
+          ],
+          [
+            "0x140392d33",
+            "0x14039305b",
+            "0x260f138"
+          ],
+          [
+            "0x14039305b",
+            "0x14039309d",
+            "0x260f14c"
+          ],
+          [
+            "0x14039309d",
+            "0x140393148",
+            "0x260f15c"
+          ],
+          [
+            "0x140393148",
+            "0x140393199",
+            "0x260f178"
+          ],
+          [
+            "0x140393199",
+            "0x1403931b1",
+            "0x260f188"
+          ],
+          [
+            "0x1403931b1",
+            "0x140393235",
+            "0x260f198"
+          ]
+        ],
+        "bytes": 1365
+      },
+      {
+        "root": "0x1403b88d0",
+        "seeds": [
+          "0x1403b8946",
+          "0x1403b8954",
+          "0x1403b896f",
+          "0x1403b897d",
+          "0x1403b898b"
+        ],
+        "fragments": [
+          [
+            "0x1403b88d0",
+            "0x1403b89b1",
+            "0x2612118"
+          ],
+          [
+            "0x1403b89b1",
+            "0x1403b8a6c",
+            "0x2612124"
+          ],
+          [
+            "0x1403b8a6c",
+            "0x1403b8a9f",
+            "0x261214c"
+          ]
+        ],
+        "bytes": 463
+      },
+      {
+        "root": "0x1403e83f0",
+        "seeds": [
+          "0x1403e8422"
+        ],
+        "fragments": [
+          [
+            "0x1403e83f0",
+            "0x1403e8438",
+            "0x2615124"
+          ]
+        ],
+        "bytes": 72
+      },
+      {
+        "root": "0x14042ac60",
+        "seeds": [
+          "0x14042acff"
+        ],
+        "fragments": [
+          [
+            "0x14042ac60",
+            "0x14042ad65",
+            "0x261982c"
+          ]
+        ],
+        "bytes": 261
+      },
+      {
+        "root": "0x1404400e0",
+        "seeds": [
+          "0x140440270"
+        ],
+        "fragments": [
+          [
+            "0x1404400e0",
+            "0x1404402d2",
+            "0x261bbb0"
+          ]
+        ],
+        "bytes": 498
+      },
+      {
+        "root": "0x1404404e0",
+        "seeds": [
+          "0x140440516"
+        ],
+        "fragments": [
+          [
+            "0x1404404e0",
+            "0x1404406dc",
+            "0x261bc30"
+          ]
+        ],
+        "bytes": 508
+      },
+      {
+        "root": "0x140449ab0",
+        "seeds": [
+          "0x140449b51"
+        ],
+        "fragments": [
+          [
+            "0x140449ab0",
+            "0x140449bda",
+            "0x261c760"
+          ]
+        ],
+        "bytes": 298
+      },
+      {
+        "root": "0x140449c50",
+        "seeds": [
+          "0x140449c86"
+        ],
+        "fragments": [
+          [
+            "0x140449c50",
+            "0x140449d30",
+            "0x261c784"
+          ]
+        ],
+        "bytes": 224
+      },
+      {
+        "root": "0x14044cfa0",
+        "seeds": [
+          "0x14044d054"
+        ],
+        "fragments": [
+          [
+            "0x14044cfa0",
+            "0x14044d169",
+            "0x261cd2c"
+          ]
+        ],
+        "bytes": 457
+      },
+      {
+        "root": "0x14044d260",
+        "seeds": [
+          "0x14044d273"
+        ],
+        "fragments": [
+          [
+            "0x14044d260",
+            "0x14044d2e7",
+            "0x261cd44"
+          ]
+        ],
+        "bytes": 135
+      }
+    ],
+    "root_reports": [
+      {
+        "root": "0x1403661c0",
+        "seeds": [
+          "0x1403661e6"
+        ],
+        "bytes": 1185,
+        "reachable_instructions": 289,
+        "decoded_instructions": 289,
+        "iterations": 289,
+        "join_count": 28,
+        "access_count": 7,
+        "exits": []
+      },
+      {
+        "root": "0x140368c20",
+        "seeds": [
+          "0x140368c6b",
+          "0x1403690d6"
+        ],
+        "bytes": 1882,
+        "reachable_instructions": 372,
+        "decoded_instructions": 372,
+        "iterations": 426,
+        "join_count": 19,
+        "access_count": 2,
+        "exits": []
+      },
+      {
+        "root": "0x140369c10",
+        "seeds": [
+          "0x140369c5b"
+        ],
+        "bytes": 1977,
+        "reachable_instructions": 387,
+        "decoded_instructions": 387,
+        "iterations": 480,
+        "join_count": 19,
+        "access_count": 0,
+        "exits": []
+      },
+      {
+        "root": "0x14036c780",
+        "seeds": [
+          "0x14036c792"
+        ],
+        "bytes": 1621,
+        "reachable_instructions": 331,
+        "decoded_instructions": 331,
+        "iterations": 338,
+        "join_count": 15,
+        "access_count": 16,
+        "exits": []
+      },
+      {
+        "root": "0x14036d330",
+        "seeds": [
+          "0x14036d377"
+        ],
+        "bytes": 1932,
+        "reachable_instructions": 461,
+        "decoded_instructions": 461,
+        "iterations": 461,
+        "join_count": 31,
+        "access_count": 10,
+        "exits": []
+      },
+      {
+        "root": "0x14036dad0",
+        "seeds": [
+          "0x14036dae7",
+          "0x14036db53",
+          "0x14036dbf9"
+        ],
+        "bytes": 425,
+        "reachable_instructions": 80,
+        "decoded_instructions": 80,
+        "iterations": 80,
+        "join_count": 0,
+        "access_count": 10,
+        "exits": []
+      },
+      {
+        "root": "0x14036dc80",
+        "seeds": [
+          "0x14036dc97",
+          "0x14036dd03",
+          "0x14036dda9"
+        ],
+        "bytes": 432,
+        "reachable_instructions": 81,
+        "decoded_instructions": 81,
+        "iterations": 81,
+        "join_count": 0,
+        "access_count": 10,
+        "exits": [
+          {
+            "at": "0x14036de2b",
+            "kind": "outside_root",
+            "to": "0x1403482b0"
+          }
+        ]
+      },
+      {
+        "root": "0x14036dfd0",
+        "seeds": [
+          "0x14036e04c"
+        ],
+        "bytes": 1276,
+        "reachable_instructions": 268,
+        "decoded_instructions": 268,
+        "iterations": 268,
+        "join_count": 9,
+        "access_count": 13,
+        "exits": []
+      },
+      {
+        "root": "0x14034dd60",
+        "seeds": [
+          "0x14034e519"
+        ],
+        "bytes": 2658,
+        "reachable_instructions": 527,
+        "decoded_instructions": 527,
+        "iterations": 527,
+        "join_count": 31,
+        "access_count": 4,
+        "exits": []
+      },
+      {
+        "root": "0x14034eae0",
+        "seeds": [
+          "0x14034eb57"
+        ],
+        "bytes": 887,
+        "reachable_instructions": 176,
+        "decoded_instructions": 176,
+        "iterations": 176,
+        "join_count": 3,
+        "access_count": 8,
+        "exits": []
+      },
+      {
+        "root": "0x14034ee60",
+        "seeds": [
+          "0x14034eeed"
+        ],
+        "bytes": 328,
+        "reachable_instructions": 66,
+        "decoded_instructions": 66,
+        "iterations": 66,
+        "join_count": 2,
+        "access_count": 4,
+        "exits": []
+      },
+      {
+        "root": "0x140352350",
+        "seeds": [
+          "0x140352365"
+        ],
+        "bytes": 138,
+        "reachable_instructions": 36,
+        "decoded_instructions": 36,
+        "iterations": 37,
+        "join_count": 2,
+        "access_count": 1,
+        "exits": []
+      },
+      {
+        "root": "0x1403657f0",
+        "seeds": [
+          "0x140365877"
+        ],
+        "bytes": 817,
+        "reachable_instructions": 219,
+        "decoded_instructions": 219,
+        "iterations": 220,
+        "join_count": 24,
+        "access_count": 1,
+        "exits": []
+      },
+      {
+        "root": "0x1403660c0",
+        "seeds": [
+          "0x140366169"
+        ],
+        "bytes": 220,
+        "reachable_instructions": 56,
+        "decoded_instructions": 56,
+        "iterations": 56,
+        "join_count": 6,
+        "access_count": 1,
+        "exits": []
+      },
+      {
+        "root": "0x14036b6b0",
+        "seeds": [
+          "0x14036ba72"
+        ],
+        "bytes": 1689,
+        "reachable_instructions": 331,
+        "decoded_instructions": 331,
+        "iterations": 331,
+        "join_count": 9,
+        "access_count": 1,
+        "exits": []
+      },
+      {
+        "root": "0x14036c470",
+        "seeds": [
+          "0x14036c4ac"
+        ],
+        "bytes": 765,
+        "reachable_instructions": 212,
+        "decoded_instructions": 212,
+        "iterations": 212,
+        "join_count": 22,
+        "access_count": 1,
+        "exits": []
+      },
+      {
+        "root": "0x1404303b0",
+        "seeds": [
+          "0x1404303b9"
+        ],
+        "bytes": 41,
+        "reachable_instructions": 12,
+        "decoded_instructions": 12,
+        "iterations": 12,
+        "join_count": 0,
+        "access_count": 0,
+        "exits": []
+      },
+      {
+        "root": "0x1404303e0",
+        "seeds": [
+          "0x1404303ef"
+        ],
+        "bytes": 46,
+        "reachable_instructions": 13,
+        "decoded_instructions": 13,
+        "iterations": 13,
+        "join_count": 1,
+        "access_count": 0,
+        "exits": []
+      },
+      {
+        "root": "0x140430420",
+        "seeds": [
+          "0x140430436",
+          "0x140430476"
+        ],
+        "bytes": 218,
+        "reachable_instructions": 49,
+        "decoded_instructions": 49,
+        "iterations": 49,
+        "join_count": 2,
+        "access_count": 0,
+        "exits": []
+      },
+      {
+        "root": "0x14034b740",
+        "seeds": [],
+        "bytes": 105,
+        "reachable_instructions": 25,
+        "decoded_instructions": 25,
+        "iterations": 27,
+        "join_count": 1,
+        "access_count": 0,
+        "exits": []
+      }
+    ]
+  },
+  "method": {
+    "entry": "Empty register facts at actual unwind root. Frozen exact MOV qword [RIP]->G load seeds only; no repeated subsystem code scan. Root-family enumeration uses PE metadata only. One exact-call leaf has no pdata; bounded recursive normal-flow decode proves its 105 reachable bytes to RETs.",
+    "cfg": "Instruction fallthrough and encoded direct branch targets only; calls have normal-return fallthrough, not a callee CFG edge. Unwind chaining associates fragments but is never a normal-flow edge. Unknown indirect control targets and exceptional flow are outside analysis.",
+    "join": "Reachable-state intersection of register -> (constant displacement, static load site), iterated until stable. Distinct load sites do not unify. Static load site is an abstract provenance category, not equality of dynamic pointer instances.",
+    "aliases": "Only 64-bit MOV register copies and unindexed 64-bit LEAs propagate. Every reported explicit/implicit register write kills its entire canonical register before any proved replacement, including 8/16/32-bit overwrites. Memory loads do not become pointer aliases.",
+    "calls": "Assume ordinary conforming Win64 calls return normally and preserve RBX/RBP/RSI/RDI/R12-R15. Caller-saved aliases invalidated. Scalar/SIMD values are not tracked, hence no scalar or vector provenance survives calls. No claim that G singleton memory, object lifetime, timing or fields stay unchanged.",
+    "access": "Capstone operand access bits distinguish READ/WRITE/READ_WRITE; LEA separately never reads field bytes. Half-open byte-range overlap against each requested dword and [4470,4472); no start-only test. Segmented, indexed or non-64-bit effective addresses excluded from generic propagation.",
+    "limitations": [
+      "No generic stack memory/spill recovery, indexed arithmetic or indirect-call target proof.",
+      "No scalar formula or resource/CB propagation was triggered because no new radial read was proved.",
+      "No exhaustive absence claim; 15 non-excluded frozen-seed roots remain outside new CFG coverage. Existing two CPU arbitration reads remain CPU evidence only.",
+      "No same-object inference from original constructor target260/global142aa75d8. Sentinel142aa7d78/value, clock and lifetime remain UNKNOWN."
+    ]
+  },
+  "nonvolatile_counterexample": {
+    "seed": "0x14036c792 -> r14",
+    "call": "0x14036c9e0 call 0x1400638d0",
+    "read": "0x14036c9e5 movss xmm1,[r14+4688]",
+    "result": "READ G_at_load+4688 under ABI/CFG assumptions, outside radial fields. Old kill-at-call query cannot retain this proof."
+  },
+  "typed_leaf_hop": {
+    "caller_seed": "0x140430476 MOV RCX,[14290e498]",
+    "address_adjustment": "0x140430486 ADD RCX,9d0; exact 64-bit modular address addition independently adjudicated, not generic analyzer transfer",
+    "call": "0x1404304d3 -> 0x14034b740; no intervening RCX write/call",
+    "callee_alias": "0x14034b740 MOV R10,RCX",
+    "guard": "CMP EDX,ff / JA 34b7a3 excludes unsigned indices >255 before indexed accesses. MOVSXD RAX,EDX then LEA R9,[RAX+RAX*2] yields 3*i on guarded path.",
+    "writes": [
+      {
+        "at": "0x14034b761",
+        "address": "G_at_load+9d8+12*i",
+        "width": 4
+      },
+      {
+        "at": "0x14034b76c",
+        "address": "G_at_load+9dc+12*i",
+        "width": 4
+      },
+      {
+        "at": "0x14034b773",
+        "address": "G_at_load+9e0+12*i",
+        "width": 4
+      }
+    ],
+    "reads": [
+      {
+        "at": "0x14034b788",
+        "address": "G_at_load+3e98+4*(i>>5)",
+        "width": 4
+      },
+      {
+        "at": "0x14034b792",
+        "address": "G_at_load+3eb8+4*(i>>5)",
+        "width": 4
+      }
+    ],
+    "index_range": [
+      0,
+      255
+    ],
+    "write_union_envelope": "[09d8,15d8)",
+    "read_union_envelope": "[3e98,3ed8)",
+    "result": "No radial/flag-word overlap; no calls or GPU binding in this leaf. Values written come from caller R8 input, not a proved radial read. Five indexed accesses are separately adjudicated, not included in the generic 89-access count."
+  },
+  "minimal_blocker": {
+    "gpu_contract": "UNKNOWN: no new G-proven radial field read reaches resource/CB upload, selected shader/textures or formula. No selected bytecode to reflect.",
+    "concrete_analysis_boundary": "369c5b loads G into R13; 369d54 saves R13 at [RSP+20]; intervening calls and R13 overwrite precede 369f98 reload. Register-only analysis intentionally cannot establish that memory round trip. Later literal44dc/e0/e4 accesses are not radial proof or a proposed radial lead.",
+    "reproducible_inputs": "Frozen query.json plus roots.json, exact flow CFG/alias/call/access ledgers and SHA-pinned spans in private_evidence. Remaining frozen-seed roots listed exactly; no invented prefix or global absence claim."
+  },
+  "verification": {
+    "schema": 1,
+    "checks": [
+      "64bit MOV alias",
+      "32bit MOV clears full destination",
+      "8bit overwrite kills full alias",
+      "LEA retains exact 64bit offset",
+      "call preserves only tracked Win64 nonvolatile",
+      "32bit LEA is not pointer alias",
+      "unmodelled ADD kills alias",
+      "diamond/loop intersection",
+      "byte-range overlap starting before field/word"
+    ],
+    "instruction_rows_byte_verified": 3991,
+    "new_spans": 58,
+    "new_code_bytes": 18642,
+    "new_metadata_records": 38,
+    "overlap_with_initial_spans": [],
+    "cumulative_records": 253,
+    "cumulative_bytes": 64136,
+    "gate": "PIN_SPAN_AND_ANALYZER_CASES_ONLY_NOT_SEMANTIC_OR_RUNTIME_ACCEPTANCE",
+    "final_gate_receipt_location": "top/assets/official/top-ring-dataflow-50976/finalcheck-*/final.json (successful terminal receipt; excludes earlier failed directory)"
+  },
+  "guards": {
+    "native_child_timeout_seconds": 45,
+    "native_total_limit_seconds": 180,
+    "native_seconds_before_publication": 2.758593300008215,
+    "job_memory_limit_bytes": 1610612736,
+    "free_floor_bytes": 8589934592,
+    "serial": true,
+    "pycache": false,
+    "capstone": "5.0.6 existing path",
+    "failed_receipts": [
+      "top\\assets\\official\\top-ring-dataflow-50976\\finalcheck-1793353319374910400\\probe-receipt.json",
+      "top\\assets\\official\\top-ring-dataflow-50976\\flowhop-1793353002413960700\\probe-receipt.json"
+    ],
+    "failure_resolution": "Absent pdata target caused TypeError in initial hop resolver. Preserved original script/log/receipt; changed approach to exact-target bounded reachable leaf decoder. No timeout. One shell discovery failure: rg unavailable; switched to Select-String. Final verifier caught a live publication-log hash captured before child termination. Corrected evidence inventory to terminal files only, excluding active output directory; original failed verifier script/log/receipt retained.",
+    "acceptance": "Pins/spans and nine private analyzer checks only; not semantic/runtime/render acceptance.",
+    "native_seconds_before_final_correction": 3.423646100098267
+  },
+  "private_evidence": "top\\assets\\official\\top-ring-dataflow-50976",
+  "evidence_sha256": {
+    "top\\assets\\official\\top-ring-dataflow-50976\\common.py": "e17f78f44fbaa7dd7000c69b5e3bc6281fd516716d3b8504ef1b74a6fe888301",
+    "top\\assets\\official\\top-ring-dataflow-50976\\finalcheck-1793353319374910400\\probe-receipt.json": "9adeec8cd6797e90cb47e53f0271a1998e4bc0f24ce80af40531710515c7b991",
+    "top\\assets\\official\\top-ring-dataflow-50976\\finalcheck-1793353319374910400\\probe.log": "e33e25a5ec134197e6fcd4dc59d88c292dbe1ad231e3877c61504aea57536f9f",
+    "top\\assets\\official\\top-ring-dataflow-50976\\finalcheck.py": "a87e1fd2c1ecf2e60a81af79a24f78d87ec67b2bd816af3546fc42b1d43c62a9",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x1403661c0.asm.txt": "559f714e2bf1933b1e7e89b1bc9a1394bdd4eb339f680ac1c2f7a03cd536824e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x1403661c0.bin": "ffd9e654bf23bf91b528e9768522d51c1c523f942684f16b641318b8536a87a2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x140368c20.asm.txt": "aa3396792a2d5a6425ea8696cc17f119cd5bdcb5167acd21cc1a925e1361a0f0",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x140368c20.bin": "8f0f9617dc3bc8f3368354085e79f0023e44935612e24f8e5d8e6ee0848e54c6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x140369c10.asm.txt": "6cd9e615b0a04dd32d2c53edead01a66db844030f6f0a9d4f2f66ea0cf5ff2c3",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x140369c10.bin": "c85e408b4c1757852a7731991f3a7ac1a50f12789a9d67f0639481cb21a80d13",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036c780.asm.txt": "285ce5c47fafd6b8bc202de5ba819da01fb288315e6ec13a9385f9d46fcb9c01",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036c780.bin": "17c7b4fb387230212b3a15105fe47e8feb636c874eb2d5d32569ee39e7814735",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036d330.asm.txt": "868e36b34b931b78608717af4e0939100aaa0de92e407159243390ff16cfe345",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036d330.bin": "ae2dcea8b4e7eb8f2209c3046b62f5582e2d931e29d0480f6eb990163e0760d0",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036dad0.asm.txt": "268b8e00ff2b6e344a23b82e6d77a335fe9f1d83df29ea8bcd307f5497817976",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036dad0.bin": "aa002717494964299f88fcfdd30a9d41a27fab995935565eb28355250784a7b9",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036dc80.asm.txt": "eca6d2db67a4d0bc05bdec8b62942cb42dab4889c58e2c87035ff06067e08c37",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036dc80.bin": "4082ac282b67b567fb427310947a0c4b3de0ee20e2fc23e3dfc987b669099f9a",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036dfd0.asm.txt": "330be83326306eca6bd7a5e9428bd311ada9f8cbc80c09417b7c5828e7349ef6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14036dfd0.bin": "971f50b63dd17dcab910785c9b9f9d5b617a54976a7cda2f8c5b8857590957e6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260bdf0.bin": "8bf8678f6972dc476a4bb158da84bd0416b1365705187a57c8512bcc25a37a2a",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c11c.bin": "0dad16bb26f06c58c39d05f41bcd4e0a566c1eee5e42cf97c0467b3b9d612c51",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c310.bin": "6e3d55a7c95cccb36bf22808635cb57a267e21de6d9d1ca1f1c0dfe2195c583e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c708.bin": "f49e6223e8ed20e678700e356ffc550ec7fc6962e46d9b4a499d0d403927cc13",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c834.bin": "2b4d985934c0c81090095228971fc2cfc58072ab57d46d0db5e7d7b3e6f3e7bc",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c89c.bin": "4296696eb08a4b064e3168b536c865203786c210376bcf87af8a35a14e82684d",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c8c8.bin": "4296696eb08a4b064e3168b536c865203786c210376bcf87af8a35a14e82684d",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x14260c924.bin": "b83a91d4903cd35fcdaa5b3b436b41019f1c4e2969f6e98ca4df543b94a5058e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc07ac.bin": "b63bf81b40e698a788402618813f811747c2743196dfd8299bc2e15f4bf97198",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc095c.bin": "9ba2249bf36b9860ec0e5ff77e76b99d420aceafbf6a671d1f0517da98a3c4a2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc0a58.bin": "80ef7b99112c56cb966543a3a9ca27f0734439fb9ffabc4c783c8682b685de33",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc0c8c.bin": "84dad55b1cee03af0a6dea4e1927194b54b930e658b957a8a39a0d49cc5d5cc6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc0d34.bin": "baa2801fc48acbf61792db42cf9f690b3796fc38cf10b1c303154d9fbb4855cc",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc0d58.bin": "c964f8941109701c1548028c2cec1c3d4ef70d294548121ba7625a2dbc7db8f9",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc0d64.bin": "d82cfeffa816604933097fb2390f1b3c4ce6c87a2e5d5036d983064af8813e19",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\0x142fc0d94.bin": "1b0082fb6c3e1bb78b018fe2479be980f7d9fe944422884cb31d64919bd68c1e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\flow.json": "575caf57fcc5b323b7ec7ec47113947cb694da26dff0f7d3eb5461b0d7616e21",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\probe-receipt.json": "4fd6b6a86467e4444400c20ecbc49e2a7effd9015f75e18184da1998ed977f60",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\probe.log": "d71e888e2ac9b7bdaaed057dbc74901cdf1c1bdfcb0c4d3a2f1ae5fbf85a9144",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352830872093200\\spans.json": "cc198d3573b2fcac3d2c3067bef3c426e93125a3ac682c1987725fe1f30da37a",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14034dd60.asm.txt": "d9e86cee95c171b11c5e2ba9b824e493ee943036730cf53834cccdb324a820d7",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14034dd60.bin": "4412b44363d97607665df181a91b77ae7493b3a254f799bba6e1589070339e88",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14034eae0.asm.txt": "8dbbd335573090d032a461c2994922b42b4907a354bbc8458623b82f7c4f06c2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14034eae0.bin": "5d4769340ab68781ad51277f5d649e41531ceb5b75c7c89a92f34d0936857da8",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14034ee60.asm.txt": "30df168c9df320ac9ad8dea82e628b5289df8b287b468890140cd8a401bb5a64",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14034ee60.bin": "977a0c6639817dd46af14971c7e708f1b5aedcb76718ecde85498b103dee4b1f",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x140352350.asm.txt": "2e145a3ebe798a8390d25b48524e97e9ffd175687e2b3420efab1daf9ccb82e1",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x140352350.bin": "50f31e533e5d35b3db56ad6d13914e5842d24f833255f62cd65b32c7064704c7",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x1403657f0.asm.txt": "18f841d99efa6efbc8a45c635f417c9f9405d3cf20ce341951e99c6a88434ae6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x1403657f0.bin": "0fd663173735aa563498a5e26eda45c1ad3818584bba07c228b9e7a127958ab1",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x1403660c0.asm.txt": "51ddaa6d021098759ba68fb85393b444231c009023534e316a2c0815ba8bdcb6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x1403660c0.bin": "25bba52610a0c286dadee46fd74cc1604926d41647f2e30bb531f3d0d9ce608e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14036b6b0.asm.txt": "03f877fa2388dcdfc00c58133c63f3f9fa37be113b27b5f4d004f51cfe0d8d99",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14036b6b0.bin": "ec93cc90a7e4690fdb793054787044d100434071598597c130e026cde193d5e1",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14036c470.asm.txt": "036c0423a731c3881b76b636672b2f48e5b333a19b5b723f5b7aaff8b29b60bd",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14036c470.bin": "f223f9c950215f7286b3f8c8df8ca811489e8d932564d8dcc2c1d1e943257c33",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260b2d4.bin": "7a26c30d5ea90fe43fca46095fc701d623e8238f9747ec169fc26fa1cb7ff6ed",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260b424.bin": "0ff7c7bd56923cefea7c7b45f8dfcbab8aa3d41cd584c3fbb91aa296265bf47d",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260b460.bin": "1091f5292eed66bda61636344a939c62100c18f6af1491b405c9db10a4279296",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260b6b0.bin": "35e41fcc6b8100dd284d13835e6d72cd48d074c71457aaf53548eb6627b5e251",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260bd3c.bin": "905e10fc96e2e35a4f9993c980e14fa6dfac859710ba2546f42290993751595e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260bde8.bin": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260c5f0.bin": "a8a9a4cc5dc782d7cf21e22a8b16ddafd89b2413b09d2ba017ca49b2d7b69491",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x14260c6b0.bin": "f94df6664d43fdbbcbf4b605f5056a273ba926cc987d1d5dc864f164ce4628c3",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc01c4.bin": "4bf9ec3eedd7a75a68743cb5365120b4c8d4cc352d176772a046d3fcf9bac570",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc0260.bin": "b148b9b7691b9ab4b7d43f623b4b189344ecd2dca8555d1382b159a758f5bb52",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc026c.bin": "db82f32543d6ca151275e055142ffafa9df67df7294da8d731be07ff04a50e4a",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc0398.bin": "f56cb10927d320adefd49d26bd087ab0d5a5b93cc621bc5823e29412fd29da52",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc0734.bin": "5b625de8587344ef00c56ca381ed3973ef30fbdc668d4341767020fa6e2d1734",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc07a0.bin": "6eef0dddfc1c53190ff828c8ca1e1fc99c4bfd5409c771e825479cf28447bf16",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc0be4.bin": "58fad7f88c2ac2a29b19eddd9d892f100e760296381bfc0d008535ae55efe246",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\0x142fc0c50.bin": "38e356ecb3509b94c177ca7aa4c5251cb45af1c0bfb880c76e5b34340cc804ae",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\flow.json": "637875821d1490c0e5a325728edb90e2e1e5732adcd8af44f076f8600b4e2cb8",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\probe-receipt.json": "e9c973085d8b477fe55a14b8fb66f3e1636a20c30a915d27fb6c73f7ea5c6c99",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\probe.log": "f19ac1382602ece3843405a1cae1193f7db8b5f14813064108dcb10b6c813314",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352883535901100\\spans.json": "0271f31fa649f8d8d1d83295b35dc31e522890361119be071626be21e4524fe6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x1404303b0.asm.txt": "18b474428d630bddd82e9a96b00c95dce030923504b48686f34fefef254cafc5",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x1404303b0.bin": "6726c47da933e745e94eaefaccce1a03ac2fe7e6520f2392727c421d2f93296a",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x1404303e0.asm.txt": "eada8fe3464b1047d20dd56ec648d44123f6583a5b7f5d002e8e01a9f18b408f",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x1404303e0.bin": "5b940f3c6e3f29cd1dcf1bdf9a877cad91772b506981cc3f077813f1a5a12628",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x140430420.asm.txt": "a579e3c564d64d894778dd2832574e36e6718ce30b326bfdb95d810e220c60cd",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x140430420.bin": "5d3b50965d1fc05e9c1aa88fa7a03251f59aaf6417ee09729ed8d2fcb5be43b8",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x14261a0f4.bin": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x14261a0fc.bin": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x14261a104.bin": "95a10c6d2d751622a4535e1f8c8bdca6a784f9865cf0e1039457f8b7b56c3dae",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x142fc929c.bin": "580318b297402cf3fceb28fa062f2b97ef2de8e2e863f0a19c788bc6a027b0d1",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x142fc92a8.bin": "1da98bec1109ae716d42299a2f2cb0c2e5aed02aa1b570a90a6f622f33083707",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\0x142fc92b4.bin": "d20c7bf53bf59881f332d88e1f0aa58253bff56a64da887cfbe779fed79af4f7",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\flow.json": "62bc2679d2bfc0e4cc3508e1cbb29e3a936115acb1751f8369d6d5023e4ce673",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\probe-receipt.json": "1a8b9add155b388c2d6fed772cfe21f2745f558d5fa74c24e8ef02afb5658a7d",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\probe.log": "15061631f297b1b95e81849544856effcc78e768304c6aa41894df2d564863fa",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow-1793352912821338300\\spans.json": "9bf586c6415404d0785deb790a0a2a2db580d4355e877b0fc88784ba8aa75c7c",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flow.py": "d19a5cd8e06c79ae384352ae97a7055e8f17bafa18c3affa178f5a320797658a",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowhop-1793353002413960700\\probe-receipt.json": "fb5ec0ff2c01b45623a4f72df82399638ccb88201c12fa96191794f19db552e6",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowhop-1793353002413960700\\probe.log": "dab2c644f19b3b52b015e341e2342f889682ef846d1f3f7be9d8843b403dcd00",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowhop.py": "452735aaaeef14542bd7f2219f677c8e65f5c98d840bb3e3ca151312e2fe8b35",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf-1793353034956376500\\0x14034b740.asm.txt": "01664bc01e51027b09c2d8d9dad95c34e320744bee306499db20ddff7816dd69",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf-1793353034956376500\\0x14034b740.bin": "ab18e748e19048ed8be368f0ca93e53789287ecde1da86599ba689229a82b40d",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf-1793353034956376500\\flow.json": "f12ee6ba924113373fb5446f3994ee6d47b4f55a03d4972868177aad30034ca5",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf-1793353034956376500\\probe-receipt.json": "afc077cd6deca5233729e0889eb6febcd8b7e092a540b0f583a23d5f3452b38d",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf-1793353034956376500\\probe.log": "25a36254ec5b9056c0b3e82e8850e1667fd032dcdb1ea2ba1d92f989a692b0cc",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf-1793353034956376500\\spans.json": "22866807a0c0eed2066c4c837b7ac392625cc150dbdec52f63e57614ccd0f13e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\flowleaf.py": "76ff6e67905fac887b4cd61c1fd03a1126bda7f37830aafb91c70717b0a4fd7b",
+    "top\\assets\\official\\top-ring-dataflow-50976\\guard.py": "a1476204fe4f8e610cd1672e3d1a6f166d8ee3edec9cc4b76c8620f16a834d60",
+    "top\\assets\\official\\top-ring-dataflow-50976\\preflight-1793352746544693800\\probe-receipt.json": "178fa18cbbe5336c1a557b22cf0e461ecbc94693f73e1ea62a2d4c8d21509f14",
+    "top\\assets\\official\\top-ring-dataflow-50976\\preflight-1793352746544693800\\probe.log": "8e19cbc0f348874680cc780bbcb1bb3027611590fb63188f61494ca5a66098e5",
+    "top\\assets\\official\\top-ring-dataflow-50976\\preflight-1793352746544693800\\roots.json": "292a9a23e199b8efb3f13427116879212ca02454df577996834f8e59040771e1",
+    "top\\assets\\official\\top-ring-dataflow-50976\\preflight-1793352746544693800\\verified.json": "f2dddf7e3912e90b346b5f4f638d266206fbfa759a60f7b262c3355a9ad6e9ae",
+    "top\\assets\\official\\top-ring-dataflow-50976\\preflight.py": "6cc114ebaba25a3ae982d1baf804a69080ce1acb700ea409a6669ec377b563dc",
+    "top\\assets\\official\\top-ring-dataflow-50976\\publish-1793353262808119200\\probe-receipt.json": "a08fec14325e40a1455251869a26d27e83fc2cf2569c7479b0ca516d768d5050",
+    "top\\assets\\official\\top-ring-dataflow-50976\\publish-1793353262808119200\\probe.log": "ea591126ed0710e3ba1d45d01df78988121e904b67d646f4edcfbcde53a56de2",
+    "top\\assets\\official\\top-ring-dataflow-50976\\publish-1793353262808119200\\publication.json": "a71be0b7aa4315dc3da1b58b14ccbc18d4625a0a9777bd722a90d703d0225360",
+    "top\\assets\\official\\top-ring-dataflow-50976\\publish.py": "cb30e4c118a9c10b29daa6f2e4f7728b65cc6927f4f8a0ac7a95488d6b35fa6f",
+    "top\\assets\\official\\top-ring-dataflow-50976\\review-1793353098269245000\\probe-receipt.json": "509dfaf8c4e06636d3a098e28f6f8cc0beb9ce04accfab7366e921a084b4590e",
+    "top\\assets\\official\\top-ring-dataflow-50976\\review-1793353098269245000\\probe.log": "0b17c220a3c724ec04a2c0cf5885492678a3571f8d9a02b68e0bab8e7a9d29e5",
+    "top\\assets\\official\\top-ring-dataflow-50976\\review-1793353098269245000\\review.json": "b6c20a2d9ee7be8a2ba8c941533ef3ee4ccc3255faf690acadb48a81b848737b",
+    "top\\assets\\official\\top-ring-dataflow-50976\\review.py": "38302eafc30ccd7b8bded6b8864e10550f24e6bb45cb370cd953487c524ebb2f",
+    "top\\assets\\official\\top-ring-dataflow-50976\\terminalpins.py": "dfa178b23ea369d8f5f9585f655c50fd0c4b198140bc833d2a6c24eb383d59c2"
+  }
+}
 }

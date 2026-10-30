@@ -525,3 +525,71 @@ Result UUID `1d760d06-9678-4f35-a1ae-83ee53cf89d9`:
 used 1.5441 seconds; verifier child used 0.1567 seconds. The 55 unique records
 comprise ten supplied candidates, 32 enclosing/unwind records, and 13 further
 records along the bounded dispatch/helper path. No third-hop consumer was found.
+
+
+## Function-aware frozen-seed audit (schema 1, 2026-10-30)
+
+**STATIC_PARTIAL; GPU contract remains UNKNOWN.** `rendering_accepted=false`,
+`all96_accepted=false`. No product, renderer, test, publication or runtime change.
+All earlier text and JSON history are preserved; this section scopes the new result.
+
+The frozen 74 exact G-load seeds resolve to 35 unwind roots. New normal-flow CFG
+analysis covers 19 selected roots / 18,537 bytes, prioritizing the eight roots
+with nonvolatile G aliases. It yields 89 typed unindexed accesses and **zero new
+radial-packet or 4470/4471-word overlaps**. This is bounded coverage, not global
+absence. The prior two CPU arbitration reads are not GPU evidence. Root36a540,
+its seven fragments and the constructor/allocation/vtable paths were not replayed.
+
+Only instruction fallthrough and actual direct branches connect the CFG;
+unwind-parent relationships merely group fragments. Register facts intersect
+at joins and iterate to a fixed point. Full-width MOV aliases and unindexed
+64-bit LEAs preserve the exact displacement/load-site provenance; any other
+register overwrite kills it, including partial-register writes. Under ordinary
+Win64 normal-return ABI assumptions, calls preserve tracked nonvolatile GPRs
+only. Scalars/SIMD values, stack spills and general indexed addresses are not
+propagated. G_at_load is not proof of a current live singleton or stable fields.
+READ, WRITE and LEA remain distinct; requested dwords and the flag word use
+byte-range overlap. Example: seed36c792 in R14 survives call36c9e0 and supports
+the READ at36c9e5 of G_at_load+4688. That is a counterexample to kill-at-call,
+not radial proof.
+
+One concrete external hop was discharged: seed430476 loads G; ADD RCX,9d0 at
+430486 reaches call4304d3 ->34b740 with no intervening RCX write or call. The
+callee has no pdata entry. Exact-target recursive normal-flow decoding reaches
+its RETs within105 bytes. Its unsigned index guard admits only0..255. Three
+indexed dword writes address G+09d8+12*i, +09dc+12*i, +09e0+12*i; two indexed
+reads address G+3e98+4*(i>>5) and +3eb8+4*(i>>5). Envelopes [09d8,15d8) and
+[3e98,3ed8) exclude the radial packet/word. These five accesses were independently
+adjudicated and are separate from the89 generic accesses. No GPU call occurs.
+
+The missing join remains a G-proven radial READ into an actual resource/CB
+upload and selected original shader/textures/formula. No selected bytecode was
+established for reflection. A concrete analysis boundary is369c5b -> R13 save
+at369d54 [RSP+20] -> calls/overwrite -> reload369f98; this register-only model
+cannot prove the memory round trip. Its later44dc/e0/e4 literals are not radial
+proof or a proposed radial lead. Fifteen other non-excluded frozen-seed roots
+remain listed in JSON. No arbitrary function prefix is proposed. Sentinel,
+clock and lifetime remain UNKNOWN; constructor target260 is distinct from G.
+
+Initial checks verified105 LF files (103 protected plus two parent snapshots),
+394 raw readonly files and195 native spans. New evidence adds20 code spans
+(18,642 bytes) and38 metadata spans, with no overlap against initial spans;
+cumulative253 records /64,136 bytes. All3,991 new instruction rows match the
+pinned binary. Nine private analyzer checks cover alias width, overwrite, ABI,
+intersection/loop and overlap behavior. These are pin/span/tool checks, not
+semantic or runtime acceptance. Capture stopped below all caps.
+
+Private evidence: `top/assets/official/top-ring-dataflow-50976`. Schema1 JSON
+links exact roots, CFG edges, aliases, joins, calls, access kinds, commands,
+SHA256 hashes and guard receipts. Handoff SHA256:
+`fe13cb7c115f91bdfbd2e210a72a5b6c30928c6eb1296ff21e9ae4f2373d8ecf`.
+Children ran serially with the pinned45s /1.5GiB JobObject /8GiB free-floor guard,
+UTF-8 and pycache disabled. The failed no-pdata hop resolver log is retained;
+the changed leaf-decoding approach passed. One shell `rg`-unavailable failure
+was handled with Select-String. No caps were increased and no game/desktop ran.
+
+Final verification initially caught a live publication-log hash recorded before
+child termination. The terminal log was re-pinned; the failed verifier script,
+log and receipt are retained. Active output directories are excluded from the
+evidence inventory. Successful finalcheck evidence separately verifies history,
+protected/raw pins, all253 spans and normal CFG edges.
