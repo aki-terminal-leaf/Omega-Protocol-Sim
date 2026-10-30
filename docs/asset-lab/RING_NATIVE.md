@@ -1,3 +1,176 @@
+# Native radial host packet and render boundary (schema 1)
+
+**STATIC_PARTIAL; review_required=true. rendering_accepted=false; all96_accepted=false.**
+The host's conditional CPU field packet is now specified from instructions and
+original constant bytes. A coherent downstream CPU parameter consumer is located,
+but its input-object identity and GPU upload/resource/shader join remain unproved.
+The actual absent-IRad initialized header/value is still unknown. Product behavior
+has not changed; this is not an implementable complete renderer contract.
+
+## Verified inputs and source boundary
+
+Frozen handoff SHA256 `cbc09d61caeffac20d6068cf937401b84ea270b6727217ddeb8d5f8959e38466`.
+Preflight verified all 105 initial files (103 protected LF hashes plus both native
+documents against the frozen seed), 160 raw readonly files, binary identity and
+all 89 initial native spans. All accepted findings/spans below remain retained.
+The corrected parent v4 host input is the pinned
+`parent-host-07f4885e-56c3-4dd3-a4b4-d3859bc7d238/source/spans.json`, alongside
+`parent-host-adjudication-v1.json`; the first incomplete captures were not used
+as replacement evidence. Host range `[0x1403b64a0,0x1403b68ad)` is 1,037 bytes.
+Seven pdata fragments chain to its entry; `0x142611ce8` requires 36 unwind bytes.
+
+Inspected protected `original_ring_action.gd`, `asset_lab_radial_effect.gd` and
+`source_avfx_player.gd`, plus pinned maintained VFXEditor Enums/Effector/RadialBlur
+sources. The radial evaluator preserves absence and exposes a numeric descriptor;
+`original_ring_action.radial_descriptors()` exposes it without a native renderer.
+The maintained labels identify Len/Str/Gra/IRad/ORad/FSDc/FEDc/FaBP, not shader
+semantics. No source or test implementation was edited.
+
+## Conditional host packet
+
+Getter `0x1403b4f80` returns owner `0x142aa7e00`, with lazy construction through
+`0x1403b4a40`. That constructor zeros owner+0x1490. Setter `0x1403b7d83` later
+copies `[RSI+8]` into `[R15+0x1490]`; the supplier's construction/registration is
+not established. Do not call the owner's unrelated `0x88038` allocation the
+radial target allocation. Host selects `target=[owner+0x1490]`.
+
+Push RDI/sub RSP,0xd0 gives currentRSP=entryRSP-0xd8. Arguments: RCX=owner;
+XMM1/2/3=Len/Str/Gra (saved current+e8/f0/f8); stack IRad/ORad at +100/+108,
+point/base pointers +110/+118, FSDc/FEDc +120/+128, unsigned selection dword +130.
+
+Let T be the pointer loaded from the indexed TLS slot +0x2e0, P=(x,y,z).
+T+0x1c8 must be nonzero. Below each mul/add/sub/div is a **separate scalar
+binary32 SSE operation**, in written parentheses order; no FMA or double algebra:
+
+```
+X = (((y*T[f8]) + (x*T[e8])) + (z*T[108])) + T[118]
+Y = (((x*T[ec]) + (y*T[fc])) + (z*T[10c])) + T[11c]
+Z = (((x*T[f0]) + (y*T[100])) + (z*T[110])) + T[120]
+W = (((x*T[f4]) + (y*T[104])) + (z*T[114])) + T[124]
+```
+
+COMISS W,+0 / JBE skips W<=0 and unordered (assuming masked exceptions).
+Distance subtracts base from y,x,z separately, squares separately, adds `(dy²+dx²)+dz²`,
+then SQRTSS. UCOMISS 0,sum / JA instead calls `0x141de72c8` for an ordered negative
+sum; that helper was not followed. Effective end E is MAXSS(FEDc,FSDc+epsilon).
+COMISS E,distance / JB skips beyond E and unordered. Matrix semantics, TLS provenance
+beyond these fields, MXCSR and actual action samples remain unobserved.
+
+| Original constant VA | Little-endian bytes | Meaning |
+|---|---|---|
+| 0x14211dd84 | 0ad7233c | epsilon bits 0x3c23d70a, 0.009999999776482582 |
+| 0x14211dea0 | 00000040 | +2f |
+| 0x14211dfac | 000000c0 | -2f |
+| 0x14211de28 | 0000003f | 0.5f |
+| 0x14211de88 | 0000803f | 1f |
+| 0x14211e080 | ffffff7f repeated four times | sign-clear mask |
+
+For ordinary finite inputs, u=X/W, v=Y/W; ex=1-abs(clamp(u,-2,2)*0.5),
+ey=1-abs(clamp(v,-2,2)*0.5). Fade is 1 when FSDc>distance, otherwise
+`1-((distance-FSDc)/(E-FSDc))`. Output Len is `(((ex*Len)*ey)*fade)`.
+Center is `(u*0.5+0.5, 0.5-v*0.5)`. Z/W and W/W are computed but do not reach
+this selected field group. These are instruction-derived formulas, not numeric
+emulation or observed game behavior.
+
+The IAT slots `0x14210d648/+8` resolve to KERNEL32 EnterCriticalSection and
+LeaveCriticalSection. They receive target+0x200. Inside that section, unsigned
+arg11 below target+0x1f8 skips writes; equality overwrites. The selected writes are:
+
+| Target offset | Width | Value |
+|---|---|---|
+| +0x148 / +0x14c | dword / byte | mode 0 / enabled 1 |
+| +0x150 | f32 | attenuated Len |
+| +0x154 / +0x158 | f32 each | original Str / Gra bit copies |
+| +0x160 / +0x164 | f32 each | center x / y |
+| +0x170 / +0x174 | f32 each | same IR=MAXSS(+0,IRad) |
+| +0x178 / +0x17c | f32 each | ORad if COMISS IR,ORad / JB; else IR+epsilon |
+| +0x1f8 | dword | arg11 |
+
+`0x140379580` resets target+0x1f8 to zero; `0x1403b88d0` clears target+0x14c
+and global Len/Str. Their scheduling is not established: this is not lifetime proof.
+Exceptional behavior must retain operand order: MAXSS selects its source operand
+on equal/unordered, including signed zero/NaN; unordered edge comparisons select
++2, while raw center divisions can remain NaN. COMISS may trap under another MXCSR.
+Very large IR+epsilon can round back to IR. A mathematical max/clamp substitution
+would not preserve all these cases.
+
+## Downstream candidate and smallest missing render join
+
+`0x14038a580` saves input RCX in RBX and tests input+0x14c; CHAININFO connects
+`0x14038a5a1`. It compares input Len*Str against the current global pair, toggles
+bit9 through `0x14035c490`, and copies mode0/1 parameters into
+`G=[0x14290e498]`. Exact CPU mapping:
+
+| Input offsets | G offsets |
+|---|---|
+| +148 | +469c (mode) |
+| +150 / +154 | +46a4 / +46ac (Str comparison-clamped 0..1) |
+| +158 | +46b0 |
+| +160 / +164 | +46b4 / +46b8 |
+| +170 / +174 | +46bc / +46c0 |
+| +178 / +17c | +46c4 / +46c8 |
+
+This is a strong **structural candidate**, not yet proof that this RCX is the
+same allocation as owner+1490. Mode2 consumes different fields. `0x14035c490`
+with EDX=9 sets/clears G+4470 bit9; that is not an upload. No resource identity,
+constant-buffer layout, shader selection, texture input, convolution or blend law
+has been established. Offset matches also occur in unrelated mapped-buffer code
+`0x1403889a0`, a concrete counterexample to equating offsets with typed identity.
+
+Next method: trace the supplier `[RSI+8]` at `0x1403b7d83` through construction
+and registration/vtable records to prove the consumer instance, then follow that
+identified resource binding to shader bytecode/constant reflection. Do not repeat
+a RadialBlur string scan or another subsystem offset locator.
+
+## Actual absent-curve state and changed initializer method
+
+Accepted pointer/slot/evaluator/host-arg5 joins remain below. The actual initialized
+header at `0x142aa7d78` is **unknown**, so actual absent-IRad is **unknown**.
+Selector0 conditionally returns caller +0f; selector1 returns curve+4; selector2
+is still incomplete. PE zero-fill does not choose among them.
+
+New concrete startup evidence: entry `0x141da03c0` reaches `0x141da01c8`, which
+passes `[0x14210dea0,0x1421102a8)` to `0x141e18654`. That loop reads qwords and
+calls through `0x14210de90`; raw table bytes and dispatch instructions are pinned.
+Their initializer representation/dispatch target has not been resolved to a
+sentinel write. TLS directory names callback `0x141da0b6c`, which checks thread
+flag +203c4 and its initializer interval; this is not sentinel initialization proof.
+No initializer was attributed from the table's numeric entries.
+
+The sole new operand locator covered pdata-contained code in
+`0x140360000..0x140430000`, including exact direct-RIP targets in the small
+`[0x142aa7d58,0x142aa7d98)` neighborhood. Those returned LEAs, not a proven
+initializer. This is nonexhaustive: aliases, overlapping writes from other bases,
+code outside the range and indirect startup remain open. Scanning stops here.
+Next method is CRT table/indirect-dispatch interpretation with initializer-specific
+write provenance for sentinel bytes 0..7. If static provenance cannot be obtained,
+the parent needs separately authorized startup-write evidence; no game execution
+is authorized or performed in this iteration.
+
+## Guarded results and limits
+
+All private scripts/ASM/receipts are under ignored
+`top/assets/official/top-ring-host-50976`. WindowsJobObject children are serial,
+45s, 1.5GiB hard limit, 8GiB available floor, pycache suppressed; POSIX work_guard
+is unavailable on Windows. One locator only. 22 unique new CODE spans / 6,710
+bytes are retained, including one salvaged failed-child span; explicit chained or
+leaf ranges are labeled partial. Parent host input is separate. Initial 89 pins
+plus additions total 137 native spans (including six import descriptor/name/thunk pins). No broad negative-absence claim follows.
+
+Two failed containment checks are preserved in
+`native_audit-1793350024271644500` and `typed_meta-1793350041644651300`.
+They exposed absent directory entries for chained/leaf starts; recovery used
+unwind-derived starts and explicit bounded aligned ranges, not a wider scan.
+The first failed outputs were not overwritten. Shell rg was unavailable; switched
+to Select-String. Historical cp950/import-shadow/incomplete32-byte receipts remain
+readonly. First staged gate passed at `66ecbb30-d68a-4f53-8efa-b424ab752d18`: 103 source pins / 131 spans. Six import identity pins were subsequently added; the final gate reruns against all 137 spans. Review and guarded receipts are recorded with the JSON.
+No commits, pushes, merges, exports, game, desktop, browser, input or audio actions.
+
+The following accepted runtime/loader history is retained. Its host-stop question
+is superseded by this audit; its actual-sentinel and renderer caveats still apply.
+
+---
+
 # Native radial runtime boundary
 
 **STATIC_PARTIAL.** The typed runtime chain now reaches the scalar evaluator and
