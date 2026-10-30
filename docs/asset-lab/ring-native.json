@@ -85,12 +85,66 @@
       "limitations": [
         "Empty/default semantic identity and evaluated number require its initializer and runtime evaluator; not established by its virtual zero-fill address."
       ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Runtime selectors 0x1403be220 and 0x1403cc560 use signed outer byte +4, range <=9, and type 7 calls constructor 0x1403c9b80 with the same outer descriptor as argument 5.",
+      "evidence": [
+        "0x1403be251..0x1403be275 indexes 0x1403be4cc[7]=0x003be301; 0x1403be301 requests 0x248 bytes; 0x1403be334 passes RBX outer; 0x1403be339 calls constructor.",
+        "0x1403cc5a4..0x1403cc5c3 indexes 0x1403ccc70[7]=0x003cc665; 0x1403cc6a3 passes RDI outer; 0x1403cc6a8 calls same constructor.",
+        "Both select a 0x18-stride descriptor from resource +0x48. Constructor forwards argument 5 through 0x1403c6c10, which stores it at runtime +0x228 (0x1403c6c7e)."
+      ],
+      "limitations": [
+        "Static descriptor/type path; actual action31567 instance activation and resource-array population are not dynamically established. Allocation-failure branch does not construct an object."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Type-7 constructor invokes a numeric sampler, and IRad has an exact stored-result join.",
+      "evidence": [
+        "0x1403c9bbb..0x1403c9bcd installs vtable 0x142161700; 0x1403c9bd0 calls 0x1403c9c40 with runtime floats +0x1c8/+0x1cc.",
+        "0x1403c9c40 samples Len/Str/Gra/IRad/ORad from outer=[runtime+0x228], radial=[outer+0x10]; results stored at runtime +0x230/+0x234/+0x238/+0x23c/+0x240.",
+        "IRad: 0x1403c9d02 loads radial, 0x1403c9d06 loads pointer at +0x18, 0x1403c9d0a passes ADDRESS OF SLOT in RCX; dword header >>7 &3 selects qword table 0x14215cc10; 0x1403c9d1b indirect call, 0x1403c9d27 MOVSS result to +0x23c."
+      ],
+      "limitations": [
+        "This is actual constructor-time numeric sampling, not the loader header helper. Input float units/epoch/lifetime are unproved."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Shared scalar table proves conditional fallback and constant cases, but not the sentinel runtime selector.",
+      "evidence": [
+        "0x14215cc10 entries 0/1/2 are 0x140396bd0/0x140396be0/0x140396bf0. Entry 0 MOVAPS XMM0,XMM3; RET. Sampler zeros XMM3 before each call, including 0x1403c9cf1 for IRad.",
+        "Entry 1 loads curve=*RCX then MOVSS XMM0,[curve+4]; no time arithmetic. Entry 2 uses scalar SSE single-precision operations and dword/word header reads.",
+        "0x140396c21..0x140396c43 selects XMM1 when header bits2..3<2, otherwise XMM2, via integer bit selection. First/last key times are u16 &0x3fff converted to float; COMISS/JBE gates pre/post/in-range paths.",
+        "Entry 2 tail-dispatches through 0x14215cc40, 0x14215cc58, or interpolation table 0x14215cbf8 after call 0x1403969e0; these downstream routines were not followed."
+      ],
+      "limitations": [
+        "Implementable conditional contract only: selector 0 returns exact caller +0.0f; selector 1 returns stored float bits at curve+4. Sentinel header/initialization not proven, so absent IRad cannot yet be assigned numeric zero.",
+        "Selector 3 is not a validated branch: the fourth qword is ASCII/string bytes, not a code pointer. No generic malformed-header safety fallback is proved.",
+        "Full interpolation, extrapolation, precision/order beyond this wrapper, NaN behavior and any process FP mode are unresolved."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "A type-7 virtual callback resamples and hands IRad to a concrete host-call argument behind an enable gate.",
+      "evidence": [
+        "Vtable 0x142161700+0xf8 -> 0x1403c9d80. It calls sampler at 0x1403c9d9c. CHAININFO proves 0x1403c9dbc..0x1403c9f7f and epilogue 0x1403c9f7f..0x1403c9f88 belong to this callback.",
+        "0x1403c9da1..0x1403c9db6 tests bit13 of word [[runtime+0x1f8]+0x4a8]; clear skips host handoff, although sampling already occurred.",
+        "0x1403c9f00 loads runtime +0x23c, 0x1403c9f4c stores it at caller RSP+0x20 (argument 5; callee entry RSP+0x28), then 0x1403c9f5a calls 0x1403b64a0.",
+        "Host call arguments: RCX=return of 0x1403b4f80; XMM1=Len, XMM2=Str, XMM3=Gra; stack args5/6=IRad/ORad, arg7=return of runtime+0x200 vcall +0x28 plus 0x24, arg8=base-position pointer, args9/10=FSDc/FEDc, arg11=dword [[runtime+0x1f8]+0x438].",
+        "FaBP at radial+0x30 selects base-position path: 0 uses TLS +0x3c/+0x40/+0x44; 1 tries a virtual position call and falls back to TLS on false; other values retain initial zero vector."
+      ],
+      "limitations": [
+        "This proves caller-side numeric parameter handoff, not the callee write, named render parameter, shader/normalization/fade formula, or actual active callback scheduling. No meaning assigned to gate bit13 or arg11 without further source."
+      ]
     }
   ],
   "open_questions": [
-    "Which runtime instruction first reads radial Data +0x18 from the outer +0x10 pointer, and what does its evaluator return for the shared 0x142aa7d78 curve? No bounded direct reference to that consumer was obtained; reverse-reference scanning was not attempted.",
-    "Which initializer writes 0x142aa7d78 before this loading path? Is its curve header/key storage modified before consumption?",
-    "After that evaluator, which host parameter receives IRad, and what radius normalization/fade/projection formula uses it? Establish only that handoff before considering shader work."
+    "What initializes or modifies shared curve 0x142aa7d78 before 0x1403c9c40 reads its header? Need actual header bits7..8 and any curve+4/key data; neither PE zero-fill nor conditional fallback establishes the original absent-IRad result.",
+    "What does 0x1403b64a0 do with incoming argument5 (entry RSP+0x28)? Next bounded method: inspect its pdata/chained code and exact field writes/forwarded arguments, then the typed target, without returning to RadialBlur strings or sentinel loader surveys.",
+    "What establishes runtime +0x1c8/+0x1cc clock inputs, callback scheduling, host gate bit13 and original action31567 activation? No lifetime, original-active sample value, shader formula or exported rendering acceptance follows.",
+    "For curves taking selector2, downstream key search/interpolation and pre/post behavior remain outside this three-level call trace. Reuse exact wrapper targets for a separately scoped continuation."
   ],
   "native_spans": [
     {
@@ -422,10 +476,312 @@
       "bytes": 40,
       "sha256": "b23c4a9d2fa8ff001190e34c3f8746120dda9e0531ab503b39d5430160d3ab04",
       "kind": "table"
+    },
+    {
+      "va": "0x1403c6c10",
+      "bytes": 134,
+      "sha256": "b99fa05d5a35a098d42f4160df3b318266dfbeab142ae850b260c941913f69b9",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/317d6614-e731-48c2-9914-6183162ce72f"
+    },
+    {
+      "va": "0x1403c9c40",
+      "bytes": 301,
+      "sha256": "ba489d4a2819d892d8066f8f5ee7f8ef22ef84b2cfeeee948b748ac2bf37bb07",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/317d6614-e731-48c2-9914-6183162ce72f"
+    },
+    {
+      "va": "0x142161700",
+      "bytes": 160,
+      "sha256": "93a8cda542c6c3be195ea9f6eeb73dc5a2cb4b539a1351b15573f30741a05459",
+      "kind": "table",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/317d6614-e731-48c2-9914-6183162ce72f"
+    },
+    {
+      "va": "0x1403c9dbc",
+      "bytes": 451,
+      "sha256": "1ee1006e378c73807527bafc71820409d8919aff5cdd0765c2aa0514aab3527d",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/38d5cd58-d09f-4ca7-9cb2-92a4ea24ed75"
+    },
+    {
+      "va": "0x1403c9f7f",
+      "bytes": 9,
+      "sha256": "54de145fc59a9701792b352c5e36bdb5333729c7cf6e17a7a5f8e829734bc224",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/38d5cd58-d09f-4ca7-9cb2-92a4ea24ed75"
+    },
+    {
+      "va": "0x14215cc10",
+      "bytes": 32,
+      "sha256": "784449a9e3590383d2c4755353d96020797a967e5bee3e8549c3ca3e8a16de93",
+      "kind": "table",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/7427cb95-7b97-47ea-b926-d097f245c23d",
+      "scope_note": "Three evaluator pointers (24 bytes); trailing eight bytes are string data, not a fourth valid function pointer."
+    },
+    {
+      "va": "0x1403be220",
+      "bytes": 724,
+      "sha256": "9060e8a0d7cbd32a229e4b9f58b73b40098d02e52521b447ade2c8522b7a129b",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/921e8ec1-b6c2-45ad-a775-d4d645ab5d9f",
+      "scope_note": "pdata extent contains code through RET 0x1403be4c8, padding, and inline dispatch table at 0x1403be4cc; table bytes are not instructions."
+    },
+    {
+      "va": "0x1403cc560",
+      "bytes": 780,
+      "sha256": "10865e74eedf1b94183c532617526ae41816dfd98e3f42c051a29c61c0ae398e",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/921e8ec1-b6c2-45ad-a775-d4d645ab5d9f",
+      "scope_note": "Partial enclosing function: first pdata fragment only, ends 0x1403cc86c; factory path inspected, later continuation not copied."
+    },
+    {
+      "va": "0x1403be4cc",
+      "bytes": 40,
+      "sha256": "31fece3f232ef0f154f4074d9e2633128e4f20d0c75961150aee8c6332970881",
+      "kind": "table",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/921e8ec1-b6c2-45ad-a775-d4d645ab5d9f"
+    },
+    {
+      "va": "0x1403ccc70",
+      "bytes": 40,
+      "sha256": "7b9063f00a4537bbbd6461bd631e0b887c0cc0323c21088d72cf84b001896874",
+      "kind": "table",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/921e8ec1-b6c2-45ad-a775-d4d645ab5d9f"
+    },
+    {
+      "va": "0x1403c9b80",
+      "bytes": 94,
+      "sha256": "00825b9adea208a7a728e96cdf9585e1615b7ecd46011478ff4e3d04b07db39d",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/9bfd04be-0462-43c4-b994-8b6d8d2bf89e"
+    },
+    {
+      "va": "0x140396bd0",
+      "bytes": 16,
+      "sha256": "81862663f9a06c58525cb9feb727851ae249417fdb1cca9b350dec5bc9bd7211",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/d3c47e64-3693-40d6-b9ff-c9084491f281",
+      "scope_note": "Leaf code plus INT3 alignment, direct table target; no pdata entry."
+    },
+    {
+      "va": "0x140396be0",
+      "bytes": 16,
+      "sha256": "346d896bd9d14231d11f61b7514c68984d2376745437136afb143207ec45860c",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/d3c47e64-3693-40d6-b9ff-c9084491f281",
+      "scope_note": "Leaf code plus INT3 alignment, direct table target; no pdata entry."
+    },
+    {
+      "va": "0x140396bf0",
+      "bytes": 278,
+      "sha256": "1f2b1e54fbc1f72ea33f2d5d6453ccb15c5e24c18b229a9cbaad0ecd21c719a8",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/d3c47e64-3693-40d6-b9ff-c9084491f281"
+    },
+    {
+      "va": "0x1421617a0",
+      "bytes": 192,
+      "sha256": "579b2c8d5bf41880ae890f87b5901fb165ddeef0053729d5392f0e41bdd19b75",
+      "kind": "table",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/d3c47e64-3693-40d6-b9ff-c9084491f281",
+      "scope_note": "Vtable continuation including adjacent table bytes; only slot +0xf8 is used in this trace."
+    },
+    {
+      "va": "0x1403c9d80",
+      "bytes": 60,
+      "sha256": "e55544642568a2c95e4ec7fd7b55565a77c429870a009ccc39f8df9a9ec38567",
+      "kind": "code",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/e53806fe-101d-4494-b404-189ba7a88c26"
+    },
+    {
+      "va": "0x142fc4e74",
+      "bytes": 12,
+      "sha256": "f5b1903322f547a1da7da2887ed1fa326db1e9d6158f06d6608c9540dd4814d6",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142612f9c",
+      "bytes": 12,
+      "sha256": "95f198e8ea9a8e3d97fd61518f2749e1bdca7f5282488a729c27ea50f8ab2f10",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc50d8",
+      "bytes": 12,
+      "sha256": "c62a0b951d5366adb4bd4d1c7baacb35657f3c0ba70af1b1b01a7056113d1105",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x1426133c8",
+      "bytes": 20,
+      "sha256": "1bcd6c477435d36d6652e1fa4856092b29341c15191793dadfe0ee55d30cc51d",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc50f0",
+      "bytes": 12,
+      "sha256": "7aaa33c02435bfe65bb6b416f5ade52ec032872f3cbc446ea936a0769a1cac60",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x1426133e8",
+      "bytes": 32,
+      "sha256": "ee5b32bd9457e6b77c20f8f75ecc493c31628bea1a1044d1a25adb81016287e0",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc50fc",
+      "bytes": 12,
+      "sha256": "59cfc1d538875dc683d8cd4f887c2099b524ea0ab050bb8890544f1b2704f166",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142613408",
+      "bytes": 16,
+      "sha256": "9353db6fac4a903cc5e096170bda479e17a83cb4735fa430715cc4ad53b13c11",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc49a0",
+      "bytes": 12,
+      "sha256": "5ed1626438eedead749d6b3f83a986a0c957b2260075bdec0e45bab3fb49b8ca",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142612870",
+      "bytes": 20,
+      "sha256": "f66e5b39d3358b4b0eaa7a26b88224132f3be965f1469a61689a804a4a98a6a6",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc5300",
+      "bytes": 12,
+      "sha256": "4a8ca42d5730a18718dbcce6815383cb50c9f72c761011149ee423ee794aebf1",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142613734",
+      "bytes": 16,
+      "sha256": "bebbce3b34c41bd9166cc16546886468e41c2ff319e35812c80e9bc154f7addb",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc50a8",
+      "bytes": 12,
+      "sha256": "afa6e8c4550ab8be38fa1731f6c9999a772ed99d034798ed4c405cb231420c63",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142613394",
+      "bytes": 8,
+      "sha256": "36061d653c465cef14e591e1b25fa110d6689baafda9d2fb58930b053eb510e2",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc2a68",
+      "bytes": 12,
+      "sha256": "bc4dc84d2908de870da067ae7733df7a3ec757819c4eeda98d414ba3fd731e34",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x14260f5d8",
+      "bytes": 16,
+      "sha256": "433aa6738da4b0c44a5b236f77b6c11c2b0122eb66735f6144d15e14239466b8",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x142fc50e4",
+      "bytes": 12,
+      "sha256": "9fcd34e94ffc9c1ff03f9719388dd64d10800b7ae85b992593c81aea98a42264",
+      "kind": "pdata",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
+    },
+    {
+      "va": "0x1426133dc",
+      "bytes": 12,
+      "sha256": "a6a4ca34bbff22725037db32295b60d23f1ebefef89fc340814618949a2a4a05",
+      "kind": "unwind",
+      "private_capture": "top/assets/official/top-ring-runtime-50976/f4800d89-7403-4fcb-988a-9de4b9b10256"
     }
   ],
   "rendering_accepted": false,
   "all96_accepted": false,
   "private_evidence": "top/assets/official/top-ring-native-50976",
-  "review_required": true
+  "review_required": true,
+  "runtime_update": {
+    "handoff_sha256": "3435f02483bfcd52c5fd91754c99f7b63f0ffb4f7786862a775b2f11392b67a5",
+    "protected_source_pins": 103,
+    "readonly_raw_pins": 86,
+    "initial_native_spans_verified": 55,
+    "initial_native_spans_preserved": true,
+    "previous_open_questions_historical": [
+      "Which runtime instruction first reads radial Data +0x18 from the outer +0x10 pointer, and what does its evaluator return for the shared 0x142aa7d78 curve? No bounded direct reference to that consumer was obtained; reverse-reference scanning was not attempted.",
+      "Which initializer writes 0x142aa7d78 before this loading path? Is its curve header/key storage modified before consumption?",
+      "After that evaluator, which host parameter receives IRad, and what radius normalization/fade/projection formula uses it? Establish only that handoff before considering shader work."
+    ],
+    "supersession": "Prior findings and MD loader snapshot are preserved. Their first-consumer uncertainty is narrowed by this runtime trace; numeric sentinel default and downstream host formula remain open.",
+    "binary_version": "Exact manifest SHA identity; product version resource not extracted in this increment.",
+    "capstone": "5.0.6",
+    "typed_trace": [
+      "outer EfVT byte +4=7 -> table0x1403be4cc[7]/0x1403ccc70[7] -> constructor0x1403c9b80",
+      "constructor -> base0x1403c6c10 stores outer at runtime+0x228",
+      "constructor -> sampler0x1403c9c40 -> radial=[outer+0x10] -> IRad slot+0x18 -> scalar table0x14215cc10 selected by (*curve>>7)&3 -> XMM0 -> runtime+0x23c",
+      "constructor vtable0x142161700 slot+0xf8 -> callback0x1403c9d80 (chained fragments) -> resample -> gated call0x1403b64a0 argument5=runtime+0x23c"
+    ],
+    "scope_ledger": {
+      "locator_passes": 1,
+      "locator_range": [
+        "0x140360000",
+        "0x140430000"
+      ],
+      "locator_hits": 54,
+      "locator_limitations": "Operand locator starts decoding at pdata entries and is neither exhaustive xrefs nor complete CFG recovery. No negative absence claim. Only two matching descriptor dispatch seeds followed. No full-text disassembly.",
+      "new_code_spans": 11,
+      "new_code_bytes": 2863,
+      "new_table_unwind_pdata_records": 23,
+      "hop_boundary": "From located runtime dispatch, constructor -> sampler -> evaluator is three call edges. Constructor vtable and its callback establish a parallel typed path; host call recorded at caller only, callee not followed. Evaluator downstream calls/tables not followed.",
+      "side_effect_note": "During the sole locator, private inspect.py shadowed Python inspect import and repeated readonly preflight reads; renamed preflight_read.py before subsequent children. No second locator or prior native job was run. Original log retained.",
+      "failed_operations": [
+        "apply_patch could not create ignored private guard.py; no file written. Switched to PowerShell UTF-8 file writes.",
+        "rg unavailable; used bounded Python/PowerShell reads. No native child failed or timed out.",
+        "Final review UUID d90e5dbc-c8f0-4f71-92e8-897770fab7f1 failed reading UTF-8 MD with Windows cp950 default. Preserved log; changed review to explicit UTF-8, no native scan repeated."
+      ]
+    },
+    "private_evidence": "top/assets/official/top-ring-runtime-50976",
+    "sentinel_numeric_default_proven": false,
+    "host_caller_argument_proven": true,
+    "host_callee_or_shader_proven": false,
+    "original_active_sample_implication": "If sentinel runtime selector is 0, original absent IRad supplies +0.0f through runtime+0x23c to host arg5 when gate enables. Without that header proof, original numeric value remains unknown.",
+    "validation": {
+      "command": "C:/Python314/python.exe -B D:/Dev/OpenClawCodexBridge/probes/top-ring-runtime-50976/accept.py --worktree D:/Dev/OpenClawCodexBridge/worktrees/top-ring-runtime-50976",
+      "receipt": "top/assets/official/top-ring-runtime-50976/22b69071-86cf-4f80-9f5b-af6fe296efbf",
+      "result": {
+        "status": "PASS_PINNED_SOURCE103_AND_NATIVE_SPANS_ONLY_NOT_SEMANTIC_ACCEPTANCE",
+        "spans": 89,
+        "rendering_accepted": false,
+        "all96_accepted": false
+      },
+      "terminal_exit": 0,
+      "elapsed_child_seconds_before_final_review": 4.724806700251065,
+      "semantic_acceptance": false
+    }
+  }
 }
