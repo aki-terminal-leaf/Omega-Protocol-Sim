@@ -1,0 +1,1720 @@
+{
+  "schema": 1,
+  "source_base": "6e11e44c4009f095148e0c15520d25a8b8aeccd2",
+  "all96_accepted": false,
+  "all96_status": "OPEN",
+  "runtime": "NOT_RUN",
+  "status": "STATIC_CONDITIONAL_NAMED_SHEET_MODEL_TUPLE_JOIN; MDL_SKLB_RUNTIME_OPEN",
+  "input_manifest": {
+    "sha256": "5f9fccadd692ee1a8036610efd3b99e8c247636f04048fc630d7380d90669520",
+    "bytes": 6405
+  },
+  "seed_pins": {
+    "tools/asset_lab/decode_cutb_bindings.py": {
+      "sha256": "5b35e1d31e76bf89349f7e6602f2b3c42cfb249776b678c92b9de3873b35abe2",
+      "bytes": 12646
+    },
+    "tests/test_cutb_bindings.py": {
+      "sha256": "45b1c82042f14234420565163775005ba1c7cb2f95946c6dd4d69113c0100330",
+      "bytes": 11280
+    },
+    "docs/asset-lab/CUTB_NATIVE_BINDINGS.md": {
+      "sha256": "3fab6088e6dfb8bb5ed1f0ad2224da48564682ff9da67a282ef111a29edb09f6",
+      "bytes": 3933
+    },
+    "docs/asset-lab/cutb-native-bindings.json": {
+      "sha256": "3a4fe9793c056b0f829e800996492ed05fb33907f91959fa8b5e65f9766047ae",
+      "bytes": 232254
+    }
+  },
+  "input_pins": {
+    "raw/cut/ex4/bosomg/bosomg00210/bosomg00210.cutb": {
+      "sha256": "bcbb036bfd32414208908b24cef7c257386c1ce4b8c98c06b2b438e68aa87f36",
+      "bytes": 56909
+    },
+    "raw/cut/ex4/bosomg/bosomg00210/animation/monster/m0110/pap/bosomg00210_m0110.pap": {
+      "sha256": "1c9a38691ff160b98cecd56d868f1515175d1b6c288e09ea2c804c5a6440dd70",
+      "bytes": 140148
+    },
+    "raw/cut/ex4/bosomg/bosomg00220/bosomg00220.cutb": {
+      "sha256": "c7d0477ff7c6a95da07e80c93658838e71b5ec68b1f400b738dcff3e023e896e",
+      "bytes": 124853
+    },
+    "raw/cut/ex4/bosomg/bosomg00220/animation/monster/m0424/pap/bosomg00220_m0424.pap": {
+      "sha256": "bd429cdf38c0d7c4eaf4ed680b6fad3a26ae479844416e2012da01de71fd055d",
+      "bytes": 45114
+    },
+    "raw/cut/ex4/bosomg/bosomg00220/animation/monster/m0771/pap/bosomg00220_m0771.pap": {
+      "sha256": "5d3a13a04e1f573d8309611527f0ec3734847cb5d49e4b079118d33cad93578a",
+      "bytes": 84720
+    },
+    "raw/cut/ex4/bosomg/bosomg00220/animation/monster/m8277/pap/bosomg00220_m8277.pap": {
+      "sha256": "5d6e42fb321a533cf4119abd234582b8db1f0fa3d587ae2db12fab2165786ade",
+      "bytes": 26968
+    },
+    "references/cinematic-model-probe-v1.json": {
+      "sha256": "b1ff637b74ca78ccea4850f0357e631e98471c4619dd277c0328f68d131d9b58",
+      "bytes": 2935
+    },
+    "references/motion-source-probe-v1.json": {
+      "sha256": "6904d6fa2770a6c7109b2fe8fe2b557085001134bda04e6788d5d617e10130ea",
+      "bytes": 54382
+    },
+    "references/cutscene-known-roots.json": {
+      "sha256": "a50c808c71982807ef346f657b09cae302f7cc79087cba7f033dd218479cf067",
+      "bytes": 394
+    },
+    "references/probe_cinematic_models.remote.py": {
+      "sha256": "e6dfe61569e613787cbc279b95589e88d495c7f60ba3a1459e44d117a984c8f8",
+      "bytes": 1972
+    },
+    "references/probe_motion_closure.remote.py": {
+      "sha256": "e1f70eea568c37ae9e2bbe7f236f64eb69b247abaae615f8b5339668b7304233",
+      "bytes": 3303
+    },
+    "references/official_export_helpers.py": {
+      "sha256": "210c9d3d2af04016ea205ac40f02ccc95646eee9229498578ea53dc87fff299b",
+      "bytes": 16710
+    },
+    "references/export_official_models.py": {
+      "sha256": "d21b896b0b02b31e2b8096bbdb224cc9fcc3158f631f385d0586026168fcf868",
+      "bytes": 25129
+    },
+    "native/complete-50753-cutb-native-preflight-v1.json": {
+      "sha256": "855d6a0515a4b07a7eee34073b82a744a533b28e78095a38ea38db03579ee6ef",
+      "bytes": 48360
+    },
+    "native/complete-50753-cutb-native-targets-v1.json": {
+      "sha256": "5cd4f2f5df95504506bc07fa5939ed4644fdb5fc8ea9d44f2bee0642ad5bfce7",
+      "bytes": 13805
+    },
+    "native/complete-50753-cutb-native-windows-v1.json": {
+      "sha256": "a4b580c860a6593578f90f15a4e7bb8542becfacc1cb3fdcc76c3e31896dbecb",
+      "bytes": 252512
+    },
+    "prior/CINEMATIC_ACTOR_SOURCE.md": {
+      "sha256": "abfc33bd58c26415bfd2cc708e6636ae03417d17dcca9028bd2045f3c77c5ce4",
+      "bytes": 6112
+    },
+    "prior/cinematic-actor-source.json": {
+      "sha256": "1e7d80f6809c7e1240148623ef120ffbc4312e62e26cbc4b50746b5b86f3f8c0",
+      "bytes": 37792
+    },
+    "native/cutb-record-native-v1.json": {
+      "sha256": "2a5d1fa8da33150a5cdc42b595f51aec7471e6b2c0880c32fa590e84f5ba15c6",
+      "bytes": 113236
+    },
+    "native/cutb-record-follow-v1.json": {
+      "sha256": "c52369db2fd3440e182902aceeff5489747db41ad8c1eae707da65885a1f92d3",
+      "bytes": 114987
+    },
+    "native/cutb-record-supplement-v1.json": {
+      "sha256": "6e2d0b08be9b9ffa6ba9babc27576ec01fc75f9ef07bc1421cd53ae378ceef86",
+      "bytes": 235649
+    },
+    "native/cutb-resource-native-v1.json": {
+      "sha256": "3ee6ff9d8e7475a6bb985a887111b30f41a5baf569ca7c2fc088c639da8a079a",
+      "bytes": 88041
+    },
+    "native/cutb-resource-record-native-v1.json": {
+      "sha256": "e7ee32a06ecfa42ff47763e016ea608e38ded0d074ecd8cb39b1877526f419a2",
+      "bytes": 48254
+    },
+    "native/cutb-allocation-native-v1.json": {
+      "sha256": "df996246d1d1a6442bbb1394902b87d295e2a77111731ee46bf1fbde2f48153c",
+      "bytes": 14760
+    },
+    "native/cutb-model-lead-v1.json": {
+      "sha256": "a490aa192d300ceba82dbfca3f72b630d2dad8e591ff14fd45ca958200696991",
+      "bytes": 105861
+    },
+    "native/cutb-model-setup-v1.json": {
+      "sha256": "4ed19c92ba7f4f247f72c8b0e89458dfb05b9622c4811049f9ca83b0d991a232",
+      "bytes": 80874
+    },
+    "native/cutb-sheet-accessors-v1.json": {
+      "sha256": "d6d82710c9fd91fe0a786b3e62d3d12c857bcbcae2e996933ec13ef899acf074",
+      "bytes": 10077
+    },
+    "references/model-oss/GameObject.cs": {
+      "sha256": "ab53f394670f3de8fc8978bdb8924e81682f7fc9eb2291811008f6a881f021ca",
+      "bytes": 19368
+    },
+    "references/model-oss/BNpcBase.yml": {
+      "sha256": "b5ffb8f994694aeeb7e64d483a505c9d513635605e9345cfa585fc6fc3053ccc",
+      "bytes": 897
+    },
+    "references/model-oss/ModelChara.yml": {
+      "sha256": "6e9fc5df00645dd771768e58afdb9c5c25c864b597d4fb7a230288da88ed2299",
+      "bytes": 466
+    },
+    "references/model-oss/sources.json": {
+      "sha256": "5b8d71b53ca17e8be8fd46f44788896839d1ba75cd7432a7c5b388693fddf752",
+      "bytes": 1483
+    },
+    "references/model-oss/ENpcBase.yml": {
+      "sha256": "85adef0ecbd983ed97bcfa4d8bd5447cfdde6a943e85ab47bf8f632298bffd90",
+      "bytes": 3153
+    },
+    "references/model-oss/CharacterSetupContainer.cs": {
+      "sha256": "0e6d1ad69d34f92a54db0247cda0929cb7d71252c0c275a96aab15145bdd7875",
+      "bytes": 1025
+    }
+  },
+  "native_binary": {
+    "path": "F:\\SquareEnix\\FINAL FANTASY XIV - A Realm Reborn\\game\\ffxiv_dx11.exe",
+    "sha256": "46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a",
+    "bytes": 51976960
+  },
+  "cutb": [
+    {
+      "path": "raw/cut/ex4/bosomg/bosomg00210/bosomg00210.cutb",
+      "sha256": "bcbb036bfd32414208908b24cef7c257386c1ce4b8c98c06b2b438e68aa87f36"
+    },
+    {
+      "path": "raw/cut/ex4/bosomg/bosomg00220/bosomg00220.cutb",
+      "sha256": "c7d0477ff7c6a95da07e80c93658838e71b5ec68b1f400b738dcff3e023e896e"
+    }
+  ],
+  "pap_targets": [
+    {
+      "path": "raw/cut/ex4/bosomg/bosomg00210/animation/monster/m0110/pap/bosomg00210_m0110.pap",
+      "sha256": "1c9a38691ff160b98cecd56d868f1515175d1b6c288e09ea2c804c5a6440dd70",
+      "bytes": 140148
+    },
+    {
+      "path": "raw/cut/ex4/bosomg/bosomg00220/animation/monster/m0424/pap/bosomg00220_m0424.pap",
+      "sha256": "bd429cdf38c0d7c4eaf4ed680b6fad3a26ae479844416e2012da01de71fd055d",
+      "bytes": 45114
+    },
+    {
+      "path": "raw/cut/ex4/bosomg/bosomg00220/animation/monster/m0771/pap/bosomg00220_m0771.pap",
+      "sha256": "5d3a13a04e1f573d8309611527f0ec3734847cb5d49e4b079118d33cad93578a",
+      "bytes": 84720
+    },
+    {
+      "path": "raw/cut/ex4/bosomg/bosomg00220/animation/monster/m8277/pap/bosomg00220_m8277.pap",
+      "sha256": "5d6e42fb321a533cf4119abd234582b8db1f0fa3d587ae2db12fab2165786ade",
+      "bytes": 26968
+    }
+  ],
+  "actors": [
+    {
+      "cutb": 0,
+      "identity": 4278190083,
+      "ctal_row": 5,
+      "actor_index": 2,
+      "record_offset": 8976,
+      "identity_field_offset": 8980,
+      "subselector_field_offset": 9028,
+      "subselector": 4,
+      "field40_offset": 9040,
+      "field40": 1016731,
+      "occurrences": [
+        [
+          13256,
+          0
+        ]
+      ],
+      "candidate_kind": 8,
+      "ENpcBase_row": 1016731,
+      "ModelChara_row_candidate": 327,
+      "model": 110,
+      "base": 1,
+      "variant": 1,
+      "runtime": "NOT_RUN",
+      "type": 3,
+      "animation_variant": 1,
+      "model_semantics_scope": "SOURCE_TABLE_CANDIDATE; not final runtime choice or exact MDL/SKLB closure"
+    },
+    {
+      "cutb": 0,
+      "identity": 4278190084,
+      "ctal_row": 5,
+      "actor_index": 3,
+      "record_offset": 9172,
+      "identity_field_offset": 9176,
+      "subselector_field_offset": 9224,
+      "subselector": 4,
+      "field40_offset": 9236,
+      "field40": 1016731,
+      "occurrences": [
+        [
+          13268,
+          0
+        ],
+        [
+          13616,
+          0
+        ],
+        [
+          13688,
+          0
+        ]
+      ],
+      "candidate_kind": 8,
+      "ENpcBase_row": 1016731,
+      "ModelChara_row_candidate": 327,
+      "model": 110,
+      "base": 1,
+      "variant": 1,
+      "runtime": "NOT_RUN",
+      "type": 3,
+      "animation_variant": 1,
+      "model_semantics_scope": "SOURCE_TABLE_CANDIDATE; not final runtime choice or exact MDL/SKLB closure"
+    },
+    {
+      "cutb": 1,
+      "identity": 4278190103,
+      "ctal_row": 5,
+      "actor_index": 22,
+      "record_offset": 19428,
+      "identity_field_offset": 19432,
+      "subselector_field_offset": 19480,
+      "subselector": 4,
+      "field40_offset": 19492,
+      "field40": 1026375,
+      "occurrences": [
+        [
+          21668,
+          3
+        ],
+        [
+          21800,
+          3
+        ],
+        [
+          21932,
+          3
+        ]
+      ],
+      "candidate_kind": 8,
+      "ENpcBase_row": 1026375,
+      "ModelChara_row_candidate": 2328,
+      "model": 8277,
+      "base": 1,
+      "variant": 1,
+      "runtime": "NOT_RUN",
+      "type": 3,
+      "animation_variant": 1,
+      "model_semantics_scope": "SOURCE_TABLE_CANDIDATE; not final runtime choice or exact MDL/SKLB closure"
+    },
+    {
+      "cutb": 1,
+      "identity": 4278190104,
+      "ctal_row": 5,
+      "actor_index": 23,
+      "record_offset": 19624,
+      "identity_field_offset": 19628,
+      "subselector_field_offset": 19676,
+      "subselector": 4,
+      "field40_offset": 19688,
+      "field40": 1024748,
+      "occurrences": [
+        [
+          21656,
+          1
+        ],
+        [
+          21776,
+          1
+        ],
+        [
+          21920,
+          1
+        ]
+      ],
+      "candidate_kind": 8,
+      "ENpcBase_row": 1024748,
+      "ModelChara_row_candidate": 2147,
+      "model": 424,
+      "base": 2,
+      "variant": 1,
+      "runtime": "NOT_RUN",
+      "type": 3,
+      "animation_variant": 1,
+      "model_semantics_scope": "SOURCE_TABLE_CANDIDATE; not final runtime choice or exact MDL/SKLB closure"
+    },
+    {
+      "cutb": 1,
+      "identity": 4278190105,
+      "ctal_row": 5,
+      "actor_index": 24,
+      "record_offset": 19820,
+      "identity_field_offset": 19824,
+      "subselector_field_offset": 19872,
+      "subselector": 4,
+      "field40_offset": 19884,
+      "field40": 1044653,
+      "occurrences": [
+        [
+          21260,
+          2
+        ],
+        [
+          21512,
+          2
+        ]
+      ],
+      "candidate_kind": 8,
+      "ENpcBase_row": 1044653,
+      "ModelChara_row_candidate": 3524,
+      "model": 771,
+      "base": 1,
+      "variant": 1,
+      "runtime": "NOT_RUN",
+      "type": 3,
+      "animation_variant": 1,
+      "model_semantics_scope": "SOURCE_TABLE_CANDIDATE; not final runtime choice or exact MDL/SKLB closure"
+    },
+    {
+      "cutb": 1,
+      "identity": 4278190106,
+      "ctal_row": 5,
+      "actor_index": 25,
+      "record_offset": 20016,
+      "identity_field_offset": 20020,
+      "subselector_field_offset": 20068,
+      "subselector": 4,
+      "field40_offset": 20080,
+      "field40": 1044653,
+      "occurrences": [
+        [
+          21068,
+          2
+        ]
+      ],
+      "candidate_kind": 8,
+      "ENpcBase_row": 1044653,
+      "ModelChara_row_candidate": 3524,
+      "model": 771,
+      "base": 1,
+      "variant": 1,
+      "runtime": "NOT_RUN",
+      "type": 3,
+      "animation_variant": 1,
+      "model_semantics_scope": "SOURCE_TABLE_CANDIDATE; not final runtime choice or exact MDL/SKLB closure"
+    }
+  ],
+  "sheet_name_proof": {
+    "source": "exd/root.exl",
+    "ids": {
+      "46": "BNpcBase",
+      "97": "ENpcBase",
+      "96": "ENpcResident",
+      "38": "ModelChara"
+    }
+  },
+  "source_files": {
+    "exd/root.exl": {
+      "sha256": "6e0053c2e171fa931a167368631990cb9b8f3f969049d5637a492d901ee8ae25",
+      "bytes": 238923
+    },
+    "exd/enpcbase.exh": {
+      "sha256": "bb27c45bbc9f25f5d621af57e51412f0486633b76f5ff398c14d340a8c3bdb75",
+      "bytes": 1434
+    },
+    "exd/enpcresident.exh": {
+      "sha256": "5c39dd973224a410de706f8819bfeaa63fca1abb305fa4da047149664415b664",
+      "bytes": 98
+    },
+    "exd/bnpcbase.exh": {
+      "sha256": "10bb9dcb9de73ef613c1d3030d4019ef74bcb7f47f2bb4636fea55d0b874b345",
+      "bytes": 150
+    },
+    "exd/modelchara.exh": {
+      "sha256": "9eefbb664ff69afd255023d46ff114a9d234b346097bb8b8be48a0e55722d138",
+      "bytes": 134
+    },
+    "exd/enpcbase_1016500.exd": {
+      "sha256": "fa5831c5c01701d6c1881bc1049c74cce9de972b33d82143eac10009aa006fa3",
+      "bytes": 140032
+    },
+    "exd/enpcbase_1024500.exd": {
+      "sha256": "f7b5d6d866c55aca220ad62d27eaad1e43e15b5f9990d3d953436e575fd66e9c",
+      "bytes": 140032
+    },
+    "exd/enpcbase_1026000.exd": {
+      "sha256": "ec853a701505a86852d71e98442037f053049da667502bb93427736eeddef613",
+      "bytes": 140032
+    },
+    "exd/enpcbase_1044500.exd": {
+      "sha256": "df8322b1caf717b7acd428340d88191dfca847859c5ded67fff7d74d563cfae8",
+      "bytes": 140032
+    },
+    "exd/modelchara_0.exd": {
+      "sha256": "04313e3a230a992a903553fd16b5c369499203efa05541b1e66ee3effa98d981",
+      "bytes": 232528
+    }
+  },
+  "EXH_columns": {
+    "ENpcBase": [
+      [
+        5,
+        188
+      ],
+      [
+        25,
+        256
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        7,
+        4
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        7,
+        12
+      ],
+      [
+        7,
+        16
+      ],
+      [
+        7,
+        20
+      ],
+      [
+        7,
+        24
+      ],
+      [
+        7,
+        28
+      ],
+      [
+        7,
+        32
+      ],
+      [
+        7,
+        36
+      ],
+      [
+        7,
+        40
+      ],
+      [
+        7,
+        44
+      ],
+      [
+        7,
+        48
+      ],
+      [
+        7,
+        52
+      ],
+      [
+        7,
+        56
+      ],
+      [
+        7,
+        60
+      ],
+      [
+        7,
+        64
+      ],
+      [
+        7,
+        68
+      ],
+      [
+        7,
+        72
+      ],
+      [
+        7,
+        76
+      ],
+      [
+        7,
+        80
+      ],
+      [
+        7,
+        84
+      ],
+      [
+        7,
+        88
+      ],
+      [
+        7,
+        92
+      ],
+      [
+        7,
+        96
+      ],
+      [
+        7,
+        100
+      ],
+      [
+        7,
+        104
+      ],
+      [
+        7,
+        108
+      ],
+      [
+        7,
+        112
+      ],
+      [
+        7,
+        116
+      ],
+      [
+        7,
+        120
+      ],
+      [
+        7,
+        124
+      ],
+      [
+        9,
+        144
+      ],
+      [
+        5,
+        190
+      ],
+      [
+        3,
+        202
+      ],
+      [
+        3,
+        203
+      ],
+      [
+        3,
+        204
+      ],
+      [
+        3,
+        205
+      ],
+      [
+        3,
+        206
+      ],
+      [
+        3,
+        207
+      ],
+      [
+        3,
+        208
+      ],
+      [
+        3,
+        209
+      ],
+      [
+        3,
+        210
+      ],
+      [
+        3,
+        211
+      ],
+      [
+        3,
+        212
+      ],
+      [
+        3,
+        213
+      ],
+      [
+        3,
+        214
+      ],
+      [
+        3,
+        215
+      ],
+      [
+        3,
+        216
+      ],
+      [
+        3,
+        217
+      ],
+      [
+        3,
+        218
+      ],
+      [
+        3,
+        219
+      ],
+      [
+        3,
+        220
+      ],
+      [
+        3,
+        221
+      ],
+      [
+        3,
+        222
+      ],
+      [
+        3,
+        223
+      ],
+      [
+        3,
+        224
+      ],
+      [
+        3,
+        225
+      ],
+      [
+        3,
+        226
+      ],
+      [
+        3,
+        227
+      ],
+      [
+        3,
+        228
+      ],
+      [
+        5,
+        192
+      ],
+      [
+        5,
+        194
+      ],
+      [
+        11,
+        128
+      ],
+      [
+        3,
+        229
+      ],
+      [
+        3,
+        230
+      ],
+      [
+        11,
+        136
+      ],
+      [
+        3,
+        231
+      ],
+      [
+        3,
+        232
+      ],
+      [
+        7,
+        148
+      ],
+      [
+        3,
+        233
+      ],
+      [
+        3,
+        243
+      ],
+      [
+        26,
+        256
+      ],
+      [
+        27,
+        256
+      ],
+      [
+        7,
+        152
+      ],
+      [
+        3,
+        234
+      ],
+      [
+        3,
+        244
+      ],
+      [
+        7,
+        156
+      ],
+      [
+        3,
+        235
+      ],
+      [
+        3,
+        245
+      ],
+      [
+        7,
+        160
+      ],
+      [
+        3,
+        236
+      ],
+      [
+        3,
+        246
+      ],
+      [
+        7,
+        164
+      ],
+      [
+        3,
+        237
+      ],
+      [
+        3,
+        247
+      ],
+      [
+        7,
+        168
+      ],
+      [
+        3,
+        238
+      ],
+      [
+        3,
+        248
+      ],
+      [
+        7,
+        172
+      ],
+      [
+        3,
+        239
+      ],
+      [
+        3,
+        249
+      ],
+      [
+        7,
+        176
+      ],
+      [
+        3,
+        240
+      ],
+      [
+        3,
+        250
+      ],
+      [
+        7,
+        180
+      ],
+      [
+        3,
+        241
+      ],
+      [
+        3,
+        251
+      ],
+      [
+        7,
+        184
+      ],
+      [
+        3,
+        242
+      ],
+      [
+        3,
+        252
+      ],
+      [
+        5,
+        196
+      ],
+      [
+        5,
+        198
+      ],
+      [
+        3,
+        253
+      ],
+      [
+        5,
+        200
+      ],
+      [
+        28,
+        256
+      ],
+      [
+        3,
+        254
+      ],
+      [
+        3,
+        255
+      ]
+    ],
+    "BNpcBase": [
+      [
+        5,
+        12
+      ],
+      [
+        3,
+        24
+      ],
+      [
+        3,
+        25
+      ],
+      [
+        3,
+        26
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        5,
+        14
+      ],
+      [
+        5,
+        16
+      ],
+      [
+        5,
+        18
+      ],
+      [
+        5,
+        20
+      ],
+      [
+        3,
+        27
+      ],
+      [
+        25,
+        35
+      ],
+      [
+        6,
+        8
+      ],
+      [
+        3,
+        28
+      ],
+      [
+        3,
+        29
+      ],
+      [
+        3,
+        30
+      ],
+      [
+        26,
+        35
+      ],
+      [
+        27,
+        35
+      ],
+      [
+        28,
+        35
+      ],
+      [
+        29,
+        35
+      ],
+      [
+        3,
+        31
+      ],
+      [
+        3,
+        32
+      ],
+      [
+        3,
+        33
+      ],
+      [
+        5,
+        22
+      ],
+      [
+        3,
+        34
+      ],
+      [
+        30,
+        35
+      ],
+      [
+        31,
+        35
+      ],
+      [
+        7,
+        4
+      ]
+    ],
+    "ModelChara": [
+      [
+        3,
+        16
+      ],
+      [
+        5,
+        12
+      ],
+      [
+        3,
+        17
+      ],
+      [
+        3,
+        18
+      ],
+      [
+        5,
+        14
+      ],
+      [
+        3,
+        19
+      ],
+      [
+        25,
+        26
+      ],
+      [
+        26,
+        26
+      ],
+      [
+        3,
+        20
+      ],
+      [
+        2,
+        25
+      ],
+      [
+        27,
+        26
+      ],
+      [
+        28,
+        26
+      ],
+      [
+        29,
+        26
+      ],
+      [
+        30,
+        26
+      ],
+      [
+        31,
+        26
+      ],
+      [
+        3,
+        21
+      ],
+      [
+        32,
+        26
+      ],
+      [
+        3,
+        22
+      ],
+      [
+        3,
+        23
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        3,
+        24
+      ],
+      [
+        9,
+        8
+      ]
+    ]
+  },
+  "schema_comparison": {
+    "ENpcBase": {
+      "sha256": "85adef0ecbd983ed97bcfa4d8bd5447cfdde6a943e85ab47bf8f632298bffd90",
+      "comparison": "MATCH_ALL_RAW_COLUMNS_WITH_PINNED_UPSTREAM_LAYOUT; field_order=offset_then_type",
+      "EXH_columns": 110,
+      "all_current_raw_columns_equal_pinned_schema_columns": true,
+      "column_count": 110,
+      "selected": {
+        "ModelChara": {
+          "raw_column_index": 35,
+          "type": 5,
+          "offset": 190
+        }
+      }
+    },
+    "BNpcBase": {
+      "sha256": "b5ffb8f994694aeeb7e64d483a505c9d513635605e9345cfa585fc6fc3053ccc",
+      "comparison": "MATCH_ALL_RAW_COLUMNS_WITH_PINNED_UPSTREAM_LAYOUT; field_order=offset_then_type",
+      "EXH_columns": 27,
+      "all_current_raw_columns_equal_pinned_schema_columns": true,
+      "column_count": 27,
+      "selected": {
+        "ModelChara": {
+          "raw_column_index": 5,
+          "type": 5,
+          "offset": 14
+        }
+      }
+    },
+    "ModelChara": {
+      "sha256": "6e9fc5df00645dd771768e58afdb9c5c25c864b597d4fb7a230288da88ed2299",
+      "comparison": "MATCH_ALL_RAW_COLUMNS_WITH_PINNED_UPSTREAM_LAYOUT; field_order=offset_then_type",
+      "EXH_columns": 23,
+      "all_current_raw_columns_equal_pinned_schema_columns": true,
+      "column_count": 23,
+      "selected": {
+        "Model": {
+          "raw_column_index": 1,
+          "type": 5,
+          "offset": 12
+        },
+        "Type": {
+          "raw_column_index": 0,
+          "type": 3,
+          "offset": 16
+        },
+        "Base": {
+          "raw_column_index": 2,
+          "type": 3,
+          "offset": 17
+        },
+        "Variant": {
+          "raw_column_index": 3,
+          "type": 3,
+          "offset": 18
+        },
+        "AnimationVariant": {
+          "raw_column_index": 5,
+          "type": 3,
+          "offset": 19
+        }
+      }
+    }
+  },
+  "selected_rows": [
+    {
+      "sheet": 97,
+      "row": 1016731,
+      "column": 35,
+      "type": 5,
+      "offset": 190,
+      "value": 327,
+      "source": "exd/enpcbase_1016500.exd",
+      "semantic": "native_input_to_ModelChara_accessor_on_default_model_branch"
+    },
+    {
+      "sheet": 97,
+      "row": 1024748,
+      "column": 35,
+      "type": 5,
+      "offset": 190,
+      "value": 2147,
+      "source": "exd/enpcbase_1024500.exd",
+      "semantic": "native_input_to_ModelChara_accessor_on_default_model_branch"
+    },
+    {
+      "sheet": 97,
+      "row": 1026375,
+      "column": 35,
+      "type": 5,
+      "offset": 190,
+      "value": 2328,
+      "source": "exd/enpcbase_1026000.exd",
+      "semantic": "native_input_to_ModelChara_accessor_on_default_model_branch"
+    },
+    {
+      "sheet": 97,
+      "row": 1044653,
+      "column": 35,
+      "type": 5,
+      "offset": 190,
+      "value": 3524,
+      "source": "exd/enpcbase_1044500.exd",
+      "semantic": "native_input_to_ModelChara_accessor_on_default_model_branch"
+    },
+    {
+      "sheet": 38,
+      "row": 327,
+      "source": "exd/modelchara_0.exd",
+      "columns": [
+        [
+          0,
+          3,
+          16,
+          3
+        ],
+        [
+          1,
+          5,
+          12,
+          110
+        ],
+        [
+          2,
+          3,
+          17,
+          1
+        ],
+        [
+          3,
+          3,
+          18,
+          1
+        ]
+      ],
+      "column_tuple": "index,type,offset,value",
+      "model_base_variant_semantics": "CONFIRMED_SOURCE_TABLE_CANDIDATE_NOT_RUNTIME_FINAL",
+      "named_fields": {
+        "model": 110,
+        "type": 3,
+        "base": 1,
+        "variant": 1,
+        "animation_variant": 1
+      }
+    },
+    {
+      "sheet": 38,
+      "row": 2147,
+      "source": "exd/modelchara_0.exd",
+      "columns": [
+        [
+          0,
+          3,
+          16,
+          3
+        ],
+        [
+          1,
+          5,
+          12,
+          424
+        ],
+        [
+          2,
+          3,
+          17,
+          2
+        ],
+        [
+          3,
+          3,
+          18,
+          1
+        ]
+      ],
+      "column_tuple": "index,type,offset,value",
+      "model_base_variant_semantics": "CONFIRMED_SOURCE_TABLE_CANDIDATE_NOT_RUNTIME_FINAL",
+      "named_fields": {
+        "model": 424,
+        "type": 3,
+        "base": 2,
+        "variant": 1,
+        "animation_variant": 1
+      }
+    },
+    {
+      "sheet": 38,
+      "row": 2328,
+      "source": "exd/modelchara_0.exd",
+      "columns": [
+        [
+          0,
+          3,
+          16,
+          3
+        ],
+        [
+          1,
+          5,
+          12,
+          8277
+        ],
+        [
+          2,
+          3,
+          17,
+          1
+        ],
+        [
+          3,
+          3,
+          18,
+          1
+        ]
+      ],
+      "column_tuple": "index,type,offset,value",
+      "model_base_variant_semantics": "CONFIRMED_SOURCE_TABLE_CANDIDATE_NOT_RUNTIME_FINAL",
+      "named_fields": {
+        "model": 8277,
+        "type": 3,
+        "base": 1,
+        "variant": 1,
+        "animation_variant": 1
+      }
+    },
+    {
+      "sheet": 38,
+      "row": 3524,
+      "source": "exd/modelchara_0.exd",
+      "columns": [
+        [
+          0,
+          3,
+          16,
+          3
+        ],
+        [
+          1,
+          5,
+          12,
+          771
+        ],
+        [
+          2,
+          3,
+          17,
+          1
+        ],
+        [
+          3,
+          3,
+          18,
+          1
+        ]
+      ],
+      "column_tuple": "index,type,offset,value",
+      "model_base_variant_semantics": "CONFIRMED_SOURCE_TABLE_CANDIDATE_NOT_RUNTIME_FINAL",
+      "named_fields": {
+        "model": 771,
+        "type": 3,
+        "base": 1,
+        "variant": 1,
+        "animation_variant": 1
+      }
+    }
+  ],
+  "native_proofs": {
+    "allocation": [
+      "1418c348a:RDX->RBX",
+      "1418c34af:[RBX]->RAX",
+      "1418c34b7:RAX->object+78"
+    ],
+    "subselector_switch": {
+      "table": "141bf2004",
+      "index": "subselector-1",
+      "2": "141bf15b6",
+      "3": "141bf1678",
+      "4": "141bf147f"
+    },
+    "descriptor4": [
+      "field40!=0",
+      "141bf14cb:kind=8",
+      "141bf14da:key=object+94",
+      "141bf1d32:recursive_consumer"
+    ],
+    "kind8_chain": [
+      "1418c3948",
+      "1418c3963->141bf3570",
+      "vtable=142456d40",
+      "vtable+178=141bf36c0",
+      "1418c3a54:descriptor+30->EDX",
+      "141bf36c3->141bf38b0",
+      "141bf3e74[0]=0",
+      "141bf3e58[0]+140000000=141bf3993",
+      "141bf399c->1408d1600"
+    ],
+    "ENpcBase": [
+      "1408d167b->140836220",
+      "14083622e:sheet=97,key=ECX",
+      "1408d168e->140836260",
+      "14083626b:key=ECX-1000000",
+      "140836272:sheet=96"
+    ],
+    "ModelChara": [
+      "1408d1aae:u16[ENpcBase+190]",
+      "1408d1b04:EBX->EDX",
+      "1408d1b09->1408d0fa0",
+      "1408d0fcb:EDX->ECX",
+      "1408d0fd6->140837840",
+      "14083784e:sheet=38",
+      "14083785a->1405f4170"
+    ],
+    "kind9": [
+      "141bf3e74[1]=1",
+      "141bf3e58[1]+140000000=141bf39c2",
+      "141bf3a60->1408d22a0",
+      "140835f60:sheet=46"
+    ]
+  },
+  "native_additional_windows": [
+    {
+      "start": 5377953696,
+      "bytes": 768,
+      "proof": {
+        "sha256": "37a7cbabc3a6e3b4d4dcc5229a0cdd362064e3adf64d7b5f740358ed82cb088f",
+        "bytes": 15280
+      }
+    },
+    {
+      "start": 5377325120,
+      "bytes": 80,
+      "proof": {
+        "sha256": "3efc685330b86440791c274f3b15973b214bfbc6409c414caaaff9530e6d2ead",
+        "bytes": 2366
+      }
+    }
+  ],
+  "validation": {
+    "input_pins": 33,
+    "seed_pins": 4,
+    "native_byte_records_verified": 8490,
+    "actors": 6,
+    "PAP_occurrences": 13,
+    "PAP_targets": 4,
+    "synthetic_tests": "parent frozen 27; NOT_RERUN",
+    "actual_cutb_decoder": "parent 2 actual; canonical metadata reused",
+    "parent_raw_EXD": "10 identical source hashes; independent raw EXD index and bigendian byte reads, not RawRow",
+    "parent_schema": "all110/27/23 raw column type+offset entries match pinned upstream layout; match names using upstream offset/type ordering",
+    "parent_native_byte_records": 8668
+  },
+  "probe_hashes": {
+    "probe_tables.py": {
+      "sha256": "a694a1d2228055eaf665ed6bd70d1ff0bb94a79e2401f032c72ec11cc12ae902",
+      "bytes": 3565
+    },
+    "probe_tables_offset190.py": {
+      "sha256": "778bc76ddcef2083d5662dfec3650dec204f22aba3e523530e0f0f2d03b4143f",
+      "bytes": 3575
+    },
+    "probe_native.py": {
+      "sha256": "acff179f887b74b6719f8c3c1d68eda9875938872c09a47992996a428658a9dd",
+      "bytes": 1256
+    },
+    "probe_native_fixed.py": {
+      "sha256": "c230f29772eb5d283915f37eea084a972faeb23ffc239290de15937b9f914f19",
+      "bytes": 1259
+    },
+    "probe_native_accessor.py": {
+      "sha256": "c86f5627823920e268b80799f8a336402a39eaf1e315038861771fe2a2d4911a",
+      "bytes": 1267
+    },
+    "finish_docs.py": {
+      "sha256": "ee22daeeed1fcc5c2563064112a697a40ec317cff7445d6d7e15fce73019e7d5",
+      "bytes": 7867
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "python",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cutb-model-50776\\top\\assets\\official\\cutb-model-50776\\probe_tables.py"
+      ],
+      "launcher": "python - stdin subprocess.run(argv,capture_output=True,text=True,timeout=35)",
+      "timeout_seconds": 35
+    },
+    {
+      "argv": [
+        "python",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cutb-model-50776\\top\\assets\\official\\cutb-model-50776\\probe_tables_offset190.py"
+      ],
+      "launcher": "python - stdin subprocess.run(argv,capture_output=True,text=True,timeout=35)",
+      "timeout_seconds": 35
+    },
+    {
+      "argv": [
+        "python",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cutb-model-50776\\top\\assets\\official\\cutb-model-50776\\probe_native.py"
+      ],
+      "launcher": "python - stdin subprocess.run(argv,capture_output=True,text=True,timeout=35)",
+      "timeout_seconds": 35
+    },
+    {
+      "argv": [
+        "python",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cutb-model-50776\\top\\assets\\official\\cutb-model-50776\\probe_native_fixed.py"
+      ],
+      "launcher": "python - stdin subprocess.run(argv,capture_output=True,text=True,timeout=35)",
+      "timeout_seconds": 35
+    },
+    {
+      "argv": [
+        "python",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cutb-model-50776\\top\\assets\\official\\cutb-model-50776\\probe_native_accessor.py"
+      ],
+      "launcher": "python - stdin subprocess.run(argv,capture_output=True,text=True,timeout=35)",
+      "timeout_seconds": 35
+    },
+    {
+      "argv": [
+        "python",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cutb-model-50776\\top\\assets\\official\\cutb-model-50776\\finish_docs.py"
+      ],
+      "launcher": "python - stdin subprocess.run(argv,capture_output=True,text=True,timeout=35)",
+      "timeout_seconds": 35
+    }
+  ],
+  "preserved_failures": [
+    {
+      "probe": "probe_tables.py",
+      "result": "INVALID semantic assumption: column46 from supplied schema returned zero; no ModelChara:0 accepted",
+      "log": {
+        "sha256": "932b490c7fd11a8940124e5d2d5b81caf28b57fdbd942656de4ea72454f3a3d6",
+        "bytes": 14863
+      }
+    },
+    {
+      "probe": "probe_native.py",
+      "result": "SyntaxError; no binary read",
+      "log": {
+        "sha256": "cfd9e6c6eb1cc4abab322ef52f2632434d8e5930c9e8007bcfb2b2f5c84b2e95",
+        "bytes": 480
+      }
+    }
+  ],
+  "next_dependency": "Exact original MDL/material/SKLB resource closure for four static source-table tuples, followed by PAP skeleton/bone validation; runtime override branches remain UNKNOWN.",
+  "branch_conditions": {
+    "subselector0": "UNKNOWN",
+    "subselector4": "object+94 != 0; direct kind8 key=object+94 at 141bf147f..14da",
+    "subselector2": "kind8 field40 iff 14079aff0 returns null OR record+44 !=0; otherwise kind0x25 existingactor key, zero fallback keeps kind0x25",
+    "subselector3": "runtime type2 and returned byte+4!=0: runtime kind8 key; else valid selected actor and flag44==0: kind0x49; else kind8 key=field40 if flag44!=0, literal0xfca82 otherwise; zero key discarded",
+    "ModelChara": "default ENpcBase+190 branch iff r14==null OR 141a1a200(r14) returns true; otherwise runtime r14+0xac used",
+    "runtime_dispatch": "1418c3a54 only if alternate context at 3a20..3a4a not selected; key!=0 and allocation result!=-1; both ENpc sheets nonnull"
+  },
+  "checkpoint": "FINAL_CONSISTENT_PARENT_CORRECTED_V2",
+  "parent_schema_correction": {
+    "original_doc_sha256": "656758ae650227885b30a9a731021e82a609fc0f3165eaafafd101d48405ce56",
+    "original_gate": "MISMATCH_COLUMN_ORDER was based on raw EXH index vs offset/type ordered schema and is superseded, not an actual version incompatibility",
+    "upstream": {
+      "url": "https://raw.githubusercontent.com/xivdev/EXDSchema/83e965d091116f895d5b17573cc5d12909a5f407/.github/columns.yml",
+      "sha256": "6779a9006e8d918a91381774b82ea27dea57e57acfe960735cf3de9ab5f20d55",
+      "bytes": 818650,
+      "sections": [
+        "BNpcBase",
+        "ENpcBase",
+        "ModelChara"
+      ],
+      "generator": {
+        "url": "https://raw.githubusercontent.com/NotAdam/Lumina.Excel/f79754d7659243cbc2b2a0d9ec55c66319aa42a9/src/Lumina.Excel.Generator/SchemaSourceConverter.cs",
+        "sha256": "cf1936e3a96c67a813b329edb7f421d5a0a109586f1a29b79b6eb18f409705fd",
+        "bytes": 23105
+      }
+    },
+    "layout": {
+      "ENpcBase": {
+        "all_current_raw_columns_equal_pinned_schema_columns": true,
+        "column_count": 110,
+        "selected": {
+          "ModelChara": {
+            "raw_column_index": 35,
+            "type": 5,
+            "offset": 190
+          }
+        }
+      },
+      "BNpcBase": {
+        "all_current_raw_columns_equal_pinned_schema_columns": true,
+        "column_count": 27,
+        "selected": {
+          "ModelChara": {
+            "raw_column_index": 5,
+            "type": 5,
+            "offset": 14
+          }
+        }
+      },
+      "ModelChara": {
+        "all_current_raw_columns_equal_pinned_schema_columns": true,
+        "column_count": 23,
+        "selected": {
+          "Model": {
+            "raw_column_index": 1,
+            "type": 5,
+            "offset": 12
+          },
+          "Type": {
+            "raw_column_index": 0,
+            "type": 3,
+            "offset": 16
+          },
+          "Base": {
+            "raw_column_index": 2,
+            "type": 3,
+            "offset": 17
+          },
+          "Variant": {
+            "raw_column_index": 3,
+            "type": 3,
+            "offset": 18
+          },
+          "AnimationVariant": {
+            "raw_column_index": 5,
+            "type": 3,
+            "offset": 19
+          }
+        }
+      }
+    },
+    "row_verification": {
+      "method": "independent direct raw EXD index and bigendian fixed-row fields; NOT RawRow.ReadColumn",
+      "report_sha256": "b5e22085aa5e8e3cbc2b982adc69ef899aae94c0631e8bf33750d3037e598d6c",
+      "models": {
+        "1016731": {
+          "enpc_row": {
+            "exd": "exd/enpcbase_1016500.exd",
+            "row_id": 1016731,
+            "offset": 66864,
+            "row_data_offset": 66870,
+            "row_size": 266
+          },
+          "modelchara_row": {
+            "exd": "exd/modelchara_0.exd",
+            "row_id": 327,
+            "offset": 54076,
+            "row_data_offset": 54082,
+            "row_size": 30
+          },
+          "modelchara_id": 327,
+          "model": 110,
+          "type": 3,
+          "base": 1,
+          "variant": 1,
+          "animation_variant": 1
+        },
+        "1024748": {
+          "enpc_row": {
+            "exd": "exd/enpcbase_1024500.exd",
+            "row_id": 1024748,
+            "offset": 71488,
+            "row_data_offset": 71494,
+            "row_size": 266
+          },
+          "modelchara_row": {
+            "exd": "exd/modelchara_0.exd",
+            "row_id": 2147,
+            "offset": 119596,
+            "row_data_offset": 119602,
+            "row_size": 30
+          },
+          "modelchara_id": 2147,
+          "model": 424,
+          "type": 3,
+          "base": 2,
+          "variant": 1,
+          "animation_variant": 1
+        },
+        "1026375": {
+          "enpc_row": {
+            "exd": "exd/enpcbase_1026000.exd",
+            "row_id": 1026375,
+            "offset": 106032,
+            "row_data_offset": 106038,
+            "row_size": 266
+          },
+          "modelchara_row": {
+            "exd": "exd/modelchara_0.exd",
+            "row_id": 2328,
+            "offset": 126112,
+            "row_data_offset": 126118,
+            "row_size": 30
+          },
+          "modelchara_id": 2328,
+          "model": 8277,
+          "type": 3,
+          "base": 1,
+          "variant": 1,
+          "animation_variant": 1
+        },
+        "1044653": {
+          "enpc_row": {
+            "exd": "exd/enpcbase_1044500.exd",
+            "row_id": 1044653,
+            "offset": 45648,
+            "row_data_offset": 45654,
+            "row_size": 266
+          },
+          "modelchara_row": {
+            "exd": "exd/modelchara_0.exd",
+            "row_id": 3524,
+            "offset": 169168,
+            "row_data_offset": 169174,
+            "row_size": 30
+          },
+          "modelchara_id": 3524,
+          "model": 771,
+          "type": 3,
+          "base": 1,
+          "variant": 1,
+          "animation_variant": 1
+        }
+      }
+    }
+  }
+}

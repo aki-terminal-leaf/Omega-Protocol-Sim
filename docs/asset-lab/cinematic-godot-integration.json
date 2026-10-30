@@ -1,0 +1,1457 @@
+{
+  "implementation_sha256": {
+    "tools/asset_lab/prepare_cinematic_godot.py": "0121f2b5590d4a895aa6e99c34949ba5dfcbc4a0ed553e9fd5321ae6e69e5dd2",
+    "tools/asset_lab/run_cinematic_integration.py": "f1a06079ab47f5e131ff53eb58164897f901fd17045906c9a9ba47f0c0b55e18",
+    "top/scripts/cinematic_sample_adapter.gd": "d8500f2a3e76ade9433053f69b7ac25e69b5b8c88db9d0913de3e2f2084e2afd",
+    "tools/asset_lab/test_cinematic_integration.gd": "37972ea14b4c8cc8eb6f7b7ee893e645a8f30868439814bbfe71cc153bd6966a",
+    "tests/test_cinematic_godot.py": "8cf6eed15ef0b6bfeeca925842ae64be302747d6a3de1487abdc053e636adf00",
+    "top/scripts/source_animation.gd": "d1977f75eb108b6eef4952aea334520c46becd6815a7da50e2acb393046de8f8"
+  },
+  "status": "NUMERIC_INTEGRATION_PASS",
+  "manifest_sha256": "7ad8d152163dc1985e8c067d390a58b4b16ff5acc8b71075f9bc5a6bc0dc810d",
+  "source_pins": {
+    "tools/asset_lab/decode_cutb_bindings.py": {
+      "sha256": "5b35e1d31e76bf89349f7e6602f2b3c42cfb249776b678c92b9de3873b35abe2",
+      "bytes": 12646
+    },
+    "tests/test_cutb_bindings.py": {
+      "sha256": "45b1c82042f14234420565163775005ba1c7cb2f95946c6dd4d69113c0100330",
+      "bytes": 11280
+    },
+    "docs/asset-lab/CUTB_NATIVE_BINDINGS.md": {
+      "sha256": "3fab6088e6dfb8bb5ed1f0ad2224da48564682ff9da67a282ef111a29edb09f6",
+      "bytes": 3933
+    },
+    "docs/asset-lab/cutb-native-bindings.json": {
+      "sha256": "3a4fe9793c056b0f829e800996492ed05fb33907f91959fa8b5e65f9766047ae",
+      "bytes": 232254
+    },
+    "docs/asset-lab/CUTB_ACTOR_MODELS.md": {
+      "sha256": "89cbc7a5e53de60c56191fcc7dc1732a42e7ccdca82104aa7d6e06e95e967a33",
+      "bytes": 5098
+    },
+    "docs/asset-lab/cutb-actor-models.json": {
+      "sha256": "597b4dc9b3528a5ad6a54b891e954f3d889f6e6c8c2a152b712399933b25d6a4",
+      "bytes": 38028
+    },
+    "tools/asset_lab/extract_cinematic_rigs.py": {
+      "sha256": "eb75892d9ba6fd79c3f1d0c419aaaf5110de4a4fef0f6e7220e2180f238c4596",
+      "bytes": 4983
+    },
+    "tools/asset_lab/sample_cinematic_paps.py": {
+      "sha256": "24ffeceacb14ab693571d76c6f4df6444896aab300d1a1aea8d4050316f5508a",
+      "bytes": 12452
+    },
+    "tests/test_cinematic_rigs.py": {
+      "sha256": "6e532aaad3813c47f6f5e67292044caed903c6ec9ed441f4b0fd84b35913a0d8",
+      "bytes": 3937
+    },
+    "docs/asset-lab/CINEMATIC_RIG_SAMPLES.md": {
+      "sha256": "72f8e073a995cd84bdda7f4133119506e00283da163a269f23877f67f52b7bde",
+      "bytes": 4509
+    },
+    "docs/asset-lab/cinematic-rig-samples.json": {
+      "sha256": "9c92001cc45df9dca583593cfbfccda21667066ec575cc7e152db63a44de7d22",
+      "bytes": 54872
+    }
+  },
+  "input_pins": {
+    "samples/m0110.json": {
+      "sha256": "986f0bd4badd3572bec2b802dc5ee08f4e604b96899c59237471a983e17e6252",
+      "bytes": 7951328
+    },
+    "samples/m0424.json": {
+      "sha256": "c2315c2999ecb0564dd301bbad947ca01549aab3a24c17f3f4fd3498374a6e6b",
+      "bytes": 3011257
+    },
+    "samples/m8277.json": {
+      "sha256": "6ab4f1399e9ae95c62398f870e489ef501be49b8aadb26948d1e429fc1585e0c",
+      "bytes": 1219013
+    },
+    "samples/m0771.json": {
+      "sha256": "baef1fdb55feadeb639aab08d84fef99bf78b7174efbf5b3ba35114ff999bc43",
+      "bytes": 22579952
+    },
+    "references/official_export_helpers.py": {
+      "sha256": "210c9d3d2af04016ea205ac40f02ccc95646eee9229498578ea53dc87fff299b",
+      "bytes": 16710
+    },
+    "references/python-guard.py": {
+      "sha256": "65386ac0ae0baa7316b24be80b749e2b26bdad4697dc5f8abf37d51eb051ed9f",
+      "bytes": 4862
+    },
+    "references/windows-guard-reference.py": {
+      "sha256": "33657cb6d4e524aa1562ce6533996e46cedd73f1127fdca4d88baa89753b9a36",
+      "bytes": 5717
+    },
+    "vendor/PIL/AvifImagePlugin.py": {
+      "sha256": "602c37986b198aef0b0e9bbc79466e7f8a3eee7b8f4ce5ba08503a1483e45933",
+      "bytes": 9323
+    },
+    "vendor/PIL/BdfFontFile.py": {
+      "sha256": "6c0a5b325daf61171e40a22448315ad34d98c2bf65695ae9d8d18af71ce54bff",
+      "bytes": 3407
+    },
+    "vendor/PIL/BlpImagePlugin.py": {
+      "sha256": "1291e85528585f2a6ac671288924a19e00fb08f842798f1e7f0487d46e659d79",
+      "bytes": 17066
+    },
+    "vendor/PIL/BmpImagePlugin.py": {
+      "sha256": "34cce2e9f88565253122e610448a0e594a2d74f5e95d94bccd60726d2dca77ec",
+      "bytes": 20442
+    },
+    "vendor/PIL/BufrStubImagePlugin.py": {
+      "sha256": "b94f671ba4079ee29ea9929df270119563d4ea86b6d796350d796676a29b9cc2",
+      "bytes": 1841
+    },
+    "vendor/PIL/ContainerIO.py": {
+      "sha256": "23ac8efd814412a30a035724804133176aff224e69fc68ccf91ad63896234a56",
+      "bytes": 4777
+    },
+    "vendor/PIL/CurImagePlugin.py": {
+      "sha256": "3bf6c5b56f3662100cf3f17cb69af73b952bcca3cfca257d4b6ce357d430a9a2",
+      "bytes": 1866
+    },
+    "vendor/PIL/DcxImagePlugin.py": {
+      "sha256": "2f6d5cde0557e883e6938cee7ff96db779807917dcb8209c5e1902569b9e7765",
+      "bytes": 2264
+    },
+    "vendor/PIL/DdsImagePlugin.py": {
+      "sha256": "d89c73bd3b276a2684e71584f9b523363bae37a1e3842695ba8cd8ef8325f585",
+      "bytes": 19556
+    },
+    "vendor/PIL/EpsImagePlugin.py": {
+      "sha256": "e5c1f3cf18f5bd47df70b62bf8c10ee53935cd378b63833fb4c37c6f00d4c69a",
+      "bytes": 17107
+    },
+    "vendor/PIL/ExifTags.py": {
+      "sha256": "c46e8fb9920949793b6df9017d7875d5880a9565641751d643f23b5f2c0504cb",
+      "bytes": 10313
+    },
+    "vendor/PIL/features.py": {
+      "sha256": "cbf7a5342ce007a46030ff4031fdc274e3f78dda0de21a38bf1a122b383a7967",
+      "bytes": 11118
+    },
+    "vendor/PIL/FitsImagePlugin.py": {
+      "sha256": "bf8a5e2c0eb021dc928c70730cccd5239516c7ccebd23236037a9865268c8b1b",
+      "bytes": 4796
+    },
+    "vendor/PIL/FliImagePlugin.py": {
+      "sha256": "2f5bdfe108ec68c57479141399fcb5c27a89f65f61195e65bd320b5bbce7cc3f",
+      "bytes": 5113
+    },
+    "vendor/PIL/FontFile.py": {
+      "sha256": "88b495df6c907ad2e71384a01bc1e71dbd8576a92a1418d8f67fbe13abb9504d",
+      "bytes": 3711
+    },
+    "vendor/PIL/FpxImagePlugin.py": {
+      "sha256": "e0d01d888b99fd517a397ada602b75dafcd0a84844252bbbb3769a325c431694",
+      "bytes": 7622
+    },
+    "vendor/PIL/FtexImagePlugin.py": {
+      "sha256": "fb32afbe131373351ede8d1fe07a430bdfc32ba94a1d3e4b0017f4af9fb797ee",
+      "bytes": 3685
+    },
+    "vendor/PIL/GbrImagePlugin.py": {
+      "sha256": "21bff2df967334e98ca86d92b8eca3c518773b1b78d90a5c11c80b6ba0619ad0",
+      "bytes": 3156
+    },
+    "vendor/PIL/GdImageFile.py": {
+      "sha256": "2e331a94aefb570f54e69047e0a4256e2d8f688afbdeef43aadc4de7c3b5ac1b",
+      "bytes": 2890
+    },
+    "vendor/PIL/GifImagePlugin.py": {
+      "sha256": "d510a1d1b588c61fd5705f33b539737c11ed86ecc4a0bca5ad613d411a670d25",
+      "bytes": 43521
+    },
+    "vendor/PIL/GimpGradientFile.py": {
+      "sha256": "91b5d9a2326ca2428102077f28e5fd2c093669a6c8216269770675e9e2afc537",
+      "bytes": 4135
+    },
+    "vendor/PIL/GimpPaletteFile.py": {
+      "sha256": "126047710f44c42e1fe3bb5a0fb4bb1ba55a324afd1e3ca7955f0d7535d5e624",
+      "bytes": 1935
+    },
+    "vendor/PIL/GribStubImagePlugin.py": {
+      "sha256": "372a7987997e7f080183a28161707ac2ac59580233e90fb67b6b137a50db7eed",
+      "bytes": 1870
+    },
+    "vendor/PIL/Hdf5StubImagePlugin.py": {
+      "sha256": "a029d7a5f2cf091cdce6fadae9871b1fdbc72d7cbf89059b8dad5dd0f97e4a03",
+      "bytes": 1852
+    },
+    "vendor/PIL/IcnsImagePlugin.py": {
+      "sha256": "596e864f48dc61c1bf33bb7e69bdb149bf523090af8eca79d6522f7e0492bc61",
+      "bytes": 12842
+    },
+    "vendor/PIL/IcoImagePlugin.py": {
+      "sha256": "0d9a018f6ccabfbe9293de8f2aaf1e97d69900cd89df050b56a3dea27a3fd33d",
+      "bytes": 13499
+    },
+    "vendor/PIL/Image.py": {
+      "sha256": "472fb0b48fa29aaae8b2aa1f648007979f8e4490b9798d1b8c87709565023fec",
+      "bytes": 153145
+    },
+    "vendor/PIL/ImageChops.py": {
+      "sha256": "859f043d43e5408cee82c11e755f2dae4297d230420c66fa0acce66ba65e3194",
+      "bytes": 8257
+    },
+    "vendor/PIL/ImageCms.py": {
+      "sha256": "e6b0cdf8588b1de6ca9563f690dea36ef0c417d8dc6f7b289a405a0d7f1d15bb",
+      "bytes": 41752
+    },
+    "vendor/PIL/ImageColor.py": {
+      "sha256": "295faeec79d95abacbdf3b8100e2ea7ab23eeef15c5d3c5d2dea1a6158ec9f02",
+      "bytes": 9761
+    },
+    "vendor/PIL/ImageDraw.py": {
+      "sha256": "f8227b1cca67bda8f65b29d9f0e694a0de630b6433fd18867a857862020449e1",
+      "bytes": 37323
+    },
+    "vendor/PIL/ImageDraw2.py": {
+      "sha256": "fdee88da73f17a26708ce8c1109cd4bf1a3202497399cfb117a47ccfc89e3800",
+      "bytes": 7470
+    },
+    "vendor/PIL/ImageEnhance.py": {
+      "sha256": "ba00d4d2c963691ff369389bb6e9a54ef7fea851f5c755ba97640ca5cdfce975",
+      "bytes": 3740
+    },
+    "vendor/PIL/ImageFile.py": {
+      "sha256": "13c0d72a8bdc0bd8779610133a4b5e613b2fcf8ff6bb0d1e5b3e0f96056c1421",
+      "bytes": 30910
+    },
+    "vendor/PIL/ImageFilter.py": {
+      "sha256": "9f7693d4c91b2aba863dea12baac665a5895aa19213a02d9de2c632e7f2fa8af",
+      "bytes": 19336
+    },
+    "vendor/PIL/ImageFont.py": {
+      "sha256": "1a73a8e72363d030d1748a725c423ed251e4b46be9800cc5ed6f6c1302998a22",
+      "bytes": 64573
+    },
+    "vendor/PIL/ImageGrab.py": {
+      "sha256": "54a9a8ac63d57d660634e21c6121332ec022385bc084d37611050b0b8968a266",
+      "bytes": 7974
+    },
+    "vendor/PIL/ImageMath.py": {
+      "sha256": "c6118186f7addafedb8322d197f69dcd55a7999ef355c6d3f1dd6ad5ca491c52",
+      "bytes": 10683
+    },
+    "vendor/PIL/ImageMode.py": {
+      "sha256": "50b900fa3b02806c31563af62cf48fe367439a3ea759a424f4be142a3eca7d28",
+      "bytes": 2480
+    },
+    "vendor/PIL/ImageMorph.py": {
+      "sha256": "56bd50401e6f198a4655f7d11894287781fbfc095098ede5f81961a5a61e0f22",
+      "bytes": 10673
+    },
+    "vendor/PIL/ImageOps.py": {
+      "sha256": "d107343d3839afcb7c25281a2a4cddf9c8d8306b4c5143120645e699a266f895",
+      "bytes": 26313
+    },
+    "vendor/PIL/ImagePalette.py": {
+      "sha256": "b7054aa89162e92132b3fafb6d5ba169aa0f4dd8b72a68dcda51c041c08064db",
+      "bytes": 9379
+    },
+    "vendor/PIL/ImagePath.py": {
+      "sha256": "6679c9baf40db5b2918429abeb54c4984875bd5579ffdd163043cbf0ea72e65f",
+      "bytes": 391
+    },
+    "vendor/PIL/ImageQt.py": {
+      "sha256": "4a9c4778f81687981d8d5206342e061b9bfd577b26426fe73e224372b8671d77",
+      "bytes": 6903
+    },
+    "vendor/PIL/ImageSequence.py": {
+      "sha256": "82e64751da56af39f3664718d0e6290f3b85d2e15794212edbad283feedefdf2",
+      "bytes": 2341
+    },
+    "vendor/PIL/ImageShow.py": {
+      "sha256": "4ea3ba9f38f910cc29e5d1316a0de3841257747a2371c9c5c79f4b3a73106a8d",
+      "bytes": 10468
+    },
+    "vendor/PIL/ImageStat.py": {
+      "sha256": "5b4b946bc60d0babe1a3095ead2cd923013b46ef8aa76ad6baa18d2c114b672a",
+      "bytes": 5662
+    },
+    "vendor/PIL/ImageText.py": {
+      "sha256": "62180d4d1ba650596492494766a2e5e7c4f24426360641513dec105e62f7c834",
+      "bytes": 12440
+    },
+    "vendor/PIL/ImageTk.py": {
+      "sha256": "4f1d337fd913681b801af66ea342401eb35b9379fa7b0af86677569d6c592b44",
+      "bytes": 8398
+    },
+    "vendor/PIL/ImageTransform.py": {
+      "sha256": "66eea8c925c436dabbd76fa792a14ba9a7d83ef891020b209337cb586d0add5f",
+      "bytes": 4052
+    },
+    "vendor/PIL/ImageWin.py": {
+      "sha256": "6fe7ceea49f889c1e9cbece4f9783e9cedfcdb33d797e30a8d972cdef0179754",
+      "bytes": 8332
+    },
+    "vendor/PIL/ImImagePlugin.py": {
+      "sha256": "5fd881490e31eeb6aec5b3889fbda3eefe9301481995da580f970073a67530d0",
+      "bytes": 11992
+    },
+    "vendor/PIL/ImtImagePlugin.py": {
+      "sha256": "afe643cf75e38ba10117c7949caea2b8211912d965a74c4b452210d3f875e141",
+      "bytes": 2768
+    },
+    "vendor/PIL/IptcImagePlugin.py": {
+      "sha256": "020bf4599377b5058fe57f5ffed9281452a0bfb053767910fc02b7dbc5717463",
+      "bytes": 6812
+    },
+    "vendor/PIL/Jpeg2KImagePlugin.py": {
+      "sha256": "2e38bf178d8b93980888a4a79036f2235d66a77f1a560f2e2261485ae68c4a09",
+      "bytes": 14450
+    },
+    "vendor/PIL/JpegImagePlugin.py": {
+      "sha256": "06fd7382455908153398460c25a199b13eb4226aebeb6799f33acaad6eb32dfd",
+      "bytes": 32438
+    },
+    "vendor/PIL/JpegPresets.py": {
+      "sha256": "51422c2b3bf2cdd3f3b2774e0ddf747aefe5b8ca9ab86d4f261d7450eb90be68",
+      "bytes": 12621
+    },
+    "vendor/PIL/McIdasImagePlugin.py": {
+      "sha256": "3fd77592be12b5ed10564c5faa2c77d6c7c60fcb169fe7959982b4c20e83bc8c",
+      "bytes": 1955
+    },
+    "vendor/PIL/MicImagePlugin.py": {
+      "sha256": "b82c463389652053e37eed8a8e2fb34a73da727aa2194646aacfc3b5bdc992d2",
+      "bytes": 2702
+    },
+    "vendor/PIL/MpegImagePlugin.py": {
+      "sha256": "91e9bdce87ec06d22aeb194c25cb0590e5d370908f1080a4f657214df47da432",
+      "bytes": 2094
+    },
+    "vendor/PIL/MpoImagePlugin.py": {
+      "sha256": "cde7396b13654702167d7d7e657cc38b5bba01c4895066c13ec3e2b39e135da5",
+      "bytes": 6996
+    },
+    "vendor/PIL/MspImagePlugin.py": {
+      "sha256": "5bcaee33ad0e6546e23ee50143b041905ce49757e268f12fb2f44cc8dae0d7c0",
+      "bytes": 6092
+    },
+    "vendor/PIL/PaletteFile.py": {
+      "sha256": "41d11af7d8cb0be3cf844a86cbaff87c3b9af13cca4925339007987029455fb3",
+      "bytes": 1270
+    },
+    "vendor/PIL/PalmImagePlugin.py": {
+      "sha256": "7cd221587d3a577e6e2e0c081d430c73fdb1ba67a520426c982c21c36c210712",
+      "bytes": 8965
+    },
+    "vendor/PIL/PcdImagePlugin.py": {
+      "sha256": "819b027170c8a845532b6cfe1962a9b53db9a455350143a0a6bdc9d3a7233c28",
+      "bytes": 1842
+    },
+    "vendor/PIL/PcfFontFile.py": {
+      "sha256": "2da12e68a90669a8738c2912ecfec96dda0ee17401f71ecd8dcdf176f01ba248",
+      "bytes": 7481
+    },
+    "vendor/PIL/PcxImagePlugin.py": {
+      "sha256": "3a2362597db89396ad5d924d6d2d172f1a7e122925240c32b992ae93d8f1a8a1",
+      "bytes": 6473
+    },
+    "vendor/PIL/PdfImagePlugin.py": {
+      "sha256": "80932bd2c4845b3ca7ecb9cae4fe56408f7de42bbf97e5b74fc157e2356061ff",
+      "bytes": 9632
+    },
+    "vendor/PIL/PdfParser.py": {
+      "sha256": "d23c9aba2b1add56c05f18a7b66c636d2770ee6d71b9a0106e2b7ef72b6efc13",
+      "bytes": 39071
+    },
+    "vendor/PIL/PixarImagePlugin.py": {
+      "sha256": "f919ee2521a1185f0cb14b221d9ab757307157e04d9cadf99018c97e1633c17b",
+      "bytes": 1830
+    },
+    "vendor/PIL/PngImagePlugin.py": {
+      "sha256": "243250ec47deaa482f83c61eedc8aaecf4316b282e1c303195d90200352bf30b",
+      "bytes": 53285
+    },
+    "vendor/PIL/PpmImagePlugin.py": {
+      "sha256": "5a1b4294614c00ef1565953d9850597cc8fb0db932b59f173fb9d06d5b593795",
+      "bytes": 12766
+    },
+    "vendor/PIL/PsdImagePlugin.py": {
+      "sha256": "7c3295ccca255235650204bd799a41660e770fa9ee41058a0a66251164e1b257",
+      "bytes": 9054
+    },
+    "vendor/PIL/PSDraw.py": {
+      "sha256": "b80afe320e63f7f1b744bc16c78fc9d70bad260fc355e0c0138a9677732f8bd5",
+      "bytes": 7155
+    },
+    "vendor/PIL/py.typed": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "vendor/PIL/QoiImagePlugin.py": {
+      "sha256": "5ca593eafe5fee5ff75a64d6c5b9a6356b0c9339798fe521e699c9c15db26c58",
+      "bytes": 8842
+    },
+    "vendor/PIL/report.py": {
+      "sha256": "ea6ecd3afd5adb8e7bed9889a315fcf62a7925e3a07f63b517de5febed4ae5a3",
+      "bytes": 105
+    },
+    "vendor/PIL/SgiImagePlugin.py": {
+      "sha256": "c35c55e3e10b6011ca2ff01a19ff68252609cc1c13a5d27eacd3ea880aca806b",
+      "bytes": 6620
+    },
+    "vendor/PIL/SpiderImagePlugin.py": {
+      "sha256": "277571b4117e4aa79889ebbcec858a3b7e095d186745c2e8753993e49fd0b1c9",
+      "bytes": 10638
+    },
+    "vendor/PIL/SunImagePlugin.py": {
+      "sha256": "60a604bee1b84149227acdf838ab5758a4d8499f14deacdc13fbdd4eb3ae46cc",
+      "bytes": 4734
+    },
+    "vendor/PIL/TarIO.py": {
+      "sha256": "2bab4b9050dc69aaf7bdbe84c986fb1b8a15101e35c7f2ccb8625e513f70e434",
+      "bytes": 1503
+    },
+    "vendor/PIL/TgaImagePlugin.py": {
+      "sha256": "38cbd99ffc4a8c1d5d675ff83243aabb32411e949422901fe6650425988b0532",
+      "bytes": 7244
+    },
+    "vendor/PIL/TiffImagePlugin.py": {
+      "sha256": "9425464d8407c4dc6370a7049a4d8d98082885e1eba09f4d38d9dc39701e114d",
+      "bytes": 87340
+    },
+    "vendor/PIL/TiffTags.py": {
+      "sha256": "16c76a6c8409388ee2846ecc67f2b8614403678ce8fab6986e28550dee3653d1",
+      "bytes": 17772
+    },
+    "vendor/PIL/WalImageFile.py": {
+      "sha256": "a5a1e48269a05b6fcb5e080f493c613e24715bee81db004a456dc614eef43dc9",
+      "bytes": 5889
+    },
+    "vendor/PIL/WebPImagePlugin.py": {
+      "sha256": "9aa75b945dd4459fd5d9d8a3597b65a0cdf6f3f25afadc4c51eaefcc4548d169",
+      "bytes": 10171
+    },
+    "vendor/PIL/WmfImagePlugin.py": {
+      "sha256": "8bcc3b9cdd4a0b54db1a2cf4e0f94dd61c376c445d2b7f5d62427ec4b41d0a96",
+      "bytes": 5504
+    },
+    "vendor/PIL/XbmImagePlugin.py": {
+      "sha256": "c1cd0da5f4f3952871f589a2d33c28d1a5598c36b8fc1ecd1221b64e008eeb94",
+      "bytes": 2767
+    },
+    "vendor/PIL/XpmImagePlugin.py": {
+      "sha256": "c187fb43b4c6a3824bea7e68b90c7ca5b4cc9cc655b21829fb1c2800c64450a8",
+      "bytes": 4557
+    },
+    "vendor/PIL/XVThumbImagePlugin.py": {
+      "sha256": "384b448508022cb82fc7c275888f75d533338c9e624e538ea90a4b431d5bcd0e",
+      "bytes": 2209
+    },
+    "vendor/PIL/_avif.cp314-win_amd64.pyd": {
+      "sha256": "2461eb9fe060a572e6d133282fbec8df50ca86c6742417de7b674a48a44389d5",
+      "bytes": 7833088
+    },
+    "vendor/PIL/_avif.pyi": {
+      "sha256": "cc3f2f0283c2f1a1085637dc90bb45b24456e6c6a255e977fac254036a476867",
+      "bytes": 66
+    },
+    "vendor/PIL/_binary.py": {
+      "sha256": "71bf69fbf9b0cc162e9a556c59b9e84d6b2b2e8e7db68c00e9ab4b399be33b7c",
+      "bytes": 2662
+    },
+    "vendor/PIL/_deprecate.py": {
+      "sha256": "522ac3970b3279feaeeac2ffae51379a72ad45fd666af9a7864b7fd4f03b43c0",
+      "bytes": 2106
+    },
+    "vendor/PIL/_imaging.cp314-win_amd64.pyd": {
+      "sha256": "4a6803bb6c02ce1485cf67efda79143efa64c9982226701d6b0531df1c3024d3",
+      "bytes": 2583040
+    },
+    "vendor/PIL/_imaging.pyi": {
+      "sha256": "8d2446dead5dc2204ca8ec0884bb5305edcb30ac2c8b76244dc0dfb0a577d84d",
+      "bytes": 924
+    },
+    "vendor/PIL/_imagingcms.cp314-win_amd64.pyd": {
+      "sha256": "8b166c44d72976bb95cf9e708e3834252c800cec06003edd1947b738fe185927",
+      "bytes": 269824
+    },
+    "vendor/PIL/_imagingcms.pyi": {
+      "sha256": "e7f48329eecac13f5a6f911e1bec27e85e6cbff7ecd28db5db1a0f066dc7f88a",
+      "bytes": 4576
+    },
+    "vendor/PIL/_imagingft.cp314-win_amd64.pyd": {
+      "sha256": "ee09952c4c87d99875787f1916e02a548c01b291a4527117c0d2f705389118f9",
+      "bytes": 2166784
+    },
+    "vendor/PIL/_imagingft.pyi": {
+      "sha256": "535ae9c2a417d6150bbd3028f1f634fc8ad79e0f953ee09755a581523da9d73d",
+      "bytes": 1903
+    },
+    "vendor/PIL/_imagingmath.cp314-win_amd64.pyd": {
+      "sha256": "4fe48061491679e81c3fb3839770fe769a3033d30aa6f02ab563d9bee2314f7c",
+      "bytes": 25600
+    },
+    "vendor/PIL/_imagingmath.pyi": {
+      "sha256": "cc3f2f0283c2f1a1085637dc90bb45b24456e6c6a255e977fac254036a476867",
+      "bytes": 66
+    },
+    "vendor/PIL/_imagingmorph.cp314-win_amd64.pyd": {
+      "sha256": "99ae9ff0f6cce419bc044c3f069c8f950dfd21f4385dae520db5a14efd69f2a0",
+      "bytes": 13824
+    },
+    "vendor/PIL/_imagingmorph.pyi": {
+      "sha256": "cc3f2f0283c2f1a1085637dc90bb45b24456e6c6a255e977fac254036a476867",
+      "bytes": 66
+    },
+    "vendor/PIL/_imagingtk.cp314-win_amd64.pyd": {
+      "sha256": "0bcdccf11ba316bfb4bc250ed21090ea1102933db7ca024a3f85165de6093a63",
+      "bytes": 14848
+    },
+    "vendor/PIL/_imagingtk.pyi": {
+      "sha256": "cc3f2f0283c2f1a1085637dc90bb45b24456e6c6a255e977fac254036a476867",
+      "bytes": 66
+    },
+    "vendor/PIL/_tkinter_finder.py": {
+      "sha256": "1f5530ddd57b8161c88ffa2c527245c56875691b10d8c74aa4d3f7bd0c10716d",
+      "bytes": 558
+    },
+    "vendor/PIL/_typing.py": {
+      "sha256": "b7e3154b97ffa5174bf8cd3bd9866a957141fc3f33d4a3a5f0470ab13fddf6ce",
+      "bytes": 964
+    },
+    "vendor/PIL/_util.py": {
+      "sha256": "78ff087e658999b13f3ea6d425be2a4ea18d2e2e334f44d369daebaa6ca483b6",
+      "bytes": 713
+    },
+    "vendor/PIL/_version.py": {
+      "sha256": "e0e7d0c66307f8caa7833c1b161e6c53467bf66d3526a9343a6c8f80c7f26902",
+      "bytes": 91
+    },
+    "vendor/PIL/_webp.cp314-win_amd64.pyd": {
+      "sha256": "da33a7b77ad90e70120c4a74b2e1ec55b5824ef20b5068da7f59c577f1d63f53",
+      "bytes": 410112
+    },
+    "vendor/PIL/_webp.pyi": {
+      "sha256": "cc3f2f0283c2f1a1085637dc90bb45b24456e6c6a255e977fac254036a476867",
+      "bytes": 66
+    },
+    "vendor/PIL/__init__.py": {
+      "sha256": "67eb17066b48015983c2ac01748e8be115a35b172056f437bf8486d0dc4a7965",
+      "bytes": 2118
+    },
+    "vendor/PIL/__main__.py": {
+      "sha256": "5fc788a469661df9e9ef36b3a7999d6afdb6f08b5c7f696488c3f4b4b53a5fd7",
+      "bytes": 140
+    }
+  },
+  "runtime_pins": {
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-lumina\\CommunityToolkit.HighPerformance.dll": {
+      "sha256": "f8e5787b02ec9fe8a27b9dea5f4317dd2cdce3e32680e3e8a26673c534549dbc",
+      "bytes": 123176
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-lumina\\BCnEncoder.dll": {
+      "sha256": "9a4f6455555dae8830577d4393586a91907a62c4a41f8ec442bef1f355b02411",
+      "bytes": 264704
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-lumina\\Microsoft.Extensions.ObjectPool.dll": {
+      "sha256": "8645df9590c8bdc7b2faae311342e765d51fffea17ad951e556e58a368655ce3",
+      "bytes": 22704
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-lumina\\Lumina.dll": {
+      "sha256": "f558b39a127f11425ae20b97de9191796c38e4308696f32d143730d7d79fceff",
+      "bytes": 361472
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-textools\\lib\\SharpDX.dll": {
+      "sha256": "a0af255ea4b09a8cdb995b8c6fd1075e46f098e23c2351c974e6ded9b8b620cf",
+      "bytes": 274944
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-textools\\lib\\SharpDX.Mathematics.dll": {
+      "sha256": "4c9615496970ea84320e2a6e99f8fb828e3c7790384df5585d93fc368885d94e",
+      "bytes": 215552
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-textools\\lib\\Newtonsoft.Json.dll": {
+      "sha256": "e1e27af7b07eeedf5ce71a9255f0422816a6fc5849a483c6714e1b472044fa9d",
+      "bytes": 711952
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-textools\\lib\\HelixToolkit.SharpDX.Core.dll": {
+      "sha256": "88a13c4c4100117f450a0fba0a2a530aaefd6a247bf5dea37a9d2bc0c080c203",
+      "bytes": 1733120
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-textools\\lib\\MathNet.Numerics.dll": {
+      "sha256": "4c9803a4b0673b93a99a2237e35543be2f6741fbd54b0ff045cf92e877be09d4",
+      "bytes": 1590272
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\top-textools\\lib\\xivModdingFramework.dll": {
+      "sha256": "9a6300c760d622b6686bb99568d01f2d87d5319a33330434aa326cc714e2a61b",
+      "bytes": 1540096
+    },
+    "D:\\Dev\\OpenClawCodexBridge\\tools\\godot-4.7.2\\Godot_v4.7.2-stable_win64.exe": {
+      "sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "bytes": 180858888
+    },
+    "C:\\Python314\\python.exe": {
+      "sha256": "fda7026477256845afab371e354c4d512896665f1761939cb5887d0a9dec257a",
+      "bytes": 106328
+    }
+  },
+  "receipts": [
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\tools\\asset_lab\\prepare_cinematic_godot.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\inputs.json",
+        "--manifest-sha256",
+        "7ad8d152163dc1985e8c067d390a58b4b16ff5acc8b71075f9bc5a6bc0dc810d",
+        "--model",
+        "110",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\m0110"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 431857664,
+      "job_peak_private_bytes": 395141120,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32444166144,
+      "seconds": 3.482550000073388,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\tools\\asset_lab\\prepare_cinematic_godot.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\inputs.json",
+        "--manifest-sha256",
+        "7ad8d152163dc1985e8c067d390a58b4b16ff5acc8b71075f9bc5a6bc0dc810d",
+        "--model",
+        "424",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\m0424"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 337559552,
+      "job_peak_private_bytes": 299884544,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32636493824,
+      "seconds": 2.526133800041862,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\tools\\asset_lab\\prepare_cinematic_godot.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\inputs.json",
+        "--manifest-sha256",
+        "7ad8d152163dc1985e8c067d390a58b4b16ff5acc8b71075f9bc5a6bc0dc810d",
+        "--model",
+        "8277",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\m8277"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 256114688,
+      "job_peak_private_bytes": 218828800,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32739536896,
+      "seconds": 2.0246521999360994,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\tools\\asset_lab\\prepare_cinematic_godot.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\inputs.json",
+        "--manifest-sha256",
+        "7ad8d152163dc1985e8c067d390a58b4b16ff5acc8b71075f9bc5a6bc0dc810d",
+        "--model",
+        "771",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\m0771"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 527298560,
+      "job_peak_private_bytes": 489385984,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32494284800,
+      "seconds": 4.188170999987051,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "D:/Dev/OpenClawCodexBridge/tools/godot-4.7.2/Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--log-file",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\engine.log",
+        "--path",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\project",
+        "--script",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\project\\test.gd",
+        "--",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\cases.json",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-cinematic-godot-deps-50790\\top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600\\numeric.json"
+      ],
+      "deadline_seconds": 90,
+      "peak_rss_bytes": 365023232,
+      "job_peak_private_bytes": 320475136,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32661983232,
+      "seconds": 4.49050289997831,
+      "no_script_errors": true,
+      "ok": true
+    }
+  ],
+  "models": [
+    {
+      "model": 110,
+      "base": 1,
+      "variant": 1,
+      "form": "m0110",
+      "file": "m0110.glb",
+      "bytes": 7375648,
+      "sha256": "80c211d65a35fbd15397149bedcdfc57e052518745c308f660de7764444f9a5f",
+      "source_path": "chara/monster/m0110/obj/body/b0001/model/m0110b0001.mdl",
+      "source_sha256": "2b6979f5c6115a9d725aa7a91c79802f2c7b4e166dd194d8ca659d8e69b0e14d",
+      "parts": [
+        {
+          "name": "m0110_g0_p0",
+          "vertices": 21796,
+          "triangles": 21845,
+          "attributes": []
+        },
+        {
+          "name": "m0110_g1_p0",
+          "vertices": 7841,
+          "triangles": 7947,
+          "attributes": []
+        },
+        {
+          "name": "m0110_g2_p0",
+          "vertices": 138,
+          "triangles": 158,
+          "attributes": []
+        },
+        {
+          "name": "m0110_g3_p0",
+          "vertices": 158,
+          "triangles": 158,
+          "attributes": []
+        }
+      ],
+      "animations": [],
+      "bones": 118,
+      "limitations": [
+        "PBR shader approximates original legacy shader; no colorset/VFX reconstruction",
+        "Part/stance mapping requires visual calibration"
+      ],
+      "validation": {
+        "vertices": 29933,
+        "triangles": 30108,
+        "meshes": 4,
+        "skins": 1,
+        "joints": 118,
+        "materials": 3,
+        "textures": 2,
+        "bounds": [
+          {
+            "min": [
+              -6.875,
+              -4.76837158203125e-06,
+              -8.8359375
+            ],
+            "max": [
+              6.875,
+              9.765625,
+              8.4296875
+            ]
+          },
+          {
+            "min": [
+              -5.87109375,
+              1.990234375,
+              -6.75
+            ],
+            "max": [
+              3.564453125,
+              8.0078125,
+              7.4453125
+            ]
+          },
+          {
+            "min": [
+              -1.3916015625,
+              4.9609375,
+              2.697265625
+            ],
+            "max": [
+              1.3916015625,
+              9.6171875,
+              6.140625
+            ]
+          },
+          {
+            "min": [
+              -1.7109375,
+              5.8125,
+              0.916015625
+            ],
+            "max": [
+              1.7109375,
+              7.51171875,
+              5.734375
+            ]
+          }
+        ],
+        "max_weight_error": 3.725290298461914e-08,
+        "max_inverse_bind_error": 3.9263230022790196e-07
+      },
+      "original_pins": [
+        {
+          "source": "chara/monster/m0110/obj/body/b0001/model/m0110b0001.mdl",
+          "sha256": "2b6979f5c6115a9d725aa7a91c79802f2c7b4e166dd194d8ca659d8e69b0e14d",
+          "bytes": 2982116
+        },
+        {
+          "source": "chara/monster/m0110/skeleton/base/b0001/skl_m0110b0001.sklb",
+          "sha256": "1c96ebd88418b32f786a71b4a8f0882560ac73ab38c575c51eba6720d8096274",
+          "bytes": 9566
+        },
+        {
+          "source": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_a.mtrl",
+          "sha256": "90ec17b1ee52dfb877a141516a965036121eee99d8c378e2f86856f5624b3cdd",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_b.mtrl",
+          "sha256": "578a72dd4c7adb5c0a5ea87a2a1d3f3814c5737ea14882f5b0a15aa0253f10fd",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+          "sha256": "a18946cd72b737161505627f7934a802db83f7a71b0f14f4110fd8c10cf07a11",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_d.tex",
+          "sha256": "00311ca1e6639c16e79527365f847fa29abc609018102ea039ed59d26d56c737",
+          "bytes": 699144
+        },
+        {
+          "source": "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_n.tex",
+          "sha256": "2630c5581bf8ca508666fad90f315b6d47272480e99ce8d07574ae6ac2db8598",
+          "bytes": 2796296
+        }
+      ],
+      "sample_sha256": "986f0bd4badd3572bec2b802dc5ee08f4e604b96899c59237471a983e17e6252"
+    },
+    {
+      "model": 424,
+      "base": 2,
+      "variant": 1,
+      "form": "m0424",
+      "file": "m0424.glb",
+      "bytes": 3706380,
+      "sha256": "0591284a585c1f23bb05b271e53d181121634ad2db9abc38975bb9229e73b68d",
+      "source_path": "chara/monster/m0424/obj/body/b0002/model/m0424b0002.mdl",
+      "source_sha256": "c2c8675a0cf85e2a74ce53c5be9c38fd5ce227bc86a09e03434c9252905c5b99",
+      "parts": [
+        {
+          "name": "m0424_g0_p0",
+          "vertices": 2616,
+          "triangles": 3880,
+          "attributes": []
+        },
+        {
+          "name": "m0424_g1_p0",
+          "vertices": 2503,
+          "triangles": 3038,
+          "attributes": []
+        }
+      ],
+      "animations": [],
+      "bones": 82,
+      "limitations": [
+        "PBR shader approximates original legacy shader; no colorset/VFX reconstruction",
+        "Part/stance mapping requires visual calibration"
+      ],
+      "validation": {
+        "vertices": 5119,
+        "triangles": 6918,
+        "meshes": 2,
+        "skins": 1,
+        "joints": 82,
+        "materials": 2,
+        "textures": 4,
+        "bounds": [
+          {
+            "min": [
+              -0.326171875,
+              0.19970703125,
+              -0.3974609375
+            ],
+            "max": [
+              0.326171875,
+              1.08984375,
+              0.439697265625
+            ]
+          },
+          {
+            "min": [
+              -0.47900390625,
+              -0.00836181640625,
+              -0.1541748046875
+            ],
+            "max": [
+              0.47900390625,
+              0.974609375,
+              0.36767578125
+            ]
+          }
+        ],
+        "max_weight_error": 5.21540641784668e-08,
+        "max_inverse_bind_error": 5.960463766996327e-08
+      },
+      "original_pins": [
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/model/m0424b0002.mdl",
+          "sha256": "c2c8675a0cf85e2a74ce53c5be9c38fd5ce227bc86a09e03434c9252905c5b99",
+          "bytes": 464116
+        },
+        {
+          "source": "chara/monster/m0424/skeleton/base/b0001/skl_m0424b0001.sklb",
+          "sha256": "1672dceb23f7cbad46daf74d6675498e53d8ba888e9b61bc98c6386caf85c932",
+          "bytes": 7062
+        },
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_a.mtrl",
+          "sha256": "a696755597339a5e853f61a8fa932fa9e02eccaa83a18ae8ecada51a496efea7",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_b.mtrl",
+          "sha256": "8d39859fb3c0497052e9a71229c5b48e1d04ca97708c197781a55bdd418cf48d",
+          "bytes": 2544
+        },
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_b_d.tex",
+          "sha256": "4d20a0f9f1b4d0000737f12479cba7aa308ec11f6ba2f00d8f5ad4f2936eece4",
+          "bytes": 699144
+        },
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_b_n.tex",
+          "sha256": "c4b71ed75f1c0afca4339565aeb8b83e71e47a1ad7e65d4fd210dbe3b39ab739",
+          "bytes": 699144
+        },
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_d.tex",
+          "sha256": "ebaae9febd76fab8dbbba31dee69d30544a2f9b5243475d9d33e6567df256a1a",
+          "bytes": 699144
+        },
+        {
+          "source": "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_n.tex",
+          "sha256": "febb4730452cbdc4759d8cc7ab0e23fb913113e6bcce31588a6d93ca686f0eaf",
+          "bytes": 699144
+        }
+      ],
+      "sample_sha256": "c2315c2999ecb0564dd301bbad947ca01549aab3a24c17f3f4fd3498374a6e6b"
+    },
+    {
+      "model": 8277,
+      "base": 1,
+      "variant": 1,
+      "form": "m8277",
+      "file": "m8277.glb",
+      "bytes": 405988,
+      "sha256": "ab2c736cca1737bbf025afcb242e8a6315c358bf6d95788ec3625c2fae360b31",
+      "source_path": "chara/monster/m8277/obj/body/b0001/model/m8277b0001.mdl",
+      "source_sha256": "d44886477df39288cd1e2b3d7dd6562358ab3fb35ab974d5a5035bdaf9bc00cf",
+      "parts": [
+        {
+          "name": "m8277_g0_p0",
+          "vertices": 1648,
+          "triangles": 1192,
+          "attributes": []
+        }
+      ],
+      "animations": [],
+      "bones": 23,
+      "limitations": [
+        "PBR shader approximates original legacy shader; no colorset/VFX reconstruction",
+        "Part/stance mapping requires visual calibration"
+      ],
+      "validation": {
+        "vertices": 1648,
+        "triangles": 1192,
+        "meshes": 1,
+        "skins": 1,
+        "joints": 23,
+        "materials": 1,
+        "textures": 2,
+        "bounds": [
+          {
+            "min": [
+              -0.341552734375,
+              -0.0,
+              -0.407958984375
+            ],
+            "max": [
+              0.341552734375,
+              0.42236328125,
+              0.337158203125
+            ]
+          }
+        ],
+        "max_weight_error": 2.9802322387695312e-08,
+        "max_inverse_bind_error": 5.960463766996327e-08
+      },
+      "original_pins": [
+        {
+          "source": "chara/monster/m8277/obj/body/b0001/model/m8277b0001.mdl",
+          "sha256": "d44886477df39288cd1e2b3d7dd6562358ab3fb35ab974d5a5035bdaf9bc00cf",
+          "bytes": 174212
+        },
+        {
+          "source": "chara/monster/m8277/skeleton/base/b0001/skl_m8277b0001.sklb",
+          "sha256": "6e67923787e62875262f253548469dc0b39ad09a5edf947b57ecf2ff7ce3ad98",
+          "bytes": 3400
+        },
+        {
+          "source": "chara/monster/m8277/obj/body/b0001/material/v0001/mt_m8277b0001_a.mtrl",
+          "sha256": "10eab6473501d17ae5024ff64249609ef7e0d95729602c32340c33a0b0359087",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m8277/obj/body/b0001/texture/v01_m8277b0001_d.tex",
+          "sha256": "fd65c86671c3cb49151db3315efed5934b2632f5aff1a572d50389258cea741a",
+          "bytes": 87480
+        },
+        {
+          "source": "chara/monster/m8277/obj/body/b0001/texture/v01_m8277b0001_n.tex",
+          "sha256": "55d8c579b52d988b27dd2ccf1e2d4be2fdb02e4e79421d1cf74bf2efc2519a3f",
+          "bytes": 87480
+        }
+      ],
+      "sample_sha256": "6ab4f1399e9ae95c62398f870e489ef501be49b8aadb26948d1e429fc1585e0c"
+    },
+    {
+      "model": 771,
+      "base": 1,
+      "variant": 1,
+      "form": "m0771",
+      "file": "m0771.glb",
+      "bytes": 13997756,
+      "sha256": "c5ec1e8df7e6afb2c9f72bfc724d8e4fc25d69b9aff193895dad1be23a4f6a43",
+      "source_path": "chara/monster/m0771/obj/body/b0001/model/m0771b0001.mdl",
+      "source_sha256": "7826032a6b882408806128e3a4df0ea65fbdf0a01ba4713cd8c9311b613e7fdc",
+      "parts": [
+        {
+          "name": "m0771_g0_p0",
+          "vertices": 13881,
+          "triangles": 21845,
+          "attributes": []
+        },
+        {
+          "name": "m0771_g1_p0",
+          "vertices": 4973,
+          "triangles": 7203,
+          "attributes": []
+        },
+        {
+          "name": "m0771_g2_p0",
+          "vertices": 6366,
+          "triangles": 7102,
+          "attributes": []
+        },
+        {
+          "name": "m0771_g3_p0",
+          "vertices": 3168,
+          "triangles": 4804,
+          "attributes": []
+        }
+      ],
+      "animations": [],
+      "bones": 177,
+      "limitations": [
+        "PBR shader approximates original legacy shader; no colorset/VFX reconstruction",
+        "Part/stance mapping requires visual calibration"
+      ],
+      "validation": {
+        "vertices": 28388,
+        "triangles": 40954,
+        "meshes": 4,
+        "skins": 1,
+        "joints": 177,
+        "materials": 3,
+        "textures": 4,
+        "bounds": [
+          {
+            "min": [
+              -5.865194320678711,
+              -0.6441193222999573,
+              -3.415193557739258
+            ],
+            "max": [
+              5.865194320678711,
+              13.411437034606934,
+              0.7864391803741455
+            ]
+          },
+          {
+            "min": [
+              -7.462071418762207,
+              1.8611433506011963,
+              -1.2435942888259888
+            ],
+            "max": [
+              7.462071418762207,
+              8.748934745788574,
+              0.4548157751560211
+            ]
+          },
+          {
+            "min": [
+              -2.642042398452759,
+              5.972499370574951,
+              -2.42966628074646
+            ],
+            "max": [
+              2.6420421600341797,
+              10.96484375,
+              0.8684382438659668
+            ]
+          },
+          {
+            "min": [
+              -0.2967597544193268,
+              6.950307369232178,
+              -0.04101219400763512
+            ],
+            "max": [
+              0.2967597544193268,
+              7.957082271575928,
+              0.7287554740905762
+            ]
+          }
+        ],
+        "max_weight_error": 4.842877388000488e-08,
+        "max_inverse_bind_error": 4.5921585450827557e-07
+      },
+      "original_pins": [
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/model/m0771b0001.mdl",
+          "sha256": "7826032a6b882408806128e3a4df0ea65fbdf0a01ba4713cd8c9311b613e7fdc",
+          "bytes": 2645244
+        },
+        {
+          "source": "chara/monster/m0771/skeleton/base/b0001/skl_m0771b0001.sklb",
+          "sha256": "44e15f4bd52c6ac973a5661cf9c2354cbfa063714112b77b1d78cc0ef5b8402f",
+          "bytes": 13275
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+          "sha256": "4b5639ef6c840663b544e6ee85038e60c2a7e76a11a7d3e37f41a2bd602e334a",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_b.mtrl",
+          "sha256": "c7c085b1e2946d226bf6416f190f8f98fd75d77c8a6aecdb69e80f4ae910a794",
+          "bytes": 2536
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_c.mtrl",
+          "sha256": "73db44dc500f913938d7b8ac9447cc46516f738a8cd663feae8eb6fe9c2efbbd",
+          "bytes": 2544
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_c_d.tex",
+          "sha256": "ebaae9febd76fab8dbbba31dee69d30544a2f9b5243475d9d33e6567df256a1a",
+          "bytes": 699144
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_c_n.tex",
+          "sha256": "febb4730452cbdc4759d8cc7ab0e23fb913113e6bcce31588a6d93ca686f0eaf",
+          "bytes": 699144
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_d.tex",
+          "sha256": "29631d83275e55a72d599130af5a9359cda1b92dbcfede22546bd9f1dcef1e17",
+          "bytes": 2796296
+        },
+        {
+          "source": "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_n.tex",
+          "sha256": "2bd126657ecf31b74e1b8485af96167178aefc4afe5b274393aa92d67a40c201",
+          "bytes": 2796296
+        }
+      ],
+      "sample_sha256": "baef1fdb55feadeb639aab08d84fef99bf78b7174efbf5b3ba35114ff999bc43"
+    }
+  ],
+  "all96_accepted": false,
+  "visual_acceptance": false,
+  "trust_scope": "Pinned actual numeric4pair snapshots;10direct.NET dependencies pinned, not complete transitive closure; source runtime model/body selection remains UNKNOWN",
+  "numeric": {
+    "all96_accepted": false,
+    "gpu_deformation_proved": false,
+    "models": [
+      {
+        "clips": [
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 1.9073486328125e-06,
+            "frames": 71,
+            "index": 0.0,
+            "max_matrix_error": 6.55651092529297e-07,
+            "max_motion": 4.12559127807617,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 143
+          },
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 1.9073486328125e-06,
+            "frames": 68,
+            "index": 1.0,
+            "max_matrix_error": 1.9073486328125e-06,
+            "max_motion": 38.0306739807129,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 137
+          },
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 1.9073486328125e-06,
+            "frames": 151,
+            "index": 2.0,
+            "max_matrix_error": 7.15255737304688e-07,
+            "max_motion": 8.91010189056396,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 303
+          }
+        ],
+        "material_surfaces": 4,
+        "max_rest_error": 2.38418579101563e-07,
+        "meshes": 4,
+        "model": 110.0,
+        "resident_players": 0,
+        "skeletons": 1,
+        "skin_bindings": 472,
+        "surfaces": 4,
+        "textured_surfaces": 4,
+        "vertices": 29933,
+        "weight_values": 239464
+      },
+      {
+        "clips": [
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 3.57627868652344e-07,
+            "frames": 136,
+            "index": 0.0,
+            "max_matrix_error": 7.74860382080078e-07,
+            "max_motion": 1.37840664386749,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 273
+          },
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 3.57627868652344e-07,
+            "frames": 23,
+            "index": 1.0,
+            "max_matrix_error": 7.15255737304688e-07,
+            "max_motion": 1.54274463653564,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 47
+          }
+        ],
+        "material_surfaces": 2,
+        "max_rest_error": 2.38418579101563e-07,
+        "meshes": 2,
+        "model": 424.0,
+        "resident_players": 0,
+        "skeletons": 1,
+        "skin_bindings": 164,
+        "surfaces": 2,
+        "textured_surfaces": 2,
+        "vertices": 5119,
+        "weight_values": 40952
+      },
+      {
+        "clips": [
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 2.08616256713867e-07,
+            "frames": 211,
+            "index": 0.0,
+            "max_matrix_error": 5.66244125366211e-07,
+            "max_motion": 0.35501754283905,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 423
+          },
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 2.08616256713867e-07,
+            "frames": 16,
+            "index": 1.0,
+            "max_matrix_error": 4.76837158203125e-07,
+            "max_motion": 1.32078886032104,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 33
+          }
+        ],
+        "material_surfaces": 1,
+        "max_rest_error": 1.78813934326172e-07,
+        "meshes": 1,
+        "model": 8277.0,
+        "resident_players": 0,
+        "skeletons": 1,
+        "skin_bindings": 23,
+        "surfaces": 1,
+        "textured_surfaces": 1,
+        "vertices": 1648,
+        "weight_values": 13184
+      },
+      {
+        "clips": [
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 2.62260437011719e-06,
+            "frames": 431,
+            "index": 0.0,
+            "max_matrix_error": 7.74860382080078e-07,
+            "max_motion": 10.3428764343262,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 863
+          },
+          {
+            "clear_rebind": true,
+            "clear_rest_error": 2.62260437011719e-06,
+            "frames": 121,
+            "index": 1.0,
+            "max_matrix_error": 8.94069671630859e-07,
+            "max_motion": 1.97088408470154,
+            "resident_restore": "NOT_EXERCISED: unanimated bind rig has no resident player",
+            "seeks": 243
+          }
+        ],
+        "material_surfaces": 4,
+        "max_rest_error": 1.78813934326172e-07,
+        "meshes": 4,
+        "model": 771.0,
+        "resident_players": 0,
+        "skeletons": 1,
+        "skin_bindings": 708,
+        "surfaces": 4,
+        "textured_surfaces": 4,
+        "vertices": 28388,
+        "weight_values": 227104
+      }
+    ],
+    "status": "NUMERIC_INTEGRATION_PASS",
+    "tolerance_absolute": 0.0002
+  },
+  "protected_seeds_unchanged": true,
+  "implementation_unchanged": true,
+  "output_hashes": {
+    "cases.json": "b91294144a2a1a5f05a3a03dee97f57251e8d25b2ef7de80f5762a05bb681a19",
+    "engine.log": "554054a141b798078e4a93fc360a602b580addeb5324c47d43134694ac7c0de1",
+    "godot-receipt.json": "c6b0de241c7c0e12bd4af66a0ada1027bb20a3332bbd8b2a58ae374dbaa96c44",
+    "godot.log": "f0509d7aead71e12324459f8661449e7d16b8b5b18034707caa269a14ecbc543",
+    "m0110-receipt.json": "14f1f8604a19084a4197ae5e0925cf47020790e7ca20608afedfd32a6829d510",
+    "m0110.log": "28229478dd043daf4f9be46102bb20d796caf2065addd33092056667af58aff1",
+    "m0424-receipt.json": "96a5b536bf14fd35a46f01b5ed905f44b2675019ea73214647cf5806e3521a43",
+    "m0424.log": "baf26e7e3c4e7fcc6dd224f7822b80ed107a22bad4e0248c6e3b77ca7af1c54e",
+    "m0771-receipt.json": "33c1281cb2a32cd36a433e9c320b0775c89f85ee79c70d038b67b552251c94cd",
+    "m0771.log": "d8e91448433969b5fd1616db1ada62865c15fb2a1e5e5fa7cd2e03182f059961",
+    "m8277-receipt.json": "fb0160f3ad0de25e43b2aab8ac15196e72cf243c199cd71a9bba09072876936d",
+    "m8277.log": "baf7ec593e934e53f4788938a4ea0c290b41858c9de78008c44a53369fab4edf",
+    "numeric.json": "33a290ecf2ff9839241b3e11a7cb5ea37b096aa2fc88d18148778370dabafd1e",
+    "m0110\\export.runtimeconfig.json": "80e8c7b58970e8d88f9e435007d90f28f707c9012eeb1dc4d5ad57800d7476be",
+    "m0110\\m0110.glb": "80c211d65a35fbd15397149bedcdfc57e052518745c308f660de7764444f9a5f",
+    "m0110\\m0110.json": "410319770e9a92701cab8bb0588d51d128863246287754117870320ed3e36dec",
+    "m0110\\result.json": "625b4373e43072f2adec1e007a426d6b0c72b62c04eae600122db6023c801cbd",
+    "m0424\\export.runtimeconfig.json": "80e8c7b58970e8d88f9e435007d90f28f707c9012eeb1dc4d5ad57800d7476be",
+    "m0424\\m0424.glb": "0591284a585c1f23bb05b271e53d181121634ad2db9abc38975bb9229e73b68d",
+    "m0424\\m0424.json": "3a776b5924663aa4d10f24cef0bde8638e8f145494661c2729fb9bd8e13d279f",
+    "m0424\\result.json": "1e97b6454bd8a0a924ecd0775443cb698f9a5e2676267e9c7022e8274ef8e2d7",
+    "m0771\\export.runtimeconfig.json": "80e8c7b58970e8d88f9e435007d90f28f707c9012eeb1dc4d5ad57800d7476be",
+    "m0771\\m0771.glb": "c5ec1e8df7e6afb2c9f72bfc724d8e4fc25d69b9aff193895dad1be23a4f6a43",
+    "m0771\\m0771.json": "26d598a79161d6d85397c56d8ab2aa1de43108fd862a076713e84a0d92cd6121",
+    "m0771\\result.json": "c654badc0c85d1411e0b32e907659062983e4b1971420c8a250ef8a7c5deabec",
+    "m8277\\export.runtimeconfig.json": "80e8c7b58970e8d88f9e435007d90f28f707c9012eeb1dc4d5ad57800d7476be",
+    "m8277\\m8277.glb": "ab2c736cca1737bbf025afcb242e8a6315c358bf6d95788ec3625c2fae360b31",
+    "m8277\\m8277.json": "d4fc88f2da00803160e5c47bd1cfa365d30c3f71e7066a8d7fecd885590f3950",
+    "m8277\\result.json": "2bfc0b631e27cf4be6c15d633e006f1f8464b66ea2969a12aa7894bacffc1fbc",
+    "project\\project.godot": "ba57234f9376f006c29aed1337828d843fba3a9c058b139dcf517185116de6bf",
+    "project\\test.gd": "37972ea14b4c8cc8eb6f7b7ee893e645a8f30868439814bbfe71cc153bd6966a",
+    "project\\scripts\\cinematic_sample_adapter.gd": "d8500f2a3e76ade9433053f69b7ac25e69b5b8c88db9d0913de3e2f2084e2afd",
+    "project\\scripts\\source_animation.gd": "d1977f75eb108b6eef4952aea334520c46becd6815a7da50e2acb393046de8f8"
+  },
+  "documentation_sha256": "c216a35adfe8c2c2466f711a4977c5171a89fe208b409102442d76599cc9c1ff",
+  "accepted_run": "top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300447634945600",
+  "unit_tests": {
+    "count": 12,
+    "exit": 0,
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "tests/test_cinematic_godot.py"
+    ],
+    "log": "top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\review-1793300533973007000\\unit-tests.log",
+    "sha256": "81d4262f2e15cbdaff9ba41ccae9681f472ae287e002b200fc81a8eb12317a7e"
+  },
+  "prior_runs": [
+    {
+      "path": "top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300258074671000\\summary.json",
+      "sha256": "846daca9803aac76cf5f7c47acdee9c76e6a5528b2593cd5f67a1d1d601c582a",
+      "status": "BLOCKED",
+      "blocker": "export failed: m0110"
+    },
+    {
+      "path": "top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300292077947000\\summary.json",
+      "sha256": "cb2855820e471521fdda358c11ecafbdfcdfc97b7933d385ff0b20751f06abf1",
+      "status": "BLOCKED",
+      "blocker": "Godot integration failed"
+    },
+    {
+      "path": "top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300340807602600\\summary.json",
+      "sha256": "7f8cdad94a2f68a1b59ef0726c87f9629eff920cd2d513f25a28e4f101b809d3",
+      "status": "NUMERIC_INTEGRATION_PASS",
+      "blocker": null
+    },
+    {
+      "path": "top\\assets\\official\\top-cinematic-godot-deps-50790\\outputs\\run-1793300398723766800\\summary.json",
+      "sha256": "e289bcb045688aa5a875e0fdf98eb33d025809296e5cad279bdd89e4e154b3d9",
+      "status": "NUMERIC_INTEGRATION_PASS",
+      "blocker": null
+    }
+  ],
+  "open_gates": [
+    "resident player restore (no resident player)",
+    "GPU deformation/raster",
+    "exact shader/part fidelity",
+    "native runtime model/body selection",
+    "transitive dependency trust",
+    "exported platforms",
+    "all96"
+  ]
+}

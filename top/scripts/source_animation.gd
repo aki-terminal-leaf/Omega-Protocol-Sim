@@ -202,11 +202,12 @@ static func _activate(binding: Dictionary, skel: Skeleton3D) -> void:
 		if not is_instance_valid(p):
 			continue
 		var pl: AnimationPlayer = p
-		var st := {"player": pl, "active": pl.active, "clip": String(pl.current_animation),
-			"position": pl.current_animation_position, "playing": pl.is_playing()}
-		if pl.is_playing():
-			pl.pause()
+		var st := {"player": pl, "active": pl.active,
+			"assigned": String(pl.assigned_animation), "owner": binding["id"]}
+		# Disabling evaluation preserves the complete playback cursor/custom speed,
+		# including paused/stopped and speed_scale == 0, without pause/play resets.
 		pl.active = false
+		pl.set_meta(OWNER_META, binding["id"])
 		states.append(st)
 	binding["player_states"] = states
 	binding["active"] = true
@@ -215,17 +216,14 @@ static func _restore_player(st: Dictionary) -> void:
 	var pl = st["player"]
 	if not is_instance_valid(pl):
 		return
-	# A newer animator request belongs to its caller; never rewind it on release.
-	var clip: String = st["clip"]
-	if String(pl.current_animation) != clip:
-		pl.active = st["active"]
+	if pl.get_meta(OWNER_META, -1) != st["owner"]:
+		return
+	pl.remove_meta(OWNER_META)
+	# Callers must clear/release before a newer request, including same-clip requests.
+	# Observable replacement requests also relinquish our restoration ownership.
+	if String(pl.assigned_animation) != st["assigned"] or pl.active:
 		return
 	pl.active = st["active"]
-	if clip != "" and pl.has_animation(clip):
-		pl.play(clip)
-		pl.seek(st["position"], true)
-		if not st["playing"]:
-			pl.pause()
 
 static func _fail(b: Dictionary, msg: String) -> Dictionary:
 	b["ok"] = false
