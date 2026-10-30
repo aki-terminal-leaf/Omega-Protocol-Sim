@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "binary_sha256": "46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a",
+  "status": "STATIC_PARTIAL",
+  "findings": [
+    {
+      "kind": "source_fact",
+      "claim": "Native EfVT=7 selector joins to the radial loader fragment 0x1403abb25 in enclosing function 0x1403ab860.",
+      "evidence": [
+        "EfVT tag comparison 0x1403ab8f9; byte load/store at 0x1403ab919/0x1403ab91e into outer +4",
+        "Data comparison 0x1403ab8f2; signed byte selector at 0x1403ab926; unsigned range check <=9; image-relative table jump at 0x1403ab934..0x1403ab93f",
+        "Table 0x1403ac2f0[7]=0x003abb25; R11 image base from 0x1403ab896",
+        "Unwind 0x1426111c0 CHAININFO points to 0x1403ab860..0x1403ab892"
+      ],
+      "limitations": [
+        "Assumes valid source ordering: EfVT before Data, as in pinned original; no dynamic execution or complete outer caller chain proven."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Allocated radial Data is 0x38 bytes; outer object +0x10 receives its 8-byte pointer. Curve slots Len/Str/Gra/IRad/ORad are 8-byte pointer storage at +0/+8/+0x10/+0x18/+0x20.",
+      "evidence": [
+        "0x1403abb99..0x1403abbcc allocates via context +0x14/+8 and initializes block; 0x1403abb30 stores outer pointer",
+        "0x1403abbed, 0x1403abbd1, 0x1403abc08, 0x1403abc30, 0x1403abc2a form slot addresses for common helper 0x140396660",
+        "Helper 0x1403967e3..0x1403967f5 forms allocated curve address; 0x14039685d..0x140396862 writes an 8-byte pointer to caller slot"
+      ],
+      "limitations": [
+        "Size-count branch at 0x1403abb25 increments context +0x18 and writes null outer data pointer; it is not the materialized curve initialization path."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Absent IRad retains non-null shared pointer 0x142aa7d78 at radial +0x18 on the materializing path; it is neither a null curve pointer nor a proven numeric zero.",
+      "evidence": [
+        "R10 is defined by LEA at 0x1403ab8a1 and restored each outer iteration at 0x1403abacb, both to 0x142aa7d78",
+        "Data selector reaches initialization without an intervening call; 0x1403abbb5 stores R10 at +0x18",
+        "Only matching IRad branch 0x1403abc1c..0x1403abc34 sends +0x18 to helper; absent tag skips it",
+        "All five curve slots initially receive that same address"
+      ],
+      "limitations": [
+        "Global lies in virtual-only .data; its runtime contents/initializers and first post-load consumer are unresolved. The PE virtual zero-fill does not establish an evaluated radius. No numeric IRad default or render fallback is proven."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "The common curve loader preserves an existing slot when no new curve allocation is produced, then dereferences that curve header; this is loader behavior, not the missing-IRad render consumer.",
+      "evidence": [
+        "0x14039682c..0x14039686f chooses newly allocated R10 or reloads qword [slot], then reads dword [R10]",
+        "0x140396891..0x1403968cd derives key count from header and updates bits 7/8 for zero/one/multiple keys"
+      ],
+      "limitations": [
+        "The absent IRad tag never calls this helper for that slot. Header handling does not reveal the sampling/evaluation default or shader formula."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "FSDc/FEDc are 4-byte fields at +0x28/+0x2c initialized to float bit patterns 50.0/75.0; FaBP is a 4-byte destination at +0x30 initialized to zero but loaded with signed-byte extension.",
+      "evidence": [
+        "0x1403abbbd stores 0x42480000 to +0x28; 0x1403abbc4 stores qword 0x0000000042960000 covering +0x2c and +0x30",
+        "FSDc 0x1403abc0e..0x1403abc10 and FEDc 0x1403abb8f..0x1403abb91 copy dwords",
+        "FaBP 0x1403abc36 movsx eax, byte ptr [rbx]; 0x1403abc39 mov dword ptr [rsi+0x30], eax"
+      ],
+      "limitations": [
+        "Serialized FaBP in original is four bytes; descriptor reads signed i32. Native load is signed i8 to i32. Current zero sample cannot prove equivalence for nonzero/high-byte cases."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Pinned original has EfVT 07000000, Len/Str/Gra/ORad and no IRad; FaBP is four zero bytes. Upstream schema explicitly maps RadialBlur=7 and names all eight fields.",
+      "evidence": [
+        "Original SHA256 3719a1cfcb102a31469770f53aca9b8edd8ec84bb490c645dbc080a1c7487201",
+        "Private e483c3c5-df20-4667-b704-776a5c5c94c1/original-radial.json records field lengths and hashes",
+        "Frozen Enums.cs, AvfxEffector.cs and AvfxEffectorDataRadialBlur.cs pins verified; source helper and original action read unchanged"
+      ],
+      "limitations": [
+        "Upstream naming supports interpretation; actual native selector proof comes from binary table. Named RadialBlur strings were not used as semantic evidence."
+      ]
+    },
+    {
+      "kind": "hypothesis",
+      "claim": "0x142aa7d78 is a shared default/empty curve object.",
+      "evidence": [
+        "Same non-null address seeds all five pointer slots; common helper can preserve and dereference existing storage."
+      ],
+      "limitations": [
+        "Empty/default semantic identity and evaluated number require its initializer and runtime evaluator; not established by its virtual zero-fill address."
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which runtime instruction first reads radial Data +0x18 from the outer +0x10 pointer, and what does its evaluator return for the shared 0x142aa7d78 curve? No bounded direct reference to that consumer was obtained; reverse-reference scanning was not attempted.",
+    "Which initializer writes 0x142aa7d78 before this loading path? Is its curve header/key storage modified before consumption?",
+    "After that evaluator, which host parameter receives IRad, and what radius normalization/fade/projection formula uses it? Establish only that handoff before considering shader work."
+  ],
+  "native_spans": [
+    {
+      "va": "0x1403a68e1",
+      "bytes": 6475,
+      "sha256": "3f560b1d718bab4d97c01c9fbb794e8a100a30daca6d609704117c1704b4c1bd",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610d48",
+      "bytes": 36,
+      "sha256": "b19e5ac2cfeb27640fb6d1fef153493c613144a2d7ea8aba5ede3e2b672c9590",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403a68a4",
+      "bytes": 61,
+      "sha256": "84de85299852081477c09948a10ee74fb7ae6326580a794191aec8f5689f4d94",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610d2c",
+      "bytes": 28,
+      "sha256": "8a26b6bbf95a550b2b7c306ab3beb85e462ebb661333a207d11d211eb445c010",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403a6890",
+      "bytes": 20,
+      "sha256": "338c55b9c19fbc6ed3873601500c10f54061945d1d56c1a194026c7989d986a8",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610d20",
+      "bytes": 12,
+      "sha256": "0c8c13e0144dcb55b3722b1502cc6efbe7c7a362a84574bffe41964112df63da",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aa9f1",
+      "bytes": 232,
+      "sha256": "ef4f6edf8ece75bdb714adfdd16abb666d53bb9ba6e79f66ab9a32cb9a45f3eb",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610f50",
+      "bytes": 24,
+      "sha256": "55bdeca5b91203d3b0511a344af3d1bb509b754ae365a4771ae0958111be8f1a",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aa9c0",
+      "bytes": 49,
+      "sha256": "c5394d1e31f2fec1e72c43c423ef8c9b5b36cecf367c6b84e7ae6779550648e5",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610f3c",
+      "bytes": 20,
+      "sha256": "120eab65187a7118529bca307ab01ec3ce99a54384a5acf2d8d5301037f413e5",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aab14",
+      "bytes": 220,
+      "sha256": "94706b7b72a6fb34006e06388951e6a895e4e0186fed29976367349e4eb41fea",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610f88",
+      "bytes": 24,
+      "sha256": "6c5e733a676c2d77e64af11d0ec005f1c8e119830b696b3b76fb1ca3d7279e22",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aab00",
+      "bytes": 20,
+      "sha256": "82d35edb567c5af9588dade7645185d613a5d09b2cf969c17dc6ae061fc63058",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610f78",
+      "bytes": 16,
+      "sha256": "d618ae5d2e524eace96b08141392b276f5b051249de07ff24b21da57db71b09a",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aac81",
+      "bytes": 232,
+      "sha256": "2084477f7ac6f32dacdbbe2525e56ec02b12d0022e3a5f109e61c2b05c10f9f8",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610fc4",
+      "bytes": 24,
+      "sha256": "9309eb38917dbd95568f40eb7b4ce4ce0bc4353a02deeb15b8dc44068cd3321b",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aac50",
+      "bytes": 49,
+      "sha256": "c5394d1e31f2fec1e72c43c423ef8c9b5b36cecf367c6b84e7ae6779550648e5",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610fb0",
+      "bytes": 20,
+      "sha256": "120eab65187a7118529bca307ab01ec3ce99a54384a5acf2d8d5301037f413e5",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aada4",
+      "bytes": 220,
+      "sha256": "94706b7b72a6fb34006e06388951e6a895e4e0186fed29976367349e4eb41fea",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610ffc",
+      "bytes": 24,
+      "sha256": "296cca3cb7e3dcdf08be8f2269eae3a8b4c9feb1bec36aa1421b2fc00423f940",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aad90",
+      "bytes": 20,
+      "sha256": "82d35edb567c5af9588dade7645185d613a5d09b2cf969c17dc6ae061fc63058",
+      "kind": "code"
+    },
+    {
+      "va": "0x142610fec",
+      "bytes": 16,
+      "sha256": "d618ae5d2e524eace96b08141392b276f5b051249de07ff24b21da57db71b09a",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aaf11",
+      "bytes": 237,
+      "sha256": "e1781f391597f26e3341584a844c0eec5ad9e24ed6b730d5525ecbc0a7f492d9",
+      "kind": "code"
+    },
+    {
+      "va": "0x142611038",
+      "bytes": 24,
+      "sha256": "24f698035aa38d8515c86b246e2b778befd6cbc124e4f13b8d23c9e417b31566",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403aaee0",
+      "bytes": 49,
+      "sha256": "682868ba055fb04c37805962a5594c62580bfa58fe7907b7461d7e5324d8bf53",
+      "kind": "code"
+    },
+    {
+      "va": "0x142611024",
+      "bytes": 20,
+      "sha256": "120eab65187a7118529bca307ab01ec3ce99a54384a5acf2d8d5301037f413e5",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ab1a1",
+      "bytes": 260,
+      "sha256": "029071efacd2d209a424a21174882bd8989b943642639ad2d96c905fbee4b0f4",
+      "kind": "code"
+    },
+    {
+      "va": "0x1426110ac",
+      "bytes": 24,
+      "sha256": "7c0a9a3b906419e20456cbc0030d3621181d25161ea64ced361fdd965ff65695",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ab170",
+      "bytes": 49,
+      "sha256": "cf01db80b5e0aad24b862b78338f5759e5dec04fcb8978db2417c3ca24ea5ca9",
+      "kind": "code"
+    },
+    {
+      "va": "0x142611098",
+      "bytes": 20,
+      "sha256": "120eab65187a7118529bca307ab01ec3ce99a54384a5acf2d8d5301037f413e5",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ab2d4",
+      "bytes": 236,
+      "sha256": "29740af4fe9ab7b6c760e58d6d1ad7687a4921670ebbdc593ecba976394b6729",
+      "kind": "code"
+    },
+    {
+      "va": "0x1426110e4",
+      "bytes": 24,
+      "sha256": "be07043ebad61e00d1b6de67b6c37d805e1bfbf50eddaacdbc5f4f4ea405e219",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ab2c0",
+      "bytes": 20,
+      "sha256": "8b58cb034cc822cab2d48255f19711317767ed2fe3fae446dc6949b385201f02",
+      "kind": "code"
+    },
+    {
+      "va": "0x1426110d4",
+      "bytes": 16,
+      "sha256": "d618ae5d2e524eace96b08141392b276f5b051249de07ff24b21da57db71b09a",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403abb25",
+      "bytes": 2035,
+      "sha256": "29b5836cfab6ea807c4e25839804ff52ca322d4acc14c144dc130dacbdc6cbcd",
+      "kind": "code"
+    },
+    {
+      "va": "0x1426111c0",
+      "bytes": 32,
+      "sha256": "1e9905cc94c774083ae7f9d3742250c846f347a8e545b4ac790200e452c8c5ae",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ab860",
+      "bytes": 50,
+      "sha256": "07d1245a666d6b17dcf8697f2e4799c5b529498e86cea319c779c7b9ba298282",
+      "kind": "code"
+    },
+    {
+      "va": "0x142611180",
+      "bytes": 16,
+      "sha256": "1aaa9e3fef38149809440cc6cdf09ac2812b3f14bafb07df710b8f3981b542cc",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ac337",
+      "bytes": 2228,
+      "sha256": "a4b80f34f8c6f0dcbc721909a86520de76659353ec9308e36987e5d63105185c",
+      "kind": "code"
+    },
+    {
+      "va": "0x1426111ec",
+      "bytes": 36,
+      "sha256": "e658c0fefc24e2ec91b6170e0c589d636a2904770a4b53360809e61c7e74bc1c",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ac320",
+      "bytes": 23,
+      "sha256": "6ccb539aedeadb86e0c67e6301226c1ced893ab5068aa2cbfa63acb1c62491ae",
+      "kind": "code"
+    },
+    {
+      "va": "0x1426111e0",
+      "bytes": 12,
+      "sha256": "a314f6feb66621188fdf15e83993fb417dba8272a9e194c134b2f92fef446660",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403966b8",
+      "bytes": 377,
+      "sha256": "a51130fb8d8bc68a2ddacaf5f5d7c8d16a97475ac43945b257922319e1ff04e2",
+      "kind": "code"
+    },
+    {
+      "va": "0x14260f560",
+      "bytes": 24,
+      "sha256": "df5a537036155b201cff810ce44c6fa5b8b4793739f4fca516196ce7efa1fbe9",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x140396669",
+      "bytes": 79,
+      "sha256": "ba1727ccff23c711a1587fd82644cb57b41743921ad1a4ae4c4d7c9fde045016",
+      "kind": "code"
+    },
+    {
+      "va": "0x14260f538",
+      "bytes": 40,
+      "sha256": "0c8e418b6c841cda23bded351fb31f1b080da3c4e3d5103edefbefa4720d4df0",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x140396660",
+      "bytes": 9,
+      "sha256": "06c7ff36ec22cdfc78abb2e36291b64ba60c68006221ab10900edcf533717bb2",
+      "kind": "code"
+    },
+    {
+      "va": "0x14260f530",
+      "bytes": 8,
+      "sha256": "e8081b0e8662136d9fa9efdef7189c8b7514fea14640b90bea82954e2f2353cd",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x140396831",
+      "bytes": 106,
+      "sha256": "b356120f1711248e231c7460f0ace52703692f3f97360de0a3b413c90b6214d6",
+      "kind": "code"
+    },
+    {
+      "va": "0x14260f578",
+      "bytes": 16,
+      "sha256": "b14e902207f899da41c341c43c1ab3d901a9f97895c4d41c4737e867bcbd0271",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ab892",
+      "bytes": 649,
+      "sha256": "d492568e692597d34f688fc1e4b32c2da7b30460dab68e15fffec21ab293d217",
+      "kind": "code"
+    },
+    {
+      "va": "0x142611190",
+      "bytes": 32,
+      "sha256": "e6bd7b89b34cca54f09e859d6233dfbbb6fc3657bc9e2462a7dc1996934fff83",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x14039689b",
+      "bytes": 51,
+      "sha256": "322800477ce8fa14496ae09f2c76114987c23c679412f380e8572ee3809685ca",
+      "kind": "code"
+    },
+    {
+      "va": "0x14260f588",
+      "bytes": 16,
+      "sha256": "51ab200d5873933a82eb7ad0f5e9ba58299a366afadc0480bf2e1e1130741df1",
+      "kind": "unwind"
+    },
+    {
+      "va": "0x1403ac2f0",
+      "bytes": 40,
+      "sha256": "b23c4a9d2fa8ff001190e34c3f8746120dda9e0531ab503b39d5430160d3ab04",
+      "kind": "table"
+    }
+  ],
+  "rendering_accepted": false,
+  "all96_accepted": false,
+  "private_evidence": "top/assets/official/top-ring-native-50976",
+  "review_required": true
+}
