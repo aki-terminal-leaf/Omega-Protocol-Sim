@@ -593,3 +593,58 @@ child termination. The terminal log was re-pinned; the failed verifier script,
 log and receipt are retained. Active output directories are excluded from the
 evidence inventory. Successful finalcheck evidence separately verifies history,
 protected/raw pins, all253 spans and normal CFG edges.
+
+
+## Actual receiving singleton context (static, 2026-10-30)
+
+STATIC_PARTIAL. The successful allocation branch requests48c0 at0d07e9,
+calls352420 with the returned pointer, and publishes its returned RAX to the
+actual slot14290e498 at0d0808 before calling352af0. Constructor352420 saves
+incoming RCX in nonvolatile RBX at35244c and returns that same pointer at352993.
+It installs14215bd88 at G+0 and14215bd90 at G+8. This is source identity on a
+normal successful path, not observed allocation or a live type/lifetime claim.
+It is distinct from radial target260/global142aa75d8.
+
+Init preserves the receiver in RDI and passes it directly at3537e7 to35b830,
+then3537ef to35b9d0. The first is a no-call flag-reset leaf: its deterministic
+counter path reads/writes G dword4470 and clears bits0..19, including bit9,
+preserving20..31. This is not a bit9 enable test or GPU path. The second writes
+all requested packet offsets (35be44..35bea9):469c/46a4/46ac/46bc/46c0 get zero;
+46b0/46b4/46b8 get float0.5;46c4/46c8 get float1. Qword stores are accounted
+for by half-open byte overlap. These receiver initialization values do not
+establish IRad sentinel fallback selection, clock, lifetime or live values.
+
+Installed primary vtable[0] is377d20. Secondary vtable[0] is377a4c, an exact
+SUB RCX,8 / JMP377d20 thunk. The method performs subobject cleanup and G+8
+unregistration, with a conditional size48c0 deallocation-shaped call. Parent
+destruction loads actualG at0d17e6 and invokes slot0 at0d17fa. This dispatch is
+conditional on the installed table remaining present; it is not rendering.
+Adjacent pointer words were retained as untyped metadata, not table-extent or
+typed-method proof. No adjacent target was decoded.
+
+The smallest missing edge is a concrete typed dispatch/call into a method that
+READs this receiver's radial packet and carries it into an actual GPU upload.
+No such READ, CB/resource, selected shader/textures or formula is established.
+Scalar/vector propagation beyond the explicit reset stores, stack-spill
+recovery, bulk-copy semantics, indexed/implicit accesses and selected-resource
+joins remain outside this register-only scope. Sentinel defaults, clock and
+lifetime remain UNKNOWN; rendering_accepted=false, all96_accepted=false.
+
+Verified105 initial LF files,469 raw readonly files and253 prior native records.
+New evidence:6 code spans (7,431 bytes),10 metadata records; cumulative269
+records/71,727 bytes. Five normal method CFGs contain1,318 verified instruction
+rows and1,432 edges; the separate thunk has2 instructions. Full64-bit this
+aliases survive conforming Win64 calls and intersect at branches. Pdata roots
+were resolved without treating unwind as normal flow. A private34-case bit
+basis evaluator checks the flag-reset trace; these are static tool checks,
+not semantic/runtime rendering acceptance. Four typed hops beyond constructor/
+init were inspected; no old global-reader survey was repeated.
+
+Schema1 `actual_receiver_context` in ring-native.json records exact source
+hashes, native spans, commands, limitations and terminal45s JobObject receipts.
+Private evidence is under `top/assets/official/top-ring-context-50976`.
+Frozen handoff SHA256:
+`41e5d5065a9be914f074a9e85334cb5b6185e37482a37e2e802550c16cd5cb67`.
+Binary SHA256:
+`46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a`.
+History is preserved. Only these two documents receive semantic edits.

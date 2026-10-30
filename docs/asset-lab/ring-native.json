@@ -4005,4 +4005,599 @@
     "top\\assets\\official\\top-ring-dataflow-50976\\terminalpins.py": "dfa178b23ea369d8f5f9585f655c50fd0c4b198140bc833d2a6c24eb383d59c2"
   }
 }
+,
+  "actual_receiver_context": {
+  "schema": 1,
+  "status": "STATIC_PARTIAL",
+  "method": "actual_receiver_context",
+  "binary_sha256": "46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a",
+  "handoff_sha256": "41e5d5065a9be914f074a9e85334cb5b6185e37482a37e2e802550c16cd5cb67",
+  "parent_base": "f337ac4f682b9b312e33c744c23957c3bdf20915",
+  "initial_verification": {
+    "initial_LF_files": 105,
+    "readonly_files": 469,
+    "native_records": 253,
+    "native_bytes": 64136,
+    "errors": []
+  },
+  "typed_identity": {
+    "global_slot": "0x14290e498",
+    "allocation_request": "0x48c0 at 0x1400d07e9; call 0x14008f530 at 0x1400d07ee",
+    "success_branch": "0x1400d07f3 TEST RAX; nonzero -> 0x1400d07f8 MOV RCX,RAX -> call 0x140352420",
+    "constructor": "0x14035244c MOV RBX,RCX; nonvolatile RBX survives conforming calls; 0x140352993 MOV RAX,RBX; sole normal RET 0x1403529fa",
+    "publication": "0x1400d0805 MOV RCX,RAX; 0x1400d0808 MOV [0x14290e498],RAX; 0x1400d080f CALL 0x140352af0",
+    "installed_vtables": {
+      "G+0": "0x14215bd88 installed at 0x140352433; first word 0x140377d20",
+      "G+8": "0x14215bd90 installed at 0x140352448; first word 0x140377a4c"
+    },
+    "conditional": "Static returned-object identity on successful allocation and normal constructor return only; no observed allocation, current slot contents, lifetime or class name. Vtable dispatch target requires the installed table still be present.",
+    "distinct_from": "radial target260 / global0x142aa75d8"
+  },
+  "typed_paths": [
+    {
+      "edge": "0x1403537e4 MOV RCX,RDI -> 0x1403537e7 CALL 0x14035b830",
+      "proof": "Init saves incoming G in RDI at0x140352b0d; width64 nonvolatile alias intersects at normal joins.",
+      "semantics": "No CALL in leaf. Reads/writes G dword4470; deterministic counter path clears bits0..19, preserves20..31. Bit9 is cleared, not tested as a radial-enable branch. Also writes zero to another global object byte+8dfc; no same-object claim."
+    },
+    {
+      "edge": "0x1403537ec MOV RCX,RDI -> 0x1403537ef CALL 0x14035b9d0",
+      "proof": "Same typed RDI; callee saves incoming RCX in RBX at0x14035b9ea.",
+      "semantics": "Initialization/reset stores to requested radial offsets; no modeled radial READ.",
+      "packet_store_bits": {
+        "469c": "00000000",
+        "46a4": "00000000",
+        "46ac": "00000000",
+        "46b0": "3f000000",
+        "46b4": "3f000000",
+        "46b8": "3f000000",
+        "46bc": "00000000",
+        "46c0": "00000000",
+        "46c4": "3f800000",
+        "46c8": "3f800000"
+      },
+      "store_witnesses": [
+        {
+          "at": "0x14035be44",
+          "instruction": "0x14035be44 48c7839846000004000000 mov qword ptr [rbx + 0x4698], 4",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x4698",
+          "width": 8,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x469c"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be64",
+          "instruction": "0x14035be64 48c783a04600000000803f mov qword ptr [rbx + 0x46a0], 0x3f800000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46a0",
+          "width": 8,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46a4"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be6f",
+          "instruction": "0x14035be6f 48c783a846000000000040 mov qword ptr [rbx + 0x46a8], 0x40000000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46a8",
+          "width": 8,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46ac"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be7a",
+          "instruction": "0x14035be7a c783b04600000000003f mov dword ptr [rbx + 0x46b0], 0x3f000000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46b0",
+          "width": 4,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46b0"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be84",
+          "instruction": "0x14035be84 c783b44600000000003f mov dword ptr [rbx + 0x46b4], 0x3f000000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46b4",
+          "width": 4,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46b4"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be8e",
+          "instruction": "0x14035be8e 48c783b84600000000003f mov qword ptr [rbx + 0x46b8], 0x3f000000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46b8",
+          "width": 8,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46b8",
+            "0x46bc"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be99",
+          "instruction": "0x14035be99 89bbc0460000 mov dword ptr [rbx + 0x46c0], edi",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46c0",
+          "width": 4,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46c0"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035be9f",
+          "instruction": "0x14035be9f c783c44600000000803f mov dword ptr [rbx + 0x46c4], 0x3f800000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46c4",
+          "width": 4,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46c4"
+          ],
+          "flag_word_overlap": false
+        },
+        {
+          "at": "0x14035bea9",
+          "instruction": "0x14035bea9 48c783c84600000000803f mov qword ptr [rbx + 0x46c8], 0x3f800000",
+          "load": "0x14035b9d0",
+          "alias": "rbx",
+          "offset": "0x46c8",
+          "width": 8,
+          "kind": "WRITE",
+          "radial_overlap": [
+            "0x46c8"
+          ],
+          "flag_word_overlap": false
+        }
+      ],
+      "qualification": "These are receiver initialization stores on this path, NOT IRad sentinel fallback/default selection or live values. Zero EDI established at35b9e1; qword immediates sign-extend and cover both dwords."
+    },
+    {
+      "edge": "G+8 installed vtable[0] ->0x140377a4c SUB RCX,8 ->0x140377a50 JMP0x140377d20",
+      "proof": "Exact9-byte adjusting thunk. Conditional dispatch on installed secondary table; primary table[0] targets same destructor directly.",
+      "semantics": "Destructor-shaped method reinstalls tables, cleans subobjects, unregisters G+8 and conditionally passes G with size48c0 to141d9fc08 when incoming EDX bit0 is set. Parent0d17e6 loads actualG;0d17fa calls vtable[0] with EDX1;0d17fc stores RSI to slot. No live destruction or allocator semantics asserted."
+    }
+  ],
+  "observed_vs_conditional": {
+    "observed": "Pinned instruction bytes, direct normal CFG, constructor returned pointer, installation words, typed init calls, reset stores and bit-mask clearing.",
+    "conditional": "Entry execution, allocation success, normal returns, ABI-conforming calls, installed vtable persistence and receiver identity at later independent invocations.",
+    "not_joined": [
+      "requested packet READ into upload",
+      "actual GPU resource/constant buffer",
+      "selected original shader bytecode/textures/formula"
+    ]
+  },
+  "counterexamples": [
+    "LEA is an address, not a field READ.",
+    "Dword4470 READ overlaps flag word but does not establish a bit9 enable test; this leaf clears bit9.",
+    "Qword4698 WRITE overlaps469c but is not a READ.",
+    "Adjacent executable pointer words after secondary vtable do not prove table extent, typed method membership or dispatch; no adjacent target decoded.",
+    "The G+8 vtable[0] thunk is destruction, not rendering."
+  ],
+  "coverage": {
+    "status": "STATIC_PARTIAL",
+    "new_code_spans": 6,
+    "new_metadata_records": 10,
+    "new_bytes": 7591,
+    "cumulative_records": 269,
+    "cumulative_bytes": 71727,
+    "instruction_rows_verified": 1318,
+    "normal_edges_verified": 1432,
+    "constructor_return_identity": true,
+    "init_typed_calls_verified": true,
+    "radial_reads": [],
+    "typed_hops_beyond_ctor_init": [
+      "35b830",
+      "35b9d0",
+      "377a4c",
+      "377d20"
+    ],
+    "new_code_bytes": 7431,
+    "root_cfg": "Five full methods plus exact2-instruction thunk. Pdata/unwind roots resolved; no chained root in these four pdata methods;35b830 and377a4c have no pdata. Unwind associations are not CFG edges.",
+    "alias_scope": "Register-only incoming-this affine LEA/MOV aliases; full64-bit copies, width-correct kills, nonvolatile preservation at Win64 calls, branch intersection. ADD/CMOV pointer propagation, indexed/implicit memory and stack spill recovery unmodeled; no absence beyond this scope.",
+    "scalar_vector_bulk_scope": "Only explicit immediate/zero packet stores and flag-clearing scalar counter path adjudicated. Other scalar/vector provenance, bulk-copy callees and selected resource joins outside scope. Constructor call argument intervals[9d8,3dd8),[42c8,4408) do not overlap requested fields; callees not semantically identified.",
+    "new_spans": [
+      {
+        "va": "0x140352420",
+        "bytes": 1499,
+        "sha256": "18019ba63b761b7d674a65e89320009eaaf477dcc979101f257052f371e4bcc3",
+        "kind": "CODE"
+      },
+      {
+        "va": "0x14260b6c4",
+        "bytes": 12,
+        "sha256": "39455c244cd3d4de53471a0adec96067c74300ddc0ba6db9733fe8f8e3a9ffc4",
+        "kind": "UNWIND"
+      },
+      {
+        "va": "0x142fc03a4",
+        "bytes": 12,
+        "sha256": "825f96c6fbadd4bff6c187990c8555bf3317742fc60c121f8c47b6ec75c97f34",
+        "kind": "PDATA"
+      },
+      {
+        "va": "0x140352af0",
+        "bytes": 3409,
+        "sha256": "418e096388eff5704577b7aba7aa32aa7b7b9b522d8371edf31ed71be62f9814",
+        "kind": "CODE"
+      },
+      {
+        "va": "0x14260b6dc",
+        "bytes": 24,
+        "sha256": "d0b52298528fb5a887a046197beb189005b9f7f02cf8af876883d8cd9d572d06",
+        "kind": "UNWIND"
+      },
+      {
+        "va": "0x142fc03bc",
+        "bytes": 12,
+        "sha256": "b7ef3c298a8f7f7e10e7090e427e13cc44698a732621031fb4e64ab50fb42cc3",
+        "kind": "PDATA"
+      },
+      {
+        "va": "0x14035b830",
+        "bytes": 408,
+        "sha256": "bee94bf534f4b99e1074625289c5cd5256853331869807480211cf645e94b701",
+        "kind": "CODE"
+      },
+      {
+        "va": "0x14035b9d0",
+        "bytes": 1864,
+        "sha256": "af3d54bc21ecd32a6e6aa3ad3e7b1b36e63e175b3e20cbeb09912a08e4234986",
+        "kind": "CODE"
+      },
+      {
+        "va": "0x14260b808",
+        "bytes": 12,
+        "sha256": "cff4d61e7f88c087c11e26c322a81decf2f0e7b7515fb78b17f2d867e224a26c",
+        "kind": "UNWIND"
+      },
+      {
+        "va": "0x142fc0458",
+        "bytes": 12,
+        "sha256": "52dbf4750d29f1a0e60ebc0153f296af66a66e38be309ea3b62ef46b13f7e8a6",
+        "kind": "PDATA"
+      },
+      {
+        "va": "0x140377d20",
+        "bytes": 242,
+        "sha256": "4cad61a0cb7723e9ac8b9dbcf9051240cf50f3007cf8b89fe151566a032f6bd7",
+        "kind": "CODE"
+      },
+      {
+        "va": "0x14260d1e4",
+        "bytes": 16,
+        "sha256": "63cfd0d40a89a36756c950e5d7bd3fe1d0bdb088a5df99eef68233f889ff7d28",
+        "kind": "UNWIND"
+      },
+      {
+        "va": "0x142fc1460",
+        "bytes": 12,
+        "sha256": "c852566037c7e078b26794af95965205b0d3a27a2f3ffdfaa50f6bbaf1ec4b31",
+        "kind": "PDATA"
+      },
+      {
+        "va": "0x14215bd88",
+        "bytes": 16,
+        "sha256": "6bfb20ae3f804a612cecd81439c698c3938ca9bc6bfcf24f59323ccc1d62e464",
+        "kind": "VTABLE_WORDS"
+      },
+      {
+        "va": "0x14215bd98",
+        "bytes": 32,
+        "sha256": "f4f9b38c6b4725ae0ceb29c6802e7092c414b78217b17001b4d1e63874da529c",
+        "kind": "ADJACENT_INTERFACE_WORDS_NOT_TABLE_EXTENT_PROOF"
+      },
+      {
+        "va": "0x140377a4c",
+        "bytes": 9,
+        "sha256": "9ab19c90296f68aee3721a2407356d17d4c5409670f838a99771043ea6ab1cb9",
+        "kind": "CODE"
+      }
+    ]
+  },
+  "minimal_missing_edge": "A concrete normal dispatch/callsite from this proven receiver type into a method that READs its radial packet and uses it for an actual upload. Inspected init leads reset state; installed first virtual slots lead destruction. Adjacent words14215bd98..14215bdb8 remain untyped metadata, not justified reader leads.",
+  "unknowns": {
+    "IRad_sentinel_defaults": "UNKNOWN",
+    "clock": "UNKNOWN",
+    "lifetime": "UNKNOWN",
+    "GPU_contract": "UNKNOWN"
+  },
+  "receipts": [
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\probe-receipt.json",
+      "sha256": "3af5c2446f21278387751ea2f2d0dd621709143113c4b2233e5735fb970bb03d",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\flow.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800",
+          "140352420",
+          "140352af0"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 125399040,
+        "job_peak_private_bytes": 117350400,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32840765440,
+        "seconds": 1.0139892000006512,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\probe-receipt.json",
+      "sha256": "ae7235382ec997142e531b2d01727519a5ad46bf3432fd618dc416645b011411",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\flow.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600",
+          "14035b830",
+          "14035b9d0"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 122449920,
+        "job_peak_private_bytes": 114700288,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32888733696,
+        "seconds": 0.6605173000134528,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\probe-receipt.json",
+      "sha256": "b4caa2a67853abbdff610cb7ad4e0a9a61190e9807fd394d835f13ab26e45887",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\flow.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600",
+          "140377d20"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 120287232,
+        "job_peak_private_bytes": 112627712,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32900210688,
+        "seconds": 0.659508700016886,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800\\probe-receipt.json",
+      "sha256": "9ed4694134d5d33f375ca041e77b1fc603963a667f3f64f47aefcb29f9209e16",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\identity.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118423552,
+        "job_peak_private_bytes": 116891648,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32998195200,
+        "seconds": 0.25840350007638335,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300\\probe-receipt.json",
+      "sha256": "b598646afc894090a8bd7f09ccbfac055e6090740993b1ccf93dd89b114b42bb",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\interface.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 90910720,
+        "job_peak_private_bytes": 104493056,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32917434368,
+        "seconds": 0.15718189999461174,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\preflight-1793354063421952900\\probe-receipt.json",
+      "sha256": "9e3f29d3dc63c1c0fc125b9c870ca2239381367c269dade7db159709a24daf7b",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\preflight.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\preflight-1793354063421952900"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 110845952,
+        "job_peak_private_bytes": 104722432,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32835784704,
+        "seconds": 0.5581950999330729,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\review-1793354337433012100\\probe-receipt.json",
+      "sha256": "4337b49456cb920dfc6f0b961a2c15822c01b1dda9e71cf51b17be508e2b49ed",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\review.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\review-1793354337433012100"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 124829696,
+        "job_peak_private_bytes": 116543488,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32915103744,
+        "seconds": 0.3094328000443056,
+        "no_script_errors": true,
+        "ok": true
+      }
+    },
+    {
+      "path": "top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200\\probe-receipt.json",
+      "sha256": "23b07688e4303cf1cfcbe1d5e3306fd93c24ab0e8522487e3d7db9d730778573",
+      "receipt": {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\thunk.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-context-50976\\top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 117772288,
+        "job_peak_private_bytes": 111767552,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32905527296,
+        "seconds": 0.2575158999534324,
+        "no_script_errors": true,
+        "ok": true
+      }
+    }
+  ],
+  "private_evidence_sha256": {
+    "top\\assets\\official\\top-ring-context-50976\\common.py": "59cd954ef3771780f66d19ba89447ad455e3933b86ac4631dd3a6cae756df048",
+    "top\\assets\\official\\top-ring-context-50976\\flow.py": "6893191f4f853d4723f73e9867e82f33a609ba554ca50a01f991701414434ead",
+    "top\\assets\\official\\top-ring-context-50976\\guard.py": "693af0d05e0ad65df62de9aec26bc12ba84d97bf4bca1be8a10ff4495011867c",
+    "top\\assets\\official\\top-ring-context-50976\\identity.py": "1320711a6b6dce0d6a3d4f906f0adc4e6055e184f112ada0fbd6bfc25f240c4f",
+    "top\\assets\\official\\top-ring-context-50976\\interface.py": "8b29c7b458d972b1f555e9c7aeb6234996a2567501705ec3b86fea2baaecf044",
+    "top\\assets\\official\\top-ring-context-50976\\preflight.py": "e75a483b8fd796cd706e0dbb51af8cb632f36dca0496a719bf5964199f4d0ac2",
+    "top\\assets\\official\\top-ring-context-50976\\publish.py": "0e46a668b4ab2868fe98f96b0f37aa06545c6183dff75dc58e442a46ae2ff753",
+    "top\\assets\\official\\top-ring-context-50976\\review.py": "bf4bacab3c3e925c3d389fdf7dd8e1c2af8c8e8440e460db8b19affbb067427e",
+    "top\\assets\\official\\top-ring-context-50976\\thunk.py": "b0ae5db4c9dea6419f12ae3f30902c57a1f639f076b63fe002c1c1648910b036",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x140352420.asm.txt": "17c441cc8c8239423af07991bc95c22e26e60cd9e3e251b30b796e70fcf6a0c1",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x140352420.bin": "18019ba63b761b7d674a65e89320009eaaf477dcc979101f257052f371e4bcc3",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x140352af0.asm.txt": "b13a66149a279609959bfef5974f29cfa76d70fb12a45c519ea3d754b0adf08e",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x140352af0.bin": "418e096388eff5704577b7aba7aa32aa7b7b9b522d8371edf31ed71be62f9814",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x14260b6c4.bin": "39455c244cd3d4de53471a0adec96067c74300ddc0ba6db9733fe8f8e3a9ffc4",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x14260b6dc.bin": "d0b52298528fb5a887a046197beb189005b9f7f02cf8af876883d8cd9d572d06",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x142fc03a4.bin": "825f96c6fbadd4bff6c187990c8555bf3317742fc60c121f8c47b6ec75c97f34",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\0x142fc03bc.bin": "b7ef3c298a8f7f7e10e7090e427e13cc44698a732621031fb4e64ab50fb42cc3",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\flow.json": "6bcc7257f37fdf2811a60498418cabc9ed4615885903734cc87faa59d7ac6ad0",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\probe-receipt.json": "3af5c2446f21278387751ea2f2d0dd621709143113c4b2233e5735fb970bb03d",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\probe.log": "257259309c4b8e643fac4d4fdd1cd2ca76c78f6fba1ca2c34d1c9140bb27be4a",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354088142408800\\spans.json": "dc481943ce16d832a928a39e679749d52065ff3b5acb02a05c04668112dcd269",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\0x14035b830.asm.txt": "b4bb62ab404b98964891566d834a3430e9116c047dbcba23caac17df97d9d36d",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\0x14035b830.bin": "bee94bf534f4b99e1074625289c5cd5256853331869807480211cf645e94b701",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\0x14035b9d0.asm.txt": "a84ac09ea030daf8ae40aa34b10c04241a294df21920a918ef5d32ec9ea6f001",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\0x14035b9d0.bin": "af3d54bc21ecd32a6e6aa3ad3e7b1b36e63e175b3e20cbeb09912a08e4234986",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\0x14260b808.bin": "cff4d61e7f88c087c11e26c322a81decf2f0e7b7515fb78b17f2d867e224a26c",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\0x142fc0458.bin": "52dbf4750d29f1a0e60ebc0153f296af66a66e38be309ea3b62ef46b13f7e8a6",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\flow.json": "888050d7266953013df0fe24e07eeec1a83f38ece8c58df12a571bfc95f9f651",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\probe-receipt.json": "ae7235382ec997142e531b2d01727519a5ad46bf3432fd618dc416645b011411",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\probe.log": "eb4a25937e666fda07cb7331274b667af142613e2bff47d2e5a4838d8b48c56e",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354151095484600\\spans.json": "06c026fa3635d9b62093fa40ec3b35d7e022eeca5bb1a1f42805ab0cfc181a92",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\0x140377d20.asm.txt": "0222e8cc02a02baf32ced7af92269bb78c5abe10fa515760a0044d9eb8610557",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\0x140377d20.bin": "4cad61a0cb7723e9ac8b9dbcf9051240cf50f3007cf8b89fe151566a032f6bd7",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\0x14260d1e4.bin": "63cfd0d40a89a36756c950e5d7bd3fe1d0bdb088a5df99eef68233f889ff7d28",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\0x142fc1460.bin": "c852566037c7e078b26794af95965205b0d3a27a2f3ffdfaa50f6bbaf1ec4b31",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\flow.json": "0eed86b75370833a6b144ce42ca96278cb4758bb3b75f64b44eea810c7b3bd66",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\probe-receipt.json": "b4caa2a67853abbdff610cb7ad4e0a9a61190e9807fd394d835f13ab26e45887",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\probe.log": "c03546fa2907118a52910b7595c69cc950f8f062f29da0aabc7a8f1eb45ed488",
+    "top\\assets\\official\\top-ring-context-50976\\flow-1793354247995525600\\spans.json": "6697ad62fded2617db829ea6a75bf62449adb34681161b22357276e4695a7567",
+    "top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800\\0x14215bd88.bin": "6bfb20ae3f804a612cecd81439c698c3938ca9bc6bfcf24f59323ccc1d62e464",
+    "top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800\\identity.json": "77aa2d9109843855076dded95c8aafbc97fd03ece1b85864990b77e9cb9c4dcd",
+    "top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800\\probe-receipt.json": "9ed4694134d5d33f375ca041e77b1fc603963a667f3f64f47aefcb29f9209e16",
+    "top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800\\probe.log": "f724d098f17b3700859fcdeba5041f842fc375c83847b790c2d4eebf6c416958",
+    "top\\assets\\official\\top-ring-context-50976\\identity-1793354117269099800\\spans.json": "8294585aa96f891608766628f6c4779bdd7aec7690e834c8f5dc083c3e860e9b",
+    "top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300\\0x14215bd98.bin": "f4f9b38c6b4725ae0ceb29c6802e7092c414b78217b17001b4d1e63874da529c",
+    "top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300\\probe-receipt.json": "b598646afc894090a8bd7f09ccbfac055e6090740993b1ccf93dd89b114b42bb",
+    "top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300\\probe.log": "e6dbdb1acb40324d754b72994771a59ba91c9c2b228b6bec5895cb5d468019af",
+    "top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300\\spans.json": "dab102f679b054cb871ff0b63d9bfbfb907ab0c43578233082ae34c7609c8156",
+    "top\\assets\\official\\top-ring-context-50976\\interface-1793354204063945300\\words.json": "187d1394fb18777816a0f8a94150abea32e729239af0083d0dc381a36ecb972f",
+    "top\\assets\\official\\top-ring-context-50976\\preflight-1793354063421952900\\probe-receipt.json": "9e3f29d3dc63c1c0fc125b9c870ca2239381367c269dade7db159709a24daf7b",
+    "top\\assets\\official\\top-ring-context-50976\\preflight-1793354063421952900\\probe.log": "bb53bfe184d98ad183b662ba01f3806fb3834bff3cc47d6f85e7df8dd18ed909",
+    "top\\assets\\official\\top-ring-context-50976\\preflight-1793354063421952900\\verified.json": "fee847cb897c2a4413567e17545fab681f0704fa782e1fea4607d3eea93f67b2",
+    "top\\assets\\official\\top-ring-context-50976\\review-1793354337433012100\\probe-receipt.json": "4337b49456cb920dfc6f0b961a2c15822c01b1dda9e71cf51b17be508e2b49ed",
+    "top\\assets\\official\\top-ring-context-50976\\review-1793354337433012100\\probe.log": "743dcc80846de3f6b682587e90cde4cd5689900774539674a2e9258c6ac56d94",
+    "top\\assets\\official\\top-ring-context-50976\\review-1793354337433012100\\review.json": "be1700fd2b8f9708964298f42f97e44dc722dd6e7a407a69b8f223520297b339",
+    "top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200\\0x140377a4c.bin": "9ab19c90296f68aee3721a2407356d17d4c5409670f838a99771043ea6ab1cb9",
+    "top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200\\probe-receipt.json": "23b07688e4303cf1cfcbe1d5e3306fd93c24ab0e8522487e3d7db9d730778573",
+    "top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200\\probe.log": "42750057fc05c7e472ba31c5e7209c5381df8b7c88d13a1dcfb69c4a2a473384",
+    "top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200\\spans.json": "0d2854e77ec738d034d02b8f97a432efdb6790315d46488adba2a73fb33ad564",
+    "top\\assets\\official\\top-ring-context-50976\\thunk-1793354184105366200\\thunk.json": "20d29d9cfc6f5f2fdd433865e25200542cdf8b578d66344df64dfbc97df8d686"
+  },
+  "rendering_accepted": false,
+  "all96_accepted": false,
+  "acceptance_scope": "Pin/span/CFG and private evaluator checks only; no runtime, rendering or full-guide acceptance. No product code, tests, commit, push, export, game or desktop work."
+}
 }
