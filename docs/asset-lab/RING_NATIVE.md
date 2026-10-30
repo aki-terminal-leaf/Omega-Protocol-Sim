@@ -1029,3 +1029,101 @@ Final documents use complete same-directory temporary files plus os.replace;
 the entire original MD byte prefix and every historical JSON key/value are
 checked after replacement. This is a self-reviewed source handoff for parent
 adjudication, with rendering_accepted=false and all96_accepted=false.
+
+
+## Target/factory source audit (51055; STATIC_PARTIAL)
+
+This is a source handoff after the accepted radial mirror increment, not product
+acceptance. `rendering_accepted=false`, `all96_accepted=false`. The appended JSON
+`target_factory_audit` contains the exact source joins, contract and open producers.
+
+### Independent sampler leaf and normal-CFG recheck
+
+The supplied512-byte377920 raw window and its original successful receipt were
+copied into private evidence, verified against their pins and the pinned binary,
+and counted once. Independent Capstone decoding stops semantic interpretation at
+normal RET3779c0. The remainder contains adjacent routines; the512-byte capture
+is not a function-boundary claim. The leaf has no call or branch before that RET,
+writes the packed dword at RCX, and returns RCX in RAX.
+
+Reusing the complete356960 raw capture reproduces3983 reachable normal-CFG
+instructions. R13D=0 at3569ae and XMM6=0 at358558 dominate35a53d/35a5d2/35a634.
+Reverse-path witnesses find no other R13/XMM6 writes on paths to those calls.
+Later R13/XMM6 writes exist, but cannot reach those sites. Calls preserve them
+under the Win64 normal-return nonvolatile ABI; this is not an audit of every
+callee body. Caller stack+20/+28/+30/+38/+40/+48 maps to leaf
++28/+30/+38/+40/+48/+50 because CALL pushes an8-byte return address.
+
+The three sites provide filter nibbles9/0/9, bias0, other optional arguments0,
+and EDX/R8D/R9D=1/1/2. The bias scale metadata is32.0. Exact packing yields
+prepass0x265, merge sInput0x25, merge sMerge10x265. Reusing the accepted decoder
+contract gives LINEAR/POINT/LINEAR in UV, MIRROR U/V, CLAMP W, zero bias and
+MinLOD=MaxLOD=0 (linear filter0x14 retains point mip selection). Resource mip
+count is still unknown. Negative exact-texel-boundary point ties remain UNKNOWN;
+no integer-lattice or linear-proof extrapolation and no implementation claim.
+
+### Target aliases joined; allocation/view producers still open
+
+Raw352af0 evidence joins M=*[14290e490] to the target fields:
+352b8b/352b8f load M+68 into G+4010;352dab/352db2 load M+258 into G+4078;
+352dc8/352dcf load M+260 into A=G+4080;352de5/352dec load M+268 into B=G+4088.
+Setup stores the pointers, rejects null, and invokes each nonnull object's
+vtable+10. These are aliases of existing objects, not allocation calls.
+At35a590,36ef90 receives A in RDX and B in R8. Prepass reads M+68 and writes A;
+the established radial chain is A->B->A->B. Merge sInput reads M+68, sMerge1
+reads B and output0 is M+258. None of these labels proves original-scene identity.
+
+Exact linked singleton methods2d8ee0 and2d8670 were followed from historical
+2bb028/2bb040 calls. Their other-target command preparation does not prove the
+requested allocation, views or clear state. The smallest missing producers are
+the stores/returned allocation objects into this exact M's+68/+258/+260/+268.
+No writer VA was joined. Width/height allocation arithmetic, resource format,
+RTV format, SRV format, mip/sample counts, sRGB, blend, clear, physical aliasing,
+resize and release lifetime remain UNKNOWN independently. Preserve the accepted
+logical/allocated dimension consumers and dynamic current-chain rebind behavior;
+static setup is not immutable frame ownership.
+
+### Cache key and returned pointer narrowed independently
+
+347120 constructs category5, type0x73686364 and the indexed path from1428baaf0,
+with null optional arguments.2fed30 returns315270's RAX unchanged. The newly
+captured319a80 leaf selects bucket20*(category&0xffff)+(category>>24), then
+exact unsigned type and path-key tree matches. It returns the final node+28
+pointer or zero.315270 retains lookup/factory return in RBX and returns it at
+3154f5.319370 inserts the same pointer using handle+8/+c/+10 keys; an existing
+key is not replaced. This establishes cache structural identity, not class identity.
+
+For this null-optional route,2feaa0 hashes exact non-NUL path bytes without
+case folding through1f6500->1fd130. Four linked tables at14213d730 independently
+match reflected CRC32 polynomial0xedb88320, with seed0 and entry/return
+complements.1f65b0 returns the computed dword. The actual index-selected filename
+and numeric key are not asserted. The alternate formatted route is outside scope.
+
+On a miss,31b80b loads the type-key node+28 factory object and31b82d dispatches
+its vtable+8 method. Registration of that node and the actual method's allocation
+and return remain unjoined. Existing323230 installation of1421520a8 does not
+close that gap; fallback14214fdd0 remains distinct. The exact next source is the
+registration producer and its linked Create return, not another constructor survey.
+
+### Reviewable contract and preservation
+
+The JSON contract specifies each pass's static target aliases and mixed samplers.
+Default prepass ShCd selection/math, negative-boundary point ties, allocation/view
+properties, absent IRad, defaults, clock and lifetime remain independent open edges.
+Parent must review/save this package and implement the next dependent mixed-sampler/
+passgraph increment within the proved scope, retaining those explicit dependencies.
+No runtime, native-visual or all96 success is claimed.
+
+Preflight verified112 protected LF sources,1292 read-only inputs and the binary
+SHA. All431 recursive historical hash objects were checked against binary bytes;
+these include repeated references and are not431 span-list records. Added10 CODE
+and1 METADATA records,10124 bytes:367 cumulative records /180316 bytes, within
+the unchanged caps. Every new record has raw bytes, hash and its own successful
+45-second WindowsJobObject receipt; the parent leaf also retains its original
+receipt. Children ran serially with1.5GiB hard limit and8GiB free floor. No child
+failed. Missing-unwind diagnostics and one missing-file read diagnostic are
+preserved privately. No source, tests, desktop, game or network work was done.
+
+Private evidence: `top/assets/official/top-ring-targets-51055`. Every historical
+JSON key/value and the complete original Markdown byte prefix are preserved.
+This partial package requires parent review; unresolved producers are not acceptance.
