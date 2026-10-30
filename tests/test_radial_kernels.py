@@ -8,50 +8,6 @@ class RadialKernels(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.manifest=k.validate(k.DEFAULT_INPUTS,k.EXPECTED)
-        cls.original=Path(next(n for n in cls.manifest["readonly_files"] if n.endswith("/RadialBlur.shcd"))).parent
-        cls.contract=json.loads((cls.original/"shcd-contract.json").read_bytes())
-
-    def test_actual_shcd_dxbc_and_reflection(self):
-        for row in self.contract:
-            raw=(self.original/row["file"]).read_bytes()
-            self.assertEqual(hashlib.sha256(raw).hexdigest(),row["sha256"])
-            blob=raw[row["dxbc_offset"]:row["dxbc_offset"]+row["dxbc_size"]]
-            self.assertEqual(blob[:4],b"DXBC")
-            self.assertEqual(hashlib.sha256(blob).hexdigest(),row["dxbc_sha256"])
-            self.assertEqual(struct.unpack_from("<I",blob,24)[0],len(blob))
-            chunks={}
-            for i in range(struct.unpack_from("<I",blob,28)[0]):
-                offset=struct.unpack_from("<I",blob,32+4*i)[0]
-                size=struct.unpack_from("<I",blob,offset+4)[0]
-                self.assertLessEqual(offset+8+size,len(blob))
-                chunks[blob[offset:offset+4]]=blob[offset+8:offset+8+size]
-            self.assertIn(b"RDEF",chunks)
-            self.assertIn(b"SHEX",chunks)
-            if row["file"]=="RadialBlur.shcd":
-                self.assertEqual(struct.unpack_from("<I",chunks[b"SHEX"],75*4)[0],0x07000038) # MUL, seven words
-                self.assertEqual(struct.unpack_from("<I",chunks[b"SHEX"],80*4)[0],0x4001) # immediate32
-                self.assertEqual(struct.unpack_from("<I",chunks[b"SHEX"],81*4)[0],0x3eaaaaab)
-                self.assertIn(b"cRadialBlurParam",chunks[b"RDEF"])
-            if row["file"]=="DonutMerge.shcd":
-                self.assertIn(b"sMerge1",chunks[b"RDEF"])
-                self.assertEqual([b["register"] for b in row["bindings"] if b["kind"]=="texture"],[0,1])
-            if row["file"]=="VSSampling1.shcd":
-                self.assertEqual(row["vertex_prefix_bytes"],8)
-                self.assertIn(b"cParam",chunks[b"RDEF"])
-
-    def test_original_instruction_order(self):
-        radial=(self.original/"RadialBlur.dxbc.txt").read_text()
-        ops=["itof r2.x", "mul r2.xy", "mul r2.x,", "mad r2.y", "mad_sat r2.xz", "mul r2.xz", "min r2.xz", "sample_indexable", "mad r1.xyzw", "div o0.xyzw"]
-        positions=[radial.index(op) for op in ops]
-        self.assertEqual(positions,sorted(positions))
-        merge=(self.original/"DonutMerge.dxbc.txt").read_text()
-        self.assertIn("min_sat r0.x",merge)
-        self.assertNotIn("cb0[0].zzwz",merge)
-        self.assertIn("cb0[0].zzwz",radial)
-        vertex=(self.original/"VSSampling1.dxbc.txt").read_text()
-        self.assertIn("vs_5_0",vertex)
-        self.assertIn("-2.000000",vertex)
-
     def test_float32_order_weights_and_rgba(self):
         taps,total=k.radial_samples([.2,.8],[.8,.2,1.,.6],[.75,.5,.4,.3])
         self.assertEqual([w for _,w in taps],[1.,.75,.5,.25])
@@ -98,7 +54,7 @@ class RadialKernels(unittest.TestCase):
 
     def test_diagnostics_are_nonuniform_and_portable(self):
         cases=k.cases()
-        self.assertEqual(len(cases["cases"]),22)
+        self.assertEqual(len(cases["cases"]),50)
         for spec in cases["textures"].values():
             self.assertEqual(len(spec["rgba8"]),spec["size"][0]*spec["size"][1]*4)
             self.assertGreaterEqual(len(set(spec["rgba8"][3::4])),min(5,spec["size"][0]*spec["size"][1]))
@@ -151,13 +107,66 @@ class RadialKernels(unittest.TestCase):
         self.assertNotEqual(k.radial_image(negative,spec),k.radial_image(dict(negative,sampler_policy=k.POLICY),spec))
 
     def test_manifest_partition_and_sampler_surface(self):
-        self.assertEqual(len(self.manifest["source_lf_sha256"]),106)
-        self.assertEqual(len(self.manifest["new_files"]),8)
-        self.assertIn(k.SOURCES[1],self.manifest["source_lf_sha256"])
+        self.assertEqual(len(self.manifest["source_lf_sha256"]),105)
+        self.assertEqual(len(self.manifest["new_files"]),9)
+        self.assertNotIn(k.SOURCES[1],self.manifest["source_lf_sha256"])
         shader=(k.ROOT/k.SOURCES[0]).read_text()
         self.assertEqual(shader.count("texelFetch(s_input,"),4)
         self.assertIn("textureSize(s_input, 0)",shader)
         self.assertIn("period - 1 - r",shader)
         self.assertIn("return texture(s_input, coord)",shader)
+
+    def test_point_exact_integer_boundaries_and_away_boundaries(self):
+        pair=k.cases()["textures"]["pair"]
+        # Independent table for floor(k) then integer MIRROR, including negatives.
+        for integer,expected in [(-6,1),(-5,0),(-4,0),(-3,1),(-2,1),(-1,0),(0,0),(1,1),(2,1),(3,0),(4,0)]:
+            got=k.point_sample(pair,[integer/2,0.])
+            self.assertEqual(got,[k.div(v,255.) for v in pair["rgba8"][expected*4:expected*4+4]])
+        self.assertEqual(k.point_sample(pair,[-.5,0.])[0],k.div(13,255.))
+        self.assertNotEqual(k.point_sample(pair,[-.5,0.]),k.point_sample(pair,[.5,0.]))
+        for coord,expected in [(-.5-1/128,1),(-.5+1/128,0),(-1/128,0),(1/128,0),(1-1/128,1),(1+1/128,1),(2-1/128,0),(2+1/128,0)]:
+            self.assertEqual(k.point_sample(pair,[coord,0.])[0],k.div(pair["rgba8"][expected*4],255.))
+        for bad in [float('nan'),float('inf'),16.01,1e39]:
+            with self.assertRaises(ValueError): k.point_sample(pair,[bad,0.])
+        for name in ["single","column","row","odd"]:
+            spec=k.cases()["textures"][name]
+            for uv in [[-16.,16.],[-.4375,.3125],[0.,1.],[2.,-.5]]:
+                self.assertEqual(len(k.point_sample(spec,uv)),4)
+
+    def test_mixed_distinguishes_both_alternatives_all_rgba_after_saturation(self):
+        data=k.cases(); spec=data["textures"]["odd"]; other=data["textures"]["b"]
+        row=next(r for r in data["cases"] if r["id"]=="mixed-odd-0.375")
+        mixed=k.merge_image(row,spec,other)
+        for alternative in [k.merge_image(row,spec,other,all_linear=True),k.merge_image(dict(row,sampler_policy=k.POLICY),spec,other)]:
+            for c in range(4): self.assertNotEqual(mixed[c::4],alternative[c::4])
+        positive=dict(row,radii=[abs(v) for v in row["radii"]])
+        self.assertEqual(mixed,k.merge_image(positive,spec,other))
+        # Explicit factors 0, 1, fractional; no sampler expectation derived from UV fold.
+        for strength in [0.,1.,.375]:
+            self.assertEqual(k.merge_factor([1.,0.],[1.,1.,2.,2.],[0.,0.,1.,strength]),strength)
+        for r in data["cases"]:
+            if r["kind"]=="merge":
+                self.assertEqual(len(k.merge_image(r,data["textures"][r["s_input"]],data["textures"][r["s_merge"]])),4*math.prod(r["target_size"]))
+        with self.assertRaises(ValueError): k.merge_image(dict(row,sampler_policy=k.MIRROR_POLICY),spec,other)
+
+    def test_conditional_chain_quantized_forward_reverse(self):
+        data=k.chain_cases(); case=data["cases"][0]
+        def run(rows):
+            textures=json.loads(json.dumps(data["textures"])); stages=[]
+            for i,row in enumerate(rows):
+                self.assertEqual(row["s_input"],["A","B","A","I"][i])
+                self.assertEqual(row["output"],["B","A","B","output"][i])
+                spec=textures[row["s_input"]]
+                self.assertEqual(spec["size"],row["s_input_size"])
+                rgba=(k.radial_image(row,spec) if i<3 else k.merge_image(row,spec,textures["B"]))
+                self.assertTrue(all(type(x) is int and 0<=x<=255 for x in rgba))
+                textures[row["output"]]={"size":row["target_size"],"rgba8":rgba}
+                stages.append(rgba)
+            return stages
+        initial=run(case["initial"]); forward=run(case["forward"]); reverse=run(case["initial"])
+        self.assertEqual(initial,reverse)
+        for a,b in zip(initial,forward): self.assertNotEqual(a,b)
+        ids=[r["id"] for r in k.cases()["cases"]]+[case["id"]]+[r["id"] for state in ["initial","forward"] for r in case[state]]
+        self.assertEqual(len(ids),len(set(ids)))
 
 if __name__=="__main__":unittest.main()

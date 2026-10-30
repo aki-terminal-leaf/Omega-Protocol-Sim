@@ -2,6 +2,7 @@ extends RefCounted
 ## Explicit bounded embedding contract. No native lifecycle/default/packet mapping.
 const POLICY = "linear_clamp_explicit"
 const MIRROR_POLICY = "native_radial_0x265_mirror_lod0"
+const MIXED_POLICY = "native_merge_0x25_point_0x265_linear_mirror_lod0"
 const SPACE = "raw_rgba8_no_srgb"
 const TARGET = "rgba8_unorm_blend_disabled"
 const RADIAL = preload("res://materials/original_radial_blur.gdshader")
@@ -92,8 +93,8 @@ func update(inputs: Dictionary) -> bool:
     if not is_current():
         return _fail("stale attachment/material/texture")
     var policy = inputs.get("sampler_policy")
-    if policy != POLICY and not (_kind == "radial" and policy == MIRROR_POLICY):
-        return _fail("explicit supported sampler_policy required; native mirror is radial-only")
+    if policy != POLICY and not (_kind == "radial" and policy == MIRROR_POLICY) and not (_kind == "merge" and policy == MIXED_POLICY):
+        return _fail("explicit supported sampler_policy required; cross-kind policies are rejected")
     for pair in [["color_space", SPACE], ["target", TARGET]]:
         if inputs.get(pair[0]) != pair[1]:
             return _fail("explicit policy required: " + pair[0])
@@ -140,6 +141,8 @@ func update(inputs: Dictionary) -> bool:
     _expected.clear()
     if _kind == "radial":
         _expected["native_radial_mirror_lod0"] = policy == MIRROR_POLICY
+    else:
+        _expected["native_merge_mixed_lod0"] = policy == MIXED_POLICY
     for key in names:
         _expected[key] = _v4(inputs[key])
     for key in tex_names:

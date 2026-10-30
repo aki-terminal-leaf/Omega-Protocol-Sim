@@ -1,99 +1,95 @@
-# Radial native mirror sampler: isolated conditional diagnostic
+# Mixed merge sampler and conditional private chain
 
-Schema 1. rendering_accepted=false; all96_accepted=false. Owner action31567/P3-02/all96 remains OPEN.
-The parent-reviewed gpu_bridge_audit establishes radial packed 0x265: MIN_MAG_LINEAR_MIP_POINT
-(filter 0x14), U/V MIRROR (2), W CLAMP (3), bias 0, LOD 0, anisotropy 1, comparison NEVER.
-This increment implements its 2D LOD0 sampling semantics, not complete native rendering.
-DonutMerge source is immutable; its native sampler and prepass words 377920 remain UNKNOWN.
+Schema 1; rendering_accepted=false; all96_accepted=false. Action31567/P3-02/all96 remains OPEN.
+Parent target_factory_audit establishes prepass 0x265 LINEAR MIRROR, merge sInput 0x25 POINT
+MIRROR and sMerge1 0x265 LINEAR MIRROR, bias zero / LOD0. I=M+68, A=M+260, B=M+268,
+output=M+258; static I->A, A->B->A->B, merge(I,B)->output; rebinding can change endpoints.
+This diagnostic does not implement unknown Default prepass math or native resource identity.
+Independent immutable native documentation was not modified.
 
-## Explicit helper schema
+## Explicit policies and bounds
 
-Call attach(CanvasItem, "radial"|"merge", inputs), update(inputs), release(), is_current().
-Required inputs: sampler_policy, color_space="raw_rgba8_no_srgb",
-target="rgba8_unorm_blend_disabled", nonempty provenance; target_size integer2;
-viewport and uv_rect float4; s_input ImageTexture and s_input_size integer2.
-Radial requires radial float4. Merge requires radii and merge_param float4,
-s_merge ImageTexture and s_merge_size integer2.
-Policies: linear_clamp_explicit retains existing hardware clamp filtering;
-native_radial_0x265_mirror_lod0 is radial-only, explicitly selected, never a default.
-Merge rejects native radial policy. A missing/invalid policy fails closed and releases.
-Updates support either radial policy in both directions. Per-instance material/shader
-ownership isolates updates. is_current checks sampler boolean, all uploaded uniforms,
-texture identity/dimensions/bytes and shader identity/code. External mutation fails closed.
-No live lifecycle, clock, or native resource factory is introduced.
+Exactly three policies: linear_clamp_explicit, native_radial_0x265_mirror_lod0, native_merge_0x25_point_0x265_linear_mirror_lod0.
+linear_clamp_explicit remains compatible for both kernels. native_radial_0x265_mirror_lod0
+is radial-only and unchanged. native_merge_0x25_point_0x265_linear_mirror_lod0 is merge-only.
+Missing, invalid and cross-kind policies fail closed and release. attach/update/release/is_current
+track every uniform, sampler resource, texture dimensions/format/bytes, shader identity/code.
+Clamp<->mixed updates work in both directions with isolated material/shader instances.
+Required provenance, raw_rgba8_no_srgb, rgba8_unorm_blend_disabled, target_size, viewport,
+uv_rect, input texture/dimensions and kernel parameters remain explicit. Input axes 1..4096,
+no mips, finite f32 float4 magnitudes <=16, UV endpoints [-2,2], radius magnitude >=1e-4
+(negative radii allowed), radial weight-sum magnitude >=1e-4. Actual target axes 2..4096;
+private portable target axes <=256. No 1x1 target support, no native default/lifecycle mapping.
 
-Conservative host domain: float4 magnitudes <=16, radii MAGNITUDE >=1e-4 (negative radii
-remain allowed), f32 radial weight-sum magnitude >=1e-4, UV endpoints within [-2,2].
-RGBA8 input textures have no mipmaps, axes 1..4096 including 1x1/1xN/Nx1.
-Declared target axes are integers 2..4096. Portable harness caps axes at 256 and checks
-actual SubViewport size; target 1x1 is rejected. The caller supplies a matching non-HDR target.
-All four channels remain raw; no source_color, premultiplication or blending.
+POINT uses f32(coord*N), then floor, then integer MIRROR with positive modulo 2*N and
+index r if r<N else 2*N-1-r. At exact integer scaled coordinates k this follows the parent's
+normative exact-boundary lemma: coord=-0.5,N=2 maps texel 0. Continuous UV folding before
+floor would incorrectly select texel 1. No epsilon or source rounding is added. Noninteger
+coordinates use an explicit diagnostic f32 convention, not a bit-identical D3D hardware claim;
+D3D fixed-point sampler precision near boundaries remains a renderer comparison concern.
+Bounds |coord|<=16 and N<=4096 bound point scaled coordinates to +/-65536, safe for floor/int.
+LINEAR uses maintained texel-center p=coord*N-0.5, integer-MIRROR neighbors and four LOD0
+texelFetch loads, horizontal then vertical RGBA interpolation. Neighbor floor/int/modulo are
+bounded within +/-65538. MIRROR is never repeat_enable/REPEAT. Raw DonutMerge pixel
+arithmetic/order and all RGBA are preserved; compiler FMA/filter precision can differ.
 
-## Mirror proof and precision boundary
+## Portable protocol and conditional chain
 
-For each axis p=f32(f32(coord*N)-0.5), i=floor(p), f=p-i. Each neighbor i and i+1
-is addressed with r=((i % (2*N)) + 2*N) % (2*N), index=r if r<N else 2*N-1-r.
-The infinite texel-center lattice therefore duplicates both edge texels, reflecting
-...1,0,0,1,...,N-1,N-1,... . At normalized seams 0,1,2 the two neighbors are the
-same edge texel, so filtering is continuous across both sides. Negative periods use
-positive modulo; N=1 maps every neighbor to zero. This is MIRROR, not repeat_enable/REPEAT.
-Four texelFetch(...,0) loads are interpolated horizontally then vertically on all RGBA.
-LOD0 is explicit; textureSize(...,0) is explicit. No extra coordinate clamp is introduced.
-The original four-tap order, saturation*viewport/min, weights and raw third bits 3eaaaaab
-are unchanged. Coordinates stay within [-16,16]; N<=4096 bounds p to [-65536.5,65535.5],
-so floor/int/modulo are safe. Filtering differences/weights are bounded for UNORM inputs.
-Python rounds each reference arithmetic operation to f32. Shader compiler FMA/refactoring
-and D3D hardware subtexel/filter precision may differ from this manual f32 bilinear
-implementation: exact address semantics are implemented, bit-identical hardware filtering
-is NOT claimed. Actual GPU readback remains a separate parent gate.
+cases.json is parent-overridable, separate from numeric_cases.json; schema1, <=64 unique
+cases and <=16 textures, each axis <=256. All schemas and bindings validate before rendering.
+window.__radial_finished and window.__radial_result report finished/ok=false on invalid packs,
+including failures with no results array. Output rows are allRGBA top-to-bottom; UV is
+(pixel+0.5)/target transformed by explicit uv_rect, no Y flip. Fixtures include exact negative
+boundaries, seams and robust away-boundary coordinates, unequal/odd/singleton inputs, varied
+alpha, signed radii and distinguishable mixed versus all-linear/clamp after saturation*viewport.
 
-## Evidence and portable handoff
+chain_cases.json schema1 contains exactly host texture IDs I and A, and 1..2 unique chain cases.
+Each case requires id/provenance and initial/forward arrays of exactly four fully explicit helper
+rows. First three are radial A->B, B->A, A->B with output IDs and input/target dimensions;
+last is mixed merge(I,B)->output. No implicit inputs, Default copy, downsample or native allocation.
+Each row declares viewport/radial or radii+merge_param/uv_rect/target_size and policy/provenance.
+The harness runs initial, forward, reverse(initial), retaining bindings and updating resources
+without mutating attached textures. Each intermediate is read back and quantized RGBA8 before
+reattachment. chain_results records host prepass A, all three radial outputs and final merge for
+every state. This is a conditional host-supplied prepass/targets diagnostic, NOT a native passgraph.
+CPU chain tests and lifecycle/schema tests are separate from actual WebGL raster acceptance.
 
-Manifest SHA256: a13b8ca3300f0fab7556310759b00d5076f220d9425e23dbf55781676f2aa5db. All 106 protected LF sources (including merge) and all
-readonly files are checked before/after. Manifest new_files is the eight writable existing
-paths; diagnostic_sources lists nine kernel files including immutable merge.
-Runner uses SHA-pinned Godot 4.7.2 main executable ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424 and the existing custom Web
-release template d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0.
-A byte-identical private copy of the main exe uses local _sc_/editor_data and explicit
-log paths to isolate editor settings/user data. No default/global template install. WindowsJobObject children are serial, 90s engine/45s
-others, 240s cumulative, 1.5GiB hard limit, 8GiB free floor. POSIX work_guard's fcntl is
-unavailable on Windows. Unique failures/logs/receipts are preserved; publication is atomic.
-Headless lifecycle/numeric tests are neither shader compilation nor raster evidence.
+## Evidence
 
-Latest summary: D:\Dev\OpenClawCodexBridge\worktrees\top-ring-mirror-reviewed-51051\top\assets\official\top-ring-mirror-51051\parent-runtime-253f3d8485fb4d7280cbae0551a6bc72\summary.json
-Project: D:\Dev\OpenClawCodexBridge\worktrees\top-ring-mirror-reviewed-51051\top\assets\official\top-ring-mirror-51051\parent-runtime-253f3d8485fb4d7280cbae0551a6bc72\prepared\project
-Web: D:\Dev\OpenClawCodexBridge\worktrees\top-ring-mirror-reviewed-51051\top\assets\official\top-ring-mirror-51051\parent-runtime-253f3d8485fb4d7280cbae0551a6bc72\web\index.html
-Status: KERNEL_NUMERIC_PASS_WEB_READY; numeric_pass=True; web_export_ready=True.
+Manifest b4e559dbf5d98e132ea25686902da487cfd6213a9c366e9e5b1bcf1ff6e0ff9d: 105 protected LF sources plus ALL readonly files checked before/after;
+nine writable diagnostic sources pinned explicitly. Parent independently freezes 114 sources.
+Pinned main Godot 4.7.2 SHA ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424, custom Web release template
+ d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0.
+WindowsJobObject serial limits: 90s engine/45s others/300s cumulative, 1.5GiB hard and 8GiB free.
+POSIX work_guard requires unavailable fcntl; existing pinned Windows runner is used. Private
+_sc_/editor_data/cache and logs only; no default templates/global settings. Failures retained.
+No native capture/binary probe, browser, desktop, commit, push or deployment was performed.
+Latest summary: D:\Dev\OpenClawCodexBridge\worktrees\top-ring-mixed-51061\top\assets\official\top-ring-mixed-51061\run-82727adc-8a62-46bf-876a-713ccbdc54e8\summary.json
+Project: D:\Dev\OpenClawCodexBridge\worktrees\top-ring-mixed-51061\top\assets\official\top-ring-mixed-51061\run-82727adc-8a62-46bf-876a-713ccbdc54e8\prepared\project
+Web: D:\Dev\OpenClawCodexBridge\worktrees\top-ring-mixed-51061\top\assets\official\top-ring-mixed-51061\run-82727adc-8a62-46bf-876a-713ccbdc54e8\web\index.html
+Status: KERNEL_NUMERIC_PASS_WEB_READY; numeric_pass=True; web_export_ready=True;
+chain_diagnostic_ready=True; raster_verified=false.
 Blocker: None.
-Summary source_sha256 explicitly hashes all nine listed diagnostic sources with LF
-normalization, including generated docs; summary itself is excluded. Output hashes exclude
-.godot caches and summary itself. Parent independently freezes all 114 source files.
-
-Parent may replace project cases.json, then re-export. numeric_cases.json stays separate.
-Cases schema1 has textures keyed by ID with size and row-major rgba8, plus <=64 unique-ID
-cases with helper fields (texture references use IDs); <=16 textures. Readback retains all
-RGBA and top-to-bottom rows. UV=(pixel+0.5)/target_size transformed by uv_rect, no Y flip.
-Poll window.__radial_finished; window.__radial_result contains finished/ok/failures and
-per-case id/width/height/rgba8. Harness pauses after finite isolated SubViewport rendering.
-Fixtures cover clamp and mirror, odd 7x5 with varied alpha, singleton axes, and positive/
-negative out-of-range sampling from explicit diagnostic viewport values. These are host
-choices, NOT proof of a native viewport. No optional three-pass graph was added.
-
-Remaining native dependencies: native merge/prepass sampler words 377920, target dimensions/formats/views/aliasing, Default prepass math, handle factory/cache identity, absent IRad/defaults, default clock/lifetime, complete dynamic native graph. Initial direct C/A/B setup and
-rebinding evidence remains static only. Export readiness is not actual Chromium readback,
-original visual acceptance, mainWeb publication, or all96 acceptance.
+Remaining limitations: native formats/sRGB/blend/allocation/views/aliasing; Default prepass math; clock/IRad/lifetime/factoryCreate identity; native input/output rebinding and complete dynamic graph; actual compiled private WebGL allRGBA comparison against independent raw DXBC oracle pending. Export readiness is not GPU acceptance or all96 acceptance.
 
 
-## Independent parent acceptance (narrow)
+## Independent parent acceptance (conditional diagnostics only)
 
-Actual Godot4.7.2 WebGL2 / Chromium145 / ANGLE SwiftShader compiled shader readback:
-116pointcases (52post-kernel sampler seam cases),8independent fullimages and22default fullimages,
-9416RGBAchannels,maximum1/255 error vs raw-DXBC/f32 independent triangle-fold mirror oracle,
-declared tolerance2/255. Actual odd and singleton-axis mirror/clamp images differ on allRGBA;
-1x1 input preserved,1x1target explicitly rejected. Parent visually inspected RGB/alpha contact sheet.
-Software WebGL is NOT hardwareGPU, original D3D filter precision, native viewport/target/vertex,
-action31567/P3-02 or all96 acceptance. Frozen shader/helper focused Sonnet5.5 subscription review
-NO_MUST_FIX; parent independently matched source pins. Fresh11Python tests/107Godot lifecycle
-assertions and106protected/1124readonly passed. First parent negative checker assumed a
-results-array on early rejection; originalfailure retained, corrected check alone reran.
-No product source correction was necessary. Parent comparison: reports/top-ring-mirror-51051/parent-gpu-comparison-v1.json.
+Fresh isolated parent validation passed all eight bounded runner receipts: 12 Python tests,
+224 Godot numeric/lifecycle assertions, malformed-chain rejections and private Web export.
+105 protected LF sources and 1493 readonly inputs remained exact. Original 114-source candidate
+was frozen before independent review and remained untouched throughout validation.
+Actual compiled Godot 4.7.2 WebGL2 / ANGLE SwiftShader readback matched independent raw-DXBC
+f32 arithmetic: 126 pre-candidate independent cases plus 50 default cases, and the host-prepass
+A plus all four outputs for initial/forward/reverse states. Both accumulated RGBA8 reference
+and actual-previous-stage-input reference were checked. 25264 channel comparisons, maximum
+1/255 error, preset tolerance 2/255. Reverse update restored every stage byte-for-byte; forward
+update changed actual pixels. Target1x1, malformed chain and oversized chain were rejected early
+with finished/ok=false and no results array. Independent review findings and disposition are
+in reports/top-ring-mixed-51061/parent-acceptance-v1.json; exact reviewed hashes retained.
+First child numeric failure was a non-distinguishing texture-tamper test fixture; corrected
+fixture and explicit changed-byte assertion passed fresh parent validation. Failure logs retained.
+These are conditional host-supplied prepass/target diagnostics and software WebGL, not hardware
+GPU, native D3D fixed-point precision at arbitrary near-boundaries, native allocation/format/
+views/blend/default-prepass/clock/lifetime/factory identity, original action31567/P3-02 or all96
+acceptance. rendering_accepted=false; all96_accepted=false. No main Web or media publication.

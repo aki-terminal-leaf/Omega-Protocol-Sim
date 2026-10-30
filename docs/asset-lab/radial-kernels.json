@@ -3,44 +3,11 @@
   "status": "KERNEL_NUMERIC_PASS_WEB_READY",
   "rendering_accepted": false,
   "all96_accepted": false,
-  "latest_summary": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-mirror-reviewed-51051\\top\\assets\\official\\top-ring-mirror-51051\\parent-runtime-253f3d8485fb4d7280cbae0551a6bc72\\summary.json",
+  "latest_summary": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-mixed-51061\\top\\assets\\official\\top-ring-mixed-51061\\run-82727adc-8a62-46bf-876a-713ccbdc54e8\\summary.json",
   "policies": [
     "linear_clamp_explicit",
-    "native_radial_0x265_mirror_lod0"
-  ],
-  "source_evidence": {
-    "manifest_sha256": "a13b8ca3300f0fab7556310759b00d5076f220d9425e23dbf55781676f2aa5db",
-    "radial_literal_bits": "0x3eaaaaab",
-    "native_vertex_ported": false
-  },
-  "unsupported_native_dependencies": [
-    "native merge/prepass sampler words 377920",
-    "target dimensions/formats/views/aliasing",
-    "Default prepass math",
-    "handle factory/cache identity",
-    "absent IRad/defaults",
-    "default clock/lifetime",
-    "complete dynamic native graph"
-  ],
-  "test_evidence": {
-    "numeric_pass": true,
-    "web_export_ready": true,
-    "protected106_exact": true,
-    "raster_verified": false,
-    "blocker": null
-  },
-  "project": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-mirror-reviewed-51051\\top\\assets\\official\\top-ring-mirror-51051\\parent-runtime-253f3d8485fb4d7280cbae0551a6bc72\\prepared\\project",
-  "web_output": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-mirror-reviewed-51051\\top\\assets\\official\\top-ring-mirror-51051\\parent-runtime-253f3d8485fb4d7280cbae0551a6bc72\\web\\index.html",
-  "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
-  "new_files": [
-    "top/materials/original_radial_blur.gdshader",
-    "top/scripts/original_radial_kernels.gd",
-    "tools/asset_lab/prepare_radial_kernels.py",
-    "tools/asset_lab/run_radial_kernels.py",
-    "tools/asset_lab/test_radial_kernels.gd",
-    "tests/test_radial_kernels.py",
-    "docs/asset-lab/RADIAL_KERNELS.md",
-    "docs/asset-lab/radial-kernels.json"
+    "native_radial_0x265_mirror_lod0",
+    "native_merge_0x25_point_0x265_linear_mirror_lod0"
   ],
   "diagnostic_sources": [
     "top/materials/original_radial_blur.gdshader",
@@ -53,30 +20,61 @@
     "docs/asset-lab/RADIAL_KERNELS.md",
     "docs/asset-lab/radial-kernels.json"
   ],
+  "source_evidence": {
+    "manifest_sha256": "b4e559dbf5d98e132ea25686902da487cfd6213a9c366e9e5b1bcf1ff6e0ff9d",
+    "parent_review": "target_factory_audit full3983 normalCFG and exact leaf377920"
+  },
+  "chain_diagnostic_ready": true,
+  "limitations": [
+    "native formats/sRGB/blend/allocation/views/aliasing",
+    "Default prepass math",
+    "clock/IRad/lifetime/factoryCreate identity",
+    "native input/output rebinding and complete dynamic graph",
+    "actual compiled private WebGL allRGBA comparison against independent raw DXBC oracle pending"
+  ],
+  "test_evidence": {
+    "numeric_pass": true,
+    "web_export_ready": true,
+    "protected105_exact": true,
+    "raster_verified": false,
+    "blocker": null
+  },
   "parent_validation": {
-    "status": "PASS_CONDITIONAL_NATIVE_RADIAL_MIRROR_AND_CLAMP_PIXEL_KERNELS",
-    "point_cases": 116,
-    "independent_full_images": 8,
-    "default_full_images": 22,
-    "total_cases": 146,
-    "sampler_seam_point_cases": 52,
-    "channels_checked": 9416,
-    "max_byte_error": 1,
-    "tolerance_bytes": 2,
-    "negative_target1x1_rejected": "invalid or oversized diagnostic cases",
-    "actual_mirror_vs_clamp_distinguishes_all_RGBA": true,
-    "browser": "145.0.7632.6",
-    "capabilities": {
-      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
-      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    "status": "ACCEPT_CONDITIONAL_MIXED_MERGE_AND_EXPLICIT_CHAIN_ONLY",
+    "accepted_scope": "Explicit mixed POINT/LINEAR mirror LOD0 pixel diagnostic and host-supplied-prepass three-radial-plus-merge chain only",
+    "fresh_python_tests": 12,
+    "fresh_godot_assertions": 224,
+    "independent_cases": 126,
+    "default_cases": 50,
+    "chain_states": 6,
+    "rgba_channel_comparisons": 25264,
+    "maximum_byte_error": 1,
+    "preset_tolerance_bytes": 2,
+    "valid_external_8x6_override_passed": true,
+    "reverse_update_exact": true,
+    "invalid_packs_rejected": {
+      "negative": "invalid or oversized diagnostic cases",
+      "malformed-chain": "invalid or oversized conditional chain",
+      "oversized-chain": "invalid or oversized conditional chain"
     },
-    "scope": "REAL_GODOT4.7.2_WEBGL2_ANGLE_SWIFTSHADER_COMPILED_SHADER_READBACK_NOT_NATIVE_RENDERGRAPH_OR_HARDWAREGPU",
-    "gpu_sha256": "761216e74328cde5a5e3f6feeb8cbdf28a807f51993c7f530ad5f7a82093f553",
+    "protected105_exact": true,
+    "readonly1493_exact": true,
+    "original_frozen114_untouched": true,
+    "review": "Initial independent114-source review found R1 in malformed dimension self-test; parent repaired one function; exact newSHA independently re-reviewed NO_MUST_FIX; fresh parentruntime/WebGL complete",
+    "repair_sha256": "27614898c1c2e483d295750a33064f292314dc4af87bd6059d149c47e2822286",
+    "preserved_failures": [
+      "Initial child mixed-texture-tamper numeric failure and later successful byte-distinguishing fixture retained",
+      "R1 fixed8x6 dimension negative could be a no-op; fixed only in isolated parentseed, originalcandidate immutable",
+      "Initial parentcompare-v1 source and readbacks retained alongside repairedv2"
+    ],
+    "remaining": [
+      "Native target dimensions/formats/sRGB/blend/views/aliasallocation",
+      "Default prepass math and native allocation/factoryCreate identity",
+      "IRad/defaultclock/lifetime and native dynamic graph/rebindings",
+      "D3D hardware fixedpoint nearboundary precision vs diagnosticf32 convention",
+      "Original action31567/P3-02/all96 visuals and actual native passgraph"
+    ],
     "rendering_accepted": false,
-    "all96_accepted": false,
-    "evidence": "reports/top-ring-mirror-51051/parent-gpu-comparison-v1.json",
-    "contact_sheet": "reports/top-ring-mirror-51051/actual-vs-oracle-contact.png",
-    "focused_review": "claude-sonnet-5-5 subscription33.39s NO_MUST_FIX two frozen shader/helper files only; parent matched pins",
-    "parent_checker_failure_preserved": "v1 assumed results array for early invalid input; separate v2 negative-only check; no source fix required"
+    "all96_accepted": false
   }
 }

@@ -2,12 +2,13 @@
 import argparse, hashlib, json, math, os, struct, uuid
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED = "a13b8ca3300f0fab7556310759b00d5076f220d9425e23dbf55781676f2aa5db"
-DEFAULT_INPUTS = Path("D:/Dev/OpenClawCodexBridge/probes/top-ring-mirror-51051/inputs.json")
-PRIVATE = ROOT / "top/assets/official/top-ring-mirror-51051"
+EXPECTED = "b4e559dbf5d98e132ea25686902da487cfd6213a9c366e9e5b1bcf1ff6e0ff9d"
+DEFAULT_INPUTS = Path("D:/Dev/OpenClawCodexBridge/probes/top-ring-mixed-51061/inputs.json")
+PRIVATE = ROOT / "top/assets/official/top-ring-mixed-51061"
 POLICY = "linear_clamp_explicit"
 MIRROR_POLICY = "native_radial_0x265_mirror_lod0"
-POLICIES = [POLICY, MIRROR_POLICY]
+MIXED_POLICY = "native_merge_0x25_point_0x265_linear_mirror_lod0"
+POLICIES = [POLICY, MIRROR_POLICY, MIXED_POLICY]
 WEB_TEMPLATE = Path("D:/Dev/OpenClawCodexBridge/probes/top-visual-50859-render/web_nothreads_release.zip")
 WEB_TEMPLATE_SHA = "d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0"
 SOURCES = ["top/materials/original_radial_blur.gdshader", "top/materials/original_donut_merge.gdshader", "top/scripts/original_radial_kernels.gd", "tools/asset_lab/prepare_radial_kernels.py", "tools/asset_lab/run_radial_kernels.py", "tools/asset_lab/test_radial_kernels.gd", "tests/test_radial_kernels.py", "docs/asset-lab/RADIAL_KERNELS.md", "docs/asset-lab/radial-kernels.json"]
@@ -32,12 +33,12 @@ def validate(inputs, digest):
     if not inputs.is_absolute() or digest != EXPECTED or sha(inputs) != digest:
         raise ValueError("frozen absolute manifest/hash required")
     m = json.loads(inputs.read_bytes())
-    if len(m["source_lf_sha256"]) != 106:
+    if len(m["source_lf_sha256"]) != 105:
         raise ValueError("protected cardinality")
-    if set(m["new_files"]) != set(SOURCES) - {SOURCES[1]} or len(m["new_files"]) != 8:
-        raise ValueError("eight writable paths required")
-    if set(m["source_lf_sha256"]) & set(m["new_files"]) or SOURCES[1] not in m["source_lf_sha256"]:
-        raise ValueError("protected/writable partition or immutable merge")
+    if set(m["new_files"]) != set(SOURCES) or len(m["new_files"]) != 9:
+        raise ValueError("nine writable paths required")
+    if set(m["source_lf_sha256"]) & set(m["new_files"]):
+        raise ValueError("protected/writable partition")
     for name, pin in m["source_lf_sha256"].items():
         if sha(ROOT/name, True) != pin:
             raise ValueError("protected LF mismatch: " + name)
@@ -94,12 +95,46 @@ def merge(uv,radii,payload,viewport,base,other):
     a,b=base(coord),other(coord)
     return [add(a[j],mul(f,add(b[j],-a[j]))) for j in range(4)]
 
+def point_sample(spec, uv):
+    """Diagnostic f32 scaled coordinate then floor, integer MIRROR at LOD0.
+
+    Exact integer boundaries are normative; general hardware fixed-point precision
+    is not modeled. Bounds keep every floor/int/address operation safe.
+    """
+    dims=spec["size"]
+    if len(dims)!=2 or any(type(n) is not int or not 1<=n<=4096 for n in dims):
+        raise ValueError("point dimensions")
+    if len(uv)!=2 or any(abs(f32(v))>16 for v in uv): raise ValueError("point coordinate domain")
+    index=[]
+    for v,n in zip(uv,dims):
+        r=math.floor(mul(v,n))%(2*n)
+        index.append(r if r<n else 2*n-1-r)
+    offset=4*(index[1]*dims[0]+index[0])
+    return [div(v,255.) for v in spec["rgba8"][offset:offset+4]]
+
+
+def merge_image(row, base, other, all_linear=False):
+    width,height=row["target_size"]; result=[]
+    policy=row["sampler_policy"]
+    if policy not in [POLICY,MIXED_POLICY]: raise ValueError("merge-only policy")
+    for y in range(height):
+        for x in range(width):
+            uv=[add(mul(div(v+.5,n),row["uv_rect"][j]),row["uv_rect"][j+2])
+                for j,(v,n) in enumerate(((x,width),(y,height)))]
+            mixed=policy==MIXED_POLICY
+            rgba=merge(uv,row["radii"],row["merge_param"],row["viewport"],
+                lambda c: point_sample(base,c) if mixed and not all_linear else linear_sample(base,c,MIRROR_POLICY if mixed else POLICY),
+                lambda c: linear_sample(other,c,MIRROR_POLICY if mixed else POLICY))
+            result.extend(int(math.floor(sat(v)*255.+.5)) for v in rgba)
+    return result
+
+
 def linear_sample(spec, uv, policy):
     """LOD0 texel-center reference; integer MIRROR, never REPEAT.
 
     Explicit f32 interpolation models shader ALU, not D3D hardware filter precision.
     """
-    if policy not in POLICIES: raise ValueError("explicit sampler policy required")
+    if policy not in [POLICY,MIRROR_POLICY]: raise ValueError("explicit sampler policy required")
     width,height=spec["size"]
     p=[add(mul(uv[j],n),-.5) for j,n in enumerate((width,height))]
     lo=[math.floor(v) for v in p]; f=[add(p[j],-lo[j]) for j in range(2)]
@@ -140,12 +175,50 @@ def cases():
     for name,width,height in [("odd",7,5),("single",1,1),("column",1,5),("row",7,1)]:
         textures[name]={"size":[width,height],"rgba8":[v for y in range(height) for x in range(width)
             for v in [(x*37+y*13+17)%256,(x*x*19+y*43+31)%256,(x*53+y*y*23+71)%256,(x*29+y*47+97)%256]]}
-        for policy in POLICIES:
+        for policy in [POLICY, MIRROR_POLICY]:
             for sign in [1,-1]:
                 result.append(dict(common,id=f"{name}-{policy}-{sign}",kind="radial",s_input=name,
                     s_input_size=[width,height],sampler_policy=policy,radial=[.37,.62,.5,-.3],
                     viewport=[sign*4.,sign*3.,16.,16.],uv_rect=[1.5,1.5,-.25,-.25]))
+    textures["pair"]={"size":[2,1],"rgba8":[13,39,71,103,239,193,157,211]}
+    # Constant UV explicitly reaches sample coord after saturation * viewport.
+    for i,coord in enumerate([-.5,-1.,0.,1.,2.,-.5-1/128,-.5+1/128,-1/128,1/128,1.-1/128,1.+1/128,2.-1/128,2.+1/128]):
+        result.append(dict(common,id=f"mixed-boundary-{i}",kind="merge",sampler_policy=MIXED_POLICY,
+            s_input="pair",s_input_size=[2,1],s_merge="odd",s_merge_size=[7,5],
+            uv_rect=[0.,0.,1.,.5],viewport=[coord,1.,0.,0.],radii=[-1.,1.,-2.,2.],merge_param=[1.,.5,0.,0.]))
+    for name in ["odd","single","column","row"]:
+        for strength in [0.,1.,.375]:
+            result.append(dict(common,id=f"mixed-{name}-{strength}",kind="merge",sampler_policy=MIXED_POLICY,
+                s_input=name,s_input_size=textures[name]["size"],s_merge="b",s_merge_size=[8,6],
+                viewport=[-3.,2.,0.,0.],radii=[-.21,.35,-.72,.6],merge_param=[.4,.6,1.25,strength]))
+    for strength in [0.,1.,.375]:
+        result.append(dict(common,id=f"mixed-exact-factor-{strength}",kind="merge",sampler_policy=MIXED_POLICY,
+            s_input="odd",s_input_size=[7,5],s_merge="column",s_merge_size=[1,5],
+            uv_rect=[0.,0.,1.,0.],viewport=[-1.375,1.,0.,0.],radii=[-1.,1.,-2.,2.],
+            merge_param=[0.,0.,1.,strength]))
     return {"schema":1,"textures":textures,"cases":result}
+
+def chain_cases():
+    data=cases(); common=dict(data["cases"][0]); rows=[]
+    for i,(src,dst,indims,outdims) in enumerate([
+        ("A","B",[8,6],[7,5]),("B","A",[7,5],[6,4]),("A","B",[6,4],[5,3])]):
+        rows.append(dict(common,id=f"chain-initial-{i}",kind="radial",s_input=src,output=dst,
+            s_input_size=indims,target_size=outdims,sampler_policy=MIRROR_POLICY,
+            radial=[.37,.62,.5,.2+i*.1],viewport=[1.,1.,1.,1.],uv_rect=[1.,1.,0.,0.]))
+    rows.append(dict(common,id="chain-initial-merge",kind="merge",s_input="I",s_input_size=[7,5],
+        s_merge="B",s_merge_size=[5,3],output="output",target_size=[9,7],
+        sampler_policy=MIXED_POLICY,radii=[-.21,.35,-.72,.6],merge_param=[.4,.6,1.25,.75],
+        viewport=[-2.,1.5,0.,0.],uv_rect=[1.,1.,0.,0.]))
+    forward=json.loads(json.dumps(rows))
+    for i,row in enumerate(forward):
+        row["id"]=f"chain-forward-{i}"
+        row["viewport"]=[-.75,1.25,1.,1.]
+        if i<3: row["radial"]=[.2,.7,.75,-.2]
+        else: row["merge_param"]=[.6,.3,.75,.375]
+    return {"schema":1,"textures":{"I":data["textures"]["odd"],"A":data["textures"]["a"]},
+        "cases":[{"id":"conditional-chain", "provenance":"CONDITIONAL_HOST_SUPPLIED_PREPASS_AND_TARGETS_NOT_NATIVE_GRAPH",
+                   "initial":rows,"forward":forward}]}
+
 
 def prepare(out):
     if sha(WEB_TEMPLATE) != WEB_TEMPLATE_SHA: raise ValueError("pinned private Web template mismatch")
@@ -158,10 +231,11 @@ def prepare(out):
     atomic(project/"test.gd",(ROOT/"tools/asset_lab/test_radial_kernels.gd").read_bytes())
     atomic(project/"cases.json",cases())
     atomic(project/"numeric_cases.json",cases())
+    atomic(project/"chain_cases.json",chain_cases())
     atomic(project/"main.tscn", '[gd_scene load_steps=2 format=3]\n[ext_resource type="Script" path="res://test.gd" id="1"]\n[node name="PrivateRadialReadback" type="Node"]\nscript = ExtResource("1")\n')
     atomic(project/"project.godot", '[application]\nconfig/name="Private radial kernel readback"\nrun/main_scene="res://main.tscn"\n[display]\nwindow/size/viewport_width=32\nwindow/size/viewport_height=32\n[debug]\nfile_logging/enable_file_logging=false\n[rendering]\nrenderer/rendering_method="gl_compatibility"\nrenderer/rendering_method.mobile="gl_compatibility"\ntextures/default_filters/use_nearest_mipmap_filter=false\n')
     atomic(project/"export_presets.cfg", '[preset.0]\nname="Web"\nplatform="Web"\nrunnable=true\nexport_filter="all_resources"\nexclude_filter=""\ninclude_filter="*.json"\n[preset.0.options]\ncustom_template/release="D:/Dev/OpenClawCodexBridge/probes/top-visual-50859-render/web_nothreads_release.zip"\nvariant/extensions_support=false\nvariant/thread_support=false\nhtml/canvas_resize_policy=0\nprogressive_web_app/enabled=false\n')
-    result={"project":str(project),"synthetic_diagnostics_only":True,"raster_verified":False,"policies":POLICIES,"diagnostic_sources":SOURCES,"new_files":[s for s in SOURCES if s != SOURCES[1]],"files":{str(p.relative_to(project)):sha(p) for p in project.rglob("*") if p.is_file()}}
+    result={"project":str(project),"synthetic_diagnostics_only":True,"raster_verified":False,"policies":POLICIES,"diagnostic_sources":SOURCES,"new_files":SOURCES,"files":{str(p.relative_to(project)):sha(p) for p in project.rglob("*") if p.is_file()}}
     atomic(out/"prepared.json",result)
     return result
 
