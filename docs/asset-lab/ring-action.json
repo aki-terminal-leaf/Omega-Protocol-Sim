@@ -1,0 +1,1 @@
+{"schema":1,"action":31567,"unit":"P3-02","scope":"FIRST_ATOMIC_ACTION_NOT_WHOLE_P3_02","source_status":"BLOCKED","rendering_accepted":false,"all96_accepted":false,"inspection_end_native_units":90,"clock_conversion":"CONDITIONAL_30_UNITS_PER_SECOND","minimal_blocker":"active Emit1 -> Efct0 type7 unsupported","parent_visual_review":"REQUIRED"}
