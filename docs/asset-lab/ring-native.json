@@ -8462,5 +8462,1275 @@
       }
     },
     "status": "STATIC_PARTIAL"
+  },
+  "gpu_bridge_audit": {
+  "schema": 1,
+  "status": "STATIC_PARTIAL",
+  "binary_sha256": "46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a",
+  "handoff_sha256": "01babeee2fc6ed4026c8a567914088fd93d3be0e218de15083313570261586ad",
+  "rendering_accepted": false,
+  "all96_accepted": false,
+  "claims": [
+    {
+      "id": "radial-sampler",
+      "status": "PROVED_STATIC",
+      "claim": "36ef90 writes packed 0x265 for each radial sInput. 22cdc0 resolves the reflected register and calls 2387b0; cache miss constructs a 52-byte native sampler descriptor and calls device+0xb8. Filter=0x14 (MIN_MAG_LINEAR_MIP_POINT), AddressU=2 MIRROR, AddressV=2 MIRROR, AddressW=3 CLAMP, MipLODBias=0, MaxAnisotropy=1, ComparisonFunc=1 NEVER, BorderColor=(0,0,0,0), MinLOD=MaxLOD=0. This is not the diagnostic linear_clamp_explicit policy. Cache hit returns the descriptor object keyed by the full packed word.",
+      "raw_sources": [
+        "0x14036f106",
+        "0x14036f297",
+        "0x14036f427",
+        "0x14022cf0f",
+        "0x140238822",
+        "0x14023891b",
+        "0x142143d90",
+        "0x142143db0",
+        "0x142143dc0"
+      ]
+    },
+    {
+      "id": "concrete-target-setup",
+      "status": "PROVED_STATIC",
+      "claim": "356960 preserves receiver in R14; at 35a577..35a590 it loads C=[[G+570]+8], A=[G+4080], B=[G+4088] and calls 36ef90 DIRECTLY. This closes an actual caller without relying on virtual+30 coincidence. The first collection element E0=[[G+570]+0] takes sInput=[G+4010] via348080 and output0=A via3477f0, before the three C radial passes. Its initializer descriptor literal is Default.shcd; no new shader extraction or Default math claim. A is therefore a scratch/intermediate route, not identified as the original scene.",
+      "raw_sources": [
+        "0x14035698e",
+        "0x14035a4f0",
+        "0x14035a55a",
+        "0x14035a572",
+        "0x14035a590",
+        "0x14034782e",
+        "0x1403480f8",
+        "0x140348102",
+        "0x140355f64",
+        "0x142159fa8"
+      ]
+    },
+    {
+      "id": "merge-wiring",
+      "status": "PROVED_STATIC",
+      "claim": "After36ef90,35a5ef calls348080(C,sInput,[G+4010],packed-word-pointer),35a651 calls347fb0(C,sMerge1,B,packed-word-pointer),35a66a calls3477f0(C,0,[G+4078]). Named helpers write sampler entry+18 and texture entry+8;348080 additionally writes C+28 as the primary dimension source;347fb0 does not. Both merge samplers are explicitly set, not merely inherited. Their words come from377920: sInput stack argument5=0, sMerge1 argument5=9; common RDX=1,R8=1,R9=2, float argument6=XMM6, remaining arguments=0. Exact builder decode and native merge descriptors remain UNKNOWN. No inference that they equal each other or0x265.",
+      "raw_sources": [
+        "0x14035a595",
+        "0x14035a5cd",
+        "0x14035a5ef",
+        "0x14035a62c",
+        "0x14035a651",
+        "0x14035a66a",
+        "0x140347fb0",
+        "0x140348080",
+        "0x14215aa2c",
+        "0x14215aa40"
+      ]
+    },
+    {
+      "id": "dynamic-target-rebinding",
+      "status": "PROVED_STATIC",
+      "claim": "In35c580,when G+4470 bit9 is enabled,35da36 calls349e00(G+568,current-chain-texture T).349e00 replaces matching old collection-input references in each element texture entry and element+28, then stores T at collection+18.35da3b..35da5b select merge output O=[G+4010] if T differs from it, otherwise O=[G+4078], and349f00 writes last nonnull collection element+38. Initial static bindings are consequently not immutable frame identities. Upstream provenance of T, actual allocations, dimensions and formats remain open.",
+      "raw_sources": [
+        "0x14035da1c",
+        "0x14035da36",
+        "0x14035da5b",
+        "0x140349e00",
+        "0x140349f00"
+      ]
+    },
+    {
+      "id": "small-CB-upload",
+      "status": "PROVED_STATIC_SHARED_ABI",
+      "claim": "239a80 uses max(snapshot vector count n, reflected extent e), not min: CMP r8d,eax; CMOVA eax,r8d. Exponent k=ceil(log2(max(n,e))) selects pool M+18+0x50*(4*k+((binding>>32)&3)); k<12 takes238bc0.2390b0 creates twelve size bins, four category pools per bin, four dynamic constant buffers per pool, ByteWidth=16*(1<<k), Usage=2, BindFlags=4, CPUAccessFlags=0x10000, MiscFlags=StructureByteStride=0. For n=e=1/2/3 allocations are16/32/64 bytes.238bc0 cache miss takes CPU pointer from snapshot[0], selects native resource pool[slot], Map(resource,subresource0,WRITE_DISCARD4,flags0), copies n*16 bytes to mapped.pData through141da7ec0, Unmaps subresource0, returns slot and resource. Cache hit reuses resource by CPU-pointer key. Copy has no resource offset; no range-CB API or padded-tail zeroing is proved.",
+      "raw_sources": [
+        "0x140239a8c",
+        "0x140239aa7",
+        "0x140239aaa",
+        "0x140239b90",
+        "0x140239110",
+        "0x140239156",
+        "0x140239198",
+        "0x140238bce",
+        "0x140238c8b",
+        "0x140238cb3",
+        "0x140238cc6",
+        "0x140238cd7",
+        "0x141da7fe0",
+        "0x143191040",
+        "0x143191088"
+      ]
+    },
+    {
+      "id": "pending-state-submission",
+      "status": "PROVED_STATIC_SHARED_ABI",
+      "claim": "239a80 writes selected resource to pending CB array and sets the reflected-slot bit.241bf0 calls239a80 then240c60.240c60 computes changed slot interval, clears removed bindings, submits native context+0x80 PSSetConstantBuffers(start,count,array), and updates masks.22cdc0 stages SRVs and sampler objects then tailcalls240d50;240d50 submits context+0x40 PSSetShaderResources then+0x50 PSSetSamplers over changed ranges, including null clears.22d750 invokes241bf0 then22cdc0;2349c0 case5 follows with topology and Draw. This proves API call ordering on the shared route, not GPU completion or concrete original-resource execution.",
+      "raw_sources": [
+        "0x140239bcb",
+        "0x140241dc3",
+        "0x140241df3",
+        "0x140240c60",
+        "0x140240d38",
+        "0x14022cf0f",
+        "0x14022cfcc",
+        "0x140240e07",
+        "0x140240e9f",
+        "0x14022d91a",
+        "0x14022d92a",
+        "0x1402349c0"
+      ]
+    },
+    {
+      "id": "factory-edge-narrowed",
+      "status": "PROVED_STATIC_PARTIAL",
+      "claim": "347120 requests type0x73686364 through2fed30;2fed30 returns315270 result unchanged.315270 first looks up319a80; on miss it calls31b7b0 and retains returned pointer in RBX through return.31b7b0 searches a tree by exact file-type key; matching node+28 is a factory object, whose vtable+8 is tail-dispatched. Its fallback installs a DIFFERENT generic table14214fdd0, not1421520a8.323230 independently installs1421520a8 into its receiver, initializes+b8=-1,+b0=0,+bc=0, returns the same receiver. The shcd-key factory registration/create method that connects31b82d to323230 is still UNKNOWN; cache-hit identity is also not closed. Upstream class name is a hypothesis, never a returned-object identity proof.",
+      "raw_sources": [
+        "0x140347325",
+        "0x140347343",
+        "0x1402feda8",
+        "0x1403152d8",
+        "0x14031530b",
+        "0x1403154f5",
+        "0x14031b7d8",
+        "0x14031b82d",
+        "0x14031b871",
+        "0x140323252",
+        "0x140323263"
+      ]
+    }
+  ],
+  "refutations": [
+    "Explicit linear_clamp test policy is not native: radial0x265 uses U/V MIRROR, not CLAMP.",
+    "HLSL mode_default does not select native sampler policy.",
+    "Actual located setup call35a590 is direct; no virtual-offset inference needed.",
+    "A is not established as original scene; E0 writes A and merge input is separately rebound.",
+    "Merge sampler state is explicitly supplied; same policy cannot be inferred because377920 argument5 differs.",
+    "Historical description of reflected CB extent as a bound is refined:239aaa selects max(n,e) for pool sizing, while upload copies n*16.",
+    "Small CB path is independently decoded; large-buffer Map/Unmap is not its evidence.",
+    "Constructor323230/table1421520a8 does not establish31b7b0 returned-object identity.",
+    "No diagnostic pixel result is promoted to original visuals/native renderer/all96 acceptance."
+  ],
+  "implementation_contract": {
+    "sufficient_for_faithful_end_to_end_renderer": false,
+    "route_scope": "Concrete setup and pointer wiring; shared ABI for native submission remains conditional on actual returned shader handle and valid installed kernel shader.",
+    "symbols": {
+      "G": "previously established receiver; entry RCX of356960/35c580",
+      "E0": "[[G+570]+0]",
+      "C": "[[G+570]+8]",
+      "A": "[G+4080]",
+      "B": "[G+4088]",
+      "T": "current-chain input entering35da36",
+      "O": "[G+4010] if T != [G+4010], otherwise [G+4078]"
+    },
+    "pass_graph": [
+      {
+        "pass": "prepass",
+        "receiver": "E0",
+        "input": "initial [G+4010], subsequently T through349e00",
+        "output": "A",
+        "shader_descriptor": "shader/sm5/posteffect/Default.shcd",
+        "shader_math": "UNKNOWN / not audited",
+        "sampler": "377920 argument5=9; exact packed result UNKNOWN"
+      },
+      {
+        "pass": "radial0",
+        "receiver": "C+a0",
+        "input": "A",
+        "output": "B",
+        "pixel_bindings": "b0 viewport32,b1 radial16,t0/s0 input",
+        "sampler_packed": "0x265"
+      },
+      {
+        "pass": "radial1",
+        "receiver": "C+140",
+        "input": "B",
+        "output": "A",
+        "pixel_bindings": "b0 viewport32,b1 radial16,t0/s0 input",
+        "sampler_packed": "0x265"
+      },
+      {
+        "pass": "radial2",
+        "receiver": "C+1e0",
+        "input": "A",
+        "output": "B",
+        "pixel_bindings": "b0 viewport32,b1 radial16,t0/s0 input",
+        "sampler_packed": "0x265"
+      },
+      {
+        "pass": "merge",
+        "receiver": "C",
+        "input_t0": "initial [G+4010], subsequently T",
+        "input_t1": "B",
+        "output": "initial [G+4078], subsequently O",
+        "pixel_bindings": "b0 viewport32,b1 merge32,t0/s0 sInput,t1/s1 sMerge1",
+        "samplers": "explicitly set by377920, argument5 differs 0 vs9; exact descriptors UNKNOWN"
+      }
+    ],
+    "vertex_binding": {
+      "shader": "accepted shared VSSampling1",
+      "b0_payload_bytes": 48,
+      "small_pool_allocation_bytes": 64,
+      "tail16": "not proved initialized; shader reads only payload"
+    },
+    "radial_sampler_descriptor": {
+      "Filter": 20,
+      "AddressU": 2,
+      "AddressV": 2,
+      "AddressW": 3,
+      "MipLODBias": 0,
+      "MaxAnisotropy": 1,
+      "ComparisonFunc": 1,
+      "BorderColor": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "MinLOD": 0,
+      "MaxLOD": 0
+    },
+    "sampler_decode": {
+      "p": "u32 packed word",
+      "filter": "if ((p>>6)&15)==15:0x55; else ((p>>8)&1)|((p>>7)&4)|((p>>2)&16)|(0x80 if p>>28 !=0 else0)",
+      "addresses": "U=(p&3)+1,V=((p>>2)&3)+1,W=((p>>4)&3)+1",
+      "bias": "sign_extend_10((p>>10)&1023) * f32(1/32)",
+      "anisotropy": "[1,2,4,6,8,10,12,16][(p>>24)&7]",
+      "comparison": "(p>>28)+1",
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "min_lod": "f32((p>>20)&15)",
+      "max_lod": "FLT_MAX bits0x7f7fffff if p&0x180 else min_lod",
+      "bit27": "not read by descriptor construction"
+    },
+    "target_dimensions": {
+      "status": "PARTIAL",
+      "route": "346630 uses S+28 primary input: texture+38/+3c logical W/H, +40/+44 allocated W/H; S+38 output0 supplies viewport dimensions. Radial S+28=A/B/A; merge S+28=initial [G+4010] then T. Preserve accepted ratio and reciprocal-subtraction ordering.",
+      "concrete_numeric_dimensions": "UNKNOWN",
+      "allocation_extent_and_format": "UNKNOWN",
+      "color_space_and_view_format": "UNKNOWN",
+      "aliasing": "field names do not establish distinct underlying GPU resources",
+      "raw_sources": [
+        "0x14034671c",
+        "0x1403467c6",
+        "0x1403467de",
+        "0x140348102"
+      ]
+    },
+    "CB_sequence": [
+      "accepted CPU staging and snapshot capture",
+      "239a80 selects ceil-power-of-two pool using max(n,e)",
+      "238bc0 pointer-cache lookup; miss Map WRITE_DISCARD, copy n*16, Unmap",
+      "pending reflected-slot CB write",
+      "240c60 PSSetConstantBuffers whole resources",
+      "22cdc0 resolves texture/sampler reflected slots",
+      "240d50 PSSetShaderResources then PSSetSamplers",
+      "2349c0 case5 Draw after22d750 returns"
+    ],
+    "upload_not_completion": true,
+    "explicit_linear_clamp_explicit_raw_RGBA8": "TEST policy only; not native sampler/format acceptance",
+    "parameter_math_reference": "Unmodified shader_contract_audit.implementation_contract; no shader math/oracle rerun."
+  },
+  "remaining_dependencies": [
+    {
+      "edge": "377920 pack builder -> exact merge/prepass sampler words",
+      "status": "UNKNOWN",
+      "next_source": "140377920 complete body reached at35a53d,35a5d2,35a634; argument5=9,0,9 respectively. Do not assume same descriptor.",
+      "counterevidence": "Merge sInput argument5 differs from radial-like calls and sMerge1."
+    },
+    {
+      "edge": "G+4080/+4088/+4010/+4078 producer -> allocation dimensions/native format/views",
+      "status": "UNKNOWN",
+      "next_source": "Exact stores/returned texture objects into these four receiver fields; then their creation descriptor and SRV/RTV format route. Existing setup reads them but does not allocate them.",
+      "counterevidence": "A is populated by E0 before radial0;3566e0 concerns G+650. No RGBA8 or full-resolution assumption."
+    },
+    {
+      "edge": "upstream current-chain T -> original frame identity and alias-safe output",
+      "status": "UNKNOWN",
+      "next_source": "35c580 normal CFG predecessors of35da2c and texture-field producer calls, retaining conditional flags.",
+      "counterevidence": "35da36 and35da5b rebind input/output per current chain; initial setup is not final frame ownership."
+    },
+    {
+      "edge": "31b7b0 shcd-key node+28 factory vtable+8 ->323230 receiver",
+      "status": "UNKNOWN",
+      "next_source": "Registration of type0x73686364 in the manager factory tree, then actual registered Create method and return alias; separately319a80 cache entries.",
+      "counterevidence": "Fallback31b871 installs14214fdd0; finding323230 alone does not link the returned handle."
+    },
+    {
+      "edge": "concrete resource manager/kernel instance -> shared upload/binder ABI",
+      "status": "CONDITIONAL_SHARED_ABI",
+      "next_source": "Factory identity above and native device/context ownership; shared methods and exact API calls are established, runtime success is not.",
+      "counterevidence": "No game process or GPU completion evidence in this task."
+    },
+    {
+      "edge": "absent IRad/defaults/clock/lifetime",
+      "status": "OPEN",
+      "next_source": "Parent original-input/lifetime work; unchanged from prior accepted audits.",
+      "counterevidence": "No30Hz, absent-input fallback or default-value assumption."
+    }
+  ],
+  "new_spans": [
+    {
+      "va": "0x1402387b0",
+      "bytes": 610,
+      "kind": "CODE",
+      "sha256": "54c5b7ce1f7c66113b0ee8e7d37c445b4cb3ef927e6e53f00ef6a2b4a666b2e8",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x1402387b0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges1-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140238bc0",
+      "bytes": 354,
+      "kind": "CODE",
+      "sha256": "48334f220563297f6555a4b50d1ba8a63ba4d765f7cfeb5ea70ed7e75f502a76",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140238bc0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges1-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140240c60",
+      "bytes": 238,
+      "kind": "CODE",
+      "sha256": "506168e58ef5efc559aeaea95d875e896d02f8302c4d3974f7f472875b810cf3",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140240c60.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges1-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140240d50",
+      "bytes": 369,
+      "kind": "CODE",
+      "sha256": "495529faa096cd4040d263bccba0ec61f6d08a0116c3d671eb99b782755f1507",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140240d50.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges1-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x142143d90",
+      "bytes": 48,
+      "kind": "METADATA",
+      "sha256": "3672fda9c90a14c0bb9d36ca19fe1549f57af40cf1df93069c27cf78cf302dfe",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x142143d90.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges2-receipt.json"
+    },
+    {
+      "va": "0x1402fed30",
+      "bytes": 146,
+      "kind": "CODE",
+      "sha256": "099a3faf44d067974952145deb980fee8d8efbcf66e79578aabc3bb1cd555eec",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x1402fed30.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges2-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x141da7ec0",
+      "bytes": 1653,
+      "kind": "CODE",
+      "sha256": "53295b71a5f50197aebba0f4011b764b555bca5077c7e72ec503cb2374540cc2",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x141da7ec0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges2-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140315270",
+      "bytes": 672,
+      "kind": "CODE",
+      "sha256": "f99b29954b868b22efe3fb477ff07163770295b0258b70d55f7c0078db5495b6",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140315270.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges3-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x14031b7b0",
+      "bytes": 253,
+      "kind": "CODE",
+      "sha256": "44d1a35238d49becfed67d19ab0beee2e07a4a6e69d2799bb834ea54265cf077",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x14031b7b0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges4-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140238a40",
+      "bytes": 207,
+      "kind": "CODE",
+      "sha256": "f657e4d3fa6dccf74ecb84556e54e2b3c80d0a47c989fb83973cb3d55d830b32",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140238a40.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges5-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140349c50",
+      "bytes": 165,
+      "kind": "CODE",
+      "sha256": "51f9cef5ed947482e88767bee935d2f39c849f8fe1fdeb766e9b8efbb6d31f0b",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140349c50.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges5-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x142143dc0",
+      "bytes": 4,
+      "kind": "METADATA",
+      "sha256": "6048235e823ffe3c303299c2d9ad4cbd9e5ec680a5dc19c9c4eb97538ea6498f",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x142143dc0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges5-receipt.json"
+    },
+    {
+      "va": "0x143191040",
+      "bytes": 36,
+      "kind": "METADATA",
+      "sha256": "7a3844f14e7ca5f791aff2345a6749108d625197bf7559bd082e6e53861b5eb8",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x143191040.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges5-receipt.json"
+    },
+    {
+      "va": "0x143191088",
+      "bytes": 36,
+      "kind": "METADATA",
+      "sha256": "c10a71ba77c879e0fe69b653bb4d479687e25ff2bce6b314448a1f79e34ec25f",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x143191088.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges5-receipt.json"
+    },
+    {
+      "va": "0x140349d00",
+      "bytes": 160,
+      "kind": "CODE",
+      "sha256": "22853425ed6995c70a1736609836df5617e589f2d8fb2136199be642f4f8afb0",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140349d00.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges6-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140323230",
+      "bytes": 78,
+      "kind": "CODE",
+      "sha256": "a3580b79ca19b66d4a710cf48a35f6cbd9007f5e2da96c1a3a2890374addbd28",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140323230.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges7-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140349da0",
+      "bytes": 512,
+      "kind": "CODE",
+      "sha256": "00aac411b38037e5935430e7e0fe11e894aea061f7730b090c464d9150860712",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140349da0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/edges8-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x1402390b0",
+      "bytes": 1306,
+      "kind": "CODE",
+      "sha256": "5b095ff57bffef2e0bd5ad797fcc2fa6360177adfaad52ce35d3cc3dce6711e9",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x1402390b0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/lastcaptures-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "kind": "CODE",
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/lastcaptures-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x1403477f0",
+      "bytes": 2752,
+      "kind": "CODE",
+      "sha256": "18ebc00869b82cb7601fdfb5341cbec88a0482d0b552d4021eb5cd000bbb49c4",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x1403477f0.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/lastcaptures-receipt.json",
+      "boundary_policy": "Raw capture extent, not a claim that padding, embedded tables, adjacent routines, or unwind-only fragments are normal reachable instructions. Claimed callsites have explicit instruction/normal-CFG witnesses."
+    },
+    {
+      "va": "0x14215aa2c",
+      "bytes": 32,
+      "kind": "METADATA",
+      "sha256": "7f7a44eacc6262c39ba05668f979fdd742f7bb31e78d1375d988d5025081bd64",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x14215aa2c.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/reviewsource-receipt.json"
+    },
+    {
+      "va": "0x14215aa40",
+      "bytes": 16,
+      "kind": "METADATA",
+      "sha256": "babdc41ed1d0ced944abe357b1ab44c572689b360abf2e912714fc1d089f705a",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x14215aa40.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/reviewsource-receipt.json"
+    },
+    {
+      "va": "0x142159fa8",
+      "bytes": 64,
+      "kind": "METADATA",
+      "sha256": "f9feb564d33659c8aad98e6648e1e54a19281ca6a66ef429719e55c047609e14",
+      "artifact": "top/assets/official/top-ring-bridge-51047/0x142159fa8.bin",
+      "receipt": "top/assets/official/top-ring-bridge-51047/validate-receipt.json"
+    }
+  ],
+  "raw_source_index": {
+    "0x14036f106": {
+      "va": "0x14036eae0",
+      "bytes": 6128,
+      "sha256": "e379b7e3348a67fc95f5c9c79c9d9ec13c011fe4b3bcd80a020820597373178f",
+      "source": "F:/SquareEnix/FINAL FANTASY XIV - A Realm Reborn/game/ffxiv_dx11.exe",
+      "instruction_va": "0x14036f106",
+      "historical": true
+    },
+    "0x14036f297": {
+      "va": "0x14036eae0",
+      "bytes": 6128,
+      "sha256": "e379b7e3348a67fc95f5c9c79c9d9ec13c011fe4b3bcd80a020820597373178f",
+      "source": "F:/SquareEnix/FINAL FANTASY XIV - A Realm Reborn/game/ffxiv_dx11.exe",
+      "instruction_va": "0x14036f297",
+      "historical": true
+    },
+    "0x14036f427": {
+      "va": "0x14036eae0",
+      "bytes": 6128,
+      "sha256": "e379b7e3348a67fc95f5c9c79c9d9ec13c011fe4b3bcd80a020820597373178f",
+      "source": "F:/SquareEnix/FINAL FANTASY XIV - A Realm Reborn/game/ffxiv_dx11.exe",
+      "instruction_va": "0x14036f427",
+      "historical": true
+    },
+    "0x14022cf0f": {
+      "va": "0x14022cdc0",
+      "bytes": 529,
+      "sha256": "f36a0556ca641bd2bbfb41e3f4a5696500f551cd65284a97bdf652379e2dad1b",
+      "source": "top/assets/official/top-ring-shader-51039/0x14022cdc0.bin",
+      "instruction_va": "0x14022cf0f",
+      "historical": true
+    },
+    "0x140238822": {
+      "va": "0x1402387b0",
+      "bytes": 610,
+      "sha256": "54c5b7ce1f7c66113b0ee8e7d37c445b4cb3ef927e6e53f00ef6a2b4a666b2e8",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1402387b0.bin",
+      "instruction_va": "0x140238822",
+      "historical": false
+    },
+    "0x14023891b": {
+      "va": "0x1402387b0",
+      "bytes": 610,
+      "sha256": "54c5b7ce1f7c66113b0ee8e7d37c445b4cb3ef927e6e53f00ef6a2b4a666b2e8",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1402387b0.bin",
+      "instruction_va": "0x14023891b",
+      "historical": false
+    },
+    "0x142143d90": {
+      "va": "0x142143d90",
+      "bytes": 48,
+      "sha256": "3672fda9c90a14c0bb9d36ca19fe1549f57af40cf1df93069c27cf78cf302dfe",
+      "source": "top/assets/official/top-ring-bridge-51047/0x142143d90.bin",
+      "instruction_va": "0x142143d90",
+      "historical": false
+    },
+    "0x142143db0": {
+      "va": "0x142143d90",
+      "bytes": 48,
+      "sha256": "3672fda9c90a14c0bb9d36ca19fe1549f57af40cf1df93069c27cf78cf302dfe",
+      "source": "top/assets/official/top-ring-bridge-51047/0x142143d90.bin",
+      "instruction_va": "0x142143db0",
+      "historical": false
+    },
+    "0x142143dc0": {
+      "va": "0x142143dc0",
+      "bytes": 4,
+      "sha256": "6048235e823ffe3c303299c2d9ad4cbd9e5ec680a5dc19c9c4eb97538ea6498f",
+      "source": "top/assets/official/top-ring-bridge-51047/0x142143dc0.bin",
+      "instruction_va": "0x142143dc0",
+      "historical": false
+    },
+    "0x14035698e": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035698e",
+      "historical": false
+    },
+    "0x14035a4f0": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a4f0",
+      "historical": false
+    },
+    "0x14035a55a": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a55a",
+      "historical": false
+    },
+    "0x14035a572": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a572",
+      "historical": false
+    },
+    "0x14035a590": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a590",
+      "historical": false
+    },
+    "0x14034782e": {
+      "va": "0x1403477f0",
+      "bytes": 2752,
+      "sha256": "18ebc00869b82cb7601fdfb5341cbec88a0482d0b552d4021eb5cd000bbb49c4",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1403477f0.bin",
+      "instruction_va": "0x14034782e",
+      "historical": false
+    },
+    "0x1403480f8": {
+      "va": "0x1403477f0",
+      "bytes": 2752,
+      "sha256": "18ebc00869b82cb7601fdfb5341cbec88a0482d0b552d4021eb5cd000bbb49c4",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1403477f0.bin",
+      "instruction_va": "0x1403480f8",
+      "historical": false
+    },
+    "0x140348102": {
+      "va": "0x1403477f0",
+      "bytes": 2752,
+      "sha256": "18ebc00869b82cb7601fdfb5341cbec88a0482d0b552d4021eb5cd000bbb49c4",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1403477f0.bin",
+      "instruction_va": "0x140348102",
+      "historical": false
+    },
+    "0x140355f64": {
+      "va": "0x1403540e0",
+      "bytes": 9718,
+      "sha256": "aef9ed19509fa0af5de0de28757cda229cf5f8e5bef6a31e531b05377fc524f7",
+      "source": "top/assets/official/top-ring-shader-51039/0x1403540e0.bin",
+      "instruction_va": "0x140355f64",
+      "historical": true
+    },
+    "0x142159fa8": {
+      "va": "0x142159fa8",
+      "bytes": 64,
+      "sha256": "f9feb564d33659c8aad98e6648e1e54a19281ca6a66ef429719e55c047609e14",
+      "source": "top/assets/official/top-ring-bridge-51047/0x142159fa8.bin",
+      "instruction_va": "0x142159fa8",
+      "historical": false
+    },
+    "0x14035a595": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a595",
+      "historical": false
+    },
+    "0x14035a5cd": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a5cd",
+      "historical": false
+    },
+    "0x14035a5ef": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a5ef",
+      "historical": false
+    },
+    "0x14035a62c": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a62c",
+      "historical": false
+    },
+    "0x14035a651": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a651",
+      "historical": false
+    },
+    "0x14035a66a": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035a66a",
+      "historical": false
+    },
+    "0x140347fb0": {
+      "va": "0x1403477f0",
+      "bytes": 2752,
+      "sha256": "18ebc00869b82cb7601fdfb5341cbec88a0482d0b552d4021eb5cd000bbb49c4",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1403477f0.bin",
+      "instruction_va": "0x140347fb0",
+      "historical": false
+    },
+    "0x140348080": {
+      "va": "0x1403477f0",
+      "bytes": 2752,
+      "sha256": "18ebc00869b82cb7601fdfb5341cbec88a0482d0b552d4021eb5cd000bbb49c4",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1403477f0.bin",
+      "instruction_va": "0x140348080",
+      "historical": false
+    },
+    "0x14215aa2c": {
+      "va": "0x14215aa2c",
+      "bytes": 32,
+      "sha256": "7f7a44eacc6262c39ba05668f979fdd742f7bb31e78d1375d988d5025081bd64",
+      "source": "top/assets/official/top-ring-bridge-51047/0x14215aa2c.bin",
+      "instruction_va": "0x14215aa2c",
+      "historical": false
+    },
+    "0x14215aa40": {
+      "va": "0x14215aa40",
+      "bytes": 16,
+      "sha256": "babdc41ed1d0ced944abe357b1ab44c572689b360abf2e912714fc1d089f705a",
+      "source": "top/assets/official/top-ring-bridge-51047/0x14215aa40.bin",
+      "instruction_va": "0x14215aa40",
+      "historical": false
+    },
+    "0x14035da1c": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035da1c",
+      "historical": false
+    },
+    "0x14035da36": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035da36",
+      "historical": false
+    },
+    "0x14035da5b": {
+      "va": "0x140356960",
+      "bytes": 32032,
+      "sha256": "7213a03fef92a382fa85427b89649e48838a52caeab1aef551d24f48c28602f6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140356960.bin",
+      "instruction_va": "0x14035da5b",
+      "historical": false
+    },
+    "0x140349e00": {
+      "va": "0x140349da0",
+      "bytes": 512,
+      "sha256": "00aac411b38037e5935430e7e0fe11e894aea061f7730b090c464d9150860712",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140349da0.bin",
+      "instruction_va": "0x140349e00",
+      "historical": false
+    },
+    "0x140349f00": {
+      "va": "0x140349da0",
+      "bytes": 512,
+      "sha256": "00aac411b38037e5935430e7e0fe11e894aea061f7730b090c464d9150860712",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140349da0.bin",
+      "instruction_va": "0x140349f00",
+      "historical": false
+    },
+    "0x140239a8c": {
+      "va": "0x140239a80",
+      "bytes": 364,
+      "sha256": "6d85dc7cc857b052441afa19ea3881bbfcb84d9c5fb61a4979ebff21074a7f20",
+      "source": "top/assets/official/top-ring-shader-51039/0x140239a80.bin",
+      "instruction_va": "0x140239a8c",
+      "historical": true
+    },
+    "0x140239aa7": {
+      "va": "0x140239a80",
+      "bytes": 364,
+      "sha256": "6d85dc7cc857b052441afa19ea3881bbfcb84d9c5fb61a4979ebff21074a7f20",
+      "source": "top/assets/official/top-ring-shader-51039/0x140239a80.bin",
+      "instruction_va": "0x140239aa7",
+      "historical": true
+    },
+    "0x140239aaa": {
+      "va": "0x140239a80",
+      "bytes": 364,
+      "sha256": "6d85dc7cc857b052441afa19ea3881bbfcb84d9c5fb61a4979ebff21074a7f20",
+      "source": "top/assets/official/top-ring-shader-51039/0x140239a80.bin",
+      "instruction_va": "0x140239aaa",
+      "historical": true
+    },
+    "0x140239b90": {
+      "va": "0x140239a80",
+      "bytes": 364,
+      "sha256": "6d85dc7cc857b052441afa19ea3881bbfcb84d9c5fb61a4979ebff21074a7f20",
+      "source": "top/assets/official/top-ring-shader-51039/0x140239a80.bin",
+      "instruction_va": "0x140239b90",
+      "historical": true
+    },
+    "0x140239110": {
+      "va": "0x1402390b0",
+      "bytes": 1306,
+      "sha256": "5b095ff57bffef2e0bd5ad797fcc2fa6360177adfaad52ce35d3cc3dce6711e9",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1402390b0.bin",
+      "instruction_va": "0x140239110",
+      "historical": false
+    },
+    "0x140239156": {
+      "va": "0x1402390b0",
+      "bytes": 1306,
+      "sha256": "5b095ff57bffef2e0bd5ad797fcc2fa6360177adfaad52ce35d3cc3dce6711e9",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1402390b0.bin",
+      "instruction_va": "0x140239156",
+      "historical": false
+    },
+    "0x140239198": {
+      "va": "0x1402390b0",
+      "bytes": 1306,
+      "sha256": "5b095ff57bffef2e0bd5ad797fcc2fa6360177adfaad52ce35d3cc3dce6711e9",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1402390b0.bin",
+      "instruction_va": "0x140239198",
+      "historical": false
+    },
+    "0x140238bce": {
+      "va": "0x140238bc0",
+      "bytes": 354,
+      "sha256": "48334f220563297f6555a4b50d1ba8a63ba4d765f7cfeb5ea70ed7e75f502a76",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140238bc0.bin",
+      "instruction_va": "0x140238bce",
+      "historical": false
+    },
+    "0x140238c8b": {
+      "va": "0x140238bc0",
+      "bytes": 354,
+      "sha256": "48334f220563297f6555a4b50d1ba8a63ba4d765f7cfeb5ea70ed7e75f502a76",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140238bc0.bin",
+      "instruction_va": "0x140238c8b",
+      "historical": false
+    },
+    "0x140238cb3": {
+      "va": "0x140238bc0",
+      "bytes": 354,
+      "sha256": "48334f220563297f6555a4b50d1ba8a63ba4d765f7cfeb5ea70ed7e75f502a76",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140238bc0.bin",
+      "instruction_va": "0x140238cb3",
+      "historical": false
+    },
+    "0x140238cc6": {
+      "va": "0x140238bc0",
+      "bytes": 354,
+      "sha256": "48334f220563297f6555a4b50d1ba8a63ba4d765f7cfeb5ea70ed7e75f502a76",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140238bc0.bin",
+      "instruction_va": "0x140238cc6",
+      "historical": false
+    },
+    "0x140238cd7": {
+      "va": "0x140238bc0",
+      "bytes": 354,
+      "sha256": "48334f220563297f6555a4b50d1ba8a63ba4d765f7cfeb5ea70ed7e75f502a76",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140238bc0.bin",
+      "instruction_va": "0x140238cd7",
+      "historical": false
+    },
+    "0x141da7fe0": {
+      "va": "0x141da7ec0",
+      "bytes": 1653,
+      "sha256": "53295b71a5f50197aebba0f4011b764b555bca5077c7e72ec503cb2374540cc2",
+      "source": "top/assets/official/top-ring-bridge-51047/0x141da7ec0.bin",
+      "instruction_va": "0x141da7fe0",
+      "historical": false
+    },
+    "0x143191040": {
+      "va": "0x143191040",
+      "bytes": 36,
+      "sha256": "7a3844f14e7ca5f791aff2345a6749108d625197bf7559bd082e6e53861b5eb8",
+      "source": "top/assets/official/top-ring-bridge-51047/0x143191040.bin",
+      "instruction_va": "0x143191040",
+      "historical": false
+    },
+    "0x143191088": {
+      "va": "0x143191088",
+      "bytes": 36,
+      "sha256": "c10a71ba77c879e0fe69b653bb4d479687e25ff2bce6b314448a1f79e34ec25f",
+      "source": "top/assets/official/top-ring-bridge-51047/0x143191088.bin",
+      "instruction_va": "0x143191088",
+      "historical": false
+    },
+    "0x140239bcb": {
+      "va": "0x140239a80",
+      "bytes": 364,
+      "sha256": "6d85dc7cc857b052441afa19ea3881bbfcb84d9c5fb61a4979ebff21074a7f20",
+      "source": "top/assets/official/top-ring-shader-51039/0x140239a80.bin",
+      "instruction_va": "0x140239bcb",
+      "historical": true
+    },
+    "0x140241dc3": {
+      "va": "0x140241bf0",
+      "bytes": 563,
+      "sha256": "843dd1ae03fd20084473bc971b790bd3e12959ae7fa22829df5587ac97a5c492",
+      "source": "top/assets/official/top-ring-shader-51039/0x140241bf0.bin",
+      "instruction_va": "0x140241dc3",
+      "historical": true
+    },
+    "0x140241df3": {
+      "va": "0x140241bf0",
+      "bytes": 563,
+      "sha256": "843dd1ae03fd20084473bc971b790bd3e12959ae7fa22829df5587ac97a5c492",
+      "source": "top/assets/official/top-ring-shader-51039/0x140241bf0.bin",
+      "instruction_va": "0x140241df3",
+      "historical": true
+    },
+    "0x140240c60": {
+      "va": "0x140240c60",
+      "bytes": 238,
+      "sha256": "506168e58ef5efc559aeaea95d875e896d02f8302c4d3974f7f472875b810cf3",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140240c60.bin",
+      "instruction_va": "0x140240c60",
+      "historical": false
+    },
+    "0x140240d38": {
+      "va": "0x140240c60",
+      "bytes": 238,
+      "sha256": "506168e58ef5efc559aeaea95d875e896d02f8302c4d3974f7f472875b810cf3",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140240c60.bin",
+      "instruction_va": "0x140240d38",
+      "historical": false
+    },
+    "0x14022cfcc": {
+      "va": "0x14022cdc0",
+      "bytes": 529,
+      "sha256": "f36a0556ca641bd2bbfb41e3f4a5696500f551cd65284a97bdf652379e2dad1b",
+      "source": "top/assets/official/top-ring-shader-51039/0x14022cdc0.bin",
+      "instruction_va": "0x14022cfcc",
+      "historical": true
+    },
+    "0x140240e07": {
+      "va": "0x140240d50",
+      "bytes": 369,
+      "sha256": "495529faa096cd4040d263bccba0ec61f6d08a0116c3d671eb99b782755f1507",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140240d50.bin",
+      "instruction_va": "0x140240e07",
+      "historical": false
+    },
+    "0x140240e9f": {
+      "va": "0x140240d50",
+      "bytes": 369,
+      "sha256": "495529faa096cd4040d263bccba0ec61f6d08a0116c3d671eb99b782755f1507",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140240d50.bin",
+      "instruction_va": "0x140240e9f",
+      "historical": false
+    },
+    "0x14022d91a": {
+      "va": "0x14022d750",
+      "bytes": 791,
+      "sha256": "ccddfac62c6c8e9930b8ded2ee468f9ea34ce63bde2b23123454882a5f9a03e2",
+      "source": "top/assets/official/top-ring-shader-51039/0x14022d750.bin",
+      "instruction_va": "0x14022d91a",
+      "historical": true
+    },
+    "0x14022d92a": {
+      "va": "0x14022d750",
+      "bytes": 791,
+      "sha256": "ccddfac62c6c8e9930b8ded2ee468f9ea34ce63bde2b23123454882a5f9a03e2",
+      "source": "top/assets/official/top-ring-shader-51039/0x14022d750.bin",
+      "instruction_va": "0x14022d92a",
+      "historical": true
+    },
+    "0x1402349c0": {
+      "va": "0x1402349c0",
+      "bytes": 2880,
+      "sha256": "a0785be1c5468adf6b5412d47611f3909c4cbc02a0534d1c876e4c99e8ca37d4",
+      "source": "top/assets/official/top-ring-shader-51039/0x1402349c0.bin",
+      "instruction_va": "0x1402349c0",
+      "historical": true
+    },
+    "0x140347325": {
+      "va": "0x140347120",
+      "bytes": 590,
+      "sha256": "c5ba5136d8e8ba964e1b7cc0d5230611f23aacbc5e4715c4e652f42ec2b60e71",
+      "source": "F:/SquareEnix/FINAL FANTASY XIV - A Realm Reborn/game/ffxiv_dx11.exe",
+      "instruction_va": "0x140347325",
+      "historical": true
+    },
+    "0x140347343": {
+      "va": "0x140347120",
+      "bytes": 590,
+      "sha256": "c5ba5136d8e8ba964e1b7cc0d5230611f23aacbc5e4715c4e652f42ec2b60e71",
+      "source": "F:/SquareEnix/FINAL FANTASY XIV - A Realm Reborn/game/ffxiv_dx11.exe",
+      "instruction_va": "0x140347343",
+      "historical": true
+    },
+    "0x1402feda8": {
+      "va": "0x1402fed30",
+      "bytes": 146,
+      "sha256": "099a3faf44d067974952145deb980fee8d8efbcf66e79578aabc3bb1cd555eec",
+      "source": "top/assets/official/top-ring-bridge-51047/0x1402fed30.bin",
+      "instruction_va": "0x1402feda8",
+      "historical": false
+    },
+    "0x1403152d8": {
+      "va": "0x140315270",
+      "bytes": 672,
+      "sha256": "f99b29954b868b22efe3fb477ff07163770295b0258b70d55f7c0078db5495b6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140315270.bin",
+      "instruction_va": "0x1403152d8",
+      "historical": false
+    },
+    "0x14031530b": {
+      "va": "0x140315270",
+      "bytes": 672,
+      "sha256": "f99b29954b868b22efe3fb477ff07163770295b0258b70d55f7c0078db5495b6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140315270.bin",
+      "instruction_va": "0x14031530b",
+      "historical": false
+    },
+    "0x1403154f5": {
+      "va": "0x140315270",
+      "bytes": 672,
+      "sha256": "f99b29954b868b22efe3fb477ff07163770295b0258b70d55f7c0078db5495b6",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140315270.bin",
+      "instruction_va": "0x1403154f5",
+      "historical": false
+    },
+    "0x14031b7d8": {
+      "va": "0x14031b7b0",
+      "bytes": 253,
+      "sha256": "44d1a35238d49becfed67d19ab0beee2e07a4a6e69d2799bb834ea54265cf077",
+      "source": "top/assets/official/top-ring-bridge-51047/0x14031b7b0.bin",
+      "instruction_va": "0x14031b7d8",
+      "historical": false
+    },
+    "0x14031b82d": {
+      "va": "0x14031b7b0",
+      "bytes": 253,
+      "sha256": "44d1a35238d49becfed67d19ab0beee2e07a4a6e69d2799bb834ea54265cf077",
+      "source": "top/assets/official/top-ring-bridge-51047/0x14031b7b0.bin",
+      "instruction_va": "0x14031b82d",
+      "historical": false
+    },
+    "0x14031b871": {
+      "va": "0x14031b7b0",
+      "bytes": 253,
+      "sha256": "44d1a35238d49becfed67d19ab0beee2e07a4a6e69d2799bb834ea54265cf077",
+      "source": "top/assets/official/top-ring-bridge-51047/0x14031b7b0.bin",
+      "instruction_va": "0x14031b871",
+      "historical": false
+    },
+    "0x140323252": {
+      "va": "0x140323230",
+      "bytes": 78,
+      "sha256": "a3580b79ca19b66d4a710cf48a35f6cbd9007f5e2da96c1a3a2890374addbd28",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140323230.bin",
+      "instruction_va": "0x140323252",
+      "historical": false
+    },
+    "0x140323263": {
+      "va": "0x140323230",
+      "bytes": 78,
+      "sha256": "a3580b79ca19b66d4a710cf48a35f6cbd9007f5e2da96c1a3a2890374addbd28",
+      "source": "top/assets/official/top-ring-bridge-51047/0x140323230.bin",
+      "instruction_va": "0x140323263",
+      "historical": false
+    },
+    "0x14034671c": {
+      "va": "0x140346630",
+      "bytes": 2399,
+      "sha256": "858fede2af82d6411763b3d02a25c5ad53a521e1a98d10509e4a7b75b5ceb4c6",
+      "source": "top/assets/official/top-ring-shader-51039/0x140346630.bin",
+      "instruction_va": "0x14034671c",
+      "historical": true
+    },
+    "0x1403467c6": {
+      "va": "0x140346630",
+      "bytes": 2399,
+      "sha256": "858fede2af82d6411763b3d02a25c5ad53a521e1a98d10509e4a7b75b5ceb4c6",
+      "source": "top/assets/official/top-ring-shader-51039/0x140346630.bin",
+      "instruction_va": "0x1403467c6",
+      "historical": true
+    },
+    "0x1403467de": {
+      "va": "0x140346630",
+      "bytes": 2399,
+      "sha256": "858fede2af82d6411763b3d02a25c5ad53a521e1a98d10509e4a7b75b5ceb4c6",
+      "source": "top/assets/official/top-ring-shader-51039/0x140346630.bin",
+      "instruction_va": "0x1403467de",
+      "historical": true
+    }
+  },
+  "preservation": {
+    "protected_LF_sources": 112,
+    "initial_sources_including_documents": 114,
+    "readonly_files": 888,
+    "historical_span_list_records": 333,
+    "historical_recursive_hashed_objects": 334,
+    "all_historical_raw_hashes_verified": true,
+    "historical_JSON_values_unchanged": true,
+    "MD_prefix_exact": true
+  },
+  "limits": {
+    "new_CODE_count": 16,
+    "new_CODE_bytes": 41507,
+    "new_METADATA_count": 7,
+    "new_total_bytes": 41743,
+    "cumulative_span_list_records": 356,
+    "cumulative_bytes_including_historical_duplicate": 170192,
+    "code_capture_cap_reached": true,
+    "child_deadline_seconds": 45,
+    "child_cumulative_seconds_before_publish": 6.227721800096333,
+    "memory_hard_bytes": 1610612736,
+    "minimum_free_bytes": 8589934592
+  },
+  "review": {
+    "kind": "self-reviewed static source handoff; parent adjudication required",
+    "instruction_assertions": 11,
+    "normal_CFG_targets": 10,
+    "normal_CFG_artifact": "top/assets/official/top-ring-bridge-51047/normal-cfg-witnesses.json",
+    "no_native_execution": true,
+    "no_shader_math_or_oracle_rerun": true,
+    "scope_limits": "16 new CODE cap reached; no further CODE capture; retained exact remaining source edges.",
+    "normal_CFG_sha256": "f6157558d30975d2c795b9ccdb81541f1cd7a4297a83ccd554a085f89a35b9a2"
+  },
+  "capture_caveats": [
+    "3477f0..3482b0 includes historical347d50 bytes within a larger nonidentical extent; overlap is not independent corroboration.",
+    "356960..35e680 is a bounded multi-function region including356960 and35c580; only named normal-CFG paths are claimed. Other routines, jump tables and padding are not semantic evidence.",
+    "349da0..349fa0 includes leaf routines, two helpers and INT3 padding;349c50 is a destructor counterexample, not setup.",
+    "14215aa2c/32 and14215aa40/16 metadata overlap by12 bytes; no duplicated VA+size record and no independent corroboration claimed.",
+    "Older raw .bin files not listed in manifest were not silently treated as supplied artifacts: their exact historical VA/size bytes were read from the SHA-pinned binary and matched every historical hash without recapture.",
+    "No-pdata at238d30/349db0 was reported as unresolved leaf boundary rather than a failed assertion; later explicit bounded349da0 window distinguishes leaf/padding."
+  ],
+  "upstream_hypotheses": "Readonly upstream-sources.json FFXIVClientStructs ShaderCodeResourceHandle/ResourceHandle/PixelShader and supplied Lumina extraction adapter extract.py inspected as hypotheses. No resource extraction or upstream download repeated.",
+  "private_evidence": "top/assets/official/top-ring-bridge-51047",
+  "receipts": [
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/bounds-receipt.json",
+      "sha256": "4c3a9cf599eb77646973973c25868260e54d56ebba56a69b4c430314f1eb30c2",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/buildaudit-receipt.json",
+      "sha256": "9b2597e5d2fc8a4b9fee78231b17f1f787a6dfe1b353cbab66be305d44f2e311",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/callers-receipt.json",
+      "sha256": "e99a0032d9f11b4e0b47c2af4f894b3f21f38692bfad21bcf61daf3dffeb9aac",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges1-receipt.json",
+      "sha256": "1fec3c026d6fbf0717ce89d64f57363ca520ceb11c07f9b31538ea302961651b",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges2-receipt.json",
+      "sha256": "5228f2870b085d9c18dc1fbb335491db7537e76594a652fae6f4128125b0b703",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges3-receipt.json",
+      "sha256": "7b0abd112db5d2f2f9e2fcecd8e37f04cbbfb8fd4aab1cb9fab7236fef8c73fd",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges4-receipt.json",
+      "sha256": "da2b36a8bb618cbe3a6497964c730467b06f5ec0353ceaf31723e69608cd05a1",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges5-receipt.json",
+      "sha256": "63ae2bee40e68a4b9578f2e3f2e54591b1faf27d947a0a309d2272f1c33e4f44",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges6-receipt.json",
+      "sha256": "37f99d8689a31614f61de497ddb43b7f0a3231ba2e2b4bc4690f63f0619646f7",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges7-receipt.json",
+      "sha256": "5d3577c3135ca46e73e325ee5deb13924f7e5f483c604d59277dab8b2c0b128b",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/edges8-receipt.json",
+      "sha256": "0ba696e1bfe1f8850a960ee0a60733061dd22412c7a91145f1a58d923b70de1c",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/fixreuse-receipt.json",
+      "sha256": "b5164cdf5e05d42557e45ab580792e5a7886e11cf14ef1e7bb1ec05a0c22da7e",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/follow-receipt.json",
+      "sha256": "dbedbdaa3957eb72750c2314078ff583a80c6982b087fd1181e0a72d43fffa4d",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/lastcaptures-receipt.json",
+      "sha256": "c93e6baab689e1990cc51a7d0d60eec38842dce69f48578273f8150811b32a5b",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/locate-receipt.json",
+      "sha256": "c39b3fb88683f636a76044f00450859de6e969bf360a79da10528482cc14ae4e",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/locators2-receipt.json",
+      "sha256": "e8d44768d213195f35dc67da87cfc00dc07e852cbb6f3e887f3c8fad808cd6a3",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/preflight-receipt.json",
+      "sha256": "decafb977539092f8569583beecebfa98eb79f193c6356cc1df9e2eb6dfa139d",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/reuse-receipt.json",
+      "sha256": "51d94f3fe289deaab5ade3d1fb8d4cedf668e58871cda1616ce6e11057ef61f6",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/reviewsource-receipt.json",
+      "sha256": "26c5c139dcf5d50ccb319a3e4d2c30cdfcb5aa8039747b7f82d6599b53dbb725",
+      "ok": true
+    },
+    {
+      "path": "top/assets/official/top-ring-bridge-51047/validate-receipt.json",
+      "sha256": "7379232c1ceaeef47968dd59dbd9b07559de5528f078e0127353e1cc4e6c68d4",
+      "ok": true
+    }
+  ],
+  "private_helper_hashes": {
+    "top/assets/official/top-ring-bridge-51047/bounds.py": "67c19fe47425005e9f9bdde9bca591f792f0f3b7fcbd85d7429877fe234f8cdf",
+    "top/assets/official/top-ring-bridge-51047/buildaudit.py": "4b98df0be35ff63224b94e3ccbf22f91cb805e3e21bbb7e8254ab265f4eca9c4",
+    "top/assets/official/top-ring-bridge-51047/callers.py": "518d6c9033bc20aa88385bb5c999f47ecfc9539885dd445727ffcb0061ccaad8",
+    "top/assets/official/top-ring-bridge-51047/edges1.py": "a20aafb7173f6255a5d622f2f84123419dc957e1f1c4ca1bc6b852656137d1b5",
+    "top/assets/official/top-ring-bridge-51047/edges2.py": "e2def85191d94037b45a5440bfa955f73225f571c7a144049830be7479ec0aee",
+    "top/assets/official/top-ring-bridge-51047/edges3.py": "cded74248d1e7b17a10ff67ae622ca45349f5f0f6749b9b6afdbbc43121ef94f",
+    "top/assets/official/top-ring-bridge-51047/edges4.py": "ef696b7537d4ef08d4dd5564a1ce595c465975e75d1d27d64f565577d39d122c",
+    "top/assets/official/top-ring-bridge-51047/edges5.py": "3b032ddbd5a85937c3d655f7e39d455d2789e673a73920a163d53a3bbdcdf348",
+    "top/assets/official/top-ring-bridge-51047/edges6.py": "94f04c5fa6f0b178c78cfb739e10c59570d1ab1aa289e1ec0192966abb02077d",
+    "top/assets/official/top-ring-bridge-51047/edges7.py": "76b097f034c2088714ca57bacef8676ce2e0154a01f3e08b596c829da3cc1020",
+    "top/assets/official/top-ring-bridge-51047/edges8.py": "368f0fe5a801512925194ff888afd9b931d4a5adea5386375e8c9341312cda2d",
+    "top/assets/official/top-ring-bridge-51047/fixreuse.py": "ee9c68aed8478b48d16575a9a2e6d17c842ddbf292bfe106d056dc1c5f16ef38",
+    "top/assets/official/top-ring-bridge-51047/follow.py": "bff7919247a8a5f0c25abdb90c74843edca4cc26c4b0864b513fbddc30c73925",
+    "top/assets/official/top-ring-bridge-51047/lastcaptures.py": "74793cb00cd9822421c5257ad810ada90582d864106235d0427c906f310d4e37",
+    "top/assets/official/top-ring-bridge-51047/locate.py": "27e445fffd0cfe3cc649878adac712604d656451dbd6b02edd04bde2bf0fae6e",
+    "top/assets/official/top-ring-bridge-51047/locators2.py": "065c1399168041e27b296baba4287e878732ee27fcf842ea0c459a28bc44d547",
+    "top/assets/official/top-ring-bridge-51047/native.py": "9f51487447ef94997343a48c14b4769391f4aef41c62c138cb4f18a4d1cfda1b",
+    "top/assets/official/top-ring-bridge-51047/preflight.py": "30db7582be5a621bd8d7afcbf475f95e302c40a20f0b29cf1bae4fcce4e0258e",
+    "top/assets/official/top-ring-bridge-51047/publish.py": "075d944a32661c024763df5cfcbb44cf16a1a98811bd7b067b8e198891324b4e",
+    "top/assets/official/top-ring-bridge-51047/reuse.py": "a6c5bf177416ff936931f0847bb60e9ae7e726a3d5341b502ad585e0a6317e44",
+    "top/assets/official/top-ring-bridge-51047/reviewsource.py": "c7f18305a0ed668abfccdfee45b2a1efb6a5db2356b44caa63e6c689b173cf83",
+    "top/assets/official/top-ring-bridge-51047/runner.py": "68963bc83f17b04bd03d3223a951ea0abaf230ec33ea47648a4868a0ba35c65b",
+    "top/assets/official/top-ring-bridge-51047/validate.py": "e7b1a4aaf77124d4a24427212ece02fc90925fa469ba2ff839bb789b1b9a6168"
   }
+}
 }

@@ -866,3 +866,166 @@ All math is sourced from the actual instruction listings. It is sufficient for i
 Every child ran serially under the pinned WindowsJobObject runner with 45-second deadline, 1.5-GiB limit and 8-GiB free-floor. All invocation results, including failures, are retained. Windows work_guard could not supply its fcntl backend; the requested pinned runner supplied the bounded execution fallback. Three leaf-pdata assertion failures triggered a documented blocked-state recovery with a concrete leaf-boundary fix; no repeat code search or cap increase followed. The parser failure, exclusive-log collision, direct-network denial and draft BOM-read correction remain in the evidence ledger.
 
 The complete JSON key contains receipts, resource reflection/instructions, claims, refutations, hashes, scope limits and dependencies. This is a self-reviewed source handoff for parent adjudication. Actual original action31567 → P3-02 → all96 visual acceptance, exported Windows/Web gates and GPU completion remain unclaimed.
+
+
+## GPU bridge audit — action31567 (schema 1, 2026-10-30)
+
+**STATIC_PARTIAL; rendering_accepted=false; all96_accepted=false.** This appendix
+refines the concrete bridge for the accepted parameterized kernels. It does not
+change any earlier JSON value or the preceding Markdown. No shader extraction,
+math/oracle rerun, product integration, native execution, desktop action, commit,
+push or publication occurred.
+
+### Native sampler: a proved difference from the diagnostic policy
+
+`36ef90 -> 22cdc0 -> 2387b0` resolves radial packed **0x265** to the following
+native descriptor, passed to device virtual `+b8` (CreateSamplerState ABI).
+The cache is keyed by the complete packed word.
+
+| Descriptor field | Native value |
+|---|---|
+| Filter | `0x14`, MIN_MAG_LINEAR_MIP_POINT |
+| Address U / V / W | `2 / 2 / 3`, MIRROR / MIRROR / CLAMP |
+| MipLODBias | 0 |
+| MaxAnisotropy / ComparisonFunc | 1 / 1 (NEVER; noncomparison filter) |
+| BorderColor | (0,0,0,0) |
+| MinLOD / MaxLOD | 0 / 0 |
+
+The exact general masks/branches are in `gpu_bridge_audit.implementation_contract.sampler_decode`.
+Filter nibble15 takes the explicit0x55 branch. Otherwise source bits8/9/6 map to
+filter bits0/2/4, with comparison bit7 when the high nibble is nonzero. Address
+fields are two-bit values plus1. Signed bits10..19 give bias in1/32 increments;
+bits24..26 index the captured anisotropy table; the high nibble plus1 gives the
+comparison function. MinLOD is bits20..23; MaxLOD is FLT_MAX only when bits7/8
+are nonzero, otherwise MinLOD. Border is zero. Bit27 is not read here.
+
+Raw evidence: `0x1402387b0.bin`, `0x142143d90.bin`, `0x142143dc0.bin` in the
+private directory below, plus the unchanged historical36ef90 and22cdc0 spans.
+**linear_clamp_explicit/raw RGBA8 remains a TEST choice.** Neither native
+addressing nor native target format is accepted from the synthetic pixel test.
+
+### Concrete graph and target provenance
+
+The located setup is a **direct call at35a590**, not an inferred C+30 dispatch.
+356960 keeps its receiver G in R14;35a577..35a590 loads
+`C=[[G+570]+8]`, `A=[G+4080]`, `B=[G+4088]` and calls36ef90.
+The first collection element `E0=[[G+570]+0]` precedes C. Its initializer supplies
+the literal `shader/sm5/posteffect/Default.shcd`; its math was not extracted or
+audited here. Generic named helpers and output stores are now decoded.
+
+| Pass | Input(s) | Output | Sampler status |
+|---|---|---|---|
+| E0 prepass | initially G+4010 texture; later current-chain T | A | explicit377920 result; UNKNOWN descriptor |
+| C+a0 radial0 | A | B | proved0x265 descriptor above |
+| C+140 radial1 | B | A | proved0x265 descriptor above |
+| C+1e0 radial2 | A | B | proved0x265 descriptor above |
+| C merge | t0 initially G+4010 texture, later T; t1 B | initially G+4078 texture, later O | both explicitly set; exact descriptors UNKNOWN |
+
+35a5ef calls348080 for merge `sInput`,35a651 calls347fb0 for `sMerge1`, and
+35a66a calls3477f0 to set output0. The first two helpers write the named sampler
+entry+18 and texture entry+8.348080 also sets C+28, the primary dimension source;
+347fb0 does not. The names are captured native strings, not guessed CRCs.
+
+Both sampler words come from377920, but **argument5 differs: sInput=0,
+sMerge1=9** (prepass also9). Common arguments include1,1,2 and float XMM6;
+remaining stack arguments are zero. Its body is the exact unresolved edge.
+Explicit assignment is proved; equal policy, inheritance of0x265, or a native
+linear-clamp merge policy is not.
+
+The graph has a frame-dependent rebinding step. When G+4470 bit9 is enabled,
+35da36 calls349e00(G+568,T). It replaces the collection's old input pointer in
+matching texture entries and element+28 fields, then updates collection+18.
+35da3b..35da5b select `O=[G+4010]` when T differs from it, otherwise
+`O=[G+4078]`;349f00 sets the last nonnull element's output0. Thus initial setup
+is not immutable frame ownership. Upstream provenance of T is still open.
+
+A is an intermediate populated by E0; it must not be called original scene.
+The maintained346630 source reads input texture+38/+3c logical dimensions and
++40/+44 allocated dimensions via S+28, and output0 via S+38. Radial dimension
+sources are A/B/A; merge uses its separately assigned input. Preserve the
+accepted ratio/reciprocal-subtraction ordering. **Actual allocation dimensions,
+formats, SRV/RTV color-space routes and aliasing remain UNKNOWN.** Exact next
+source is the producer/returned-object stores to G+4080/+4088/+4010/+4078,
+not3566e0 (which concerns G+650), nor another G-constructor survey.
+
+Raw source: new356960..35e680 multi-function capture,3477f0..3482b0 helper
+capture,349da0..349fa0 helper/leaf window, named metadata; historical3540e0,
+36ef90,370ba0,349fa0 and346630. JSON maps each claim to exact VA/size/hash.
+
+### Small constant-buffer upload and submission
+
+The small route is independently proved.239a80 computes
+`k=ceil(log2(max(snapshot_vector_count, reflected_extent)))` and chooses
+`M+18+0x50*(4*k+((binding>>32)&3))`; k<12 calls238bc0.
+This refines the earlier wording about extent: `CMP r8d,eax; CMOVA eax,r8d`
+selects **max**, not a truncating minimum. The upload itself copies snapshot
+count times16 bytes.
+
+2390b0 creates12 bins,4 category pools per bin,4 buffers per pool. Their native
+CreateBuffer descriptor is ByteWidth=`16*(1<<k)`, Usage2 DYNAMIC,
+BindFlags4 CONSTANT_BUFFER, CPUAccessFlags0x10000 WRITE, MiscFlags0 and
+StructureByteStride0. Payload1/2/3 vectors therefore uses **16/32/64-byte
+allocations** while copying **16/32/48 bytes**. No padded-tail initialization
+or range-CB offset is invented.
+
+238bc0 keys cached buffers by the CPU snapshot pointer. On a miss it chooses a
+pool resource, calls context+70 Map with subresource0, WRITE_DISCARD4, flags0,
+copies to mapped.pData via141da7ec0, then calls context+78 Unmap(subresource0).
+The16/32-byte copy branches and48-byte SSE/AVX table-directed branches are
+covered by raw code plus separately classified METADATA tables. A cache hit
+reuses the selected resource without another copy. This establishes submission
+preparation, not a GPU-completion fence.
+
+239a80 records the resource at the reflected pending slot.241bf0 then calls
+240c60, which clears removed slots and calls context+80 PSSetConstantBuffers
+for the changed interval using whole resources.22cdc0 resolves texture/sampler
+slots and tailcalls240d50; it submits context+40 PSSetShaderResources then+50
+PSSetSamplers, including null clears.22d750 orders these before the accepted
+2349c0 case5 topology/Draw calls. These are **shared conditional ABI** claims;
+concrete handle identity below and actual runtime success remain separate.
+
+### Shader factory: narrowed, not closed
+
+347120's type0x73686364 request returns through2fed30 ->315270.315270 uses
+319a80 for cache lookup; on a miss,31b7b0 searches the factory tree by that
+exact type key. A matched node+28 supplies a factory object; its vtable+8 is
+tail-dispatched at31b82d. The fallback installs **14214fdd0**, not1421520a8.
+
+The concrete constructor **323230** is now captured: it installs1421520a8 into
+its receiver, clears+b0/+bc, writes+b8=-1, and returns the same receiver.
+That is useful source progress, but no registered Create-method/return alias
+joins the shcd-key tree entry to this constructor yet.319a80 cache-entry identity
+also remains open. The upstream ShaderCodeResourceHandle class and matching
+vtable never replace that missing return-provenance proof.
+
+### Review, limits and exact remaining dependencies
+
+The one JSON `gpu_bridge_audit` records claims/refutations, implementation
+schema, raw source index, new spans, receipts and dependencies. The remaining
+native edges are377920's packed-word builder; the four texture-field producers
+and formats; upstream current-chain T; the shcd factory registration/Create
+return and cache identity. Absent IRad, defaults, clock and lifetime stay OPEN;
+no30Hz assumption or original-visual acceptance follows.
+
+Verified112 protected LF sources plus the two initial documents,888 readonly
+files and every historical native hash (333 span-list records;334 recursive
+hashed objects including the historical duplicate locator). Added16 CODE spans
+(41,507 bytes) and7 METADATA records (236 bytes):356 cumulative span-list
+records /170,192 bytes. The16-code-span cap is reached; no cap was raised.
+There are11 exact instruction assertions and10 normal-CFG target witnesses,
+not runtime tests. All new span receipts succeeded under the pinned serial
+WindowsJobObject runner,45s per child,1.5GiB hard limit,8GiB free floor.
+
+Captured regions are not whole-CFG assertions: INT3 padding, embedded tables,
+adjacent routines and chained unwind fragments remain separate from named
+reachable paths. The3477f0 capture overlaps older347d50 evidence; two named
+metadata windows overlap12 bytes. Neither overlap is independent corroboration,
+and no identical historical VA+size was recaptured.349c50 proved to be a
+destructor, not setup; that counterevidence is retained. No failed child command
+occurred in this audit. Earlier failures and acceptance records remain intact.
+
+Private evidence: `top/assets/official/top-ring-bridge-51047`.
+Final documents use complete same-directory temporary files plus os.replace;
+the entire original MD byte prefix and every historical JSON key/value are
+checked after replacement. This is a self-reviewed source handoff for parent
+adjudication, with rendering_accepted=false and all96_accepted=false.
