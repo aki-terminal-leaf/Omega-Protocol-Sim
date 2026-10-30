@@ -149,15 +149,62 @@
       "limitations": [
         "Actual absent-IRad header/value unproved; no renderer implementation authorized by this partial contract."
       ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "Registration entry is 0x1403b7b50; RSI is incoming RDX and R15 is incoming RCX. The successful registration path stores [argument2+8] at owner+0x1490.",
+      "evidence": [
+        "CHAININFO 0x142612044 -> 0x142611ff4 -> 0x142611fdc -> 0x142611fd0 joins 0x1403b7d3e -> 0x1403b7bd1 -> 0x1403b7b7c -> 0x1403b7b50",
+        "0x1403b7b50 saves RDX at entryRSP+0x10; 0x1403b7b63 RSI=RDX; 0x1403b7b69 R15=RCX",
+        "CurrentRSP=entryRSP-0x68; 0x1403b7d1e restores RSI from currentRSP+0x78 after temporary loop use; 0x1403b7d78/0x1403b7d83 load/store target"
+      ],
+      "limitations": [
+        "Registration has early failure paths. It receives the target pointer; it does not prove target allocation size or constructor. +0x1498 allocation remains separate."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "The CPU consumer receives the same owner-slot pointer used by the host, through explicit pointer loads rather than offset analogy.",
+      "evidence": [
+        "0x1403795d6 calls owner getter 0x1403b4f80; 0x1403795eb retains owner in RBX; after 0x14040cff0, 0x1403795f3 loads RCX=[RBX+0x1490]; 0x1403795ff tail-jumps to 0x14038a580",
+        "Independent call path 0x140393547 getter -> 0x14039355c RBX -> 0x140393564 RCX=[RBX+0x1490] -> 0x140393574 tail-jump to 0x14038a580",
+        "0x1403b8af0 accepts owner RCX; 0x1403b8b0b loads its +0x1490 and 0x1403b8b17 tail-jumps to consumer",
+        "0x140379200 preserves caller descriptor in RBX, gets singleton owner, passes descriptor in RDX and tail-jumps at 0x14037922f to registration"
+      ],
+      "limitations": [
+        "Static dataflow identity of the owner slot is proved. A particular live allocation/address, registration timing, lack of intervening replacement and original action31567 execution remain unobserved. No allocation-site identity or GPU object type follows."
+      ]
+    },
+    {
+      "kind": "source_fact",
+      "claim": "One concrete registration supplier is descriptor 0x142aa75e0; descriptor+8 receives the pointer loaded from 0x142aa75d8.",
+      "evidence": [
+        "0x140392491 loads RAX=[0x142aa75d8]; 0x140392498 writes [0x142aa75e8]=RAX",
+        "0x14039252b sets RDX=0x142aa75e0; 0x140392532 sets RCX=0x142aa7e00; 0x140392539 calls 0x1403b7b50"
+      ],
+      "limitations": [
+        "The writer/constructor establishing [0x142aa75d8] is not present in this typed trace; no file-zero/default or guessed vtable is substituted."
+      ]
+    },
+    {
+      "kind": "boundary",
+      "claim": "No original render resource or selected shader contract is established by the newly closed CPU pointer handoff.",
+      "evidence": [
+        "Consumer bounded 0x14038a580..0x14038a910 writes CPU G fields and calls bit helper; its paths return without a proved upload or resource-selection call",
+        "0x14040cff0 stores owner/context and callback at +0x20/+0x28, calls dispatch helpers and an indirect +0x18 slot, then clears +0x20/+0x28",
+        "Callback address 0x1403b5b90 comes directly from the consumer callers; captured callback uses separate owner+0x1498, TLS setup and virtual +0x78; no binding of G radial fields to shader bytecode follows"
+      ],
+      "limitations": [
+        "No negative absence claim about untraced helpers, indirect calls or other code. These scheduling calls do not establish lifetime or graphics resource type."
+      ]
     }
   ],
   "open_questions": [
     "What initializes or modifies shared curve 0x142aa7d78 before 0x1403c9c40 reads its header? Need actual header bits7..8 and any curve+4/key data; neither PE zero-fill nor conditional fallback establishes the original absent-IRad result.",
-    "What does 0x1403b64a0 do with incoming argument5 (entry RSP+0x28)? Next bounded method: inspect its pdata/chained code and exact field writes/forwarded arguments, then the typed target, without returning to RadialBlur strings or sentinel loader surveys.",
     "What establishes runtime +0x1c8/+0x1cc clock inputs, callback scheduling, host gate bit13 and original action31567 activation? No lifetime, original-active sample value, shader formula or exported rendering acceptance follows.",
     "For curves taking selector2, downstream key search/interpolation and pre/post behavior remain outside this three-level call trace. Reuse exact wrapper targets for a separately scoped continuation.",
-    "Trace target supplier [RSI+8] at 0x1403b7d83 back through its constructor/registration record and vtable to prove caller identity for 0x14038a580; then trace the identified render resource binding for global +0x46a4..0x46c8 to shader bytecode constants. No more generic offset/string locator.",
-    "Resolve the CRT indirect-dispatch/table representation and obtain an initializer-specific write provenance for sentinel bytes 0..7, including aliases; if unavailable request parent-provided startup write trace from a separately authorized method. No game execution authorized here."
+    "Which writer/constructor establishes [0x142aa75d8] before 0x140392491 copies it into descriptor 0x142aa75e0+8? Need an exact parent-provided writer/constructor or typed registration/vtable receipt, not another offset or image scan.",
+    "Which typed render-context entry consumes G=[0x14290e498] radial fields and binds its selected resource, constant buffer and shader bytecode? No such entry is identified in this trace; parent must supply a concrete typed lead before a bounded continuation."
   ],
   "native_spans": [
     {
@@ -1187,6 +1234,294 @@
       "sha256": "f53c88928d241d22582fd729ad69f4800def833b6d48391298e6918996ef73d9",
       "kind": "import name",
       "evidence_file": "top/assets/official/top-ring-host-50976/import_pins-1793350379232488900/spans.json"
+    },
+    {
+      "va": "0x142fc4490",
+      "bytes": 12,
+      "sha256": "b679d9144b8c587b92bec5a4224b13226824671629fb693f774e57d83488242b",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142611ff4",
+      "bytes": 20,
+      "sha256": "403cdfe0d52f138c6213afdee84f2bc2f0a706e55d5cb7d20f995689f188c5d8",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142611fdc",
+      "bytes": 24,
+      "sha256": "c11be6caa15530a23bbe9e4e7ba85641fe75b886f5cf4f8adefe90f1391b5125",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142611fd0",
+      "bytes": 12,
+      "sha256": "f9aafe64aa175d215b130bafc9663475b344e19e116d19ff33930f52e1137b62",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b7bd1",
+      "bytes": 5,
+      "sha256": "d82ad8546acc907508ae1c14528bf3f7d3eb0e90a55d4944afb33a655684ccab",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b7b7c",
+      "bytes": 85,
+      "sha256": "61e67ab4fa4953ce6eb749975f8a845c2fc4dacfd6b17653e63b66de5f602917",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b7b50",
+      "bytes": 44,
+      "sha256": "bd617f3c954d2006a5638916193377ef2280f1cfc139d0eec797e5c2b6ae414e",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc2048",
+      "bytes": 12,
+      "sha256": "cd59bcb9bdba6e5d45705d4e6760aa62b6f5bc727eef501eaa3bb812ced82643",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14260e5a8",
+      "bytes": 8,
+      "sha256": "36061d653c465cef14e591e1b25fa110d6689baafda9d2fb58930b053eb510e2",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc15ec",
+      "bytes": 12,
+      "sha256": "5cf60a03d00eec267fee14c8e44399a0daac5075777880907bfa4e1445519ad0",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14260d5b8",
+      "bytes": 8,
+      "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x140379200",
+      "bytes": 52,
+      "sha256": "3661e498b2ece29900d4a863e9415e947c3fdfd7f6b6e21a69674ea3ec39b19b",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc1670",
+      "bytes": 12,
+      "sha256": "e5d603463739829dde33d494792f887571faba07d2278ade40a863107a41a906",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14260d65c",
+      "bytes": 8,
+      "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403795d0",
+      "bytes": 52,
+      "sha256": "bef421bfe1fc87533ad6f870efc236da5954c638c3ec2f1439d0f0e06276df3d",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc2714",
+      "bytes": 12,
+      "sha256": "89150a1e8800668be2747b2ef4dadc5f8972901f3036904b95727890271327a3",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14260f02c",
+      "bytes": 20,
+      "sha256": "2209fed652d5fd8b3f08c1eb73890a73d571c16322411dc25725e43d92eeaa1d",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x140392400",
+      "bytes": 333,
+      "sha256": "05f2d907b362787a66be6286384741f595d7d69a8ab1e843865fdc0c8531b99e",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc2840",
+      "bytes": 12,
+      "sha256": "e1081bac3de77bceecd3608bbaa92e453171af12375358aeee69665714e72526",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14260f214",
+      "bytes": 20,
+      "sha256": "139057e2dcd923a5b04f5bb11b9dd7d8370badc52186241536045c718ece1240",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14260f20c",
+      "bytes": 8,
+      "sha256": "2d8867f028f39ef522d70e56d169d2fbb9046163869f9360ec470bdd2040cd24",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14039353d",
+      "bytes": 60,
+      "sha256": "f45aabc65a117d14d37e39cd28ffb5f9ec44159dd444890643134b14c52e1dd2",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x140393530",
+      "bytes": 13,
+      "sha256": "bf2c37cce5e5fbeb9dfe8619a94046a0e713419877dd1c810dc32aef2a5e3897",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc4520",
+      "bytes": 12,
+      "sha256": "3d975e8b593f33353835ff8443ee5c6c2c0746000dca90c326b1ecf72ce473ce",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14261215c",
+      "bytes": 8,
+      "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b8af0",
+      "bytes": 44,
+      "sha256": "cd0a1376a552307b92c1f464655211c804f66de109b941a2d8098e34bfe3eed2",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14039254d",
+      "bytes": 771,
+      "sha256": "6c9ae04403392cd418f1cbf4839509d6fe3aab17eef59d9964d59b8663a26c5d",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b7b50",
+      "bytes": 1002,
+      "sha256": "958c62221401038fa44696a0f18adfc32b0790514e104f37c343699f6e49993c",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14038a580",
+      "bytes": 912,
+      "sha256": "810c813efccede355f87a29ea4645da72cde4e58caf1c1740f6994f2c330826b",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc7928",
+      "bytes": 12,
+      "sha256": "89ad6e2680a84ff26897254923b270e5b8483364b4358818ab1a49d4c54aadd2",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142616e88",
+      "bytes": 20,
+      "sha256": "bb13e6c6a983c02cdabcec0406ca34d45ce7d54834c1237440984006a1b7ffe2",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x14040cff0",
+      "bytes": 287,
+      "sha256": "dc8a2fe0348b8ea7dff368e0aff5f0af78c772eec024c636fe6689fa99ee10dc",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142fc4238",
+      "bytes": 12,
+      "sha256": "144af925ea6e645fd64d4ce10a9d18713f5e09908cc83e171ddc0b52a0047879",
+      "kind": "pdata",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x142611c2c",
+      "bytes": 16,
+      "sha256": "f28ccee9e54971753b66d1ea62e19a750e5b147360135aca2e5cffe13c1c86eb",
+      "kind": "unwind",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b5b90",
+      "bytes": 9,
+      "sha256": "bcf5a8b0e25edc3ce645fe2521a51b93b3ba1d1c8998820c97c6ec1e2c249bbc",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403b5b90",
+      "bytes": 640,
+      "sha256": "b196725e9711037237f7ffd99de05483d6812075a7f35a68f126ac2cadf39c78",
+      "kind": "CODE",
+      "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/spans.json",
+      "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
     }
   ],
   "rendering_accepted": false,
@@ -1484,5 +1819,712 @@
       "post_edit_readonly160": true,
       "review_required": true
     }
+  },
+  "historical_open_questions_before_binding": [
+    "What initializes or modifies shared curve 0x142aa7d78 before 0x1403c9c40 reads its header? Need actual header bits7..8 and any curve+4/key data; neither PE zero-fill nor conditional fallback establishes the original absent-IRad result.",
+    "What does 0x1403b64a0 do with incoming argument5 (entry RSP+0x28)? Next bounded method: inspect its pdata/chained code and exact field writes/forwarded arguments, then the typed target, without returning to RadialBlur strings or sentinel loader surveys.",
+    "What establishes runtime +0x1c8/+0x1cc clock inputs, callback scheduling, host gate bit13 and original action31567 activation? No lifetime, original-active sample value, shader formula or exported rendering acceptance follows.",
+    "For curves taking selector2, downstream key search/interpolation and pre/post behavior remain outside this three-level call trace. Reuse exact wrapper targets for a separately scoped continuation.",
+    "Trace target supplier [RSI+8] at 0x1403b7d83 back through its constructor/registration record and vtable to prove caller identity for 0x14038a580; then trace the identified render resource binding for global +0x46a4..0x46c8 to shader bytecode constants. No more generic offset/string locator.",
+    "Resolve the CRT indirect-dispatch/table representation and obtain an initializer-specific write provenance for sentinel bytes 0..7, including aliases; if unavailable request parent-provided startup write trace from a separately authorized method. No game execution authorized here."
+  ],
+  "binding_audit": {
+    "status": "STATIC_PARTIAL",
+    "review_required": true,
+    "rendering_accepted": false,
+    "all96_accepted": false,
+    "product_behavior_changed": false,
+    "native_execution_observed": false,
+    "original_action_samples_observed": false,
+    "manifest_sha256": "ba8208e0d8122006440a5765098d14faa08920608beab6033b59993fa546786e",
+    "preflight": {
+      "initial_lf_files": 105,
+      "protected": 103,
+      "readonly_files": 245,
+      "initial_native_spans": 137,
+      "passed": true
+    },
+    "actual_vs_conditional": "Instruction bytes establish owner-slot identity and registration dataflow, not a live allocated instance or shader selection. Existing conditional CPU packet remains conditional.",
+    "supersedes": "Historical consumer input-object/RSI unknown statements are narrowed by the explicit owner-slot and argument2 joins; historical allocation, GPU and runtime caveats remain.",
+    "initializer_parent_lead": "Readonly parent acceptance resolves 1152 nonzero absolute VA CRT entries and file dispatch 14210de90 -> 1421060b0 -> [14210de88]=142106090 -> JMP RAX. Guard-pointer patching unobserved; prefix locator is not absence proof. This task does not repeat initializer work.",
+    "locator": {
+      "input_ranges": [
+        [
+          "0x140300000",
+          "0x140500000"
+        ]
+      ],
+      "pdata_entries": 8455,
+      "decoded_input_bytes": 1890576,
+      "targets": [
+        "0x14038a580",
+        "0x1403b7b50"
+      ],
+      "hits": [
+        {
+          "at": "0x14037922f",
+          "target": "0x1403b7b50",
+          "fragment": [
+            "0x140379200",
+            "0x140379234"
+          ],
+          "pdata": "0x142fc15ec"
+        },
+        {
+          "at": "0x1403795ff",
+          "target": "0x14038a580",
+          "fragment": [
+            "0x1403795d0",
+            "0x140379604"
+          ],
+          "pdata": "0x142fc1670"
+        },
+        {
+          "at": "0x140392539",
+          "target": "0x1403b7b50",
+          "fragment": [
+            "0x140392400",
+            "0x14039254d"
+          ],
+          "pdata": "0x142fc2714"
+        },
+        {
+          "at": "0x140393574",
+          "target": "0x14038a580",
+          "fragment": [
+            "0x14039353d",
+            "0x140393579"
+          ],
+          "pdata": "0x142fc2840"
+        },
+        {
+          "at": "0x1403b8b17",
+          "target": "0x14038a580",
+          "fragment": [
+            "0x1403b8af0",
+            "0x1403b8b1c"
+          ],
+          "pdata": "0x142fc4520"
+        }
+      ],
+      "limits": "Only direct CALL/JMP immediates in executable pdata fragments; no absence proof for indirect/other-range/leaf code."
+    },
+    "executable_range_verified": [
+      [
+        5368713216,
+        5403365376,
+        ".text"
+      ]
+    ],
+    "external_direct_hops_followed": [
+      "0x14040cff0 (one typed dispatch hop); callees/indirect targets not recursively followed"
+    ],
+    "new_code_spans": 15,
+    "new_code_bytes": 4309,
+    "new_metadata_records": 21,
+    "cumulative_native_records": 173,
+    "cumulative_native_bytes": 40330,
+    "receipts": [
+      {
+        "path": "top/assets/official/top-ring-binding-50976/preflight-1793351023487621500/probe-receipt.json",
+        "sha256": "500ef8f3f2963a2c29fcc092b0b129567f429e319cb75bc9b84957b7ad8a53ba",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\preflight.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\preflight-1793351023487621500"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 69128192,
+        "job_peak_private_bytes": 63553536,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32966656000,
+        "seconds": 0.4590835999697447,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/refs-1793351077624442000/probe-receipt.json",
+        "sha256": "58254bf917dfd107095b79d0f37b1a4fc128fc43d81e865acaea6cc76c225696",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\refs.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\refs-1793351077624442000"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 129777664,
+        "job_peak_private_bytes": 122998784,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32899129344,
+        "seconds": 2.1217104999814183,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/probe-receipt.json",
+        "sha256": "4d0f3c57798f1d04f954aa8f207b4529f226fe8b30417bd65ab92260dcc39e31",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace-1793351057079016900",
+          "entry"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 113528832,
+        "job_peak_private_bytes": 106201088,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33063428096,
+        "seconds": 0.2574017000151798,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/probe-receipt.json",
+        "sha256": "4fa11be5b399a05db245d6566643ba24648ca1c3700fd09aefb2e37fadf54e61",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace-1793351085165106000",
+          "spans",
+          "0x14037922f",
+          "0x1403795ff",
+          "0x140392539",
+          "0x140393574",
+          "0x1403b8b17"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 113709056,
+        "job_peak_private_bytes": 106450944,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32925130752,
+        "seconds": 0.3077900999924168,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/probe-receipt.json",
+        "sha256": "ccfe5163df91b0dade9833fb69b90d3e7c38acff1bbaa43020179c66f8727224",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace-1793351099922862800",
+          "spans",
+          "0x14039254d:0x140392850",
+          "0x1403b7b50:0x1403b7f3a",
+          "0x14038a580:0x14038a910"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 113635328,
+        "job_peak_private_bytes": 106450944,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32937484288,
+        "seconds": 0.2582324000541121,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/probe-receipt.json",
+        "sha256": "e96e9f82264ca1a2407fa99426e62f84137b4df9c79b959a5c7742402865a9c5",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace-1793351135275486300",
+          "spans",
+          "0x14040cff0",
+          "0x1403b5b90"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 113516544,
+        "job_peak_private_bytes": 106196992,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33026314240,
+        "seconds": 0.25694120000116527,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/probe-receipt.json",
+        "sha256": "a5d745dbf1767ba9faa3580661ea933a84c1f255a3d5bb71a2b2a262d710c200",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\trace-1793351152237897500",
+          "spans",
+          "0x1403b5b90:0x1403b5e10"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 113561600,
+        "job_peak_private_bytes": 106205184,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33181954048,
+        "seconds": 0.25705479993484914,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/finalize-1793351267624887300/probe-receipt.json",
+        "sha256": "c4d13bd0a5bb225b3eb19a04c38011708b9dd7e6a4a6410d2f78f0f227edc987",
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\finalize.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\finalize-1793351267624887300"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 69976064,
+        "job_peak_private_bytes": 63737856,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33011290112,
+        "seconds": 0.2579765000846237,
+        "no_script_errors": true,
+        "ok": true
+      }
+    ],
+    "guarded_seconds_before_final_gate": 3.918214299948886,
+    "tool_failures": [],
+    "historical_failures": "All prior failed jobs/probes/seed remain immutable. Initial manifest read output was truncated; structured preflight verified every entry. No native child failed in this iteration.",
+    "private_artifacts": [
+      {
+        "path": "top/assets/official/top-ring-binding-50976/finalize.py",
+        "bytes": 9056,
+        "sha256": "25d31eb8d6ee5176904f3d7e14968d515c38d4c4f667fbf5a5348a75e6f895d1"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/guard.py",
+        "bytes": 1106,
+        "sha256": "698a2905eb5bc97e684ae8ff6cdc32f00b992da0659c147df855893395d1e3a1"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/preflight-1793351023487621500/probe-receipt.json",
+        "bytes": 670,
+        "sha256": "500ef8f3f2963a2c29fcc092b0b129567f429e319cb75bc9b84957b7ad8a53ba"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/preflight-1793351023487621500/verified.json",
+        "bytes": 204,
+        "sha256": "c17954472ad8de26f753d6e5baa17ff63d1d12909719e13e9e47d5663baa2f1a"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/preflight.py",
+        "bytes": 1843,
+        "sha256": "7b1b2c8596b48175f482ab0c2591d2596d85174dbfc04b04e1b11726f4f55d99"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/refs-1793351077624442000/exact-references.json",
+        "bytes": 1274,
+        "sha256": "e4ae22a5ba044d6a1e80d43b0ab2ac2d8870b6b1574c57cfa57ab24647ae3a7e"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/refs-1793351077624442000/probe-receipt.json",
+        "bytes": 662,
+        "sha256": "58254bf917dfd107095b79d0f37b1a4fc128fc43d81e865acaea6cc76c225696"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/refs.py",
+        "bytes": 1137,
+        "sha256": "fba5c0350de1cee1e6c6a549cd6c6c576a4764bd043c9e2f4b0c307f88fa1a2b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x14038a580.asm.txt",
+        "bytes": 309,
+        "sha256": "065ce393709dc7a57ee8d94ac662b457be59275746c5b004fca41c100ea2f0f2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x14038a580.CODE.bin",
+        "bytes": 33,
+        "sha256": "3eed790c4b58cf84f839a33d8d5ce7f4c54fc6b4c68d744ebed1dfa7e42cb71b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7b50.asm.txt",
+        "bytes": 470,
+        "sha256": "ee9a382add570d2ca02101eb78b1dc6537b134921c3f999615ecb0b5e21e6898"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7b50.CODE.bin",
+        "bytes": 44,
+        "sha256": "bd617f3c954d2006a5638916193377ef2280f1cfc139d0eec797e5c2b6ae414e"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7b7c.asm.txt",
+        "bytes": 867,
+        "sha256": "a6788980b1bdb4d788b7115d370f661f89b6403d6753665cf4740071d82378ae"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7b7c.CODE.bin",
+        "bytes": 85,
+        "sha256": "61e67ab4fa4953ce6eb749975f8a845c2fc4dacfd6b17653e63b66de5f602917"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7bd1.asm.txt",
+        "bytes": 54,
+        "sha256": "cfff397ab1cc6339cd878872f51fda6402f365ac692da1013a31482e7eba0b34"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7bd1.CODE.bin",
+        "bytes": 5,
+        "sha256": "d82ad8546acc907508ae1c14528bf3f7d3eb0e90a55d4944afb33a655684ccab"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7d3e.asm.txt",
+        "bytes": 2130,
+        "sha256": "cf11d14ad7a6624407d26c70feb630fd0647267e2885db7b7843efbfa7928bfa"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x1403b7d3e.CODE.bin",
+        "bytes": 210,
+        "sha256": "5b9003d6aa0e304fe24aa75d40f95ce9c2d6c8026e959c165c0ea59bbcca86f2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x14260e5a8.unwind.bin",
+        "bytes": 8,
+        "sha256": "36061d653c465cef14e591e1b25fa110d6689baafda9d2fb58930b053eb510e2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x142611fd0.unwind.bin",
+        "bytes": 12,
+        "sha256": "f9aafe64aa175d215b130bafc9663475b344e19e116d19ff33930f52e1137b62"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x142611fdc.unwind.bin",
+        "bytes": 24,
+        "sha256": "c11be6caa15530a23bbe9e4e7ba85641fe75b886f5cf4f8adefe90f1391b5125"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x142611ff4.unwind.bin",
+        "bytes": 20,
+        "sha256": "403cdfe0d52f138c6213afdee84f2bc2f0a706e55d5cb7d20f995689f188c5d8"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x142612044.unwind.bin",
+        "bytes": 16,
+        "sha256": "5eb9cbcfc5813c30879d6beb2416370e92566cdc3a6f80aaa514e504e5d92afa"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x142fc2048.pdata.bin",
+        "bytes": 12,
+        "sha256": "cd59bcb9bdba6e5d45705d4e6760aa62b6f5bc727eef501eaa3bb812ced82643"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/0x142fc4490.pdata.bin",
+        "bytes": 12,
+        "sha256": "b679d9144b8c587b92bec5a4224b13226824671629fb693f774e57d83488242b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/probe-receipt.json",
+        "bytes": 678,
+        "sha256": "4d0f3c57798f1d04f954aa8f207b4529f226fe8b30417bd65ab92260dcc39e31"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351057079016900/spans.json",
+        "bytes": 1910,
+        "sha256": "69b8c682b1b33cd3585c7864a3410e7bcb775f969d1664507203b22848abfb0c"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x140379200.asm.txt",
+        "bytes": 539,
+        "sha256": "7c63e4d06375b1aed5311e04e44c3000abac61c66f51a5cedf950d190893c54c"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x140379200.CODE.bin",
+        "bytes": 52,
+        "sha256": "3661e498b2ece29900d4a863e9415e947c3fdfd7f6b6e21a69674ea3ec39b19b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x1403795d0.asm.txt",
+        "bytes": 489,
+        "sha256": "696ec5555a486905ae5b0cb4df7c2cd52a23e749d80aba2da474b95a6c95ab08"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x1403795d0.CODE.bin",
+        "bytes": 52,
+        "sha256": "bef421bfe1fc87533ad6f870efc236da5954c638c3ec2f1439d0f0e06276df3d"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x140392400.asm.txt",
+        "bytes": 2984,
+        "sha256": "a7831e32592ed2b6a901a5e22dec10bb64ed7af41b32125861d50cfe3ad76032"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x140392400.CODE.bin",
+        "bytes": 333,
+        "sha256": "05f2d907b362787a66be6286384741f595d7d69a8ab1e843865fdc0c8531b99e"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x140393530.asm.txt",
+        "bytes": 129,
+        "sha256": "ef4a4bada9288bf2d3b00b1debd0bd80b7492db6059b2cc356154e44c83472ba"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x140393530.CODE.bin",
+        "bytes": 13,
+        "sha256": "bf2c37cce5e5fbeb9dfe8619a94046a0e713419877dd1c810dc32aef2a5e3897"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14039353d.asm.txt",
+        "bytes": 555,
+        "sha256": "099bb5f4455105ec1f798b1189589d28b4c3b2669065f6ecf503f945631635e7"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14039353d.CODE.bin",
+        "bytes": 60,
+        "sha256": "f45aabc65a117d14d37e39cd28ffb5f9ec44159dd444890643134b14c52e1dd2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x1403b8af0.asm.txt",
+        "bytes": 414,
+        "sha256": "a2b23378b2592b061715f654d7b06b621a72d99a8ffd6a256615b1d914b51b77"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x1403b8af0.CODE.bin",
+        "bytes": 44,
+        "sha256": "cd0a1376a552307b92c1f464655211c804f66de109b941a2d8098e34bfe3eed2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14260d5b8.unwind.bin",
+        "bytes": 8,
+        "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14260d65c.unwind.bin",
+        "bytes": 8,
+        "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14260f02c.unwind.bin",
+        "bytes": 20,
+        "sha256": "2209fed652d5fd8b3f08c1eb73890a73d571c16322411dc25725e43d92eeaa1d"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14260f20c.unwind.bin",
+        "bytes": 8,
+        "sha256": "2d8867f028f39ef522d70e56d169d2fbb9046163869f9360ec470bdd2040cd24"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14260f214.unwind.bin",
+        "bytes": 20,
+        "sha256": "139057e2dcd923a5b04f5bb11b9dd7d8370badc52186241536045c718ece1240"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x14261215c.unwind.bin",
+        "bytes": 8,
+        "sha256": "eb874a2d5756386f3a7d463290a08f132ac00fa4e4080cfb811bafc05b2569b2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x142fc15ec.pdata.bin",
+        "bytes": 12,
+        "sha256": "5cf60a03d00eec267fee14c8e44399a0daac5075777880907bfa4e1445519ad0"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x142fc1670.pdata.bin",
+        "bytes": 12,
+        "sha256": "e5d603463739829dde33d494792f887571faba07d2278ade40a863107a41a906"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x142fc2714.pdata.bin",
+        "bytes": 12,
+        "sha256": "89150a1e8800668be2747b2ef4dadc5f8972901f3036904b95727890271327a3"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x142fc2840.pdata.bin",
+        "bytes": 12,
+        "sha256": "e1081bac3de77bceecd3608bbaa92e453171af12375358aeee69665714e72526"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/0x142fc4520.pdata.bin",
+        "bytes": 12,
+        "sha256": "3d975e8b593f33353835ff8443ee5c6c2c0746000dca90c326b1ecf72ce473ce"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/probe-receipt.json",
+        "bytes": 778,
+        "sha256": "4fa11be5b399a05db245d6566643ba24648ca1c3700fd09aefb2e37fadf54e61"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351085165106000/spans.json",
+        "bytes": 2703,
+        "sha256": "213e204c5deb89bbc1e50664f2ddbb23b8de382de1e1271260b47969ff83233f"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/0x14038a580.asm.txt",
+        "bytes": 8798,
+        "sha256": "983c82944669c7300010d8ba332678ca2e5fb309e1aaff4ae29845d781f63023"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/0x14038a580.CODE.bin",
+        "bytes": 912,
+        "sha256": "810c813efccede355f87a29ea4645da72cde4e58caf1c1740f6994f2c330826b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/0x14039254d.asm.txt",
+        "bytes": 7407,
+        "sha256": "ba9b743b1845933933711403256c57f2035b203bdc46648bf4c496a5c4ad6314"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/0x14039254d.CODE.bin",
+        "bytes": 771,
+        "sha256": "6c9ae04403392cd418f1cbf4839509d6fe3aab17eef59d9964d59b8663a26c5d"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/0x1403b7b50.asm.txt",
+        "bytes": 10740,
+        "sha256": "67584301fd65ae28df43e963340daa0a03cde871cb56961f969acd1fb6f91035"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/0x1403b7b50.CODE.bin",
+        "bytes": 1002,
+        "sha256": "958c62221401038fa44696a0f18adfc32b0790514e104f37c343699f6e49993c"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/probe-receipt.json",
+        "bytes": 774,
+        "sha256": "ccfe5163df91b0dade9833fb69b90d3e7c38acff1bbaa43020179c66f8727224"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351099922862800/spans.json",
+        "bytes": 481,
+        "sha256": "da3c62825e2130e9525a56cf5f9dd45454095311a62bb9699f59cfdbce9da8b4"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x1403b5b90.asm.txt",
+        "bytes": 136,
+        "sha256": "f777e0fae6300581d7ca84499ebdceb7dc91e23e78ee43068c59729443b4e302"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x1403b5b90.CODE.bin",
+        "bytes": 9,
+        "sha256": "bcf5a8b0e25edc3ce645fe2521a51b93b3ba1d1c8998820c97c6ec1e2c249bbc"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x14040cff0.asm.txt",
+        "bytes": 3308,
+        "sha256": "d88617a6fd60434caf5bd49f42c2b0f615e784e912da8622615c810b26ab9a8b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x14040cff0.CODE.bin",
+        "bytes": 287,
+        "sha256": "dc8a2fe0348b8ea7dff368e0aff5f0af78c772eec024c636fe6689fa99ee10dc"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x142611c2c.unwind.bin",
+        "bytes": 16,
+        "sha256": "f28ccee9e54971753b66d1ea62e19a750e5b147360135aca2e5cffe13c1c86eb"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x142616e88.unwind.bin",
+        "bytes": 20,
+        "sha256": "bb13e6c6a983c02cdabcec0406ca34d45ce7d54834c1237440984006a1b7ffe2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x142fc4238.pdata.bin",
+        "bytes": 12,
+        "sha256": "144af925ea6e645fd64d4ce10a9d18713f5e09908cc83e171ddc0b52a0047879"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/0x142fc7928.pdata.bin",
+        "bytes": 12,
+        "sha256": "89ad6e2680a84ff26897254923b270e5b8483364b4358818ab1a49d4c54aadd2"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/probe-receipt.json",
+        "bytes": 719,
+        "sha256": "e96e9f82264ca1a2407fa99426e62f84137b4df9c79b959a5c7742402865a9c5"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351135275486300/spans.json",
+        "bytes": 957,
+        "sha256": "9d7967b077fe6e33173cabeb8070750d1ea8672af1dd4d99dfe87a1606a4e51b"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/0x1403b5b90.asm.txt",
+        "bytes": 6475,
+        "sha256": "e5ff7bb4e8eca3dccf4f09cb31868e794c2e90670bcda0b5f64c97b22caec489"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/0x1403b5b90.CODE.bin",
+        "bytes": 640,
+        "sha256": "b196725e9711037237f7ffd99de05483d6812075a7f35a68f126ac2cadf39c78"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/probe-receipt.json",
+        "bytes": 711,
+        "sha256": "a5d745dbf1767ba9faa3580661ea933a84c1f255a3d5bb71a2b2a262d710c200"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/spans.json",
+        "bytes": 162,
+        "sha256": "66e75ab8e0590699dc7b9644f6bed0977e47fd38c37eee93ff60a247af3ceb72"
+      },
+      {
+        "path": "top/assets/official/top-ring-binding-50976/trace.py",
+        "bytes": 2396,
+        "sha256": "1e9a567eaa18cc7dd3e0328518b0cc1ff0bf00320c6661a04f3ce60865808a26"
+      }
+    ],
+    "smallest_remaining_blocker": "Allocation writer for [0x142aa75d8], and typed G-consumer/resource entry. Owner-slot-to-CPU-consumer identity is closed; original allocation constructor and GPU upload/CB/shader identity are not.",
+    "next_method": "Parent supplies exact allocation writer or typed render-context/vtable evidence; follow that bounded target to concrete resource and bytecode reflection. No equivalent xref rerun, offset survey or guessed shader.",
+    "validation_command": "C:/Python314/python.exe -B D:/Dev/OpenClawCodexBridge/probes/top-ring-binding-50976/accept.py --worktree D:/Dev/OpenClawCodexBridge/worktrees/top-ring-binding-50976",
+    "validation": {
+      "result": {
+        "status": "PASS_PINNED_SOURCE103_AND_NATIVE_SPANS_ONLY_NOT_SEMANTIC_ACCEPTANCE",
+        "spans": 173,
+        "rendering_accepted": false,
+        "all96_accepted": false
+      },
+      "receipt": {
+        "path": "top/assets/official/top-ring-binding-50976/1ba528b3-0502-4ccd-a958-9f66e7bcdee3/source-accept-receipt.json",
+        "sha256": "87e17cc19a1af0b24fa860275a895d805ff51102bc7f44b4a96a9fa644a63e3c",
+        "argv": [
+          "C:/Python314/python.exe",
+          "-B",
+          "D:\\Dev\\OpenClawCodexBridge\\probes\\top-ring-binding-50976\\accept-child.py",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976",
+          "D:\\Dev\\OpenClawCodexBridge\\probes\\top-ring-binding-50976\\inputs.json",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-binding-50976\\top\\assets\\official\\top-ring-binding-50976\\1ba528b3-0502-4ccd-a958-9f66e7bcdee3\\result.json"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 69464064,
+        "job_peak_private_bytes": 64172032,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33012793344,
+        "seconds": 0.15722109994385391,
+        "no_script_errors": true,
+        "ok": true
+      },
+      "scope": "Pins and spans only; not semantic acceptance"
+    },
+    "guarded_seconds_through_gate": 4.333411899977364
   }
 }

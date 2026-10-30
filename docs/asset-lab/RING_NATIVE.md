@@ -1,3 +1,104 @@
+# Native radial target binding checkpoint (schema 1)
+
+**STATIC_PARTIAL; review_required=true; rendering_accepted=false; all96_accepted=false.**
+The owner-slot-to-CPU-consumer join is now explicit. The target allocation's
+constructor and original GPU resource/shader contract remain unproved. No product
+behavior changed, no native game execution occurred, and no original action sample
+was observed. This is a source checkpoint for parent review, not a renderer contract.
+
+## Newly proved joins
+
+- Registration entry is `0x1403b7b50`. Unwind records at `0x142612044`,
+  `0x142611ff4`, `0x142611fdc`, `0x142611fd0` chain the setter fragment through
+  `0x1403b7bd1` and `0x1403b7b7c` to that entry. At `0x1403b7b63`, RSI receives
+  argument 2 (RDX); R15 receives owner RCX at `0x1403b7b69`. Entry saves RDX at
+  entryRSP+0x10. CurrentRSP is entryRSP-0x68, so the loop's restoration from
+  currentRSP+0x78 at `0x1403b7d1e` restores the same argument pointer. The successful
+  path loads `[RSI+8]` at `0x1403b7d78` and stores it to owner+0x1490 at
+  `0x1403b7d83`. Early registration failure paths remain conditional.
+- Wrapper `0x140379200` preserves its caller's descriptor, calls owner getter
+  `0x1403b4f80`, then passes owner in RCX and descriptor in RDX to registration
+  by tail jump `0x14037922f`. A concrete second caller at `0x140392539` passes
+  owner `0x142aa7e00` and descriptor `0x142aa75e0`. Instructions `0x140392491`
+  and `0x140392498` copy `[0x142aa75d8]` to descriptor+8 (`0x142aa75e8`). The
+  writer/constructor establishing that source global remains unknown.
+- Consumer caller `0x1403795d0` gets that same singleton owner, retains it in
+  RBX, performs dispatch, then **loads RCX=[owner+0x1490] at `0x1403795f3` and
+  tail-jumps to `0x14038a580` at `0x1403795ff`**. The independent path
+  `0x140393547 -> 0x140393564 -> 0x140393574` does the same. Wrapper
+  `0x1403b8af0` also forwards its incoming owner's +0x1490 at `0x1403b8b0b`.
+  These explicit pointer transfers supersede the earlier offset-only candidate
+  qualification. They prove static owner-slot identity, not a particular live
+  allocation/address, registration timing, or absence of replacement between calls.
+
+The unrelated `0x88038` allocation remains owner+0x1498. It is not the radial
+target. `0x1403889a0` remains a counterexample to inferring identity from offsets.
+The host's conditional field packet, nullable curve/evaluator facts, exceptional
+SSE behavior, and UNKNOWN actual absent IRad are unchanged.
+
+## Render boundary and smallest blocker
+
+The now-connected consumer still only copies CPU parameters into
+`G=[0x14290e498]` and toggles bits through `0x14035c490`. The captured consumer
+returns without a proved GPU upload or resource-selection call. The intervening
+`0x14040cff0` stores context/callback at +0x20/+0x28, invokes dispatch helpers and
+an indirect +0x18 slot, then clears those fields. Its supplied callback
+`0x1403b5b90` uses owner+0x1498, TLS fields and virtual +0x78. These are concrete
+scheduling boundaries, not shader bindings or lifetime proof; their untraced
+callees are not claimed absent or irrelevant to the wider renderer.
+
+Two exact missing inputs remain: the allocation writer for `[0x142aa75d8]`, and
+a typed render-context entry consuming G's radial fields and binding an original
+resource/constant buffer/shader. No texture, CB slot/layout, shader key/constant,
+branch selection, convolution, projection or blend law is inferred. Next method:
+obtain a parent-provided exact writer/constructor or typed render-context/vtable
+receipt, then trace that bounded target into original bytecode/reflection. Do not
+repeat this call-reference search or substitute another offset/name survey.
+
+The descriptor/player and pinned maintained VFXEditor references were read; they
+provide source fields and a numeric descriptor, not the missing shader contract.
+Source clock/lifetime remain OPEN. Parent CRT evidence is a separate readonly
+lead: 1152 nonzero absolute VA entries and file dispatch
+`14210de90 -> 1421060b0 -> [14210de88]=142106090 -> JMP RAX`. Runtime guard patching
+is unobserved, and the prior prefix locator is not absence proof. No initializer
+work was repeated here.
+
+## Evidence and checks
+
+Frozen input SHA256:
+`ba8208e0d8122006440a5765098d14faa08920608beab6033b59993fa546786e`.
+Preflight verified all 105 initial LF files, all 245 raw readonly files, binary
+identity and all 137 initial native spans before tracing. All 103 protected files
+and previous span records remain intact.
+
+Exactly one direct CALL/JMP-immediate search used executable pdata fragments in
+`[0x140300000,0x140500000)`: 8,455 entries, 1,890,576 input bytes, targets
+`0x1403b7b50` and `0x14038a580`, five retained hits. Indirect calls, other ranges,
+leaf gaps and aliases were not searched; there is no absence claim. Only one
+external typed direct hop (`0x14040cff0`) was followed, without recursive expansion.
+Explicit aligned captures have fixed limits and may include chained fragments or
+padding; they do not assert complete function coverage.
+
+Added 15 CODE spans / 4,309 bytes and 21 metadata records; cumulative acceptance
+inventory is 173 records / 40,330 bytes. Exact addresses, byte hashes, disassembly,
+commands, resource receipts and artifact hashes are in `ring-native.json` and
+ignored `top/assets/official/top-ring-binding-50976`. Serial pinned Windows Job
+Object children use 45 seconds, 1.5 GiB cap, 8 GiB available floor and pycache off.
+No native child failed; earlier failed probes remain immutable. The first shell
+manifest display was truncated; structured preflight verified every entry.
+
+Staged pin gate command:
+`C:/Python314/python.exe -B D:/Dev/OpenClawCodexBridge/probes/top-ring-binding-50976/accept.py --worktree D:/Dev/OpenClawCodexBridge/worktrees/top-ring-binding-50976`.
+Its result is recorded in the JSON after execution; it checks protected source and
+native byte hashes only. Parent independent semantic review remains required.
+No commit, push, merge, export, game, browser, desktop, input or audio action.
+
+---
+
+The following accepted history is retained. Its unresolved consumer/RSI statements
+are superseded only by the joins above; allocation/GPU/runtime caveats remain.
+
+
 # Native radial host packet and render boundary (schema 1)
 
 **STATIC_PARTIAL; review_required=true. rendering_accepted=false; all96_accepted=false.**
