@@ -780,3 +780,89 @@ hash, reviewed helper hash, exact joins, counterevidence and limitations.
 Documents are published with temporary files plus os.replace and then checked
 for exact MD prefix and historical JSON-value preservation. No product source,
 tests, Git index, commits, pushes, desktop or game execution were changed.
+
+## Shader contract audit — action31567 (schema 1, 2026-10-30)
+
+**Static source handoff; rendering_accepted=false; all96_accepted=false.** The concrete C allocation/installation edge is closed. Three original ShCd files now supply exact pixel/vertex instructions and reflected bindings. The shader kernels can be implemented independently with explicitly supplied inputs; full native renderer equivalence remains unproved at the narrow resource-factory, sampler, texture-target and small-upload edges below. No product code, game launch, desktop action, commit, push or deployment was performed.
+
+This appendix does not modify or supersede historical JSON values. The executable remains SHA256 `46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a`. The frozen inputs manifest remains `70b3dc3eeee406922cc5a5dd8739b5ca493e45ac7aa0f8eb2a5d95cc2cb64134`. All 105 initial LF files were checked (103 protected plus the two initial documents); all 610 readonly files and all historical native hashes match. There are 300 span-list records, plus one duplicate locator under gpu_contract_audit: 301 recursively found hashed objects, 299 unique VA/size pairs. This distinction preserves the supplied 300-record history rather than deleting a duplicate.
+
+### Concrete native route
+
+**C-install — PROVED_STATIC_NORMAL_ROUTE.** 353486 initializes G+568 with count2;349b80 installs a zeroed pointer array at G+570.3540e0 allocates 0x6e8 bytes at355fe2, calls36e910 at355ff4, writes returned C to [[G+570]+8] at356008, invokes its installed +8 init at35602d. Failure destroys and clears the cell.36e910 supplies R11=14215bd30,RDX=C,R8=C+a0,R9=10,R10=0 before historical36e980; C vtable14215c090 installed36e9bb and ten stride-a0 base subobjects installed36e9d0. This closes concrete C identity, not merely matching virtual offsets.
+
+Evidence: `historical352af0`, `0x140349b80`, `0x1403540e0`, `0x14036e910`, `historical36e980`, `0x14215bd30`, `historical14215c090`.
+
+**init-pass — PROVED_STATIC_NORMAL_ROUTE.** Caller descriptor index0/path DonutMerge;36eae0 initializes ten subobjects and calls347120(C,descriptor). Mode0 dispatches subobjects0,1,2 through installed3482b0 then direct3482b0(C) merge. Only these three radial resources plus shared VS and merge are relevant; only three unique files extracted.
+
+Evidence: `historical36eae0`, `historical347120`, `historical370ba0`.
+
+**loader — CONDITIONAL_SHARED_ABI_ROUTE.** Table1421520a8 slot32=323390 reads bytes and invokes17f1b60, stores returned kernel shader at handle+b0 and stage at+b8. Loader takes stage byte7, metadata44 and offsets16/20; pixel stage1 calls225260 and native device virtual+78 with exact DXBC, stores object shader+60. Vertex stage0 calls224ee0, subtracts8 from stored length, copies blob+8, native device virtual+60. Resource manager factory return from347120 call2fed30 to this handle table has NOT been independently closed; do not treat table inspection or upstream name as installed resource-handle identity.
+
+Evidence: `0x1421520a8`, `0x140323390`, `0x1417f1b60`, `0x1417f1c00`, `0x140225260`, `0x140224ee0`.
+
+**binder — PROVED_STATIC_CONDITIONAL.** Loader interns parameter names and preserves metadata register byte at entry+0, extent at+2, internID at+4.347560 resolves S bindings;3482b0 uses internID to context+940 CB/context+1140 texture slots.23ca30 snapshots in shader-binding order, not register=internID.241bf0 passes packed shader binding to239a80;239a80 low byte selects GPU CB slot, high16 extent bounds vector count.22cdc0 uses shader texture binding byte0 as actual texture/sampler slot. This agrees with reflection b0/b1,t0/t1,s0/s1 without hashing guessed names.
+
+Evidence: `0x1417f1c00`, `0x140347560`, `historical3482b0`, `0x14023ca30`, `0x140241bf0`, `0x14022cdc0`, `0x140239a80`.
+
+**submission — PROVED_STATIC_CONDITIONAL_WITH_UPLOAD_GAP.** CPU writes do not prove submission.346fa0 creates opcode5 draw packet, captures shader+CB+texture snapshots, queues240b80.2349c0 case5 calls22d750 then native immediate-context virtual+c0 and+68 with four vertices/start0 (D3D11 topology/Draw ABI).241bf0 binds pixel shader object via virtual+48.239a80 contains Map/copy/Unmap large-buffer path, but these1/2-vector CBs follow small-bin238bc0, not the large path; small-bin upload and flush240c60/240d50 remain unexpanded. No runtime execution, GPU completion or rendering acceptance.
+
+Evidence: `0x140346fa0`, `0x14023c4d0`, `0x140240b80`, `0x140240be6`, `0x1402349c0`, `0x14022d750`, `0x140239a80`.
+
+### Exact original resources and parsing
+
+Installed Lumina read only the three exact source paths below. Assets remain private/ignored in `top/assets/official/top-ring-shader-51039`; total 4,485 bytes. No ShPk reinterpretation, invented key vectors, CRC guesses or broad extraction was used. Native descriptors for the first three subobjects point to identical RadialBlur strings at 14215abb0/abd8/ac00 (reused historical 512-byte metadata span). Descriptor index 0 selects the shared VSSampling1 path; DonutMerge comes from the concrete caller descriptor at 355f9c.
+
+| Source path | Stage | ShCd SHA256 | DXBC offset/bytes |
+|---|---|---|---|
+| `shader/sm5/posteffect/RadialBlur.shcd` | pixel | `218b8478ba791aacd1fdc3b773ff88e2bab905e38002bf3a0479c79d40bbec2e` | 108/1520 |
+| `shader/sm5/posteffect/DonutMerge.shcd` | pixel | `e3dafd25f1422745231d06a643c0b2896ff6decb36ee94153408b5101baae117` | 140/1604 |
+| `shader/sm5/posteffect/VSSampling1.shcd` | vertex | `59a20841f65fcd46d95949c644d5c40f2b7646945fdb25f991c8fb067882d1e9` | 68/896 |
+
+Upstream Physis, ffxiv-explorer and FFXIVClientStructs sources were inspected; URLs, Git blob identifiers and content hashes are retained in JSON. Their older assumptions are not accepted over the pinned native loader: current stage is byte 7, metadata starts at 44, the vertex blob has an 8-byte prefix, and metadata name length is a 16-bit field followed by flags. The first parser attempt exposed the flags/name-length distinction on the actual file and is preserved. Corrected bounded standard-library parsing passes 3 actual pinned inputs and 27 malformed/bounds cases. This is a narrow current-layout reader, not a general ShCd compatibility claim.
+
+DXBC chunk structure was checked using the repository DXBC inspector only. Installed Windows d3dcompiler_47 D3DDisassemble produced full reflection and instruction listings, retained with hashes in JSON/private receipts. Reflection count=1 for sInput must not be confused with the raw ShCd trailing word=0.
+
+| Stage | Constants | Textures / samplers |
+|---|---|---|
+| Radial pixel SM5 | b0 cDynamicViewportResolutionParam, 32 bytes (only first vector used); b1 cRadialBlurParam, 16 bytes | sInput.T t0 / sInput.S s0 |
+| Merge pixel SM5 | same b0; b1 cDonutMergeParam, 32 bytes | sInput t0/s0; sMerge1 t1/s1 |
+| Shared vertex SM5 | b0 cParam, 48 bytes | none |
+
+### Implementation-ready kernel contract
+
+For mode 0, let P be the previously proved G+469c payload. The three radial b1 vectors, in order, are `(P18,P1c,P04,(P08/P0c)/P0c)`, `(P18,P1c,P04,P08/P0c)`, `(P18,P1c,P04,P08)`. Preserve the two sequential divisions. Merge b1[0] is half `(P20,P24,P28,P2c)`; b1[1] is `(P18,P1c,0.5/q,P10)`, with the historical COMISS/JA epsilon selection, not an invented default.
+
+Radial: For i=0..3 integer -> float32: x=(float(i)*b1.w)*float32(1/3); weight=1-(float(i)*b1.z)*0.25; coord=min(saturate(uv+(b1.xy-uv)*x)*b0.xy,b0.zw); accumulate sample(t0,s0,coord)*weight; divide all RGBA by sumWeights. Exact instruction listing retained per asset; no extra denominator guard.
+
+Merge: r=(uv.xyxy-b1[1].xyxy)/b1[0]; d=(dot(r.xy,r.xy)-1,1-dot(r.zw,r.zw)); f=saturate(min(d.x*b1[1].z+1,d.y*b1[1].z+0.5))*b1[1].w; coord=saturate(uv)*b0.xy; output=sample(t0,s0,coord)+f*(sample(t1,s1,coord)-sample(t0,s0,coord)). Merge does not apply radial b0.zw minimum.
+
+Vertex: r=v0.xy*cParam[0].xy+cParam[0].zw; position.xy=r*(2,-2)+(-1,1);z=cParam[2].x;w=1;uv=v0.zw*cParam[1].xy+cParam[1].zw. No independent pixel Y flip.
+
+Viewport: 346630 writes b0[0]=(inputW/allocatedW,inputH/allocatedH,(inputW-1)/allocatedW,(inputH-1)/allocatedH), operationally ratio then reciprocal subtraction. Second vec4 analogous second input; retained although these pixel kernels read only first. Actual input dimensions must be supplied, not normalized to1 by assumption.
+
+Precision: SM5 full float32 registers, refactoringAllowed, no minimum-precision declarations. Preserve operation ordering, saturation, implicit-LOD texture samples and RGBA arithmetic. Cross-driver FMA/rounding, render-target format, color space, sampler filtering and Godot Windows/Web equivalence are not accepted.
+
+36ef90 receives A=RDX,B=R8: radial0 input A/output B (36f1c2,36f1ef), radial1 input B/output A(36f353,36f37f), radial2 input A/output B(36f4e2,36f50f). Input sampler packed0x265. Do not rename A original scene without caller evidence.
+
+All math is sourced from the actual instruction listings. It is sufficient for independent kernel implementation and parameterized validation. It is not sufficient to claim a faithful complete renderer while sampler decoding, actual target formats/dimensions and original/merge input ownership remain unresolved. No arbitrary defaults, fixed clock rate, guessed blur, visual mockup or screenshot equivalence is supplied.
+
+### Smallest remaining edges and counterevidence
+
+- **347120 -> 2fed30 resource-manager return -> installation of handle vtable1421520a8** — Concrete C installation is proved. Concrete ShaderCodeResourceHandle factory installation is not: matching slot32 and upstream class address does not connect returned object identity. Exact next source: The shcd resource factory branch reached by2fed30 and its constructor store; no G reconstruction.
+
+- **239a80 small-bin branch239b90 ->238bc0 -> buffer upload; flush240c60 and240d50** — Large-buffer Map/Unmap at239b43/239b74 requires rounded vector size>=4096;1/2/3-vector payloads take the other branch. Captured command Draw does not close their upload. Exact next source: 238bc0 and only its called upload helper;240c60/240d50 exact pending-state flush.
+
+- **packed sampler0x265 ->2387b0 -> native sampler descriptor** — Shader mode_default is not a filter/address declaration.36ef90 writes0x265 for radial input;22cdc0 calls2387b0. Linear/clamp cannot be asserted from that integer. Exact next source: 2387b0 decode of0x265 and merge inherited sampler state; no speculative sampler defaults.
+
+- **36ef90(C,RDX=A,R8=B) actual caller and merge input/output wiring** — Reused setter proves radial pass0 A->B,pass1 B->A,pass2 A->B; exact A/B allocation dimensions/format and merge original-input/sMerge1 ownership are not fully adjudicated here.3566e0 concerns G+650 and is counterevidence to using it for radial texture setup. Exact next source: Existing C+30 virtual caller with its A/B arguments and remaining36ef90 merge wiring; reuse historical spans first.
+
+- **absent IRad, host clock, default values, lifetime** — No new proof in this audit. Exact next source: Parent lifetime/default dependency work; do not assume30Hz or fabricate absent values.
+
+### Bounds, failure preservation and review
+
+24 new CODE captures and 9 METADATA records total 24,829 bytes; cumulative span-list count 333 and bytes including the duplicate locator 128,449, within the requested limits. Each new span has uppercase kind, exact SHA256, artifact and invocation receipt. Pdata chain grouping is recorded separately from normal CFG. Leaf constructor36e910 has no covering pdata entry; its direct callsites and preceding pdata end establish the recovered boundary. Embedded dispatch tables/padding are not instruction evidence. One command dispatch metadata view overlaps its enclosing captured function group; it is disclosed in JSON and is not independent corroboration.
+
+Every child ran serially under the pinned WindowsJobObject runner with 45-second deadline, 1.5-GiB limit and 8-GiB free-floor. All invocation results, including failures, are retained. Windows work_guard could not supply its fcntl backend; the requested pinned runner supplied the bounded execution fallback. Three leaf-pdata assertion failures triggered a documented blocked-state recovery with a concrete leaf-boundary fix; no repeat code search or cap increase followed. The parser failure, exclusive-log collision, direct-network denial and draft BOM-read correction remain in the evidence ledger.
+
+The complete JSON key contains receipts, resource reflection/instructions, claims, refutations, hashes, scope limits and dependencies. This is a self-reviewed source handoff for parent adjudication. Actual original action31567 → P3-02 → all96 visual acceptance, exported Windows/Web gates and GPU completion remain unclaimed.

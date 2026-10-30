@@ -5590,5 +5590,2877 @@
       "code_spans": 16,
       "semantics_changed": false
     }
+  },
+  "shader_contract_audit": {
+    "schema": 1,
+    "source_kind": "STATIC_PINNED_SOURCE",
+    "rendering_accepted": false,
+    "all96_accepted": false,
+    "binary_sha256": "46a52ab1dbe80b9a8d6c4d4531bf66693904200c5135facacd053ef28a5de14a",
+    "handoff_sha256": "70b3dc3eeee406922cc5a5dd8739b5ca493e45ac7aa0f8eb2a5d95cc2cb64134",
+    "claims": [
+      {
+        "id": "C-install",
+        "status": "PROVED_STATIC_NORMAL_ROUTE",
+        "evidence": [
+          "historical352af0",
+          "0x140349b80",
+          "0x1403540e0",
+          "0x14036e910",
+          "historical36e980",
+          "0x14215bd30",
+          "historical14215c090"
+        ],
+        "claim": "353486 initializes G+568 with count2;349b80 installs a zeroed pointer array at G+570.3540e0 allocates 0x6e8 bytes at355fe2, calls36e910 at355ff4, writes returned C to [[G+570]+8] at356008, invokes its installed +8 init at35602d. Failure destroys and clears the cell.36e910 supplies R11=14215bd30,RDX=C,R8=C+a0,R9=10,R10=0 before historical36e980; C vtable14215c090 installed36e9bb and ten stride-a0 base subobjects installed36e9d0. This closes concrete C identity, not merely matching virtual offsets."
+      },
+      {
+        "id": "init-pass",
+        "status": "PROVED_STATIC_NORMAL_ROUTE",
+        "evidence": [
+          "historical36eae0",
+          "historical347120",
+          "historical370ba0"
+        ],
+        "claim": "Caller descriptor index0/path DonutMerge;36eae0 initializes ten subobjects and calls347120(C,descriptor). Mode0 dispatches subobjects0,1,2 through installed3482b0 then direct3482b0(C) merge. Only these three radial resources plus shared VS and merge are relevant; only three unique files extracted."
+      },
+      {
+        "id": "loader",
+        "status": "CONDITIONAL_SHARED_ABI_ROUTE",
+        "evidence": [
+          "0x1421520a8",
+          "0x140323390",
+          "0x1417f1b60",
+          "0x1417f1c00",
+          "0x140225260",
+          "0x140224ee0"
+        ],
+        "claim": "Table1421520a8 slot32=323390 reads bytes and invokes17f1b60, stores returned kernel shader at handle+b0 and stage at+b8. Loader takes stage byte7, metadata44 and offsets16/20; pixel stage1 calls225260 and native device virtual+78 with exact DXBC, stores object shader+60. Vertex stage0 calls224ee0, subtracts8 from stored length, copies blob+8, native device virtual+60. Resource manager factory return from347120 call2fed30 to this handle table has NOT been independently closed; do not treat table inspection or upstream name as installed resource-handle identity."
+      },
+      {
+        "id": "binder",
+        "status": "PROVED_STATIC_CONDITIONAL",
+        "evidence": [
+          "0x1417f1c00",
+          "0x140347560",
+          "historical3482b0",
+          "0x14023ca30",
+          "0x140241bf0",
+          "0x14022cdc0",
+          "0x140239a80"
+        ],
+        "claim": "Loader interns parameter names and preserves metadata register byte at entry+0, extent at+2, internID at+4.347560 resolves S bindings;3482b0 uses internID to context+940 CB/context+1140 texture slots.23ca30 snapshots in shader-binding order, not register=internID.241bf0 passes packed shader binding to239a80;239a80 low byte selects GPU CB slot, high16 extent bounds vector count.22cdc0 uses shader texture binding byte0 as actual texture/sampler slot. This agrees with reflection b0/b1,t0/t1,s0/s1 without hashing guessed names."
+      },
+      {
+        "id": "submission",
+        "status": "PROVED_STATIC_CONDITIONAL_WITH_UPLOAD_GAP",
+        "evidence": [
+          "0x140346fa0",
+          "0x14023c4d0",
+          "0x140240b80",
+          "0x140240be6",
+          "0x1402349c0",
+          "0x14022d750",
+          "0x140239a80"
+        ],
+        "claim": "CPU writes do not prove submission.346fa0 creates opcode5 draw packet, captures shader+CB+texture snapshots, queues240b80.2349c0 case5 calls22d750 then native immediate-context virtual+c0 and+68 with four vertices/start0 (D3D11 topology/Draw ABI).241bf0 binds pixel shader object via virtual+48.239a80 contains Map/copy/Unmap large-buffer path, but these1/2-vector CBs follow small-bin238bc0, not the large path; small-bin upload and flush240c60/240d50 remain unexpanded. No runtime execution, GPU completion or rendering acceptance."
+      }
+    ],
+    "implementation_contract": {
+      "sufficient_for_independent_kernel_implementation": true,
+      "sufficient_for_faithful_end_to_end_renderer": false,
+      "scope": "Selected shader math and explicit ABI can be implemented with supplied uniforms/textures independently of absent/default/clock/lifetime. Full native visual equivalence is blocked by remaining resource/sampler/target/upload proof and platform gates.",
+      "mode0_payload": {
+        "radial_b1": [
+          "(P18,P1c,P04,(P08/P0c)/P0c)",
+          "(P18,P1c,P04,P08/P0c)",
+          "(P18,P1c,P04,P08)"
+        ],
+        "merge_b1": [
+          "0.5*(P20,P24,P28,P2c)",
+          "(P18,P1c,0.5/q,P10)"
+        ],
+        "q": "COMISS epsilon,P14; JA selects epsilon bits0x3a83126f, else P14. Preserve native comparison/NaN behavior; no invented default."
+      },
+      "radial": "For i=0..3 integer -> float32: x=(float(i)*b1.w)*float32(1/3); weight=1-(float(i)*b1.z)*0.25; coord=min(saturate(uv+(b1.xy-uv)*x)*b0.xy,b0.zw); accumulate sample(t0,s0,coord)*weight; divide all RGBA by sumWeights. Exact instruction listing retained per asset; no extra denominator guard.",
+      "merge": "r=(uv.xyxy-b1[1].xyxy)/b1[0]; d=(dot(r.xy,r.xy)-1,1-dot(r.zw,r.zw)); f=saturate(min(d.x*b1[1].z+1,d.y*b1[1].z+0.5))*b1[1].w; coord=saturate(uv)*b0.xy; output=sample(t0,s0,coord)+f*(sample(t1,s1,coord)-sample(t0,s0,coord)). Merge does not apply radial b0.zw minimum.",
+      "vertex": "r=v0.xy*cParam[0].xy+cParam[0].zw; position.xy=r*(2,-2)+(-1,1);z=cParam[2].x;w=1;uv=v0.zw*cParam[1].xy+cParam[1].zw. No independent pixel Y flip.",
+      "viewport": "346630 writes b0[0]=(inputW/allocatedW,inputH/allocatedH,(inputW-1)/allocatedW,(inputH-1)/allocatedH), operationally ratio then reciprocal subtraction. Second vec4 analogous second input; retained although these pixel kernels read only first. Actual input dimensions must be supplied, not normalized to1 by assumption.",
+      "precision": "SM5 full float32 registers, refactoringAllowed, no minimum-precision declarations. Preserve operation ordering, saturation, implicit-LOD texture samples and RGBA arithmetic. Cross-driver FMA/rounding, render-target format, color space, sampler filtering and Godot Windows/Web equivalence are not accepted.",
+      "pass_order": [
+        "C+a0 RadialBlur",
+        "C+140 RadialBlur",
+        "C+1e0 RadialBlur",
+        "C DonutMerge"
+      ],
+      "texture_route_conditional": "36ef90 receives A=RDX,B=R8: radial0 input A/output B (36f1c2,36f1ef), radial1 input B/output A(36f353,36f37f), radial2 input A/output B(36f4e2,36f50f). Input sampler packed0x265. Do not rename A original scene without caller evidence."
+    },
+    "remaining_dependencies": [
+      {
+        "edge": "347120 -> 2fed30 resource-manager return -> installation of handle vtable1421520a8",
+        "counterevidence": "Concrete C installation is proved. Concrete ShaderCodeResourceHandle factory installation is not: matching slot32 and upstream class address does not connect returned object identity.",
+        "next_exact_source": "The shcd resource factory branch reached by2fed30 and its constructor store; no G reconstruction."
+      },
+      {
+        "edge": "239a80 small-bin branch239b90 ->238bc0 -> buffer upload; flush240c60 and240d50",
+        "counterevidence": "Large-buffer Map/Unmap at239b43/239b74 requires rounded vector size>=4096;1/2/3-vector payloads take the other branch. Captured command Draw does not close their upload.",
+        "next_exact_source": "238bc0 and only its called upload helper;240c60/240d50 exact pending-state flush."
+      },
+      {
+        "edge": "packed sampler0x265 ->2387b0 -> native sampler descriptor",
+        "counterevidence": "Shader mode_default is not a filter/address declaration.36ef90 writes0x265 for radial input;22cdc0 calls2387b0. Linear/clamp cannot be asserted from that integer.",
+        "next_exact_source": "2387b0 decode of0x265 and merge inherited sampler state; no speculative sampler defaults."
+      },
+      {
+        "edge": "36ef90(C,RDX=A,R8=B) actual caller and merge input/output wiring",
+        "counterevidence": "Reused setter proves radial pass0 A->B,pass1 B->A,pass2 A->B; exact A/B allocation dimensions/format and merge original-input/sMerge1 ownership are not fully adjudicated here.3566e0 concerns G+650 and is counterevidence to using it for radial texture setup.",
+        "next_exact_source": "Existing C+30 virtual caller with its A/B arguments and remaining36ef90 merge wiring; reuse historical spans first."
+      },
+      {
+        "edge": "absent IRad, host clock, default values, lifetime",
+        "counterevidence": "No new proof in this audit.",
+        "next_exact_source": "Parent lifetime/default dependency work; do not assume30Hz or fabricate absent values."
+      }
+    ],
+    "assets": [
+      {
+        "stage": "pixel",
+        "stage_byte_offset": 7,
+        "version_bytes": "010600",
+        "metadata_offset": 44,
+        "blob_offset": 108,
+        "string_offset": 1628,
+        "descriptor_offset": 0,
+        "descriptor_length": 1520,
+        "vertex_prefix_bytes": 0,
+        "bindings": [
+          {
+            "kind": "constant_buffer",
+            "id": "0x4bb5234b",
+            "name": "cDynamicViewportResolutionParam",
+            "register": 0,
+            "count": 2,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "constant_buffer",
+            "id": "0x2af7207d",
+            "name": "cRadialBlurParam",
+            "register": 1,
+            "count": 1,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "sampler",
+            "id": "0x527d95a1",
+            "name": "sInput",
+            "register": 0,
+            "count": 0,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "texture",
+            "id": "0x527d95a1",
+            "name": "sInput",
+            "register": 0,
+            "count": 0,
+            "flags": 1,
+            "reserved": 0
+          }
+        ],
+        "dxbc_offset": 108,
+        "dxbc_size": 1520,
+        "dxbc_sha256": "3fe784d4b6ea652265eb6ec34c3b4f044b84a79bd3e7e98f6351c1082c7ce353",
+        "source_path": "shader/sm5/posteffect/RadialBlur.shcd",
+        "bytes": 1691,
+        "sha256": "218b8478ba791aacd1fdc3b773ff88e2bab905e38002bf3a0479c79d40bbec2e",
+        "file": "RadialBlur.shcd",
+        "reflection_and_instruction_listing": "//\n// Generated by Microsoft (R) HLSL Shader Compiler 9.29.952.3111\n//\n//\n// Buffer Definitions: \n//\n// cbuffer cDynamicViewportResolutionParam\n// {\n//\n//   float4 cDynamicViewportResolutionParam[2];// Offset:    0 Size:    32\n//\n// }\n//\n// cbuffer cRadialBlurParam\n// {\n//\n//   float4 cRadialBlurParam;           // Offset:    0 Size:    16\n//\n// }\n//\n//\n// Resource Bindings:\n//\n// Name                                 Type  Format         Dim      HLSL Bind  Count\n// ------------------------------ ---------- ------- ----------- -------------- ------\n// sInput.S                          sampler      NA          NA             s0      1 \n// sInput.T                          texture  float4          2d             t0      1 \n// cDynamicViewportResolutionParam    cbuffer      NA          NA            cb0      1 \n// cRadialBlurParam                  cbuffer      NA          NA            cb1      1 \n//\n//\n//\n// Input signature:\n//\n// Name                 Index   Mask Register SysValue  Format   Used\n// -------------------- ----- ------ -------- -------- ------- ------\n// SV_POSITION              0   xyzw        0      POS   float       \n// TEXCOORD                 0   xy          1     NONE   float   xy  \n//\n//\n// Output signature:\n//\n// Name                 Index   Mask Register SysValue  Format   Used\n// -------------------- ----- ------ -------- -------- ------- ------\n// SV_TARGET                0   xyzw        0   TARGET   float   xyzw\n//\nps_5_0\ndcl_globalFlags refactoringAllowed\ndcl_constantbuffer CB0[1], immediateIndexed\ndcl_constantbuffer CB1[1], immediateIndexed\ndcl_sampler s0, mode_default\ndcl_resource_texture2d (float,float,float,float) t0\ndcl_input_ps linear v1.xy\ndcl_output o0.xyzw\ndcl_temps 4\nadd r0.xy, -v1.xyxx, cb1[0].xyxx\nmov r1.xyzw, l(0,0,0,0)\nmov r0.zw, l(0,0,0,0)\nloop \n  ige r2.x, r0.w, l(4)\n  breakc_nz r2.x\n  itof r2.x, r0.w\n  mul r2.xy, r2.xxxx, cb1[0].wzww\n  mul r2.x, r2.x, l(0.333333)\n  mad r2.y, -r2.y, l(0.250000), l(1.000000)\n  mad_sat r2.xz, r0.xxyx, r2.xxxx, v1.xxyx\n  mul r2.xz, r2.xxzx, cb0[0].xxyx\n  min r2.xz, r2.xxzx, cb0[0].zzwz\n  sample_indexable(texture2d)(float,float,float,float) r3.xyzw, r2.xzxx, t0.xyzw, s0\n  mad r1.xyzw, r3.xyzw, r2.yyyy, r1.xyzw\n  add r0.z, r0.z, r2.y\n  iadd r0.w, r0.w, l(1)\nendloop \ndiv o0.xyzw, r1.xyzw, r0.zzzz\nret \n// Approximately 20 instruction slots used\n",
+        "disassembly_sha256": "7814154ee21ac6909b1b451b86163ca44250bad875c277b56d675f30ca3a32f0",
+        "metadata_count_semantics": "CB count is float4 extent; sampler/texture trailing word is retained raw, NOT a DXBC resource binding count (sInput has zero here but reflection Count=1)."
+      },
+      {
+        "stage": "pixel",
+        "stage_byte_offset": 7,
+        "version_bytes": "010600",
+        "metadata_offset": 44,
+        "blob_offset": 140,
+        "string_offset": 1744,
+        "descriptor_offset": 0,
+        "descriptor_length": 1604,
+        "vertex_prefix_bytes": 0,
+        "bindings": [
+          {
+            "kind": "constant_buffer",
+            "id": "0x4bb5234b",
+            "name": "cDynamicViewportResolutionParam",
+            "register": 0,
+            "count": 2,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "constant_buffer",
+            "id": "0xaab48bcb",
+            "name": "cDonutMergeParam",
+            "register": 1,
+            "count": 2,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "sampler",
+            "id": "0x527d95a1",
+            "name": "sInput",
+            "register": 0,
+            "count": 0,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "sampler",
+            "id": "0xfa6e0153",
+            "name": "sMerge1",
+            "register": 1,
+            "count": 1,
+            "flags": 0,
+            "reserved": 0
+          },
+          {
+            "kind": "texture",
+            "id": "0x527d95a1",
+            "name": "sInput",
+            "register": 0,
+            "count": 0,
+            "flags": 1,
+            "reserved": 0
+          },
+          {
+            "kind": "texture",
+            "id": "0xfa6e0153",
+            "name": "sMerge1",
+            "register": 1,
+            "count": 1,
+            "flags": 1,
+            "reserved": 0
+          }
+        ],
+        "dxbc_offset": 140,
+        "dxbc_size": 1604,
+        "dxbc_sha256": "d059dd208a8e853cbe62ce7ddd00ce994ecc45b815422f9bbd273350ef8697fd",
+        "source_path": "shader/sm5/posteffect/DonutMerge.shcd",
+        "bytes": 1823,
+        "sha256": "e3dafd25f1422745231d06a643c0b2896ff6decb36ee94153408b5101baae117",
+        "file": "DonutMerge.shcd",
+        "reflection_and_instruction_listing": "//\n// Generated by Microsoft (R) HLSL Shader Compiler 9.29.952.3111\n//\n//\n// Buffer Definitions: \n//\n// cbuffer cDynamicViewportResolutionParam\n// {\n//\n//   float4 cDynamicViewportResolutionParam[2];// Offset:    0 Size:    32\n//\n// }\n//\n// cbuffer cDonutMergeParam\n// {\n//\n//   float4 cDonutMergeParam[2];        // Offset:    0 Size:    32\n//\n// }\n//\n//\n// Resource Bindings:\n//\n// Name                                 Type  Format         Dim      HLSL Bind  Count\n// ------------------------------ ---------- ------- ----------- -------------- ------\n// sInput.S                          sampler      NA          NA             s0      1 \n// sMerge1.S                         sampler      NA          NA             s1      1 \n// sInput.T                          texture  float4          2d             t0      1 \n// sMerge1.T                         texture  float4          2d             t1      1 \n// cDynamicViewportResolutionParam    cbuffer      NA          NA            cb0      1 \n// cDonutMergeParam                  cbuffer      NA          NA            cb1      1 \n//\n//\n//\n// Input signature:\n//\n// Name                 Index   Mask Register SysValue  Format   Used\n// -------------------- ----- ------ -------- -------- ------- ------\n// SV_POSITION              0   xyzw        0      POS   float       \n// TEXCOORD                 0   xy          1     NONE   float   xy  \n//\n//\n// Output signature:\n//\n// Name                 Index   Mask Register SysValue  Format   Used\n// -------------------- ----- ------ -------- -------- ------- ------\n// SV_TARGET                0   xyzw        0   TARGET   float   xyzw\n//\nps_5_0\ndcl_globalFlags refactoringAllowed\ndcl_constantbuffer CB0[1], immediateIndexed\ndcl_constantbuffer CB1[2], immediateIndexed\ndcl_sampler s0, mode_default\ndcl_sampler s1, mode_default\ndcl_resource_texture2d (float,float,float,float) t0\ndcl_resource_texture2d (float,float,float,float) t1\ndcl_input_ps linear v1.xy\ndcl_output o0.xyzw\ndcl_temps 3\nadd r0.xyzw, v1.xyxy, -cb1[1].xyxy\ndiv r0.xyzw, r0.xyzw, cb1[0].xyzw\ndp2 r0.x, r0.xyxx, r0.xyxx\ndp2 r0.y, r0.zwzz, r0.zwzz\nmad r0.xy, r0.xyxx, l(1.000000, -1.000000, 0.000000, 0.000000), l(-1.000000, 1.000000, 0.000000, 0.000000)\nmad r0.xy, cb1[1].zzzz, r0.xyxx, l(1.000000, 0.500000, 0.000000, 0.000000)\nmin_sat r0.x, r0.y, r0.x\nmul r0.x, r0.x, cb1[1].w\nmov_sat r0.yz, v1.xxyx\nmul r0.yz, r0.yyzy, cb0[0].xxyx\nsample_indexable(texture2d)(float,float,float,float) r1.xyzw, r0.yzyy, t1.xyzw, s1\nsample_indexable(texture2d)(float,float,float,float) r2.xyzw, r0.yzyy, t0.xyzw, s0\nadd r1.xyzw, r1.xyzw, -r2.xyzw\nmad o0.xyzw, r0.xxxx, r1.xyzw, r2.xyzw\nret \n// Approximately 15 instruction slots used\n",
+        "disassembly_sha256": "c7a94b0023ac0cbf0cfed15aba22d3969f8fe1f6194f27b54df2703c45506217",
+        "metadata_count_semantics": "CB count is float4 extent; sampler/texture trailing word is retained raw, NOT a DXBC resource binding count (sInput has zero here but reflection Count=1)."
+      },
+      {
+        "stage": "vertex",
+        "stage_byte_offset": 7,
+        "version_bytes": "010600",
+        "metadata_offset": 44,
+        "blob_offset": 60,
+        "string_offset": 964,
+        "descriptor_offset": 0,
+        "descriptor_length": 904,
+        "vertex_prefix_bytes": 8,
+        "bindings": [
+          {
+            "kind": "constant_buffer",
+            "id": "0x2d79d964",
+            "name": "cParam",
+            "register": 0,
+            "count": 3,
+            "flags": 0,
+            "reserved": 0
+          }
+        ],
+        "dxbc_offset": 68,
+        "dxbc_size": 896,
+        "dxbc_sha256": "147e04ac898d5147d8c3b158cc9943260438927e3580adc1b56c95c45421e658",
+        "source_path": "shader/sm5/posteffect/VSSampling1.shcd",
+        "bytes": 971,
+        "sha256": "59a20841f65fcd46d95949c644d5c40f2b7646945fdb25f991c8fb067882d1e9",
+        "file": "VSSampling1.shcd",
+        "reflection_and_instruction_listing": "//\n// Generated by Microsoft (R) HLSL Shader Compiler 9.29.952.3111\n//\n//\n// Buffer Definitions: \n//\n// cbuffer cParam\n// {\n//\n//   float4 cParam[3];                  // Offset:    0 Size:    48\n//\n// }\n//\n//\n// Resource Bindings:\n//\n// Name                                 Type  Format         Dim      HLSL Bind  Count\n// ------------------------------ ---------- ------- ----------- -------------- ------\n// cParam                            cbuffer      NA          NA            cb0      1 \n//\n//\n//\n// Input signature:\n//\n// Name                 Index   Mask Register SysValue  Format   Used\n// -------------------- ----- ------ -------- -------- ------- ------\n// POSITION                 0   xyzw        0     NONE   float   xyzw\n//\n//\n// Output signature:\n//\n// Name                 Index   Mask Register SysValue  Format   Used\n// -------------------- ----- ------ -------- -------- ------- ------\n// SV_POSITION              0   xyzw        0      POS   float   xyzw\n// TEXCOORD                 0   xy          1     NONE   float   xy  \n//\nvs_5_0\ndcl_globalFlags refactoringAllowed\ndcl_constantbuffer CB0[3], immediateIndexed\ndcl_input v0.xyzw\ndcl_output_siv o0.xyzw, position\ndcl_output o1.xy\ndcl_temps 1\nmad r0.xy, v0.xyxx, cb0[0].xyxx, cb0[0].zwzz\nmad o0.xy, r0.xyxx, l(2.000000, -2.000000, 0.000000, 0.000000), l(-1.000000, 1.000000, 0.000000, 0.000000)\nmov o0.z, cb0[2].x\nmov o0.w, l(1.000000)\nmad o1.xy, v0.zwzz, cb0[1].xyxx, cb0[1].zwzz\nret \n// Approximately 6 instruction slots used\n",
+        "disassembly_sha256": "3513427cbc1f3360396148e65e0533a740cae36e18704423ff1785443a2ae0b3",
+        "metadata_count_semantics": "CB count is float4 extent; sampler/texture trailing word is retained raw, NOT a DXBC resource binding count (sInput has zero here but reflection Count=1)."
+      }
+    ],
+    "new_spans": [
+      {
+        "va": "0x140349b80",
+        "bytes": 193,
+        "kind": "CODE",
+        "sha256": "2bad9bad30af9cbca1a5b16d825b53b40822c7937d7b60494be6c3c5856a65d4",
+        "receipt": "top/assets/official/top-ring-shader-51039/chain1-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140349b80.bin",
+        "unwind_group_root": "0x140349b80",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x14036e910",
+        "bytes": 112,
+        "kind": "CODE",
+        "sha256": "b445a0159582fef417cab4b756eea1e75110dff020a286a9c909f7f1269536e8",
+        "receipt": "top/assets/official/top-ring-shader-51039/chain3-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14036e910.bin",
+        "unwind_group_root": null,
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x1403540e0",
+        "bytes": 9718,
+        "kind": "CODE",
+        "sha256": "aef9ed19509fa0af5de0de28757cda229cf5f8e5bef6a31e531b05377fc524f7",
+        "receipt": "top/assets/official/top-ring-shader-51039/chain4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1403540e0.bin",
+        "unwind_group_root": "0x1403540e0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140375de0",
+        "bytes": 241,
+        "kind": "CODE",
+        "sha256": "590844d80baca13ceeb3fb9f7dcb643e2f317f8f97205622663169a0cb20b187",
+        "receipt": "top/assets/official/top-ring-shader-51039/chain4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140375de0.bin",
+        "unwind_group_root": "0x140375de0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x14215bd30",
+        "bytes": 48,
+        "kind": "METADATA",
+        "sha256": "c7e3025377129e143124336bf65d2f1711f253ad7847be59a86ea332cdf0f91f",
+        "receipt": "top/assets/official/top-ring-shader-51039/chain4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14215bd30.bin"
+      },
+      {
+        "va": "0x142159fd0",
+        "bytes": 64,
+        "kind": "METADATA",
+        "sha256": "b67175808a5a4c075bee6dccb29f4e3621ee1a33e1a35e5a47bb87df38304db0",
+        "receipt": "top/assets/official/top-ring-shader-51039/resourcepaths-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x142159fd0.bin"
+      },
+      {
+        "va": "0x1428baaf0",
+        "bytes": 8,
+        "kind": "METADATA",
+        "sha256": "180390d20b7b80508c8de7b0a3bb61023e1ac8c2060190640e0e007c307a5ec9",
+        "receipt": "top/assets/official/top-ring-shader-51039/resourcepaths-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1428baaf0.bin"
+      },
+      {
+        "va": "0x142158760",
+        "bytes": 96,
+        "kind": "METADATA",
+        "sha256": "2a0df6fb800ac3e5685634be7effa17eadfbac15fcd6f1df92031b70986aff29",
+        "receipt": "top/assets/official/top-ring-shader-51039/resourcepaths-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x142158760.bin"
+      },
+      {
+        "va": "0x140346fa0",
+        "bytes": 180,
+        "kind": "CODE",
+        "sha256": "7dc01bc0a1ee49ea361218076706e8760d37e37134064827b4684ba6f0dd7977",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume1-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140346fa0.bin",
+        "unwind_group_root": "0x140346fa0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x14260ad50",
+        "bytes": 16,
+        "kind": "METADATA",
+        "sha256": "63cfd0d40a89a36756c950e5d7bd3fe1d0bdb088a5df99eef68233f889ff7d28",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume1-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14260ad50.bin"
+      },
+      {
+        "va": "0x14260b70c",
+        "bytes": 32,
+        "kind": "METADATA",
+        "sha256": "4cdd0989870611f9c7f02faa50f7e56a5021ee98eed95a2d29b06e17aadeffa6",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume1-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14260b70c.bin"
+      },
+      {
+        "va": "0x14260d4ec",
+        "bytes": 24,
+        "kind": "METADATA",
+        "sha256": "826e5250e0b7d618641f1989c8be791b76cb77bd092cdda6462377282792d9c3",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume1-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14260d4ec.bin"
+      },
+      {
+        "va": "0x14023c4d0",
+        "bytes": 1365,
+        "kind": "CODE",
+        "sha256": "f53890df448a141548b3acbf2a7628adf9ef76ab4d93856e5636827be8771bba",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume2-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14023c4d0.bin",
+        "unwind_group_root": "0x14023c4d0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140346630",
+        "bytes": 2399,
+        "kind": "CODE",
+        "sha256": "858fede2af82d6411763b3d02a25c5ad53a521e1a98d10509e4a7b75b5ceb4c6",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume2-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140346630.bin",
+        "unwind_group_root": "0x140346630",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140347560",
+        "bytes": 642,
+        "kind": "CODE",
+        "sha256": "17106ba267f9a011dc718de88eb7d709019f32dbc33d4481623a842b7f89e1e3",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume2-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140347560.bin",
+        "unwind_group_root": "0x140347560",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x14023ca30",
+        "bytes": 351,
+        "kind": "CODE",
+        "sha256": "61a86c2479923e30671ed2abee80f03a6530fd0f691d1da7992d7aba2650c1a8",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume3-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14023ca30.bin",
+        "unwind_group_root": "0x14023ca30",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140240b80",
+        "bytes": 102,
+        "kind": "CODE",
+        "sha256": "01f1f01946d623199c475642060cd5749f93987931042f40e8722f75f7f9bd4d",
+        "receipt": "top/assets/official/top-ring-shader-51039/consume4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140240b80.bin",
+        "unwind_group_root": null,
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140240be6",
+        "bytes": 112,
+        "kind": "CODE",
+        "sha256": "7cdffa457847c3f1ed56453bede7f28ca7eda09c882afe69baf039c264ff17aa",
+        "receipt": "top/assets/official/top-ring-shader-51039/loaderquery-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140240be6.bin",
+        "unwind_group_root": null,
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x1421520a8",
+        "bytes": 360,
+        "kind": "METADATA",
+        "sha256": "73fb6be5134a784b525c4b941dc33bc64a6be3a3809530468a555d3ab3329c0c",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1421520a8.bin"
+      },
+      {
+        "va": "0x140323380",
+        "bytes": 16,
+        "kind": "CODE",
+        "sha256": "28cf35ca20ab81145888939f458aa7ea20071702d666a8c9049eef19ce7dccc3",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle2-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140323380.bin",
+        "unwind_group_root": null,
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140323470",
+        "bytes": 48,
+        "kind": "CODE",
+        "sha256": "e6583240fcd6b8631a1cce6b956c0a9c5be2c36d364ba244df3606907fec3006",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle2-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140323470.bin",
+        "unwind_group_root": null,
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x1402349c0",
+        "bytes": 2880,
+        "kind": "CODE",
+        "sha256": "a0785be1c5468adf6b5412d47611f3909c4cbc02a0534d1c876e4c99e8ca37d4",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle2-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1402349c0.bin",
+        "unwind_group_root": "0x1402349c0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140323390",
+        "bytes": 218,
+        "kind": "CODE",
+        "sha256": "91dc0707b7a9f0333482856dee0ded4e3a25d2255e534f1641238c672e1a6994",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle3-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140323390.bin",
+        "unwind_group_root": "0x140323390",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x1417f1b60",
+        "bytes": 144,
+        "kind": "CODE",
+        "sha256": "905f5dbdf7b379348e5e11b0cd67715e1fe6aa6a7bffad67e3585ac8d1458ac5",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1417f1b60.bin",
+        "unwind_group_root": "0x1417f1b60",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x14022d750",
+        "bytes": 791,
+        "kind": "CODE",
+        "sha256": "ccddfac62c6c8e9930b8ded2ee468f9ea34ce63bde2b23123454882a5f9a03e2",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14022d750.bin",
+        "unwind_group_root": "0x14022d750",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x1402354a8",
+        "bytes": 88,
+        "kind": "METADATA",
+        "sha256": "8fcd74337fcf90c9d77d7dc4a152611cda909ea82481147dbb55b921cae3129c",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle4-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1402354a8.bin"
+      },
+      {
+        "va": "0x1417f1c00",
+        "bytes": 1064,
+        "kind": "CODE",
+        "sha256": "78f2e182a690a80ceba8f8dee8ca146f5d488e7f0b00cf6da57fa2261a3fa9ea",
+        "receipt": "top/assets/official/top-ring-shader-51039/handle5-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1417f1c00.bin",
+        "unwind_group_root": "0x1417f1c00",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140225260",
+        "bytes": 560,
+        "kind": "CODE",
+        "sha256": "873ec2794d3cc6ad6b50c6e4ea03e92d97e0e0b822d67daa181245c94eefcd61",
+        "receipt": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140225260.bin",
+        "unwind_group_root": "0x140225260",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140241bf0",
+        "bytes": 563,
+        "kind": "CODE",
+        "sha256": "843dd1ae03fd20084473bc971b790bd3e12959ae7fa22829df5587ac97a5c492",
+        "receipt": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140241bf0.bin",
+        "unwind_group_root": "0x140241bf0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x14022cdc0",
+        "bytes": 529,
+        "kind": "CODE",
+        "sha256": "f36a0556ca641bd2bbfb41e3f4a5696500f551cd65284a97bdf652379e2dad1b",
+        "receipt": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x14022cdc0.bin",
+        "unwind_group_root": "0x14022cdc0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x1403566e0",
+        "bytes": 626,
+        "kind": "CODE",
+        "sha256": "5c79873729cd6aa4e39dbbcee252cc6c5fe2a05074fae1adc9e7a73b59592e66",
+        "receipt": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x1403566e0.bin",
+        "unwind_group_root": "0x1403566e0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140224ee0",
+        "bytes": 875,
+        "kind": "CODE",
+        "sha256": "ab98cccdf8feff8e5989c263acb197e5a4a3fca2b7a404b5eeb06db8b8e56c7a",
+        "receipt": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140224ee0.bin",
+        "unwind_group_root": "0x140224ee0",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      },
+      {
+        "va": "0x140239a80",
+        "bytes": 364,
+        "kind": "CODE",
+        "sha256": "6d85dc7cc857b052441afa19ea3881bbfcb84d9c5fb61a4979ebff21074a7f20",
+        "receipt": "top/assets/official/top-ring-shader-51039/lastcode-receipt.json",
+        "artifact": "top/assets/official/top-ring-shader-51039/0x140239a80.bin",
+        "unwind_group_root": "0x140239a80",
+        "boundary_policy": "Captured range, not assertion that every byte is reachable CODE. Pdata chained fragments grouped separately from normal CFG; padding and embedded jump tables excluded from semantic claims."
+      }
+    ],
+    "receipts": [
+      {
+        "path": "top/assets/official/top-ring-shader-51039/binder-receipt.json",
+        "sha256": "0ed08dc981f29eecfde3e6a04a066ff14637e87bced8b8246c37a04b4ce6ab65",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\binder.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118464512,
+          "job_peak_private_bytes": 110768128,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32899432448,
+          "seconds": 0.25795149989426136,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/buildaudit-receipt.json",
+        "sha256": "1fdd3d19ac3f1e1d40d4d3d01c81534fea34227c203f9c725953f6601cb3037e",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\buildaudit.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 120303616,
+          "job_peak_private_bytes": 113872896,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32908390400,
+          "seconds": 0.459886800032109,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/buildaudit_corrected-receipt.json",
+        "sha256": "5c986cb9aa9d25a48a5eed17be03f541d3b2ab63f5a29b9f2c533e81cc9209da",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\buildaudit_corrected.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 120233984,
+          "job_peak_private_bytes": 112427008,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32757854208,
+          "seconds": 0.30718020000495017,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain1-receipt.json",
+        "sha256": "e7260d6389bf081608f7eb8dd5758805874c60404983cdf0856ad94ebe1f1abc",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain1.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119369728,
+          "job_peak_private_bytes": 111681536,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32918470656,
+          "seconds": 0.3074303000466898,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain2-receipt.json",
+        "sha256": "8f14f94d2cef8453ca67869daf2fd1c53c41a2c927cf44eb90fbb7766fc1d434",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain2.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118763520,
+          "job_peak_private_bytes": 110686208,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33082265600,
+          "seconds": 0.30807599995750934,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain3-receipt.json",
+        "sha256": "19f6c915f378f5b138b0fe679346d062d448222b00f2955740089fb422c5d454",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain3.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 120090624,
+          "job_peak_private_bytes": 112545792,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32840163328,
+          "seconds": 0.3079356000525877,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain4-receipt.json",
+        "sha256": "e5ff83239da2c1b6974c97d525c4a3474877c545877fc1dccfac5d1b49f192fa",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain4.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 155049984,
+          "job_peak_private_bytes": 147841024,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32836300800,
+          "seconds": 0.6107849000254646,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/checkheader-receipt.json",
+        "sha256": "b590840ba708a997dd77e6a76abd95fb31d01d79ebfa580a9e133db4e3ea4065",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\checkheader.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 13815808,
+          "job_peak_private_bytes": 8970240,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33042247680,
+          "seconds": 0.10638000001199543,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume1-receipt.json",
+        "sha256": "a712677a847c90463e143a1e978ebc4c8cd8fb02bc653d5d8be277fb65bbc871",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume1.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119439360,
+          "job_peak_private_bytes": 112197632,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32886751232,
+          "seconds": 0.30945360008627176,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume2-receipt.json",
+        "sha256": "664c88a4e28705b52fcd62d054cbeb09f9cc2754d1d8b7cea3e0047935969f22",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume2.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119271424,
+          "job_peak_private_bytes": 110886912,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32862826496,
+          "seconds": 0.3073941000038758,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume3-receipt.json",
+        "sha256": "8785306de17c0b9daf619914853fbaf96eaa4e7881fb87ff2ea8165a19b4efee",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume3.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119771136,
+          "job_peak_private_bytes": 112046080,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33022963712,
+          "seconds": 0.3073658999055624,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume4-receipt.json",
+        "sha256": "317adbfa0cf31d4f4de8ef58e36c10db5bf922ef7543ba3a02c3db2ef0cc32b9",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume4.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118824960,
+          "job_peak_private_bytes": 111476736,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32880685056,
+          "seconds": 0.308666400029324,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/countdetails-receipt.json",
+        "sha256": "a10c273f317a8114490042adf5a3018e6e5fcb39409050812eb3d6b8f4383944",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\countdetails.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118341632,
+          "job_peak_private_bytes": 112263168,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32962019328,
+          "seconds": 0.25697410001885146,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/disassemble-receipt.json",
+        "sha256": "dc81e9eb72727df548a0849250e54f2a68de82fbd94e28e372843f8ccc724c65",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\disassemble.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 20631552,
+          "job_peak_private_bytes": 12750848,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33144139776,
+          "seconds": 0.1580313000595197,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/extract-receipt.json",
+        "sha256": "85477f68e3f09681b6c73cb4ccd75ec18d8a8655c818d866565d80a220d3c939",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\extract.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 252289024,
+          "job_peak_private_bytes": 216846336,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32872677376,
+          "seconds": 2.8757853000424802,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "sha256": "9c13b2c589af7c9f3a151d7cc041435f622ed0ad8e8b42032580407e4990f9b7",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\finalchain.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118902784,
+          "job_peak_private_bytes": 110907392,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33011609600,
+          "seconds": 0.3083601000253111,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle-receipt.json",
+        "sha256": "e5c981cfd5c7cccc28222e6e8014964e272cfe1d1bc30c9583e0bdc687c3aa2f",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118263808,
+          "job_peak_private_bytes": 112492544,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32837169152,
+          "seconds": 0.256976000033319,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle2-receipt.json",
+        "sha256": "942aa70c387ac8caccf9ce28ed431f083bb2c80d5ed24098c8604fc90f8e356d",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle2.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119390208,
+          "job_peak_private_bytes": 110915584,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32879591424,
+          "seconds": 0.3077635000227019,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle3-receipt.json",
+        "sha256": "4169a0451d8ce404aac1445bfc3dfc1639f9fff8c82cdff353dda59cc9b9bf57",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle3.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118927360,
+          "job_peak_private_bytes": 110583808,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32874135552,
+          "seconds": 0.30738950008526444,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle4-receipt.json",
+        "sha256": "6bbe88507bee25945be3624bfd44c3ccf2bad75cc941b784b7418c1807d77ef1",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle4.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119177216,
+          "job_peak_private_bytes": 110862336,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32879980544,
+          "seconds": 0.33001229993533343,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle5-receipt.json",
+        "sha256": "d3fb6aad3dd8fef089e4803328a6cdf837711dc9749075d141771c76e64602fc",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle5.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119197696,
+          "job_peak_private_bytes": 110735360,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32873738240,
+          "seconds": 0.3081413999898359,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/historycheck-receipt.json",
+        "sha256": "3c1f14fa691160ddf2c033b26255a108d86aaebdedf960bcc2db7c4c553dde7d",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\historycheck.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118628352,
+          "job_peak_private_bytes": 112435200,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32942010368,
+          "seconds": 0.25742579996585846,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/inspect-receipt.json",
+        "sha256": "808bdc631b526b9da7cdf712def1f9d97e077d293abbce737fd8ff1e1d1b15d9",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\inspect.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 14209024,
+          "job_peak_private_bytes": 11108352,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33133731840,
+          "seconds": 0.10657870001159608,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/lastcode-receipt.json",
+        "sha256": "ee4837d1e6878d63cc254b7423135225a7a6edb1d53725711fe33019b8c14418",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\lastcode.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118087680,
+          "job_peak_private_bytes": 110911488,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33096445952,
+          "seconds": 0.2580446000210941,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/loaderquery-receipt.json",
+        "sha256": "8bdeb11cb1264b780e04e685acc30a8b7a954fdc460019bc7eef738354f708cc",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\loaderquery.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 153772032,
+          "job_peak_private_bytes": 145670144,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32871809024,
+          "seconds": 2.2731005999958143,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract-original-failure-receipt.json",
+        "sha256": "640253fd4d9ff9ea15c507879a6ed4cbd566c2762c65974a80bb508bc057a948",
+        "result": [
+          {
+            "argv": [
+              "C:\\Python314\\python.exe",
+              "-B",
+              "-X",
+              "utf8",
+              "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract.py"
+            ],
+            "deadline_seconds": 45,
+            "peak_rss_bytes": 14581760,
+            "job_peak_private_bytes": 13692928,
+            "stop_reason": null,
+            "exit": 1,
+            "job_memory_limit": 1610612736,
+            "kill_owned_descendants": true,
+            "minimum_free_bytes": 33026752512,
+            "seconds": 0.1063232000451535,
+            "no_script_errors": true,
+            "ok": false
+          },
+          {
+            "argv": [
+              "C:\\Python314\\python.exe",
+              "-B",
+              "-X",
+              "utf8",
+              "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract.py"
+            ],
+            "deadline_seconds": 45,
+            "peak_rss_bytes": 0,
+            "job_peak_private_bytes": 0,
+            "stop_reason": "[Errno 17] File exists: 'D:\\\\Dev\\\\OpenClawCodexBridge\\\\worktrees\\\\top-ring-shader-51039\\\\top\\\\assets\\\\official\\\\top-ring-shader-51039\\\\parsecontract.log'",
+            "exit": null,
+            "job_memory_limit": 1610612736,
+            "kill_owned_descendants": true,
+            "minimum_free_bytes": 33180008448,
+            "seconds": 0.00014000001829117537,
+            "no_script_errors": true,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract-receipt.json",
+        "sha256": "b8b42d58a469d044756c6c8b6a068d01dd5b2d92fcb4683cc6af382a7a07a7fa",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 0,
+          "job_peak_private_bytes": 0,
+          "stop_reason": "[Errno 17] File exists: 'D:\\\\Dev\\\\OpenClawCodexBridge\\\\worktrees\\\\top-ring-shader-51039\\\\top\\\\assets\\\\official\\\\top-ring-shader-51039\\\\parsecontract.log'",
+          "exit": null,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33180008448,
+          "seconds": 0.00014000001829117537,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract_corrected-receipt.json",
+        "sha256": "60e4c05cb91f8fd931dbb0af39ec80f88fe22177183512550f4828ee38747b10",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract_corrected.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 14422016,
+          "job_peak_private_bytes": 10985472,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33182801920,
+          "seconds": 0.10625040007289499,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/readconsume-receipt.json",
+        "sha256": "ed1572480ccec8328e7d5e0d65290560d9efe7e7e3640c8cf2e4df086d59e7d3",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\readconsume.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 13856768,
+          "job_peak_private_bytes": 8998912,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33084358656,
+          "seconds": 0.10628019995056093,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/recover-receipt.json",
+        "sha256": "bf81242d5b773465eba51604fa5015b2e2974f788b40ab00f22bbf59abd0db3b",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\recover.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 13910016,
+          "job_peak_private_bytes": 9154560,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32981069824,
+          "seconds": 0.10617779998574406,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/resourcepaths-receipt.json",
+        "sha256": "f1fa19a0bdcee2f5b98166c196c09e650d48324dbf536b8d318906a299762324",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\resourcepaths.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118005760,
+          "job_peak_private_bytes": 110772224,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32984621056,
+          "seconds": 0.30731020006351173,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/resources1-receipt.json",
+        "sha256": "9f1f4422544ac58ebe13f097caef16bf07418d4276b586bc1a50d1430b8b9e2e",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\resources1.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 126418944,
+          "job_peak_private_bytes": 114585600,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32869040128,
+          "seconds": 0.5087886999826878,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/reusednames-receipt.json",
+        "sha256": "8e6a38f10cee7b27083bc1b3286cce0c1e50776fbf177ee17d9783d30bb2460c",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\reusednames.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118439936,
+          "job_peak_private_bytes": 112504832,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32777928704,
+          "seconds": 0.2584773999406025,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/reusefinal-receipt.json",
+        "sha256": "7ae45b85a9c98d9b87b945a8689a4debe9f71e1d1c7e8cfc8d6838dfe800d5bf",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\reusefinal.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118632448,
+          "job_peak_private_bytes": 111042560,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33091244032,
+          "seconds": 0.25724609999451786,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verify-receipt.json",
+        "sha256": "b3c4cb50b2cea0071ae9dd33041f28e235d87365e39007c75d05f38511433559",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\verify.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 18067456,
+          "job_peak_private_bytes": 13811712,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33029021696,
+          "seconds": 0.45941709994804114,
+          "no_script_errors": true,
+          "ok": false
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verify2-receipt.json",
+        "sha256": "2d31d45557f28dd1d99cead94402700bb79e00408011d1ba7b0d23a42462eddb",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\verify2.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 18051072,
+          "job_peak_private_bytes": 12120064,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33073201152,
+          "seconds": 0.20689400006085634,
+          "no_script_errors": true,
+          "ok": true
+        }
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verifyhist-receipt.json",
+        "sha256": "e4d04e48899d2d4b0a9148ffe0e4bc4773b166ebbeadc78e29ac7598856c8534",
+        "result": {
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "-X",
+            "utf8",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\verifyhist.py"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119328768,
+          "job_peak_private_bytes": 111874048,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33107763200,
+          "seconds": 0.30792439996730536,
+          "no_script_errors": true,
+          "ok": true
+        }
+      }
+    ],
+    "upstream_sources": [
+      {
+        "display_url": "https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/System/Resource/Handle/ShaderCodeResourceHandle.cs",
+        "display_title": "ShaderCodeResourceHandle.cs",
+        "sha": "f969d1e30edcda3d55af15a24d1eefd19e0ea6d1",
+        "content_sha256": "b28fe2c2ba0ae46288d707f230fb50f14c1642a587c0601739e8c9f7eb45fa04"
+      },
+      {
+        "display_url": "https://github.com/goaaats/ffxiv-explorer-fork/blob/develop/src/main/java/com/fragmenterworks/ffxivextract/models/ParameterInfo.java",
+        "display_title": "ParameterInfo.java",
+        "sha": "8a584513b4d4b683816a4ee14a29fb550d341018",
+        "content_sha256": "3f6746b7500fba460a7744054347b0f8f99bab9eda51acdab7deec706b7c997e"
+      },
+      {
+        "display_url": "https://github.com/goaaats/ffxiv-explorer-fork/blob/develop/src/main/java/com/fragmenterworks/ffxivextract/models/SHCD_File.java",
+        "display_title": "SHCD_File.java",
+        "sha": "8d93ea94c56226dd3cf5361df6cddd88f987cd87",
+        "content_sha256": "ff52cb802aa84c1362fd6cce8639fecfb6d398b87bfebdf189e9f6d6f351dbd4"
+      },
+      {
+        "display_url": "https://github.com/goaaats/ffxiv-explorer-fork/blob/develop/src/main/java/com/fragmenterworks/ffxivextract/models/ShaderHeader.java",
+        "display_title": "ShaderHeader.java",
+        "sha": "8ebb97912b213387180d6422fd1a15787b06c023",
+        "content_sha256": "17ac9fda79d40020382b162f1b210d0048e1ac3678c1ff0ec2b20de360040bb3"
+      },
+      {
+        "display_url": "https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/System/Resource/Handle/ResourceHandle.cs",
+        "display_title": "ResourceHandle.cs",
+        "sha": "a2e500c763fdb1c943325ac80fcd95c437a2dedf",
+        "content_sha256": "e9c6ecb3329d002d462ccc3ed5d91c711ff5d5039f8a33aa85cb09f1ea170edd"
+      },
+      {
+        "display_url": "https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/Graphics/Kernel/PixelShader.cs",
+        "display_title": "PixelShader.cs",
+        "sha": "9bd170adc335e9671a7a4a4f24cf30ad0bf0b5b7",
+        "content_sha256": "61ca864b7c4771f66d47653d911f0cd661eeaba244cc5d0cfa00575d585d8ba5"
+      },
+      {
+        "display_url": "https://github.com/redstrate/Physis/blob/main/src/shcd.rs",
+        "display_title": "shcd.rs",
+        "sha": "bfd1c58f2b1166ebaab6237d39c1db45aa56a84b",
+        "content_sha256": "d8cf8e2044bdc54dc83ee0f1c80f1a626da972fa16d408afec90ce2aea2bcd36"
+      }
+    ],
+    "parser_tests": {
+      "passed": 30,
+      "cases": [
+        "RadialBlur.shcd: pinned valid",
+        "RadialBlur.shcd: malformed 0 rejected",
+        "RadialBlur.shcd: malformed 1 rejected",
+        "RadialBlur.shcd: malformed 2 rejected",
+        "RadialBlur.shcd: malformed 3 rejected",
+        "RadialBlur.shcd: malformed 4 rejected",
+        "RadialBlur.shcd: malformed 5 rejected",
+        "RadialBlur.shcd: malformed 6 rejected",
+        "RadialBlur.shcd: malformed 7 rejected",
+        "RadialBlur.shcd: malformed 8 rejected",
+        "DonutMerge.shcd: pinned valid",
+        "DonutMerge.shcd: malformed 0 rejected",
+        "DonutMerge.shcd: malformed 1 rejected",
+        "DonutMerge.shcd: malformed 2 rejected",
+        "DonutMerge.shcd: malformed 3 rejected",
+        "DonutMerge.shcd: malformed 4 rejected",
+        "DonutMerge.shcd: malformed 5 rejected",
+        "DonutMerge.shcd: malformed 6 rejected",
+        "DonutMerge.shcd: malformed 7 rejected",
+        "DonutMerge.shcd: malformed 8 rejected",
+        "VSSampling1.shcd: pinned valid",
+        "VSSampling1.shcd: malformed 0 rejected",
+        "VSSampling1.shcd: malformed 1 rejected",
+        "VSSampling1.shcd: malformed 2 rejected",
+        "VSSampling1.shcd: malformed 3 rejected",
+        "VSSampling1.shcd: malformed 4 rejected",
+        "VSSampling1.shcd: malformed 5 rejected",
+        "VSSampling1.shcd: malformed 6 rejected",
+        "VSSampling1.shcd: malformed 7 rejected",
+        "VSSampling1.shcd: malformed 8 rejected"
+      ]
+    },
+    "preservation": {
+      "initial_lf_files": 105,
+      "protected_lf_files": 103,
+      "readonly_files": 610,
+      "historical_span_list_records": 300,
+      "historical_recursive_hashed_records_including_locator": 301,
+      "historical_unique_va_size": 299,
+      "historical_native_hash_mismatches": 0,
+      "explanation": "253 native_spans +16 actual_receiver_context +31 radial_sink_audit =300; gpu_contract_audit adds one duplicate locator, retained unchanged."
+    },
+    "limits": {
+      "new_code": 24,
+      "new_metadata": 9,
+      "new_bytes": 24829,
+      "cumulative_span_list_records": 333,
+      "cumulative_bytes_including_duplicate_locator": 128449,
+      "resources": 3,
+      "resource_bytes": 4485
+    },
+    "refutations": [
+      "349b80 allocates pointer array, not C; concrete installation occurs3540e0.",
+      "36e980 is not constructor entry:36e910 supplies all missing setup; leaf has no pdata coverage.",
+      "375de0 is an alternative generic allocator, not evidence replacing actual355ff4 call.",
+      "3566e0 installs G+650 resources, not radial G+570.",
+      "Physis ShCd stage field assumption at+24 disagrees with native byte7 and actual files. Explorer old header lacks current extra4 bytes and old vertex skip4 disagrees with native skip8.",
+      "Name-length is low16 at metadata+8; high16 flags is1 on texture entries. Initial32-bit parser rejected actual pinned files; corrected using native reads and actual bytes.",
+      "Shader sampler declaration mode_default does not prove native filter/address state.",
+      "Large upload branch is not the actual small radial payload route.",
+      "Pdata grouping and virtual offset matches do not establish normal CFG or installed resource handle identity.",
+      "Same source dispatch table2354a8 is covered by an enclosing function-group capture and one explicit METADATA view. This overlapping view is disclosed; it did not represent a new code search. Strict once-per-range interpretation should treat it as a derived view, not independent corroboration."
+    ],
+    "failures_preserved": {
+      "stage_recovery": {
+        "stage": "shader_contract_audit",
+        "blocked_reason": "three owner-pdata assertions on leaf call targets",
+        "resume_reason": "Check pdata membership before function capture; for missing entries use direct call/table targets and explicit adjacent-table boundaries, no assumed unwind coverage",
+        "time": 1793360722.470795
+      },
+      "notes": [
+        "Initial manifest key mismatch; corrected to readonly_files.",
+        "Three leaf pdata assertions blocked stage; helper changed to explicitly distinguish leaf boundaries, recovery receipt retained.",
+        "Missing external export helper path corrected to repository installed loader.",
+        "Parser initial length/flags error retained; same-label retry refused exclusive log creation and performed no child work; corrected invocation has separate receipt, ledger retains both.",
+        "Upstream direct-network permission failure used connected GitHub source reads instead.",
+        "No work_guard execution: Windows lacks its fcntl dependency; pinned WindowsJobObject fallback enforced child bounds."
+      ]
+    },
+    "child_seconds_at_write": 14.634318000287749,
+    "elapsed_seconds_at_write": 1093.349323272705,
+    "private_evidence_manifest": [
+      {
+        "path": "top/assets/official/top-ring-shader-51039/assets.json",
+        "sha256": "921774deb813ab18a85da0fe8b9bbd4aff228a79601e29419d39d0121e2eefff",
+        "bytes": 622
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/binder-receipt.json",
+        "sha256": "0ed08dc981f29eecfde3e6a04a066ff14637e87bced8b8246c37a04b4ce6ab65",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/binder.py",
+        "sha256": "f7a51bb886fbf05fad1cd8ea56fad87c872aeb24e32d64ab46c3f56288478223",
+        "bytes": 150
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/buildaudit-receipt.json",
+        "sha256": "1fdd3d19ac3f1e1d40d4d3d01c81534fea34227c203f9c725953f6601cb3037e",
+        "bytes": 545
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/buildaudit.py",
+        "sha256": "10c15de1a4eb7aba6ba15c018a5128f74445cbe1cf83df86855089a66784fca6",
+        "bytes": 13028
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/buildaudit_corrected-receipt.json",
+        "sha256": "5c986cb9aa9d25a48a5eed17be03f541d3b2ab63f5a29b9f2c533e81cc9209da",
+        "bytes": 556
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/buildaudit_corrected.py",
+        "sha256": "867e0ebd9208267a811965ffa7e5e24421d64cda5e22a98047c11bd45f16a76e",
+        "bytes": 211
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain1-receipt.json",
+        "sha256": "e7260d6389bf081608f7eb8dd5758805874c60404983cdf0856ad94ebe1f1abc",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain1.py",
+        "sha256": "ae8919708953f8707ce8fa67e9fbf396ed13e57bb8cd4e523995ab549fd8ee4d",
+        "bytes": 425
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain2-receipt.json",
+        "sha256": "8f14f94d2cef8453ca67869daf2fd1c53c41a2c927cf44eb90fbb7766fc1d434",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain2.py",
+        "sha256": "38e9fd588afa644b4d0629191cd3f3b2fa7ec31dc4ecc9d956a843c029ba2b06",
+        "bytes": 636
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain3-receipt.json",
+        "sha256": "19f6c915f378f5b138b0fe679346d062d448222b00f2955740089fb422c5d454",
+        "bytes": 541
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain3.py",
+        "sha256": "5be2a0e5b02bae1ee87b48bb5a245e3f6918743c2f4637cf1239a00c329264fb",
+        "bytes": 563
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain4-receipt.json",
+        "sha256": "e5ff83239da2c1b6974c97d525c4a3474877c545877fc1dccfac5d1b49f192fa",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/chain4.py",
+        "sha256": "a1cfc0ca18e07d4b8d1512394f120ccba4fd66fa3b4c8b74c0b4ea3ea2f789eb",
+        "bytes": 657
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/checkheader-receipt.json",
+        "sha256": "b590840ba708a997dd77e6a76abd95fb31d01d79ebfa580a9e133db4e3ea4065",
+        "bytes": 544
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/checkheader.py",
+        "sha256": "ef542762a05023e05f415da6b1e9d3a37d2201e11662d7d9e48ee0e91e4e3dd1",
+        "bytes": 305
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/constructor-refs.json",
+        "sha256": "af58753f0a4706cbb6550fabebf7186271525ec4f2c180dc1ea7732467157c5e",
+        "bytes": 24
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume1-receipt.json",
+        "sha256": "a712677a847c90463e143a1e978ebc4c8cd8fb02bc653d5d8be277fb65bbc871",
+        "bytes": 544
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume1.py",
+        "sha256": "4761f521184f344accd5a5ff69b4c604b4a5be5216ab4bc210e0517f5cf1c2de",
+        "bytes": 426
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume2-receipt.json",
+        "sha256": "664c88a4e28705b52fcd62d054cbeb09f9cc2754d1d8b7cea3e0047935969f22",
+        "bytes": 543
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume2.py",
+        "sha256": "0c6817776a2a25580a19c78d9dfa6c0f30881851f016e04c9c2d96b881452e18",
+        "bytes": 141
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume3-receipt.json",
+        "sha256": "8785306de17c0b9daf619914853fbaf96eaa4e7881fb87ff2ea8165a19b4efee",
+        "bytes": 544
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume3.py",
+        "sha256": "224262b43c2c82b5c27502054d478c8561bcf4da9c9bbc34c4df85fdc986e5bc",
+        "bytes": 193
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume4-receipt.json",
+        "sha256": "317adbfa0cf31d4f4de8ef58e36c10db5bf922ef7543ba3a02c3db2ef0cc32b9",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/consume4.py",
+        "sha256": "65214c4492492a654deca98f0c21aadcbc172e9eb03b1141961a97dd33537658",
+        "bytes": 574
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/countdetails-receipt.json",
+        "sha256": "a10c273f317a8114490042adf5a3018e6e5fcb39409050812eb3d6b8f4383944",
+        "bytes": 548
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/countdetails.py",
+        "sha256": "16de93dbd207e2fb50543de89a7173054244f3018d468b6a101fa54507317bdb",
+        "bytes": 753
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/disassemble-receipt.json",
+        "sha256": "dc81e9eb72727df548a0849250e54f2a68de82fbd94e28e372843f8ccc724c65",
+        "bytes": 544
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/disassemble.py",
+        "sha256": "12eb246252fc2bc5fd6ef4bba7500aebc2b8ea6b033cc6ff51afda59136e2670",
+        "bytes": 1475
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/dxbc.json",
+        "sha256": "10424daad11893bacc1d8a0fd751162c21b663db42ba06478f636451019a188c",
+        "bytes": 4542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/export.runtimeconfig.json",
+        "sha256": "80e8c7b58970e8d88f9e435007d90f28f707c9012eeb1dc4d5ad57800d7476be",
+        "bytes": 105
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/extract-receipt.json",
+        "sha256": "85477f68e3f09681b6c73cb4ccd75ec18d8a8655c818d866565d80a220d3c939",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/extract.py",
+        "sha256": "dd02c53f9a3c69ca032dc5e4036e1fc1188f8b855755608f0f0c4be95b269477",
+        "bytes": 1264
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/finalchain-receipt.json",
+        "sha256": "9c13b2c589af7c9f3a151d7cc041435f622ed0ad8e8b42032580407e4990f9b7",
+        "bytes": 545
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/finalchain.py",
+        "sha256": "e34b73d7c482b9f187a3341639dbaacbf9cf0dbe2cd8da7898805a3f9bba3fb8",
+        "bytes": 104
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle-receipt.json",
+        "sha256": "e5c981cfd5c7cccc28222e6e8014964e272cfe1d1bc30c9583e0bdc687c3aa2f",
+        "bytes": 541
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle.py",
+        "sha256": "967f04899abe269a1a368d39f0bf92a30357d88e84b96a8b46877d27337be223",
+        "bytes": 287
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle2-receipt.json",
+        "sha256": "942aa70c387ac8caccf9ce28ed431f083bb2c80d5ed24098c8604fc90f8e356d",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle2.py",
+        "sha256": "1cc6a14baccee835a022eef1c621a02a7d121eb71f6adf7dd2c12041d23be70b",
+        "bytes": 91
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle3-receipt.json",
+        "sha256": "4169a0451d8ce404aac1445bfc3dfc1639f9fff8c82cdff353dda59cc9b9bf57",
+        "bytes": 543
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle3.py",
+        "sha256": "8fafea7860c79a5e61bcec0db3fb8feb56a30100015e3fca5dee8bffca0c3962",
+        "bytes": 114
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle4-receipt.json",
+        "sha256": "6bbe88507bee25945be3624bfd44c3ccf2bad75cc941b784b7418c1807d77ef1",
+        "bytes": 543
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle4.py",
+        "sha256": "8a7b0be65ccf735491d48a993d811366670b62fd0c68db1862e8094000af59f9",
+        "bytes": 96
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle5-receipt.json",
+        "sha256": "d3fb6aad3dd8fef089e4803328a6cdf837711dc9749075d141771c76e64602fc",
+        "bytes": 542
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/handle5.py",
+        "sha256": "0f7a48eca0f8ccba00b321ec664ec745001fc9aa9a85233db10a7966bbf2466a",
+        "bytes": 278
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/history-check.json",
+        "sha256": "e2cf8b07d6ba51f29b767ecfaec1800b7e728738e237ed28aa15343bd1f09848",
+        "bytes": 8726
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/historycheck-receipt.json",
+        "sha256": "3c1f14fa691160ddf2c033b26255a108d86aaebdedf960bcc2db7c4c553dde7d",
+        "bytes": 548
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/historycheck.py",
+        "sha256": "e1751051ccaba0a8cd3dc8c8d0cbee0029c7285f72f25fe0a25b7d6afcff4b95",
+        "bytes": 933
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/inspect-receipt.json",
+        "sha256": "808bdc631b526b9da7cdf712def1f9d97e077d293abbce737fd8ff1e1d1b15d9",
+        "bytes": 541
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/lastcode-receipt.json",
+        "sha256": "ee4837d1e6878d63cc254b7423135225a7a6edb1d53725711fe33019b8c14418",
+        "bytes": 543
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/lastcode.py",
+        "sha256": "a24bfd994649f68a67b4a18bcf9905179713251a14ff88cd5e97bedd33bf12f7",
+        "bytes": 211
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/ledger.json",
+        "sha256": "43bda7c57df44fb52a21890b1900f094e7bcb41833e8705f683391785103fd14",
+        "bytes": 21900
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/loaderquery-receipt.json",
+        "sha256": "8bdeb11cb1264b780e04e685acc30a8b7a954fdc460019bc7eef738354f708cc",
+        "bytes": 546
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/loaderquery.py",
+        "sha256": "a17c5871c5f4dbe892d25bbbb9f1b167529a81a1f25cf0e2b4236cf5b56abdd8",
+        "bytes": 645
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/magic-refs.json",
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bytes": 2
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/native.py",
+        "sha256": "8259d1ce4edd9930094701ed844dacb48cd8fd1e33a62667ac06eeeb1884616c",
+        "bytes": 2672
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract-original-failure-receipt.json",
+        "sha256": "640253fd4d9ff9ea15c507879a6ed4cbd566c2762c65974a80bb508bc057a948",
+        "bytes": 1345
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract-receipt.json",
+        "sha256": "b8b42d58a469d044756c6c8b6a068d01dd5b2d92fcb4683cc6af382a7a07a7fa",
+        "bytes": 709
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract.py",
+        "sha256": "bc207e44999e8412cc02424832a65edf9bf8b26ecfd66c5e1a2a7b0ccafd40f0",
+        "bytes": 2546
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract_corrected-receipt.json",
+        "sha256": "60e4c05cb91f8fd931dbb0af39ec80f88fe22177183512550f4828ee38747b10",
+        "bytes": 557
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parsecontract_corrected.py",
+        "sha256": "adc3471d93386d4757e65f054f5f67def2d5b5610107df159bfadd6796765e33",
+        "bytes": 140
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/parser-tests.json",
+        "sha256": "8ab0d0bb29b7a45372131fa3c8f718ed19ea28b53e74e3b78033b1579af35137",
+        "bytes": 1405
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/publishdocs.py",
+        "sha256": "cd73216930c3bdea0e4f45c6dd18fd65292e1b943e8081f8b157eb7e94967a76",
+        "bytes": 10489
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/readconsume-receipt.json",
+        "sha256": "ed1572480ccec8328e7d5e0d65290560d9efe7e7e3640c8cf2e4df086d59e7d3",
+        "bytes": 544
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/readconsume.py",
+        "sha256": "6485f89ef662c592a180632b5bea6a92b6c1a4323674ae0958610de0b5c00318",
+        "bytes": 242
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/recover-receipt.json",
+        "sha256": "bf81242d5b773465eba51604fa5015b2e2974f788b40ab00f22bbf59abd0db3b",
+        "bytes": 540
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/recover.py",
+        "sha256": "164907442efce63f2fac62f14e2b857edbb0f79c28e3cc7621814e6cf88f3ae5",
+        "bytes": 728
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/resourcepaths-receipt.json",
+        "sha256": "f1fa19a0bdcee2f5b98166c196c09e650d48324dbf536b8d318906a299762324",
+        "bytes": 549
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/resourcepaths.py",
+        "sha256": "6197a6fe44a2824ea6f4d8c889fd159967a80e5de75afc2dee72dce117ad5f9a",
+        "bytes": 237
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/resources1-receipt.json",
+        "sha256": "9f1f4422544ac58ebe13f097caef16bf07418d4276b586bc1a50d1430b8b9e2e",
+        "bytes": 545
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/resources1.py",
+        "sha256": "ac761cbcd2e6cecbfbfba2eda46304137599fa733798dc264fd1332d31c739a7",
+        "bytes": 655
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/reusednames-receipt.json",
+        "sha256": "8e6a38f10cee7b27083bc1b3286cce0c1e50776fbf177ee17d9783d30bb2460c",
+        "bytes": 546
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/reusednames.py",
+        "sha256": "c09a23df8b14719e062f6c972efee8d2813f34def15554299a336bbc250e62ca",
+        "bytes": 434
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/reusefinal-receipt.json",
+        "sha256": "7ae45b85a9c98d9b87b945a8689a4debe9f71e1d1c7e8cfc8d6838dfe800d5bf",
+        "bytes": 546
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/reusefinal.py",
+        "sha256": "a30f4a4d74b8aadc670b1cdd0cb995d2c82891a96c36d9218ef469fee69c0a32",
+        "bytes": 329
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/runner.py",
+        "sha256": "25033f1f1ff11e54f3d72830ef89432f5927b5eda5c1f2464c9c289da1a7b82d",
+        "bytes": 855
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/shcd-contract.json",
+        "sha256": "1f837fa108220856d683c32c1c8ff1c1cfbb41b95e661d0862bac39fd676b1d8",
+        "bytes": 4102
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/spans.json",
+        "sha256": "122efb03a83027cc49bab4378c4b638cbaf33ffcb31b44c892e4e0fe9551c5fc",
+        "bytes": 6641
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/stage-recovery.json",
+        "sha256": "6492234214fb42816b1f0776c89015326b33676e388736d12e7508efe7fd743d",
+        "bytes": 332
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/upstream-physis.json",
+        "sha256": "cdf5678978d259af35da099785cd683ef3ddde4c1735010072bc73468b285e55",
+        "bytes": 2513
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/upstream-sources.json",
+        "sha256": "4fb9fb0a12ae2661a1db9785e723473be5311f78d18332cd61873aed777588e9",
+        "bytes": 15206
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verified.json",
+        "sha256": "5752a8cbb5f5e2aca28ffaef2c444f3df1d9d3fd59406955589b7ea7870bbdfe",
+        "bytes": 28
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verify-receipt.json",
+        "sha256": "b3c4cb50b2cea0071ae9dd33041f28e235d87365e39007c75d05f38511433559",
+        "bytes": 541
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verify.py",
+        "sha256": "133b9bb46eb68e9ecce3f09033ecfac58552bf9e46c976f7c960e821b2161882",
+        "bytes": 1214
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verify2-receipt.json",
+        "sha256": "2d31d45557f28dd1d99cead94402700bb79e00408011d1ba7b0d23a42462eddb",
+        "bytes": 541
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verify2.py",
+        "sha256": "3376a34bf6669b2813076bb21949200858a0517493bb3fa91da03e81f606503f",
+        "bytes": 1204
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verifyhist-receipt.json",
+        "sha256": "e4d04e48899d2d4b0a9148ffe0e4bc4773b166ebbeadc78e29ac7598856c8534",
+        "bytes": 546
+      },
+      {
+        "path": "top/assets/official/top-ring-shader-51039/verifyhist.py",
+        "sha256": "350b18e02df79e6ff1604730bec68a9597ce3813dd7d9951b6858bbfc4259c0f",
+        "bytes": 772
+      }
+    ],
+    "failure_ledger": [
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\verify.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 18067456,
+        "job_peak_private_bytes": 13811712,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33029021696,
+        "seconds": 0.45941709994804114,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\verify2.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 18051072,
+        "job_peak_private_bytes": 12120064,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33073201152,
+        "seconds": 0.20689400006085634,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\inspect.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 14209024,
+        "job_peak_private_bytes": 11108352,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33133731840,
+        "seconds": 0.10657870001159608,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain1.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119369728,
+        "job_peak_private_bytes": 111681536,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32918470656,
+        "seconds": 0.3074303000466898,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain2.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118763520,
+        "job_peak_private_bytes": 110686208,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33082265600,
+        "seconds": 0.30807599995750934,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain3.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 120090624,
+        "job_peak_private_bytes": 112545792,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32840163328,
+        "seconds": 0.3079356000525877,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\chain4.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 155049984,
+        "job_peak_private_bytes": 147841024,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32836300800,
+        "seconds": 0.6107849000254646,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\resources1.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 126418944,
+        "job_peak_private_bytes": 114585600,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32869040128,
+        "seconds": 0.5087886999826878,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\resourcepaths.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118005760,
+        "job_peak_private_bytes": 110772224,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32984621056,
+        "seconds": 0.30731020006351173,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\extract.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 252289024,
+        "job_peak_private_bytes": 216846336,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32872677376,
+        "seconds": 2.8757853000424802,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\binder.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118464512,
+        "job_peak_private_bytes": 110768128,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32899432448,
+        "seconds": 0.25795149989426136,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\disassemble.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 20631552,
+        "job_peak_private_bytes": 12750848,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33144139776,
+        "seconds": 0.1580313000595197,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume1.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119439360,
+        "job_peak_private_bytes": 112197632,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32886751232,
+        "seconds": 0.30945360008627176,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume2.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119271424,
+        "job_peak_private_bytes": 110886912,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32862826496,
+        "seconds": 0.3073941000038758,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\readconsume.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 13856768,
+        "job_peak_private_bytes": 8998912,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33084358656,
+        "seconds": 0.10628019995056093,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume3.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119771136,
+        "job_peak_private_bytes": 112046080,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33022963712,
+        "seconds": 0.3073658999055624,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\consume4.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118824960,
+        "job_peak_private_bytes": 111476736,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32880685056,
+        "seconds": 0.308666400029324,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\loaderquery.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 153772032,
+        "job_peak_private_bytes": 145670144,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32871809024,
+        "seconds": 2.2731005999958143,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118263808,
+        "job_peak_private_bytes": 112492544,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32837169152,
+        "seconds": 0.256976000033319,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\recover.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 13910016,
+        "job_peak_private_bytes": 9154560,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32981069824,
+        "seconds": 0.10617779998574406,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle2.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119390208,
+        "job_peak_private_bytes": 110915584,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32879591424,
+        "seconds": 0.3077635000227019,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle3.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118927360,
+        "job_peak_private_bytes": 110583808,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32874135552,
+        "seconds": 0.30738950008526444,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle4.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119177216,
+        "job_peak_private_bytes": 110862336,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32879980544,
+        "seconds": 0.33001229993533343,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\handle5.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119197696,
+        "job_peak_private_bytes": 110735360,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32873738240,
+        "seconds": 0.3081413999898359,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\finalchain.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118902784,
+        "job_peak_private_bytes": 110907392,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33011609600,
+        "seconds": 0.3083601000253111,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\lastcode.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118087680,
+        "job_peak_private_bytes": 110911488,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33096445952,
+        "seconds": 0.2580446000210941,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\reusefinal.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118632448,
+        "job_peak_private_bytes": 111042560,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33091244032,
+        "seconds": 0.25724609999451786,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 14581760,
+        "job_peak_private_bytes": 13692928,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33026752512,
+        "seconds": 0.1063232000451535,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\checkheader.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 13815808,
+        "job_peak_private_bytes": 8970240,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33042247680,
+        "seconds": 0.10638000001199543,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 0,
+        "job_peak_private_bytes": 0,
+        "stop_reason": "[Errno 17] File exists: 'D:\\\\Dev\\\\OpenClawCodexBridge\\\\worktrees\\\\top-ring-shader-51039\\\\top\\\\assets\\\\official\\\\top-ring-shader-51039\\\\parsecontract.log'",
+        "exit": null,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33180008448,
+        "seconds": 0.00014000001829117537,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\parsecontract_corrected.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 14422016,
+        "job_peak_private_bytes": 10985472,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33182801920,
+        "seconds": 0.10625040007289499,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\verifyhist.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 119328768,
+        "job_peak_private_bytes": 111874048,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 33107763200,
+        "seconds": 0.30792439996730536,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\countdetails.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118341632,
+        "job_peak_private_bytes": 112263168,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32962019328,
+        "seconds": 0.25697410001885146,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\historycheck.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118628352,
+        "job_peak_private_bytes": 112435200,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32942010368,
+        "seconds": 0.25742579996585846,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\buildaudit.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 120303616,
+        "job_peak_private_bytes": 113872896,
+        "stop_reason": null,
+        "exit": 1,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32908390400,
+        "seconds": 0.459886800032109,
+        "no_script_errors": true,
+        "ok": false
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\buildaudit_corrected.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 120233984,
+        "job_peak_private_bytes": 112427008,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32757854208,
+        "seconds": 0.30718020000495017,
+        "no_script_errors": true,
+        "ok": true
+      },
+      {
+        "argv": [
+          "C:\\Python314\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-shader-51039\\top\\assets\\official\\top-ring-shader-51039\\reusednames.py"
+        ],
+        "deadline_seconds": 45,
+        "peak_rss_bytes": 118439936,
+        "job_peak_private_bytes": 112504832,
+        "stop_reason": null,
+        "exit": 0,
+        "job_memory_limit": 1610612736,
+        "kill_owned_descendants": true,
+        "minimum_free_bytes": 32777928704,
+        "seconds": 0.2584773999406025,
+        "no_script_errors": true,
+        "ok": true
+      }
+    ],
+    "embedded_metadata_exclusions": [
+      {
+        "captured_code_va": "0x1417f1c00",
+        "start": "0x1417f2010",
+        "end_exclusive": "0x1417f2028",
+        "meaning": "six stage dispatch RVA entries; stage0=17f1c52,stage1=17f1c8a"
+      },
+      {
+        "captured_code_va": "0x1402349c0",
+        "start": "0x1402354a8",
+        "end_exclusive": "0x140235500",
+        "meaning": "22 command dispatch RVA entries separately recorded as METADATA; these are not instructions"
+      }
+    ],
+    "review": "Self-reviewed static source handoff only; parent independent adjudication still required. Product source unchanged.",
+    "initial_documents": {
+      "RING_NATIVE.md": {
+        "sha256": "e46e9e2f2807ae6c9a857c10b0a0b9484fd8379f36ea456c1c20d40c371d10e1",
+        "lf_sha256": "e46e9e2f2807ae6c9a857c10b0a0b9484fd8379f36ea456c1c20d40c371d10e1",
+        "bytes": 46505
+      },
+      "ring-native.json": {
+        "sha256": "3e74017d7a815c875464aa565492294db8ef73d349a76cb5774a7dde8325b7b0",
+        "lf_sha256": "3e74017d7a815c875464aa565492294db8ef73d349a76cb5774a7dde8325b7b0",
+        "bytes": 262542
+      }
+    },
+    "status": "STATIC_PARTIAL"
   }
 }
