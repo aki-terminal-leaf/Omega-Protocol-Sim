@@ -3,7 +3,7 @@ sys.dont_write_bytecode=True
 import copy, pathlib, unittest
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'tools/asset_lab'))
 from prepare_ring_action import trace, read, validate, EXPECTED
-MANIFEST=pathlib.Path('D:/Dev/OpenClawCodexBridge/probes/top-one-action-50954/inputs/inputs.json')
+MANIFEST=pathlib.Path('D:/Dev/OpenClawCodexBridge/probes/top-ring-effector-50976/inputs.json')
 class RingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -18,10 +18,11 @@ class RingTests(unittest.TestCase):
     def test_pin_counterexample(self):
         with self.assertRaises(ValueError): validate(MANIFEST,'0'*64)
     def test_lifetime_counterexamples(self):
-        for change in ['loop','negative','nan','cycle','reference']:
+        for change in ['loop','negative','nan','inf','cycle','reference']:
             p=copy.deepcopy(self.pack)
             if change=='loop': p['groups']['TmLn'][0]['values']['LpEd']=10
             if change=='negative': p['groups']['Emit'][1]['life']['Val']=-1
+            if change=='inf': p['groups']['Emit'][1]['life']['Val']=float('inf')
             if change=='nan': p['groups']['Emit'][1]['life']['Val']=float('nan')
             if change=='cycle': p['groups']['Emit'][1]['items'][0]['values']['TgtB']=1
             if change=='reference': p['groups']['Emit'][1]['items'][0]['values']['TgtB']=99

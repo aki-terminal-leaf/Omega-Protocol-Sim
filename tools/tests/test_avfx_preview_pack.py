@@ -53,6 +53,34 @@ class PreviewPackTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"Nonfinite float"):
             preview.compile_pack(document(("Ptcl",particle(block("DpOf",struct.pack("<f",float("inf")))))))
 
+    def test_radial_type_presence_and_widths(self):
+        payload=block("Len",curve(.15))+block("Str",curve(1))+block("FSDc",struct.pack("<f",50))+number("FaBP",2)
+        data,unknown=preview.decode_effector_data(payload,7)
+        self.assertEqual(data["FSDc"],50);self.assertEqual(data["FaBP"],2)
+        self.assertFalse(data["presence"]["IRad"]);self.assertNotIn("IRad",data)
+        self.assertEqual(unknown,[])
+        for kind in [9,123]:
+            wrong,unknown=preview.decode_effector_data(payload,kind)
+            self.assertNotIn("Len",wrong);self.assertEqual(len(unknown),4)
+    def test_radial_malformed_nonfinite_duplicate_unknown_random(self):
+        cases=[block("FSDc",b"x"),block("FaBP",b"xx"),block("Len",b"x"),block("Str",curve(float("nan"))),block("FEDc",struct.pack("<f",float("inf"))),number("FaBP",0)+number("FaBP",1),block("Len",curve())+block("Len",curve())]
+        for payload in cases:
+            with self.subTest(payload=payload),self.assertRaises(ValueError): preview.decode_effector_data(payload,7)
+        data,unknown=preview.decode_effector_data(block("LenR",curve())+number("ZZZ",3),7)
+        self.assertEqual(data["random_fields"],["LenR"]);self.assertEqual(len(unknown),2)
+        data,_=preview.decode_effector_data(block("Len",curve()+number("ZZZ",1)),7)
+        self.assertEqual(data["Len"]["unknown_fields"][0]["tag"],"ZZZ")
+    def test_effector_compiler_discriminates_and_rejects_duplicate_type(self):
+        for kind in [7,9,123]:
+            source=document(("Efct",number("EfVT",kind)+block("Data",block("Len",curve()))))
+            data=preview.compile_pack(source)["groups"]["Efct"][0]["data"]
+            self.assertEqual("Len" in data,kind==7)
+        source=document(("Efct",number("EfVT",7)+number("EfVT",9)+block("Data",b"")))
+        with self.assertRaises(ValueError):preview.compile_pack(source)
+    def test_type9_camera_data_preserved(self):
+        data,unknown=preview.decode_effector_data(block("Att",curve(1))+block("RdI",curve(5)),9)
+        self.assertEqual(data["Att"]["keys"][0]["value"],1);self.assertEqual(unknown,[])
+
     def test_malformed_structure_rejected(self):
         for source in [b"",document()[:-1],document().replace(number("Ver",preview.mesh.VERSION),number("Ver",99))]:
             with self.subTest(source=source),self.assertRaises(ValueError):preview.compile_pack(source)

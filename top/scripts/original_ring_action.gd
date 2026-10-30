@@ -3,7 +3,7 @@ extends Node3D
 const FX = preload("res://scripts/asset_lab_effect.gd")
 const Lifetime = preload("res://scripts/asset_lab_lifetime.gd")
 const SOURCE = "3719a1cfcb102a31469770f53aca9b8edd8ec84bb490c645dbc080a1c7487201"
-const ASSET_PINS = {"res://raw/full_fx_7d52f33034935c9aabf2.json": "ea0b6b7eae6fc4187c7e4ef808a2b7cdee36b9227cd405c8ef8f8b795d1d14f3", "res://raw/full_tex_d00f00d4a5b35490d3a5.png": "975847812e06debb21e90db316b7502ad3e77ddf99a11ca7757c8fddc3e81512", "res://raw/full_tex_e21ed36711e1c534c71f.png": "8b65b82c9a00e0424506d3c82f4c079027730a1bba0bf232dabc0f130dde0c9d", "res://raw/full_tex_5a61e2d56e7ef42abbfb.png": "65e0058e61d91db69154d35845d0ede0c1b35628efc667d5e25ebd684594ce39", "res://raw/full_tex_26fc063c2e56ead8a43f.png": "ed298865bcdbe4b419475462efc1fe23a2253d403f8a2b35836903f1c8267a4f", "res://raw/full_tex_8f4b1f8cd36515d02ccb.png": "461390288fe018b660a1b98b88a92256c8a7f5c246f039b6c0943d480e24d313", "res://raw/full_tex_ecae0aa3f9fff7b02422.png": "10e410cb6c8baa3c0d82df5757c8cbeb8a41a6d71ba68840b78b161db6e4df08"}
+const ASSET_PINS = {"res://raw/full_fx_7d52f33034935c9aabf2.json": "1d167245034ae6e519c8e652aff91aedb4e45765ef7cff9b5d9e44195b15c8da", "res://raw/full_tex_d00f00d4a5b35490d3a5.png": "975847812e06debb21e90db316b7502ad3e77ddf99a11ca7757c8fddc3e81512", "res://raw/full_tex_e21ed36711e1c534c71f.png": "8b65b82c9a00e0424506d3c82f4c079027730a1bba0bf232dabc0f130dde0c9d", "res://raw/full_tex_5a61e2d56e7ef42abbfb.png": "65e0058e61d91db69154d35845d0ede0c1b35628efc667d5e25ebd684594ce39", "res://raw/full_tex_26fc063c2e56ead8a43f.png": "ed298865bcdbe4b419475462efc1fe23a2253d403f8a2b35836903f1c8267a4f", "res://raw/full_tex_8f4b1f8cd36515d02ccb.png": "461390288fe018b660a1b98b88a92256c8a7f5c246f039b6c0943d480e24d313", "res://raw/full_tex_ecae0aa3f9fff7b02422.png": "10e410cb6c8baa3c0d82df5757c8cbeb8a41a6d71ba68840b78b161db6e4df08"}
 var effect: Node3D
 var data: Dictionary = {}
 var lifetime: Dictionary = {}
@@ -95,6 +95,9 @@ func advance(seconds: float) -> bool:
  return seek(minf(end_frame, age + seconds * 30.0))
 func _process(delta: float) -> void:
  if playing: advance(delta)
+func radial_descriptors() -> Array:
+ # Host consumes detached snapshots; release/failure never leave a stale value.
+ return effect.radial_effects.duplicate(true) if is_instance_valid(effect) else []
 func report() -> Dictionary:
- return {"action":31567,"age":age,"playing":playing,"error":error,"source_status":"BLOCKED","rendering_accepted":false,"all96_accepted":false,"lifetime":lifetime.duplicate(true),"inspection_end":end_frame,"clock_status":data.get("clock_status",""),"source":effect.report() if is_instance_valid(effect) else {},"graph":data.get("graph",{}).duplicate(true)}
+ return {"action":31567,"age":age,"playing":playing,"error":error,"source_status":"BLOCKED","rendering_accepted":false,"all96_accepted":false,"lifetime":lifetime.duplicate(true),"particle_emitter_envelope":{"frames":end_frame,"scope":"source graph subset; excludes native post-effect/host lifetime"},"inspection_end":end_frame,"clock_status":data.get("clock_status",""),"radial_effects":radial_descriptors(),"source":effect.report() if is_instance_valid(effect) else {},"graph":data.get("graph",{}).duplicate(true)}
 func _exit_tree() -> void: release()

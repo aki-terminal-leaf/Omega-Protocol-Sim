@@ -3,11 +3,13 @@ import sys
 sys.dont_write_bytecode = True
 import argparse, hashlib, json, math, pathlib, shutil
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-EXPECTED = 'd2120d6ab9820cf459655386a2a8495668f4ac1f865a6d22abaa5e23743c9d45'
+EXPECTED = '8825b3041da9958d724bd686b95282b5e4a3a506e77170b11120b3fac04f3bb4'
 SOURCE = '3719a1cfcb102a31469770f53aca9b8edd8ec84bb490c645dbc080a1c7487201'
 PACK = 'full_fx_7d52f33034935c9aabf2'
 KEY = '265044|17:1|-1:0|31567|end|7|vfx/monster/gimmick4/eff/z3oz_b0_g03c0t1.avfx'
 NEW = ['top/scripts/original_ring_action.gd','top/scripts/ring_action_preview.gd','top/scenes/ring_action_preview.tscn','tools/asset_lab/prepare_ring_action.py','tools/asset_lab/run_ring_action.py','tools/asset_lab/test_ring_action.gd','tests/test_ring_action.py','docs/asset-lab/RING_ACTION.md','docs/asset-lab/ring-action.json']
+NEW += ['tools/avfx_preview_pack.py','tools/tests/test_avfx_preview_pack.py','top/scripts/asset_lab_effect.gd','top/scripts/asset_lab_lifetime.gd','top/scripts/source_avfx_player.gd','top/scripts/avfx_animation.gd','top/scripts/asset_lab_radial_effect.gd']
+
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p): return json.loads(p.read_text(encoding='utf8'), parse_constant=lambda x: (_ for _ in ()).throw(ValueError('nonfinite JSON '+x)))
 def require(ok, reason):
@@ -19,8 +21,12 @@ def safe(root, name):
 def validate(path, digest):
     require(path.is_absolute() and digest == EXPECTED and sha(path)==EXPECTED, 'manifest SHA/path')
     m=read(path); require(m['atomic_action']==31567 and m['asset']==PACK and m['pack_file']=='assets/'+PACK+'.json', 'action identity')
+    require(sha(pathlib.Path(m['previous_manifest']))==m['previous_manifest_sha256'],'previous handoff pin')
     for n,p in m['protected_sources'].items():
         pin(safe(ROOT,n),p); pin(safe(pathlib.Path(m['source_root']),n),p)
+    require(len(m['initial_source_pins'])==102 and len(m['protected_sources'])==87,'source cardinality')
+    for n,p in m['initial_source_pins'].items(): pin(safe(pathlib.Path(m['source_root']),n),p)
+    for n,p in m['input_files'].items(): pin(safe(pathlib.Path(m['input_root']),n),p)
     for n,p in m['cache_files'].items(): pin(safe(pathlib.Path(m['cache_root']),n),p)
     for n,p in m['runtime_pins'].items(): pin(pathlib.Path(m['runtime'][n]),p)
     require(pathlib.Path(sys.executable).resolve()==pathlib.Path(m['runtime']['python']).resolve(),'pinned Python required')
@@ -36,9 +42,9 @@ def trace(pack):
         reached.add((group,index)); return g[group][index]
     def constant(n,key):
         c=n['curves'][key]; require(not c.get('unknown_fields') and len(c['keys'])==1 and c['keys'][0]['type']==1 and not n['curves'].get(key+'R'), 'nonconstant emission')
-        return c['keys'][0]['data'][2]
+        value=c['keys'][0]['data'][2]; require(math.isfinite(value),'nonfinite emission'); return value
     def life(n):
-        d=n['life']; require(d['enabled'] and not d['unknown_fields'] and d['ValR']==0 and d['Val']>=0, 'unbounded life')
+        d=n['life']; require(d['enabled'] and not d['unknown_fields'] and d['ValR']==0 and math.isfinite(d['Val']) and d['Val']>=0, 'unbounded life')
         require(n['values']['LpEd']<=n['values']['LpSt'],'loop needs host semantics'); return d['Val']
     def emit(index,birth,stop,parents):
         require(index not in parents,'emitter cycle'); n=node('Emit',index); end=min(stop,birth+life(n)); interval=constant(n,'CrI'); count=constant(n,'CrC')
@@ -75,7 +81,38 @@ def trace(pack):
             if ("Ptcl",index) not in reached: state='unreachable'
             elif not enabled(g['Ptcl'][index]['materials'][slot]['bEna']): state='disabled'; proof=f'groups/Ptcl/{index}/materials/{slot}/bEna=0'
         flags.append(dict(flag,classification=state,evidence=proof))
-    return {'reachable':sorted([f'{a}/{b}' for a,b in reached]),'disabled':disabled,'emissions':edges,'particles':births,'supported_last_death':max(x['death'] for x in births),'flags':flags,'original_lifetime_finite':False,'blocker':'groups/Emit/1/values/EfNo=0 -> groups/Efct/0/values/EfVT=7: unsupported active effector; asset_lab_lifetime.upper_bound rejects it'}
+    return {'reachable':sorted([f'{a}/{b}' for a,b in reached]),'disabled':disabled,'emissions':edges,'particles':births,'supported_last_death':max(x['death'] for x in births),'envelope_scope':'finite source-graph particle/emitter subset only; excludes native post-effects, host triggers and release','flags':flags,'original_lifetime_finite':False,'blocker':'groups/Emit/1/values/EfNo=0 -> groups/Efct/0/values/EfVT=7: unsupported active effector; asset_lab_lifetime.upper_bound rejects it'}
+
+def radial_pack(m, prior):
+    # Recompile privately; prove the descriptor independently against raw TLV.
+    sys.path.insert(0,str(ROOT/'tools'))
+    import avfx_preview_pack as compiler
+    raw=(pathlib.Path(m['input_root'])/'original.avfx').read_bytes()
+    require(compiler.hashlib.sha256(raw).hexdigest()==prior['source_sha256']==SOURCE,'preserved source hash equality')
+    if 'raw_avfx_base64' in prior:
+        require(compiler.base64.b64decode(prior['raw_avfx_base64'],validate=True)==raw,'preserved embedded raw equality')
+    fresh=compiler.compile_pack(raw)
+    root=compiler.mesh.blocks(compiler.mesh.blocks(raw)[0][1])
+    payload=[v for t,v in root if t=='Efct'][0]
+    fields=compiler.mesh.blocks(payload)
+    data=compiler.mesh.unique(fields,'Data')
+    decoded,_=compiler.decode_effector_data(data,7)
+    node=fresh['groups']['Efct'][0]
+    require(node['values']['EfVT']==7 and node['data']==decoded,'independent effector join')
+    # All other semantics, including original meshes, remain byte-value equivalent.
+    import copy, struct
+    result=copy.deepcopy(prior)
+    require({k:v for k,v in node.items() if k!='data'}=={k:v for k,v in prior['groups']['Efct'][0].items() if k!='data'},'non-data effector drift')
+    result['groups']['Efct'][0]['data']=decoded
+    result['radial_transformation']={'operation':'splice only source-decoded Efct0.data','source_sha256':SOURCE,'payload_sha256':compiler.hashlib.sha256(data).hexdigest(),'prior_pack_sha256':m['cache_files'][m['pack_file']]['sha256'],'upstream_commit':'05f6eb0cce19a6a91ae275bce609299d573914b3','rendering_accepted':False}
+    # Independent raw key extraction, without compiler curve evaluator, for engine oracle.
+    rows=compiler.mesh.blocks(data); oracle={}
+    for tag,value in rows:
+        if tag in compiler.RADIAL_CURVES:
+            keys=compiler.mesh.unique(compiler.mesh.blocks(value),'Keys')
+            oracle[tag]=[{'time':t,'type':kind,'value':z} for t,kind,x,y,z in struct.iter_unpack('<hHfff',keys)]
+        else: oracle[tag]=struct.unpack('<i' if tag=='FaBP' else '<f',value)[0]
+    return result, fresh, oracle
 
 def prepare(m, project):
     root=pathlib.Path(m['cache_root']); pack=read(root/m['pack_file']); require(pack['source_sha256']==SOURCE,'source AVFX pin')
@@ -91,10 +128,16 @@ def prepare(m, project):
             require(len(v['position'])==4 and len(v['uv'])==4 and len(v['color'])==4,'vertex channels')
             require(all(math.isfinite(x) for x in v['position']+v['color']+sum(v['uv'],[])),'nonfinite vertex')
         require(all(len(t)==3 and all(isinstance(i,int) and 0<=i<len(model['vertices']) for i in t) for t in model['triangles']),'triangles')
-    graph=trace(pack); raw=project/'raw'; raw.mkdir(parents=True)
+    graph=trace(pack); pack,fresh,oracle=radial_pack(m,pack)
+    raw=project/'raw'; raw.mkdir(parents=True)
+    (project.parent/'full-recompile.json').write_text(json.dumps(fresh,separators=(',',':'),allow_nan=False))
+    (project/'radial-oracle.json').write_text(json.dumps(oracle,allow_nan=False))
     assets={}; paths={}
     for name in [m['pack_file']]+[m['textures'][t]['file'] for t in pack['textures']]:
-        target=raw/pathlib.Path(name).name; shutil.copyfile(root/name,target); uri='res://raw/'+target.name; assets[uri]=m['cache_files'][name]
+        target=raw/pathlib.Path(name).name
+        if name==m['pack_file']: target.write_text(json.dumps(pack,separators=(',',':'),allow_nan=False),encoding='utf8')
+        else: shutil.copyfile(root/name,target)
+        uri='res://raw/'+target.name; assets[uri]={'bytes':target.stat().st_size,'sha256':sha(target)}
         if target.suffix == '.png': shutil.copyfile(target,target.with_name(target.name+'.source'))
     for t in pack['textures']:
         require(full['textures'][t]==m['textures'][t]['asset'],'texture join'); paths[t]='res://raw/'+pathlib.Path(m['textures'][t]['file']).name
@@ -102,5 +145,5 @@ def prepare(m, project):
     (project/'action-data.json').write_text(json.dumps(data,separators=(',',':')),encoding='utf8'); return data
 if __name__=='__main__':
     a=argparse.ArgumentParser(); a.add_argument('--manifest',type=pathlib.Path,required=True); a.add_argument('--manifest-sha256',required=True); a.add_argument('--project',type=pathlib.Path,required=True); args=a.parse_args()
-    require(args.project.resolve().is_relative_to(ROOT/'top/assets/official/top-one-action-50954/outputs'),'private output root required')
+    require(args.project.resolve().is_relative_to(ROOT/'top/assets/official/top-ring-effector-50976/outputs'),'private output root required')
     args.project.mkdir(parents=True,exist_ok=False); prepare(validate(args.manifest,args.manifest_sha256),args.project)

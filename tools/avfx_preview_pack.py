@@ -7,6 +7,8 @@ This is NOT a complete renderer/fidelity certification. Unsupported features are
 reported individually; the gameplay renderer must not silently accept this pack.
 """
 from __future__ import annotations
+import sys
+sys.dont_write_bytecode = True
 import argparse
 import base64
 import hashlib
@@ -42,6 +44,39 @@ def color(payload):
     rows=mesh.blocks(payload)
     return {t:strip_raw(curves.decode_curve(v,"rgb" if t=="RGB" else "scalar",t in curves.RANDOM_FIELDS))
             for t,v in rows if t in COLOR}
+
+RADIAL_CURVES = {"Len", "Str", "Gra", "IRad", "ORad"}
+RADIAL_FIELDS = RADIAL_CURVES | {"FSDc", "FEDc", "FaBP"}
+def decode_effector_data(payload, effect_type):
+    """Type-local schema from pinned VFXEditor 05f6eb0; no native render law."""
+    rows=mesh.blocks(payload)
+    tags=[t for t,_ in rows]
+    if len(tags)!=len(set(tags)): raise ValueError("Duplicate effector Data field")
+    result={}
+    unknown=[]
+    for tag,value in rows:
+        if effect_type==7 and tag in RADIAL_CURVES:
+            result[tag]=strip_raw(curves.decode_curve(value))
+        elif effect_type==7 and tag in {"FSDc","FEDc","FaBP"}:
+            if len(value)!=4: raise ValueError("Invalid radial field width: "+tag)
+            number=struct.unpack("<i" if tag=="FaBP" else "<f",value)[0]
+            if not math.isfinite(number): raise ValueError("Nonfinite radial field: "+tag)
+            result[tag]=number
+        elif effect_type==9 and tag in {"Pos","Rot"}:
+            result[tag]=strip_raw(curves.decode_axes(value,"angle" if tag=="Rot" else "scalar"))
+        elif effect_type==9 and tag in {"Att","AttR","RdO","RdOR","RdI","RdIR"}:
+            result[tag]=strip_raw(curves.decode_curve(value,"scalar",tag.endswith("R")))
+        else:
+            unknown.append({"tag":tag,"bytes":len(value),"sha256":hashlib.sha256(value).hexdigest()})
+    if effect_type==7:
+        result["radial_schema"]=1
+        result["presence"]={tag:tag in tags for tag in sorted(RADIAL_FIELDS)}
+        result["absent_fields"]=sorted(RADIAL_FIELDS-set(tags))
+        result["unknown_fields"]=unknown
+        result["random_fields"]=[t for t in tags if t.endswith("R") and t[:-1] in RADIAL_CURVES]
+        result["payload_sha256"]=hashlib.sha256(payload).hexdigest()
+        result["default_status"]="absent fields unresolved; no synthesized defaults"
+    return result,unknown
 
 def compile_pack(data):
     topology=graph.inspect(data)
@@ -120,10 +155,11 @@ def compile_pack(data):
                         else:issue(path+"/"+tag+"/"+t,"material_field")
                     node["materials"][tag]=material
                 elif tag=="Data" and group=="Efct":
-                    for t,v in mesh.blocks(value):
-                        if t in {"Pos","Rot"}:node["data"][t]=strip_raw(curves.decode_axes(v,"angle" if t=="Rot" else "scalar"))
-                        elif t in {"Att","AttR","RdO","RdOR","RdI","RdIR"}:node["data"][t]=strip_raw(curves.decode_curve(v,"scalar",t.endswith("R")))
-                        else:issue(path+"/Data/"+t,"effector_data")
+                    mesh.unique(fields,"Data")
+                    kind=mesh.unique(fields,"EfVT")
+                    if len(kind)!=4: raise ValueError("Invalid effector type width")
+                    node["data"],unknown=decode_effector_data(value,struct.unpack("<i",kind)[0])
+                    for entry in unknown:issue(path+"/Data/"+entry["tag"],"effector_data")
                 elif tag=="Data" and group in SCALARS:
                     for t,v in mesh.blocks(value):
                         if t=="FrRt":node["data"][t]=strip_raw(curves.decode_axes(v,"angle"))

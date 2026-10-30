@@ -1,12 +1,17 @@
 # SPDX-License-Identifier: MIT
 extends "res://scripts/source_avfx_player.gd"
 ## Endpoint-connected source type-6 ribbon subset; screen-facing geometry is approximate.
+const RadialEffect=preload("res://scripts/asset_lab_radial_effect.gd")
 const CameraEffect=preload("res://scripts/asset_lab_camera_effect.gd")
 # Original meteor graph measures 2,516 live particles / 63,563 work ticks.
 # Lab-only headroom, not truncation, unlimited execution or fidelity acceptance.
 func _work_limit()->int:return 128000
 func _particle_limit()->int:return 4096
 var camera_effects:Array=[]
+var radial_effects:Array=[]
+func reset()->void:
+ camera_effects.clear();radial_effects.clear()
+ super.reset()
 ## Verified host release stops emission, not existing particle tails. INF = unknown.
 var emission_stop_frame:=INF
 var endpoint_provider:Callable
@@ -34,9 +39,10 @@ func _mesh(spec:Dictionary)->Mesh:
  if int(spec.kind)==6:return _ribbon(spec)
  return super._mesh(spec)
 func seek(at_frame:float)->bool:
- camera_effects.clear()
+ camera_effects.clear();radial_effects.clear()
+ if not is_finite(at_frame) or absf(at_frame)>3.402823466e38:return false
  var ok:=super.seek(at_frame)
- if not ok:camera_effects.clear();return false
+ if not ok:camera_effects.clear();radial_effects.clear();return false
  for spec in last_particles:
   if int(spec.kind)==6:
    var instance:MeshInstance3D=draws[spec.key]
@@ -101,9 +107,18 @@ func _emit(index:int,birth:float,now:float,ancestors:Array,key:String,result:Arr
    var index_ef:=int(node.values.get("EfNo",-1))
    if index_ef>=0:
     var eff:=_node("Efct",index_ef)
-    if int(eff.get("values",{}).get("EfVT",-1))==9:
+    var kind:Variant=eff.get("values",{}).get("EfVT",-1)
+    if RadialEffect.number(kind) and kind==9:
      var spec:=CameraEffect.evaluate(eff,_local(eff,age),seed_value,key+"/effector/"+str(index_ef),camera_position.length())
      spec["emitter"]=index;spec["source_index"]=index_ef;camera_effects.append(spec)
+    elif RadialEffect.number(kind) and kind==7:
+     var spec:=RadialEffect.evaluate(eff,age,key+"/effector/"+str(index_ef))
+     if spec.descriptor_valid:
+      spec["emitter"]=index;spec["source_index"]=index_ef;spec["birth"]=birth;spec["global_age"]=now
+      spec["descriptor_stop"]=minf(stop,birth+float(life)) if float(life)>=0 and not looped else null
+      radial_effects.append(spec)
+     else:diagnostics["invalid_radial_descriptor"]=true
+     diagnostics["unsupported_host_effector/7.0"]=true
     else:diagnostics["unsupported_host_effector/"+str(eff.get("values",{}).get("EfVT",-1))]=true
  super._emit(index,birth,now,ancestors,key,result,depth,stop,influence)
 func report()->Dictionary:
@@ -111,4 +126,4 @@ func report()->Dictionary:
  for source in camera_effects:
   var row:Dictionary=source.duplicate();var v:Vector3=row.position;var rot:Vector3=row.rotation
   row.position=[v.x,v.y,v.z];row.rotation=[rot.x,rot.y,rot.z];rows.append(row)
- value["camera_effects"]=rows;return value
+ value["camera_effects"]=rows;value["radial_effects"]=radial_effects.duplicate(true);return value

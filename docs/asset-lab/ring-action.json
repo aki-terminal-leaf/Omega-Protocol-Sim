@@ -1,1 +1,26 @@
-{"schema":1,"action":31567,"unit":"P3-02","scope":"FIRST_ATOMIC_ACTION_NOT_WHOLE_P3_02","source_status":"BLOCKED","rendering_accepted":false,"all96_accepted":false,"inspection_end_native_units":90,"clock_conversion":"CONDITIONAL_30_UNITS_PER_SECOND","minimal_blocker":"active Emit1 -> Efct0 type7 unsupported","parent_visual_review":"REQUIRED"}
+{
+  "schema": 2,
+  "action": 31567,
+  "unit": "P3-02",
+  "scope": "SOURCE_RADIAL_DESCRIPTOR_INCREMENT_NOT_COMPLETE_UNIT",
+  "engineering_status": "SCOPED_IMPLEMENTATION_PASS",
+  "source_status": "BLOCKED",
+  "rendering_accepted": false,
+  "all96_accepted": false,
+  "manifest": "D:/Dev/OpenClawCodexBridge/probes/top-ring-effector-50976/inputs.json",
+  "manifest_sha256": "8825b3041da9958d724bd686b95282b5e4a3a506e77170b11120b3fac04f3bb4",
+  "runtime_pack_sha256": "1d167245034ae6e519c8e652aff91aedb4e45765ef7cff9b5d9e44195b15c8da",
+  "evidence": "top/assets/official/top-ring-effector-50976/outputs/cca7bcc5-5ff0-4928-9480-fc4973673edf",
+  "project": "project/project.godot",
+  "receipts": [
+    "prepare-receipt.json",
+    "unit-receipt.json",
+    "compiler-unit-receipt.json",
+    "godot-receipt.json"
+  ],
+  "inspection_end_native_units": 90,
+  "clock_conversion": "CONDITIONAL_30_UNITS_PER_SECOND",
+  "lifetime": "native unknown; finite source particle/emitter subset only",
+  "next_seam": "native radial host/formula and absent IRad default evidence",
+  "parent_visual_review": "REQUIRED"
+}
