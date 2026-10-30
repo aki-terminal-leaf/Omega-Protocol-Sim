@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "status": "PARAMETERIZED_KERNELS_IMPLEMENTED_NATIVE_INTEGRATION_OPEN",
+  "rendering_accepted": false,
+  "all96_accepted": false,
+  "latest_summary": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-kernels-reviewed-51043\\top\\assets\\official\\top-ring-kernels-51043\\parent-final-2a0c5cc6d8f84b41985317887a75ecfa\\summary.json",
+  "explicit_policy": "linear_clamp_explicit",
+  "source_evidence": {
+    "manifest_sha256": "376e1c4f8f5f18890f1dba217eff7d09723fef0112aaec9a89c32d034906ec7a",
+    "accepted_contract": "docs/asset-lab/ring-native.json#shader_contract_audit",
+    "radial_literal_bits": "0x3eaaaaab",
+    "native_vertex_ported": false
+  },
+  "unsupported_native_dependencies": [
+    "resource factory installation",
+    "small-buffer upload/flush",
+    "sampler 0x265 decoding",
+    "A/B and merge texture ownership, formats and dimensions",
+    "absent IRad/defaults",
+    "native clock/lifetime"
+  ],
+  "test_evidence": {
+    "numeric_pass": true,
+    "web_export_ready": true,
+    "raster_verified": false,
+    "headless_is_not_shader_compile_evidence": true,
+    "status": "KERNEL_NUMERIC_PASS_WEB_READY",
+    "blocker": null
+  },
+  "project": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-kernels-reviewed-51043\\top\\assets\\official\\top-ring-kernels-51043\\parent-run-6717067ae93f476d99874aa1d7591988\\prepared\\project",
+  "web_output": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-kernels-reviewed-51043\\top\\assets\\official\\top-ring-kernels-51043\\parent-run-6717067ae93f476d99874aa1d7591988\\web\\index.html",
+  "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "parent_validation": {
+    "status": "PASS_CONDITIONAL_RGBA8_PIXEL_KERNELS",
+    "point_cases": 128,
+    "full_images": 6,
+    "channels_checked": 3560,
+    "max_byte_error": 1,
+    "tolerance_bytes": 2,
+    "negative_target_rejected": true,
+    "evidence": "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-kernels-reviewed-51043\\top\\assets\\official\\top-ring-kernels-51043\\parent-final-2a0c5cc6d8f84b41985317887a75ecfa\\parent-gpu-comparison.json",
+    "raw_receipt": "D:\\Dev\\OpenClawCodexBridge\\probes\\top-ring-kernels-51043\\parent-gpu-v3.json",
+    "backend": "Godot4.7.2 WebGL2 Chromium145 ANGLE SwiftShader; NOT hardware GPU/native sampler or event equivalence"
+  },
+  "review_adjudication": "Broad Sonnet110s TIMEOUT. Focused helper review63.259s reported negative-radius and threshold MUST_FIX; negative premise contradicts original absolute-magnitude contract, boundary rejection is deliberate conservative post-f32 domain, not unsafe shader behavior. Actual Godot domain scene confirms negative allowed, decimal1e-4 rounds below threshold/rejected,1.0001e-4 accepted. Parent independently checked shader math/rawDXBC/128CPU andactualWebGPU. NOT broad model reviewPASS."
+}
