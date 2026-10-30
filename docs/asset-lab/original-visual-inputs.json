@@ -1,0 +1,994 @@
+{
+  "status": "PRESERVATION_IMPORT_PASS_SHADER_OPEN",
+  "scope": "Original data preservation and numeric Godot import only; NOT shader/render/action96 completion",
+  "evidence_directory": "top/assets/official/top-original-visual-inputs-50859/outputs/run-a2c92dab-cc6c-4c60-a3dd-fbbb4fd20a63",
+  "summary_sha256": "b0905ec743071ab2f21215478e6b66d02c1583336bf4369334de636c13913604",
+  "protected_raws_exact": 40,
+  "unit_tests": {
+    "passed": 6,
+    "log": "unit-tests-v2.log",
+    "status": "PASS_FRESH_V2_6_TESTS"
+  },
+  "seconds": 39.50165970006492,
+  "implementation": {
+    "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\preserve_original_visual_inputs.py": "4a2ac76fd0d1a1f889471fdc0743cbbf382f09a913a7d1b38d77bee9f27c5ed2",
+    "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\run_original_visual_inputs.py": "e674ff80ff0b62920a7a07cf28d8b9626b1a0a31508ec29666e70882d04e62c4",
+    "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\test_original_visual_inputs.gd": "27a9a54ac0b3add879048af4b2317b842abac4a5f0bfc363b289fc276baf9d0e",
+    "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\audit_cinematic_mesh_fidelity.py": "fe1ebd7e41f775f54af3e22c9e3a1bb715a94e620004f5c5445b9eafcaf90c47",
+    "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\run_cinematic_integration.py": "f1a06079ab47f5e131ff53eb58164897f901fd17045906c9a9ba47f0c0b55e18"
+  },
+  "implementation_unchanged": true,
+  "seed_comparison": {
+    "tools/asset_lab/decode_cutb_bindings.py": {
+      "old": {
+        "sha256": "5b35e1d31e76bf89349f7e6602f2b3c42cfb249776b678c92b9de3873b35abe2",
+        "bytes": 12646
+      },
+      "current_sha256": "5b35e1d31e76bf89349f7e6602f2b3c42cfb249776b678c92b9de3873b35abe2",
+      "exact": true
+    },
+    "tests/test_cutb_bindings.py": {
+      "old": {
+        "sha256": "45b1c82042f14234420565163775005ba1c7cb2f95946c6dd4d69113c0100330",
+        "bytes": 11280
+      },
+      "current_sha256": "45b1c82042f14234420565163775005ba1c7cb2f95946c6dd4d69113c0100330",
+      "exact": true
+    },
+    "docs/asset-lab/CUTB_NATIVE_BINDINGS.md": {
+      "old": {
+        "sha256": "3fab6088e6dfb8bb5ed1f0ad2224da48564682ff9da67a282ef111a29edb09f6",
+        "bytes": 3933
+      },
+      "current_sha256": "3fab6088e6dfb8bb5ed1f0ad2224da48564682ff9da67a282ef111a29edb09f6",
+      "exact": true
+    },
+    "docs/asset-lab/cutb-native-bindings.json": {
+      "old": {
+        "sha256": "3a4fe9793c056b0f829e800996492ed05fb33907f91959fa8b5e65f9766047ae",
+        "bytes": 232254
+      },
+      "current_sha256": "3a4fe9793c056b0f829e800996492ed05fb33907f91959fa8b5e65f9766047ae",
+      "exact": true
+    },
+    "docs/asset-lab/CUTB_ACTOR_MODELS.md": {
+      "old": {
+        "sha256": "89cbc7a5e53de60c56191fcc7dc1732a42e7ccdca82104aa7d6e06e95e967a33",
+        "bytes": 5098
+      },
+      "current_sha256": "89cbc7a5e53de60c56191fcc7dc1732a42e7ccdca82104aa7d6e06e95e967a33",
+      "exact": true
+    },
+    "docs/asset-lab/cutb-actor-models.json": {
+      "old": {
+        "sha256": "597b4dc9b3528a5ad6a54b891e954f3d889f6e6c8c2a152b712399933b25d6a4",
+        "bytes": 38028
+      },
+      "current_sha256": "597b4dc9b3528a5ad6a54b891e954f3d889f6e6c8c2a152b712399933b25d6a4",
+      "exact": true
+    },
+    "tools/asset_lab/extract_cinematic_rigs.py": {
+      "old": {
+        "sha256": "eb75892d9ba6fd79c3f1d0c419aaaf5110de4a4fef0f6e7220e2180f238c4596",
+        "bytes": 4983
+      },
+      "current_sha256": "eb75892d9ba6fd79c3f1d0c419aaaf5110de4a4fef0f6e7220e2180f238c4596",
+      "exact": true
+    },
+    "tools/asset_lab/sample_cinematic_paps.py": {
+      "old": {
+        "sha256": "24ffeceacb14ab693571d76c6f4df6444896aab300d1a1aea8d4050316f5508a",
+        "bytes": 12452
+      },
+      "current_sha256": "24ffeceacb14ab693571d76c6f4df6444896aab300d1a1aea8d4050316f5508a",
+      "exact": true
+    },
+    "tests/test_cinematic_rigs.py": {
+      "old": {
+        "sha256": "6e532aaad3813c47f6f5e67292044caed903c6ec9ed441f4b0fd84b35913a0d8",
+        "bytes": 3937
+      },
+      "current_sha256": "6e532aaad3813c47f6f5e67292044caed903c6ec9ed441f4b0fd84b35913a0d8",
+      "exact": true
+    },
+    "docs/asset-lab/CINEMATIC_RIG_SAMPLES.md": {
+      "old": {
+        "sha256": "72f8e073a995cd84bdda7f4133119506e00283da163a269f23877f67f52b7bde",
+        "bytes": 4509
+      },
+      "current_sha256": "72f8e073a995cd84bdda7f4133119506e00283da163a269f23877f67f52b7bde",
+      "exact": true
+    },
+    "docs/asset-lab/cinematic-rig-samples.json": {
+      "old": {
+        "sha256": "9c92001cc45df9dca583593cfbfccda21667066ec575cc7e152db63a44de7d22",
+        "bytes": 54872
+      },
+      "current_sha256": "9c92001cc45df9dca583593cfbfccda21667066ec575cc7e152db63a44de7d22",
+      "exact": true
+    },
+    "tools/asset_lab/prepare_cinematic_godot.py": {
+      "old": {
+        "sha256": "0121f2b5590d4a895aa6e99c34949ba5dfcbc4a0ed553e9fd5321ae6e69e5dd2",
+        "bytes": 9234
+      },
+      "current_sha256": "0121f2b5590d4a895aa6e99c34949ba5dfcbc4a0ed553e9fd5321ae6e69e5dd2",
+      "exact": true
+    },
+    "tools/asset_lab/run_cinematic_integration.py": {
+      "old": {
+        "sha256": "f1a06079ab47f5e131ff53eb58164897f901fd17045906c9a9ba47f0c0b55e18",
+        "bytes": 8504
+      },
+      "current_sha256": "f1a06079ab47f5e131ff53eb58164897f901fd17045906c9a9ba47f0c0b55e18",
+      "exact": true
+    },
+    "top/scripts/cinematic_sample_adapter.gd": {
+      "old": {
+        "sha256": "d8500f2a3e76ade9433053f69b7ac25e69b5b8c88db9d0913de3e2f2084e2afd",
+        "bytes": 3548
+      },
+      "current_sha256": "d8500f2a3e76ade9433053f69b7ac25e69b5b8c88db9d0913de3e2f2084e2afd",
+      "exact": true
+    },
+    "tools/asset_lab/test_cinematic_integration.gd": {
+      "old": {
+        "sha256": "37972ea14b4c8cc8eb6f7b7ee893e645a8f30868439814bbfe71cc153bd6966a",
+        "bytes": 6980
+      },
+      "current_sha256": "37972ea14b4c8cc8eb6f7b7ee893e645a8f30868439814bbfe71cc153bd6966a",
+      "exact": true
+    },
+    "tests/test_cinematic_godot.py": {
+      "old": {
+        "sha256": "8cf6eed15ef0b6bfeeca925842ae64be302747d6a3de1487abdc053e636adf00",
+        "bytes": 2437
+      },
+      "current_sha256": "8cf6eed15ef0b6bfeeca925842ae64be302747d6a3de1487abdc053e636adf00",
+      "exact": true
+    },
+    "docs/asset-lab/CINEMATIC_GODOT_INTEGRATION.md": {
+      "old": {
+        "sha256": "c216a35adfe8c2c2466f711a4977c5171a89fe208b409102442d76599cc9c1ff",
+        "bytes": 5717
+      },
+      "current_sha256": "c216a35adfe8c2c2466f711a4977c5171a89fe208b409102442d76599cc9c1ff",
+      "exact": true
+    },
+    "docs/asset-lab/cinematic-godot-integration.json": {
+      "old": {
+        "sha256": "3afab3523b38125e88ec78026f6d14b876bd6cda9705b6da95bfa18225e53b56",
+        "bytes": 56106
+      },
+      "current_sha256": "3afab3523b38125e88ec78026f6d14b876bd6cda9705b6da95bfa18225e53b56",
+      "exact": true
+    },
+    "tools/asset_lab/audit_cinematic_mesh_fidelity.py": {
+      "old": {
+        "sha256": "fe1ebd7e41f775f54af3e22c9e3a1bb715a94e620004f5c5445b9eafcaf90c47",
+        "bytes": 18033
+      },
+      "current_sha256": "fe1ebd7e41f775f54af3e22c9e3a1bb715a94e620004f5c5445b9eafcaf90c47",
+      "exact": true
+    },
+    "tests/test_cinematic_mesh_fidelity.py": {
+      "old": {
+        "sha256": "0c54e4af5b53bbf73375de9943c5158fd1bc23337330e8814e15f65379886db5",
+        "bytes": 6358
+      },
+      "current_sha256": "0c54e4af5b53bbf73375de9943c5158fd1bc23337330e8814e15f65379886db5",
+      "exact": true
+    },
+    "docs/asset-lab/CINEMATIC_MESH_FIDELITY.md": {
+      "old": {
+        "sha256": "286e4b66251d8beb8ffdd383493de926731d36bd3b18a24634b0989037ed7fa8",
+        "bytes": 7467
+      },
+      "current_sha256": "286e4b66251d8beb8ffdd383493de926731d36bd3b18a24634b0989037ed7fa8",
+      "exact": true
+    },
+    "docs/asset-lab/cinematic-mesh-fidelity.json": {
+      "old": {
+        "sha256": "e7d61d39aad1606e19213979165eef95a3f9e4c5505eba8cc86f1581678109da",
+        "bytes": 806512
+      },
+      "current_sha256": "e7d61d39aad1606e19213979165eef95a3f9e4c5505eba8cc86f1581678109da",
+      "exact": true
+    },
+    "top/scripts/source_animation.gd": {
+      "old": {
+        "sha256": "da629dc551ea44240043b8b92629e9151014f892dd8d815fee3ee8870a723370",
+        "bytes": 15639
+      },
+      "current_sha256": "da629dc551ea44240043b8b92629e9151014f892dd8d815fee3ee8870a723370",
+      "exact": true
+    },
+    "top/scripts/cinematic_player.gd": {
+      "old": {
+        "sha256": "6b1c0298cb9917ca9c162a6dc6a11e02356bc2c76d9611b54e2d6ee167be10a6",
+        "bytes": 2915
+      },
+      "current_sha256": "6b1c0298cb9917ca9c162a6dc6a11e02356bc2c76d9611b54e2d6ee167be10a6",
+      "exact": true
+    },
+    "top/scripts/cinematic_inspector.gd": {
+      "old": {
+        "sha256": "b3940f1b397a1e7b4a4e203216a45a54b30304707d1b97294a7d6ae38b52c859",
+        "bytes": 3517
+      },
+      "current_sha256": "26cfa10a27fb870b2758b485ddd2d32b25cd681b71aa424512e0d4d4e0ce6754",
+      "exact": false
+    },
+    "top/scenes/cinematic_inspector.tscn": {
+      "old": {
+        "sha256": "fed58f7e3005d4a50ef573c123ab87c79a1d6b7676a61c2ede9a409706a30312",
+        "bytes": 188
+      },
+      "current_sha256": "fed58f7e3005d4a50ef573c123ab87c79a1d6b7676a61c2ede9a409706a30312",
+      "exact": true
+    },
+    "tools/asset_lab/test_cinematic_playback.gd": {
+      "old": {
+        "sha256": "1a278cff326833c29f75a9bc6adc2c3af001cd70a58275f93fecf295badb52c1",
+        "bytes": 11264
+      },
+      "current_sha256": "45c1dced958b67754aec340d2079882e0ab298265c26a54a0c521490ccfba03a",
+      "exact": false
+    },
+    "tools/asset_lab/run_cinematic_playback.py": {
+      "old": {
+        "sha256": "6a051681307284884ad07222abf6aaece116ba9a24011e1032704fcd1a377ba3",
+        "bytes": 5399
+      },
+      "current_sha256": "6523322897708918d1abeded8c384993ef5552feb4370897f4506e3ab9ac4751",
+      "exact": false
+    },
+    "docs/asset-lab/CINEMATIC_PLAYBACK.md": {
+      "old": {
+        "sha256": "b544f1a165d611ff6c17ef0a88623292f12356594728d84e2c1538310d901631",
+        "bytes": 7718
+      },
+      "current_sha256": "4bb20038ab544f78b5b09c858de4f8ea8b8c914bb1142477ffef4a073f6215f3",
+      "exact": false
+    },
+    "docs/asset-lab/cinematic-playback.json": {
+      "old": {
+        "sha256": "338a2d807264d71b186e9ae574383caf53f1eaddca2a3d7a4cdd43b270a900d1",
+        "bytes": 71945
+      },
+      "current_sha256": "ed2d40c3a266805ac3714318a51828121cbf009ee5519cb9ac992b12c64f4f74",
+      "exact": false
+    }
+  },
+  "models": [
+    {
+      "model": 110,
+      "base": 1,
+      "parts": 4,
+      "vertices": 29933,
+      "materials": 3,
+      "bindings": 12,
+      "decoder_module_mvid": "1ee19534-8121-47fa-8719-8a94c1bea23a",
+      "source_mdl": {
+        "source": "chara/monster/m0110/obj/body/b0001/model/m0110b0001.mdl",
+        "sha256": "2b6979f5c6115a9d725aa7a91c79802f2c7b4e166dd194d8ca659d8e69b0e14d",
+        "bytes": 2982116
+      },
+      "glb_sha256": "b40924e0b565cd0d498cbd0aeadd159704cd7ec281bf202cdc4942bde4517744",
+      "parts_stats": [
+        {
+          "name": "m0110_g0_p0",
+          "group": 0,
+          "part": 0,
+          "vertices": 21796,
+          "material": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+          "oracle": "m0110_g0_p0.oracle",
+          "oracle_sha256": "23bda2952cc56794a12c13fc4988a90f61fbb281d9c6e46aba43b8dafa686e59",
+          "other_fields": "m0110_g0_p0.fields.json.gz",
+          "color_distinct": 34,
+          "uv2_distinct": 1,
+          "color_min": [
+            254,
+            254,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0110_g1_p0",
+          "group": 1,
+          "part": 0,
+          "vertices": 7841,
+          "material": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+          "oracle": "m0110_g1_p0.oracle",
+          "oracle_sha256": "952f1acfec6f57facbb3e6a8145181937530437dbb2e255b22537edb542a80d9",
+          "other_fields": "m0110_g1_p0.fields.json.gz",
+          "color_distinct": 13,
+          "uv2_distinct": 1,
+          "color_min": [
+            254,
+            254,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0110_g2_p0",
+          "group": 2,
+          "part": 0,
+          "vertices": 138,
+          "material": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_a.mtrl",
+          "oracle": "m0110_g2_p0.oracle",
+          "oracle_sha256": "f496c3b10895e4316ec919e2b83807b3873080be1d450b8d04e9f0ea61793310",
+          "other_fields": "m0110_g2_p0.fields.json.gz",
+          "color_distinct": 3,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0110_g3_p0",
+          "group": 3,
+          "part": 0,
+          "vertices": 158,
+          "material": "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_b.mtrl",
+          "oracle": "m0110_g3_p0.oracle",
+          "oracle_sha256": "073486e934661075352b05e0d4c05f802bd005966e08aa5472c2a73971999dd1",
+          "other_fields": "m0110_g3_p0.fields.json.gz",
+          "color_distinct": 1,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "model": 424,
+      "base": 2,
+      "parts": 2,
+      "vertices": 5119,
+      "materials": 2,
+      "bindings": 8,
+      "decoder_module_mvid": "1ee19534-8121-47fa-8719-8a94c1bea23a",
+      "source_mdl": {
+        "source": "chara/monster/m0424/obj/body/b0002/model/m0424b0002.mdl",
+        "sha256": "c2c8675a0cf85e2a74ce53c5be9c38fd5ce227bc86a09e03434c9252905c5b99",
+        "bytes": 464116
+      },
+      "glb_sha256": "e460beec22d5f23e0a2a3107578fa3f22ce009fd30b546f1c6a2689f053f4c99",
+      "parts_stats": [
+        {
+          "name": "m0424_g0_p0",
+          "group": 0,
+          "part": 0,
+          "vertices": 2616,
+          "material": "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_a.mtrl",
+          "oracle": "m0424_g0_p0.oracle",
+          "oracle_sha256": "6c9975242b7d32e25355a7e9270e379f3e3a6852e508cb22decbead23f7de7ec",
+          "other_fields": "m0424_g0_p0.fields.json.gz",
+          "color_distinct": 1,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0424_g1_p0",
+          "group": 1,
+          "part": 0,
+          "vertices": 2503,
+          "material": "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_b.mtrl",
+          "oracle": "m0424_g1_p0.oracle",
+          "oracle_sha256": "af5cf4760a0cec6d800adc798c78aa9369301a2e8023e4c5e925cb4c3ffd0e44",
+          "other_fields": "m0424_g1_p0.fields.json.gz",
+          "color_distinct": 1,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "model": 8277,
+      "base": 1,
+      "parts": 1,
+      "vertices": 1648,
+      "materials": 1,
+      "bindings": 4,
+      "decoder_module_mvid": "1ee19534-8121-47fa-8719-8a94c1bea23a",
+      "source_mdl": {
+        "source": "chara/monster/m8277/obj/body/b0001/model/m8277b0001.mdl",
+        "sha256": "d44886477df39288cd1e2b3d7dd6562358ab3fb35ab974d5a5035bdaf9bc00cf",
+        "bytes": 174212
+      },
+      "glb_sha256": "6f7b7eb1ed5eb1d7b8cbba2aceb455ed0cdbb12198e7de25db0c2e740b362bf7",
+      "parts_stats": [
+        {
+          "name": "m8277_g0_p0",
+          "group": 0,
+          "part": 0,
+          "vertices": 1648,
+          "material": "chara/monster/m8277/obj/body/b0001/material/v0001/mt_m8277b0001_a.mtrl",
+          "oracle": "m8277_g0_p0.oracle",
+          "oracle_sha256": "1fe0d90262e022c75eb7028415d2777343df1ef8fca13af3a78cbd408b463153",
+          "other_fields": "m8277_g0_p0.fields.json.gz",
+          "color_distinct": 1,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "model": 771,
+      "base": 1,
+      "parts": 4,
+      "vertices": 28388,
+      "materials": 3,
+      "bindings": 12,
+      "decoder_module_mvid": "1ee19534-8121-47fa-8719-8a94c1bea23a",
+      "source_mdl": {
+        "source": "chara/monster/m0771/obj/body/b0001/model/m0771b0001.mdl",
+        "sha256": "7826032a6b882408806128e3a4df0ea65fbdf0a01ba4713cd8c9311b613e7fdc",
+        "bytes": 2645244
+      },
+      "glb_sha256": "a6cefdff5d2951055b6c72aa7a01990e9e6f767e8e5817b1a59c640989e4fb68",
+      "parts_stats": [
+        {
+          "name": "m0771_g0_p0",
+          "group": 0,
+          "part": 0,
+          "vertices": 13881,
+          "material": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+          "oracle": "m0771_g0_p0.oracle",
+          "oracle_sha256": "f8cfd3818a61ffc93f77f8b81c0ab9ca238a76b28e17e0eb6a1732b7009088c8",
+          "other_fields": "m0771_g0_p0.fields.json.gz",
+          "color_distinct": 2,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0771_g1_p0",
+          "group": 1,
+          "part": 0,
+          "vertices": 4973,
+          "material": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+          "oracle": "m0771_g1_p0.oracle",
+          "oracle_sha256": "d9a1dd5bebd8da2f89fc1ac3bcccf6fb9cd53b5086cf904db0f04c3fcc05ca91",
+          "other_fields": "m0771_g1_p0.fields.json.gz",
+          "color_distinct": 2,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0771_g2_p0",
+          "group": 2,
+          "part": 0,
+          "vertices": 6366,
+          "material": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_b.mtrl",
+          "oracle": "m0771_g2_p0.oracle",
+          "oracle_sha256": "d9c2c0ce86f2b9ba49d6dc1e669ffaa048bcefd104c21cc7926c6cb2cee22a77",
+          "other_fields": "m0771_g2_p0.fields.json.gz",
+          "color_distinct": 2,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        },
+        {
+          "name": "m0771_g3_p0",
+          "group": 3,
+          "part": 0,
+          "vertices": 3168,
+          "material": "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_c.mtrl",
+          "oracle": "m0771_g3_p0.oracle",
+          "oracle_sha256": "7232f879c9241a69db82849696372fe7338372f45c1aa6e1b3a87470c297c314",
+          "other_fields": "m0771_g3_p0.fields.json.gz",
+          "color_distinct": 3,
+          "uv2_distinct": 1,
+          "color_min": [
+            255,
+            255,
+            0,
+            255
+          ],
+          "color_max": [
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      ]
+    }
+  ],
+  "engine": {
+    "color_mapping": "normalized byte RGBA; direct Mesh readback",
+    "models": [
+      {
+        "bindings": [
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_c.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_id.tex",
+            1449103320.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_a.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_a.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_a.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_a.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_id.tex",
+            1449103320.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_b.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_b.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_b.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0110/obj/body/b0001/material/v0001/mt_m0110b0001_b.mtrl",
+            "chara/monster/m0110/obj/body/b0001/texture/v01_m0110b0001_id.tex",
+            1449103320.0
+          ]
+        ],
+        "max_color_error": 0.0,
+        "max_uv2_error": 0.0,
+        "model": 110.0,
+        "nonopaque_alpha": 0,
+        "parts": [
+          "m0110_g0_p0",
+          "m0110_g1_p0",
+          "m0110_g2_p0",
+          "m0110_g3_p0"
+        ],
+        "vertices": 29933
+      },
+      {
+        "bindings": [
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_a.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_a.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_a.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_a.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_id.tex",
+            1449103320.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_b.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_b_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_b.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_b_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_b.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_b_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0424/obj/body/b0002/material/v0001/mt_m0424b0002_b.mtrl",
+            "chara/monster/m0424/obj/body/b0002/texture/v01_m0424b0002_b_id.tex",
+            1449103320.0
+          ]
+        ],
+        "max_color_error": 0.0,
+        "max_uv2_error": 0.0,
+        "model": 424.0,
+        "nonopaque_alpha": 0,
+        "parts": [
+          "m0424_g0_p0",
+          "m0424_g1_p0"
+        ],
+        "vertices": 5119
+      },
+      {
+        "bindings": [
+          [
+            "chara/monster/m8277/obj/body/b0001/material/v0001/mt_m8277b0001_a.mtrl",
+            "chara/monster/m8277/obj/body/b0001/texture/v01_m8277b0001_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m8277/obj/body/b0001/material/v0001/mt_m8277b0001_a.mtrl",
+            "chara/monster/m8277/obj/body/b0001/texture/v01_m8277b0001_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m8277/obj/body/b0001/material/v0001/mt_m8277b0001_a.mtrl",
+            "chara/monster/m8277/obj/body/b0001/texture/v01_m8277b0001_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m8277/obj/body/b0001/material/v0001/mt_m8277b0001_a.mtrl",
+            "chara/monster/m8277/obj/body/b0001/texture/v01_m8277b0001_id.tex",
+            1449103320.0
+          ]
+        ],
+        "max_color_error": 0.0,
+        "max_uv2_error": 0.0,
+        "model": 8277.0,
+        "nonopaque_alpha": 0,
+        "parts": [
+          "m8277_g0_p0"
+        ],
+        "vertices": 1648
+      },
+      {
+        "bindings": [
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_a.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_id.tex",
+            1449103320.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_b.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_b.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_b.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_b.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_id.tex",
+            1449103320.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_c.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_c_d.tex",
+            290653886.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_c.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_c_n.tex",
+            207536625.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_c.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_c_s.tex",
+            2320401078.0
+          ],
+          [
+            "chara/monster/m0771/obj/body/b0001/material/v0001/mt_m0771b0001_c.mtrl",
+            "chara/monster/m0771/obj/body/b0001/texture/v01_m0771b0001_c_id.tex",
+            1449103320.0
+          ]
+        ],
+        "max_color_error": 0.0,
+        "max_uv2_error": 0.0,
+        "model": 771.0,
+        "nonopaque_alpha": 0,
+        "parts": [
+          "m0771_g0_p0",
+          "m0771_g1_p0",
+          "m0771_g2_p0",
+          "m0771_g3_p0"
+        ],
+        "vertices": 28388
+      }
+    ],
+    "raster_acceptance": false,
+    "status": "PASS",
+    "uv2_mapping": "TEXCOORD_1 to ARRAY_TEX_UV2"
+  },
+  "receipts": [
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\preserve_original_visual_inputs.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-material-inputs-50830\\top\\assets\\official\\top-material-inputs-50830\\inputs.json",
+        "--manifest-sha256",
+        "52d925afa2ad82f1e00323a851896980c6da371b1bf457cb6c6d5d696064c20e",
+        "--model",
+        "110",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\m0110"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 656269312,
+      "job_peak_private_bytes": 613220352,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32165363712,
+      "seconds": 12.500214600004256,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\preserve_original_visual_inputs.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-material-inputs-50830\\top\\assets\\official\\top-material-inputs-50830\\inputs.json",
+        "--manifest-sha256",
+        "52d925afa2ad82f1e00323a851896980c6da371b1bf457cb6c6d5d696064c20e",
+        "--model",
+        "424",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\m0424"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 425504768,
+      "job_peak_private_bytes": 380416000,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32492437504,
+      "seconds": 5.748797400039621,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\preserve_original_visual_inputs.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-material-inputs-50830\\top\\assets\\official\\top-material-inputs-50830\\inputs.json",
+        "--manifest-sha256",
+        "52d925afa2ad82f1e00323a851896980c6da371b1bf457cb6c6d5d696064c20e",
+        "--model",
+        "8277",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\m8277"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 289939456,
+      "job_peak_private_bytes": 245243904,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32626868224,
+      "seconds": 3.281834200024605,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\tools\\asset_lab\\preserve_original_visual_inputs.py",
+        "--manifest",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-material-inputs-50830\\top\\assets\\official\\top-material-inputs-50830\\inputs.json",
+        "--manifest-sha256",
+        "52d925afa2ad82f1e00323a851896980c6da371b1bf457cb6c6d5d696064c20e",
+        "--model",
+        "771",
+        "--output",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\m0771"
+      ],
+      "deadline_seconds": 60,
+      "peak_rss_bytes": 695377920,
+      "job_peak_private_bytes": 655212544,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32089743360,
+      "seconds": 13.71838450001087,
+      "no_script_errors": true,
+      "ok": true
+    },
+    {
+      "argv": [
+        "D:/Dev/OpenClawCodexBridge/tools/godot-4.7.2/Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--log-file",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\engine.log",
+        "--path",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\project",
+        "--script",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\project\\test.gd",
+        "--",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\cases.json",
+        "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-original-visual-inputs-50859\\top\\assets\\official\\top-original-visual-inputs-50859\\outputs\\run-d1e33190-0f2b-4479-93e0-ed2988c52c9f\\engine-result.json"
+      ],
+      "deadline_seconds": 90,
+      "peak_rss_bytes": 282873856,
+      "job_peak_private_bytes": 232783872,
+      "stop_reason": null,
+      "exit": 0,
+      "job_memory_limit": 1610612736,
+      "kill_owned_descendants": true,
+      "minimum_free_bytes": 32477917184,
+      "seconds": 2.3743584000039846,
+      "no_script_errors": true,
+      "ok": true
+    }
+  ],
+  "limitations": [
+    "No nonopaque alpha source counterexamples: all 36 decoded bindings are opaque. Synthetic unit colors include alpha 3 and 254 but are not source evidence.",
+    "TexTools logs SQLite.Interop.dll missing in ShaderHelpers metadata lookup; raw arrays and raw texture reads pass, shader metadata closure remains OPEN.",
+    "Only retained frozen GLB parts are appended; excluded LOD/empty identities remain excluded.",
+    "Preserved other TTVertex fields may be decoded defaults; native source semantics not claimed.",
+    "Older manifest differs on five source pins; current 40 parent pins are authoritative.",
+    "Original shader formulas, actual shader selection, blend, native VS COLOR0 binding, table semantics and all96 remain OPEN.",
+    "No Windows/Web export or raster acceptance."
+  ],
+  "all96_accepted": false,
+  "visual_acceptance": false,
+  "parent_validation": {
+    "protected_prepared_manifest_sha256": "ceea5ef4d9c449aa91e4e60081250805da8e33d904e1502711886ae445824ad4",
+    "raw_declared_color_uv2_parts": 11,
+    "parent_binary_vertex_rows": 65088,
+    "same_glb_and_oracles_as_audited_v1": true,
+    "material_identities": 9,
+    "texture_bindings": 36,
+    "review": "claude-sonnet-5-5 RESOLVED numeric preservation only",
+    "all96_accepted": false,
+    "raster_fidelity_accepted": false
+  }
+}
