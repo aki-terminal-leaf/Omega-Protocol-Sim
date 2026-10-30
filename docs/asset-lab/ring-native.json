@@ -1522,6 +1522,138 @@
       "kind": "CODE",
       "evidence_manifest": "top/assets/official/top-ring-binding-50976/trace-1793351152237897500/spans.json",
       "scope": "bounded raw span; CODE may be partial/chained and does not imply complete function"
+    },
+    {
+      "va": "0x1403897f0",
+      "bytes": 196,
+      "sha256": "b34d8634cb6b4b1f4973ee7fc7a2b9a05e7edbca38d7084c1e26aac381531c8e",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x1403630c0",
+      "bytes": 253,
+      "sha256": "ec385ed5ee8f626abcc5269206f25ae9224bc22d1aca31b5e6bf466f68773cc9",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x14036a540",
+      "bytes": 37,
+      "sha256": "4bafd292315bd4a8213f2da26416628fefef379dd89107f8e0bdcc600d3d2565",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x1403920e0",
+      "bytes": 410,
+      "sha256": "5be2fa179d19f6a4c4c5b13abf707dcbb4c565e799c28aed29acb72bfdd47b77",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140392d33",
+      "bytes": 808,
+      "sha256": "5182429a51a8d9456cfdbe40d0260c7136e6039db8561dd4e80672264d8dbb41",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x1404095d0",
+      "bytes": 253,
+      "sha256": "a36ba10f5d00b0b259da42aeb4987217d24331c92a1d9957022b983062a20923",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140062ce0",
+      "bytes": 3,
+      "sha256": "e18aacce29affcdddaa5f641ac1ec12552e0fe9d066e6408941b1792818b8619",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140062cf0",
+      "bytes": 3,
+      "sha256": "b6cbececf1b07e74f37d57710c68c31f0b92cb08d51093252b321b07542e177b",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140062d00",
+      "bytes": 3,
+      "sha256": "4bc724f3b1d0caf4fe369c18cba3102e6c4ea057f63fe1587e3973134a7f755e",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140062d10",
+      "bytes": 5,
+      "sha256": "2d3bf4fb36333957c82761da6aa4ff6ea53eaf10f48b05f605f131d05d9cd714",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x14215fac0",
+      "bytes": 128,
+      "sha256": "a131cca6f0c794b40dad173b075e7fbbdb855a8e4bbdf246cb5106a3dd0e815c",
+      "kind": "vtable_window"
+    },
+    {
+      "va": "0x140389b20",
+      "bytes": 43,
+      "sha256": "4947880228b2c96ef3326271bfcfa6cb28b3686bde769cddaf1c569c8d453020",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389b60",
+      "bytes": 5,
+      "sha256": "92448a0b368254130636010d4ff90a3af0b6a3ae3999afe1843b93ceaa4c80b6",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389b70",
+      "bytes": 11,
+      "sha256": "63a174c25ea5ecced7d9c3ed7c49fa99d268715c8646c37901ba07fda07a8f78",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389b90",
+      "bytes": 11,
+      "sha256": "93926bd40c470911997e471bf1da2402da00f0fd2eacac7e9ad134b03f887229",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389bb0",
+      "bytes": 11,
+      "sha256": "e88e923817b2b5e294c36c09d54f93b6abd85eb815b7a592d65f77329979f34e",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389bd0",
+      "bytes": 11,
+      "sha256": "9ace6bdf3d1dce284710949297e59ea5ff437cd88eb91d411bcb7a553e936b66",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389bf0",
+      "bytes": 7,
+      "sha256": "77e33e808c291c6a80617b5318ea60565b989e3928cec232be3e5d2cd625b95c",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389c00",
+      "bytes": 133,
+      "sha256": "2203de8b25c1c7985c2e918b2e673f5eede29aaaac802982cf6701649e2a75cd",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389c90",
+      "bytes": 38,
+      "sha256": "3a4320bfe9c00291dfb84549ccf050f9252555fb6c5be20d0cb8c698456a857f",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x140389cc0",
+      "bytes": 103,
+      "sha256": "242c1403b28c5f51f4f967cccda5c6813ddf1d32f99937119de76206f7b42e47",
+      "kind": "CODE"
+    },
+    {
+      "va": "0x14040cfe0",
+      "bytes": 4,
+      "sha256": "23dc9c0cc8c8db4caefec50cf95fa7b58368c7bee48dd59f1b8c4c45574b3773",
+      "kind": "CODE"
     }
   ],
   "rendering_accepted": false,
@@ -2526,5 +2658,400 @@
       "scope": "Pins and spans only; not semantic acceptance"
     },
     "guarded_seconds_through_gate": 4.333411899977364
+  },
+  "gpu_contract_audit": {
+    "schema": 1,
+    "status": "STATIC_PARTIAL",
+    "rendering_accepted": false,
+    "all96_accepted": false,
+    "frozen_handoff_sha256": "fbfcd1dd0bad972865e73bb0426a1caea9be62ec3e97591d140f49e5f1dd5cef",
+    "initial_gate": {
+      "source105": true,
+      "protected103": true,
+      "native173": true,
+      "raw_readonly311": true
+    },
+    "query": {
+      "range": [
+        "0x140300000",
+        "0x140500000"
+      ],
+      "pdata_fragments": 8455,
+      "input_bytes": 1890576,
+      "exact_G_loads": 74,
+      "typed_memory_accesses": 83,
+      "radial_reads": [
+        {
+          "fragment": "0x14038a5a1",
+          "load": "0x14038a5d0",
+          "instruction": "0x14038a5db f30f1089ac460000 movss xmm1, dword ptr [rcx + 0x46ac]",
+          "offset": "0x46ac",
+          "width": 4,
+          "kind": "READ",
+          "base_alias": "rcx",
+          "chain": [
+            "0x14038a5d0 488b0dc13e5802 mov rcx, qword ptr [rip + 0x2583ec1]"
+          ]
+        },
+        {
+          "fragment": "0x14038a5a1",
+          "load": "0x14038a5d0",
+          "instruction": "0x14038a5e3 f30f5989a4460000 mulss xmm1, dword ptr [rcx + 0x46a4]",
+          "offset": "0x46a4",
+          "width": 4,
+          "kind": "READ",
+          "base_alias": "rcx",
+          "chain": [
+            "0x14038a5d0 488b0dc13e5802 mov rcx, qword ptr [rip + 0x2583ec1]"
+          ]
+        }
+      ],
+      "radial_writes": 17,
+      "typed_bit9_word_accesses": 0,
+      "negative": "No downstream radial GPU consumer proved within this straight-line query; the two reads are existing CPU arbitration, not GPU upload. No claim about consumers outside coverage.",
+      "limitations": [
+        "No cross-call, cross-branch, stack spill, indexed pointer, or cross-fragment propagation.",
+        "Prefilter is exact RIP displacement for MOV load ending at displacement; validates full instruction.",
+        "Flag offset candidate 0x14 is provisional; all typed accesses retained for bit9 audit.",
+        "The candidate filter used provisional 0x14; bit9 result was independently classified from all 83 retained accesses at actual G+0x4470/0x4471.",
+        "No semantic propagation of loaded scalar values, stack spills, arbitrary arithmetic aliases, incoming cross-fragment values, or cross-branch nonvolatile registers. No exhaustive vtable length or shader reflection."
+      ]
+    },
+    "actual_contract": {
+      "allocation": "0x140392112 receives ECX=0x260; RAX retained in RBX at 392117; successful path installs 0x14215fac0 at 392138; RBX published to 0x142aa75d8 at 392226; failure zeroes EBX. Pointer initialization is not a GPU binding.",
+      "vtable_window": {
+        "va": "0x14215fac0",
+        "bytes": 128,
+        "sha256": "a131cca6f0c794b40dad173b075e7fbbdb855a8e4bbdf246cb5106a3dd0e815c",
+        "slots": [
+          "0x1404095d0",
+          "0x140062d10",
+          "0x140062ce0",
+          "0x140062d00",
+          "0x140062cf0",
+          "0x14040cfe0",
+          "0x140389b20",
+          "0x140389b60",
+          "0x140389b70",
+          "0x140389b90",
+          "0x140389bb0",
+          "0x140389bd0",
+          "0x140389bf0",
+          "0x140389c00",
+          "0x140389c90",
+          "0x140389cc0"
+        ],
+        "boundary": "16-qword bounded window; table length not yet proved"
+      },
+      "slots_audited": "Offsets 0..0x78 only. 0=4095d0 cleanup/free260; 8=062d10 byte this+20=1; 10=062ce0 returns1; 18=062d00 returns0; 20=062cf0 ret0; 28=40cfe0 jumps [this+28]; 30=389b20 callback setup; 38=389b60 tailcall; 40/48 and 50/58 synchronize this+30/+58; 60=389bf0 tailcall; 68/70/78 use this+80/+d0. No inspected slot ties radial fields to GPU resources.",
+      "typed_G_hop": "38989b loads G into RCX; 3898af tail-jumps 3630c0 with RCX unchanged; 3630cf reads qword [RCX+4c8], 3630df reads qword [RAX]. This is a concrete G-associated descriptor read, not a radial-packet join.",
+      "resource_candidate": "3630c0 later writes TLS context arrays +940/+1148/+1150 through descriptor-selected indices, with source pointers from separate globals. Resource identity, radial relevance and shader-bytecode selection remain unproved.",
+      "last_seed": "36a550 loads G into RBX; pdata fragment 36a540 ends at 36a565 after LEA RCX,[RBP-40]. No radial access in captured prefix."
+    },
+    "conditional_contract": {
+      "resource": null,
+      "constant_buffer": null,
+      "selected_shader_bytecode": null,
+      "textures": null,
+      "convolution": null,
+      "projection": null,
+      "blend": null,
+      "required": "A proved radial packet or bit9 read from the exact G type, followed by its upload/selection/binding dataflow and original bytecode reflection."
+    },
+    "counterexamples": [
+      "3889a0 mapped-buffer same offsets do not type an object.",
+      "Unrelated +1498 allocation88038 is not target260.",
+      "Constructor stores and 392d33 resets establish neither GPU binding nor execution timing.",
+      "G+4c8 association alone does not identify the radial resource."
+    ],
+    "smallest_blocker": "No typed radial packet -> resource/constant-buffer/selected-bytecode join. Next exact source needed: pdata/unwind continuation beginning 0x14036a565 for exact G-in-RBX load 0x14036a550 (fragment 0x14036a540), with call/branch-aware provenance review. Do not repeat subsystem query; continuation is only an entry lead, not a claimed radial consumer.",
+    "unchanged_unknowns": [
+      "Absent IRad sentinel value",
+      "clock",
+      "lifetime",
+      "initializer timing"
+    ],
+    "capture_budget": {
+      "unique_new_CODE_spans": 24,
+      "CODE_bytes": 3291,
+      "metadata_records": 1,
+      "added_native_records": 22,
+      "cumulative_native_records": 195,
+      "cumulative_native_bytes": 42806
+    },
+    "guard": {
+      "seconds_per_child": 45,
+      "cumulative_limit_seconds": 180,
+      "job_memory_bytes": 1610612736,
+      "free_floor_bytes": 8589934592,
+      "pycache": false,
+      "capstone": "5.0.6",
+      "POSIX_work_guard": "not used on Windows",
+      "receipts": [
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/hop-1793352020712078400/probe-receipt.json",
+          "sha256": "d331f4f591dc1ee2178327e14aa94623fb0b6793042327c1982fe1a6ddcdec79",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\hop.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\hop-1793352020712078400",
+            "0x1403897f0"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 118530048,
+          "job_peak_private_bytes": 111529984,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33032278016,
+          "seconds": 0.25719729997217655,
+          "no_script_errors": true,
+          "ok": true
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/hop-1793352027423247100/probe-receipt.json",
+          "sha256": "dd9fe2ad2d32dc2824c74d4d45c310bfb6371de8db3fca131c61708489a8a607",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\hop.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\hop-1793352027423247100",
+            "0x1403630c0"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119480320,
+          "job_peak_private_bytes": 111792128,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32925904896,
+          "seconds": 0.30756230000406504,
+          "no_script_errors": true,
+          "ok": true
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/hop-1793352035673806800/probe-receipt.json",
+          "sha256": "384ddf2445a27497a226f7e01c9bcc6afea5cbfefa5f587c249c0aef8c0b1ec8",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\hop.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\hop-1793352035673806800",
+            "0x14036a540"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119558144,
+          "job_peak_private_bytes": 111779840,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32915955712,
+          "seconds": 0.2575476999627426,
+          "no_script_errors": true,
+          "ok": true
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/preflight-1793351815167998800/probe-receipt.json",
+          "sha256": "31f9e9364d28ec12d3309374b7911ea63a38c0b38540c5c136fa82386e607608",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\preflight.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\preflight-1793351815167998800"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 69386240,
+          "job_peak_private_bytes": 64245760,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33085091840,
+          "seconds": 0.4577589000109583,
+          "no_script_errors": true,
+          "ok": true
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/query-1793351884637765800/probe-receipt.json",
+          "sha256": "3f2fd41796ebfb81dafce3d1894a98c639d3b784882d535ca9f0671c10812c10",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\query.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\query-1793351884637765800"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 16814080,
+          "job_peak_private_bytes": 13565952,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33233698816,
+          "seconds": 0.10577630007173866,
+          "no_script_errors": true,
+          "ok": false
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/probe-receipt.json",
+          "sha256": "58cebff007af4737347dcba8ce2bd8dbd71d5111ba54e7676a2e2c524d577196",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\query.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\query-1793351895811108700"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 121278464,
+          "job_peak_private_bytes": 113700864,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33120661504,
+          "seconds": 0.6609245999716222,
+          "no_script_errors": true,
+          "ok": true
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/probe-receipt.json",
+          "sha256": "9f89216e81b81f00e457a42a4b41278515632a5986457d1b8ee7db7d54de49e0",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\slots.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\slots-1793351942553122200"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119418880,
+          "job_peak_private_bytes": 111616000,
+          "stop_reason": null,
+          "exit": 1,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 33118990336,
+          "seconds": 0.3077360999304801,
+          "no_script_errors": true,
+          "ok": false
+        },
+        {
+          "path": "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/probe-receipt.json",
+          "sha256": "9ed7d8e5b839cf30628d87bf938dfc3a6227564a9c01965d9d2d4bf9e0d2d202",
+          "argv": [
+            "C:\\Python314\\python.exe",
+            "-B",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\slots.py",
+            "D:\\Dev\\OpenClawCodexBridge\\worktrees\\top-ring-gpu-50976\\top\\assets\\official\\top-ring-gpu-50976\\slots-1793351962342982300"
+          ],
+          "deadline_seconds": 45,
+          "peak_rss_bytes": 119455744,
+          "job_peak_private_bytes": 111779840,
+          "stop_reason": null,
+          "exit": 0,
+          "job_memory_limit": 1610612736,
+          "kill_owned_descendants": true,
+          "minimum_free_bytes": 32940048384,
+          "seconds": 0.3074617999373004,
+          "no_script_errors": true,
+          "ok": true
+        }
+      ]
+    },
+    "tool_failures": [
+      "Initial PowerShell directory listing found private directory absent; created only authorized private path.",
+      "Initial inputs display truncated; no decisions based on missing tail; full JSON parsed and all pins verified.",
+      "query initial import failed before binary query: ModuleNotFoundError capstone; corrected to existing D:/Dev/OpenClawCodexBridge/tools/native-audit-50753; no install.",
+      "slots leaf reader StopIteration at indirect tail-jump 40cfe0; kept failed log and first four exact leaf captures, resumed remaining slots allowing JMP boundary.",
+      "First final review failed decoding preserved Markdown with Windows cp950 default; corrected review to explicit UTF-8. Failed receipt/log retained; no native query repeated."
+    ],
+    "verification_scope": "Pin/span gates only; not semantic, runtime, rendering or all96 acceptance.",
+    "private_evidence_hashes": {
+      "top/assets/official/top-ring-gpu-50976/finalize.py": "80236d532984a4898789057bcb05d48db0f8f36ec0f23261fe1bfbb89c207758",
+      "top/assets/official/top-ring-gpu-50976/guard.py": "aeaeac0f79399700ab10f0c04819deb0392814d440baa724e618fe13ceaf823f",
+      "top/assets/official/top-ring-gpu-50976/hop.py": "ed8037f3f6dda17a923adbb1e3d356bb20bd0466123904bf57fd56be686cf283",
+      "top/assets/official/top-ring-gpu-50976/preflight.py": "cd1542ac1db721fbdf0a66ac2cbf44a3c77d3a5e6410d77a55f7f38830935244",
+      "top/assets/official/top-ring-gpu-50976/query.py": "683fe64b9c10c2b1f07306d16394163261a0a296eca9d08a4e5d1c6fca90858e",
+      "top/assets/official/top-ring-gpu-50976/slots.py": "b2c54bec42ba6b3f260e67cf76b197c0e7bb161c9196492ec30ae4000f5f3812",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352020712078400/0x1403897f0.asm.txt": "1c4dd571bba20966de02e1064694bcba1d1b2f1a3a0c0427fc7a6a0e7a2deb4e",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352020712078400/0x1403897f0.bin": "b34d8634cb6b4b1f4973ee7fc7a2b9a05e7edbca38d7084c1e26aac381531c8e",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352020712078400/probe-receipt.json": "d331f4f591dc1ee2178327e14aa94623fb0b6793042327c1982fe1a6ddcdec79",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352020712078400/probe.log": "5cc3e15fc50d574259ff9f4e9f85e350a4fe6e2f0006297e19eb034ef48cb2e4",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352020712078400/spans.json": "a5a4b5fa890897bec0990c0a627252dc7a846e433b1f5d731cdbd9548c4005fb",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352027423247100/0x1403630c0.asm.txt": "f06a0ce27592cb603fef0395e7d2e143de4e5c771f70542ee8fb05e2ebe67d1c",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352027423247100/0x1403630c0.bin": "ec385ed5ee8f626abcc5269206f25ae9224bc22d1aca31b5e6bf466f68773cc9",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352027423247100/probe-receipt.json": "dd9fe2ad2d32dc2824c74d4d45c310bfb6371de8db3fca131c61708489a8a607",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352027423247100/probe.log": "c2edcf7550d88bd86ae3a9e6049ed166463b1a7661c5ca678ca521fcb4ab5eb9",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352027423247100/spans.json": "07639c75f49b68b13e293686e356c13d2e0569da1da2f4fee734674fa0a6cc5a",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352035673806800/0x14036a540.asm.txt": "29b7f68676291a2f00174f64d10c3c043b3eb59dfb7516abdb2f224169101699",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352035673806800/0x14036a540.bin": "4bafd292315bd4a8213f2da26416628fefef379dd89107f8e0bdcc600d3d2565",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352035673806800/probe-receipt.json": "384ddf2445a27497a226f7e01c9bcc6afea5cbfefa5f587c249c0aef8c0b1ec8",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352035673806800/probe.log": "388d6065dbbe0e1e090b1a95cb6e101b25734461aa2b57f14ac21efc3699db83",
+      "top/assets/official/top-ring-gpu-50976/hop-1793352035673806800/spans.json": "30fdaefb5dc17676f6684685368cc104f59dc5a324330c2655e3ac4f323b569c",
+      "top/assets/official/top-ring-gpu-50976/preflight-1793351815167998800/probe-receipt.json": "31f9e9364d28ec12d3309374b7911ea63a38c0b38540c5c136fa82386e607608",
+      "top/assets/official/top-ring-gpu-50976/preflight-1793351815167998800/probe.log": "29df1253cba38fb34992f12da4b81352891ecd4822666c1867a7f50f60579b7b",
+      "top/assets/official/top-ring-gpu-50976/preflight-1793351815167998800/verified.json": "fbbba551b9180162f45eab08a49e5dbd327a48e4684ada6b6fd1cf957ba3b497",
+      "top/assets/official/top-ring-gpu-50976/query-1793351884637765800/probe-receipt.json": "3f2fd41796ebfb81dafce3d1894a98c639d3b784882d535ca9f0671c10812c10",
+      "top/assets/official/top-ring-gpu-50976/query-1793351884637765800/probe.log": "cc0e4b14cd7fcb7ae3ae52b4688fe678d54488c0fa6bba4b7ba89d6b6639e1b4",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x140379398.asm.txt": "34fa0f9172f539e213713ccd1f03249525e0f2cfad31e0455e00503df6266685",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x140379398.bin": "36ea2c80ed3b0432ee090cb1863c3fd5e6f073a51dca9503c81454f549846d57",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x14038a5a1.asm.txt": "12c8132716e88a99dde8c0730db837ca5dd2b97183b0f829336f7036a416fd9b",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x14038a5a1.bin": "77a196342167abd7365561c3b08e0eec534d9ce8f858ddb28301f1a83dcf0dc5",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x1403920e0.asm.txt": "4cc240a520eb16b3344fb8a434978074b3485c31169c97e6e9ced4150fc00a52",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x1403920e0.bin": "5be2fa179d19f6a4c4c5b13abf707dcbb4c565e799c28aed29acb72bfdd47b77",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x140392d33.asm.txt": "1a7b3ea81af48b62c0cc3a6e74529951f93e75d3d5466a19a5f2b5b665f67eea",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x140392d33.bin": "5182429a51a8d9456cfdbe40d0260c7136e6039db8561dd4e80672264d8dbb41",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x1403b88d0.asm.txt": "5e0763a4fab357f1950e2ddb9c4244250f0ad78506b823c68bd008a33f7a7081",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x1403b88d0.bin": "b0610406f4cf163caab93320bc6b8d4cc54d4b66e01fd0f5ee2161f90ae02796",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x1404095d0.asm.txt": "f30c4f7e3e6139499101fe14bf86371db1060ca2b46a5b92c28e25f59a066561",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/0x1404095d0.bin": "a36ba10f5d00b0b259da42aeb4987217d24331c92a1d9957022b983062a20923",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/probe-receipt.json": "58cebff007af4737347dcba8ce2bd8dbd71d5111ba54e7676a2e2c524d577196",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/probe.log": "2b4e3204df9592916f794ab20c49135e0f1c41ae16cc6dc94555e223e1ef328c",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/query.json": "d1f721e70307c122c8eea4845087733f8cd8ab0d5cda81e54a7c71623163b2d5",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/spans.json": "c2e5727ec4272f1e03bfcefc5e65efa43a7a9626cc93dc0e83c2b1306b24b742",
+      "top/assets/official/top-ring-gpu-50976/query-1793351895811108700/vtable.json": "8ec02f47b52bc0ed0f9ffea5de371983e6b21fcdec19068743448bb4219d14d6",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062ce0.asm.txt": "5bb88412b6dd4d0ecab646cbbbfd952d553a95ac8cecf276407adf249084fe2c",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062ce0.bin": "e18aacce29affcdddaa5f641ac1ec12552e0fe9d066e6408941b1792818b8619",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062cf0.asm.txt": "b2f2252344c46d5c79c4a83d4ed483cf07527d37273f673392648998c1e0df7c",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062cf0.bin": "b6cbececf1b07e74f37d57710c68c31f0b92cb08d51093252b321b07542e177b",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062d00.asm.txt": "18b1674d42459f3599b887229de55c81ff143a570216a570f48b85cee00fdd17",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062d00.bin": "4bc724f3b1d0caf4fe369c18cba3102e6c4ea057f63fe1587e3973134a7f755e",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062d10.asm.txt": "ab6c223abb9274f7d5a9b21e2effc4c8d90cc14d5edf662e706070ce11f0c558",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x140062d10.bin": "2d3bf4fb36333957c82761da6aa4ff6ea53eaf10f48b05f605f131d05d9cd714",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/0x14215fac0.bin": "a131cca6f0c794b40dad173b075e7fbbdb855a8e4bbdf246cb5106a3dd0e815c",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/probe-receipt.json": "9f89216e81b81f00e457a42a4b41278515632a5986457d1b8ee7db7d54de49e0",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351942553122200/probe.log": "c87824ec7b1d9bc91b9310559c5920ba212331261cf9e0a3c80d2eaa4da768b6",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b20.asm.txt": "700ae1c7ea96f006e0e947f9181804c119c32d12cbe8e493eba5208561d1e448",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b20.bin": "4947880228b2c96ef3326271bfcfa6cb28b3686bde769cddaf1c569c8d453020",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b60.asm.txt": "bc0353ea95e6decae78d83c7e06f19030d173508a8523eb6d27efc938fc79190",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b60.bin": "92448a0b368254130636010d4ff90a3af0b6a3ae3999afe1843b93ceaa4c80b6",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b70.asm.txt": "b448e88a96edf2a606d36bbc6eb6b6561939555134030f6fc1d312e2b83f4035",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b70.bin": "63a174c25ea5ecced7d9c3ed7c49fa99d268715c8646c37901ba07fda07a8f78",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b90.asm.txt": "a2ffa4489706d6c9e9b8657fae8987ce17bfc2b97b1e18f9cd591cb7af33d40e",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389b90.bin": "93926bd40c470911997e471bf1da2402da00f0fd2eacac7e9ad134b03f887229",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389bb0.asm.txt": "5fe342ac9662f00a2ecc579932b3e62a3a8cb355464545e95a85aa7f1ddb0b75",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389bb0.bin": "e88e923817b2b5e294c36c09d54f93b6abd85eb815b7a592d65f77329979f34e",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389bd0.asm.txt": "958cda85cf9743aa4f8b92166fb934c4cd4e73331da93535ba502c6b423631eb",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389bd0.bin": "9ace6bdf3d1dce284710949297e59ea5ff437cd88eb91d411bcb7a553e936b66",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389bf0.asm.txt": "53c20b760a71f37471adff2de9bd28de65c52af07416ead56908a7c21c540fc3",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389bf0.bin": "77e33e808c291c6a80617b5318ea60565b989e3928cec232be3e5d2cd625b95c",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389c00.asm.txt": "52fa378c5ddb2ee05f49d6365da224f14cd2cda248cf2c5702196c358c1772b4",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389c00.bin": "2203de8b25c1c7985c2e918b2e673f5eede29aaaac802982cf6701649e2a75cd",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389c90.asm.txt": "386ef7b99f9a205358c9b9f179e7aa8d501c8a98eb2d0ac64b2b382edb62caa0",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389c90.bin": "3a4320bfe9c00291dfb84549ccf050f9252555fb6c5be20d0cb8c698456a857f",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389cc0.asm.txt": "9c06aa12108dbc00bc6f8a2a9db9df9400d983692660a5a4b3c99a5e4e33a3a3",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x140389cc0.bin": "242c1403b28c5f51f4f967cccda5c6813ddf1d32f99937119de76206f7b42e47",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x14040cfe0.asm.txt": "f6ab6eb1a7340b0b292f07be978563d5faaa8968b0bd3b5bdf3b59306f3ceec2",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x14040cfe0.bin": "23dc9c0cc8c8db4caefec50cf95fa7b58368c7bee48dd59f1b8c4c45574b3773",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/0x14215fac0.bin": "a131cca6f0c794b40dad173b075e7fbbdb855a8e4bbdf246cb5106a3dd0e815c",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/probe-receipt.json": "9ed7d8e5b839cf30628d87bf938dfc3a6227564a9c01965d9d2d4bf9e0d2d202",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/probe.log": "83b76809dd1ccba78e7b56d5fa5a5a069b3ba8205048ded93b57f5272facf053",
+      "top/assets/official/top-ring-gpu-50976/slots-1793351962342982300/spans.json": "ac7b5909b66f3cf09f8da62367780b9d0407493871a44c52886b828c2737884a",
+      "top/assets/official/top-ring-gpu-50976/review-1793352230956277400/probe-receipt.json": "651d2dc7bdb4c2c1c62ef05b02f9f436f899fc4edc5437ff85c41ca7122bbcdf",
+      "top/assets/official/top-ring-gpu-50976/review-1793352230956277400/probe.log": "853c185ff667bcb594285e2a200279763a4f63995ad85ec427f4d725cbb66b57"
+    }
   }
 }

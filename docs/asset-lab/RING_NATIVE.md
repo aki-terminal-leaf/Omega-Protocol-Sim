@@ -1,3 +1,66 @@
+## GPU follow-up: bounded typed query (schema 1)
+
+**STATIC_PARTIAL; rendering_accepted=false; all96_accepted=false.** This addendum
+supersedes only the historical allocation-writer blocker below. All accepted
+findings and native history are retained; no implementation or tests changed.
+
+The successful `0x1403920e0..0x14039227a` path allocates 0x260 bytes, retains
+RAX in RBX, installs vtable **0x14215fac0** at 392138, initializes fields and
+publishes RBX to `[0x142aa75d8]` at 392226. Failure publishes zero. These are
+pointer/type facts, not GPU binding or runtime timing.
+
+The one completed exact-G query covered **8,455 pdata fragments / 1,890,576
+bytes**, range `[0x140300000,0x140500000)`: 74 exact RIP loads, 83 typed memory
+accesses, 17 radial writes and two radial reads. At `38a5d0`, RCX receives G;
+`38a5db` reads f32 `[RCX+46ac]` and `38a5e3` multiplies by f32 `[RCX+46a4]`.
+These are the accepted CPU arbitration path. No downstream radial GPU reader
+was proved. No typed access overlapping the actual bit9 word G+4470/4471 was
+found in the retained accesses. This negative is confined to the query.
+
+Provenance propagates 64-bit MOV aliases and unindexed LEAs, distinguishes
+READ/WRITE/LEA and width, and dies on overwrite, call, branch, return, or local
+branch target. It does not cross fragments, spill slots, calls or branches,
+or interpret arbitrary pointer arithmetic/scalar bit propagation. Selected
+fragments decoded fully. No claim excludes a consumer outside this coverage.
+
+The installed vtable's first 16 qwords (slots 0..78) were inspected; its total
+length is unknown. Slot0 `4095d0` cleans up and conditionally frees size260;
+slot28 `40cfe0` jumps through `[this+28]`; the other inspected entries handle
+flags, callbacks, synchronization and this+80/+d0 storage. None proves a
+radial-field/GPU join. The four small outside-subsystem slot targets were read
+directly; no recursive call expansion or name survey was made.
+
+One concrete typed G hop is `38989b -> 3898af -> 3630c0`: RCX retains G into
+the tailcall, `3630cf` loads `[G+4c8]`, and `3630df` dereferences that pointer.
+Later TLS-array writes are a resource candidate only: their radial relevance,
+resource identity and bytecode selection remain unknown. The +1498/88038
+allocation and the 3889a0 same-offset counterexample remain excluded.
+
+**Actual contract:** allocation/vtable identity and the existing CPU packet.
+**Conditional contract:** resource, constant buffer, selected bytecode,
+textures, convolution, projection and blend are all unknown. No numeric
+IRad/default/clock/lifetime or reset-timing claim is added.
+
+**Smallest blocker:** the radial-packet-to-GPU join. Exact next source needed:
+pdata/unwind continuation at **0x14036a565**, following G->RBX at **0x14036a550**
+in fragment **0x14036a540**, with call/branch-aware provenance review. The
+captured prefix ends after LEA RCX,[RBP-40]; this is an entry lead, not an
+asserted radial consumer. Do not repeat the equivalent subsystem scan.
+
+The frozen handoff `fbfcd1dd0bad972865e73bb0426a1caea9be62ec3e97591d140f49e5f1dd5cef`
+passed all105 initial LF files, all173 native records and all311 raw readonly
+pins before analysis. Exact commands, spans, hashes, aliases, widths and guard
+receipts are in `ring-native.json` / `gpu_contract_audit`; private evidence is
+under `top/assets/official/top-ring-gpu-50976`. Children were serial, capped at
+45s, with the pinned 1.5GiB Windows Job Object, 8GiB free floor and pycache off.
+The retained import-path failure occurred before the query; the leaf-reader
+failure was corrected to recognize a tail-jump, retaining earlier captures.
+No failed logs were removed. The initial shell display truncation was avoided
+for verification by full JSON parsing. Gates check pins/spans only, not semantics
+or runtime acceptance. No commit, export, game, desktop or browser operation.
+
+---
+
 # Native radial target binding checkpoint (schema 1)
 
 **STATIC_PARTIAL; review_required=true; rendering_accepted=false; all96_accepted=false.**
