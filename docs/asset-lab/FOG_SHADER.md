@@ -1,0 +1,31 @@
+# Conditional original vertical fog inspection
+
+This is a visual-only scene primitive, not TOP96 acceptance. Only conditional AddLayer0 (5D82881C), Color, VS0/PS0 is requested. AddLayer1=2A85B88A and AddLayer2=B38CE930 are not selected. Native fallback j0 applies only if its guard fails; live guard/index remain unknown. No native active branch is asserted.
+
+The shader retains all 29 VS and 96 PS literal instructions, including height fog, directional scattering, sky and fog-weight LUT chain. VS CB0/1/2/3 map to material/camera/parameter/instance; PS CB0/1/2/3/4 map to material/common/camera/fog/parameter. Explicit source_clock replaces only VS parameter[0].w; no TIME. exp/log are base 2, comparison booleans preserve integer -1 for iadd/itof, round_ne is signed ties-even. Zero division/nonpositive rsq produce zero only as a documented undefined-domain safety policy; the strict CPU oracle rejects those domains. Float GPU precision, refactoring and native undefined behavior are not certified.
+
+Source is bg/ex2/05_zon_z3/ome/z3oe/bgparts/z3oe_a1_vfg01.mdl and material/z3oe_a1_vfg01a.mtrl. Original packed decoder and initializer are reused with runtime pins. All positions, triangle indices, declarations, MTRL constants, material metadata and raw MDL/MTRL/SHPK hashes are retained privately. VS needs POSITION only. Translation is position+[100,-325.1846923828125,100]; rendering origin is removed separately. Cached identity is not geometry evidence; no GLB/PBR/glTF UV assumptions.
+
+All environmental inputs in the preview are explicitly labeled INSPECTION_FIXTURE: full typed buffers, native SV_POSITION, native depth, sky, and LUT procedural PNGs. They are not native defaults or original environmental assets. Native environment resources remain unresolved. The API accepts supplied native-format float4 buffers and Texture2D resources, rejecting missing/nonfinite/cardinality errors and clearing old material/visibility before validation. Native sampler addressing/filter state is unknown; preview uses linear clamp. No engine DEPTH_TEXTURE or SCREEN_UV reconstruction is claimed. Native clip equations are retained in source_clip; chosen Godot camera projection drives inspection. Native framebuffer convention, blend/depth, exposure and native clock epoch/unit remain unverified. RGB/A equations precede chosen mix blend/exposure.
+
+Standalone starts paused at zero; Play/Pause runs 1x, slider seeks in either direction, selection pauses at zero, chosen ten-second end stops without loop/restart. Source clock is chosen seconds*0.001. Dark background and fitted camera are inspection choices.
+
+Run from this worktree: `python -B tools/asset_lab/run_fog_shader.py`. Each run creates a unique ignored `top/assets/official/top-fog-shader-50879/outputs/run-UUID`. It reuses Windows JobObject run_cinematic_integration.run, serialized, decode 60s / engine 90s / total 180s, 1.5GiB job cap / 8GiB free floor. Failures retain immutable logs and receipts. The POSIX work_guard cannot run on this Windows host (fcntl/python3 unavailable). No desktop interaction or publishing is performed.
+
+Open the generated project with the pinned 4.7.2 executable using `--path <run-UUID>/project` when separately authorized. Raw procedural PNG payloads use .png.bin and an explicit Web include_filter; exact hashes are retained. No export is run here. Parent owns actual private Web raster and frozen crossfamily review. Headless parser/numeric/serialized-scene checks are not raster evidence. Original96 remains open.
+
+
+Validation scope: one original surface, 137 positions / 714 triangle indices. All vertices run through strict literal VS/PS IR at three clock values and independent factored VS/PS equations. Additional signed/tie VS cases and 27 variable depth/sky/LUT environment cases exercise the full PS chain. Godot tests load and instantiate the serialized TSCN, verify sourceclock reversal/end/selection, and test missing/stale/nonfinite/cardinality rejection. Headless does not prove GPU shader compilation or raster; parent must compile/raster the shader and compare IR on its actual GPU. The engine emits a root-certificate-store warning on this host; it does not prevent these local tests.
+
+Raw source identities observed through the verified reader:
+- MDL SHA256 `8ad22a117c9630ce300008c7fb5134e24d55c759ed3cc3b6632d65f64c8b8bfc` (3224 bytes).
+- MTRL SHA256 `30e81f756851800a4951547bd8a83d5112658cb1de1ebae141cead346daa076c` (284 bytes).
+- SHPK SHA256 `5e506155d8888fd7cc2ba57e497ee371721ba1e0c774f1634648145e8d716b8b` (79991 bytes), compared with the supplied package mapping.
+
+24 protected paths needed raw-byte restoration to the supplied original-source pins; each was proved equal after CRLF-to-LF normalization before restoration. All 55 are checked against exact pinned hashes before and after every run. Git may show those byte-only restorations. Only nine new source/docs paths implement fog. No commit/push/deploy/export/gallery/audio/Unity/game/GUI/input/settings/install action is part of this runner.
+
+Parent v2 correction: emitted shader and CPU IR use original immediate32 bits from pinned VS0/PS0 DXBC, not rounded disassembly. In particular PS14 floor is 9.99999993922529e-09 and PS66 floor is 1.0000000116860974e-07, not zero. Exact scalar density/scattering literals are restored. Wrong ArrayMesh primitive types are rejected. Original v1 evidence remains preserved.
+
+Parent v3 test correction: independent factored VS test uses the exact original float32 0.0010000000474974513 denominator floor; its older decimal-double 0.001 expectation fails by 2.85e-06 for nontrivial fixtures after the exact literal repair. The failed v2 run is retained, not recategorized as a pass. Shader/adapter/preview bytes are unchanged from frozen v2 review.
+
+Parent v4: reproduced cross-family M1 in actual 4.7.2 (finite GDScript 1e39 became nonfinite uploaded Vector4 while attach returned ok). All typed rows, origin, SV_POSITION and float uniforms now require float32 representability before allocation/visibility; scalar uniforms are explicitly converted to float. Negative cases cover every buffer and both scalar/vector input groups. This is an input gate, not a promise that arbitrary finite float32 operands avoid intermediate shader overflow or match native exceptional arithmetic.
